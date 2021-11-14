@@ -1,3 +1,5 @@
 bazel-*
 **/*.undodir
 **/*.swp
+.clwb/
+.idea/

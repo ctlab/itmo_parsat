@@ -1,6 +1,8 @@
 #ifndef EA_BUILDER_H
 #define EA_BUILDER_H
 
+#include <memory>
+
 namespace ea::builder {
 
 /**

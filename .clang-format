@@ -5,9 +5,9 @@ AlignEscapedNewlines: Left
 AlignOperands: 'false'
 AllowAllArgumentsOnNextLine: 'true'
 AllowShortBlocksOnASingleLine: 'false'
-AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: Always
-AllowShortLambdasOnASingleLine: All
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: None
 AlwaysBreakTemplateDeclarations: 'Yes'
 IndentWidth: '2'
 NamespaceIndentation: None
@@ -20,5 +20,6 @@ SpaceBeforeCtorInitializerColon: 'true'
 SpaceBeforeInheritanceColon: 'true'
 Standard: Auto
 TabWidth: '2'
+ColumnLimit: 100
 
 ...

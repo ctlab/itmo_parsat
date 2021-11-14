@@ -1,5 +1,6 @@
 cc_binary(
-    name = "hello-boost",
+    name = "main",
+    copts = ["-std=c++17"],
     srcs = glob(["src/**/*.cpp", "include/**/*.h"]),
     deps = [
         "@boost//:throw_exception",
@@ -12,6 +13,7 @@ cc_binary(
 
 cc_test(
   name = "hello_test",
+  copts = ["-std=c++17"],
   size = "small",
   srcs = glob(["test/**/*.cpp"]),
   deps = ["@com_google_googletest//:gtest_main"],

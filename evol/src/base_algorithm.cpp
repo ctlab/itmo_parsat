@@ -1,5 +1,7 @@
 #include "evol/include/base_algorithm.h"
 
+#include "evol/include/registry.h"
+
 namespace ea::algorithm {
 
 void BaseAlgorithmBuilder::set_population(types::RPopulation population) {
@@ -14,7 +16,9 @@ void BaseAlgorithmBuilder::set_selector(selector::RSelector selector) {
   selector_ = selector;
 }
 
-void BaseAlgorithmBuilder::set_limit(limit::RLimit limit) { limit_ = limit; }
+void BaseAlgorithmBuilder::set_limit(limit::RLimit limit) {
+  limit_ = limit;
+}
 
 IAlgorithm* BaseAlgorithmBuilder::build() {
   return new BaseAlgorithm(population_, generator_, selector_, limit_);

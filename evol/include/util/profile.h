@@ -17,13 +17,11 @@ std::string make_location(char const* file, char const* func, int line);
 
 #define MAKE_LOCATION(N, F, FU) N##F##FU
 
-#define LOCATION \
-  ea::internal_::profile::make_location(__FILE__, __func__, __LINE__)
+#define LOCATION ea::internal_::profile::make_location(__FILE__, __func__, __LINE__)
 
-#define LOG_TIME(X)                                                          \
-  ::ea::internal_::profile::register_start(#X);                              \
-  X;                                                                         \
-  LOG(INFO) << #X << " took " << ::ea::internal_::profile::register_exit(#X) \
-            << "s."
+#define LOG_TIME(X)                             \
+  ::ea::internal_::profile::register_start(#X); \
+  X;                                            \
+  LOG(INFO) << #X << " took " << ::ea::internal_::profile::register_exit(#X) << "s."
 
 #endif  // EA_PROFILE_H

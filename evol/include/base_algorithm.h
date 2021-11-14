@@ -6,7 +6,6 @@
 #include "evol/include/generation.h"
 #include "evol/include/instance.h"
 #include "evol/include/limit.h"
-#include "evol/include/registry.h"
 #include "evol/include/selector.h"
 #include "evol/include/types.h"
 #include "evol/include/util/profile.h"
@@ -27,10 +26,8 @@ class BaseAlgorithm : public IAlgorithm {
   BaseAlgorithm(
       types::RPopulation population, generation::RGeneration generator,
       selector::RSelector selector, limit::RLimit limit)
-      : population_(population),
-        generator_(generator),
-        selector_(selector),
-        limit_(limit) {}
+      : population_(population), generator_(generator), selector_(selector), limit_(limit) {
+  }
 
   /**
    * Starts algorithm.

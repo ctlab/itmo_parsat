@@ -1,6 +1,7 @@
 #ifndef EA_REGISTRY_H
 #define EA_REGISTRY_H
 
+#include <map>
 #include <string>
 
 #include "evol/include/algorithm.h"
@@ -8,16 +9,25 @@
 
 namespace ea::registry {
 
-void register_algorithm(
-    std::string const& name, builder::RBuilder<algorithm::IAlgorithm> builder);
+class Registry {
+ public:
+  Registry() = default;
 
-builder::RBuilder<algorithm::IAlgorithm> resolve_algorithm(
-    std::string const& name);
+  void register_algorithm(
+      std::string const& name, builder::RBuilder<algorithm::IAlgorithm> builder);
+
+  builder::RBuilder<algorithm::IAlgorithm> resolve_algorithm(std::string const& name);
+
+  static Registry& get_registry();
+
+ private:
+  std::map<std::string, builder::RBuilder<algorithm::IAlgorithm>> map_;
+};
 
 template <typename Interface>
 struct RegistryEntry {
   RegistryEntry(std::string const& name, builder::RBuilder<Interface> builder) {
-    register_algorithm(name, builder);
+    Registry::get_registry().register_algorithm(name, builder);
   }
 };
 
