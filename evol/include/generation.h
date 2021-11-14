@@ -3,11 +3,10 @@
 
 #include "evol/include/types.h"
 
-
 namespace ea::generation {
 
 class IGeneration {
-public:
+ public:
   virtual ~IGeneration() = default;
 
   /**
@@ -18,7 +17,6 @@ public:
 
 using RGeneration = std::shared_ptr<IGeneration>;
 
-} // namespace ea::generation
+}  // namespace ea::generation
 
-
-#endif // EA_GENERATION_H
+#endif  // EA_GENERATION_H

@@ -6,11 +6,10 @@
 #include "evol/include/instance.h"
 #include "evol/include/types.h"
 
-
 namespace ea::selector {
 
 class ISelector {
-public:
+ public:
   virtual ~ISelector() = default;
 
   /**
@@ -21,7 +20,6 @@ public:
 
 using RSelector = std::shared_ptr<ISelector>;
 
-} // namespace ea::selector
+}  // namespace ea::selector
 
-
-#endif // EA_SELECTOR_H
+#endif  // EA_SELECTOR_H

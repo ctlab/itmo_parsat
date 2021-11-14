@@ -1,11 +1,10 @@
 #ifndef EA_LIMIT_H
 #define EA_LIMIT_H
 
-
 namespace ea::limit {
-  
+
 class ILimit {
-public:
+ public:
   virtual ~ILimit() = default;
 
   /**
@@ -22,7 +21,6 @@ public:
 
 using RLimit = std::shared_ptr<ILimit>;
 
-} // namespace ea::limit
+}  // namespace ea::limit
 
-
-#endif // EA_LIMIT_H
+#endif  // EA_LIMIT_H

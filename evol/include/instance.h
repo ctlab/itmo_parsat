@@ -3,11 +3,10 @@
 
 #include <memory>
 
-
 namespace ea::instance {
 
 class IInstance {
-public:
+ public:
   virtual ~IInstance() = default;
 
   /**
@@ -19,7 +18,6 @@ public:
 
 using RInstance = std::shared_ptr<IInstance>;
 
-} // namespace ea::instance
+}  // namespace ea::instance
 
-
-#endif // EA_INSTANCE_H
+#endif  // EA_INSTANCE_H
