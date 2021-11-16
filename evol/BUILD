@@ -3,9 +3,7 @@ cc_binary(
     copts = ["-std=c++17"],
     srcs = glob(["src/**/*.cpp", "include/**/*.h"]),
     deps = [
-        "@boost//:throw_exception",
-        "@boost//:assert",
-        "@boost//:cstdint",
+        "@boost//:program_options",
         "@com_github_nlohmann_json//:json",
         "@com_github_google_glog//:glog",
     ],

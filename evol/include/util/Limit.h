@@ -3,9 +3,9 @@
 
 namespace ea::limit {
 
-class ILimit {
+class Limit {
  public:
-  virtual ~ILimit() = default;
+  virtual ~Limit() = default;
 
   /**
    * Returns true if algorithm can and should proceed.
@@ -19,7 +19,7 @@ class ILimit {
   virtual void start() {}
 };
 
-using RLimit = std::shared_ptr<ILimit>;
+using RLimit = std::shared_ptr<Limit>;
 
 }  // namespace ea::limit
 

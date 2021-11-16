@@ -1,15 +1,13 @@
 #include <glog/logging.h>
 
-#include <boost/throw_exception.hpp>
 #include <iostream>
-#include <nlohmann/json.hpp>
 
-#include "evol/include/algorithm.h"
-#include "evol/include/util/profile.h"
+#include "evol/include/util/Configuration.h"
+
+namespace po = boost::program_options;
 
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
-  LOG(INFO) << "Hello!";
 
   return 0;
 }

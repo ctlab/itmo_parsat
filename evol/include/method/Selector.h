@@ -3,22 +3,21 @@
 
 #include <memory>
 
-#include "evol/include/instance.h"
-#include "evol/include/types.h"
+#include "evol/include/domain/Instance.h"
 
 namespace ea::selector {
 
-class ISelector {
+class Selector {
  public:
-  virtual ~ISelector() = default;
+  virtual ~Selector() = default;
 
   /**
    * Performs selection of instances from population.
    */
-  virtual void select(types::Population& population) = 0;
+  virtual void select(instance::Population& population) = 0;
 };
 
-using RSelector = std::shared_ptr<ISelector>;
+using RSelector = std::shared_ptr<Selector>;
 
 }  // namespace ea::selector
 
