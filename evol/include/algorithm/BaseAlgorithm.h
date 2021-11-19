@@ -7,9 +7,9 @@
 #include "evol/include/domain/Instance.h"
 #include "evol/include/method/Generator.h"
 #include "evol/include/method/Selector.h"
-#include "evol/include/util/Builder.h"
 #include "evol/include/util/Limit.h"
 #include "evol/include/util/profile.h"
+#include "evol/proto/config.pb.h"
 
 namespace ea::algorithm {
 
@@ -21,20 +21,27 @@ class BaseAlgorithm : public Algorithm {
   virtual ~BaseAlgorithm() = default;
 
   /**
+   * Creates algorithm from configuration
+   */
+  BaseAlgorithm();
+
+  /**
    * Algorithm is parametrized by:
-   *  - initial population (can be empty if generator supports it).
    *  - generator, an algorithm that generates instances for next pop.
    *  - selector, an algorithm that selects next population.
    *  - limit controls the termination of an algorithm.
    */
-  BaseAlgorithm(
-      instance::RPopulation population, generator::RGeneration generator,
-      selector::RSelector selector, limit::RLimit limit);
+  explicit BaseAlgorithm(BaseAlgorithmConfig const& config);
 
   /**
    * Starts algorithm.
    */
   void process() override;
+
+  /**
+   * Sets the population to the desired one.
+   */
+  void set_population(instance::RPopulation population);
 
  protected:
   /**
@@ -51,32 +58,5 @@ class BaseAlgorithm : public Algorithm {
 };
 
 }  // namespace ea::algorithm
-
-namespace ea::builder {
-
-class BaseAlgorithmBuilder : public Builder<algorithm::Algorithm> {
- public:
-  BaseAlgorithmBuilder() = default;
-
-  void set_population(instance::RPopulation population);
-
-  void set_generator(generator::RGeneration generator);
-
-  void set_selector(selector::RSelector selector);
-
-  void set_limit(limit::RLimit limit);
-
-  algorithm::Algorithm* build() override;
-
-  char const** get_params() override;
-
- private:
-  instance::RPopulation population_;
-  generator::RGeneration generator_;
-  selector::RSelector selector_;
-  limit::RLimit limit_;
-};
-
-}  // namespace ea::builder
 
 #endif  // EA_BASE_ALGORITHM_H

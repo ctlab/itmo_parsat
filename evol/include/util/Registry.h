@@ -1,13 +1,16 @@
 #ifndef EA_REGISTRY_H
 #define EA_REGISTRY_H
 
+#include <functional>
 #include <map>
-#include <string>
+#include <memory>
 
 #include "evol/include/algorithm/Algorithm.h"
+#include "evol/include/config/Configuration.h"
+#include "evol/include/domain/Instance.h"
 #include "evol/include/method/Generator.h"
 #include "evol/include/method/Selector.h"
-#include "evol/include/util/Builder.h"
+#include "evol/include/util/Limit.h"
 
 namespace ea::registry {
 
@@ -15,42 +18,35 @@ class Registry {
  public:
   Registry() = default;
 
- public:
   static Registry& instance();
 
-#define DECLARE_INTERFACE(NAME, INTERFACE)                                             \
- public:                                                                               \
-  void register_##NAME(std::string const& name, builder::RBuilder<INTERFACE> builder); \
-  builder::RBuilder<INTERFACE> resolve_##NAME(std::string const& name);                \
- private:                                                                              \
-  std::map<std::string, builder::RBuilder<INTERFACE>> NAME##_map_{};
+#define REGISTER_INTERFACE(INTERFACE, NAME)                              \
+ public:                                                                 \
+  using NAME##_builder = std::function<std::shared_ptr<INTERFACE>()>;    \
+  void register_##NAME(std::string const& name, NAME##_builder builder); \
+  std::shared_ptr<INTERFACE> resolve_##NAME(std::string const& name);    \
+                                                                         \
+ private:                                                                \
+  std::map<std::string, NAME##_builder> NAME##_map_
 
-  DECLARE_INTERFACE(algorithm, ea::algorithm::Algorithm);
-  DECLARE_INTERFACE(instance, ea::instance::Instance);
-  DECLARE_INTERFACE(generator, ea::generator::Generator);
-  DECLARE_INTERFACE(selector, ea::selector::Selector);
+  REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm);
+  REGISTER_INTERFACE(::ea::generator::Generator, generator);
+  REGISTER_INTERFACE(::ea::selector::Selector, selector);
+  REGISTER_INTERFACE(::ea::instance::Instance, instance);
+  REGISTER_INTERFACE(::ea::limit::Limit, limit);
 };
-
-template <typename Interface>
-struct RegistryEntry;
-
-#define DEFINE_ENTRY_TYPE(INTERFACE, REGISTRY_METHOD)                                       \
-  template <>                                                                               \
-  struct RegistryEntry<INTERFACE> {                                                         \
-    RegistryEntry(std::string const& name, builder::RBuilder<INTERFACE> builder) noexcept { \
-      Registry::instance().REGISTRY_METHOD(name, builder);                                  \
-    }                                                                                       \
-  }
-
-DEFINE_ENTRY_TYPE(ea::algorithm::Algorithm, register_algorithm);
-DEFINE_ENTRY_TYPE(ea::instance::Instance, register_instance);
-DEFINE_ENTRY_TYPE(ea::generator::Generator, register_generator);
-DEFINE_ENTRY_TYPE(ea::selector::Selector, register_selector);
 
 }  // namespace ea::registry
 
-#define REGISTER(INTERFACE, IMPL)                               \
-  ::ea::registry::RegistryEntry<INTERFACE> IMPL##RegistryEntry( \
-      #IMPL, std::make_shared<::ea::builder::IMPL##Builder>())
+#define REGISTER_PROTO(INTERFACE, IMPL, CONFIG_NAME)                         \
+  std::shared_ptr<INTERFACE> create##IMPL() {                                \
+    return std::make_shared<IMPL>(                                           \
+        ::ea::config::Configuration::instance().get_config().CONFIG_NAME()); \
+  }
+
+#define REGISTER_SIMPLE(INTERFACE, IMPL)      \
+  std::shared_ptr<INTERFACE> create##IMPL() { \
+    return std::make_shared<IMPL>();          \
+  }
 
 #endif  // EA_REGISTRY_H

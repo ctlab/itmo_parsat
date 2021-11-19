@@ -6,13 +6,14 @@
 
 namespace ea::algorithm {
 
-BaseAlgorithm::BaseAlgorithm(
-    instance::RPopulation population, generator::RGeneration generator, selector::RSelector selector,
-    limit::RLimit limit)
-    : population_(std::move(population)),
-      generator_(std::move(generator)),
-      selector_(std::move(selector)),
-      limit_(std::move(limit)) {
+BaseAlgorithm::BaseAlgorithm() {
+}
+
+BaseAlgorithm::BaseAlgorithm(BaseAlgorithmConfig const& config) {
+  registry::Registry& r = registry::Registry::instance();
+  generator_ = r.resolve_generator(config.generator_type());
+  selector_ = r.resolve_selector(config.generator_type());
+  limit_ = r.resolve_limit(config.generator_type());
 }
 
 void BaseAlgorithm::process() {
@@ -27,41 +28,11 @@ void BaseAlgorithm::step() {
   selector_->select(*population_);
 }
 
-}  // namespace ea::algorithm
-
-namespace ea::builder {
-
-void BaseAlgorithmBuilder::set_population(instance::RPopulation population) {
+void BaseAlgorithm::set_population(instance::RPopulation population) {
   population_ = std::move(population);
 }
 
-void BaseAlgorithmBuilder::set_generator(generator::RGeneration generator) {
-  generator_ = std::move(generator);
-}
+REGISTER_PROTO(Algorithm, BaseAlgorithm, base_algorithm_config);
 
-void BaseAlgorithmBuilder::set_selector(selector::RSelector selector) {
-  selector_ = std::move(selector);
-}
+}  // namespace ea::algorithm
 
-void BaseAlgorithmBuilder::set_limit(limit::RLimit limit) {
-  limit_ = std::move(limit);
-}
-
-algorithm::Algorithm* BaseAlgorithmBuilder::build() {
-  return new algorithm::BaseAlgorithm(population_, generator_, selector_, limit_);
-}
-
-char const** BaseAlgorithmBuilder::get_params() {
-  static char const* params[] = {
-      "population",
-      "generator",
-      "selector",
-      "limit",
-  };
-  return params;
-}
-
-/* Marked noexcept explicitly */
-REGISTER(ea::algorithm::Algorithm, BaseAlgorithm);
-
-} // namespace ea::builder

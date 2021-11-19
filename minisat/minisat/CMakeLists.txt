@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 project(minisat)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #--------------------------------------------------------------------------------------------------
 # Configurable options:
@@ -30,6 +31,11 @@ find_package(ZLIB)
 include_directories(${ZLIB_INCLUDE_DIR})
 include_directories(${minisat_SOURCE_DIR})
 
+# Evol dependency
+include_directories(${CMAKE_SOURCE_DIR}/../../evol/include)
+link_directories(${CMAKE_SOURCE_DIR}/../../bazel-bin/evol/)
+set(EVOL_LIBRARY evol)
+
 #--------------------------------------------------------------------------------------------------
 # Compile flags:
 
@@ -45,10 +51,12 @@ set(MINISAT_LIB_SOURCES
     minisat/simp/SimpSolver.cc)
 
 add_library(minisat-lib-static STATIC ${MINISAT_LIB_SOURCES})
-add_library(minisat-lib-shared SHARED ${MINISAT_LIB_SOURCES})
+add_library(minisat-lib-shared SHARED ${MINISAT_LIB_SOURCES} minisat/evol/RBDInstance.h minisat/evol/RBDInstance.cpp)
 
 target_link_libraries(minisat-lib-shared ${ZLIB_LIBRARY})
 target_link_libraries(minisat-lib-static ${ZLIB_LIBRARY})
+target_link_libraries(minisat-lib-static ${EVOL_LIBRARY})
+target_link_libraries(minisat-lib-static ${EVOL_LIBRARY})
 
 add_executable(minisat_core minisat/core/Main.cc)
 add_executable(minisat_simp minisat/simp/Main.cc)

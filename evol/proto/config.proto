@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message BaseAlgorithmConfig {
+  string generator_type = 1;
+  string selector_type = 2;
+  string limit_type = 3;
+}
+
+message GlobalConfig {
+  BaseAlgorithmConfig base_algorithm_config = 1;
+}

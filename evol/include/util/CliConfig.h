@@ -1,14 +1,14 @@
-#ifndef EVOL_CONFIGURATION_H
-#define EVOL_CONFIGURATION_H
+#ifndef EVOL_CLICONFIG_H
+#define EVOL_CLICONFIG_H
 
 #include <boost/program_options.hpp>
 #include <filesystem>
 
 namespace ea {
 
-class Configuration {
+class CliConfig {
  public:
-  Configuration();
+  CliConfig();
 
   void add_options(boost::program_options::options_description const& options);
 
@@ -16,7 +16,7 @@ class Configuration {
 
   void parse(std::filesystem::path const& path);
 
-  static Configuration& instance();
+  static CliConfig& instance();
 
   template <typename T>
   T const& get(std::string const& name) const {
@@ -30,4 +30,4 @@ class Configuration {
 
 }  // namespace ea
 
-#endif  // EVOL_CONFIGURATION_H
+#endif  // EVOL_CLICONFIG_H

@@ -2,46 +2,45 @@
 
 #include <glog/logging.h>
 
-#include <utility>
-
-#include "evol/include/algorithm/Algorithm.h"
-
 namespace {
 
 template <typename K, typename V>
-void check_register(std::map<K, V> const& map, K const& key, char const* name) {
-  CHECK(map.count(key) == 0) << "Trying to register an existing " << name
-                             << " implementation: " << key;
+void check_register(std::map<K, V> const& map, K const& key, std::string const& interface) {
+  CHECK_EQ(map.count(key), size_t(0)) << "Trying to register interface '"
+                              << interface << "' (implementation = " << key
+                              << "That is already registered.";
 }
 
 template <typename K, typename V>
-void check_resolve(std::map<K, V> const& map, K const& key, char const* name) {
-  CHECK(map.count(key) > 0) << "Trying to resolve non-existing " << name
-                            << " implementation: " << key;
+void check_resolve(std::map<K, V> const& map, K const& key, std::string const& interface) {
+  CHECK_GT(map.count(key), size_t(0)) << "Trying to resolve unregistered implementation '" << key
+                              << "' of interface " << interface << ".";
 }
 
 }  // namespace
 
 namespace ea::registry {
 
-#define DEFINE_REGISTRY(NAME, INTERFACE)                                                          \
-  void Registry::register_##NAME(std::string const& name, builder::RBuilder<INTERFACE> builder) { \
-    check_register(NAME##_map_, name, #INTERFACE);                                                \
-    NAME##_map_[name] = std::move(builder);                                                       \
-  }                                                                                               \
-  builder::RBuilder<INTERFACE> Registry::resolve_##NAME(std::string const& name) {                \
-    check_resolve(NAME##_map_, name, #INTERFACE);                                                 \
-    return NAME##_map_[name];                                                                     \
+Registry& Registry::instance() {
+  static Registry reg_;
+  return reg_;
+}
+
+#define IMPL_REGISTER_INTERFACE(INTERFACE, NAME)                                    \
+  void Registry::register_##NAME(std::string const& name, NAME##_builder builder) { \
+    check_register(NAME##_map_, name, #INTERFACE);                                  \
+    NAME##_map_[name] = std::move(builder);                                         \
+  }                                                                                 \
+                                                                                    \
+  std::shared_ptr<INTERFACE> Registry::resolve_##NAME(std::string const& name) {    \
+    check_resolve(NAME##_map_, name, #INTERFACE);                                   \
+    return NAME##_map_[name]();                                                     \
   }
 
-DEFINE_REGISTRY(algorithm, ea::algorithm::Algorithm);
-DEFINE_REGISTRY(instance, ea::instance::Instance);
-DEFINE_REGISTRY(generator, ea::generator::Generator);
-DEFINE_REGISTRY(selector, ea::selector::Selector);
-
-Registry& Registry::instance() {
-  static Registry registry{};
-  return registry;
-}
+IMPL_REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm)
+IMPL_REGISTER_INTERFACE(::ea::generator::Generator, generator)
+IMPL_REGISTER_INTERFACE(::ea::selector::Selector, selector)
+IMPL_REGISTER_INTERFACE(::ea::instance::Instance, instance)
+IMPL_REGISTER_INTERFACE(::ea::limit::Limit, limit)
 
 }  // namespace ea::registry

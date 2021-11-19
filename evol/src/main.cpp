@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "evol/include/util/Configuration.h"
+#include "evol/include/util/CliConfig.h"
 
 namespace po = boost::program_options;
 

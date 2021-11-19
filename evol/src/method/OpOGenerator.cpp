@@ -14,17 +14,6 @@ void OpOGenerator::generate(instance::Population& population) {
   population.push_back(child);
 }
 
+REGISTER_SIMPLE(Generator, OpOGenerator);
+
 }  // namespace ea::generator
-
-namespace ea::builder {
-
-ea::generator::Generator* OpOGeneratorBuilder::build() {
-  return new ea::generator::OpOGenerator();
-}
-
-char const** OpOGeneratorBuilder::get_params() {
-  static char const* params_[] = {};
-  return params_;
-}
-
-}  // namespace ea::builder
