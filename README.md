@@ -1,4 +1,4 @@
-# How to build and run.
+# How to build and run
 
 ## Build
 ```console
@@ -13,3 +13,7 @@ $ bazel build //evol:main //evol:test
 $ ./bazel-bin/evol/main <options>
 ```
 
+## Run with all logs written to stderr
+```console
+$ GLOG_minloglevel=0 GLOG_logtostderr=1 ./bazel-bin/evol/main
+```
