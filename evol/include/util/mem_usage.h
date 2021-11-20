@@ -52,7 +52,7 @@ size_t getPeakRSS() {
     return (size_t) 0L; /* Can't open? */
   if (read(fd, &psinfo, sizeof(psinfo)) != sizeof(psinfo)) {
     close(fd);
-    return (size_t) 0L; /* Can't read? */
+    return (size_t) 0L; /* Can't read_global? */
   }
   close(fd);
   return (size_t) (psinfo.pr_rssize * 1024L);
@@ -102,7 +102,7 @@ size_t getCurrentRSS() {
     return (size_t) 0L; /* Can't open? */
   if (fscanf(fp, "%*s%ld", &rss) != 1) {
     fclose(fp);
-    return (size_t) 0L; /* Can't read? */
+    return (size_t) 0L; /* Can't read_global? */
   }
   fclose(fp);
   return (size_t) rss * (size_t) sysconf(_SC_PAGESIZE);

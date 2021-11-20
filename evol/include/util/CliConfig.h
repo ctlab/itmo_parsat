@@ -16,12 +16,16 @@ class CliConfig {
 
   void parse(std::filesystem::path const& path);
 
-  static CliConfig& instance();
+  void notify();
+
+  [[nodiscard]] bool has(std::string const& name) const;
 
   template <typename T>
   T const& get(std::string const& name) const {
     return vm_[name].as<T>();
   }
+
+  static CliConfig& instance();
 
  private:
   boost::program_options::variables_map vm_;

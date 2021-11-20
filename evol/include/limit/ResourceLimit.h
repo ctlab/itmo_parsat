@@ -1,7 +1,7 @@
 #ifndef EVOL_RESOURCELIMIT_H
 #define EVOL_RESOURCELIMIT_H
 
-#include "evol/include/util/Limit.h"
+#include "evol/include/limit/Limit.h"
 #include "evol/proto/config.pb.h"
 
 namespace ea::limit {
@@ -10,7 +10,7 @@ class ResourceLimit : public Limit {
  public:
   ResourceLimit(ResourceLimitConfig config);
 
-  bool proceed() override;
+  bool proceed(instance::RPopulation population) override;
 
   void start() override;
 

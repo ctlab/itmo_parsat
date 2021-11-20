@@ -1,4 +1,5 @@
-#include "evol/include/util/ConjLimit.h"
+#include "evol/include/limit/ConjLimit.h"
+
 #include "evol/include/util/Registry.h"
 
 namespace ea::limit {
@@ -9,9 +10,9 @@ ConjLimit::ConjLimit(ConjLimitConfig config) {
   }
 }
 
-bool ConjLimit::proceed() {
-  return std::all_of(limits_.begin(), limits_.end(), [] (RLimit& limit) {
-    return limit->proceed();
+bool ConjLimit::proceed(instance::RPopulation population) {
+  return std::all_of(limits_.begin(), limits_.end(), [&population] (RLimit& limit) {
+    return limit->proceed(population);
   });
 }
 
@@ -20,5 +21,7 @@ void ConjLimit::start() {
     limit->start();
   });
 }
+
+REGISTER_PROTO(Limit, ConjLimit, conj_limit_config);
 
 }  // namespace ea::limit

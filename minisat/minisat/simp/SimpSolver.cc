@@ -79,6 +79,70 @@ SimpSolver::SimpSolver()
   remove_satisfied = false;
 }
 
+// > dzhiblavi: constructor with passed parameters
+SimpSolver::SimpSolver(
+    int grow,
+    int clause_lim,
+    int subsumption_lim,
+    double simp_garbage_frac,
+    bool use_asymm,
+    bool use_rcheck,
+    bool use_elim,
+    // Solver-base parameters
+    int verbosity,
+    double var_decay,
+    double clause_decay,
+    double random_var_freq,
+    double random_seed,
+    bool luby_restart,
+    int ccmin_mode,
+    int phase_saving,
+    bool rnd_init_act,
+    double garbage_frac,
+    int min_learnts_lim,
+    int restart_first,
+    double restart_inc
+)
+    : Solver(
+        verbosity,
+        var_decay,
+        clause_decay,
+        random_var_freq,
+        random_seed,
+        luby_restart,
+        ccmin_mode,
+        phase_saving,
+        rnd_init_act,
+        garbage_frac,
+        min_learnts_lim,
+        restart_first,
+        restart_inc
+      ),
+      parsing(0),
+      grow(grow),
+      clause_lim(clause_lim),
+      subsumption_lim(subsumption_lim),
+      simp_garbage_frac(simp_garbage_frac),
+      use_asymm(use_asymm),
+      use_rcheck(use_rcheck),
+      use_elim(use_elim),
+      extend_model(true),
+      merges(0),
+      asymm_lits(0),
+      eliminated_vars(0),
+      elimorder(1),
+      use_simplification(true),
+      occurs(ClauseDeleted(ca)),
+      elim_heap(ElimLt(n_occ)),
+      bwdsub_assigns(0),
+      n_touched(0) {
+  vec<Lit> dummy(1, lit_Undef);
+  ca.extra_clause_field = true;  // NOTE: must happen before allocating the dummy clause below.
+  bwdsub_tmpunit = ca.alloc(dummy);
+  remove_satisfied = false;
+}
+// > dzhiblavi
+
 SimpSolver::~SimpSolver() {
 }
 

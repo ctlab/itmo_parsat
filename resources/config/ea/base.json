@@ -1,0 +1,26 @@
+{
+    "base_algorithm_config": {
+        "generator_type": "OpOGenerator",
+        "selector_type": "BestSelector",
+        "limit_type": "ConjLimit"
+    },
+    "resource_limit_config": {
+        "memory_limit_kb": 65536,
+        "time_limit_sec": 100
+    },
+    "fitness_limit_config": {
+        "lowest_fitness": 0.95
+    },
+    "signal_limit_config": {
+        "sig_type": [
+            "SIGINT"
+        ]
+    },
+    "conj_limit_config": {
+        "limit_type": [
+            "FitnessLimit",
+            "ResourceLimit",
+            "SignalLimit"
+        ]
+    }
+}

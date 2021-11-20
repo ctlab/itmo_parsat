@@ -6,15 +6,15 @@ namespace {
 
 template <typename K, typename V>
 void check_register(std::map<K, V> const& map, K const& key, std::string const& interface) {
-  CHECK_EQ(map.count(key), size_t(0)) << "Trying to register interface '"
-                              << interface << "' (implementation = " << key
-                              << "That is already registered.";
+  assert(map.count(key) == size_t(0) &&
+     bool("Trying to register implementation that is already registered."));
 }
 
 template <typename K, typename V>
 void check_resolve(std::map<K, V> const& map, K const& key, std::string const& interface) {
+  LOG(INFO) << "Resolving implementation " << key << " of " << interface;
   CHECK_GT(map.count(key), size_t(0)) << "Trying to resolve unregistered implementation '" << key
-                              << "' of interface " << interface << ".";
+                                      << "' of interface " << interface << ".";
 }
 
 }  // namespace

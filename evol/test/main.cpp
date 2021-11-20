@@ -7,7 +7,7 @@
 
 void read_config() {
   std::ifstream is_config("configuration/example.json");
-  ea::config::Configuration::instance().read(is_config);
+  ea::config::Configuration::instance().read_global(is_config);
 }
 
 int main(int argc, char** argv) {

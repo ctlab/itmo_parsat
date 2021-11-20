@@ -7,7 +7,7 @@
 namespace ea::algorithm {
 
 BaseAlgorithm::BaseAlgorithm()
-  : BaseAlgorithm(config::Configuration::get_config().base_algorithm_config()) {
+  : BaseAlgorithm(config::Configuration::get_global_config().base_algorithm_config()) {
 }
 
 BaseAlgorithm::BaseAlgorithm(BaseAlgorithmConfig const& config) {
@@ -19,7 +19,7 @@ BaseAlgorithm::BaseAlgorithm(BaseAlgorithmConfig const& config) {
 
 void BaseAlgorithm::process() {
   limit_->start();
-  while (limit_->proceed()) {
+  while (limit_->proceed(population_)) {
     LOG_TIME(step());
   }
 }

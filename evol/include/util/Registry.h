@@ -8,9 +8,9 @@
 #include "evol/include/algorithm/Algorithm.h"
 #include "evol/include/config/Configuration.h"
 #include "evol/include/domain/Instance.h"
+#include "evol/include/limit/Limit.h"
 #include "evol/include/method/Generator.h"
 #include "evol/include/method/Selector.h"
-#include "evol/include/util/Limit.h"
 
 namespace ea::registry {
 
@@ -55,13 +55,13 @@ DEFINE_ENTRY_TYPE(::ea::limit::Limit, limit);
 
 }  // namespace ea::registry
 
-#define REGISTER_PROTO(INTERFACE, IMPL, CONFIG_NAME)                         \
-  std::shared_ptr<INTERFACE> create##IMPL() {                                \
-    return std::make_shared<IMPL>(                                           \
-        ::ea::config::Configuration::instance().get_config().CONFIG_NAME()); \
-  }                                                                          \
-  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() {       \
-    return create##IMPL();                                                   \
+#define REGISTER_PROTO(INTERFACE, IMPL, CONFIG_NAME)                                \
+  std::shared_ptr<INTERFACE> create##IMPL() {                                       \
+    return std::make_shared<IMPL>(                                                  \
+        ::ea::config::Configuration::instance().get_global_config().CONFIG_NAME()); \
+  }                                                                                 \
+  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() {              \
+    return create##IMPL();                                                          \
   })
 
 #define REGISTER_SIMPLE(INTERFACE, IMPL)                               \

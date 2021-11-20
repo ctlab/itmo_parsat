@@ -3,16 +3,16 @@
 
 #include <memory>
 
-#include "evol/include/util/Limit.h"
+#include "evol/include/limit/Limit.h"
 #include "evol/proto/config.pb.h"
 
 namespace ea::limit {
 
 class ConjLimit : public Limit {
  public:
-  ConjLimit(ConjLimitConfig config);
+  explicit ConjLimit(ConjLimitConfig config);
 
-  bool proceed() override;
+  bool proceed(instance::RPopulation population) override;
 
   void start() override;
 

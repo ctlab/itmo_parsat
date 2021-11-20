@@ -1,9 +1,9 @@
-sources =  glob(include=[
+sources = glob(include=[
     "src/**/*.cpp",
     "src/**/*.cc",
-    "proto/**/*.cc",
-    "proto/**/*.h",
     "include/**/*.h",
+    "proto/**/*.h",
+    "proto/**/*.cc",
 ], exclude=[
     "src/main.cpp",
 ])
@@ -18,6 +18,7 @@ cc_binary(
         "//evol/proto:config_cc_proto",
         "//minisat:libminisat",
     ],
+    copts = ["-Iminisat"],
 )
 
 cc_library(

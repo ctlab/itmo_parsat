@@ -40,6 +40,8 @@ class Instance {
   virtual void mutate() = 0;
 };
 
+bool operator<(Instance const& a, Instance const& b);
+
 }  // namespace ea::instance
 
 #endif  // EA_INSTANCE_H

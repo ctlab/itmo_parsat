@@ -11,12 +11,64 @@ message ResourceLimitConfig {
     uint32 time_limit_sec = 2;
 }
 
+message FitnessLimitConfig {
+    double lowest_fitness = 1;
+}
+
+message SignalLimitConfig {
+    repeated string sig_type = 1;
+}
+
 message ConjLimitConfig {
     repeated string limit_type = 1;
 }
 
 message GlobalConfig {
+    // Base algorithm configuration
     BaseAlgorithmConfig base_algorithm_config = 1;
+
+    // Limits configuration
     ResourceLimitConfig resource_limit_config = 2;
-    ConjLimitConfig conj_limit_config = 3;
+    FitnessLimitConfig fitness_limit_config = 3;
+    SignalLimitConfig signal_limit_config = 4;
+    ConjLimitConfig conj_limit_config = 5;
 }
+
+message MinisatCliConfig {
+    int32 verbosity_level = 1;
+    bool preprocessing = 2;
+    int32 cpu_limit = 4;
+    int32 mem_limit = 5;
+}
+
+message SolverConfig {
+    double var_decay = 1;
+    double cla_decay = 2;
+    double rnd_freq = 3;
+    double rnd_seed = 4;
+    int32 ccmin_mode = 5;
+    int32 phase_saving = 6;
+    bool rnd_init = 7;
+    bool luby = 8;
+    int32 rfirst = 9;
+    double rinc = 10;
+    double gc_frac = 11;
+    int32 min_learnts = 12;
+}
+
+message SimpSolverConfig {
+    bool use_asymm = 1;
+    bool use_rcheck = 2;
+    bool use_elim = 3;
+    int32 grow = 4;
+    int32 clause_lim = 5;
+    int32 subsumption_lim = 6;
+    double simp_garbage_frac = 7;
+}
+
+message FullMinisatSolverConfig {
+    MinisatCliConfig minisat_cli_config = 1;
+    SolverConfig solver_config = 2;
+    SimpSolverConfig simp_solver_config = 3;
+}
+

@@ -42,6 +42,24 @@ class Solver {
   Solver();
   virtual ~Solver();
 
+  // > dzhiblavi: constructor with passed parameters
+  Solver(
+    int verbosity,
+    double var_decay,
+    double clause_decay,
+    double random_var_freq,
+    double random_seed,
+    bool luby_restart,
+    int ccmin_mode,
+    int phase_saving,
+    bool rnd_init_act,
+    double garbage_frac,
+    int min_learnts_lim,
+    int restart_first,
+    double restart_inc
+  );
+  // < dzhiblavi
+
   // Problem specification:
   //
   Var newVar(

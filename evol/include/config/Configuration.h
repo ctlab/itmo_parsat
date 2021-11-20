@@ -14,14 +14,17 @@ class Configuration {
    */
   Configuration() = default;
 
-  void read(std::istream& is);
+  static void read(google::protobuf::Message& message, std::istream& is);
 
   static Configuration& instance();
 
-  static GlobalConfig& get_config();
+  static GlobalConfig& get_global_config();
+
+  static FullMinisatSolverConfig& get_minisat_config();
 
  private:
   GlobalConfig gc_{};
+  FullMinisatSolverConfig fmsc_{};
 };
 
 }  // namespace ea::config

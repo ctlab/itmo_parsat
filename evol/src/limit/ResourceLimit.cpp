@@ -1,8 +1,9 @@
-#include "evol/include/util/ResourceLimit.h"
-#include "evol/include/util/mem_usage.h"
-#include "evol/include/util/Registry.h"
+#include "evol/include/limit/ResourceLimit.h"
 
 #include <glog/logging.h>
+
+#include "evol/include/util/Registry.h"
+#include "evol/include/util/mem_usage.h"
 
 namespace ea::limit {
 
@@ -11,7 +12,7 @@ ResourceLimit::ResourceLimit(ResourceLimitConfig config)
     , time_limit_sec_(config.time_limit_sec()) {
 }
 
-bool ResourceLimit::proceed() {
+bool ResourceLimit::proceed(instance::RPopulation) {
   std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_;
   bool time_ok = std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() < time_limit_sec_;
   LOG_IF(INFO, !time_ok) << "Time limit exceeded.";

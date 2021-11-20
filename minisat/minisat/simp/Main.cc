@@ -80,7 +80,6 @@ int main(int argc, char** argv) {
     BoolOption model(
         "MAIN", "model", "Print the values for the model in case of satisfiable.", true);
     StringOption proof("MAIN", "proof", "Given a filename, a DRAT proof will be written there.");
-    StringOption evol_cfg("MAIN", "evol_cfg", "EA configuration file.");
 
     parseOptions(argc, argv, true);
 

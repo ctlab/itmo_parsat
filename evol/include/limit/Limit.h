@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "evol/include/domain/Instance.h"
+
 namespace ea::limit {
 
 class Limit {
@@ -12,7 +14,7 @@ class Limit {
   /**
    * Returns true if algorithm can and should proceed.
    */
-  virtual bool proceed() = 0;
+  virtual bool proceed(instance::RPopulation population) = 0;
 
   /**
    * Indicates that limit must start tracking parameters

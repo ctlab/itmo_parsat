@@ -5,9 +5,9 @@
 
 #include "evol/include/algorithm/Algorithm.h"
 #include "evol/include/domain/Instance.h"
+#include "evol/include/limit/Limit.h"
 #include "evol/include/method/Generator.h"
 #include "evol/include/method/Selector.h"
-#include "evol/include/util/Limit.h"
 #include "evol/include/util/profile.h"
 #include "evol/proto/config.pb.h"
 

@@ -28,6 +28,7 @@ void Timer::register_start(std::string const& name) {
 double Timer::register_exit(std::string const& name) {
   std::lock_guard<std::mutex> lg(lock_);
   std::chrono::duration<double> dur = std::chrono::system_clock::now() - start_[name];
+  start_.erase(name);
   return dur.count();
 }
 
