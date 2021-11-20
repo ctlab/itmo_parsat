@@ -4,13 +4,13 @@
 #include <fstream>
 
 #include "evol/include/algorithm/BaseAlgorithm.h"
+#include "evol/include/config/CliConfig.h"
 #include "evol/include/config/Configuration.h"
-#include "evol/include/sat/Solver.h"
-#include "evol/include/util/CliConfig.h"
 #include "evol/include/domain/RBDInstance.h"
+#include "evol/include/sat/Solver.h"
 #include "evol/include/util/Registry.h"
 
-ea::CliConfig& add_and_read_args(int argc, char** argv) {
+ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
 
   po::options_description description;
@@ -20,7 +20,7 @@ ea::CliConfig& add_and_read_args(int argc, char** argv) {
       ("minisat-config,m", po::value<std::filesystem::path>()->required(), "Path to minisat and solvers configuration.")
       ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
 
-  ea::CliConfig& cli_config = ea::CliConfig::instance();
+  ea::config::CliConfig& cli_config = ea::config::CliConfig::instance();
   cli_config.add_options(description);
   cli_config.parse(argc, argv);
   cli_config.notify();
@@ -47,7 +47,7 @@ void read_json_configs(
 
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
-  ea::CliConfig& config = add_and_read_args(argc, argv);
+  ea::config::CliConfig& config = add_and_read_args(argc, argv);
 
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");

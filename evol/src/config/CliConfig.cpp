@@ -1,8 +1,8 @@
-#include "evol/include/util/CliConfig.h"
+#include "evol/include/config/CliConfig.h"
 
 #include <glog/logging.h>
 
-namespace ea {
+namespace ea::config {
 
 namespace po = boost::program_options;
 
@@ -39,4 +39,4 @@ CliConfig& CliConfig::instance() {
   return config_;
 }
 
-}  // namespace ea
+}  // namespace ea::config

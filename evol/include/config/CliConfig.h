@@ -4,7 +4,7 @@
 #include <boost/program_options.hpp>
 #include <filesystem>
 
-namespace ea {
+namespace ea::config {
 
 class CliConfig {
  public:
@@ -32,6 +32,6 @@ class CliConfig {
   boost::program_options::options_description desc_;
 };
 
-}  // namespace ea
+}  // namespace ea::config
 
 #endif  // EVOL_CLICONFIG_H

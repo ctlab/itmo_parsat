@@ -1,4 +1,4 @@
-#ifndef EVOL_CLICONFIG_H
+#ifndef EVOL_CONFIGURATION_H
 #define EVOL_CONFIGURATION_H
 
 #include <iostream>
@@ -29,4 +29,4 @@ class Configuration {
 
 }  // namespace ea::config
 
-#endif  // EVOL_CLICONFIG_H
+#endif  // EVOL_CONFIGURATION_H
