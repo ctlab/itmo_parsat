@@ -1,0 +1,6 @@
+filegroup(
+    name = "srcs",
+    srcs = glob(include=["**"]),
+    visibility = ["//visibility:public"],
+)
+

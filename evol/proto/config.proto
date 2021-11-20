@@ -1,11 +1,22 @@
 syntax = "proto3";
 
 message BaseAlgorithmConfig {
-  string generator_type = 1;
-  string selector_type = 2;
-  string limit_type = 3;
+    string generator_type = 1;
+    string selector_type = 2;
+    string limit_type = 3;
+}
+
+message ResourceLimitConfig {
+    uint32 memory_limit_kb = 1;
+    uint32 time_limit_sec = 2;
+}
+
+message ConjLimitConfig {
+    repeated string limit_type = 1;
 }
 
 message GlobalConfig {
-  BaseAlgorithmConfig base_algorithm_config = 1;
+    BaseAlgorithmConfig base_algorithm_config = 1;
+    ResourceLimitConfig resource_limit_config = 2;
+    ConjLimitConfig conj_limit_config = 3;
 }

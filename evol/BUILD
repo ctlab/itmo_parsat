@@ -1,40 +1,48 @@
+sources =  glob(include=[
+    "src/**/*.cpp",
+    "src/**/*.cc",
+    "proto/**/*.cc",
+    "proto/**/*.h",
+    "include/**/*.h",
+], exclude=[
+    "src/main.cpp",
+])
+
 cc_binary(
     name = "main",
-    srcs = glob([
-        "src/**/*.cpp",
-        "src/**/*.cc",
-        "proto/**/*.cc",
-        "proto/**/*.h",
-        "include/**/*.h",
-    ]),
+    srcs = sources + ["src/main.cpp"],
     deps = [
         "@boost//:program_options",
         "@com_github_google_glog//:glog",
         "@com_google_protobuf//:protobuf",
         "//evol/proto:config_cc_proto",
+        "//minisat:libminisat",
     ],
 )
 
 cc_library(
     name = "evol",
-    srcs = glob([
-        "src/**/*.cpp",
-        "src/**/*.cc",
-        "proto/**/*.cc",
-        "proto/**/*.h",
-        "include/**/*.h",
-    ]),
+    srcs = sources,
     deps = [
         "@boost//:program_options",
         "@com_github_google_glog//:glog",
         "@com_google_protobuf//:protobuf",
         "//evol/proto:config_cc_proto",
+        "//minisat:libminisat",
     ],
 )
 
 cc_test(
-  name = "hello_test",
-  size = "small",
-  srcs = glob(["test/**/*.cpp"]),
-  deps = ["@com_google_googletest//:gtest_main"],
+    name = "test",
+    size = "small",
+    srcs = glob(["test/**/*.cpp"]) + sources,
+    deps = [
+        "@boost//:program_options",
+        "@com_github_google_glog//:glog",
+        "@com_google_protobuf//:protobuf",
+        "@com_google_googletest//:gtest_main",
+        "//evol/proto:config_cc_proto",
+        "//evol:main",
+        "//minisat:libminisat",
+    ],
 )

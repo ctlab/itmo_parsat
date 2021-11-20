@@ -1,4 +1,5 @@
 #include "evol/include/method/BestSelector.h"
+#include "evol/include/util/Registry.h"
 
 #include <algorithm>
 
@@ -9,5 +10,7 @@ void BestSelector::select(instance::Population& population) {
   std::swap(*it, population.front());
   population.resize(1);
 }
+
+REGISTER_SIMPLE(Selector, BestSelector);
 
 }  // namespace ea::selector

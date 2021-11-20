@@ -36,17 +36,40 @@ class Registry {
   REGISTER_INTERFACE(::ea::limit::Limit, limit);
 };
 
+template <typename Interface>
+struct RegistryEntry;
+
+#define DEFINE_ENTRY_TYPE(INTERFACE, NAME)                                                        \
+  template <>                                                                                     \
+  struct RegistryEntry<INTERFACE> {                                                               \
+    RegistryEntry(std::string const& name, std::function<std::shared_ptr<INTERFACE>()> builder) { \
+      Registry::instance().register_##NAME(name, std::move(builder));                             \
+    }                                                                                             \
+  }
+
+DEFINE_ENTRY_TYPE(::ea::algorithm::Algorithm, algorithm);
+DEFINE_ENTRY_TYPE(::ea::generator::Generator, generator);
+DEFINE_ENTRY_TYPE(::ea::selector::Selector, selector);
+DEFINE_ENTRY_TYPE(::ea::instance::Instance, instance);
+DEFINE_ENTRY_TYPE(::ea::limit::Limit, limit);
+
 }  // namespace ea::registry
 
 #define REGISTER_PROTO(INTERFACE, IMPL, CONFIG_NAME)                         \
   std::shared_ptr<INTERFACE> create##IMPL() {                                \
     return std::make_shared<IMPL>(                                           \
         ::ea::config::Configuration::instance().get_config().CONFIG_NAME()); \
-  }
+  }                                                                          \
+  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() {       \
+    return create##IMPL();                                                   \
+  })
 
-#define REGISTER_SIMPLE(INTERFACE, IMPL)      \
-  std::shared_ptr<INTERFACE> create##IMPL() { \
-    return std::make_shared<IMPL>();          \
-  }
+#define REGISTER_SIMPLE(INTERFACE, IMPL)                               \
+  std::shared_ptr<INTERFACE> create##IMPL() {                          \
+    return std::make_shared<IMPL>();                                   \
+  }                                                                    \
+  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() { \
+    return create##IMPL();                                             \
+  })
 
 #endif  // EA_REGISTRY_H

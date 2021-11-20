@@ -1,9 +1,9 @@
 #include "evol/include/config/Configuration.h"
 
+#include <glog/logging.h>
 #include <google/protobuf/util/json_util.h>
 
-namespace ea {
-namespace config {
+namespace ea::config {
 
 Configuration& Configuration::instance() {
   static Configuration config_;
@@ -16,8 +16,9 @@ GlobalConfig& Configuration::get_config() {
 
 void Configuration::read(std::istream& is) {
   std::string message((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
-  google::protobuf::util::JsonStringToMessage(message, &gc_);
+  google::protobuf::util::Status status = google::protobuf::util::JsonStringToMessage(message, &gc_);
+  CHECK(status.ok()) << "Failed to read configuration from '" <<  message << "':"
+                     << status.error_message();
 }
 
-}  // namespace config
 }  // namespace ea

@@ -31,7 +31,6 @@ Registry& Registry::instance() {
     check_register(NAME##_map_, name, #INTERFACE);                                  \
     NAME##_map_[name] = std::move(builder);                                         \
   }                                                                                 \
-                                                                                    \
   std::shared_ptr<INTERFACE> Registry::resolve_##NAME(std::string const& name) {    \
     check_resolve(NAME##_map_, name, #INTERFACE);                                   \
     return NAME##_map_[name]();                                                     \

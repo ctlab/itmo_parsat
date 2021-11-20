@@ -1,0 +1,11 @@
+{
+    "base_algorithm_config": {
+        "generator_type": "OpOGenerator",
+        "selector_type": "BestSelector",
+        "limit_type": "ResourceLimit"
+    },
+    "resource_limit_config": {
+        "memory_limit_kb": 65536,
+        "time_limit_sec": 600
+    }
+}

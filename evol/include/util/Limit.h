@@ -1,6 +1,8 @@
 #ifndef EA_LIMIT_H
 #define EA_LIMIT_H
 
+#include <memory>
+
 namespace ea::limit {
 
 class Limit {
