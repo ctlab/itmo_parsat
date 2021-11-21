@@ -14,16 +14,14 @@ ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
 
   po::options_description description;
-  description.add_options()
-      ("backdoor,b", "Enable rho-backdoor search.")
-      ("config,c", po::value<std::filesystem::path>(), "Path to JSON configuration.")
-      ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
+  description.add_options()("backdoor,b", "Enable rho-backdoor search.")(
+      "config,c", po::value<std::filesystem::path>(), "Path to JSON configuration.")(
+      "input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
 
   ea::config::CliConfig& cli_config = ea::config::CliConfig::instance();
   cli_config.add_options(description);
   cli_config.parse(argc, argv);
   cli_config.notify();
-  /* TODO: add configuration file parsing either here or in CliConfig */
 
   return cli_config;
 }
@@ -47,23 +45,21 @@ int main(int argc, char** argv) {
   LOG(INFO) << "Input file: " << input;
 
   /* Create solver */
-  std::shared_ptr<ea::sat::Solver> solver
-      = ea::registry::Registry::resolve_solver(
-          ea::config::Configuration::get_global_config().solver_type()
-      );
+  std::shared_ptr<ea::sat::Solver> solver = ea::registry::Registry::resolve_solver(
+      ea::config::Configuration::get_global_config().solver_type());
   LOG_TIME(solver->parse_cnf(input));
 
   if (backdoor) {
     ea::instance::RPopulation population(new ea::instance::Population);
-    population->push_back(
-      ea::registry::Registry::resolve_instance("RBDInstance")
-    );
+    population->push_back(ea::registry::Registry::resolve_instance(
+        ea::config::Configuration::get_global_config().instance_type()));
     population->front()->set_solver(solver);
 
     /* Read configuration and start algorithm. */
     ea::algorithm::BaseAlgorithm algorithm;
     algorithm.set_population(population);
     LOG_TIME(algorithm.process());
+    LOG(INFO) << "Resulting instance rho: " << std::fixed << population->front()->rho();
 
     Minisat::vec<Minisat::Lit> assumptions;
     population->front()->get_assumptions(assumptions);

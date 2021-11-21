@@ -23,9 +23,14 @@ void gen_assumption(std::set<unsigned> const& vars, Minisat::vec<Minisat::Lit>& 
 }
 
 uint64_t resolve_limit(double frac, uint64_t max_count, uint64_t total) {
-  uint64_t max_count_n = std::min(max_count, total);
   auto max_count_f = uint64_t(frac * (double) total);
-  return std::min(max_count_n, max_count_f);
+  if (frac == 0) {
+    return max_count;
+  }
+  if (max_count == 0) {
+    return max_count_f;
+  }
+  return std::min(max_count, max_count_f);
 }
 
 }  // namespace
@@ -62,14 +67,12 @@ void RBDInstance::assure_initialized() {
 
     std::sort(stats.begin(), stats.end());
     uint64_t max_count = resolve_limit(
-        config_.heuristic_config().frac(), config_.heuristic_config().count(),
-        stats.size());
+        config_.heuristic_config().frac(), config_.heuristic_config().count(), stats.size());
+
     auto it = stats.crbegin();
     for (size_t i = 0; i < max_count; ++i, ++it) {
       vars_.insert(it->second);
     }
-
-    LOG(INFO) << "Heuristic initialization resulted in " << vars_.size() << " variables.";
   }
 
   if (deferred_init_random_) {
@@ -82,17 +85,13 @@ void RBDInstance::assure_initialized() {
     }
   }
 
-  max_sampling_size_ = resolve_limit(
-    config_.sampling_config().frac(),
-    config_.sampling_config().count(),
-    solver_->num_vars()
-  );
+  max_size_ = resolve_limit(
+      config_.size_config().frac(), config_.size_config().count(), solver_->num_vars());
 
   deferred_init_random_ = deferred_init_heuristic_ = false;
 }
 
-RBDInstance::RBDInstance(RBDInstanceConfig const& config)
-    : config_(config) {
+RBDInstance::RBDInstance(RBDInstanceConfig const& config) : config_(config) {
   switch (config.init()) {
     case RBDInstanceConfig_Init_HEURISTIC:
       deferred_init_heuristic_ = true;
@@ -110,7 +109,6 @@ void RBDInstance::set_solver(sat::RSolver const& solver) {
 }
 
 void RBDInstance::get_assumptions(Minisat::vec<Minisat::Lit>& assumptions) {
-  assure_initialized();
   for (unsigned var : vars_) {
     int sign = std::uniform_int_distribution<int>(0, 1)(random::Generator::stdgen());
     assumptions.push(Minisat::mkLit((int) var, sign == 1));
@@ -126,29 +124,43 @@ double RBDInstance::fitness() {
   assure_initialized();
 
   if (cache_state_ == CACHE) {
-    LOG(INFO) << "fitness is cached.";
+    return fit_cached_;
   }
   CHECK_GT(vars_.size(), (size_t) 0) << "Empty backdoor is not allowed.";
+
+  LOG_IF(INFO, config_.sampling_config().frac() != 0.)
+      << "Frac for sampling config is ignored due to possibly too large values.";
+  max_sampling_size_ =
+      resolve_limit(config_.sampling_config().frac(), config_.sampling_config().count(), 0);
 
   /* Estimate rho */
   uint64_t success = 0;
   Minisat::vec<Minisat::Lit> assumptions((int) vars_.size());
   for (uint64_t i = 0; i < max_sampling_size_; ++i) {
+    /* Generate new assumption */
     gen_assumption(vars_, assumptions);
-    success += solver_->propagate(assumptions);
+
+    /* Add 1 to success iff solver found conflicts */
+    success += !solver_->propagate(assumptions);
   }
-  double rho = (double) success / (double) max_sampling_size_;
+  rho_cached_ = (double) success / (double) max_sampling_size_;
 
   /* Calculate fitness */
   /* TODO: max_samples is a stub. Cannot calculate such large values! */
-  cached_ = rho * std::pow(2., vars_.size()) +
-      (1. - rho) * std::pow(2., config_.omega() * (double) max_sampling_size_);
+  fit_cached_ = rho_cached_ * std::pow(2., vars_.size()) +
+      (1. - rho_cached_) * std::pow(2., config_.omega() * (double) max_sampling_size_);
 
-  LOG(INFO) << "Fitness: " << cached_ << ", Rho: " << rho;
-  CHECK(!std::isnan(cached_)) << "NaN fitness, abort.";
+  CHECK(!std::isnan(fit_cached_)) << "NaN fitness, abort.";
 
   cache_state_ = CACHE;
-  return cached_;
+  return fit_cached_;
+}
+
+double RBDInstance::rho() {
+  if (cache_state_ != CACHE) {
+    fitness();
+  }
+  return rho_cached_;
 }
 
 RInstance RBDInstance::crossover(RInstance const& other) {
@@ -159,7 +171,8 @@ RInstance RBDInstance::crossover(RInstance const& other) {
 
 void RBDInstance::mutate() {
   assure_initialized();
-  if ((int64_t) vars_.size() < config_.size_config().count()) {
+
+  if (vars_.size() < max_size_) {
     /* Flip one random variable (for now: further other options will be implemented) */
     unsigned num_vars = solver_->num_vars();
     unsigned var =

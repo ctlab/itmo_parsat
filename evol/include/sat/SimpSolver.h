@@ -23,8 +23,8 @@ class SimpSolver : public Solver {
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
-  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumps,
-                               Minisat::vec<Minisat::Lit>& props) override;
+  [[nodiscard]] bool propagate(
+      Minisat::vec<Minisat::Lit> const& assumps, Minisat::vec<Minisat::Lit>& props) override;
 
  private:
   Minisat::SimpSolver impl_;

@@ -6,7 +6,7 @@
     },
     "resource_limit_config": {
         "memory_limit_kb": 65536,
-        "time_limit_sec": 1
+        "time_limit_sec": 100
     },
     "fitness_limit_config": {
         "lowest_fitness": 0.95
@@ -22,19 +22,20 @@
             "SignalLimit"
         ]
     },
+    "instance_type": "RBDInstance",
     "rbd_instance_config": {
         "omega": 0.1,
         "init": "HEURISTIC",
         "sampling_config": {
-            "frac": 0.2,
-            "count": -1
+            "frac": 0,
+            "count": 10000
         },
         "size_config": {
             "frac": 0.1,
             "count": 2000
         },
         "heuristic_config": {
-            "frac": -1,
+            "frac": 0,
             "count": 200
         }
     },

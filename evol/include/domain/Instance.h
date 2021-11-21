@@ -39,7 +39,12 @@ class Instance {
    * Calculates instance's fitness function
    * Used to perform selection.
    */
-  [[nodiscard]] virtual double fitness() = 0;
+  virtual double fitness() = 0;
+
+  /**
+   * Estimates rho-backdoor's rho value.
+   */
+  virtual double rho() = 0;
 
   /**
    * Performs crossover operation with other instance.

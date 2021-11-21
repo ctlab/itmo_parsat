@@ -28,7 +28,9 @@ class RBDInstance : public Instance {
 
   [[nodiscard]] Instance* clone() override;
 
-  [[nodiscard]] double fitness() override;
+  double fitness() override;
+
+  double rho() override;
 
   [[nodiscard]] RInstance crossover(RInstance const& other) override;
 
@@ -37,11 +39,12 @@ class RBDInstance : public Instance {
  private:
   RBDInstanceConfig config_{};
 
-  /* TODO: remove all consts and mutables. */
   bool deferred_init_heuristic_ = false;
   bool deferred_init_random_ = false;
-  double cached_ = 0.;
-  uint64_t max_sampling_size_ = 0.;
+  double fit_cached_ = 0.;
+  double rho_cached_ = 0.;
+  uint64_t max_sampling_size_ = 0;
+  uint64_t max_size_ = 0;
   CacheState cache_state_ = NO_CACHE;
 
   std::set<unsigned> vars_;
