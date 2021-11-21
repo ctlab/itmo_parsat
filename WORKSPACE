@@ -17,14 +17,6 @@ http_archive(
 )
 
 http_archive(
-    name = "com_github_nlohmann_json",
-    build_file = "//third_party:json.BUILD",
-    sha256 = "4cf0df69731494668bdd6460ed8cb269b68de9c19ad8c27abc24cd72605b2d5b",
-    strip_prefix = "json-3.9.1",
-    urls = ["https://github.com/nlohmann/json/archive/v3.9.1.tar.gz"],
-)
-
-http_archive(
     name = "com_github_gflags_gflags",
     sha256 = "34af2f15cf7367513b352bdcd2493ab14ce43692d2dcd9dfc499492966c64dcf",
     strip_prefix = "gflags-2.2.2",
