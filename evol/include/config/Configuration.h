@@ -20,11 +20,8 @@ class Configuration {
 
   static GlobalConfig& get_global_config();
 
-  static FullMinisatSolverConfig& get_minisat_config();
-
  private:
   GlobalConfig gc_{};
-  FullMinisatSolverConfig fmsc_{};
 };
 
 }  // namespace ea::config

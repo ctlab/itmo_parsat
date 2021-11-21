@@ -1,11 +1,14 @@
 syntax = "proto3";
 
+// EA configuration
+// Algorithms configuration
 message BaseAlgorithmConfig {
     string generator_type = 1;
     string selector_type = 2;
     string limit_type = 3;
 }
 
+// Limits configuration
 message ResourceLimitConfig {
     uint32 memory_limit_kb = 1;
     uint32 time_limit_sec = 2;
@@ -23,17 +26,31 @@ message ConjLimitConfig {
     repeated string limit_type = 1;
 }
 
-message GlobalConfig {
-    // Base algorithm configuration
-    BaseAlgorithmConfig base_algorithm_config = 1;
+// Instances configuration
+message RBDInstanceConfig {
+    message RBDInstanceRandomConfig {
+    }
 
-    // Limits configuration
-    ResourceLimitConfig resource_limit_config = 2;
-    FitnessLimitConfig fitness_limit_config = 3;
-    SignalLimitConfig signal_limit_config = 4;
-    ConjLimitConfig conj_limit_config = 5;
+    message MaxSizeConfig {
+        double frac = 1;
+        int64 count = 2;
+    }
+
+    enum Init {
+        HEURISTIC = 0;
+        RANDOM = 1;
+    }
+
+    double omega = 1;
+    MaxSizeConfig sampling_config = 3;
+    MaxSizeConfig size_config = 4;
+
+    Init init = 5;
+    MaxSizeConfig heuristic_config = 6;
+    MaxSizeConfig random_config = 7;
 }
 
+// Solvers' configuration
 message MinisatCliConfig {
     int32 verbosity_level = 1;
     bool preprocessing = 2;
@@ -57,6 +74,7 @@ message SolverConfig {
 }
 
 message SimpSolverConfig {
+    // SimpSolver parameters
     bool use_asymm = 1;
     bool use_rcheck = 2;
     bool use_elim = 3;
@@ -64,11 +82,27 @@ message SimpSolverConfig {
     int32 clause_lim = 5;
     int32 subsumption_lim = 6;
     double simp_garbage_frac = 7;
+
+    // Base (Solver) and cli parameters
+    SolverConfig solver_config = 8;
+    MinisatCliConfig cli_config = 9;
 }
 
-message FullMinisatSolverConfig {
-    MinisatCliConfig minisat_cli_config = 1;
-    SolverConfig solver_config = 2;
-    SimpSolverConfig simp_solver_config = 3;
-}
+// Global configuration
+message GlobalConfig {
+    // Algorithms configuration
+    BaseAlgorithmConfig base_algorithm_config = 1;
 
+    // Limits configuration
+    ResourceLimitConfig resource_limit_config = 2;
+    FitnessLimitConfig fitness_limit_config = 3;
+    SignalLimitConfig signal_limit_config = 4;
+    ConjLimitConfig conj_limit_config = 5;
+
+    // Instances configuration
+    RBDInstanceConfig rbd_instance_config = 6;
+
+    // Solvers configuration
+    string solver_type = 8;
+    SimpSolverConfig simp_solver_config = 7;
+}

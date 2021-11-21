@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "evol/include/sat/Solver.h"
+
 namespace ea::instance {
 
 class Instance;
@@ -21,18 +23,28 @@ class Instance {
   /**
    * Clones the instance.
    */
-  [[nodiscard]] virtual Instance* clone() const = 0;
+  [[nodiscard]] virtual Instance* clone() = 0;
+
+  /**
+   * Sets solver to the specified one.
+   */
+  virtual void set_solver(sat::RSolver const& solver) {};
+
+  /**
+   * Returns random assumptions for this rho-backdoor.
+   */
+  virtual void get_assumptions(Minisat::vec<Minisat::Lit>& assumptions) = 0;
 
   /**
    * Calculates instance's fitness function
    * Used to perform selection.
    */
-  [[nodiscard]] virtual double fitness() const = 0;
+  [[nodiscard]] virtual double fitness() = 0;
 
   /**
    * Performs crossover operation with other instance.
    */
-  [[nodiscard]] virtual RInstance crossover(RInstance const& a) const = 0;
+  [[nodiscard]] virtual RInstance crossover(RInstance const& a) = 0;
 
   /**
    * Performs mutation operation.
@@ -40,7 +52,7 @@ class Instance {
   virtual void mutate() = 0;
 };
 
-bool operator<(Instance const& a, Instance const& b);
+bool operator<(Instance& a, Instance& b);
 
 }  // namespace ea::instance
 

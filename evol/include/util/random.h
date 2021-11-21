@@ -16,6 +16,8 @@ class Generator {
   std::mt19937 mt_;
 };
 
+bool flip_coin(double p);
+
 }  // namespace ea::random
 
 #endif  // EVOL_RANDOM_H

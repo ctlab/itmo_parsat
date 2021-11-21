@@ -11,6 +11,7 @@
 #include "evol/include/limit/Limit.h"
 #include "evol/include/method/Generator.h"
 #include "evol/include/method/Selector.h"
+#include "evol/include/sat/Solver.h"
 
 namespace ea::registry {
 
@@ -20,13 +21,13 @@ class Registry {
 
   static Registry& instance();
 
-#define REGISTER_INTERFACE(INTERFACE, NAME)                              \
- public:                                                                 \
-  using NAME##_builder = std::function<std::shared_ptr<INTERFACE>()>;    \
-  void register_##NAME(std::string const& name, NAME##_builder builder); \
-  std::shared_ptr<INTERFACE> resolve_##NAME(std::string const& name);    \
-                                                                         \
- private:                                                                \
+#define REGISTER_INTERFACE(INTERFACE, NAME)                                  \
+ public:                                                                     \
+  using NAME##_builder = std::function<std::shared_ptr<INTERFACE>()>;        \
+  void register_##NAME(std::string const& name, NAME##_builder builder);     \
+  static std::shared_ptr<INTERFACE> resolve_##NAME(std::string const& name); \
+                                                                             \
+ private:                                                                    \
   std::map<std::string, NAME##_builder> NAME##_map_
 
   REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm);
@@ -34,6 +35,7 @@ class Registry {
   REGISTER_INTERFACE(::ea::selector::Selector, selector);
   REGISTER_INTERFACE(::ea::instance::Instance, instance);
   REGISTER_INTERFACE(::ea::limit::Limit, limit);
+  REGISTER_INTERFACE(::ea::sat::Solver, solver);
 };
 
 template <typename Interface>
@@ -52,6 +54,7 @@ DEFINE_ENTRY_TYPE(::ea::generator::Generator, generator);
 DEFINE_ENTRY_TYPE(::ea::selector::Selector, selector);
 DEFINE_ENTRY_TYPE(::ea::instance::Instance, instance);
 DEFINE_ENTRY_TYPE(::ea::limit::Limit, limit);
+DEFINE_ENTRY_TYPE(::ea::sat::Solver, solver);
 
 }  // namespace ea::registry
 

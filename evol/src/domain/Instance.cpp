@@ -2,7 +2,7 @@
 
 namespace ea::instance {
 
-bool operator<(Instance const& a, Instance const& b) {
+bool operator<(Instance& a, Instance& b) {
   return a.fitness() < b.fitness();
 }
 

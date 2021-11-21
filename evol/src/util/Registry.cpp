@@ -6,8 +6,9 @@ namespace {
 
 template <typename K, typename V>
 void check_register(std::map<K, V> const& map, K const& key, std::string const& interface) {
-  assert(map.count(key) == size_t(0) &&
-     bool("Trying to register implementation that is already registered."));
+  assert(
+      map.count(key) == size_t(0) &&
+      bool("Trying to register implementation that is already registered."));
 }
 
 template <typename K, typename V>
@@ -32,8 +33,8 @@ Registry& Registry::instance() {
     NAME##_map_[name] = std::move(builder);                                         \
   }                                                                                 \
   std::shared_ptr<INTERFACE> Registry::resolve_##NAME(std::string const& name) {    \
-    check_resolve(NAME##_map_, name, #INTERFACE);                                   \
-    return NAME##_map_[name]();                                                     \
+    check_resolve(instance().NAME##_map_, name, #INTERFACE);                        \
+    return instance().NAME##_map_[name]();                                          \
   }
 
 IMPL_REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm)
@@ -41,5 +42,6 @@ IMPL_REGISTER_INTERFACE(::ea::generator::Generator, generator)
 IMPL_REGISTER_INTERFACE(::ea::selector::Selector, selector)
 IMPL_REGISTER_INTERFACE(::ea::instance::Instance, instance)
 IMPL_REGISTER_INTERFACE(::ea::limit::Limit, limit)
+IMPL_REGISTER_INTERFACE(::ea::sat::Solver, solver)
 
 }  // namespace ea::registry

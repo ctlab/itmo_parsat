@@ -11,16 +11,16 @@ BaseAlgorithm::BaseAlgorithm()
 }
 
 BaseAlgorithm::BaseAlgorithm(BaseAlgorithmConfig const& config) {
-  registry::Registry& r = registry::Registry::instance();
-  generator_ = r.resolve_generator(config.generator_type());
-  selector_ = r.resolve_selector(config.selector_type());
-  limit_ = r.resolve_limit(config.limit_type());
+  generator_ = registry::Registry::resolve_generator(config.generator_type());
+  selector_ = registry::Registry::resolve_selector(config.selector_type());
+  limit_ = registry::Registry::resolve_limit(config.limit_type());
 }
 
 void BaseAlgorithm::process() {
   limit_->start();
   while (limit_->proceed(population_)) {
-    LOG_TIME(step());
+//    LOG_TIME(step());
+    step();
   }
 }
 

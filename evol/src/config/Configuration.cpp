@@ -14,10 +14,6 @@ GlobalConfig& Configuration::get_global_config() {
   return instance().gc_;
 }
 
-FullMinisatSolverConfig& Configuration::get_minisat_config() {
-  return instance().fmsc_;
-}
-
 void Configuration::read(google::protobuf::Message& message, std::istream& is) {
   std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
   google::protobuf::util::Status status = google::protobuf::util::JsonStringToMessage(message_str, &message);

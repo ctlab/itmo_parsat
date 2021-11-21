@@ -8,7 +8,7 @@ namespace ea::limit {
 
 class ResourceLimit : public Limit {
  public:
-  ResourceLimit(ResourceLimitConfig config);
+  ResourceLimit(const ResourceLimitConfig& config);
 
   bool proceed(instance::RPopulation population) override;
 

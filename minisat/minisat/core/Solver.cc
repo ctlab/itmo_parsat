@@ -147,88 +147,77 @@ Solver::Solver()
 
 // > dzhiblavi: constructor with passed parameters
 Solver::Solver(
-    int verbosity,
-    double var_decay,
-    double clause_decay,
-    double random_var_freq,
-    double random_seed,
-    bool luby_restart,
-    int ccmin_mode,
-    int phase_saving,
-    bool rnd_init_act,
-    double garbage_frac,
-    int min_learnts_lim,
-    int restart_first,
-    double restart_inc)
-    :
-// Parameters (user settable):
-//
-    verbosity(verbosity),
-    var_decay(var_decay),
-    clause_decay(clause_decay),
-    random_var_freq(random_var_freq),
-    random_seed(random_seed),
-    luby_restart(luby_restart),
-    ccmin_mode(ccmin_mode),
-    phase_saving(phase_saving),
-    rnd_pol(false),
-    rnd_init_act(rnd_init_act),
-    garbage_frac(garbage_frac),
-    min_learnts_lim(min_learnts_lim),
-    restart_first(restart_first),
-    restart_inc(restart_inc)
+    int verbosity, double var_decay, double clause_decay, double random_var_freq,
+    double random_seed, bool luby_restart, int ccmin_mode, int phase_saving, bool rnd_init_act,
+    double garbage_frac, int min_learnts_lim, int restart_first, double restart_inc)
+    :  // Parameters (user settable):
+       //
+      verbosity(verbosity),
+      var_decay(var_decay),
+      clause_decay(clause_decay),
+      random_var_freq(random_var_freq),
+      random_seed(random_seed),
+      luby_restart(luby_restart),
+      ccmin_mode(ccmin_mode),
+      phase_saving(phase_saving),
+      rnd_pol(false),
+      rnd_init_act(rnd_init_act),
+      garbage_frac(garbage_frac),
+      min_learnts_lim(min_learnts_lim),
+      restart_first(restart_first),
+      restart_inc(restart_inc)
 
-    // Parameters (the rest):
-    //
-    ,
-    learntsize_factor((double) 1 / (double) 3),
-    learntsize_inc(1.1)
+      // Parameters (the rest):
+      //
+      ,
+      learntsize_factor((double) 1 / (double) 3),
+      learntsize_inc(1.1)
 
-    // Parameters (experimental):
-    //
-    ,
-    learntsize_adjust_start_confl(100),
-    learntsize_adjust_inc(1.5)
+      // Parameters (experimental):
+      //
+      ,
+      learntsize_adjust_start_confl(100),
+      learntsize_adjust_inc(1.5)
 
-    // Statistics: (formerly in 'SolverStats')
-    //
-    ,
-    solves(0),
-    starts(0),
-    decisions(0),
-    rnd_decisions(0),
-    propagations(0),
-    conflicts(0),
-    dec_vars(0),
-    num_clauses(0),
-    num_learnts(0),
-    clauses_literals(0),
-    learnts_literals(0),
-    max_literals(0),
-    tot_literals(0)
+      // Statistics: (formerly in 'SolverStats')
+      //
+      ,
+      solves(0),
+      starts(0),
+      decisions(0),
+      rnd_decisions(0),
+      propagations(0),
+      conflicts(0),
+      dec_vars(0),
+      num_clauses(0),
+      num_learnts(0),
+      clauses_literals(0),
+      learnts_literals(0),
+      max_literals(0),
+      tot_literals(0)
 
-    ,
-    watches(WatcherDeleted(ca)),
-    order_heap(VarOrderLt(activity)),
-    ok(true),
-    cla_inc(1),
-    var_inc(1),
-    qhead(0),
-    simpDB_assigns(-1),
-    simpDB_props(0),
-    progress_estimate(0),
-    remove_satisfied(true),
-    next_var(0)
+      ,
+      watches(WatcherDeleted(ca)),
+      order_heap(VarOrderLt(activity)),
+      ok(true),
+      cla_inc(1),
+      var_inc(1),
+      qhead(0),
+      simpDB_assigns(-1),
+      simpDB_props(0),
+      progress_estimate(0),
+      remove_satisfied(true),
+      next_var(0)
 
-    // Resource constraints:
-    //
-    ,
-    conflict_budget(-1),
-    propagation_budget(-1),
-    asynch_interrupt(false)
+      // Resource constraints:
+      //
+      ,
+      conflict_budget(-1),
+      propagation_budget(-1),
+      asynch_interrupt(false)
 
-    ,
-    proofFile(0) {
+      ,
+      proofFile(0) {
 }
 // < dzhiblavi
 
@@ -719,6 +708,54 @@ CRef Solver::propagate() {
   simpDB_props -= num_props;
 
   return confl;
+}
+
+//=================================================================================================
+// Propagate and check:
+bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
+  prop.clear();
+
+  if (!ok)
+    return false;
+
+  bool st = true;
+  int level = decisionLevel();
+  CRef confl = CRef_Undef;
+
+  // dealing with phase saving
+  int psaving_copy = phase_saving;
+  phase_saving = psaving;
+
+  // propagate each assumption at a new decision level
+  for (int i = 0; st && confl == CRef_Undef && i < assumps.size(); ++i) {
+    Lit p = assumps[i];
+
+    if (value(p) == l_False)
+      st = false;
+    else if (value(p) != l_True) {
+      newDecisionLevel();
+      uncheckedEnqueue(p);
+      confl = propagate();
+    }
+  }
+
+  // copying the result
+  if (decisionLevel() > level) {
+    for (int c = trail_lim[level]; c < trail.size(); ++c) prop.push(trail[c]);
+
+    // if there is a conflict, pushing
+    // the conflicting literal as well
+    if (confl != CRef_Undef)
+      prop.push(ca[confl][0]);
+
+    // backtracking
+    cancelUntil(level);
+  }
+
+  // restoring phase saving
+  phase_saving = psaving_copy;
+
+  return st && confl == CRef_Undef;
 }
 
 /*_________________________________________________________________________________________________
