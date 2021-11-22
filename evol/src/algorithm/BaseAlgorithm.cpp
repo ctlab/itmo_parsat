@@ -3,11 +3,12 @@
 #include <utility>
 
 #include "evol/include/util/Registry.h"
+#include "evol/include/util/SigHandler.h"
 
 namespace ea::algorithm {
 
 BaseAlgorithm::BaseAlgorithm()
-  : BaseAlgorithm(config::Configuration::get_global_config().base_algorithm_config()) {
+    : BaseAlgorithm(config::Configuration::get_global_config().base_algorithm_config()) {
 }
 
 BaseAlgorithm::BaseAlgorithm(BaseAlgorithmConfig const& config) {
@@ -18,9 +19,9 @@ BaseAlgorithm::BaseAlgorithm(BaseAlgorithmConfig const& config) {
 
 void BaseAlgorithm::process() {
   limit_->start();
-  while (limit_->proceed(population_)) {
-//    LOG_TIME(step());
-    step();
+  while (!is_interrupted() && limit_->proceed(population_)) {
+    LOG_TIME(step());
+    VLOG(7) << "Best instance fit: " << (double) population_->front()->fitness();
   }
 }
 
@@ -36,4 +37,3 @@ void BaseAlgorithm::set_population(instance::RPopulation population) {
 REGISTER_PROTO(Algorithm, BaseAlgorithm, base_algorithm_config);
 
 }  // namespace ea::algorithm
-

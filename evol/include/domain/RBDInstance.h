@@ -24,29 +24,26 @@ class RBDInstance : public Instance {
 
   void set_solver(sat::RSolver const& solver) override;
 
-  void get_assumptions(Minisat::vec<Minisat::Lit>& assumptions) override;
+  std::set<unsigned> get_variables() override;
 
   [[nodiscard]] Instance* clone() override;
 
-  double fitness() override;
-
-  double rho() override;
+  Fitness const& fitness() override;
 
   [[nodiscard]] RInstance crossover(RInstance const& other) override;
 
   void mutate() override;
 
  private:
-  RBDInstanceConfig config_{};
+  std::shared_ptr<RBDInstanceConfig> config_{};
+  std::shared_ptr<std::vector<unsigned>> watched_{};
 
   bool deferred_init_heuristic_ = false;
-  bool deferred_init_random_ = false;
-  double fit_cached_ = 0.;
-  double rho_cached_ = 0.;
   uint64_t max_sampling_size_ = 0;
   uint64_t max_size_ = 0;
   CacheState cache_state_ = NO_CACHE;
 
+  Fitness fit_{};
   std::set<unsigned> vars_;
   std::shared_ptr<sat::Solver> solver_;
 };

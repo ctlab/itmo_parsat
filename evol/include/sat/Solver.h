@@ -51,6 +51,7 @@ class Solver {
 
   /**
    * Propagates a given list of assumptions.
+   * Returns true iff conflicts happened.
    */
   virtual bool propagate(
       Minisat::vec<Minisat::Lit> const& assumps, Minisat::vec<Minisat::Lit>& props) = 0;
@@ -58,7 +59,7 @@ class Solver {
   /**
    * Propagates a given list of assumptions.
    */
-  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumps);
+  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
 };
 
 using RSolver = std::shared_ptr<Solver>;

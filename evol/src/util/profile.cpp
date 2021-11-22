@@ -40,9 +40,4 @@ double register_exit(std::string const& name) {
   return timer.register_exit(name);
 }
 
-std::string make_location(char const* file, char const* func, int line) {
-  return std::to_string(std::hash<std::thread::id>{}(std::this_thread::get_id())) +
-      std::string(file) + std::string(func) + std::to_string(line);
-}
-
 }  // namespace ea::internal_::profile

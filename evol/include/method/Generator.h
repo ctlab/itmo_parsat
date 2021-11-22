@@ -3,7 +3,6 @@
 
 #include "evol/include/domain/Instance.h"
 
-
 namespace ea::generator {
 
 class Generator {

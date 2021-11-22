@@ -1,6 +1,7 @@
 #include <glog/logging.h>
 
 #include <boost/program_options.hpp>
+#include <boost/timer/progress_display.hpp>
 #include <fstream>
 
 #include "evol/include/algorithm/BaseAlgorithm.h"
@@ -9,6 +10,7 @@
 #include "evol/include/domain/RBDInstance.h"
 #include "evol/include/sat/Solver.h"
 #include "evol/include/util/Registry.h"
+#include "evol/include/util/SigHandler.h"
 
 ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
@@ -39,10 +41,10 @@ int main(int argc, char** argv) {
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
   std::filesystem::path config_path = config.get<std::filesystem::path>("config");
-  ea::sat::State result;
+  ea::sat::State result = ea::sat::UNKNOWN;
 
   LOG_TIME(read_json_configs(config_path));
-  LOG(INFO) << "Input file: " << input;
+  VLOG(3) << "Input file: " << input;
 
   /* Create solver */
   std::shared_ptr<ea::sat::Solver> solver = ea::registry::Registry::resolve_solver(
@@ -57,27 +59,70 @@ int main(int argc, char** argv) {
 
     /* Read configuration and start algorithm. */
     ea::algorithm::BaseAlgorithm algorithm;
+
+    ea::SigHandler::CallbackHandle alg_int_handle =
+        ea::SigHandler::register_callback([&algorithm](int) {
+          algorithm.interrupt();
+          VLOG(2) << "Algorithm has been interrupted.";
+        });
+
     algorithm.set_population(population);
     LOG_TIME(algorithm.process());
-    LOG(INFO) << "Resulting instance rho: " << std::fixed << population->front()->rho();
+    VLOG(3) << "Resulting instance rho: " << std::fixed << population->front()->fitness().rho;
 
-    Minisat::vec<Minisat::Lit> assumptions;
-    population->front()->get_assumptions(assumptions);
+    alg_int_handle.remove();
+    ea::SigHandler::unset();
+    ea::SigHandler::CallbackHandle slv_int_handle =
+        ea::SigHandler::register_callback([&solver](int) {
+          solver->interrupt();
+          VLOG(2) << "Solver has been interrupted.";
+        });
 
-    LOG_TIME(solver->solve_limited(assumptions));
-    result = solver->state();
+    std::set<unsigned> vars = population->front()->get_variables();
+    ea::instance::Assignment assignment(vars);
+
+    bool satisfied = false, unknown = false;
+    boost::timer::progress_display progress((int) std::pow(2, vars.size()));
+    do {
+      LOG_TIME(solver->solve_limited(assignment()));
+      switch (solver->state()) {
+        case ea::sat::UNSAT:
+          break;
+        case ea::sat::UNKNOWN:
+          unknown = true;
+          break;
+        case ea::sat::SAT:
+          satisfied = true;
+          break;
+      }
+      ++progress;
+    } while (!ea::SigHandler::is_set() && !satisfied && ++assignment);
+
+    if (unknown && !satisfied) {
+      // If solver failed to solve with assumptions, it will definitely
+      // fail to solve it without any assumptions, so the result is unknown.
+      result = ea::sat::UNKNOWN;
+    }
+    slv_int_handle.remove();
   } else {
     /* Solving without any assumptions. */
+    ea::SigHandler::CallbackHandle slv_int_handle =
+        ea::SigHandler::register_callback([&solver](int) {
+          solver->interrupt();
+          VLOG(2) << "Solver has been interrupted.";
+        });
+
     LOG_TIME(solver->solve_limited());
     result = solver->state();
+    slv_int_handle.remove();
   }
 
   if (result == ea::sat::UNSAT) {
-    LOG(INFO) << "Result: UNSAT";
+    VLOG(1) << "UNSAT";
   } else if (result == ea::sat::SAT) {
-    LOG(INFO) << "Result: SAT";
+    VLOG(1) << "SAT";
   } else {
-    LOG(INFO) << "Result: UNDEFINED";
+    VLOG(1) << "UNKNOWN";
   }
 
   return 0;

@@ -712,8 +712,9 @@ CRef Solver::propagate() {
 
 //=================================================================================================
 // Propagate and check:
-bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
+bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving, bool& conflict) {
   prop.clear();
+  conflict = false;
 
   if (!ok)
     return false;
@@ -745,8 +746,10 @@ bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
 
     // if there is a conflict, pushing
     // the conflicting literal as well
-    if (confl != CRef_Undef)
+    if (confl != CRef_Undef) {
+      conflict = true;
       prop.push(ca[confl][0]);
+    }
 
     // backtracking
     cancelUntil(level);

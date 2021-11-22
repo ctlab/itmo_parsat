@@ -2,11 +2,26 @@
 #define EA_INSTANCE_H
 
 #include <memory>
+#include <set>
 #include <vector>
 
 #include "evol/include/sat/Solver.h"
 
 namespace ea::instance {
+
+struct Fitness {
+  double rho;
+  uint32_t pow_r;
+  uint32_t pow_nr;
+
+  /* Check whether value can be calculated using uint64 and double types. */
+  [[nodiscard]] bool can_calc() const;
+
+  /* Better check if `can_calc` before using. */
+  explicit operator double() const;
+};
+
+bool operator<(Fitness const& a, Fitness const& b);
 
 class Instance;
 
@@ -28,23 +43,18 @@ class Instance {
   /**
    * Sets solver to the specified one.
    */
-  virtual void set_solver(sat::RSolver const& solver) {};
+  virtual void set_solver(sat::RSolver const& solver){};
 
   /**
-   * Returns random assumptions for this rho-backdoor.
+   * Returns variables set.
    */
-  virtual void get_assumptions(Minisat::vec<Minisat::Lit>& assumptions) = 0;
+  virtual std::set<unsigned> get_variables() = 0;
 
   /**
    * Calculates instance's fitness function
    * Used to perform selection.
    */
-  virtual double fitness() = 0;
-
-  /**
-   * Estimates rho-backdoor's rho value.
-   */
-  virtual double rho() = 0;
+  virtual Fitness const& fitness() = 0;
 
   /**
    * Performs crossover operation with other instance.
@@ -58,6 +68,18 @@ class Instance {
 };
 
 bool operator<(Instance& a, Instance& b);
+
+class Assignment {
+ public:
+  explicit Assignment(std::set<unsigned> const& variables);
+
+  Minisat::vec<Minisat::Lit> const& operator()() const;
+
+  bool operator++();
+
+ private:
+  Minisat::vec<Minisat::Lit> asgn_;
+};
 
 }  // namespace ea::instance
 

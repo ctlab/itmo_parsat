@@ -11,13 +11,13 @@ ConjLimit::ConjLimit(ConjLimitConfig config) {
 }
 
 bool ConjLimit::proceed(instance::RPopulation population) {
-  return std::all_of(limits_.begin(), limits_.end(), [&population] (RLimit& limit) {
+  return std::all_of(limits_.begin(), limits_.end(), [&population](RLimit& limit) {
     return limit->proceed(population);
   });
 }
 
 void ConjLimit::start() {
-  std::for_each(limits_.begin(), limits_.end(), [] (RLimit& limit) {
+  std::for_each(limits_.begin(), limits_.end(), [](RLimit& limit) {
     limit->start();
   });
 }

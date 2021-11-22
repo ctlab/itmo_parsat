@@ -8,33 +8,6 @@
 #include "minisat/core/Dimacs.h"
 #include "minisat/utils/System.h"
 
-namespace {
-
-void unset_sigs() {
-  LOG(INFO) << "Setting signal handlers to default.";
-  std::signal(SIGINT, SIG_DFL);
-  std::signal(SIGTERM, SIG_DFL);
-}
-
-ea::sat::Solver* solver_ = nullptr;
-
-void interrupt_solver(int) {
-  if (solver_ != nullptr) {
-    LOG(INFO) << "Caught interrupt on working solver.";
-    solver_->interrupt();
-    unset_sigs();
-  }
-}
-
-void set_sigs(ea::sat::Solver* solver) {
-  LOG(INFO) << "Setting signal handlers to solver interrupt.";
-  solver_ = solver;
-  std::signal(SIGINT, interrupt_solver);
-  std::signal(SIGTERM, interrupt_solver);
-}
-
-}  // namespace
-
 namespace ea::sat {
 
 SimpSolver::SimpSolver(SimpSolverConfig const& config)
@@ -84,14 +57,7 @@ State SimpSolver::state() const noexcept {
 }
 
 void SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
-  if (state_ != UNKNOWN) {
-    LOG(INFO) << "State is not UNKNOWN, aborting solve.";
-    return;
-  }
-
-  set_sigs(this);
   LOG_TIME(Minisat::lbool result = impl_.solveLimited(assumptions));
-  unset_sigs();
 
   if (result == Minisat::l_True) {
     state_ = SAT;
@@ -109,8 +75,10 @@ unsigned SimpSolver::num_vars() const noexcept {
 }
 
 bool SimpSolver::propagate(
-    Minisat::vec<Minisat::Lit> const& assumps, Minisat::vec<Minisat::Lit>& props) {
-  return impl_.prop_check(assumps, props, 0);
+    Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
+  bool conflict = false;
+  impl_.prop_check(assumptions, propagated, 0, conflict);
+  return conflict;
 }
 
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);

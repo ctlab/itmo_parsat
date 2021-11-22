@@ -3,12 +3,13 @@ BasedOnStyle: Google
 AlignAfterOpenBracket: AlwaysBreak
 AlignEscapedNewlines: Left
 AlignOperands: 'false'
-AllowAllArgumentsOnNextLine: 'true'
+AllowAllArgumentsOnNextLine: 'false'
 AllowShortBlocksOnASingleLine: 'false'
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: None
 AlwaysBreakTemplateDeclarations: 'Yes'
+AccessModifierOffset: -1
 IndentWidth: '2'
 NamespaceIndentation: None
 SortIncludes: 'true'

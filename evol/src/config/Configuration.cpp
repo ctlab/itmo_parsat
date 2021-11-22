@@ -16,9 +16,10 @@ GlobalConfig& Configuration::get_global_config() {
 
 void Configuration::read(google::protobuf::Message& message, std::istream& is) {
   std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
-  google::protobuf::util::Status status = google::protobuf::util::JsonStringToMessage(message_str, &message);
-  CHECK(status.ok()) << "Failed to read_global configuration from '" <<  message_str << "':\n"
+  google::protobuf::util::Status status =
+      google::protobuf::util::JsonStringToMessage(message_str, &message);
+  CHECK(status.ok()) << "Failed to read_global configuration from '" << message_str << "':\n"
                      << status.error_message();
 }
 
-}  // namespace ea
+}  // namespace ea::config

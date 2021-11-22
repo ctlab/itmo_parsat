@@ -15,10 +15,10 @@ class ResourceLimit : public Limit {
   void start() override;
 
  private:
-    uint32_t memory_limit_kb_;
-    uint32_t time_limit_sec_;
+  uint32_t memory_limit_kb_;
+  uint32_t time_limit_sec_;
 
-    std::chrono::time_point<std::chrono::system_clock> start_;
+  std::chrono::time_point<std::chrono::system_clock> start_;
 };
 
 }  // namespace ea::limit
