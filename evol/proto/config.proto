@@ -18,10 +18,6 @@ message FitnessLimitConfig {
   double lowest_fitness = 1;
 }
 
-message SignalLimitConfig {
-  repeated string sig_type = 1;
-}
-
 message ConjLimitConfig {
   repeated string limit_type = 1;
 }
@@ -93,7 +89,6 @@ message GlobalConfig {
   // Limits configuration
   ResourceLimitConfig resource_limit_config = 2;
   FitnessLimitConfig fitness_limit_config = 3;
-  SignalLimitConfig signal_limit_config = 4;
   ConjLimitConfig conj_limit_config = 5;
 
   // Instances configuration

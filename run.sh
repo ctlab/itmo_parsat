@@ -29,6 +29,9 @@ while ! [[ -z "$1" ]]; do
         -b|--build) {
             BUILD="YES"
         } ;;
+        -p|--proto) {
+            PROTO="YES"
+        } ;;
         -s|--solve) {
             SOLVE="YES"
         } ;;
@@ -36,6 +39,7 @@ while ! [[ -z "$1" ]]; do
             FORMAT="YES"
             BUILD="YES"
             SOLVE="YES"
+            PROTO="YES"
         } ;;
         *) {
             echo "Unkown option: $1"
@@ -51,6 +55,14 @@ if ! [[ -z "$FORMAT" ]]; then
     find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
 fi
 
+if ! [[ -z "$PROTO" ]]; then
+    rm ./evol/proto/config.pb.h || true
+    rm ./evol/proto/config.pb.cc || true
+    bazel build '//evol/proto:*'
+    ln -s `pwd`/bazel-bin/evol/proto/config.pb.h ./evol/proto/config.pb.h
+    ln -s `pwd`/bazel-bin/evol/proto/config.pb.cc ./evol/proto/config.pb.cc
+fi
+
 if ! [[ -z "$BUILD" ]]; then
     bazel build //evol:main
 fi
@@ -62,5 +74,4 @@ if ! [[ -z "$SOLVE" ]]; then
         --input "$CNF_PATH" \
         --config "$CFG_PATH"
 fi
-
 

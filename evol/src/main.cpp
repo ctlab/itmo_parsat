@@ -98,7 +98,11 @@ int main(int argc, char** argv) {
       ++progress;
     } while (!ea::SigHandler::is_set() && !satisfied && ++assignment);
 
-    if (unknown && !satisfied) {
+    if (satisfied) {
+      result = ea::sat::SAT;
+    } else if (!unknown) {
+      result = ea::sat::UNSAT;
+    } else {
       // If solver failed to solve with assumptions, it will definitely
       // fail to solve it without any assumptions, so the result is unknown.
       result = ea::sat::UNKNOWN;
