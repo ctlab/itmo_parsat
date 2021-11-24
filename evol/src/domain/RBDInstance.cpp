@@ -126,17 +126,28 @@ Fitness const& RBDInstance::fitness() {
   /* Estimate rho */
   uint64_t success = 0;
   Minisat::vec<Minisat::Lit> assumptions((int) vars_.size());
-  for (uint64_t i = 0; i < max_sampling_size_; ++i) {
+
+  for (auto x : vars_) {
+    std::cout << x << ' ';
+  }
+  std::cout << std::endl;
+
+  uint64_t sampling = std::min(max_sampling_size_, (uint64_t) std::pow(2, (uint64_t) vars_.size()));
+  for (uint64_t i = 0; i < sampling; ++i) {
     /* Generate new assumption */
     gen_assumption(vars_, assumptions);
+//    for (int j = 0; j < assumptions.size(); ++j) {
+//      std::cout << sign(assumptions[j]) << " ";
+//    }
+//    std::cout << std::endl;
     /* Add 1 to success iff solver found conflicts */
     success += !solver_->propagate(assumptions);
   }
 
-  fit_.rho = (double) success / (double) max_sampling_size_;
+  fit_.rho = (double) success / (double) sampling;
   fit_.pow_r = vars_.size();
-  fit_.pow_nr = 1;
-  //  fit_.pow_nr = uint32_t(config_.omega() * (double) solver_->num_vars());
+  fit_.pow_nr = 20;
+//  fit_.pow_nr = uint32_t(config_->omega() * (double) solver_->num_vars());
 
   VLOG(7) << "rho=" << fit_.rho << ", fit=" << (double) fit_;
 
@@ -160,6 +171,10 @@ void RBDInstance::mutate() {
     /* Flip one random variable (further other options will be implemented) */
     unsigned var =
         w[std::uniform_int_distribution<unsigned>(0, w.size() - 1)(random::Generator::stdgen())];
+
+    // TODO
+    // mutation (1/n)
+    // up_gad
 
     if (vars_.count(var)) {
       vars_.erase(var);

@@ -121,7 +121,7 @@ class IntSet {
     return xs[index];
   }
 
-  operator const vec<K> &(void) const {
+  operator const vec<K>&(void) const {
     return xs;
   }
 

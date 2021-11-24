@@ -13,6 +13,7 @@ cc_binary(
     srcs = sources + ["src/main.cpp"],
     deps = [
         "@boost//:program_options",
+        "@boost//:timer",
         "@com_github_google_glog//:glog",
         "@com_google_protobuf//:protobuf",
         "//evol/proto:config_cc_proto",

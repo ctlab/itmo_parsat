@@ -22,7 +22,7 @@
         "init": "HEURISTIC",
         "sampling_config": {
             "frac": 0,
-            "count": 10000
+            "count": 4000
         },
         "size_config": {
             "frac": 0,
@@ -30,7 +30,7 @@
         },
         "heuristic_config": {
             "frac": 0,
-            "count": 400
+            "count": 200
         }
     },
     "solver_type": "SimpSolver",

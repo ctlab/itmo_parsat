@@ -21,7 +21,7 @@ void BaseAlgorithm::process() {
   limit_->start();
   while (!is_interrupted() && limit_->proceed(population_)) {
     LOG_TIME(step());
-    VLOG(7) << "Best instance fit: " << (double) population_->front()->fitness();
+    VLOG(4) << "Best instance fit: " << (double) population_->front()->fitness().rho;
   }
 }
 
