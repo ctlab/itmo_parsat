@@ -9,11 +9,11 @@ namespace ea::config {
 
 class Configuration {
  public:
-  /**
-   * Reads GlobalConfig from input stream
-   */
   Configuration() = default;
 
+  /**
+   * Reads protobuf message from input stream.
+   */
   static void read(google::protobuf::Message& message, std::istream& is);
 
   static Configuration& instance();
@@ -23,6 +23,10 @@ class Configuration {
  private:
   GlobalConfig gc_{};
 };
+
+void read(google::protobuf::Message& message, std::istream& is);
+
+GlobalConfig& global_config();
 
 }  // namespace ea::config
 

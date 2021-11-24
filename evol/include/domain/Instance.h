@@ -1,6 +1,7 @@
 #ifndef EA_INSTANCE_H
 #define EA_INSTANCE_H
 
+#include <map>
 #include <memory>
 #include <set>
 #include <vector>
@@ -11,8 +12,8 @@ namespace ea::instance {
 
 struct Fitness {
   double rho;
-  uint32_t pow_r;
-  uint32_t pow_nr;
+  int32_t pow_r;
+  int32_t pow_nr;
 
   /* Check whether value can be calculated using uint64 and double types. */
   [[nodiscard]] bool can_calc() const;
@@ -41,14 +42,9 @@ class Instance {
   [[nodiscard]] virtual Instance* clone() = 0;
 
   /**
-   * Sets solver to the specified one.
+   * Returns variables bit vector.
    */
-  virtual void set_solver(sat::RSolver const& solver){};
-
-  /**
-   * Returns variables set.
-   */
-  virtual std::set<unsigned> get_variables() = 0;
+  virtual std::vector<bool> get_variables() = 0;
 
   /**
    * Calculates instance's fitness function
@@ -65,20 +61,37 @@ class Instance {
    * Performs mutation operation.
    */
   virtual void mutate() = 0;
+
+ public:
+  static std::map<int, int> var_map;
 };
 
 bool operator<(Instance& a, Instance& b);
 
 class Assignment {
  public:
-  explicit Assignment(std::set<unsigned> const& variables);
+  Assignment(std::map<int, int>& var_map, std::vector<bool> const& vars);
 
   Minisat::vec<Minisat::Lit> const& operator()() const;
 
-  bool operator++();
+  virtual bool operator++() = 0;
 
- private:
-  Minisat::vec<Minisat::Lit> asgn_;
+ protected:
+  Minisat::vec<Minisat::Lit> assignment_;
+};
+
+class FullSearch : public Assignment {
+ public:
+  FullSearch(std::map<int, int>& var_map, std::vector<bool> const& vars);
+
+  bool operator++() override;
+};
+
+class RandomAssignments : public Assignment {
+ public:
+  RandomAssignments(std::map<int, int>& var_map, std::vector<bool> const& vars);
+
+  bool operator++() override;
 };
 
 }  // namespace ea::instance

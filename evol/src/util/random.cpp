@@ -12,7 +12,7 @@ std::mt19937& Generator::stdgen() {
 }
 
 bool flip_coin(double p) {
-  return p < std::uniform_real_distribution<double>(0., 1.)(Generator::stdgen());
+  return p >= std::uniform_real_distribution<double>(0., 1.)(Generator::stdgen());
 }
 
 }  // namespace ea::random

@@ -22,4 +22,12 @@ void Configuration::read(google::protobuf::Message& message, std::istream& is) {
                      << status.error_message();
 }
 
+void read(google::protobuf::Message& message, std::istream& is) {
+  Configuration::read(message, is);
+}
+
+GlobalConfig& global_config() {
+  return Configuration::get_global_config();
+}
+
 }  // namespace ea::config

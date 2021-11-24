@@ -22,18 +22,6 @@ cc_binary(
     copts = ["-Iminisat"],
 )
 
-cc_library(
-    name = "evol",
-    srcs = sources,
-    deps = [
-        "@boost//:program_options",
-        "@com_github_google_glog//:glog",
-        "@com_google_protobuf//:protobuf",
-        "//evol/proto:config_cc_proto",
-        "//minisat:libminisat",
-    ],
-)
-
 cc_test(
     name = "test",
     size = "small",

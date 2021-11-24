@@ -2,25 +2,13 @@
 
 #include <glog/logging.h>
 
+#include <memory>
 #include <utility>
 
 #include "evol/include/util/Registry.h"
 #include "evol/include/util/random.h"
 
 namespace {
-
-void gen_assumption(std::set<unsigned> const& vars, Minisat::vec<Minisat::Lit>& assumption) {
-  CHECK_EQ(assumption.size(), (int) vars.size())
-      << "Assumptions vector size is not equal to number of variables.";
-
-  std::mt19937& gen = ::ea::random::Generator::stdgen();
-  int assump_index = 0;
-  for (unsigned var : vars) {
-    int sign = std::uniform_int_distribution<int>(0, 1)(gen);
-    assumption[assump_index] = Minisat::mkLit((int) var, sign == 1);
-    ++assump_index;
-  }
-}
 
 uint64_t resolve_limit(double frac, uint64_t max_count, uint64_t total) {
   auto max_count_f = uint64_t(frac * (double) total);
@@ -33,19 +21,21 @@ uint64_t resolve_limit(double frac, uint64_t max_count, uint64_t total) {
   return std::min(max_count, max_count_f);
 }
 
+void kek(
+    ::ea::sat::Solver& solver, Minisat::vec<Minisat::Lit> const& assumptions,
+    Minisat::vec<Minisat::Lit>& propagated, std::set<int>& collection) {
+  solver.propagate(assumptions, propagated);
+  for (int j = 0; j < propagated.size(); ++j) {
+    collection.insert(var(propagated[(int) j]));
+  }
+}
+
 }  // namespace
 
 namespace ea::instance {
 
-void RBDInstance::assure_initialized() {
-  CHECK(solver_ != nullptr) << "Solver must be specified at the moment of deferred initialization.";
-
-  if (deferred_init_heuristic_) {
-    VLOG(4) << "Started deferred heuristic initialization.";
-    deferred_init_heuristic_ = false;
-    max_size_ = resolve_limit(
-        config_->size_config().frac(), config_->size_config().count(), solver_->num_vars());
-
+void RBDInstance::_init_heuristic(RBDInstanceConfig const& config) {
+  if (var_map.empty()) {
     Minisat::vec<Minisat::Lit> assumptions(1);
     Minisat::vec<Minisat::Lit> propagated;
     std::vector<std::pair<int, int>> stats;
@@ -53,101 +43,72 @@ void RBDInstance::assure_initialized() {
 
     for (unsigned i = 0; i < solver_->num_vars(); ++i) {
       std::set<int> prop_both;
-
       assumptions[0] = Minisat::mkLit((int) i, true);
-      solver_->propagate(assumptions, propagated);
-      for (int j = 0; j < propagated.size(); ++j) {
-        prop_both.insert(var(propagated[(int) j]));
-      }
-
+      kek(*solver_, assumptions, propagated, prop_both);
       assumptions[0] = Minisat::mkLit((int) i, false);
-      solver_->propagate(assumptions, propagated);
-      for (int j = 0; j < propagated.size(); ++j) {
-        prop_both.insert(var(propagated[(int) j]));
-      }
-
+      kek(*solver_, assumptions, propagated, prop_both);
       stats.emplace_back(prop_both.size(), i);
     }
 
     /* Fill watched variables */
     uint64_t max_watched_count = resolve_limit(
-        config_->heuristic_config().frac(), config_->heuristic_config().count(), stats.size());
-    watched_ = std::make_shared<std::vector<unsigned>>(max_watched_count);
+        config.heuristic_config().frac(), config.heuristic_config().count(), stats.size());
+
     std::sort(stats.begin(), stats.end());
     auto it = stats.crbegin();
     for (size_t i = 0; i < max_watched_count; ++i, ++it) {
-      watched_->push_back(it->second);
-    }
-
-    /* Vars cannot be empty. */
-    if (vars_.empty()) {
-      vars_.insert((*watched_)[std::uniform_int_distribution<unsigned>(
-          0, watched_->size() - 1)(ea::random::Generator::stdgen())]);
+      var_map[(int) i] = it->second;
     }
   }
+
+  vars_.resize(var_map.size());
+  auto pos = std::uniform_int_distribution<unsigned>(
+      0, var_map.size() - 1)(ea::random::Generator::stdgen());
+  _flip_var(pos);
 }
 
-RBDInstance::RBDInstance(RBDInstanceConfig const& config)
-    : config_(std::make_shared<RBDInstanceConfig>(config)) {
+RBDInstance::RBDInstance(RBDInstanceConfig const& config, sat::RSolver solver)
+    : omega_x(config.omega_x()), solver_(std::move(solver)) {
+  max_sampling_size_ = config.sampling_config().count();
   switch (config.init()) {
     case RBDInstanceConfig_Init_HEURISTIC:
-      deferred_init_heuristic_ = true;
+      _init_heuristic(config);
       break;
     default:
       LOG(FATAL) << "Invalid RBDInstanceConfig.";
   }
 }
 
-void RBDInstance::set_solver(sat::RSolver const& solver) {
-  solver_ = solver;
-}
-
-std::set<unsigned> RBDInstance::get_variables() {
+std::vector<bool> RBDInstance::get_variables() {
   return vars_;
 }
 
 Instance* RBDInstance::clone() {
-  assure_initialized();
   return new RBDInstance(*this);
 }
 
 Fitness const& RBDInstance::fitness() {
-  assure_initialized();
-
   if (cache_state_ == CACHE) {
     return fit_;
   }
-  CHECK_GT(vars_.size(), (size_t) 0) << "Empty backdoor is not allowed.";
 
-  VLOG_IF(4, config_->sampling_config().frac() != 0.)
-      << "Frac for sampling config is ignored due to possibly too large values.";
-  max_sampling_size_ = config_->sampling_config().count();
-
-  /* Estimate rho */
-  uint64_t success = 0;
-  Minisat::vec<Minisat::Lit> assumptions((int) vars_.size());
-
-  for (auto x : vars_) {
-    std::cout << x << ' ';
-  }
-  std::cout << std::endl;
-
-  uint64_t sampling = std::min(max_sampling_size_, (uint64_t) std::pow(2, (uint64_t) vars_.size()));
-  for (uint64_t i = 0; i < sampling; ++i) {
-    /* Generate new assumption */
-    gen_assumption(vars_, assumptions);
-//    for (int j = 0; j < assumptions.size(); ++j) {
-//      std::cout << sign(assumptions[j]) << " ";
-//    }
-//    std::cout << std::endl;
-    /* Add 1 to success iff solver found conflicts */
-    success += !solver_->propagate(assumptions);
+  uint64_t success = 0, samples = max_sampling_size_;
+  std::unique_ptr<Assignment> assignment_ptr;
+  if (std::log2(max_sampling_size_) > vars_size_) {
+    samples = (uint32_t) std::pow(2, vars_size_);
+    assignment_ptr = std::make_unique<FullSearch>(var_map, vars_);
+  } else {
+    assignment_ptr = std::make_unique<RandomAssignments>(var_map, vars_);
   }
 
-  fit_.rho = (double) success / (double) sampling;
-  fit_.pow_r = vars_.size();
-  fit_.pow_nr = 20;
-//  fit_.pow_nr = uint32_t(config_->omega() * (double) solver_->num_vars());
+  Assignment& assignment = *assignment_ptr;
+  for (uint64_t i = 0; i < samples; ++i, ++assignment) {
+    success += !solver_->propagate(assignment());
+  }
+
+  fit_.rho = (double) success / (double) samples;
+  fit_.pow_r = vars_size_;
+  fit_.pow_nr = omega_x;
 
   VLOG(7) << "rho=" << fit_.rho << ", fit=" << (double) fit_;
 
@@ -156,44 +117,32 @@ Fitness const& RBDInstance::fitness() {
 }
 
 RInstance RBDInstance::crossover(RInstance const& other) {
-  assure_initialized();
   LOG(FATAL) << "Crossover is not yet implemented for RBDInstance.";
   return nullptr;
 }
 
 void RBDInstance::mutate() {
   /* TODO: avoid instance duplication, introduce cache. */
-  /* NOTE: maybe store instances as bit vectors? */
-  assure_initialized();
-  std::vector<unsigned> const& w = *watched_;
-
-  if (vars_.size() < max_size_) {
-    /* Flip one random variable (further other options will be implemented) */
-    unsigned var =
-        w[std::uniform_int_distribution<unsigned>(0, w.size() - 1)(random::Generator::stdgen())];
-
-    // TODO
-    // mutation (1/n)
-    // up_gad
-
-    if (vars_.count(var)) {
-      vars_.erase(var);
-    } else {
-      vars_.insert(var);
+  double prob = 1. / (double) vars_.size();
+  for (size_t pos = 0; pos < vars_.size(); ++pos) {
+    if (random::flip_coin(prob)) {
+      _flip_var(pos);
     }
-  } else {
-    /* Size reached max, need to remove variable as a mutation */
-    size_t index =
-        std::uniform_int_distribution<size_t>(0, vars_.size() - 1)(random::Generator::stdgen());
-
-    auto it = vars_.begin();
-    std::advance(it, index);
-    vars_.erase(it);
   }
-
   cache_state_ = NO_CACHE;
 }
 
-REGISTER_PROTO(Instance, RBDInstance, rbd_instance_config);
+void RBDInstance::_flip_var(size_t pos) {
+  if (vars_[pos]) {
+    --vars_size_;
+  } else {
+    ++vars_size_;
+  }
+  vars_[pos] = !vars_[pos];
+}
+
+std::shared_ptr<RBDInstance> createRBDInstance(sat::RSolver const& solver) {
+  return std::make_shared<RBDInstance>(config::global_config().rbd_instance_config(), solver);
+}
 
 }  // namespace ea::instance

@@ -18,15 +18,11 @@
     },
     "instance_type": "RBDInstance",
     "rbd_instance_config": {
-        "omega": 0.01,
+        "omega_x": 20,
         "init": "HEURISTIC",
         "sampling_config": {
             "frac": 0,
             "count": 4000
-        },
-        "size_config": {
-            "frac": 0,
-            "count": 20
         },
         "heuristic_config": {
             "frac": 0,

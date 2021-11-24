@@ -16,15 +16,10 @@ class RBDInstance : public Instance {
     NO_CACHE,
   };
 
- private:
-  void assure_initialized();
-
  public:
-  explicit RBDInstance(RBDInstanceConfig const& config);
+  explicit RBDInstance(RBDInstanceConfig const& config, sat::RSolver solver);
 
-  void set_solver(sat::RSolver const& solver) override;
-
-  std::set<unsigned> get_variables() override;
+  std::vector<bool> get_variables() override;
 
   [[nodiscard]] Instance* clone() override;
 
@@ -35,18 +30,22 @@ class RBDInstance : public Instance {
   void mutate() override;
 
  private:
-  std::shared_ptr<RBDInstanceConfig> config_{};
-  std::shared_ptr<std::vector<unsigned>> watched_{};
+  void _init_heuristic(RBDInstanceConfig const& config);
 
-  bool deferred_init_heuristic_ = false;
-  uint64_t max_sampling_size_ = 0;
-  uint64_t max_size_ = 0;
+  void _flip_var(size_t var);
+
+ private:
+  uint32_t max_sampling_size_ = 0;
+  uint32_t omega_x;
   CacheState cache_state_ = NO_CACHE;
 
   Fitness fit_{};
-  std::set<unsigned> vars_;
+  std::vector<bool> vars_;
+  uint32_t vars_size_ = 0;
   std::shared_ptr<sat::Solver> solver_;
 };
+
+std::shared_ptr<RBDInstance> createRBDInstance(sat::RSolver const& solver);
 
 }  // namespace ea::instance
 

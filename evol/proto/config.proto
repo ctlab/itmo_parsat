@@ -34,7 +34,7 @@ message RBDInstanceConfig {
 
   enum Init { HEURISTIC = 0; }
 
-  double omega = 1;
+  uint32 omega_x = 1;
   MaxSizeConfig sampling_config = 3;
   MaxSizeConfig size_config = 4;
 

@@ -54,7 +54,7 @@ class Solver {
    * Returns true iff conflicts happened.
    */
   virtual bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumps, Minisat::vec<Minisat::Lit>& props) = 0;
+      Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) = 0;
 
   /**
    * Propagates a given list of assumptions.

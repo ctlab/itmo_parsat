@@ -6,8 +6,8 @@
 #include "evol/include/config/Configuration.h"
 
 void read_config() {
-  std::ifstream is_config("configuration/example.json");
-  ea::config::Configuration::instance().read_global(is_config);
+  std::ifstream is_config("resources/config/ea/base.json");
+  ea::config::read(ea::config::global_config(), is_config);
 }
 
 int main(int argc, char** argv) {

@@ -53,12 +53,11 @@ int main(int argc, char** argv) {
 
   if (backdoor) {
     ea::instance::RPopulation population(new ea::instance::Population);
-    population->push_back(ea::registry::Registry::resolve_instance(
-        ea::config::Configuration::get_global_config().instance_type()));
-    population->front()->set_solver(solver);
+    population->push_back(ea::instance::createRBDInstance(solver));
 
     /* Read configuration and start algorithm. */
     ea::algorithm::BaseAlgorithm algorithm;
+    algorithm.set_population(population);
 
     ea::SigHandler::CallbackHandle alg_int_handle =
         ea::SigHandler::register_callback([&algorithm](int) {
@@ -66,23 +65,24 @@ int main(int argc, char** argv) {
           VLOG(2) << "Algorithm has been interrupted.";
         });
 
-    algorithm.set_population(population);
     LOG_TIME(algorithm.process());
     VLOG(3) << "Resulting instance rho: " << std::fixed << population->front()->fitness().rho;
 
     alg_int_handle.remove();
     ea::SigHandler::unset();
+    bool interrupted = false;
     ea::SigHandler::CallbackHandle slv_int_handle =
-        ea::SigHandler::register_callback([&solver](int) {
+        ea::SigHandler::register_callback([&solver, &interrupted](int) {
           solver->interrupt();
+          interrupted = true;
           VLOG(2) << "Solver has been interrupted.";
         });
 
-    std::set<unsigned> vars = population->front()->get_variables();
-    ea::instance::Assignment assignment(vars);
+    std::vector<bool> vars = population->front()->get_variables();
+    ea::instance::FullSearch assignment(ea::instance::Instance::var_map, vars);
 
     bool satisfied = false, unknown = false;
-    boost::timer::progress_display progress((int) std::pow(2, vars.size()));
+    boost::timer::progress_display progress((unsigned long) std::pow(2UL, vars.size()));
     do {
       LOG_TIME(solver->solve_limited(assignment()));
       switch (solver->state()) {
@@ -100,16 +100,13 @@ int main(int argc, char** argv) {
 
     if (satisfied) {
       result = ea::sat::SAT;
-    } else if (!unknown) {
+    } else if (!unknown && !interrupted) {
       result = ea::sat::UNSAT;
     } else {
-      // If solver failed to solve with assumptions, it will definitely
-      // fail to solve it without any assumptions, so the result is unknown.
       result = ea::sat::UNKNOWN;
     }
     slv_int_handle.remove();
   } else {
-    /* Solving without any assumptions. */
     ea::SigHandler::CallbackHandle slv_int_handle =
         ea::SigHandler::register_callback([&solver](int) {
           solver->interrupt();
