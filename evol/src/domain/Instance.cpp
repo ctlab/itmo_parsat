@@ -2,15 +2,163 @@
 
 #include <glog/logging.h>
 
-#include <cmath>
+#include <memory>
+#include <utility>
 
+#include "evol/include/util/profile.h"
 #include "evol/include/util/random.h"
+
+namespace {
+
+uint64_t resolve_limit(double frac, uint64_t max_count, uint64_t total) {
+  auto max_count_f = uint64_t(frac * (double) total);
+  if (frac == 0) {
+    return max_count;
+  }
+  if (max_count == 0) {
+    return max_count_f;
+  }
+  return std::min(max_count, max_count_f);
+}
+
+void collect_stats(
+    ::ea::sat::Solver& solver, Minisat::vec<Minisat::Lit> const& assumptions,
+    Minisat::vec<Minisat::Lit>& propagated, std::set<int>& collection) {
+  solver.propagate(assumptions, propagated);
+  for (int j = 0; j < propagated.size(); ++j) {
+    collection.insert(var(propagated[(int) j]));
+  }
+}
+
+}  // namespace
+
+namespace ea::instance {
+
+void Instance::Vars::flip(size_t pos) {
+  if (bit_mask[pos]) {
+    assert(size != 0);
+    --size;
+  } else {
+    ++size;
+  }
+  bit_mask[pos] = !bit_mask[pos];
+}
+
+size_t Instance::num_vars() noexcept {
+  return var_map_.size();
+}
+
+void Instance::_init_heuristic(InstanceConfig const& config) {
+  if (var_map_.empty()) {
+    Minisat::vec<Minisat::Lit> assumptions(1);
+    Minisat::vec<Minisat::Lit> propagated;
+    std::vector<std::pair<int, int>> stats;
+    stats.reserve(solver_->num_vars());
+
+    for (unsigned i = 0; i < solver_->num_vars(); ++i) {
+      std::set<int> prop_both;
+      assumptions[0] = Minisat::mkLit((int) i, true);
+      collect_stats(*solver_, assumptions, propagated, prop_both);
+      assumptions[0] = Minisat::mkLit((int) i, false);
+      collect_stats(*solver_, assumptions, propagated, prop_both);
+      stats.emplace_back(prop_both.size(), i);
+    }
+
+    uint64_t max_watched_count = resolve_limit(
+        config.heuristic_config().frac(), config.heuristic_config().count(), stats.size());
+    std::sort(stats.begin(), stats.end());
+    auto it = stats.crbegin();
+    for (size_t i = 0; i < max_watched_count; ++i, ++it) {
+      var_map_[(int) i] = it->second;
+    }
+  }
+
+  vars_.bit_mask.resize(var_map_.size(), false);
+  flip_var(random::sample<unsigned>(0, num_vars()));
+}
+
+Instance::Instance(InstanceConfig const& config, sat::RSolver solver)
+    : solver_(std::move(solver)), omega_x(config.omega_x()) {
+  max_sampling_size_ = config.sampling_config().count();
+  switch (config.init()) {
+    case InstanceConfig_Init_HEURISTIC:
+      _init_heuristic(config);
+      break;
+    default:
+      LOG(FATAL) << "Invalid InstanceConfig.";
+  }
+}
+
+std::vector<bool> const& Instance::get_variables() const noexcept {
+  return vars_.bit_mask;
+}
+
+std::vector<bool>& Instance::get_variables() noexcept {
+  return vars_.bit_mask;
+}
+
+Instance* Instance::clone() {
+  return new Instance(*this);
+}
+
+Fitness const& Instance::fitness() {
+  if (cache_state_ == CACHE) {
+    return fit_;
+  }
+
+  uint64_t success = 0, samples = max_sampling_size_;
+  std::unique_ptr<Assignment> assignment_ptr;
+  if (std::log2(max_sampling_size_) > (double) vars_.size) {
+    samples = (uint32_t) std::pow(2, vars_.size);
+    assignment_ptr = std::make_unique<FullSearch>(vars_.bit_mask);
+  } else {
+    assignment_ptr = std::make_unique<RandomAssignments>(vars_.bit_mask);
+  }
+
+  Assignment& assignment = *assignment_ptr;
+  for (uint64_t i = 0; i < samples; ++i, ++assignment) {
+    LOG_TIME(success += solver_->propagate(assignment()));
+  }
+
+  fit_.rho = (double) success / (double) samples;
+  fit_.pow_r = (int) vars_.size;
+  fit_.pow_nr = (int) omega_x;
+
+  VLOG(7) << "num_vars: " << vars_.size << ", rho=" << fit_.rho << ", fit=" << (double) fit_;
+  cache_state_ = CACHE;
+  return fit_;
+}
+
+size_t Instance::size() const noexcept {
+  return vars_.size;
+}
+
+void Instance::flip_var(size_t pos) {
+  vars_.flip(pos);
+  cache_state_ = NO_CACHE;
+}
+
+RInstance createInstance(sat::RSolver const& solver) {
+  return std::make_shared<Instance>(config::global_config().instance_config(), solver);
+}
+
+std::map<int, int> const& Instance::var_map() noexcept {
+  return var_map_;
+}
+
+void Instance::recalc_vars() noexcept {
+  vars_.size = std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
+  cache_state_ = NO_CACHE;
+}
+
+std::map<int, int> Instance::var_map_{};
+
+}  // namespace ea::instance
 
 namespace ea::instance {
 
 bool Fitness::can_calc() const {
-  /* 55 is just some value less than 63 */
-  return pow_r < 55 && pow_nr < 55;
+  return pow_r < 64 && pow_nr < 64;
 }
 
 Fitness::operator double() const {
@@ -18,6 +166,13 @@ Fitness::operator double() const {
 }
 
 bool operator<(Fitness const& a, Fitness const& b) {
+  if (a.pow_r == 0) {
+    return false;
+  }
+  if (b.pow_r == 0) {
+    return true;
+  }
+
   /* NOTE: For now, pow_nr is always equal to 20 */
   if (a.can_calc() && b.can_calc()) {
     return (double) a < (double) b;
@@ -41,10 +196,10 @@ bool operator<(Instance& a, Instance& b) {
   return a.fitness() < b.fitness();
 }
 
-Assignment::Assignment(std::map<int, int>& var_map, const std::vector<bool>& vars) {
-  for (size_t i = 0; i < vars.size(); ++i) {
+Assignment::Assignment(const std::vector<bool>& vars) {
+  for (int i = 0; i < (int) vars.size(); ++i) {
     if (vars[i]) {
-      assignment_.push(Minisat::mkLit((int) var_map[(int) i], false));
+      assignment_.push(Minisat::mkLit(Instance::var_map().at(i), false));
     }
   }
 }
@@ -53,8 +208,7 @@ Minisat::vec<Minisat::Lit> const& Assignment::operator()() const {
   return assignment_;
 }
 
-FullSearch::FullSearch(std::map<int, int>& var_map, const std::vector<bool>& vars)
-  : Assignment(var_map, vars) {}
+FullSearch::FullSearch(const std::vector<bool>& vars) : Assignment(vars) {}
 
 bool FullSearch::operator++() {
   int pos = 0;
@@ -69,8 +223,7 @@ bool FullSearch::operator++() {
   return true;
 }
 
-RandomAssignments::RandomAssignments(std::map<int, int>& var_map, const std::vector<bool>& vars)
-    : Assignment(var_map, vars) {
+RandomAssignments::RandomAssignments(std::vector<bool> const& vars) : Assignment(vars) {
   ++(*this);
 }
 
@@ -82,7 +235,5 @@ bool RandomAssignments::operator++() {
   }
   return true;
 }
-
-std::map<int, int> Instance::var_map{};
 
 }  // namespace ea::instance

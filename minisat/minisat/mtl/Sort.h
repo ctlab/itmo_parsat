@@ -68,9 +68,11 @@ void sort(T* array, int size, LessThan lt) {
     int j = size;
 
     for (;;) {
-      do i++;
+      do
+        i++;
       while (lt(array[i], pivot));
-      do j--;
+      do
+        j--;
       while (lt(pivot, array[j]));
 
       if (i >= j)

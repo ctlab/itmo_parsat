@@ -139,7 +139,7 @@ class lbool {
     return !(*this == b);
   }
   lbool operator^(bool b) const {
-    return lbool((uint8_t) (value ^ (uint8_t) b));
+    return lbool((uint8_t)(value ^ (uint8_t) b));
   }
 
   lbool operator&&(lbool b) const {

@@ -11,7 +11,7 @@ class GzFile {
  public:
   GzFile() = default;
 
-  GzFile(std::filesystem::path const& path);
+  explicit GzFile(std::filesystem::path const& path);
 
   ~GzFile() noexcept;
 

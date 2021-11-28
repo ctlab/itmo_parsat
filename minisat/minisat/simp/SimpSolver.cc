@@ -55,24 +55,24 @@ static DoubleOption opt_simp_garbage_frac(
 // Constructor/Destructor:
 
 SimpSolver::SimpSolver()
-    : parsing(0),
-      grow(opt_grow),
-      clause_lim(opt_clause_lim),
-      subsumption_lim(opt_subsumption_lim),
-      simp_garbage_frac(opt_simp_garbage_frac),
-      use_asymm(opt_use_asymm),
-      use_rcheck(opt_use_rcheck),
-      use_elim(opt_use_elim),
-      extend_model(true),
-      merges(0),
-      asymm_lits(0),
-      eliminated_vars(0),
-      elimorder(1),
-      use_simplification(true),
-      occurs(ClauseDeleted(ca)),
-      elim_heap(ElimLt(n_occ)),
-      bwdsub_assigns(0),
-      n_touched(0) {
+    : parsing(0)
+    , grow(opt_grow)
+    , clause_lim(opt_clause_lim)
+    , subsumption_lim(opt_subsumption_lim)
+    , simp_garbage_frac(opt_simp_garbage_frac)
+    , use_asymm(opt_use_asymm)
+    , use_rcheck(opt_use_rcheck)
+    , use_elim(opt_use_elim)
+    , extend_model(true)
+    , merges(0)
+    , asymm_lits(0)
+    , eliminated_vars(0)
+    , elimorder(1)
+    , use_simplification(true)
+    , occurs(ClauseDeleted(ca))
+    , elim_heap(ElimLt(n_occ))
+    , bwdsub_assigns(0)
+    , n_touched(0) {
   vec<Lit> dummy(1, lit_Undef);
   ca.extra_clause_field = true;  // NOTE: must happen before allocating the dummy clause below.
   bwdsub_tmpunit = ca.alloc(dummy);
@@ -90,25 +90,25 @@ SimpSolver::SimpSolver(
     : Solver(
           verbosity, var_decay, clause_decay, random_var_freq, random_seed, luby_restart,
           ccmin_mode, phase_saving, rnd_init_act, garbage_frac, min_learnts_lim, restart_first,
-          restart_inc),
-      parsing(0),
-      grow(grow),
-      clause_lim(clause_lim),
-      subsumption_lim(subsumption_lim),
-      simp_garbage_frac(simp_garbage_frac),
-      use_asymm(use_asymm),
-      use_rcheck(use_rcheck),
-      use_elim(use_elim),
-      extend_model(true),
-      merges(0),
-      asymm_lits(0),
-      eliminated_vars(0),
-      elimorder(1),
-      use_simplification(true),
-      occurs(ClauseDeleted(ca)),
-      elim_heap(ElimLt(n_occ)),
-      bwdsub_assigns(0),
-      n_touched(0) {
+          restart_inc)
+    , parsing(0)
+    , grow(grow)
+    , clause_lim(clause_lim)
+    , subsumption_lim(subsumption_lim)
+    , simp_garbage_frac(simp_garbage_frac)
+    , use_asymm(use_asymm)
+    , use_rcheck(use_rcheck)
+    , use_elim(use_elim)
+    , extend_model(true)
+    , merges(0)
+    , asymm_lits(0)
+    , eliminated_vars(0)
+    , elimorder(1)
+    , use_simplification(true)
+    , occurs(ClauseDeleted(ca))
+    , elim_heap(ElimLt(n_occ))
+    , bwdsub_assigns(0)
+    , n_touched(0) {
   vec<Lit> dummy(1, lit_Undef);
   ca.extra_clause_field = true;  // NOTE: must happen before allocating the dummy clause below.
   bwdsub_tmpunit = ca.alloc(dummy);
@@ -116,8 +116,7 @@ SimpSolver::SimpSolver(
 }
 // > dzhiblavi
 
-SimpSolver::~SimpSolver() {
-}
+SimpSolver::~SimpSolver() {}
 
 Var SimpSolver::newVar(lbool upol, bool dvar) {
   Var v = Solver::newVar(upol, dvar);
@@ -180,14 +179,16 @@ lbool SimpSolver::solve_(bool do_simp, bool turn_off_simp) {
 
   if (do_simp)
     // Unfreeze the assumptions that were frozen:
-    for (int i = 0; i < extra_frozen.size(); i++) setFrozen(extra_frozen[i], false);
+    for (int i = 0; i < extra_frozen.size(); i++)
+      setFrozen(extra_frozen[i], false);
 
   return result;
 }
 
 bool SimpSolver::addClause_(vec<Lit>& ps) {
 #ifndef NDEBUG
-  for (int i = 0; i < ps.size(); i++) assert(!isEliminated(var(ps[i])));
+  for (int i = 0; i < ps.size(); i++)
+    assert(!isEliminated(var(ps[i])));
 #endif
 
   int nclauses = clauses.size();
@@ -523,7 +524,8 @@ bool SimpSolver::eliminateVar(Var v) {
   //
   const vec<CRef>& cls = occurs.lookup(v);
   vec<CRef> pos, neg;
-  for (int i = 0; i < cls.size(); i++) (find(ca[cls[i]], mkLit(v)) ? pos : neg).push(cls[i]);
+  for (int i = 0; i < cls.size(); i++)
+    (find(ca[cls[i]], mkLit(v)) ? pos : neg).push(cls[i]);
 
   // Check wether the increase in number of clauses stays within the allowed ('grow'). Moreover, no
   // clause must exceed the limit on the maximal clause size (if it is set):
@@ -543,14 +545,17 @@ bool SimpSolver::eliminateVar(Var v) {
   eliminated_vars++;
 
   if (pos.size() > neg.size()) {
-    for (int i = 0; i < neg.size(); i++) mkElimClause(elimclauses, v, ca[neg[i]]);
+    for (int i = 0; i < neg.size(); i++)
+      mkElimClause(elimclauses, v, ca[neg[i]]);
     mkElimClause(elimclauses, mkLit(v));
   } else {
-    for (int i = 0; i < pos.size(); i++) mkElimClause(elimclauses, v, ca[pos[i]]);
+    for (int i = 0; i < pos.size(); i++)
+      mkElimClause(elimclauses, v, ca[pos[i]]);
     mkElimClause(elimclauses, ~mkLit(v));
   }
 
-  for (int i = 0; i < cls.size(); i++) removeClause(cls[i], false);
+  for (int i = 0; i < cls.size(); i++)
+    removeClause(cls[i], false);
 
   // Produce clauses in cross product:
   vec<Lit>& resolvent = add_tmp;
@@ -559,7 +564,8 @@ bool SimpSolver::eliminateVar(Var v) {
       if (merge(ca[pos[i]], ca[neg[j]], v, resolvent) && !addClause_(resolvent))
         return false;
 
-  for (int i = 0; i < cls.size(); i++) extendProof(ca[cls[i]], true);
+  for (int i = 0; i < cls.size(); i++)
+    extendProof(ca[cls[i]], true);
 
   // Free occurs list for this variable:
   occurs[v].clear(true);
@@ -725,7 +731,8 @@ void SimpSolver::relocAll(ClauseAllocator& to) {
   for (int i = 0; i < nVars(); i++) {
     occurs.clean(i);
     vec<CRef>& cs = occurs[i];
-    for (int j = 0; j < cs.size(); j++) ca.reloc(cs[j], to);
+    for (int j = 0; j < cs.size(); j++)
+      ca.reloc(cs[j], to);
   }
 
   // Subsumption queue:

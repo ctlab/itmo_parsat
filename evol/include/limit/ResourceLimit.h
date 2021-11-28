@@ -10,7 +10,7 @@ class ResourceLimit : public Limit {
  public:
   ResourceLimit(const ResourceLimitConfig& config);
 
-  bool proceed(instance::RPopulation population) override;
+  bool proceed(instance::Population const& population) override;
 
   void start() override;
 

@@ -20,4 +20,5 @@ TEST(random, flip_coin) {
   test_flip_coin(0.5);
   test_flip_coin(0.7);
   test_flip_coin(1.0);
+  test_flip_coin(1. / 200.);
 }

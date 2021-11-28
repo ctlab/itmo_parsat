@@ -4,10 +4,10 @@
 #include <boost/timer/progress_display.hpp>
 #include <fstream>
 
-#include "evol/include/algorithm/BaseAlgorithm.h"
+#include "evol/include/algorithm/Algorithm.h"
 #include "evol/include/config/CliConfig.h"
 #include "evol/include/config/Configuration.h"
-#include "evol/include/domain/RBDInstance.h"
+#include "evol/include/domain/Instance.h"
 #include "evol/include/sat/Solver.h"
 #include "evol/include/util/Registry.h"
 #include "evol/include/util/SigHandler.h"
@@ -16,9 +16,12 @@ ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
 
   po::options_description description;
-  description.add_options()("backdoor,b", "Enable rho-backdoor search.")(
-      "config,c", po::value<std::filesystem::path>(), "Path to JSON configuration.")(
-      "input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
+  // clang-format off
+  description.add_options()
+      ("backdoor,b", "Enable rho-backdoor search.")
+      ("config,c", po::value<std::filesystem::path>(), "Path to JSON configuration.")
+      ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
+  // clang-format on
 
   ea::config::CliConfig& cli_config = ea::config::CliConfig::instance();
   cli_config.add_options(description);
@@ -41,7 +44,7 @@ int main(int argc, char** argv) {
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
   std::filesystem::path config_path = config.get<std::filesystem::path>("config");
-  ea::sat::State result = ea::sat::UNKNOWN;
+  ea::sat::State result;
 
   LOG_TIME(read_json_configs(config_path));
   VLOG(3) << "Input file: " << input;
@@ -52,21 +55,21 @@ int main(int argc, char** argv) {
   LOG_TIME(solver->parse_cnf(input));
 
   if (backdoor) {
-    ea::instance::RPopulation population(new ea::instance::Population);
-    population->push_back(ea::instance::createRBDInstance(solver));
-
     /* Read configuration and start algorithm. */
-    ea::algorithm::BaseAlgorithm algorithm;
-    algorithm.set_population(population);
+    ea::algorithm::RAlgorithm algorithm(
+        ea::registry::Registry::resolve_algorithm(ea::config::global_config().algorithm_type()));
+    algorithm->get_solver().parse_cnf(input);
+    algorithm->prepare();
 
     ea::SigHandler::CallbackHandle alg_int_handle =
         ea::SigHandler::register_callback([&algorithm](int) {
-          algorithm.interrupt();
+          algorithm->interrupt();
           VLOG(2) << "Algorithm has been interrupted.";
         });
 
-    LOG_TIME(algorithm.process());
-    VLOG(3) << "Resulting instance rho: " << std::fixed << population->front()->fitness().rho;
+    LOG_TIME(algorithm->process());
+    auto& population = algorithm->get_population();
+    VLOG(3) << "Resulting instance rho: " << std::fixed << population.front()->fitness().rho;
 
     alg_int_handle.remove();
     ea::SigHandler::unset();
@@ -78,11 +81,15 @@ int main(int argc, char** argv) {
           VLOG(2) << "Solver has been interrupted.";
         });
 
-    std::vector<bool> vars = population->front()->get_variables();
-    ea::instance::FullSearch assignment(ea::instance::Instance::var_map, vars);
+    std::vector<bool> vars = population.front()->get_variables();
+    ea::instance::FullSearch assignment(vars);
 
     bool satisfied = false, unknown = false;
-    boost::timer::progress_display progress((unsigned long) std::pow(2UL, vars.size()));
+#define DISPLAY_PROGRESS
+#ifdef DISPLAY_PROGRESS
+    size_t num_vars = population.front()->fitness().pow_r;
+    boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars));
+#endif
     do {
       LOG_TIME(solver->solve_limited(assignment()));
       switch (solver->state()) {
@@ -95,7 +102,9 @@ int main(int argc, char** argv) {
           satisfied = true;
           break;
       }
+#ifdef DISPLAY_PROGRESS
       ++progress;
+#endif
     } while (!ea::SigHandler::is_set() && !satisfied && ++assignment);
 
     if (satisfied) {

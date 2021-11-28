@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 CNF_PATH="$PWD/resources/cnf/pancake_vs_selection_7_4.cnf"
 CFG_PATH="$PWD/resources/config/ea/base.json"
@@ -9,6 +9,21 @@ VERBOSE="2"
 
 while ! [[ -z "$1" ]]; do
     case "$1" in
+        -h|--help) {
+            echo "Usage: ./run.sh [options]"
+            echo "  Options:"
+            echo "   -h|--help           Display this message"
+            echo "   -bd|--backdoor      Enable backdoor"
+            echo "   -b|--build          Do build"
+            echo "   -f|--format         Do reformat"
+            echo "   -p|--proto          Do proto rebuild"
+            echo "   -t|--test Do test"
+            echo "   -v|--verbose <x>    Set verbose level to x[=2]"
+            echo "   -c|--config <path>  Path to config"
+            echo "   -i|--input <path>   Path to CNF"
+            echo "   -s|--solve          Do solve"
+            echo "   -a|--all            Do all (-b, -f, -p, -s, -t)"
+        } ;;
         -bd|--backdoor) {
             BACKDOOR="--backdoor"
         } ;;

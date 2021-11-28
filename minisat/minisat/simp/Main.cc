@@ -184,12 +184,13 @@ int main(int argc, char** argv) {
       printf("c \n");
     }
     printf(
-        ret == l_True        ? "s SATISFIABLE\n"
-            : ret == l_False ? "s UNSATISFIABLE\n"
-                             : "s UNKNOWN\n");
+        ret == l_True    ? "s SATISFIABLE\n"
+        : ret == l_False ? "s UNSATISFIABLE\n"
+                         : "s UNKNOWN\n");
     if (ret == l_True && model) {
       std::stringstream s;
-      for (int i = 0; i < S.nVars(); i++) s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
+      for (int i = 0; i < S.nVars(); i++)
+        s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
       printf("v %s0\n", s.str().c_str());
     }
 
@@ -212,7 +213,7 @@ int main(int argc, char** argv) {
 #ifdef NDEBUG
     exit(
         ret == l_True ? 10
-            : ret == l_False
+        : ret == l_False
             ? 20
             : 0);  // (faster than "return", which will invoke the destructor for 'Solver')
 #else

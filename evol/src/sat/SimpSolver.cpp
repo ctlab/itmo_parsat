@@ -20,8 +20,8 @@ SimpSolver::SimpSolver(SimpSolverConfig const& config)
           config.solver_config().ccmin_mode(), config.solver_config().phase_saving(),
           config.solver_config().rnd_init(), config.solver_config().gc_frac(),
           config.solver_config().min_learnts(), config.solver_config().rfirst(),
-          config.solver_config().rinc()),
-      preprocess_(config.cli_config().preprocessing()) {
+          config.solver_config().rinc())
+    , preprocess_(config.cli_config().preprocessing()) {
   impl_.verbosity = config.cli_config().verbosity_level();
 
   int cpu_lim = config.cli_config().cpu_limit();

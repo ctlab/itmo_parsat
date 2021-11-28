@@ -5,20 +5,20 @@
 
 #include "evol/include/domain/Instance.h"
 
-namespace ea::selector {
+namespace ea::method {
 
 class Selector {
  public:
   virtual ~Selector() = default;
 
   /**
-   * Performs selection of instances from population.
+   * Performs selection of `size` instances from population.
    */
-  virtual void select(instance::Population& population) = 0;
+  virtual void select(instance::Population& population, size_t size) = 0;
 };
 
 using RSelector = std::shared_ptr<Selector>;
 
-}  // namespace ea::selector
+}  // namespace ea::method
 
 #endif  // EA_SELECTOR_H

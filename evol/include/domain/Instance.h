@@ -1,14 +1,15 @@
-#ifndef EA_INSTANCE_H
-#define EA_INSTANCE_H
+#ifndef EVOL_INSTANCE_H
+#define EVOL_INSTANCE_H
 
-#include <map>
-#include <memory>
 #include <set>
-#include <vector>
 
 #include "evol/include/sat/Solver.h"
+#include "evol/include/config/Configuration.h"
+#include "evol/proto/config.pb.h"
 
 namespace ea::instance {
+
+class Instance;
 
 struct Fitness {
   double rho;
@@ -33,44 +34,63 @@ using Population = std::vector<RInstance>;
 using RPopulation = std::shared_ptr<Population>;
 
 class Instance {
- public:
-  virtual ~Instance() = default;
+ private:
+  enum CacheState {
+    CACHE,
+    NO_CACHE,
+  };
 
-  /**
-   * Clones the instance.
-   */
-  [[nodiscard]] virtual Instance* clone() = 0;
+  struct Vars {
+    std::vector<bool> bit_mask;
+    size_t size = 0;
 
-  /**
-   * Returns variables bit vector.
-   */
-  virtual std::vector<bool> get_variables() = 0;
-
-  /**
-   * Calculates instance's fitness function
-   * Used to perform selection.
-   */
-  virtual Fitness const& fitness() = 0;
-
-  /**
-   * Performs crossover operation with other instance.
-   */
-  [[nodiscard]] virtual RInstance crossover(RInstance const& a) = 0;
-
-  /**
-   * Performs mutation operation.
-   */
-  virtual void mutate() = 0;
+   public:
+    void flip(size_t pos);
+  };
 
  public:
-  static std::map<int, int> var_map;
+  explicit Instance(InstanceConfig const& config, sat::RSolver solver);
+
+  [[nodiscard]] std::vector<bool> const& get_variables() const noexcept;
+
+  std::vector<bool>& get_variables() noexcept;
+
+  void flip_var(size_t var);
+
+  void recalc_vars() noexcept;
+
+  [[nodiscard]] Instance* clone();
+
+  [[nodiscard]] size_t size() const noexcept;
+
+  Fitness const& fitness();
+
+ private:
+  void _init_heuristic(InstanceConfig const& config);
+
+ private:
+  std::shared_ptr<sat::Solver> solver_;
+  CacheState cache_state_ = NO_CACHE;
+  Fitness fit_{};
+  uint32_t max_sampling_size_ = 0, omega_x;
+  Vars vars_;
+
+ private:
+  static std::map<int, int> var_map_;
+
+ public:
+  static size_t num_vars() noexcept;
+
+  static std::map<int, int> const& var_map() noexcept;
 };
+
+RInstance createInstance(sat::RSolver const& solver);
 
 bool operator<(Instance& a, Instance& b);
 
 class Assignment {
  public:
-  Assignment(std::map<int, int>& var_map, std::vector<bool> const& vars);
+  explicit Assignment(std::vector<bool> const& vars);
 
   Minisat::vec<Minisat::Lit> const& operator()() const;
 
@@ -82,18 +102,18 @@ class Assignment {
 
 class FullSearch : public Assignment {
  public:
-  FullSearch(std::map<int, int>& var_map, std::vector<bool> const& vars);
+  explicit FullSearch(std::vector<bool> const& vars);
 
   bool operator++() override;
 };
 
 class RandomAssignments : public Assignment {
  public:
-  RandomAssignments(std::map<int, int>& var_map, std::vector<bool> const& vars);
+  explicit RandomAssignments(std::vector<bool> const& vars);
 
   bool operator++() override;
 };
 
 }  // namespace ea::instance
 
-#endif  // EA_INSTANCE_H
+#endif  // EVOL_INSTANCE_H

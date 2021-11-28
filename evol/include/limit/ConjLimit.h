@@ -10,9 +10,9 @@ namespace ea::limit {
 
 class ConjLimit : public Limit {
  public:
-  explicit ConjLimit(ConjLimitConfig config);
+  explicit ConjLimit(const ConjLimitConfig& config);
 
-  bool proceed(instance::RPopulation population) override;
+  bool proceed(instance::Population const& population) override;
 
   void start() override;
 

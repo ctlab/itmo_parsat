@@ -17,8 +17,7 @@ void sig_handler_(int sig) {
 namespace ea {
 
 SigHandler::CallbackHandle::CallbackHandle(uint64_t handle, SigHandler* handler)
-    : handle_(handle), handler_(handler) {
-}
+    : handle_(handle), handler_(handler) {}
 
 void SigHandler::CallbackHandle::remove() {
   handler_->callbacks_.erase(handle_);

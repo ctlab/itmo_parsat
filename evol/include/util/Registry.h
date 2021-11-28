@@ -9,9 +9,10 @@
 #include "evol/include/config/Configuration.h"
 #include "evol/include/domain/Instance.h"
 #include "evol/include/limit/Limit.h"
-#include "evol/include/method/Generator.h"
 #include "evol/include/method/Selector.h"
 #include "evol/include/sat/Solver.h"
+#include "evol/include/method/mutate/Mutation.h"
+#include "evol/include/method/cross/Crossover.h"
 
 namespace ea::registry {
 
@@ -31,11 +32,12 @@ class Registry {
   std::map<std::string, NAME##_builder> NAME##_map_
 
   REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm);
-  REGISTER_INTERFACE(::ea::generator::Generator, generator);
-  REGISTER_INTERFACE(::ea::selector::Selector, selector);
+  REGISTER_INTERFACE(::ea::method::Selector, selector);
   REGISTER_INTERFACE(::ea::instance::Instance, instance);
   REGISTER_INTERFACE(::ea::limit::Limit, limit);
   REGISTER_INTERFACE(::ea::sat::Solver, solver);
+  REGISTER_INTERFACE(::ea::method::Mutation, mutation);
+  REGISTER_INTERFACE(::ea::method::Crossover, crossover);
 };
 
 template <typename Interface>
@@ -50,11 +52,12 @@ struct RegistryEntry;
   }
 
 DEFINE_ENTRY_TYPE(::ea::algorithm::Algorithm, algorithm);
-DEFINE_ENTRY_TYPE(::ea::generator::Generator, generator);
-DEFINE_ENTRY_TYPE(::ea::selector::Selector, selector);
+DEFINE_ENTRY_TYPE(::ea::method::Selector, selector);
 DEFINE_ENTRY_TYPE(::ea::instance::Instance, instance);
 DEFINE_ENTRY_TYPE(::ea::limit::Limit, limit);
 DEFINE_ENTRY_TYPE(::ea::sat::Solver, solver);
+DEFINE_ENTRY_TYPE(::ea::method::Mutation, mutation);
+DEFINE_ENTRY_TYPE(::ea::method::Crossover, crossover);
 
 }  // namespace ea::registry
 
@@ -63,16 +66,12 @@ DEFINE_ENTRY_TYPE(::ea::sat::Solver, solver);
     return std::make_shared<IMPL>(                                                  \
         ::ea::config::Configuration::instance().get_global_config().CONFIG_NAME()); \
   }                                                                                 \
-  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() {              \
-    return create##IMPL();                                                          \
-  })
+  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() { return create##IMPL(); })
 
-#define REGISTER_SIMPLE(INTERFACE, IMPL)                               \
-  std::shared_ptr<INTERFACE> create##IMPL() {                          \
-    return std::make_shared<IMPL>();                                   \
-  }                                                                    \
-  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() { \
-    return create##IMPL();                                             \
-  })
+#define REGISTER_SIMPLE(INTERFACE, IMPL)      \
+  std::shared_ptr<INTERFACE> create##IMPL() { \
+    return std::make_shared<IMPL>();          \
+  }                                           \
+  ea::registry::RegistryEntry<INTERFACE> regentry_##IMPL(#IMPL, []() { return create##IMPL(); })
 
 #endif  // EA_REGISTRY_H
