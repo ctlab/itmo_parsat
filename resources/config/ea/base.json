@@ -44,7 +44,7 @@
             "count": 200
         }
     },
-    "algorithm_type": "GAAlgorithm",
+    "algorithm_type": "EAAlgorithm",
     "solver_type": "SimpSolver",
     "simp_solver_config": {
         "use_asymm": false,

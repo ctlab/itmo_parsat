@@ -1,1 +1,1 @@
-/home/dzhiblavi/itmo-parsat/bazel-bin/evol/proto/config.pb.h
+/Users/ibragimdzhiblavi/itmo-parsat/bazel-bin/evol/proto/config.pb.h

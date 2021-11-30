@@ -159,7 +159,9 @@ int main(int argc, char** argv) {
       printf("c \n");
     }
     printf(
-        ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
+        ret == l_True    ? "s SATISFIABLE\n"
+        : ret == l_False ? "s UNSATISFIABLE\n"
+                         : "s UNKNOWN\n");
     S.finalizeProof(ret == l_False);
     if (ret == l_True && model) {
       std::stringstream s;
@@ -183,11 +185,10 @@ int main(int argc, char** argv) {
 
 #ifdef NDEBUG
     exit(
-        ret == l_True
-            ? 10
-            : ret == l_False
-                  ? 20
-                  : 0);  // (faster than "return", which will invoke the destructor for 'Solver')
+        ret == l_True ? 10
+        : ret == l_False
+            ? 20
+            : 0);  // (faster than "return", which will invoke the destructor for 'Solver')
 #else
     return (ret == l_True ? 10 : ret == l_False ? 20 : 0);
 #endif

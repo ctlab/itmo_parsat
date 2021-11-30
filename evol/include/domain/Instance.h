@@ -85,6 +85,8 @@ class Assignment {
  public:
   explicit Assignment(std::vector<bool> const& vars);
 
+  virtual ~Assignment() = default;
+
   Minisat::vec<Minisat::Lit> const& operator()() const;
 
   virtual bool operator++() = 0;
