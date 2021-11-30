@@ -16,9 +16,10 @@ void Algorithm::prepare() {}
 void Algorithm::process() {
   limit_->start();
   while (!is_interrupted() && limit_->proceed(population_)) {
-    LOG_TIME(step());
-    VLOG(4) << "Best instance fit: " << (double) population_.front()->fitness().rho
-            << " with size: " << population_.front()->fitness().pow_r;
+    LOG_TIME(8, step());
+    auto& best = get_best();
+    VLOG(5) << "Best instance fit: " << best.fitness().rho << " with size: " << best.fitness().pow_r
+            << " and fitness: " << (double) best.fitness();
   }
 }
 
@@ -36,6 +37,11 @@ sat::Solver& Algorithm::get_solver() noexcept {
 
 instance::Population& Algorithm::get_population() noexcept {
   return population_;
+}
+
+instance::Instance& Algorithm::get_best() noexcept {
+  return *(*std::min_element(
+      population_.begin(), population_.end(), [](auto& a, auto& b) { return *a < *b; }));
 }
 
 }  // namespace ea::algorithm

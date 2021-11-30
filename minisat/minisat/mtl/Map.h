@@ -121,7 +121,8 @@ class Map {
 
     int old_cap = cap;
     int newsize = primes[0];
-    for (int i = 1; newsize <= cap && i < nprimes; i++) newsize = primes[i];
+    for (int i = 1; newsize <= cap && i < nprimes; i++)
+      newsize = primes[i];
 
     table = new vec<Pair>[newsize];
     cap = newsize;
@@ -138,10 +139,8 @@ class Map {
   }
 
  public:
-  Map() : table(NULL), cap(0), size(0) {
-  }
-  Map(const H& h, const E& e) : hash(h), equals(e), table(NULL), cap(0), size(0) {
-  }
+  Map() : table(NULL), cap(0), size(0) {}
+  Map(const H& h, const E& e) : hash(h), equals(e), table(NULL), cap(0), size(0) {}
   ~Map() {
     delete[] table;
   }

@@ -1,5 +1,5 @@
-#ifndef EVOL_OPOALGORITHM_H
-#define EVOL_OPOALGORITHM_H
+#ifndef EVOL_EAALGORITHM_H
+#define EVOL_EAALGORITHM_H
 
 #include "evol/include/algorithm/Algorithm.h"
 #include "evol/include/method/Selector.h"
@@ -8,9 +8,9 @@
 
 namespace ea::algorithm {
 
-class OpOAlgorithm : public Algorithm {
+class EAAlgorithm : public Algorithm {
  public:
-  explicit OpOAlgorithm(OpOAlgorithmConfig const& config);
+  explicit EAAlgorithm(EAAlgorithmConfig const& config);
 
   void prepare() override;
 
@@ -21,6 +21,6 @@ class OpOAlgorithm : public Algorithm {
   ea::method::RSelector selector_;
 };
 
-}  // namespace ea::method
+}  // namespace ea::algorithm
 
-#endif  // EVOL_OPOALGORITHM_H
+#endif  // EVOL_EAALGORITHM_H

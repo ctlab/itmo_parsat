@@ -1,5 +1,5 @@
-#ifndef EVOL_MPLALGORITHM_H
-#define EVOL_MPLALGORITHM_H
+#ifndef EVOL_GAALGORITHM_H
+#define EVOL_GAALGORITHM_H
 
 #include "evol/include/algorithm/Algorithm.h"
 #include "evol/include/method/Selector.h"
@@ -8,9 +8,9 @@
 
 namespace ea::algorithm {
 
-class MpLAlgorithm : public Algorithm {
+class GAAlgorithm : public Algorithm {
  public:
-  explicit MpLAlgorithm(MpLAlgorithmConfig const& config);
+  explicit GAAlgorithm(GAAlgorithmConfig const& config);
 
   void prepare() override;
 
@@ -20,9 +20,13 @@ class MpLAlgorithm : public Algorithm {
   ea::method::RMutation mutator_;
   ea::method::RCrossover cross_;
   ea::method::RSelector selector_;
-  uint32_t mu_, lambda_;
+  uint32_t q_, h_;
+
+ private:
+  void _recalc_fits();
+  std::vector<double> fits_;
 };
 
-}  // namespace ea::method
+}  // namespace ea::algorithm
 
-#endif  // EVOL_MPLALGORITHM_H
+#endif  // EVOL_GAALGORITHM_H

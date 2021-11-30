@@ -35,12 +35,6 @@ void collect_stats(
 namespace ea::instance {
 
 void Instance::Vars::flip(size_t pos) {
-  if (bit_mask[pos]) {
-    assert(size != 0);
-    --size;
-  } else {
-    ++size;
-  }
   bit_mask[pos] = !bit_mask[pos];
 }
 
@@ -107,30 +101,27 @@ Fitness const& Instance::fitness() {
   }
 
   uint64_t success = 0, samples = max_sampling_size_;
+  int size = (int) std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
   std::unique_ptr<Assignment> assignment_ptr;
-  if (std::log2(max_sampling_size_) > (double) vars_.size) {
-    samples = (uint32_t) std::pow(2, vars_.size);
+  if (std::log2(max_sampling_size_) > (double) size) {
+    samples = (uint32_t) std::pow(2, size);
     assignment_ptr = std::make_unique<FullSearch>(vars_.bit_mask);
   } else {
-    assignment_ptr = std::make_unique<RandomAssignments>(vars_.bit_mask);
+    assignment_ptr = std::make_unique<RandomAssignments>(vars_.bit_mask, samples);
   }
-
   Assignment& assignment = *assignment_ptr;
-  for (uint64_t i = 0; i < samples; ++i, ++assignment) {
-    LOG_TIME(success += solver_->propagate(assignment()));
-  }
+
+  do {
+    LOG_TIME(8, success += solver_->propagate(assignment()));
+  } while (++assignment);
 
   fit_.rho = (double) success / (double) samples;
-  fit_.pow_r = (int) vars_.size;
+  fit_.pow_r = size;
   fit_.pow_nr = (int) omega_x;
 
-  VLOG(7) << "num_vars: " << vars_.size << ", rho=" << fit_.rho << ", fit=" << (double) fit_;
+  VLOG(7) << "num_vars: " << fit_.pow_r << ", rho=" << fit_.rho << ", fit=" << (double) fit_;
   cache_state_ = CACHE;
   return fit_;
-}
-
-size_t Instance::size() const noexcept {
-  return vars_.size;
 }
 
 void Instance::flip_var(size_t pos) {
@@ -146,11 +137,6 @@ std::map<int, int> const& Instance::var_map() noexcept {
   return var_map_;
 }
 
-void Instance::recalc_vars() noexcept {
-  vars_.size = std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
-  cache_state_ = NO_CACHE;
-}
-
 std::map<int, int> Instance::var_map_{};
 
 }  // namespace ea::instance
@@ -162,7 +148,7 @@ bool Fitness::can_calc() const {
 }
 
 Fitness::operator double() const {
-  return rho * std::pow(2., pow_r) + (1. - rho) * std::pow(2., pow_nr);
+  return std::log2(rho * std::pow(2., pow_r) + (1. - rho) * std::pow(2., pow_nr));
 }
 
 bool operator<(Fitness const& a, Fitness const& b) {
@@ -178,7 +164,7 @@ bool operator<(Fitness const& a, Fitness const& b) {
     return (double) a < (double) b;
   }
 
-  /* TODO: assure this will work AT LEAST in most cases. */
+  LOG(WARNING) << "Comparison of non-evaluable Fitness-es.";
   int32_t min_pow_r = std::min(a.pow_r, b.pow_r);
   double a_val = a.rho * std::pow(2., a.pow_r - min_pow_r);
   double b_val = b.rho * std::pow(2., b.pow_r - min_pow_r);
@@ -223,11 +209,15 @@ bool FullSearch::operator++() {
   return true;
 }
 
-RandomAssignments::RandomAssignments(std::vector<bool> const& vars) : Assignment(vars) {
+RandomAssignments::RandomAssignments(std::vector<bool> const& vars, size_t total)
+    : Assignment(vars), left_(total + 1) {
   ++(*this);
 }
 
 bool RandomAssignments::operator++() {
+  if (--left_ == 0) {
+    return false;
+  }
   for (int i = 0; i < assignment_.size(); ++i) {
     if (random::flip_coin(0.5)) {
       assignment_[i] = ~assignment_[i];

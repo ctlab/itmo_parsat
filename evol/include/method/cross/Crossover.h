@@ -7,7 +7,7 @@ namespace ea::method {
 
 class Crossover {
  public:
-  virtual void apply(instance::RInstance& a, instance::RInstance& b) = 0;
+  virtual void apply(instance::Instance& a, instance::Instance& b) = 0;
 };
 
 using RCrossover = std::shared_ptr<Crossover>;

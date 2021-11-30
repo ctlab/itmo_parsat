@@ -124,13 +124,10 @@ class lbool {
   uint8_t value;
 
  public:
-  explicit lbool(uint8_t v) : value(v) {
-  }
+  explicit lbool(uint8_t v) : value(v) {}
 
-  lbool() : value(0) {
-  }
-  explicit lbool(bool x) : value(!x) {
-  }
+  lbool() : value(0) {}
+  explicit lbool(bool x) : value(!x) {}
 
   bool operator==(lbool b) const {
     return ((b.value & 2) & (value & 2)) | (!(b.value & 2) & (value == b.value));
@@ -232,7 +229,8 @@ class Clause {
     header.reloced = 0;
     header.size = ps.size();
 
-    for (int i = 0; i < ps.size(); i++) data[i].lit = ps[i];
+    for (int i = 0; i < ps.size(); i++)
+      data[i].lit = ps[i];
 
     if (header.has_extra) {
       if (header.learnt)
@@ -247,7 +245,8 @@ class Clause {
     header = from.header;
     header.has_extra = use_extra;  // NOTE: the copied clause may lose the extra field.
 
-    for (int i = 0; i < from.size(); i++) data[i].lit = from[i];
+    for (int i = 0; i < from.size(); i++)
+      data[i].lit = from[i];
 
     if (header.has_extra) {
       if (header.learnt)
@@ -261,7 +260,8 @@ class Clause {
   void calcAbstraction() {
     assert(header.has_extra);
     uint32_t abstraction = 0;
-    for (int i = 0; i < size(); i++) abstraction |= 1 << (var(data[i].lit) & 31);
+    for (int i = 0; i < size(); i++)
+      abstraction |= 1 << (var(data[i].lit) & 31);
     data[header.size].abs = abstraction;
   }
 
@@ -346,10 +346,8 @@ class ClauseAllocator {
 
   bool extra_clause_field;
 
-  ClauseAllocator(uint32_t start_cap) : ra(start_cap), extra_clause_field(false) {
-  }
-  ClauseAllocator() : extra_clause_field(false) {
-  }
+  ClauseAllocator(uint32_t start_cap) : ra(start_cap), extra_clause_field(false) {}
+  ClauseAllocator() : extra_clause_field(false) {}
 
   void moveTo(ClauseAllocator& to) {
     to.extra_clause_field = extra_clause_field;
@@ -424,8 +422,7 @@ class ClauseIterator {
   const CRef* crefs;
 
  public:
-  ClauseIterator(const ClauseAllocator& _ca, const CRef* _crefs) : ca(_ca), crefs(_crefs) {
-  }
+  ClauseIterator(const ClauseAllocator& _ca, const CRef* _crefs) : ca(_ca), crefs(_crefs) {}
 
   void operator++() {
     crefs++;
@@ -447,8 +444,7 @@ class TrailIterator {
   const Lit* lits;
 
  public:
-  TrailIterator(const Lit* _lits) : lits(_lits) {
-  }
+  TrailIterator(const Lit* _lits) : lits(_lits) {}
 
   void operator++() {
     lits++;
@@ -476,8 +472,8 @@ class OccLists {
   Deleted deleted;
 
  public:
-  OccLists(const Deleted& d, MkIndex _index = MkIndex()) : occs(_index), dirty(_index), deleted(d) {
-  }
+  OccLists(const Deleted& d, MkIndex _index = MkIndex())
+      : occs(_index), dirty(_index), deleted(d) {}
 
   void init(const K& idx) {
     occs.reserve(idx);

@@ -8,10 +8,10 @@ UniformMutation::UniformMutation(UniformMutationConfig const& config) : scale_(c
 
 void UniformMutation::apply(instance::Instance& instance) {
   size_t num_vars = instance::Instance::num_vars();
-  double prob = scale_ / (double) num_vars;
-  for (size_t pos = 0; pos < num_vars; ++pos) {
-    if (random::flip_coin(prob)) {
-      instance.flip_var(pos);
+  double p = scale_ / (double) num_vars;
+  for (size_t i = 0; i < instance::Instance::num_vars(); ++i) {
+    if (random::flip_coin(p)) {
+      instance.flip_var(i);
     }
   }
 }

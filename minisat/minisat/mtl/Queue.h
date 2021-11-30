@@ -36,8 +36,7 @@ class Queue {
  public:
   typedef T Key;
 
-  Queue() : buf(1), first(0), end(0) {
-  }
+  Queue() : buf(1), first(0), end(0) {}
 
   void clear(bool dealloc = false) {
     buf.clear(dealloc);
@@ -78,8 +77,10 @@ class Queue {
       //**/printf("queue alloc: %d elems (%.1f MB)\n", tmp.size(), tmp.size() * sizeof(T) /
       // 1000000.0);
       int i = 0;
-      for (int j = first; j < buf.size(); j++) tmp[i++] = buf[j];
-      for (int j = 0; j < end; j++) tmp[i++] = buf[j];
+      for (int j = first; j < buf.size(); j++)
+        tmp[i++] = buf[j];
+      for (int j = 0; j < end; j++)
+        tmp[i++] = buf[j];
       first = 0;
       end = buf.size();
       tmp.moveTo(buf);

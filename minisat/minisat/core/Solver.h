@@ -195,8 +195,7 @@ class Solver {
   struct Watcher {
     CRef cref;
     Lit blocker;
-    Watcher(CRef cr, Lit p) : cref(cr), blocker(p) {
-    }
+    Watcher(CRef cr, Lit p) : cref(cr), blocker(p) {}
     bool operator==(const Watcher& w) const {
       return cref == w.cref;
     }
@@ -207,8 +206,7 @@ class Solver {
 
   struct WatcherDeleted {
     const ClauseAllocator& ca;
-    WatcherDeleted(const ClauseAllocator& _ca) : ca(_ca) {
-    }
+    WatcherDeleted(const ClauseAllocator& _ca) : ca(_ca) {}
     bool operator()(const Watcher& w) const {
       return ca[w.cref].mark() == 1;
     }
@@ -219,15 +217,13 @@ class Solver {
     bool operator()(Var x, Var y) const {
       return activity[x] > activity[y];
     }
-    VarOrderLt(const IntMap<Var, double>& act) : activity(act) {
-    }
+    VarOrderLt(const IntMap<Var, double>& act) : activity(act) {}
   };
 
   struct ShrinkStackElem {
     uint32_t i;
     Lit l;
-    ShrinkStackElem(uint32_t _i, Lit _l) : i(_i), l(_l) {
-    }
+    ShrinkStackElem(uint32_t _i, Lit _l) : i(_i), l(_l) {}
   };
 
   // Solver state:
@@ -394,7 +390,8 @@ inline void Solver::varBumpActivity(Var v) {
 inline void Solver::varBumpActivity(Var v, double inc) {
   if ((activity[v] += inc) > 1e100) {
     // Rescale:
-    for (int i = 0; i < nVars(); i++) activity[i] *= 1e-100;
+    for (int i = 0; i < nVars(); i++)
+      activity[i] *= 1e-100;
     var_inc *= 1e-100;
   }
 
@@ -409,7 +406,8 @@ inline void Solver::claDecayActivity() {
 inline void Solver::claBumpActivity(Clause& c) {
   if ((c.activity() += cla_inc) > 1e20) {
     // Rescale:
-    for (int i = 0; i < learnts.size(); i++) ca[learnts[i]].activity() *= 1e-20;
+    for (int i = 0; i < learnts.size(); i++)
+      ca[learnts[i]].activity() *= 1e-20;
     cla_inc *= 1e-20;
   }
 }
@@ -466,7 +464,7 @@ inline bool Solver::isRemoved(CRef cr) const {
 }
 inline bool Solver::locked(const Clause& c) const {
   return value(c[0]) == l_True && reason(var(c[0])) != CRef_Undef &&
-      ca.lea(reason(var(c[0]))) == &c;
+         ca.lea(reason(var(c[0]))) == &c;
 }
 inline void Solver::newDecisionLevel() {
   trail_lim.push(trail.size());
@@ -535,7 +533,7 @@ inline void Solver::budgetOff() {
 }
 inline bool Solver::withinBudget() const {
   return !asynch_interrupt && (conflict_budget < 0 || conflicts < (uint64_t) conflict_budget) &&
-      (propagation_budget < 0 || propagations < (uint64_t) propagation_budget);
+         (propagation_budget < 0 || propagations < (uint64_t) propagation_budget);
 }
 
 // FIXME: after the introduction of asynchronous interrruptions the solve-versions that return a

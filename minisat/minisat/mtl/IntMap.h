@@ -36,8 +36,7 @@ class IntMap {
   MkIndex index;
 
  public:
-  explicit IntMap(MkIndex _index = MkIndex()) : index(_index) {
-  }
+  explicit IntMap(MkIndex _index = MkIndex()) : index(_index) {}
 
   bool has(K k) const {
     return index(k) < map.size();
@@ -107,7 +106,8 @@ class IntSet {
     if (free)
       in_set.clear(true);
     else
-      for (int i = 0; i < xs.size(); i++) in_set[xs[i]] = 0;
+      for (int i = 0; i < xs.size(); i++)
+        in_set[xs[i]] = 0;
     xs.clear(free);
   }
 

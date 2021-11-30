@@ -47,8 +47,7 @@ class vec {
   Size cap;
 
   // Don't allow copying (error prone):
-  vec<T>& operator=(vec<T>& other);
-  vec(vec<T>& other);
+  vec<T> operator=(vec<T> const& other);
 
   static inline Size max(Size x, Size y) {
     return (x > y) ? x : y;
@@ -56,8 +55,7 @@ class vec {
 
  public:
   // Constructors:
-  vec() : data(NULL), sz(0), cap(0) {
-  }
+  vec() : data(NULL), sz(0), cap(0) {}
   explicit vec(Size size) : data(NULL), sz(0), cap(0) {
     growTo(size);
   }
@@ -66,6 +64,11 @@ class vec {
   }
   ~vec() {
     clear(true);
+  }
+
+  vec(vec<T> const& other) : vec(other.sz) {
+    for (int i = 0; i < other.size(); ++i)
+      (*this)[i] = other[i];
   }
 
   // Pointer to first element:
@@ -79,7 +82,8 @@ class vec {
   }
   void shrink(Size nelems) {
     assert(nelems <= sz);
-    for (Size i = 0; i < nelems; i++) sz--, data[sz].~T();
+    for (Size i = 0; i < nelems; i++)
+      sz--, data[sz].~T();
   }
   void shrink_(Size nelems) {
     assert(nelems <= sz);
@@ -138,7 +142,8 @@ class vec {
   void copyTo(vec<T>& copy) const {
     copy.clear();
     copy.growTo(sz);
-    for (Size i = 0; i < sz; i++) copy[i] = data[i];
+    for (Size i = 0; i < sz; i++)
+      copy[i] = data[i];
   }
   void moveTo(vec<T>& dest) {
     dest.clear(true);
@@ -168,7 +173,8 @@ void vec<T, _Size>::growTo(Size size, const T& pad) {
   if (sz >= size)
     return;
   capacity(size);
-  for (Size i = sz; i < size; i++) data[i] = pad;
+  for (Size i = sz; i < size; i++)
+    data[i] = pad;
   sz = size;
 }
 
@@ -177,14 +183,16 @@ void vec<T, _Size>::growTo(Size size) {
   if (sz >= size)
     return;
   capacity(size);
-  for (Size i = sz; i < size; i++) new (&data[i]) T();
+  for (Size i = sz; i < size; i++)
+    new (&data[i]) T();
   sz = size;
 }
 
 template <class T, class _Size>
 void vec<T, _Size>::clear(bool dealloc) {
   if (data != NULL) {
-    for (Size i = 0; i < sz; i++) data[i].~T();
+    for (Size i = 0; i < sz; i++)
+      data[i].~T();
     sz = 0;
     if (dealloc)
       free(data), data = NULL, cap = 0;

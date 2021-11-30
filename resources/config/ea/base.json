@@ -5,7 +5,7 @@
     },
     "resource_limit_config": {
         "memory_limit_kb": 0,
-        "time_limit_sec": 60
+        "time_limit_sec": 600
     },
     "fitness_limit_config": {
         "lowest_fitness": 0.95
@@ -16,27 +16,27 @@
         ]
     },
     "uniform_mutation_config": {
-        "scale": 1.0
+        "scale": 4.0
     },
     "doerr_mutation_config": {
         "beta": 3.0
     },
-    "opo_algorithm_config": {
+    "ea_algorithm_config": {
         "mutation_type": "DoerrMutation",
         "selector_type": "BestSelector"
     },
-    "mpl_algorithm_config": {
+    "ga_algorithm_config": {
         "mutation_type": "DoerrMutation",
-        "crossover_type": "OnePointCrossover",
+        "crossover_type": "TwoPointCrossover",
         "selector_type": "BestSelector",
-        "mu": 10,
-        "lambda": 8
+        "q": 8,
+        "h": 2
     },
     "instance_config": {
         "omega_x": 20,
         "sampling_config": {
             "frac": 0,
-            "count": 4000
+            "count": 10000
         },
         "init": "HEURISTIC",
         "heuristic_config": {
@@ -44,7 +44,7 @@
             "count": 200
         }
     },
-    "algorithm_type": "OpOAlgorithm",
+    "algorithm_type": "GAAlgorithm",
     "solver_type": "SimpSolver",
     "simp_solver_config": {
         "use_asymm": false,

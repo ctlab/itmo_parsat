@@ -163,7 +163,8 @@ int main(int argc, char** argv) {
     S.finalizeProof(ret == l_False);
     if (ret == l_True && model) {
       std::stringstream s;
-      for (int i = 0; i < S.nVars(); i++) s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
+      for (int i = 0; i < S.nVars(); i++)
+        s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
       printf("v %s0\n", s.str().c_str());
     }
     if (res != NULL) {
@@ -182,10 +183,11 @@ int main(int argc, char** argv) {
 
 #ifdef NDEBUG
     exit(
-        ret == l_True ? 10
-                      : ret == l_False
-                ? 20
-                : 0);  // (faster than "return", which will invoke the destructor for 'Solver')
+        ret == l_True
+            ? 10
+            : ret == l_False
+                  ? 20
+                  : 0);  // (faster than "return", which will invoke the destructor for 'Solver')
 #else
     return (ret == l_True ? 10 : ret == l_False ? 20 : 0);
 #endif

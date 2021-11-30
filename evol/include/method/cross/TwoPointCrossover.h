@@ -7,7 +7,7 @@ namespace ea::method {
 
 class TwoPointCrossover : public Crossover {
  public:
-  void apply(instance::RInstance& a, instance::RInstance& b) override;
+  void apply(instance::Instance& a, instance::Instance& b) override;
 };
 
 }  // namespace ea::method

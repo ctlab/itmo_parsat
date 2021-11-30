@@ -31,8 +31,6 @@ using RInstance = std::shared_ptr<Instance>;
 
 using Population = std::vector<RInstance>;
 
-using RPopulation = std::shared_ptr<Population>;
-
 class Instance {
  private:
   enum CacheState {
@@ -42,7 +40,6 @@ class Instance {
 
   struct Vars {
     std::vector<bool> bit_mask;
-    size_t size = 0;
 
    public:
     void flip(size_t pos);
@@ -57,11 +54,7 @@ class Instance {
 
   void flip_var(size_t var);
 
-  void recalc_vars() noexcept;
-
   [[nodiscard]] Instance* clone();
-
-  [[nodiscard]] size_t size() const noexcept;
 
   Fitness const& fitness();
 
@@ -109,9 +102,12 @@ class FullSearch : public Assignment {
 
 class RandomAssignments : public Assignment {
  public:
-  explicit RandomAssignments(std::vector<bool> const& vars);
+  explicit RandomAssignments(std::vector<bool> const& vars, size_t total);
 
   bool operator++() override;
+
+ private:
+  uint32_t left_;
 };
 
 }  // namespace ea::instance

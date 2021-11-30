@@ -38,7 +38,8 @@ static inline void remove(V& ts, const T& t) {
   for (; j < (int) ts.size() && ts[j] != t; j++)
     ;
   assert(j < (int) ts.size());
-  for (; j < (int) ts.size() - 1; j++) ts[j] = ts[j + 1];
+  for (; j < (int) ts.size() - 1; j++)
+    ts[j] = ts[j + 1];
   ts.pop();
 }
 

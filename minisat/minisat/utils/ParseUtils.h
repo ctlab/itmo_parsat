@@ -40,7 +40,8 @@ static inline bool isEof(const char* in) {
 
 template <class B>
 static void skipWhitespace(B& in) {
-  while ((*in >= 9 && *in <= 13) || *in == 32) ++in;
+  while ((*in >= 9 && *in <= 13) || *in == 32)
+    ++in;
 }
 
 template <class B>
@@ -67,7 +68,8 @@ static int parseInt(B& in) {
     ++in;
   if (*in < '0' || *in > '9')
     fprintf(stderr, "PARSE ERROR! Unexpected char: %c\n", *in), exit(3);
-  while (*in >= '0' && *in <= '9') val = val * 10 + (*in - '0'), ++in;
+  while (*in >= '0' && *in <= '9')
+    val = val * 10 + (*in - '0'), ++in;
   return neg ? -val : val;
 }
 

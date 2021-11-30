@@ -75,8 +75,7 @@ class Heap {
   }
 
  public:
-  Heap(const Comp& c, MkIndex _index = MkIndex()) : indices(_index), lt(c) {
-  }
+  Heap(const Comp& c, MkIndex _index = MkIndex()) : indices(_index), lt(c) {}
 
   int size() const {
     return heap.size();
@@ -148,7 +147,8 @@ class Heap {
 
   // Rebuild the heap from scratch, using the elements in 'ns':
   void build(const vec<K>& ns) {
-    for (int i = 0; i < heap.size(); i++) indices[heap[i]] = -1;
+    for (int i = 0; i < heap.size(); i++)
+      indices[heap[i]] = -1;
     heap.clear();
 
     for (int i = 0; i < ns.size(); i++) {
@@ -158,12 +158,14 @@ class Heap {
       heap.push(ns[i]);
     }
 
-    for (int i = heap.size() / 2 - 1; i >= 0; i--) percolateDown(i);
+    for (int i = heap.size() / 2 - 1; i >= 0; i--)
+      percolateDown(i);
   }
 
   void clear(bool dispose = false) {
     // TODO: shouldn't the 'indices' map also be dispose-cleared?
-    for (int i = 0; i < heap.size(); i++) indices[heap[i]] = -1;
+    for (int i = 0; i < heap.size(); i++)
+      indices[heap[i]] = -1;
     heap.clear(dispose);
   }
 };

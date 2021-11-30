@@ -5,7 +5,7 @@
 
 namespace ea::method {
 
-void TwoPointCrossover::apply(instance::RInstance& a, instance::RInstance& b) {
+void TwoPointCrossover::apply(instance::Instance& a, instance::Instance& b) {
   long num_vars = (long) instance::Instance::num_vars();
   long pos_1 = random::sample<long>(0, num_vars - 1);
   long pos_2 = random::sample<long>(0, num_vars - 1);
@@ -13,9 +13,12 @@ void TwoPointCrossover::apply(instance::RInstance& a, instance::RInstance& b) {
     std::swap(pos_1, pos_2);
   }
 
+  // clang-format off
   std::swap_ranges(
-      a->get_variables().begin() + pos_1, a->get_variables().begin() + pos_2,
-      b->get_variables().begin() + pos_1);
+    a.get_variables().begin() + pos_1, a.get_variables().begin() + pos_2,
+    b.get_variables().begin() + pos_1
+  );
+  // clang-format on
 }
 
 REGISTER_SIMPLE(Crossover, TwoPointCrossover);

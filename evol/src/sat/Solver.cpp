@@ -7,9 +7,9 @@ bool Solver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
   return propagate(assumptions, props);
 }
 
-void Solver::solve_limited() {
+State Solver::solve_limited() {
   Minisat::vec<Minisat::Lit> assumptions;
-  solve_limited(assumptions);
+  return solve_limited(assumptions);
 }
 
 }  // namespace ea::sat

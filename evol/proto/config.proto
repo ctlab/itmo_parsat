@@ -26,17 +26,17 @@ message DoerrMutationConfig {
   double beta = 1;
 }
 
-message OpOAlgorithmConfig {
+message EAAlgorithmConfig {
   string mutation_type = 1;
   string selector_type = 2;
 }
 
-message MpLAlgorithmConfig {
+message GAAlgorithmConfig {
   string mutation_type = 1;
   string crossover_type = 2;
   string selector_type = 3;
-  uint32 mu = 4;
-  uint32 lambda = 5;
+  uint32 q = 4;
+  uint32 h = 5;
 }
 
 message InstanceConfig {
@@ -90,8 +90,8 @@ message SimpSolverConfig {
 message GlobalConfig {
   string algorithm_type = 20;
   AlgorithmConfig algorithm_config = 1;
-  OpOAlgorithmConfig opo_algorithm_config = 12;
-  MpLAlgorithmConfig mpl_algorithm_config = 14;
+  EAAlgorithmConfig ea_algorithm_config = 12;
+  GAAlgorithmConfig ga_algorithm_config = 14;
 
   ResourceLimitConfig resource_limit_config = 2;
   FitnessLimitConfig fitness_limit_config = 3;

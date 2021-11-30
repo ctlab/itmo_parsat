@@ -29,6 +29,8 @@ class Algorithm {
 
   instance::Population& get_population() noexcept;
 
+  instance::Instance& get_best() noexcept;
+
  protected:
   virtual void step() = 0;
 

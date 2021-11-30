@@ -25,19 +25,14 @@ class Solver {
   virtual void parse_cnf(std::filesystem::path const& path) = 0;
 
   /**
-   * Returns the current state of the solver.
+   * Runs solveLimited implementation of Solver.
    */
-  [[nodiscard]] virtual State state() const noexcept = 0;
+  State solve_limited();
 
   /**
-   * Runs solveLimited implementation of SimpSolver.
+   * Runs solveLimited implementation of Solver with assumptions.
    */
-  void solve_limited();
-
-  /**
-   * Runs solveLimited implementation of SimpSolver with assumptions.
-   */
-  virtual void solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
+  virtual State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
 
   /**
    * Interrupt solver if the `solve*` is running.

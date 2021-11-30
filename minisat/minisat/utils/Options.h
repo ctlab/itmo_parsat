@@ -75,8 +75,7 @@ class Option {
   }
 
  public:
-  virtual ~Option() {
-  }
+  virtual ~Option() {}
 
   virtual bool parse(const char* str) = 0;
   virtual void help(bool verbose = false) = 0;
@@ -93,15 +92,13 @@ class Option {
 struct IntRange {
   int begin;
   int end;
-  IntRange(int b, int e) : begin(b), end(e) {
-  }
+  IntRange(int b, int e) : begin(b), end(e) {}
 };
 
 struct Int64Range {
   int64_t begin;
   int64_t end;
-  Int64Range(int64_t b, int64_t e) : begin(b), end(e) {
-  }
+  Int64Range(int64_t b, int64_t e) : begin(b), end(e) {}
 };
 
 struct DoubleRange {
@@ -110,8 +107,7 @@ struct DoubleRange {
   bool begin_inclusive;
   bool end_inclusive;
   DoubleRange(double b, bool binc, double e, bool einc)
-      : begin(b), end(e), begin_inclusive(binc), end_inclusive(einc) {
-  }
+      : begin(b), end(e), begin_inclusive(binc), end_inclusive(einc) {}
 };
 
 //==================================================================================================
@@ -190,8 +186,7 @@ class IntOption : public Option {
   IntOption(
       const char* c, const char* n, const char* d, int32_t def = int32_t(),
       IntRange r = IntRange(INT32_MIN, INT32_MAX))
-      : Option(n, d, c, "<int32>"), range(r), value(def) {
-  }
+      : Option(n, d, c, "<int32>"), range(r), value(def) {}
 
   operator int32_t(void) const {
     return value;
@@ -261,8 +256,7 @@ class Int64Option : public Option {
   Int64Option(
       const char* c, const char* n, const char* d, int64_t def = int64_t(),
       Int64Range r = Int64Range(INT64_MIN, INT64_MAX))
-      : Option(n, d, c, "<int64>"), range(r), value(def) {
-  }
+      : Option(n, d, c, "<int64>"), range(r), value(def) {}
 
   operator int64_t(void) const {
     return value;
@@ -329,8 +323,7 @@ class StringOption : public Option {
 
  public:
   StringOption(const char* c, const char* n, const char* d, const char* def = NULL)
-      : Option(n, d, c, "<string>"), value(def) {
-  }
+      : Option(n, d, c, "<string>"), value(def) {}
 
   operator const char*(void) const {
     return value;
@@ -370,8 +363,7 @@ class BoolOption : public Option {
 
  public:
   BoolOption(const char* c, const char* n, const char* d, bool v)
-      : Option(n, d, c, "<bool>"), value(v) {
-  }
+      : Option(n, d, c, "<bool>"), value(v) {}
 
   operator bool(void) const {
     return value;
@@ -402,7 +394,8 @@ class BoolOption : public Option {
   virtual void help(bool verbose = false) {
     fprintf(stderr, "  -%s, -no-%s", name, name);
 
-    for (uint32_t i = 0; i < 32 - strlen(name) * 2; i++) fprintf(stderr, " ");
+    for (uint32_t i = 0; i < 32 - strlen(name) * 2; i++)
+      fprintf(stderr, " ");
 
     fprintf(stderr, " ");
     fprintf(stderr, "(default: %s)\n", value ? "on" : "off");

@@ -15,9 +15,7 @@ class SimpSolver : public Solver {
 
   void parse_cnf(std::filesystem::path const& path) override;
 
-  [[nodiscard]] State state() const noexcept override;
-
-  void solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
   void interrupt() override;
 

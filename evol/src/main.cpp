@@ -46,16 +46,14 @@ int main(int argc, char** argv) {
   std::filesystem::path config_path = config.get<std::filesystem::path>("config");
   ea::sat::State result;
 
-  LOG_TIME(read_json_configs(config_path));
+  LOG_TIME(4, read_json_configs(config_path));
   VLOG(3) << "Input file: " << input;
 
-  /* Create solver */
   std::shared_ptr<ea::sat::Solver> solver = ea::registry::Registry::resolve_solver(
       ea::config::Configuration::get_global_config().solver_type());
-  LOG_TIME(solver->parse_cnf(input));
+  LOG_TIME(4, solver->parse_cnf(input));
 
   if (backdoor) {
-    /* Read configuration and start algorithm. */
     ea::algorithm::RAlgorithm algorithm(
         ea::registry::Registry::resolve_algorithm(ea::config::global_config().algorithm_type()));
     algorithm->get_solver().parse_cnf(input);
@@ -67,9 +65,9 @@ int main(int argc, char** argv) {
           VLOG(2) << "Algorithm has been interrupted.";
         });
 
-    LOG_TIME(algorithm->process());
-    auto& population = algorithm->get_population();
-    VLOG(3) << "Resulting instance rho: " << std::fixed << population.front()->fitness().rho;
+    LOG_TIME(4, algorithm->process());
+    auto& r_backdoor = algorithm->get_best();
+    VLOG(3) << "Resulting instance rho: " << std::fixed << r_backdoor.fitness().rho;
 
     alg_int_handle.remove();
     ea::SigHandler::unset();
@@ -81,18 +79,17 @@ int main(int argc, char** argv) {
           VLOG(2) << "Solver has been interrupted.";
         });
 
-    std::vector<bool> vars = population.front()->get_variables();
+    std::vector<bool> vars = r_backdoor.get_variables();
     ea::instance::FullSearch assignment(vars);
 
     bool satisfied = false, unknown = false;
 #define DISPLAY_PROGRESS
 #ifdef DISPLAY_PROGRESS
-    size_t num_vars = population.front()->fitness().pow_r;
+    size_t num_vars = r_backdoor.fitness().pow_r;
     boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars));
 #endif
     do {
-      LOG_TIME(solver->solve_limited(assignment()));
-      switch (solver->state()) {
+      switch (solver->solve_limited(assignment())) {
         case ea::sat::UNSAT:
           break;
         case ea::sat::UNKNOWN:
@@ -122,8 +119,7 @@ int main(int argc, char** argv) {
           VLOG(2) << "Solver has been interrupted.";
         });
 
-    LOG_TIME(solver->solve_limited());
-    result = solver->state();
+    LOG_TIME(4, result = solver->solve_limited());
     slv_int_handle.remove();
   }
 

@@ -39,12 +39,12 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   {
     util::GzFile gz_file(path);
     impl_.parsing = true;
-    LOG_TIME(Minisat::parse_DIMACS(gz_file.native_handle(), impl_, true));
+    Minisat::parse_DIMACS(gz_file.native_handle(), impl_, true);
     impl_.parsing = false;
   }
 
   if (preprocess_) {
-    LOG_TIME(impl_.eliminate(true));
+    impl_.eliminate(true);
   }
 
   if (!impl_.okay()) {
@@ -52,18 +52,16 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   }
 }
 
-State SimpSolver::state() const noexcept {
-  return state_;
-}
-
-void SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
-  LOG_TIME(Minisat::lbool result = impl_.solveLimited(assumptions));
-
+State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
+  Minisat::lbool result = impl_.solveLimited(assumptions);
   if (result == Minisat::l_True) {
     state_ = SAT;
   } else if (result == Minisat::l_False) {
     state_ = UNSAT;
+  } else {
+    state_ = UNKNOWN;
   }
+  return state_;
 }
 
 void SimpSolver::interrupt() {
