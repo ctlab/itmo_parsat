@@ -7,6 +7,8 @@ namespace ea::method {
 
 class Crossover {
  public:
+  virtual ~Crossover() = default;
+
   virtual void apply(instance::Instance& a, instance::Instance& b) = 0;
 };
 

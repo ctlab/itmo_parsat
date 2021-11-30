@@ -7,6 +7,8 @@ namespace ea::method {
 
 class Mutation {
  public:
+  virtual ~Mutation() = default;
+
   virtual void apply(instance::Instance& instance) = 0;
 };
 
