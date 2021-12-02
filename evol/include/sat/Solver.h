@@ -4,8 +4,11 @@
 #include <minisat/core/SolverTypes.h>
 #include <minisat/mtl/Vec.h>
 
+#include <functional>
 #include <filesystem>
 #include <memory>
+
+#include "evol/include/domain/Assignment.h"
 
 namespace ea::sat {
 
@@ -17,6 +20,24 @@ enum State {
 
 class Solver {
  public:
+  /**
+   * Must be thread safe for some implementations.
+   */
+  // clang-format off
+  typedef std::function<
+      bool( // true iff should continue solving
+        State, // result of solve_limited
+        Minisat::vec<Minisat::Lit> const& // assumptions passed to solve_limited
+      )> slv_callback_t;
+  typedef std::function<
+      bool( // true iff should continue solving
+        bool, // true iff there's been conflict
+        Minisat::vec<Minisat::Lit> const&, // assumptions passed to propagate
+        Minisat::vec<Minisat::Lit> const& // propagated literals
+      )> prop_callback_t; //
+  // clang-format on
+
+ public:
   virtual ~Solver() = default;
 
   /**
@@ -25,24 +46,14 @@ class Solver {
   virtual void parse_cnf(std::filesystem::path const& path) = 0;
 
   /**
-   * Runs solveLimited implementation of Solver.
+   * Equivalent to `solve_limited({})`.
    */
   State solve_limited();
 
   /**
-   * Runs solveLimited implementation of Solver with assumptions.
+   * Runs solutions with the specified assumptions.
    */
   virtual State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
-
-  /**
-   * Interrupt solver if the `solve*` is running.
-   */
-  virtual void interrupt() = 0;
-
-  /**
-   * Returns the number of variables in formula.
-   */
-  [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;
 
   /**
    * Propagates a given list of assumptions.
@@ -55,9 +66,31 @@ class Solver {
    * Propagates a given list of assumptions.
    */
   [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
+
+  /**
+   * TODO: description
+   */
+  virtual void solve_assignments(domain::UAssignment assignment_p, slv_callback_t const& callback);
+
+  /**
+   * TODO: description
+   */
+  virtual void prop_assignments(domain::UAssignment assignment_p, prop_callback_t const& callback);
+
+  /**
+   * Interrupts solver. Intended to be used from signal handlers.
+   */
+  virtual void interrupt() = 0;
+
+  /**
+   * Returns the number of variables in formula.
+   */
+  [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;
 };
 
 using RSolver = std::shared_ptr<Solver>;
+
+using USolver = std::unique_ptr<Solver>;
 
 }  // namespace ea::sat
 

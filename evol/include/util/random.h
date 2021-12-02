@@ -13,7 +13,7 @@ class Generator {
   std::mt19937& stdgen();
 
  private:
-  std::mt19937 mt_;
+  std::mt19937 mt_{133722813};
 };
 
 bool flip_coin(double p);

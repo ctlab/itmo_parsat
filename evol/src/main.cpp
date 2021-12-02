@@ -3,11 +3,12 @@
 #include <boost/program_options.hpp>
 #include <boost/timer/progress_display.hpp>
 #include <fstream>
+#include <mutex>
 
 #include "evol/include/algorithm/Algorithm.h"
+#include "evol/include/domain/Instance.h"
 #include "evol/include/config/CliConfig.h"
 #include "evol/include/config/Configuration.h"
-#include "evol/include/domain/Instance.h"
 #include "evol/include/sat/Solver.h"
 #include "evol/include/util/Registry.h"
 #include "evol/include/util/SigHandler.h"
@@ -81,29 +82,39 @@ int main(int argc, char** argv) {
         });
 
     std::vector<bool> vars = r_backdoor.get_variables();
-    ea::instance::FullSearch assignment(vars);
+    ea::domain::UAssignment assignment_p =
+        std::make_unique<ea::domain::FullSearch>(ea::instance::Instance::var_map(), vars);
 
-    bool satisfied = false, unknown = false;
-#define DISPLAY_PROGRESS
-#ifdef DISPLAY_PROGRESS
+    std::atomic_bool satisfied = false, unknown = false;
     size_t num_vars = r_backdoor.fitness().pow_r;
+
+    std::mutex progress_lock;
     boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars));
-#endif
-    do {
-      switch (solver->solve_limited(assignment())) {
-        case ea::sat::UNSAT:
-          break;
-        case ea::sat::UNKNOWN:
-          unknown = true;
-          break;
-        case ea::sat::SAT:
-          satisfied = true;
-          break;
-      }
-#ifdef DISPLAY_PROGRESS
-      ++progress;
-#endif
-    } while (!ea::SigHandler::is_set() && !satisfied && ++assignment);
+
+    // clang-format off
+    solver->solve_assignments(
+        std::move(assignment_p), [&satisfied, &unknown, &progress, &progress_lock](
+          ea::sat::State result, Minisat::vec<Minisat::Lit> const&) {
+            if (ea::SigHandler::is_set()) {
+              return false;
+            }
+            {
+              std::lock_guard<std::mutex> lg(progress_lock);
+              ++progress;
+            }
+            switch (result) {
+              case ea::sat::UNSAT:
+                return true;
+              case ea::sat::UNKNOWN:
+                unknown = true;
+                return true;
+              case ea::sat::SAT:
+                satisfied = true;
+              default:
+                return false;
+            }
+        });
+    // clang-format on
 
     if (satisfied) {
       result = ea::sat::SAT;

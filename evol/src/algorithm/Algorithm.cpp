@@ -18,7 +18,9 @@ void Algorithm::process() {
   while (!is_interrupted() && limit_->proceed(population_)) {
     LOG_TIME(8, step());
     auto& best = get_best();
-    VLOG(5) << "Best instance fit: " << best.fitness().rho << " with size: " << best.fitness().pow_r
+    VLOG(5) << instance::Instance::inaccurate_points()
+            << "] Best instance fit: " << best.fitness().rho
+            << " with size: " << best.fitness().pow_r
             << " and fitness: " << (double) best.fitness();
   }
 }

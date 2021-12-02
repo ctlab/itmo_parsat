@@ -87,6 +87,11 @@ message SimpSolverConfig {
   MinisatCliConfig cli_config = 9;
 }
 
+message ParSolverConfig {
+  uint32 max_threads = 1;
+  string solver_type = 2;
+}
+
 message GlobalConfig {
   string algorithm_type = 20;
   AlgorithmConfig algorithm_config = 1;
@@ -103,4 +108,5 @@ message GlobalConfig {
   string solver_type = 21;
   InstanceConfig instance_config = 6;
   SimpSolverConfig simp_solver_config = 7;
+  ParSolverConfig par_solver_config = 22;
 }

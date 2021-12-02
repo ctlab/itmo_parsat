@@ -5,6 +5,7 @@
 
 #include "evol/include/sat/Solver.h"
 #include "evol/include/config/Configuration.h"
+#include "evol/include/domain/Assignment.h"
 #include "evol/proto/config.pb.h"
 
 namespace ea::instance {
@@ -74,9 +75,12 @@ class Instance {
 
  private:
   static std::map<int, int> var_map_;
+  static std::atomic_uint32_t inaccurate_points_;
 
  public:
   static size_t num_vars() noexcept;
+
+  static uint32_t inaccurate_points();
 
   static std::map<int, int> const& var_map() noexcept;
 };
@@ -84,37 +88,6 @@ class Instance {
 RInstance createInstance(sat::RSolver const& solver);
 
 bool operator<(Instance& a, Instance& b);
-
-class Assignment {
- public:
-  explicit Assignment(std::vector<bool> const& vars);
-
-  virtual ~Assignment() = default;
-
-  Minisat::vec<Minisat::Lit> const& operator()() const;
-
-  virtual bool operator++() = 0;
-
- protected:
-  Minisat::vec<Minisat::Lit> assignment_;
-};
-
-class FullSearch : public Assignment {
- public:
-  explicit FullSearch(std::vector<bool> const& vars);
-
-  bool operator++() override;
-};
-
-class RandomAssignments : public Assignment {
- public:
-  explicit RandomAssignments(std::vector<bool> const& vars, uint32_t total);
-
-  bool operator++() override;
-
- private:
-  uint32_t left_;
-};
 
 }  // namespace ea::instance
 

@@ -14,6 +14,7 @@ cc_binary(
     deps = [
         "@boost//:program_options",
         "@boost//:timer",
+        "@boost//:asio",
         "@com_github_google_glog//:glog",
         "@com_google_protobuf//:protobuf",
         "//evol/proto:config_cc_proto",
@@ -28,6 +29,7 @@ cc_test(
     srcs = glob(["test/**/*.cpp"]) + sources,
     deps = [
         "@boost//:program_options",
+        "@boost//:asio",
         "@com_github_google_glog//:glog",
         "@com_google_protobuf//:protobuf",
         "@com_google_googletest//:gtest_main",

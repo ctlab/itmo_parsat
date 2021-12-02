@@ -46,22 +46,17 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   if (preprocess_) {
     impl_.eliminate(true);
   }
-
-  if (!impl_.okay()) {
-    state_ = UNSAT;
-  }
 }
 
 State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
   Minisat::lbool result = impl_.solveLimited(assumptions);
   if (result == Minisat::l_True) {
-    state_ = SAT;
+    return SAT;
   } else if (result == Minisat::l_False) {
-    state_ = UNSAT;
+    return UNSAT;
   } else {
-    state_ = UNKNOWN;
+    return UNKNOWN;
   }
-  return state_;
 }
 
 void SimpSolver::interrupt() {

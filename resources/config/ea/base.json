@@ -1,11 +1,11 @@
 {
     "algorithm_config": {
         "limit_type": "ConjLimit",
-        "solver_type": "SimpSolver"
+        "solver_type": "ParSolver"
     },
     "resource_limit_config": {
         "memory_limit_kb": 0,
-        "time_limit_sec": 300
+        "time_limit_sec": 60
     },
     "fitness_limit_config": {
         "lowest_fitness": 0.95
@@ -45,7 +45,7 @@
         }
     },
     "algorithm_type": "EAAlgorithm",
-    "solver_type": "SimpSolver",
+    "solver_type": "ParSolver",
     "simp_solver_config": {
         "use_asymm": false,
         "use_rcheck": false,
@@ -74,5 +74,9 @@
             "cpu_limit": 0,
             "mem_limit": 0
         }
+    },
+    "par_solver_config": {
+        "solver_type": "SimpSolver",
+        "max_threads": 16
     }
 }

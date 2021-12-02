@@ -27,7 +27,6 @@ class SimpSolver : public Solver {
 
  private:
   Minisat::SimpSolver impl_;
-  State state_ = UNKNOWN;
   bool preprocess_;
 };
 

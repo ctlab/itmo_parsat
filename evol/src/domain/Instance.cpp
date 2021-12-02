@@ -31,7 +31,7 @@ void collect_stats(
   }
 }
 
-const size_t MAX_CACHE_SIZE = 10000;
+const size_t MAX_CACHE_SIZE = 100000;
 std::unordered_map<std::vector<bool>, ::ea::instance::Fitness> fit_cache_{};
 
 }  // namespace
@@ -53,6 +53,7 @@ void Instance::_init_heuristic(InstanceConfig const& config) {
     std::vector<std::pair<int, int>> stats;
     stats.reserve(solver_->num_vars());
 
+    // TODO: use intended solver method (to abuse parallel solver)
     for (unsigned i = 0; i < solver_->num_vars(); ++i) {
       std::set<int> prop_both;
       assumptions[0] = Minisat::mkLit((int) i, true);
@@ -119,20 +120,27 @@ Fitness const& Instance::fitness() {
 }
 
 void Instance::_calc_fitness() {
-  uint64_t success = 0, samples = max_sampling_size_;
+  ++inaccurate_points_;
+  uint64_t samples = max_sampling_size_;
   int size = (int) std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
-  std::unique_ptr<Assignment> assignment_ptr;
+
+  std::unique_ptr<domain::Assignment> assignment_ptr;
+  domain::UAssignment assignment_p;
   if (std::log2(max_sampling_size_) >= (double) size) {
     samples = (uint32_t) std::pow(2, size);
-    assignment_ptr = std::make_unique<FullSearch>(vars_.bit_mask);
+    assignment_p = std::make_unique<domain::FullSearch>(var_map(), vars_.bit_mask);
   } else {
-    assignment_ptr = std::make_unique<RandomAssignments>(vars_.bit_mask, samples);
+    assignment_p = std::make_unique<domain::RandomAssignments>(var_map(), vars_.bit_mask, samples);
   }
-  Assignment& assignment = *assignment_ptr;
 
-  do {
-    LOG_TIME(8, success += solver_->propagate(assignment()));
-  } while (++assignment);
+  std::atomic_int success(0);
+  // clang-format off
+  solver_->prop_assignments(std::move(assignment_p),
+      [&success](bool conflict, auto const&, auto const&) {
+        success += conflict;
+        return true;
+      });
+  // clang-format on
 
   fit_.rho = (double) success / (double) samples;
   fit_.pow_r = size;
@@ -155,7 +163,13 @@ std::map<int, int> const& Instance::var_map() noexcept {
   return var_map_;
 }
 
+uint32_t Instance::inaccurate_points() {
+  return inaccurate_points_;
+}
+
 std::map<int, int> Instance::var_map_{};
+
+std::atomic_uint32_t Instance::inaccurate_points_{0};
 
 }  // namespace ea::instance
 
@@ -198,48 +212,6 @@ bool operator<(Fitness const& a, Fitness const& b) {
 
 bool operator<(Instance& a, Instance& b) {
   return a.fitness() < b.fitness();
-}
-
-Assignment::Assignment(std::vector<bool> const& vars) {
-  for (int i = 0; i < (int) vars.size(); ++i) {
-    if (vars[i]) {
-      assignment_.push(Minisat::mkLit(Instance::var_map().at(i), false));
-    }
-  }
-}
-
-Minisat::vec<Minisat::Lit> const& Assignment::operator()() const {
-  return assignment_;
-}
-
-FullSearch::FullSearch(std::vector<bool> const& vars) : Assignment(vars) {}
-
-bool FullSearch::operator++() {
-  int pos = 0;
-  while (pos < assignment_.size() && sign(assignment_[pos])) {
-    assignment_[pos] = ~assignment_[pos];
-    ++pos;
-  }
-  if (pos == assignment_.size()) {
-    return false;
-  }
-  assignment_[pos] = Minisat::mkLit(pos, true);
-  return true;
-}
-
-RandomAssignments::RandomAssignments(std::vector<bool> const& vars, uint32_t total)
-    : Assignment(vars), left_(total + 1) {
-  ++(*this);
-}
-
-bool RandomAssignments::operator++() {
-  if (--left_ == 0) {
-    return false;
-  }
-  for (int i = 0; i < assignment_.size(); ++i) {
-    assignment_[i] = Minisat::mkLit(Minisat::var(assignment_[i]), random::flip_coin(0.5));
-  }
-  return true;
 }
 
 }  // namespace ea::instance

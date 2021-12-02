@@ -12,4 +12,27 @@ State Solver::solve_limited() {
   return solve_limited(assumptions);
 }
 
+void Solver::solve_assignments(
+    domain::UAssignment assignment_p, slv_callback_t const& callback) {
+  domain::Assignment& assignment = *assignment_p;
+  do {
+    Minisat::vec<Minisat::Lit> const& assumptions = assignment();
+    if (!callback(solve_limited(assumptions), assumptions)) {
+      break;
+    }
+  } while (++assignment);
+}
+
+void Solver::prop_assignments(
+    domain::UAssignment assignment_p, prop_callback_t const& callback) {
+  domain::Assignment& assignment = *assignment_p;
+  Minisat::vec<Minisat::Lit> propagated;
+  do {
+    Minisat::vec<Minisat::Lit> const& assumptions = assignment();
+    if (!callback(propagate(assumptions, propagated), assumptions, propagated)) {
+      break;
+    }
+  } while (++assignment);
+}
+
 }  // namespace ea::sat
