@@ -31,6 +31,8 @@ using RInstance = std::shared_ptr<Instance>;
 
 using Population = std::vector<RInstance>;
 
+void get_fit(Instance&);
+
 class Instance {
  private:
   enum CacheState {
@@ -60,6 +62,8 @@ class Instance {
 
  private:
   void _init_heuristic(InstanceConfig const& config);
+
+  void _calc_fitness();
 
  private:
   std::shared_ptr<sat::Solver> solver_;
@@ -104,7 +108,7 @@ class FullSearch : public Assignment {
 
 class RandomAssignments : public Assignment {
  public:
-  explicit RandomAssignments(std::vector<bool> const& vars, size_t total);
+  explicit RandomAssignments(std::vector<bool> const& vars, uint32_t total);
 
   bool operator++() override;
 

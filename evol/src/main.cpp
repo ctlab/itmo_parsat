@@ -67,7 +67,8 @@ int main(int argc, char** argv) {
 
     LOG_TIME(4, algorithm->process());
     auto& r_backdoor = algorithm->get_best();
-    VLOG(3) << "Resulting instance rho: " << std::fixed << r_backdoor.fitness().rho;
+    VLOG(3) << "Resulting instance rho: " << std::fixed << r_backdoor.fitness().rho
+            << ", size: " << r_backdoor.fitness().pow_r;
 
     alg_int_handle.remove();
     ea::SigHandler::unset();

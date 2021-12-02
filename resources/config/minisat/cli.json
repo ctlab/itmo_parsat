@@ -1,8 +1,0 @@
-{
-    "verbosity_level": 2,
-    "preprocessing": true,
-    "solving": true,
-    "cpu_limit": 0,
-    "mem_limit": 0,
-    "strict_header": true
-}

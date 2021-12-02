@@ -1,9 +1,0 @@
-{
-    "use_asymm": false,
-    "use_rcheck": false,
-    "use_elim": true,
-    "grow": 0,
-    "clause_lim": 20,
-    "subsumption_lim": 1000,
-    "simp_garbage_frac": 0.5
-}

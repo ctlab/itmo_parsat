@@ -3,6 +3,7 @@
 #include <glog/logging.h>
 
 #include <memory>
+#include <unordered_map>
 #include <utility>
 
 #include "evol/include/util/profile.h"
@@ -29,6 +30,9 @@ void collect_stats(
     collection.insert(var(propagated[(int) j]));
   }
 }
+
+const size_t MAX_CACHE_SIZE = 10000;
+std::unordered_map<std::vector<bool>, ::ea::instance::Fitness> fit_cache_{};
 
 }  // namespace
 
@@ -99,11 +103,26 @@ Fitness const& Instance::fitness() {
   if (cache_state_ == CACHE) {
     return fit_;
   }
+  auto it = fit_cache_.find(get_variables());
+  if (it != fit_cache_.end()) {
+    VLOG(5) << "Instance-fit cache hit.";
+    fit_ = it->second;
+  } else {
+    _calc_fitness();
+    if (fit_cache_.size() == MAX_CACHE_SIZE) {
+      /* TODO: more clever removal */
+      fit_cache_.erase(fit_cache_.begin());
+    }
+    fit_cache_[get_variables()] = fit_;
+  }
+  return fit_;
+}
 
+void Instance::_calc_fitness() {
   uint64_t success = 0, samples = max_sampling_size_;
   int size = (int) std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
   std::unique_ptr<Assignment> assignment_ptr;
-  if (std::log2(max_sampling_size_) > (double) size) {
+  if (std::log2(max_sampling_size_) >= (double) size) {
     samples = (uint32_t) std::pow(2, size);
     assignment_ptr = std::make_unique<FullSearch>(vars_.bit_mask);
   } else {
@@ -121,7 +140,6 @@ Fitness const& Instance::fitness() {
 
   VLOG(7) << "num_vars: " << fit_.pow_r << ", rho=" << fit_.rho << ", fit=" << (double) fit_;
   cache_state_ = CACHE;
-  return fit_;
 }
 
 void Instance::flip_var(size_t pos) {
@@ -182,7 +200,7 @@ bool operator<(Instance& a, Instance& b) {
   return a.fitness() < b.fitness();
 }
 
-Assignment::Assignment(const std::vector<bool>& vars) {
+Assignment::Assignment(std::vector<bool> const& vars) {
   for (int i = 0; i < (int) vars.size(); ++i) {
     if (vars[i]) {
       assignment_.push(Minisat::mkLit(Instance::var_map().at(i), false));
@@ -194,7 +212,7 @@ Minisat::vec<Minisat::Lit> const& Assignment::operator()() const {
   return assignment_;
 }
 
-FullSearch::FullSearch(const std::vector<bool>& vars) : Assignment(vars) {}
+FullSearch::FullSearch(std::vector<bool> const& vars) : Assignment(vars) {}
 
 bool FullSearch::operator++() {
   int pos = 0;
@@ -209,7 +227,7 @@ bool FullSearch::operator++() {
   return true;
 }
 
-RandomAssignments::RandomAssignments(std::vector<bool> const& vars, size_t total)
+RandomAssignments::RandomAssignments(std::vector<bool> const& vars, uint32_t total)
     : Assignment(vars), left_(total + 1) {
   ++(*this);
 }
@@ -219,9 +237,7 @@ bool RandomAssignments::operator++() {
     return false;
   }
   for (int i = 0; i < assignment_.size(); ++i) {
-    if (random::flip_coin(0.5)) {
-      assignment_[i] = ~assignment_[i];
-    }
+    assignment_[i] = Minisat::mkLit(Minisat::var(assignment_[i]), random::flip_coin(0.5));
   }
   return true;
 }

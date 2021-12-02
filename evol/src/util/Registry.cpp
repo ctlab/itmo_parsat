@@ -13,7 +13,7 @@ void check_register(std::map<K, V> const& map, K const& key, std::string const& 
 
 template <typename K, typename V>
 void check_resolve(std::map<K, V> const& map, K const& key, std::string const& interface) {
-  LOG(INFO) << "Resolving implementation " << key << " of " << interface;
+  VLOG(4) << "Resolving implementation " << key << " of " << interface;
   CHECK_GT(map.count(key), size_t(0)) << "Trying to resolve unregistered implementation '" << key
                                       << "' of interface " << interface << ".";
 }
