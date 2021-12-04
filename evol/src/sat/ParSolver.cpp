@@ -108,65 +108,6 @@ void ParSolver::prop_assignments(
   _wait_for_futures(futures);
 }
 
-// void ParSolver::solve_assignments(
-//     domain::UAssignment assignment_p, Solver::slv_callback_t const& callback) {
-//   interrupt_ = false;
-//   std::atomic_bool stop{false};
-//   std::vector<std::future<void>> futures;
-//   auto& assignment = *assignment_p;
-//   // clang-format off
-//   for (uint32_t index = 0;
-//        index < assignment.size() && !stop && !interrupt_;
-//        ++index) {
-//     futures.push_back(boost::asio::post(thread_pool_, boost::asio::use_future(
-//         [this, &stop, &callback, &assignment, index]() {
-//           auto assumption = assignment(index);
-//           size_t solver_index = random::sample<size_t>(0, solvers_.size() - 1);
-//           State result;
-//           {
-//             std::lock_guard lg(solver_mutexes_[solver_index]);
-//             result = solvers_[solver_index]->solve_limited(assumption);
-//           }
-//           if (!callback(result, assumption)) {
-//             stop = true;
-//           }
-//         })));
-//   }
-//   // clang-format on
-//
-//   _wait_for_futures(futures);
-// }
-//
-// void ParSolver::prop_assignments(
-//     domain::UAssignment assignment_p, Solver::prop_callback_t const& callback) {
-//   interrupt_ = false;
-//   std::atomic_bool stop{false};
-//   std::vector<std::future<void>> futures;
-//   auto& assignment = *assignment_p;
-//   // clang-format off
-//   for (uint32_t index = 0;
-//        index < assignment.size() && !stop && !interrupt_;
-//        ++index) {
-//     futures.push_back(boost::asio::post(thread_pool_, boost::asio::use_future(
-//         [this, &stop, &callback, &assignment, index]() {
-//           auto assumption = assignment(index);
-//           size_t solver_index = random::sample<size_t>(0, solvers_.size() - 1);
-//           bool result;
-//           Minisat::vec<Minisat::Lit> propagated;
-//           {
-//             std::lock_guard lg(solver_mutexes_[solver_index]);
-//             result = solvers_[solver_index]->propagate(assumption, propagated);
-//           }
-//           if (!callback(result, assumption, propagated)) {
-//             stop = true;
-//           }
-//         })));
-//   }
-//   // clang-format on
-//
-//   _wait_for_futures(futures);
-// }
-
 void ParSolver::_wait_for_futures(std::vector<std::future<void>>& futures) noexcept {
   for (auto& future : futures) {
     future.get();
