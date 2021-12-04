@@ -79,9 +79,6 @@ function parse_options() {
                 shift
                 CFG_PATH="$1"
             } ;;
-            -*) {
-                parse_option $1
-            } ;;
             --help) {
                 print_help
             } ;;
@@ -110,6 +107,13 @@ function parse_options() {
                 TEST="YES"
                 PROTO="YES"
             } ;;
+            --filter) {
+                shift
+                FILTER="--gtest_filter=$1"
+            } ;;
+            -*) {
+                parse_option $1
+            } ;;
             *) {
                 echo "Unkown option: $1"
                 exit 1
@@ -118,6 +122,8 @@ function parse_options() {
 
         shift
     done
+
+    ARGS=""
 }
 
 
@@ -131,24 +137,25 @@ function main() {
     if ! [[ -z "$PROTO" ]]; then
         rm ./evol/proto/config.pb.h || true
         rm ./evol/proto/config.pb.cc || true
-        bazel build '//evol/proto:*'
+        bazel build '//evol/proto:*' $ARGS
         ln -s `pwd`/bazel-bin/evol/proto/config.pb.h ./evol/proto/config.pb.h
         ln -s `pwd`/bazel-bin/evol/proto/config.pb.cc ./evol/proto/config.pb.cc
     fi
 
     if ! [[ -z "$BUILD" ]]; then
-        bazel build //evol:main //evol:test
+        bazel build //evol:main //evol:test $ARGS
     fi
 
     if ! [[ -z "$TEST" ]]; then
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $TEST_BIN
+        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $TEST_BIN $FILTER
     fi
 
     if ! [[ -z "$SOLVE" ]]; then
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $SOLVE_BIN \
             $BACKDOOR \
             --input "$CNF_PATH" \
-            --config "$CFG_PATH"
+            --config "$CFG_PATH" \
+            $ARGS
     fi
 }
 

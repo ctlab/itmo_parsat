@@ -1,5 +1,7 @@
 #include "evol/include/sat/Solver.h"
 
+#include <iostream>
+
 namespace ea::sat {
 
 bool Solver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {

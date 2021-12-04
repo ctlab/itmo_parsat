@@ -39,33 +39,24 @@ void ParSolver::solve_assignments(
     domain::UAssignment assignment_p, Solver::slv_callback_t const& callback) {
   interrupt_ = false;
   std::vector<std::future<void>> futures;
-  auto& assignment = *assignment_p;
 
   uint32_t num_threads = solvers_.size();
-  uint32_t num_to_do = assignment.size() / num_threads;
-  uint32_t num_overwork = assignment.size() % num_threads;
-
-  for (uint32_t t = 0, index = 0; t < num_threads; ++t) {
-    uint32_t to_do = num_to_do + (t < num_overwork);
-
+  for (uint32_t index = 0; index < num_threads; ++index) {
     // clang-format off
     futures.push_back(boost::asio::post(thread_pool_,
       boost::asio::use_future(
-        [this, t, to_do, index, &callback, assumption = domain::UAssignment(assignment.clone())]() {
-          auto& solver = *solvers_[t];
+        [this, index, &callback, assumption = domain::UAssignment(assignment_p->split_search(num_threads, index))]() {
+          auto& solver = *solvers_[index];
           auto& assignment = *assumption;
-          assignment.set(index);
-          for (uint32_t i = 0; i < to_do && !interrupt_; ++i, ++assignment) {
+          do {
             auto const& arg = assignment();
             State result = solver.solve_limited(arg);
             if (!callback(result, arg)) {
               break;
             }
-          }
+          } while (!interrupt_ && ++assignment);
         })));
     // clang-format on
-
-    index += to_do;
   }
 
   _wait_for_futures(futures);
@@ -78,31 +69,23 @@ void ParSolver::prop_assignments(
   auto& assignment = *assignment_p;
 
   uint32_t num_threads = solvers_.size();
-  uint32_t num_to_do = assignment.size() / num_threads;
-  uint32_t num_overwork = assignment.size() % num_threads;
-
   for (uint32_t t = 0, index = 0; t < num_threads; ++t) {
-    uint32_t to_do = num_to_do + (t < num_overwork);
-
     // clang-format off
     futures.push_back(boost::asio::post(thread_pool_,
         boost::asio::use_future(
-          [this, t, to_do, index, &callback, assumption = domain::UAssignment(assignment.clone())]() {
-            auto& solver = *solvers_[t];
+          [this, index, &callback, assumption = domain::UAssignment(assignment_p->split_search(num_threads, index))]() {
+            auto& solver = *solvers_[index];
             auto& assignment = *assumption;
-            assignment.set(index);
             Minisat::vec<Minisat::Lit> propagated;
-            for (uint32_t i = 0; i < to_do && !interrupt_; ++i, ++assignment) {
+            do {
               auto const& arg = assignment();
               bool result = solver.propagate(arg, propagated);
               if (!callback(result, arg, propagated)) {
                 break;
               }
-            }
-        })));
-    // clang-format on
-
-    index += to_do;
+            } while (!interrupt_ && ++assignment);
+          })));
+     // clang-format on
   }
 
   _wait_for_futures(futures);

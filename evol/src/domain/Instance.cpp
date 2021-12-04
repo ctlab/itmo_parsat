@@ -106,7 +106,6 @@ Fitness const& Instance::fitness() {
   }
   auto it = fit_cache_.find(get_variables());
   if (it != fit_cache_.end()) {
-    VLOG(5) << "Instance-fit cache hit.";
     fit_ = it->second;
   } else {
     _calc_fitness();
@@ -121,28 +120,27 @@ Fitness const& Instance::fitness() {
 
 void Instance::_calc_fitness() {
   ++inaccurate_points_;
-  uint64_t samples = max_sampling_size_;
   int size = (int) std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
-
   std::unique_ptr<domain::Assignment> assignment_ptr;
   domain::UAssignment assignment_p;
   if (std::log2(max_sampling_size_) >= (double) size) {
-    samples = (uint32_t) std::pow(2, size);
-    assignment_p = std::make_unique<domain::FullSearch>(var_map(), vars_.bit_mask);
+    assignment_p = domain::createFullSearch(var_map(), vars_.bit_mask);
   } else {
-    assignment_p = std::make_unique<domain::RandomAssignments>(var_map(), vars_.bit_mask, samples);
+    assignment_p = domain::createRandomSearch(var_map(), vars_.bit_mask, max_sampling_size_);
   }
 
-  std::atomic_int success(0);
+  std::atomic_int success(0), total(0);
   // clang-format off
   solver_->prop_assignments(std::move(assignment_p),
-      [&success](bool conflict, auto const&, auto const&) {
+      [&success, &total](bool conflict, auto const, auto) {
         success += conflict;
+        ++total;
         return true;
       });
   // clang-format on
 
-  fit_.rho = (double) success / (double) samples;
+//  CHECK_EQ(total, (int) samples) << "Internal error: invalid assignments behaviour";
+  fit_.rho = (double) success / (double) total;
   fit_.pow_r = size;
   fit_.pow_nr = (int) omega_x;
 

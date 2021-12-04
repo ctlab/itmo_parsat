@@ -40,8 +40,9 @@ void read_json_configs(std::filesystem::path const& global_cfg_path) {
 
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
-  ea::config::CliConfig& config = add_and_read_args(argc, argv);
+  ea::SigHandler sig_handler;
 
+  ea::config::CliConfig& config = add_and_read_args(argc, argv);
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
   std::filesystem::path config_path = config.get<std::filesystem::path>("config");
@@ -50,18 +51,15 @@ int main(int argc, char** argv) {
   LOG_TIME(4, read_json_configs(config_path));
   VLOG(3) << "Input file: " << input;
 
-  std::shared_ptr<ea::sat::Solver> solver = ea::registry::Registry::resolve_solver(
-      ea::config::Configuration::get_global_config().solver_type());
-  LOG_TIME(4, solver->parse_cnf(input));
-
   if (backdoor) {
     ea::algorithm::RAlgorithm algorithm(
         ea::registry::Registry::resolve_algorithm(ea::config::global_config().algorithm_type()));
-    algorithm->get_solver().parse_cnf(input);
+    auto& solver = algorithm->get_solver();
+    LOG_TIME(4, solver.parse_cnf(input));
     algorithm->prepare();
 
     ea::SigHandler::CallbackHandle alg_int_handle =
-        ea::SigHandler::register_callback([&algorithm](int) {
+        sig_handler.register_callback([&algorithm](int) {
           algorithm->interrupt();
           VLOG(2) << "Algorithm has been interrupted.";
         });
@@ -72,18 +70,18 @@ int main(int argc, char** argv) {
             << ", size: " << r_backdoor.fitness().pow_r;
 
     alg_int_handle.remove();
-    ea::SigHandler::unset();
+    sig_handler.unset();
     bool interrupted = false;
     ea::SigHandler::CallbackHandle slv_int_handle =
-        ea::SigHandler::register_callback([&solver, &interrupted](int) {
-          solver->interrupt();
+        sig_handler.register_callback([&solver, &interrupted](int) {
+          solver.interrupt();
           interrupted = true;
           VLOG(2) << "Solver has been interrupted.";
         });
 
     std::vector<bool> vars = r_backdoor.get_variables();
     ea::domain::UAssignment assignment_p =
-        std::make_unique<ea::domain::FullSearch>(ea::instance::Instance::var_map(), vars);
+        ea::domain::createFullSearch(ea::instance::Instance::var_map(), vars);
 
     std::atomic_bool satisfied = false, unknown = false;
     size_t num_vars = r_backdoor.fitness().pow_r;
@@ -92,10 +90,10 @@ int main(int argc, char** argv) {
     boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars));
 
     // clang-format off
-    solver->solve_assignments(
-        std::move(assignment_p), [&satisfied, &unknown, &progress, &progress_lock](
+    solver.solve_assignments(
+        std::move(assignment_p), [&sig_handler, &satisfied, &unknown, &progress, &progress_lock](
           ea::sat::State result, Minisat::vec<Minisat::Lit> const&) {
-            if (ea::SigHandler::is_set()) {
+            if (sig_handler.is_set()) {
               return false;
             }
             {
@@ -125,8 +123,10 @@ int main(int argc, char** argv) {
     }
     slv_int_handle.remove();
   } else {
+    ea::sat::RSolver solver =
+        ea::registry::Registry::resolve_solver(ea::config::global_config().solver_type());
     ea::SigHandler::CallbackHandle slv_int_handle =
-        ea::SigHandler::register_callback([&solver](int) {
+        sig_handler.register_callback([&solver](int) {
           solver->interrupt();
           VLOG(2) << "Solver has been interrupted.";
         });

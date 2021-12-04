@@ -11,7 +11,7 @@ void test_flip_coin(double p) {
   for (int i = 0; i < samples; ++i) {
     count += random::flip_coin(p);
   }
-  ASSERT_LE(std::abs(p - count / samples), 1e-3);
+  ASSERT_LE(std::abs(p - count / samples), 1e-2);
 }
 
 TEST(random, flip_coin) {

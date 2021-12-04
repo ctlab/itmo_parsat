@@ -32,18 +32,15 @@ class SigHandler {
  public:
   SigHandler();
 
-  static bool is_set();
+  [[nodiscard]] bool is_set() const;
 
-  static void unset();
+  void unset();
 
-  static void set();
+  void set();
 
-  static CallbackHandle register_callback(callback_t);
+  CallbackHandle register_callback(callback_t);
 
-  static void callback(int sig);
-
- private:
-  static SigHandler& instance();
+  void callback(int sig);
 
  private:
   uint64_t next_handle_{0};

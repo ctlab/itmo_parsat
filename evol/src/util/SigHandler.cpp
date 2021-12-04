@@ -1,15 +1,18 @@
 #include "evol/include/util/SigHandler.h"
 
 #include <glog/logging.h>
+#include <memory>
 
 namespace {
 
-ea::SigHandler handler_{};
+ea::SigHandler* handler_{};
 
 void sig_handler_(int sig) {
-  VLOG(2) << "SigHandler caught interrupt.";
-  ea::SigHandler::set();
-  ea::SigHandler::callback(sig);
+  if (handler_) {
+    VLOG(2) << "SigHandler caught interrupt.";
+    handler_->set();
+    handler_->callback(sig);
+  }
 }
 
 }  // namespace
@@ -24,33 +27,30 @@ void SigHandler::CallbackHandle::remove() {
 }
 
 SigHandler::SigHandler() {
+  handler_ = this;
   std::signal(SIGINT, sig_handler_);
 }
 
-bool SigHandler::is_set() {
-  return instance().registered_;
+bool SigHandler::is_set() const {
+  return registered_;
 }
 
 void SigHandler::unset() {
-  instance().registered_ = false;
+  registered_ = false;
 }
 
 void SigHandler::set() {
-  instance().registered_ = true;
-}
-
-SigHandler& SigHandler::instance() {
-  return handler_;
+  registered_ = true;
 }
 
 SigHandler::CallbackHandle SigHandler::register_callback(callback_t cb) {
-  uint64_t handle = instance().next_handle_++;
-  instance().callbacks_[handle] = std::move(cb);
-  return {handle, &instance()};
+  uint64_t handle = next_handle_++;
+  callbacks_[handle] = std::move(cb);
+  return {handle, this};
 }
 
 void SigHandler::callback(int sig) {
-  std::map<uint64_t, callback_t> copy(instance().callbacks_);
+  std::map<uint64_t, callback_t> copy(callbacks_);
   for (auto& it : copy) {
     (it.second)(sig);
   }
