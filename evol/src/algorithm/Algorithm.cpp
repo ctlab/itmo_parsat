@@ -2,6 +2,8 @@
 
 #include "evol/include/util/Registry.h"
 #include "evol/include/util/SigHandler.h"
+#include "evol/include/util/stream.h"
+#include "evol/include/util/Logging.h"
 
 namespace ea::algorithm {
 
@@ -14,19 +16,20 @@ Algorithm::Algorithm(AlgorithmConfig const& config)
 void Algorithm::prepare() {}
 
 void Algorithm::process() {
+  size_t iteration = 0;
   limit_->start();
   while (!is_interrupted() && limit_->proceed(population_)) {
-    LOG_TIME(8, step());
-    auto& best = get_best();
-    VLOG(5) << instance::Instance::inaccurate_points()
-            << "] Best instance fit: " << best.fitness().rho
-            << " with size: " << best.fitness().pow_r
-            << " and fitness: " << (double) best.fitness();
+    LOG_TIME(step());
+    EALOG(LogType::BEST_INSTANCE) << "[Iter " << iteration << "]"
+                                  << "[Points " << instance::Instance::inaccurate_points() << "]"
+                                  << " Best instance: " << get_best();
+    ++iteration;
   }
 }
 
 void Algorithm::interrupt() {
   interrupted_ = true;
+  solver_->interrupt();
 }
 
 bool Algorithm::is_interrupted() const {

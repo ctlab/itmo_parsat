@@ -15,8 +15,8 @@ void TwoPointCrossover::apply(instance::Instance& a, instance::Instance& b) {
 
   // clang-format off
   std::swap_ranges(
-    a.get_variables().begin() + pos_1, a.get_variables().begin() + pos_2,
-    b.get_variables().begin() + pos_1
+    a.get_mask().begin() + pos_1, a.get_mask().begin() + pos_2,
+    b.get_mask().begin() + pos_1
   );
   // clang-format on
 }

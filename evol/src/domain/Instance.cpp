@@ -1,12 +1,10 @@
 #include "evol/include/domain/Instance.h"
 
-#include <glog/logging.h>
-
 #include <memory>
 #include <unordered_map>
 #include <utility>
 
-#include "evol/include/util/profile.h"
+#include "evol/include/util/Logging.h"
 #include "evol/include/util/random.h"
 
 namespace {
@@ -53,7 +51,6 @@ void Instance::_init_heuristic(InstanceConfig const& config) {
     std::vector<std::pair<int, int>> stats;
     stats.reserve(solver_->num_vars());
 
-    // TODO: use intended solver method (to abuse parallel solver)
     for (unsigned i = 0; i < solver_->num_vars(); ++i) {
       std::set<int> prop_both;
       assumptions[0] = Minisat::mkLit((int) i, true);
@@ -69,6 +66,14 @@ void Instance::_init_heuristic(InstanceConfig const& config) {
     auto it = stats.crbegin();
     for (size_t i = 0; i < max_watched_count; ++i, ++it) {
       var_map_[(int) i] = it->second;
+    }
+
+    if (Logger::should_log(LogType::HEURISTIC_VARS)) {
+      std::stringstream ss;
+      for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
+        ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
+      }
+      LOG(INFO) << "Heuristic init:\n" << ss.str();
     }
   }
 
@@ -88,12 +93,23 @@ Instance::Instance(InstanceConfig const& config, sat::RSolver solver)
   }
 }
 
-std::vector<bool> const& Instance::get_variables() const noexcept {
+std::vector<bool> const& Instance::get_mask() const noexcept {
   return vars_.bit_mask;
 }
 
-std::vector<bool>& Instance::get_variables() noexcept {
+std::vector<bool>& Instance::get_mask() noexcept {
+  cache_state_ = NO_CACHE;
   return vars_.bit_mask;
+}
+
+std::vector<int> Instance::get_variables() const noexcept {
+  std::vector<int> vars;
+  for (size_t i = 0; i < get_mask().size(); ++i) {
+    if (get_mask()[i]) {
+      vars.push_back(var_map_[(int) i]);
+    }
+  }
+  return vars;
 }
 
 Instance* Instance::clone() {
@@ -104,17 +120,17 @@ Fitness const& Instance::fitness() {
   if (cache_state_ == CACHE) {
     return fit_;
   }
-  auto it = fit_cache_.find(get_variables());
+  auto it = fit_cache_.find(get_mask());
   if (it != fit_cache_.end()) {
     fit_ = it->second;
   } else {
     _calc_fitness();
     if (fit_cache_.size() == MAX_CACHE_SIZE) {
-      /* TODO: more clever removal */
       fit_cache_.erase(fit_cache_.begin());
     }
-    fit_cache_[get_variables()] = fit_;
+    fit_cache_[get_mask()] = fit_;
   }
+  cache_state_ = CACHE;
   return fit_;
 }
 
@@ -122,35 +138,36 @@ void Instance::_calc_fitness() {
   ++inaccurate_points_;
   int size = (int) std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
   std::unique_ptr<domain::Assignment> assignment_ptr;
+  uint32_t samples = max_sampling_size_;
   domain::UAssignment assignment_p;
   if (std::log2(max_sampling_size_) >= (double) size) {
+    samples = (uint32_t) std::pow(2UL, size);
     assignment_p = domain::createFullSearch(var_map(), vars_.bit_mask);
   } else {
     assignment_p = domain::createRandomSearch(var_map(), vars_.bit_mask, max_sampling_size_);
   }
 
-  std::atomic_int success(0), total(0);
   // clang-format off
+  std::atomic_int success(0), total(0);
   solver_->prop_assignments(std::move(assignment_p),
-      [&success, &total](bool conflict, auto const, auto) {
+      [&success, &total](bool conflict, auto const& asgn, auto) {
         success += conflict;
         ++total;
         return true;
       });
   // clang-format on
 
-//  CHECK_EQ(total, (int) samples) << "Internal error: invalid assignments behaviour";
+  LOG_IF(WARNING, total != (int) samples) << "Internal error: invalid assignments behaviour.";
   fit_.rho = (double) success / (double) total;
   fit_.pow_r = size;
   fit_.pow_nr = (int) omega_x;
-
-  VLOG(7) << "num_vars: " << fit_.pow_r << ", rho=" << fit_.rho << ", fit=" << (double) fit_;
   cache_state_ = CACHE;
+  EALOG(LogType::CURR_INSTANCE) << *this;
 }
 
 void Instance::flip_var(size_t pos) {
-  vars_.flip(pos);
   cache_state_ = NO_CACHE;
+  vars_.flip(pos);
 }
 
 RInstance createInstance(sat::RSolver const& solver) {
@@ -163,6 +180,10 @@ std::map<int, int> const& Instance::var_map() noexcept {
 
 uint32_t Instance::inaccurate_points() {
   return inaccurate_points_;
+}
+
+bool Instance::is_cached(const std::vector<bool>& vars) noexcept {
+  return fit_cache_.count(vars) > 0;
 }
 
 std::map<int, int> Instance::var_map_{};
@@ -213,3 +234,9 @@ bool operator<(Instance& a, Instance& b) {
 }
 
 }  // namespace ea::instance
+
+std::ostream& operator<<(std::ostream& os, ea::instance::Instance& instance) {
+  return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
+            << " and fitness: " << (double) instance.fitness()
+            << " Vars: " << instance.get_variables();
+}

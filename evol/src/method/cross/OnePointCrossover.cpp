@@ -12,13 +12,13 @@ void OnePointCrossover::apply(instance::Instance& a, instance::Instance& b) {
   // clang-format off
   if (pos < num_vars - pos) {
     std::swap_ranges(
-      a.get_variables().begin(), a.get_variables().begin() + pos,
-      b.get_variables().begin()
+      a.get_mask().begin(), a.get_mask().begin() + pos,
+      b.get_mask().begin()
     );
   } else {
     std::swap_ranges(
-      a.get_variables().begin() + pos, a.get_variables().end(),
-      b.get_variables().begin() + pos
+      a.get_mask().begin() + pos, a.get_mask().end(),
+      b.get_mask().begin() + pos
     );
   }
   // clang-format on

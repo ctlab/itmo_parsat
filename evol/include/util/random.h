@@ -4,16 +4,20 @@
 #include <random>
 #include <algorithm>
 
+#include "evol/include/config/Configuration.h"
+
 namespace ea::random {
 
 class Generator {
  public:
+  Generator();
+
   static Generator& instance();
 
   std::mt19937& stdgen();
 
  private:
-  std::mt19937 mt_{13372813};
+  std::mt19937 mt_;
 };
 
 bool flip_coin(double p);

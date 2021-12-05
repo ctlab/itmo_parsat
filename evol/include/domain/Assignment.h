@@ -17,7 +17,7 @@ using UAssignment = std::unique_ptr<Assignment>;
 
 class Assignment {
  public:
-  static constexpr uint64_t MAX_VARS_FULL_SEARCH = 63;
+  static constexpr int MAX_VARS_FULL_SEARCH = 63;
 
  protected:
   explicit Assignment(
@@ -52,6 +52,8 @@ class Assignment {
    * @return true iff state is valid and operator() can be applied.
    */
   [[nodiscard]] bool operator++();
+
+  [[nodiscard]] bool is_empty() const;
 
  protected:
   virtual void _advance() = 0;
@@ -117,9 +119,12 @@ class UniqueSearch : public SmallSearch {
   friend UAssignment createRandomSearch(
       std::map<int, int> const&, std::vector<bool> const&, uint64_t);
 
- protected:
+ public:
   explicit UniqueSearch(
       std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total);
+
+  explicit UniqueSearch(
+      std::map<int, int> const& var_map, std::vector<bool> const& vars);
 
  private:
   std::set<uint64_t> visited_;

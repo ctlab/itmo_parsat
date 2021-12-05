@@ -36,10 +36,9 @@ void next_assignment(Minisat::vec<Minisat::Lit>& vec) {
 
 // clang-format off
 void get_start_and_todo(
-    uint64_t first, uint64_t last,
+    uint64_t total,
     uint64_t num_split, uint64_t index,
     uint64_t& start, uint64_t& to_do) {
-  uint64_t total = last - first + 1;
   uint64_t div = total / num_split;
   uint64_t rem = total % num_split;
 
@@ -67,12 +66,16 @@ Assignment::Assignment(
   }
 }
 
+bool Assignment::is_empty() const {
+  return total_ == 0;
+}
+
 Minisat::vec<Minisat::Lit> const& Assignment::operator()() const {
   return assignment_;
 }
 
 bool Assignment::operator++() {
-  if (done_ == total_ - 1) {
+  if (done_ == total_ - 1 || total_ == 0) {
     return false;
   } else {
     _advance();
@@ -103,12 +106,16 @@ SmallSearch::SmallSearch(
 UAssignment SmallSearch::split_search(uint64_t num_split, uint64_t index) const {
   auto* result = clone();
   uint64_t start, to_do;
-  get_start_and_todo(first_, last_, num_split, index, start, to_do);
-  result->first_ = start;
-  result->last_ = start + to_do - 1;
-  result->done_ = 0;
-  result->total_ = to_do;
-  result->_reset();
+  get_start_and_todo(total_, num_split, index, start, to_do);
+  if (start < total_) {
+    result->first_ = start;
+    result->last_ = start + to_do - 1;
+    result->done_ = 0;
+    result->total_ = to_do;
+    result->_reset();
+  } else {
+    result->total_ = 0;
+  }
   return UAssignment(result);
 }
 
@@ -146,6 +153,12 @@ void FullSearch::_reset() {
 UniqueSearch::UniqueSearch(
     const std::map<int, int>& var_map, const std::vector<bool>& vars, uint64_t total)
     : SmallSearch(var_map, vars, total) {
+  _advance_us();
+}
+
+UniqueSearch::UniqueSearch(
+    const std::map<int, int>& var_map, const std::vector<bool>& vars)
+    : SmallSearch(var_map, vars) {
   _advance_us();
 }
 

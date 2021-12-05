@@ -4,7 +4,6 @@
 #include <boost/asio/thread_pool.hpp>
 #include <boost/asio/use_future.hpp>
 #include <boost/asio/post.hpp>
-#include <mutex>
 #include <atomic>
 
 #include "evol/include/sat/Solver.h"
@@ -42,7 +41,6 @@ class ParSolver : public Solver {
   std::atomic_bool interrupt_{false};
   boost::asio::thread_pool thread_pool_;
   std::vector<sat::RSolver> solvers_;
-  std::vector<std::mutex> solver_mutexes_;
 };
 
 }  // namespace ea::sat

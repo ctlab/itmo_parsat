@@ -8,7 +8,7 @@
 namespace ea::sat {
 
 ParSolver::ParSolver(ParSolverConfig const& config)
-    : thread_pool_(config.max_threads()), solver_mutexes_(config.max_threads()) {
+    : thread_pool_(config.max_threads()) {
   for (uint32_t i = 0; i < config.max_threads(); ++i) {
     solvers_.push_back(registry::Registry::resolve_solver(config.solver_type()));
   }
@@ -39,22 +39,23 @@ void ParSolver::solve_assignments(
     domain::UAssignment assignment_p, Solver::slv_callback_t const& callback) {
   interrupt_ = false;
   std::vector<std::future<void>> futures;
-
   uint32_t num_threads = solvers_.size();
   for (uint32_t index = 0; index < num_threads; ++index) {
     // clang-format off
     futures.push_back(boost::asio::post(thread_pool_,
       boost::asio::use_future(
-        [this, index, &callback, assumption = domain::UAssignment(assignment_p->split_search(num_threads, index))]() {
-          auto& solver = *solvers_[index];
-          auto& assignment = *assumption;
-          do {
-            auto const& arg = assignment();
-            State result = solver.solve_limited(arg);
-            if (!callback(result, arg)) {
-              break;
-            }
-          } while (!interrupt_ && ++assignment);
+        [this, index, &callback, assumption = assignment_p->split_search(num_threads, index)]() {
+          if (!assumption->is_empty()) {
+            auto& solver = *solvers_[index];
+            auto& assignment = *assumption;
+            do {
+              auto const& arg = assignment();
+              State result = solver.solve_limited(arg);
+              if (!callback(result, arg)) {
+                break;
+              }
+            } while (!interrupt_ && ++assignment);
+          }
         })));
     // clang-format on
   }
@@ -66,26 +67,25 @@ void ParSolver::prop_assignments(
     domain::UAssignment assignment_p, Solver::prop_callback_t const& callback) {
   interrupt_ = false;
   std::vector<std::future<void>> futures;
-  auto& assignment = *assignment_p;
-
   uint32_t num_threads = solvers_.size();
-  for (uint32_t t = 0, index = 0; t < num_threads; ++t) {
+  for (uint32_t index = 0; index < num_threads; ++index) {
     // clang-format off
     futures.push_back(boost::asio::post(thread_pool_,
         boost::asio::use_future(
-          [this, index, &callback, assumption = domain::UAssignment(assignment_p->split_search(num_threads, index))]() {
-            auto& solver = *solvers_[index];
-            auto& assignment = *assumption;
-            Minisat::vec<Minisat::Lit> propagated;
-            do {
-              auto const& arg = assignment();
-              bool result = solver.propagate(arg, propagated);
-              if (!callback(result, arg, propagated)) {
-                break;
-              }
-            } while (!interrupt_ && ++assignment);
+          [this, index, &callback, assumption = assignment_p->split_search(num_threads, index)]() {
+            if (!assumption->is_empty()) {
+              auto& assignment = *assumption;
+              Minisat::vec<Minisat::Lit> propagated;
+              do {
+                auto const& arg = assignment();
+                bool result = solvers_[index]->propagate(arg, propagated);
+                if (!callback(result, arg, propagated)) {
+                  break;
+                }
+              } while (!interrupt_ && ++assignment);
+            }
           })));
-     // clang-format on
+    // clang-format on
   }
 
   _wait_for_futures(futures);

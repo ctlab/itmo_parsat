@@ -12,7 +12,10 @@ void EAAlgorithm::prepare() {
 
 void EAAlgorithm::step() {
   instance::RInstance child(population_.front()->clone());
-  mutator_->apply(*child);
+  while (instance::Instance::is_cached(child->get_mask())) {
+    mutator_->apply(*child);
+  }
+
   population_.push_back(child);
   selector_->select(population_, 1);
 }

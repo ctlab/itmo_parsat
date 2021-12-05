@@ -5,6 +5,7 @@
 #include "evol/include/util/GzFile.h"
 #include "evol/include/util/Registry.h"
 #include "evol/include/util/profile.h"
+#include "evol/include/util/Logging.h"
 #include "minisat/core/Dimacs.h"
 #include "minisat/utils/System.h"
 
@@ -44,11 +45,14 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   }
 
   if (preprocess_) {
+    EALOG(LogType::SOLVER_STATS) << "Stats before preprocess: " << impl_.nClauses() << ' ' << impl_.nVars();
     impl_.eliminate(true);
+    EALOG(LogType::SOLVER_STATS) << "Stats after preprocess: " << impl_.nClauses() << ' ' << impl_.nVars();
   }
 }
 
 State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
+  impl_.clearInterrupt();
   Minisat::lbool result = impl_.solveLimited(assumptions);
   if (result == Minisat::l_True) {
     return SAT;
@@ -70,6 +74,7 @@ unsigned SimpSolver::num_vars() const noexcept {
 bool SimpSolver::propagate(
     Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
   bool conflict = false;
+  impl_.clearInterrupt();
   impl_.prop_check(assumptions, propagated, 0, conflict);
   return conflict;
 }

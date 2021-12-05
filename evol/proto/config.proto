@@ -92,6 +92,24 @@ message ParSolverConfig {
   string solver_type = 2;
 }
 
+enum LogType {
+  TIME = 0;
+  HEURISTIC_VARS = 1;
+  BEST_INSTANCE = 2;
+  CURR_INSTANCE = 3;
+  SOLVER_STATS = 4;
+}
+
+message LoggerConfig {
+  message LoggerEntry {
+    LogType log_type = 1;
+    uint32 min_verbose_level = 2;
+    uint32 every_n = 3;
+  }
+
+  repeated LoggerEntry entries = 1;
+}
+
 message GlobalConfig {
   string algorithm_type = 20;
   AlgorithmConfig algorithm_config = 1;
@@ -109,4 +127,7 @@ message GlobalConfig {
   InstanceConfig instance_config = 6;
   SimpSolverConfig simp_solver_config = 7;
   ParSolverConfig par_solver_config = 22;
+
+  int64 rnd_seed = 23;
+  LoggerConfig logger_config = 24;
 }

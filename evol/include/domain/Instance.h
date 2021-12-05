@@ -6,6 +6,7 @@
 #include "evol/include/sat/Solver.h"
 #include "evol/include/config/Configuration.h"
 #include "evol/include/domain/Assignment.h"
+#include "evol/include/util/stream.h"
 #include "evol/proto/config.pb.h"
 
 namespace ea::instance {
@@ -51,9 +52,11 @@ class Instance {
  public:
   explicit Instance(InstanceConfig const& config, sat::RSolver solver);
 
-  [[nodiscard]] std::vector<bool> const& get_variables() const noexcept;
+  [[nodiscard]] std::vector<bool> const& get_mask() const noexcept;
 
-  std::vector<bool>& get_variables() noexcept;
+  std::vector<bool>& get_mask() noexcept;
+
+  [[nodiscard]] std::vector<int> get_variables() const noexcept;
 
   void flip_var(size_t var);
 
@@ -83,6 +86,8 @@ class Instance {
   static uint32_t inaccurate_points();
 
   static std::map<int, int> const& var_map() noexcept;
+
+  static bool is_cached(std::vector<bool> const& vars) noexcept;
 };
 
 RInstance createInstance(sat::RSolver const& solver);
@@ -90,5 +95,7 @@ RInstance createInstance(sat::RSolver const& solver);
 bool operator<(Instance& a, Instance& b);
 
 }  // namespace ea::instance
+
+std::ostream& operator<<(std::ostream&, ea::instance::Instance& instance);
 
 #endif  // EVOL_INSTANCE_H

@@ -1,14 +1,14 @@
 {
     "algorithm_config": {
         "limit_type": "ConjLimit",
-        "solver_type": "SimpSolver"
+        "solver_type": "ParSolver"
     },
     "resource_limit_config": {
         "memory_limit_kb": 0,
-        "time_limit_sec": 60
+        "time_limit_sec": 600
     },
     "fitness_limit_config": {
-        "lowest_fitness": 0.95
+        "lowest_fitness": 0.995
     },
     "conj_limit_config": {
         "limit_type": [
@@ -36,7 +36,7 @@
         "omega_x": 20,
         "sampling_config": {
             "frac": 0,
-            "count": 10000
+            "count": 20000
         },
         "init": "HEURISTIC",
         "heuristic_config": {
@@ -78,5 +78,35 @@
     "par_solver_config": {
         "solver_type": "SimpSolver",
         "max_threads": 16
+    },
+    "rnd_seed": 171,
+    "logger_config": {
+        "entries": [
+            {
+                "log_type": "TIME",
+                "min_verbose_level": 10,
+                "every_n": 100
+            },
+            {
+                "log_type": "HEURISTIC_VARS",
+                "min_verbose_level": 4,
+                "every_n": 1
+            },
+            {
+                "log_type": "BEST_INSTANCE",
+                "min_verbose_level": 6,
+                "every_n": 100
+            },
+            {
+                "log_type": "CURR_INSTANCE",
+                "min_verbose_level": 8,
+                "every_n": 10
+            },
+            {
+                "log_type": "SOLVER_STATS",
+                "min_verbose_level": 2,
+                "every_n": 1
+            }
+        ]
     }
 }

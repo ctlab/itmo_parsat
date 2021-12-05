@@ -11,7 +11,10 @@
 #include "evol/include/config/Configuration.h"
 #include "evol/include/sat/Solver.h"
 #include "evol/include/util/Registry.h"
+#include "evol/include/util/stream.h"
 #include "evol/include/util/SigHandler.h"
+#include "evol/include/util/Logging.h"
+#include "evol/proto/config.pb.h"
 
 ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
@@ -39,47 +42,50 @@ void read_json_configs(std::filesystem::path const& global_cfg_path) {
 }
 
 int main(int argc, char** argv) {
-  google::InitGoogleLogging(argv[0]);
-  ea::SigHandler sig_handler;
-
   ea::config::CliConfig& config = add_and_read_args(argc, argv);
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
   std::filesystem::path config_path = config.get<std::filesystem::path>("config");
   ea::sat::State result;
 
-  LOG_TIME(4, read_json_configs(config_path));
-  VLOG(3) << "Input file: " << input;
+  read_json_configs(config_path);
+  ea::Logger logger(argv[0], ea::config::global_config().logger_config());
+
+  LOG(INFO) << "Input file: " << input;
 
   if (backdoor) {
     ea::algorithm::RAlgorithm algorithm(
         ea::registry::Registry::resolve_algorithm(ea::config::global_config().algorithm_type()));
     auto& solver = algorithm->get_solver();
-    LOG_TIME(4, solver.parse_cnf(input));
+    LOG_TIME(solver.parse_cnf(input));
     algorithm->prepare();
 
+    ea::SigHandler sig_handler;
     ea::SigHandler::CallbackHandle alg_int_handle =
         sig_handler.register_callback([&algorithm](int) {
           algorithm->interrupt();
-          VLOG(2) << "Algorithm has been interrupted.";
+          LOG(INFO) << "Algorithm has been interrupted.";
         });
 
-    LOG_TIME(4, algorithm->process());
+    LOG_TIME(algorithm->process());
     auto& r_backdoor = algorithm->get_best();
-    VLOG(3) << "Resulting instance rho: " << std::fixed << r_backdoor.fitness().rho
-            << ", size: " << r_backdoor.fitness().pow_r;
+    LOG(INFO) << "Resulting instance rho: " << std::fixed << r_backdoor.fitness().rho
+              << ", size: " << r_backdoor.fitness().pow_r;
+    LOG(INFO) << "Number of points visited: " << ea::instance::Instance::inaccurate_points();
+    LOG(INFO) << "The best backdoor is: " << r_backdoor.get_variables();
 
     alg_int_handle.remove();
     sig_handler.unset();
+
     bool interrupted = false;
     ea::SigHandler::CallbackHandle slv_int_handle =
         sig_handler.register_callback([&solver, &interrupted](int) {
           solver.interrupt();
           interrupted = true;
-          VLOG(2) << "Solver has been interrupted.";
+          LOG(INFO) << "Solver has been interrupted.";
         });
 
-    std::vector<bool> vars = r_backdoor.get_variables();
+    std::vector<bool> vars = r_backdoor.get_mask();
     ea::domain::UAssignment assignment_p =
         ea::domain::createFullSearch(ea::instance::Instance::var_map(), vars);
 
@@ -87,7 +93,7 @@ int main(int argc, char** argv) {
     size_t num_vars = r_backdoor.fitness().pow_r;
 
     std::mutex progress_lock;
-    boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars));
+    boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars), std::cerr);
 
     // clang-format off
     solver.solve_assignments(
@@ -125,22 +131,25 @@ int main(int argc, char** argv) {
   } else {
     ea::sat::RSolver solver =
         ea::registry::Registry::resolve_solver(ea::config::global_config().solver_type());
-    ea::SigHandler::CallbackHandle slv_int_handle =
-        sig_handler.register_callback([&solver](int) {
-          solver->interrupt();
-          VLOG(2) << "Solver has been interrupted.";
-        });
+    ea::SigHandler sig_handler;
+    ea::SigHandler::CallbackHandle slv_int_handle = sig_handler.register_callback([&solver](int) {
+      solver->interrupt();
+      LOG(INFO) << "Solver has been interrupted.";
+    });
 
-    LOG_TIME(4, result = solver->solve_limited());
+    LOG_TIME(result = solver->solve_limited());
     slv_int_handle.remove();
   }
 
   if (result == ea::sat::UNSAT) {
-    VLOG(1) << "UNSAT";
+    LOG(INFO) << "UNSAT";
+    std::cout << "UNSAT";
   } else if (result == ea::sat::SAT) {
-    VLOG(1) << "SAT";
+    LOG(INFO) << "SAT";
+    std::cout << "SAT";
   } else {
-    VLOG(1) << "UNKNOWN";
+    LOG(INFO) << "UNKNOWN";
+    std::cout << "UNKNOWN";
   }
 
   return 0;
