@@ -4,3 +4,4 @@ bazel-*
 .clwb/
 .idea/
 **/*build*/
+*log*

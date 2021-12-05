@@ -3,12 +3,12 @@
 #include "evol/include/util/Registry.h"
 #include "evol/include/util/random.h"
 
+#include <mutex>
 #include <glog/logging.h>
 
 namespace ea::sat {
 
-ParSolver::ParSolver(ParSolverConfig const& config)
-    : thread_pool_(config.max_threads()) {
+ParSolver::ParSolver(ParSolverConfig const& config) : thread_pool_(config.max_threads()) {
   for (uint32_t i = 0; i < config.max_threads(); ++i) {
     solvers_.push_back(registry::Registry::resolve_solver(config.solver_type()));
   }
@@ -40,21 +40,33 @@ void ParSolver::solve_assignments(
   interrupt_ = false;
   std::vector<std::future<void>> futures;
   uint32_t num_threads = solvers_.size();
+  std::mutex asgn_mutex;
   for (uint32_t index = 0; index < num_threads; ++index) {
     // clang-format off
     futures.push_back(boost::asio::post(thread_pool_,
       boost::asio::use_future(
-        [this, index, &callback, assumption = assignment_p->split_search(num_threads, index)]() {
-          if (!assumption->is_empty()) {
+        [this, &asgn_mutex, index, &callback, &assignment_p]() {
+          if (!assignment_p->is_empty()) {
             auto& solver = *solvers_[index];
-            auto& assignment = *assumption;
+            auto& assignment = *assignment_p;
+            Minisat::vec<Minisat::Lit> arg(assignment().size());
+            bool stop = false;
             do {
-              auto const& arg = assignment();
+              {
+                std::lock_guard<std::mutex> asgn_lg(asgn_mutex);
+                for (int i = 0; i < assignment().size(); ++i) {
+                  arg[i] = assignment()[i];
+                }
+                if (!++assignment) {
+                  interrupt_ = true;
+                  stop = true;
+                }
+              }
               State result = solver.solve_limited(arg);
               if (!callback(result, arg)) {
                 break;
               }
-            } while (!interrupt_ && ++assignment);
+            } while (!interrupt_ && !stop);
           }
         })));
     // clang-format on
