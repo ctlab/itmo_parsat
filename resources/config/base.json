@@ -36,7 +36,7 @@
         "omega_x": 20,
         "sampling_config": {
             "frac": 0,
-            "count": 20000
+            "count": 10000
         },
         "init": "HEURISTIC",
         "heuristic_config": {

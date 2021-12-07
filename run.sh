@@ -1,11 +1,13 @@
 #!/bin/bash
-set -e
+set -ex
 
-CNF_PATH="$PWD/resources/cnf/pancake_vs_selection_7_4.cnf"
-CFG_PATH="$PWD/resources/config/ea/base.json"
-SOLVE_BIN="$PWD/bazel-bin/evol/main"
-TEST_BIN="$PWD/bazel-bin/evol/test"
+ROOT="$PWD"
+CNF_PATH="$ROOT/resources/cnf/pancake_vs_selection_7_4.cnf"
+CFG_PATH="$ROOT/resources/config/base.json"
+SOLVE_BIN="$ROOT/bazel-bin/evol/main"
+TEST_BIN="$ROOT/bazel-bin/evol/test"
 VERBOSE="2"
+DO_ALL=""
 
 function print_help() {
     echo "Usage: ./run.sh [options]"
@@ -21,6 +23,7 @@ function print_help() {
     echo "   -i|--input <path>   Path to CNF"
     echo "   -s|--solve          Do solve"
     echo "   -a|--all            Do all (equal to -bfpst)"
+    echo "   --sync              Synchronize external dependencies."
     exit 1
 }
 
@@ -50,11 +53,7 @@ function parse_option() {
                 TEST="YES"
             } ;;
             a) {
-                FORMAT="YES"
-                BUILD="YES"
-                SOLVE="YES"
-                TEST="YES"
-                PROTO="YES"
+                DO_ALL="YES"
             } ;;
             *) {
                 echo "Unkown option: -${opt:$i:1}"
@@ -101,15 +100,14 @@ function parse_options() {
                 TEST="YES"
             } ;;
             --all) {
-                FORMAT="YES"
-                BUILD="YES"
-                SOLVE="YES"
-                TEST="YES"
-                PROTO="YES"
+                DO_ALL="YES"
             } ;;
             --filter) {
                 shift
                 FILTER="--gtest_filter=$1"
+            } ;;
+            --sync) {
+                SYNC="YES"
             } ;;
             -*) {
                 parse_option $1
@@ -124,11 +122,25 @@ function parse_options() {
     done
 
     ARGS=""
+
+    FORMAT="$FORMAT$DO_ALL"
+    BUILD="$BUILD$DO_ALL"
+    PROTO="$PROTO$DO_ALL"
+    SOLVE="$SOLVE$DO_ALL"
+    TEST="$TEST$DO_ALL"
 }
 
 
 function main() {
     parse_options "$@"
+
+    if ! [[ -z "$SYNC" ]]; then
+        cd "$ROOT/ext/libpqxx"
+        git checkout '7.6.0'
+        ./configure
+        sudo make install
+        cd "$ROOT"
+    fi
 
     if ! [[ -z "$FORMAT" ]]; then
         find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i

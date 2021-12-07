@@ -1,12 +1,15 @@
 sources = glob(include=[
     "src/**/*.cpp",
-    "src/**/*.cc",
     "include/**/*.h",
-    "proto/**/*.h",
-    "proto/**/*.cc",
 ], exclude=[
     "src/main.cpp",
 ])
+
+pq_linkopts = [
+    "-lpq", 
+    "-lpqxx",
+    "-L/usr/local/lib",
+]
 
 base_deps = [
     "@boost//:program_options",
@@ -14,15 +17,13 @@ base_deps = [
     "@boost//:asio",
     "@com_github_google_glog//:glog",
     "@com_google_protobuf//:protobuf",
-    "//evol/proto:config_cc_proto",
-    "//minisat:libminisat",
 ]
 
 cc_binary(
     name = "main",
     srcs = sources + ["src/main.cpp"],
     deps = base_deps,
-    copts = ["-Iminisat"],
+    linkopts = pq_linkopts,
 )
 
 cc_test(
@@ -31,6 +32,7 @@ cc_test(
     srcs = glob(["test/**/*.cpp"]) + sources,
     deps = base_deps + [
         "@com_google_googletest//:gtest_main",
-        "//evol:main",
+        "//testing:main",
     ],
+    linkopts = pq_linkopts,
 )

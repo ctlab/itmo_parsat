@@ -1,0 +1,10 @@
+directories:
+  evol/
+  minisat/
+  testing/
+
+targets:
+  //evol:main
+  //evol:test
+  //minisat:libminisat
+  //testing:main

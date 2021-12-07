@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 git_repository(
@@ -54,7 +55,6 @@ http_archive(
     ],
 )
 
-hash = "97d8af4"
 git_repository(
     name = "rules_proto",
     commit = "cfdc2fa31879c0aebe31ce7702b1a9c8a4be02d2",

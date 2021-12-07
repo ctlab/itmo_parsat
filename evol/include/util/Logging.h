@@ -13,7 +13,7 @@ class Logger {
 
   struct LogEntry {
     LoggerConfig_LoggerEntry config;
-    std::atomic_int cur_counter = 0;
+    std::atomic_uint32_t cur_counter = 0;
 
    public:
     LogEntry() = default;
