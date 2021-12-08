@@ -5,3 +5,4 @@ bazel-*
 .idea/
 **/*build*/
 *log*
+logs-infra

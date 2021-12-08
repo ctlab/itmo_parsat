@@ -42,6 +42,7 @@ void read_json_configs(std::filesystem::path const& global_cfg_path) {
 }
 
 int main(int argc, char** argv) {
+  ::google::InitGoogleLogging(argv[0]);
   ea::config::CliConfig& config = add_and_read_args(argc, argv);
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
@@ -144,13 +145,14 @@ int main(int argc, char** argv) {
   if (result == ea::sat::UNSAT) {
     LOG(INFO) << "UNSAT";
     std::cout << "UNSAT";
+    return 0;
   } else if (result == ea::sat::SAT) {
     LOG(INFO) << "SAT";
     std::cout << "SAT";
+    return 1;
   } else {
     LOG(INFO) << "UNKNOWN";
     std::cout << "UNKNOWN";
+    return 2;
   }
-
-  return 0;
 }

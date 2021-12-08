@@ -1,10 +1,10 @@
 directories:
   evol/
   minisat/
-  testing/
+  infra/
 
 targets:
   //evol:main
   //evol:test
   //minisat:libminisat
-  //testing:main
+  //infra:main

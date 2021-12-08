@@ -24,7 +24,6 @@ Logger::Logger(char const* argv0, LoggerConfig const& config) {
   }
 
   CHECK_EQ(logger_, nullptr) << "Logger is initialized yet.";
-  google::InitGoogleLogging(argv0);
   logger_ = this;
 }
 

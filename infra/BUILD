@@ -15,8 +15,10 @@ base_deps = [
     "@boost//:program_options",
     "@boost//:timer",
     "@boost//:asio",
+    "@boost//:process",
     "@com_github_google_glog//:glog",
     "@com_google_protobuf//:protobuf",
+    "@com_google_googletest//:gtest_main",
 ]
 
 cc_binary(
@@ -31,8 +33,7 @@ cc_test(
     size = "small",
     srcs = glob(["test/**/*.cpp"]) + sources,
     deps = base_deps + [
-        "@com_google_googletest//:gtest_main",
-        "//testing:main",
+        "//infra:main",
     ],
     linkopts = pq_linkopts,
 )
