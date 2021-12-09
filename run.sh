@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 ROOT="$PWD"
 CNF_PATH="$ROOT/resources/cnf/pancake_vs_selection_7_4.cnf"
