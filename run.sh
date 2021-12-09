@@ -17,7 +17,7 @@ function print_help() {
     echo "   -b|--build          Do build"
     echo "   -f|--format         Do reformat"
     echo "   -p|--proto          Do proto rebuild"
-    echo "   -t|--test Do test"
+    echo "   -t|--test           Do test"
     echo "   -v|--verbose <x>    Set verbose level to x[=2]"
     echo "   -c|--config <path>  Path to config"
     echo "   -i|--input <path>   Path to CNF"

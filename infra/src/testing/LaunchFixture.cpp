@@ -50,6 +50,12 @@ LaunchFixture::LaunchConfig& LaunchFixture::LaunchConfig::config_path(
   return *this;
 }
 
+LaunchFixture::LaunchConfig& LaunchFixture::LaunchConfig::expected_result(
+    infra::domain::Result result) noexcept {
+  expected_result_ = result;
+  return *this;
+}
+
 void LaunchFixture::prepare() {
   /* Create logs root directory if it does not exist */
   if (!std::filesystem::is_directory(config.working_dir)) {
@@ -99,13 +105,13 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
 
     // clang-format off
     if (launch_config.backdoor_) {
-      procs_.emplace_back(logs_path, config_path, real_input_path, true,
+      procs_.emplace_back(logs_path, config_path, real_input_path, launch_config.expected_result_, true,
         config.executable.string(), "--backdoor",
         "--input", real_input_path.string(), "--config", real_config_path.string(),
         boost::process::std_out > logs_path, boost::process::std_err > logs_path
       );
     } else {
-      procs_.emplace_back(logs_path, config_path, real_input_path, false,
+      procs_.emplace_back(logs_path, config_path, real_input_path, launch_config.expected_result_, false,
         config.executable.string(),
         "--input", real_input_path.string(), "--config", real_config_path.string(),
         boost::process::std_out > logs_path, boost::process::std_err > logs_path
@@ -153,8 +159,10 @@ void LaunchFixture::Launch::save_to_db(infra::domain::Launches& db_launches) {
         result = infra::domain::ERROR;
         break;
     }
+    ASSERT_EQ(result, expected_result);
+  } else {
+    LOG(WARNING) << "Solution has been interrupted.";
   }
-
   db_launches.add(
       infra::domain::Launch{0, input_path, config_path, logs_path, backdoor, "", result});
 }

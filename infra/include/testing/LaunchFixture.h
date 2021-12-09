@@ -26,6 +26,7 @@ class LaunchFixture : public ::testing::Test {
  public:
   struct LaunchConfig {
     bool backdoor_ = false;
+    infra::domain::Result expected_result_{};
     std::filesystem::path config_path_{};
     std::filesystem::path input_path_{};
 
@@ -37,6 +38,8 @@ class LaunchFixture : public ::testing::Test {
     LaunchConfig& input_path(std::filesystem::path const& input_path) noexcept;
 
     LaunchConfig& config_path(std::filesystem::path const& config_path) noexcept;
+
+    LaunchConfig& expected_result(infra::domain::Result result) noexcept;
   };
 
  public:
@@ -64,6 +67,7 @@ class LaunchFixture : public ::testing::Test {
     std::filesystem::path logs_path;
     std::filesystem::path config_path;
     std::filesystem::path input_path;
+    infra::domain::Result expected_result;
     bool backdoor = false;
     bool interrupted = false;
 
@@ -73,10 +77,11 @@ class LaunchFixture : public ::testing::Test {
     explicit Launch(std::filesystem::path logs_path,
                     std::filesystem::path config_path,
                     std::filesystem::path input_path,
+                    infra::domain::Result result,
                     bool backdoor, Args&&... args)
         : proc(std::forward<Args>(args)...), logs_path(std::move(logs_path)),
           config_path(std::move(config_path)), input_path(std::move(input_path)),
-          backdoor(backdoor) {}
+          expected_result(result), backdoor(backdoor) {}
     // clang-format on
 
     void interrupt();
