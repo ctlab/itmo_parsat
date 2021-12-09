@@ -236,7 +236,9 @@ bool operator<(Instance& a, Instance& b) {
 }  // namespace ea::instance
 
 std::ostream& operator<<(std::ostream& os, ea::instance::Instance& instance) {
+  auto vars = instance.get_variables();
+  std::sort(vars.begin(), vars.end());
   return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
             << " and fitness: " << (double) instance.fitness()
-            << " Vars: " << instance.get_variables();
+            << " Vars: " << vars;
 }
