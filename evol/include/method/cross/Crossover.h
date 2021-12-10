@@ -9,7 +9,7 @@ class Crossover {
  public:
   virtual ~Crossover() = default;
 
-  virtual void apply(instance::Instance& a, instance::Instance& b) = 0;
+  virtual void apply(domain::Instance& a, domain::Instance& b) = 0;
 };
 
 using RCrossover = std::shared_ptr<Crossover>;

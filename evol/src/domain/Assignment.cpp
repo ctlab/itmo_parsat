@@ -84,6 +84,10 @@ bool Assignment::operator++() {
   }
 }
 
+uint64_t Assignment::total() const noexcept {
+  return total_;
+}
+
 uint64_t SmallSearch::_set_range() {
   LOG_IF(FATAL, assignment_.size() > MAX_VARS_FULL_SEARCH)
       << "Small search can be used only for small assignments!";

@@ -75,8 +75,8 @@ bool SimpSolver::propagate(
     Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
   bool conflict = false;
   impl_.clearInterrupt();
-  impl_.prop_check(assumptions, propagated, 0, conflict);
-  return conflict;
+  return !impl_.prop_check(assumptions, propagated, 0, conflict);
+//  return conflict;
 }
 
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);

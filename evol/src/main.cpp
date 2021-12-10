@@ -70,10 +70,8 @@ int main(int argc, char** argv) {
 
     LOG_TIME(algorithm->process());
     auto& r_backdoor = algorithm->get_best();
-    LOG(INFO) << "Resulting instance rho: " << std::fixed << r_backdoor.fitness().rho
-              << ", size: " << r_backdoor.fitness().pow_r;
-    LOG(INFO) << "Number of points visited: " << ea::instance::Instance::inaccurate_points();
-    LOG(INFO) << "The best backdoor is: " << r_backdoor.get_variables();
+    LOG(INFO) << "Number of points visited: " << ea::domain::Instance::inaccurate_points();
+    LOG(INFO) << "The best backdoor is: " << r_backdoor;
 
     alg_int_handle.remove();
     sig_handler.unset();
@@ -86,9 +84,9 @@ int main(int argc, char** argv) {
           LOG(INFO) << "Solver has been interrupted.";
         });
 
-    std::vector<bool> vars = r_backdoor.get_mask();
+    std::vector<bool> vars = r_backdoor.get_vars().get_mask();
     ea::domain::UAssignment assignment_p =
-        ea::domain::createFullSearch(ea::instance::Instance::var_map(), vars);
+        ea::domain::createFullSearch(ea::domain::Instance::var_map(), vars);
 
     std::atomic_bool satisfied = false, unknown = false;
     size_t num_vars = r_backdoor.fitness().pow_r;
@@ -97,14 +95,20 @@ int main(int argc, char** argv) {
     boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars), std::cerr);
 
     // clang-format off
+    std::atomic_uint64_t propagated{0};
+    std::atomic_uint64_t total{0};
     solver.solve_assignments(
-        std::move(assignment_p), [&sig_handler, &satisfied, &unknown, &progress, &progress_lock](
-          ea::sat::State result, Minisat::vec<Minisat::Lit> const&) {
+        std::move(assignment_p), [&propagated, &total, &sig_handler, &satisfied, &unknown, &progress, &progress_lock](
+          ea::sat::State result, bool prop_conflict, auto const& asgn) {
             if (sig_handler.is_set()) {
               return false;
             }
+            if (prop_conflict) {
+              ++propagated;
+            }
+            ++total;
             {
-              std::lock_guard<std::mutex> lg(progress_lock);
+            std::lock_guard<std::mutex> lg(progress_lock);
               ++progress;
             }
             switch (result) {
@@ -120,6 +124,8 @@ int main(int argc, char** argv) {
             }
         });
     // clang-format on
+    LOG(INFO) << "Prop: " << propagated << ", total: " << total;
+    LOG(INFO) << "Actual rho is: " << (double) propagated / (double) total;
 
     if (satisfied) {
       result = ea::sat::SAT;

@@ -14,7 +14,7 @@ class Selector {
   /**
    * Performs selection of `size` instances from population.
    */
-  virtual void select(instance::Population& population, size_t size) = 0;
+  virtual void select(domain::Population& population, size_t size) = 0;
 };
 
 using RSelector = std::shared_ptr<Selector>;

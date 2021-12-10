@@ -40,16 +40,16 @@ message GAAlgorithmConfig {
 }
 
 message InstanceConfig {
-  message MaxSizeConfig {
-    double frac = 1;
-    uint64 count = 2;
+  message SamplingSizeConfig {
+    uint64 base_count = 1;
+    uint32 max_steps = 2;
+    double scale = 3;
   }
-  enum Init {HEURISTIC = 0;}
 
   uint32 omega_x = 1;
-  MaxSizeConfig sampling_config = 3;
-  Init init = 5;
-  MaxSizeConfig heuristic_config = 6;
+  uint32 heuristic_size = 2;
+  uint32 max_cache_size = 3;
+  SamplingSizeConfig sampling_config = 4;
 }
 
 message MinisatCliConfig {

@@ -9,17 +9,6 @@
 
 namespace {
 
-uint64_t resolve_limit(double frac, uint64_t max_count, uint64_t total) {
-  auto max_count_f = uint64_t(frac * (double) total);
-  if (frac == 0) {
-    return max_count;
-  }
-  if (max_count == 0) {
-    return max_count_f;
-  }
-  return std::min(max_count, max_count_f);
-}
-
 void collect_stats(
     ::ea::sat::Solver& solver, Minisat::vec<Minisat::Lit> const& assumptions,
     Minisat::vec<Minisat::Lit>& propagated, std::set<int>& collection) {
@@ -29,15 +18,17 @@ void collect_stats(
   }
 }
 
-const size_t MAX_CACHE_SIZE = 100000;
-std::unordered_map<std::vector<bool>, ::ea::instance::Fitness> fit_cache_{};
-
 }  // namespace
 
-namespace ea::instance {
+namespace ea::domain {
 
-void Instance::Vars::flip(size_t pos) {
-  bit_mask[pos] = !bit_mask[pos];
+Instance::SamplingConfig::SamplingConfig(uint32_t samples, uint32_t can_scale, double scale)
+    : samples(samples), can_scale(can_scale), scale(scale) {}
+
+void Instance::SamplingConfig::do_scale() {
+  CHECK_GT(can_scale, 0U) << "do_scale called when scaling is not possible.";
+  --can_scale;
+  samples = (uint32_t) (samples * scale);
 }
 
 size_t Instance::num_vars() noexcept {
@@ -60,8 +51,7 @@ void Instance::_init_heuristic(InstanceConfig const& config) {
       stats.emplace_back(prop_both.size(), i);
     }
 
-    uint64_t max_watched_count = resolve_limit(
-        config.heuristic_config().frac(), config.heuristic_config().count(), stats.size());
+    uint64_t max_watched_count = config.heuristic_size();
     std::sort(stats.begin(), stats.end());
     auto it = stats.crbegin();
     for (size_t i = 0; i < max_watched_count; ++i, ++it) {
@@ -77,39 +67,27 @@ void Instance::_init_heuristic(InstanceConfig const& config) {
     }
   }
 
-  vars_.bit_mask.resize(var_map_.size(), false);
-  flip_var(random::sample<unsigned>(0, num_vars()));
+  vars_.resize(var_map_.size());
+  vars_.flip(random::sample<unsigned>(0, num_vars()));
 }
 
 Instance::Instance(InstanceConfig const& config, sat::RSolver solver)
-    : solver_(std::move(solver)), omega_x(config.omega_x()) {
-  max_sampling_size_ = config.sampling_config().count();
-  switch (config.init()) {
-    case InstanceConfig_Init_HEURISTIC:
-      _init_heuristic(config);
-      break;
-    default:
-      LOG(FATAL) << "Invalid InstanceConfig.";
-  }
+    : solver_(std::move(solver))
+    , sampling_config_(std::make_shared<SamplingConfig>(
+          config.sampling_config().base_count(), config.sampling_config().max_steps(),
+          config.sampling_config().scale()))
+    , instance_cache_(std::make_shared<cache_t>(config.max_cache_size()))
+    , omega_x(config.omega_x()) {
+  _init_heuristic(config);
 }
 
-std::vector<bool> const& Instance::get_mask() const noexcept {
-  return vars_.bit_mask;
+Vars const& Instance::get_vars() const noexcept {
+  return vars_;
 }
 
-std::vector<bool>& Instance::get_mask() noexcept {
-  cache_state_ = NO_CACHE;
-  return vars_.bit_mask;
-}
-
-std::vector<int> Instance::get_variables() const noexcept {
-  std::vector<int> vars;
-  for (size_t i = 0; i < get_mask().size(); ++i) {
-    if (get_mask()[i]) {
-      vars.push_back(var_map_[(int) i]);
-    }
-  }
-  return vars;
+Vars& Instance::get_vars() noexcept {
+  cached_ = false;
+  return vars_;
 }
 
 Instance* Instance::clone() {
@@ -117,34 +95,33 @@ Instance* Instance::clone() {
 }
 
 Fitness const& Instance::fitness() {
-  if (cache_state_ == CACHE) {
+  if (cached_) {
     return fit_;
   }
-  auto it = fit_cache_.find(get_mask());
-  if (it != fit_cache_.end()) {
-    fit_ = it->second;
+  auto const& mask = vars_.get_mask();
+  auto maybe_fit = instance_cache_->get(mask);
+  if (maybe_fit.has_value()) {
+    fit_ = maybe_fit.value();
   } else {
     _calc_fitness();
-    if (fit_cache_.size() == MAX_CACHE_SIZE) {
-      fit_cache_.erase(fit_cache_.begin());
-    }
-    fit_cache_[get_mask()] = fit_;
+    instance_cache_->add(mask, fit_);
   }
-  cache_state_ = CACHE;
+  cached_ = true;
   return fit_;
 }
 
 void Instance::_calc_fitness() {
   ++inaccurate_points_;
-  int size = (int) std::count(vars_.bit_mask.begin(), vars_.bit_mask.end(), true);
+  auto const& mask = vars_.get_mask();
+  int size = (int) std::count(mask.begin(), mask.end(), true);
   std::unique_ptr<domain::Assignment> assignment_ptr;
-  uint32_t samples = max_sampling_size_;
+  uint32_t samples = sampling_config_->samples;
   domain::UAssignment assignment_p;
-  if (std::log2(max_sampling_size_) >= (double) size) {
+  if (std::log2(samples) >= (double) size) {
     samples = (uint32_t) std::pow(2UL, size);
-    assignment_p = domain::createFullSearch(var_map(), vars_.bit_mask);
+    assignment_p = domain::createFullSearch(var_map(), mask);
   } else {
-    assignment_p = domain::createRandomSearch(var_map(), vars_.bit_mask, max_sampling_size_);
+    assignment_p = domain::createRandomSearch(var_map(), mask, samples);
   }
 
   // clang-format off
@@ -157,17 +134,20 @@ void Instance::_calc_fitness() {
       });
   // clang-format on
 
-  LOG_IF(WARNING, total != (int) samples) << "Internal error: invalid assignments behaviour.";
+  LOG_IF(WARNING, total != (int) samples)
+      << "Internal error: invalid assignments behaviour: " << total << " != " << samples;
   fit_.rho = (double) success / (double) total;
   fit_.pow_r = size;
   fit_.pow_nr = (int) omega_x;
-  cache_state_ = CACHE;
-  EALOG(LogType::CURR_INSTANCE) << *this;
-}
 
-void Instance::flip_var(size_t pos) {
-  cache_state_ = NO_CACHE;
-  vars_.flip(pos);
+  if (fit_.rho == 1.0 && sampling_config_->can_scale > 0) {
+    LOG(INFO) << "Fitness reached 1, scaling sampling size, invalidating cache.";
+    sampling_config_->do_scale();
+    instance_cache_->invalidate();
+    _calc_fitness();
+  } else {
+    EALOG(LogType::CURR_INSTANCE) << *this;
+  }
 }
 
 RInstance createInstance(sat::RSolver const& solver) {
@@ -182,63 +162,24 @@ uint32_t Instance::inaccurate_points() {
   return inaccurate_points_;
 }
 
-bool Instance::is_cached(const std::vector<bool>& vars) noexcept {
-  return fit_cache_.count(vars) > 0;
+bool Instance::is_cached() const noexcept {
+  return cached_ || instance_cache_->get(vars_.get_mask()).has_value();
 }
 
 std::map<int, int> Instance::var_map_{};
 
 std::atomic_uint32_t Instance::inaccurate_points_{0};
 
-}  // namespace ea::instance
-
-namespace ea::instance {
-
-bool Fitness::can_calc() const {
-  return pow_r < 64 && pow_nr < 64;
-}
-
-Fitness::operator double() const {
-  return std::log2(rho * std::pow(2., pow_r) + (1. - rho) * std::pow(2., pow_nr));
-}
-
-bool operator<(Fitness const& a, Fitness const& b) {
-  if (a.pow_r == 0) {
-    return false;
-  }
-  if (b.pow_r == 0) {
-    return true;
-  }
-
-  /* NOTE: For now, pow_nr is always equal to 20 */
-  if (a.can_calc() && b.can_calc()) {
-    return (double) a < (double) b;
-  }
-
-  LOG(WARNING) << "Comparison of non-evaluable Fitness-es.";
-  int32_t min_pow_r = std::min(a.pow_r, b.pow_r);
-  double a_val = a.rho * std::pow(2., a.pow_r - min_pow_r);
-  double b_val = b.rho * std::pow(2., b.pow_r - min_pow_r);
-
-  int32_t pow_nr = a.pow_nr - min_pow_r;
-  if (min_pow_r > -60) {
-    a_val += (1. - a.rho) * std::pow(2., pow_nr);
-    b_val += (1. - b.rho) * std::pow(2., pow_nr);
-  }
-
-  return a_val < b_val;
-}
-
 bool operator<(Instance& a, Instance& b) {
   return a.fitness() < b.fitness();
 }
 
-}  // namespace ea::instance
+}  // namespace ea::domain
 
-std::ostream& operator<<(std::ostream& os, ea::instance::Instance& instance) {
-  auto vars = instance.get_variables();
+std::ostream& operator<<(std::ostream& os, ea::domain::Instance& instance) {
+  auto vars = instance.get_vars().map_to_vars(ea::domain::Instance::var_map());
   std::sort(vars.begin(), vars.end());
   return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
-            << " and fitness: " << (double) instance.fitness()
-            << " Vars: " << vars;
+            << " and fitness: " << (double) instance.fitness() << " Vars: " << vars
+            << " sampling size: " << instance.sampling_config_->samples;
 }

@@ -21,7 +21,7 @@ void Algorithm::process() {
   while (!is_interrupted() && limit_->proceed(population_)) {
     LOG_TIME(step());
     EALOG(LogType::BEST_INSTANCE) << "[Iter " << iteration << "]"
-                                  << "[Points " << instance::Instance::inaccurate_points() << "]"
+                                  << "[Points " << domain::Instance::inaccurate_points() << "]"
                                   << " Best instance: " << get_best();
     ++iteration;
   }
@@ -40,11 +40,11 @@ sat::Solver& Algorithm::get_solver() noexcept {
   return *solver_;
 }
 
-instance::Population& Algorithm::get_population() noexcept {
+domain::Population& Algorithm::get_population() noexcept {
   return population_;
 }
 
-instance::Instance& Algorithm::get_best() noexcept {
+domain::Instance& Algorithm::get_best() noexcept {
   return *(*std::min_element(
       population_.begin(), population_.end(), [](auto& a, auto& b) { return *a < *b; }));
 }

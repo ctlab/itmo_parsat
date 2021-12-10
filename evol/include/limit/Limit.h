@@ -14,7 +14,7 @@ class Limit {
   /**
    * Returns true if algorithm can and should proceed.
    */
-  virtual bool proceed(instance::Population const& population) = 0;
+  virtual bool proceed(domain::Population const& population) = 0;
 
   /**
    * Indicates that limit must start tracking parameters

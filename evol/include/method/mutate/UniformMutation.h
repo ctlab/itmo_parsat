@@ -9,7 +9,7 @@ class UniformMutation : public Mutation {
  public:
   explicit UniformMutation(UniformMutationConfig const& config);
 
-  void apply(instance::Instance& instance) override;
+  void apply(domain::Instance& instance) override;
 
  private:
   double scale_;

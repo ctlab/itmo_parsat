@@ -14,7 +14,7 @@ class FitnessLimit : public Limit {
    * Proceeds if the best instance in population has fitness
    * higher than the specified value.
    */
-  bool proceed(instance::Population const& population) override;
+  bool proceed(domain::Population const& population) override;
 
  private:
   double lowest_fitness_;

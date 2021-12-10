@@ -40,7 +40,7 @@ GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config)
 void GAAlgorithm::prepare() {
   population_.reserve(q_);
   for (uint32_t i = 0; i < q_; ++i) {
-    population_.push_back(instance::createInstance(solver_));
+    population_.push_back(domain::createInstance(solver_));
     fits_.push_back((double) population_.back()->fitness());
   }
 }
@@ -48,7 +48,7 @@ void GAAlgorithm::prepare() {
 void GAAlgorithm::step() {
   size_t g_ = q_ - h_;
   std::vector<size_t> parents = choose(fits_, g_);
-  std::vector<instance::RInstance> children;
+  std::vector<domain::RInstance> children;
   children.reserve(g_);
 
   for (size_t i = 0; i < g_ / 2; ++i) {

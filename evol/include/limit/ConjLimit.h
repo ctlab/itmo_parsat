@@ -12,7 +12,7 @@ class ConjLimit : public Limit {
  public:
   explicit ConjLimit(const ConjLimitConfig& config);
 
-  bool proceed(instance::Population const& population) override;
+  bool proceed(domain::Population const& population) override;
 
   void start() override;
 

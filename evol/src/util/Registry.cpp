@@ -39,7 +39,7 @@ Registry& Registry::instance() {
 
 IMPL_REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm)
 IMPL_REGISTER_INTERFACE(::ea::method::Selector, selector)
-IMPL_REGISTER_INTERFACE(::ea::instance::Instance, instance)
+IMPL_REGISTER_INTERFACE(::ea::domain::Instance, instance)
 IMPL_REGISTER_INTERFACE(::ea::limit::Limit, limit)
 IMPL_REGISTER_INTERFACE(::ea::sat::Solver, solver)
 IMPL_REGISTER_INTERFACE(::ea::method::Mutation, mutation)

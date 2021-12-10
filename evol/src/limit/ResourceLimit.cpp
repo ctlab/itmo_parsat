@@ -10,7 +10,7 @@ namespace ea::limit {
 ResourceLimit::ResourceLimit(const ResourceLimitConfig& config)
     : memory_limit_kb_(config.memory_limit_kb()), time_limit_sec_(config.time_limit_sec()) {}
 
-bool ResourceLimit::proceed(instance::Population const&) {
+bool ResourceLimit::proceed(domain::Population const&) {
   bool time_ok = true, mem_ok = true;
   if (time_limit_sec_) {
     std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_;

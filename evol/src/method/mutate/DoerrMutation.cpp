@@ -34,15 +34,15 @@ double DoerrMutation::_get_alpha(size_t size) const {
   return (double) bound - 1.;
 }
 
-void DoerrMutation::apply(instance::Instance& instance) {
+void DoerrMutation::apply(domain::Instance& instance) {
   if (alpha_ == -1.) {
-    alpha_ = _get_alpha(instance::Instance::num_vars());
+    alpha_ = _get_alpha(domain::Instance::num_vars());
   }
-  double p = alpha_ / (double) instance::Instance::num_vars();
+  double p = alpha_ / (double) domain::Instance::num_vars();
 
-  for (size_t i = 0; i < instance::Instance::num_vars(); ++i) {
+  for (size_t i = 0; i < domain::Instance::num_vars(); ++i) {
     if (random::flip_coin(p)) {
-      instance.flip_var(i);
+      instance.get_vars().flip(i);
     }
   }
 }

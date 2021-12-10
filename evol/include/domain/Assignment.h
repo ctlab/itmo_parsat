@@ -55,6 +55,8 @@ class Assignment {
 
   [[nodiscard]] bool is_empty() const;
 
+  [[nodiscard]] uint64_t total() const noexcept;
+
  protected:
   virtual void _advance() = 0;
 

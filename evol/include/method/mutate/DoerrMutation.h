@@ -9,7 +9,7 @@ class DoerrMutation : public Mutation {
  public:
   explicit DoerrMutation(DoerrMutationConfig const& config);
 
-  void apply(instance::Instance& instance) override;
+  void apply(domain::Instance& instance) override;
 
  private:
   [[nodiscard]] double _get_alpha(size_t size) const;

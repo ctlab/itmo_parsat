@@ -5,7 +5,7 @@
 
 #include "evol/include/domain/Instance.h"
 #include "evol/include/limit/Limit.h"
-#include "evol/include/method/Selector.h"
+#include "evol/include/method/select/Selector.h"
 #include "evol/include/util/profile.h"
 #include "evol/proto/config.pb.h"
 
@@ -27,9 +27,9 @@ class Algorithm {
 
   sat::Solver& get_solver() noexcept;
 
-  instance::Population& get_population() noexcept;
+  domain::Population& get_population() noexcept;
 
-  instance::Instance& get_best() noexcept;
+  domain::Instance& get_best() noexcept;
 
  protected:
   virtual void step() = 0;
@@ -37,7 +37,7 @@ class Algorithm {
   [[nodiscard]] bool is_interrupted() const;
 
  protected:
-  instance::Population population_;
+  domain::Population population_;
   sat::RSolver solver_;
 
  private:

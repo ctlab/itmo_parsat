@@ -7,12 +7,13 @@ EAAlgorithm::EAAlgorithm(EAAlgorithmConfig const& config)
     , selector_(ea::registry::Registry::resolve_selector(config.selector_type())) {}
 
 void EAAlgorithm::prepare() {
-  population_.push_back(instance::createInstance(solver_));
+  population_.push_back(domain::createInstance(solver_));
 }
 
 void EAAlgorithm::step() {
-  instance::RInstance child(population_.front()->clone());
-  while (instance::Instance::is_cached(child->get_mask())) {
+  domain::RInstance child(population_.front()->clone());
+  mutator_->apply(*child);
+  while (child->is_cached()) {
     mutator_->apply(*child);
   }
 

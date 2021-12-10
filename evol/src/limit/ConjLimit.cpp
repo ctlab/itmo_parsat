@@ -10,7 +10,7 @@ ConjLimit::ConjLimit(const ConjLimitConfig& config) {
   }
 }
 
-bool ConjLimit::proceed(instance::Population const& population) {
+bool ConjLimit::proceed(domain::Population const& population) {
   return std::all_of(limits_.begin(), limits_.end(), [&population](RLimit& limit) {
     return limit->proceed(population);
   });

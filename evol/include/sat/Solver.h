@@ -27,6 +27,7 @@ class Solver {
   typedef std::function<
       bool( // true iff should continue solving
         State, // result of solve_limited
+        bool, // true iff solved on propagate stage
         Minisat::vec<Minisat::Lit> const& // assumptions passed to solve_limited
       )> slv_callback_t;
   typedef std::function<

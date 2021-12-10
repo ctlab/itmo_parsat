@@ -9,7 +9,7 @@
 #include "evol/include/config/Configuration.h"
 #include "evol/include/domain/Instance.h"
 #include "evol/include/limit/Limit.h"
-#include "evol/include/method/Selector.h"
+#include "evol/include/method/select/Selector.h"
 #include "evol/include/sat/Solver.h"
 #include "evol/include/method/mutate/Mutation.h"
 #include "evol/include/method/cross/Crossover.h"
@@ -33,7 +33,7 @@ class Registry {
 
   REGISTER_INTERFACE(::ea::algorithm::Algorithm, algorithm);
   REGISTER_INTERFACE(::ea::method::Selector, selector);
-  REGISTER_INTERFACE(::ea::instance::Instance, instance);
+  REGISTER_INTERFACE(::ea::domain::Instance, instance);
   REGISTER_INTERFACE(::ea::limit::Limit, limit);
   REGISTER_INTERFACE(::ea::sat::Solver, solver);
   REGISTER_INTERFACE(::ea::method::Mutation, mutation);
@@ -53,7 +53,7 @@ struct RegistryEntry;
 
 DEFINE_ENTRY_TYPE(::ea::algorithm::Algorithm, algorithm);
 DEFINE_ENTRY_TYPE(::ea::method::Selector, selector);
-DEFINE_ENTRY_TYPE(::ea::instance::Instance, instance);
+DEFINE_ENTRY_TYPE(::ea::domain::Instance, instance);
 DEFINE_ENTRY_TYPE(::ea::limit::Limit, limit);
 DEFINE_ENTRY_TYPE(::ea::sat::Solver, solver);
 DEFINE_ENTRY_TYPE(::ea::method::Mutation, mutation);

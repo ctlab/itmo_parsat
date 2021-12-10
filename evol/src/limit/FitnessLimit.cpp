@@ -9,7 +9,7 @@ namespace ea::limit {
 FitnessLimit::FitnessLimit(FitnessLimitConfig const& config)
     : lowest_fitness_(config.lowest_fitness()) {}
 
-bool FitnessLimit::proceed(instance::Population const& population) {
+bool FitnessLimit::proceed(domain::Population const& population) {
   auto it = std::max_element(population.begin(), population.end());
   double fitness = (*it)->fitness().rho;
   LOG_IF(INFO, fitness >= lowest_fitness_)

@@ -9,7 +9,7 @@ class OnePointCrossover : public Crossover {
  public:
   OnePointCrossover() = default;
 
-  void apply(instance::Instance& a, instance::Instance& b) override;
+  void apply(domain::Instance& a, domain::Instance& b) override;
 };
 
 }  // namespace ea::method

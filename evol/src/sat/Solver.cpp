@@ -1,6 +1,7 @@
 #include "evol/include/sat/Solver.h"
 
 #include <iostream>
+#include <glog/logging.h>
 
 namespace ea::sat {
 
@@ -19,7 +20,15 @@ void Solver::solve_assignments(
   domain::Assignment& assignment = *assignment_p;
   do {
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
-    if (!callback(solve_limited(assumptions), assumptions)) {
+    bool conflict = propagate(assumptions);
+    State result;
+    if (conflict) {
+      result = UNSAT;
+    } else {
+      result = solve_limited(assumptions);
+    }
+    CHECK_EQ(result, solve_limited(assumptions));
+    if (!callback(result, conflict, assumptions)) {
       break;
     }
   } while (++assignment);

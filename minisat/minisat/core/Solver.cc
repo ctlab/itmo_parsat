@@ -699,6 +699,11 @@ CRef Solver::propagate() {
 //=================================================================================================
 // Propagate and check:
 bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving, bool& conflict) {
+  // < WARN
+//  this->model.clear();
+//  this->conflict.clear();
+  // > WARN
+
   prop.clear();
   conflict = false;
 

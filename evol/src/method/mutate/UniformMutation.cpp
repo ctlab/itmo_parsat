@@ -6,12 +6,12 @@ namespace ea::method {
 
 UniformMutation::UniformMutation(UniformMutationConfig const& config) : scale_(config.scale()) {}
 
-void UniformMutation::apply(instance::Instance& instance) {
-  size_t num_vars = instance::Instance::num_vars();
+void UniformMutation::apply(domain::Instance& instance) {
+  size_t num_vars = domain::Instance::num_vars();
   double p = scale_ / (double) num_vars;
-  for (size_t i = 0; i < instance::Instance::num_vars(); ++i) {
+  for (size_t i = 0; i < domain::Instance::num_vars(); ++i) {
     if (random::flip_coin(p)) {
-      instance.flip_var(i);
+      instance.get_vars().flip(i);
     }
   }
 }

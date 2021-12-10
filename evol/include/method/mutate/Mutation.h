@@ -9,7 +9,7 @@ class Mutation {
  public:
   virtual ~Mutation() = default;
 
-  virtual void apply(instance::Instance& instance) = 0;
+  virtual void apply(domain::Instance& instance) = 0;
 };
 
 using RMutation = std::shared_ptr<Mutation>;

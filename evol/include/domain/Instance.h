@@ -6,26 +6,21 @@
 #include "evol/include/sat/Solver.h"
 #include "evol/include/config/Configuration.h"
 #include "evol/include/domain/Assignment.h"
+#include "evol/include/domain/Fitness.h"
+#include "evol/include/domain/Vars.h"
 #include "evol/include/util/stream.h"
+#include "evol/include/util/Cache.h"
 #include "evol/proto/config.pb.h"
 
-namespace ea::instance {
+namespace ea::domain {
 
 class Instance;
 
-struct Fitness {
-  double rho;
-  int32_t pow_r;
-  int32_t pow_nr;
+}  // namespace ea::domain
 
-  /* Check whether value can be calculated using uint64 and double types. */
-  [[nodiscard]] bool can_calc() const;
+std::ostream& operator<<(std::ostream&, ea::domain::Instance& instance);
 
-  /* Better check if `can_calc` before using. */
-  explicit operator double() const;
-};
-
-bool operator<(Fitness const& a, Fitness const& b);
+namespace ea::domain {
 
 class Instance;
 
@@ -37,32 +32,29 @@ void get_fit(Instance&);
 
 class Instance {
  private:
-  enum CacheState {
-    CACHE,
-    NO_CACHE,
-  };
-
-  struct Vars {
-    std::vector<bool> bit_mask;
+  struct SamplingConfig {
+    uint32_t samples;
+    uint32_t can_scale;
+    double scale;
 
    public:
-    void flip(size_t pos);
+    SamplingConfig(uint32_t samples, uint32_t can_scale, double scale);
+
+    void do_scale();
   };
 
  public:
   explicit Instance(InstanceConfig const& config, sat::RSolver solver);
 
-  [[nodiscard]] std::vector<bool> const& get_mask() const noexcept;
+  [[nodiscard]] Vars const& get_vars() const noexcept;
 
-  std::vector<bool>& get_mask() noexcept;
-
-  [[nodiscard]] std::vector<int> get_variables() const noexcept;
-
-  void flip_var(size_t var);
+  Vars& get_vars() noexcept;
 
   [[nodiscard]] Instance* clone();
 
   Fitness const& fitness();
+
+  [[nodiscard]] bool is_cached() const noexcept;
 
  private:
   void _init_heuristic(InstanceConfig const& config);
@@ -70,11 +62,15 @@ class Instance {
   void _calc_fitness();
 
  private:
+  using cache_t = Cache<std::vector<bool>, Fitness>;
+  bool cached_ = false;
   std::shared_ptr<sat::Solver> solver_;
-  CacheState cache_state_ = NO_CACHE;
-  Fitness fit_{};
-  uint32_t max_sampling_size_ = 0, omega_x;
+  std::shared_ptr<SamplingConfig> sampling_config_;
+  std::shared_ptr<cache_t> instance_cache_;
+
+  uint32_t omega_x;
   Vars vars_;
+  Fitness fit_{};
 
  private:
   static std::map<int, int> var_map_;
@@ -87,15 +83,15 @@ class Instance {
 
   static std::map<int, int> const& var_map() noexcept;
 
-  static bool is_cached(std::vector<bool> const& vars) noexcept;
+ private:
+  friend std::ostream& ::operator<<(std::ostream&, ea::domain::Instance& instance);
 };
 
 RInstance createInstance(sat::RSolver const& solver);
 
 bool operator<(Instance& a, Instance& b);
 
-}  // namespace ea::instance
+}  // namespace ea::domain
 
-std::ostream& operator<<(std::ostream&, ea::instance::Instance& instance);
 
 #endif  // EVOL_INSTANCE_H

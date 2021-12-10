@@ -12,8 +12,7 @@
     },
     "conj_limit_config": {
         "limit_type": [
-            "ResourceLimit",
-            "FitnessLimit"
+            "ResourceLimit"
         ]
     },
     "uniform_mutation_config": {
@@ -35,14 +34,12 @@
     },
     "instance_config": {
         "omega_x": 20,
+        "heuristic_size": 200,
+        "max_cache_size": 1000000,
         "sampling_config": {
-            "frac": 0,
-            "count": 8000
-        },
-        "init": "HEURISTIC",
-        "heuristic_config": {
-            "frac": 0,
-            "count": 200
+            "base_count": 8000,
+            "max_steps": 2,
+            "scale": 2.0
         }
     },
     "algorithm_type": "EAAlgorithm",
@@ -78,9 +75,9 @@
     },
     "par_solver_config": {
         "solver_type": "SimpSolver",
-        "max_threads": 10
+        "max_threads": 20
     },
-    "rnd_seed": 171,
+    "rnd_seed": 1713,
     "logger_config": {
         "entries": [
             {
