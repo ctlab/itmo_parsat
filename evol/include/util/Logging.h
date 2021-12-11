@@ -35,6 +35,6 @@ class Logger {
 
 }  // ea
 
-#define EALOG(Type) LOG_IF(INFO, ::ea::Logger::should_log(Type))
+#define EALOG(Type) LOG_IF(INFO, ::ea::Logger::should_log(LogType::Type))
 
 #endif  // EVOL_LOGGING_H

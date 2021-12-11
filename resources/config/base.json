@@ -1,7 +1,7 @@
 {
     "algorithm_config": {
         "limit_type": "ConjLimit",
-        "solver_type": "ParSolver"
+        "solver_type": "SimpSolver"
     },
     "resource_limit_config": {
         "memory_limit_kb": 0,
@@ -43,7 +43,7 @@
         }
     },
     "algorithm_type": "EAAlgorithm",
-    "solver_type": "ParSolver",
+    "solver_type": "SimpSolver",
     "simp_solver_config": {
         "use_asymm": false,
         "use_rcheck": false,

@@ -84,6 +84,11 @@ class Solver {
   virtual void interrupt() = 0;
 
   /**
+   * Returns true if interrupt flag is set.
+   */
+  [[nodiscard]] virtual bool is_interrupted() const = 0;
+
+  /**
    * Returns the number of variables in formula.
    */
   [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;

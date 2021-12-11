@@ -1,10 +1,7 @@
 #include "evol/include/sat/SimpSolver.h"
 
-#include <csignal>
-
 #include "evol/include/util/GzFile.h"
 #include "evol/include/util/Registry.h"
-#include "evol/include/util/profile.h"
 #include "evol/include/util/Logging.h"
 #include "minisat/core/Dimacs.h"
 #include "minisat/utils/System.h"
@@ -12,7 +9,7 @@
 namespace ea::sat {
 
 SimpSolver::SimpSolver(SimpSolverConfig const& config)
-    : impl_(
+    : Minisat::SimpSolver(
           config.grow(), config.clause_lim(), config.subsumption_lim(), config.simp_garbage_frac(),
           config.use_asymm(), config.use_rcheck(), config.use_elim(),
           config.cli_config().verbosity_level(), config.solver_config().var_decay(),
@@ -23,7 +20,7 @@ SimpSolver::SimpSolver(SimpSolverConfig const& config)
           config.solver_config().min_learnts(), config.solver_config().rfirst(),
           config.solver_config().rinc())
     , preprocess_(config.cli_config().preprocessing()) {
-  impl_.verbosity = config.cli_config().verbosity_level();
+  verbosity = config.cli_config().verbosity_level();
 
   int cpu_lim = config.cli_config().cpu_limit();
   if (cpu_lim != 0) {
@@ -39,21 +36,21 @@ SimpSolver::SimpSolver(SimpSolverConfig const& config)
 void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   {
     util::GzFile gz_file(path);
-    impl_.parsing = true;
-    Minisat::parse_DIMACS(gz_file.native_handle(), impl_, true);
-    impl_.parsing = false;
+    parsing = true;
+    Minisat::parse_DIMACS(gz_file.native_handle(), *this, true);
+    parsing = false;
   }
 
   if (preprocess_) {
-    EALOG(LogType::SOLVER_STATS) << "Stats before preprocess: " << impl_.nClauses() << ' ' << impl_.nVars();
-    impl_.eliminate(true);
-    EALOG(LogType::SOLVER_STATS) << "Stats after preprocess: " << impl_.nClauses() << ' ' << impl_.nVars();
+    EALOG(SOLVER_STATS) << "Stats before preprocess: " << nClauses() << ' ' << nVars();
+    eliminate(true);
+    EALOG(SOLVER_STATS) << "Stats after preprocess: " << nClauses() << ' ' << nVars();
   }
 }
 
 State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
-  impl_.clearInterrupt();
-  Minisat::lbool result = impl_.solveLimited(assumptions);
+  clearInterrupt();
+  Minisat::lbool result = solveLimited(assumptions);
   if (result == Minisat::l_True) {
     return SAT;
   } else if (result == Minisat::l_False) {
@@ -64,19 +61,21 @@ State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
 }
 
 void SimpSolver::interrupt() {
-  impl_.interrupt();
+  static_cast<Minisat::SimpSolver*>(this)->interrupt();
+}
+
+bool SimpSolver::is_interrupted() const {
+  return asynch_interrupt;
 }
 
 unsigned SimpSolver::num_vars() const noexcept {
-  return impl_.nVars();
+  return nVars();
 }
 
 bool SimpSolver::propagate(
     Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
-  bool conflict = false;
-  impl_.clearInterrupt();
-  return !impl_.prop_check(assumptions, propagated, 0, conflict);
-//  return conflict;
+  clearInterrupt();
+  return !prop_check(assumptions, propagated, 0);
 }
 
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);

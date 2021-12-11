@@ -9,7 +9,7 @@
 
 namespace ea::sat {
 
-class SimpSolver : public Solver {
+class SimpSolver : public Solver, public Minisat::SimpSolver {
  public:
   explicit SimpSolver(SimpSolverConfig const& config);
 
@@ -19,6 +19,8 @@ class SimpSolver : public Solver {
 
   void interrupt() override;
 
+  [[nodiscard]] bool is_interrupted() const override;
+
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
   [[nodiscard]] bool propagate(
@@ -26,7 +28,6 @@ class SimpSolver : public Solver {
       Minisat::vec<Minisat::Lit>& propagated) override;
 
  private:
-  Minisat::SimpSolver impl_;
   bool preprocess_;
 };
 

@@ -27,6 +27,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "minisat/core/Solver.h"
 
 #include <math.h>
+#include <iostream>
 
 #include "minisat/mtl/Alg.h"
 #include "minisat/mtl/Sort.h"
@@ -698,17 +699,17 @@ CRef Solver::propagate() {
 
 //=================================================================================================
 // Propagate and check:
-bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving, bool& conflict) {
+bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
   // < WARN
 //  this->model.clear();
 //  this->conflict.clear();
   // > WARN
 
   prop.clear();
-  conflict = false;
 
-  if (!ok)
+  if (!ok) {
     return false;
+  }
 
   bool st = true;
   int level = decisionLevel();
@@ -730,9 +731,6 @@ bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving, bo
       confl = propagate();
     }
   }
-
-  if (confl != CRef_Undef)
-    conflict = true;
 
   // copying the result
   if (decisionLevel() > level) {

@@ -20,7 +20,7 @@ void Algorithm::process() {
   limit_->start();
   while (!is_interrupted() && limit_->proceed(population_)) {
     LOG_TIME(step());
-    EALOG(LogType::BEST_INSTANCE) << "[Iter " << iteration << "]"
+    EALOG(BEST_INSTANCE) << "[Iter " << iteration << "]"
                                   << "[Points " << domain::Instance::inaccurate_points() << "]"
                                   << " Best instance: " << get_best();
     ++iteration;

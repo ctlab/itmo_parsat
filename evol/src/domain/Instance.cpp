@@ -146,7 +146,7 @@ void Instance::_calc_fitness() {
     instance_cache_->invalidate();
     _calc_fitness();
   } else {
-    EALOG(LogType::CURR_INSTANCE) << *this;
+    EALOG(CURR_INSTANCE) << *this;
   }
 }
 

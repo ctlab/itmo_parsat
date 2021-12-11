@@ -148,6 +148,10 @@ void ParSolver::interrupt() noexcept {
   _do_interrupt();
 }
 
+bool ParSolver::is_interrupted() const {
+  return interrupt_;
+}
+
 unsigned ParSolver::num_vars() const noexcept {
   return solvers_.front()->num_vars();
 }

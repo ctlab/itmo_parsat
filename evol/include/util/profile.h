@@ -16,6 +16,6 @@ double register_exit(std::string const& name);
 #define LOG_TIME(X)                             \
   ::ea::internal_::profile::register_start(#X); \
   X;                                            \
-  EALOG(LogType::TIME) << #X << " took " << ::ea::internal_::profile::register_exit(#X) << "s."
+  EALOG(TIME) << #X << " took " << ::ea::internal_::profile::register_exit(#X) << "s."
 
 #endif  // EA_PROFILE_H

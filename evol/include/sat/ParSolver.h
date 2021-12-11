@@ -35,6 +35,8 @@ class ParSolver : public Solver {
 
   void interrupt() noexcept override;
 
+  [[nodiscard]] bool is_interrupted() const override;
+
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
  private:
