@@ -105,13 +105,15 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
 
     // clang-format off
     if (launch_config.backdoor_) {
-      procs_.emplace_back(logs_path, config_path, real_input_path, launch_config.expected_result_, true,
+      procs_.emplace_back(
+        logs_path, config_path, real_input_path, config.branch, launch_config.expected_result_, true,
         config.executable.string(), "--backdoor",
         "--input", real_input_path.string(), "--config", real_config_path.string(),
         boost::process::std_out > logs_path, boost::process::std_err > logs_path
       );
     } else {
-      procs_.emplace_back(logs_path, config_path, real_input_path, launch_config.expected_result_, false,
+      procs_.emplace_back(
+        logs_path, config_path, real_input_path, config.branch, launch_config.expected_result_, false,
         config.executable.string(),
         "--input", real_input_path.string(), "--config", real_config_path.string(),
         boost::process::std_out > logs_path, boost::process::std_err > logs_path
@@ -164,5 +166,5 @@ void LaunchFixture::Launch::save_to_db(infra::domain::Launches& db_launches) {
     LOG(WARNING) << "Solution has been interrupted.";
   }
   db_launches.add(
-      infra::domain::Launch{0, input_path, config_path, logs_path, backdoor, "", result});
+      infra::domain::Launch{0, input_path, config_path, logs_path, backdoor, branch, result});
 }

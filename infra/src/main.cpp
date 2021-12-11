@@ -11,6 +11,7 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   // clang-format off
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
+    ("branch,b", po::value<std::string>()->default_value(""), "The current branch (optional)")
     ("resources-dir,i", po::value<std::filesystem::path>()->required(), "Directory with config/ and cnf/ subdirectories")
     ("working-dir,w", po::value<std::filesystem::path>()->required(), "Testing working dir")
     ("exec,e", po::value<std::filesystem::path>()->required(), "Executable path")
@@ -36,6 +37,7 @@ int main(int argc, char** argv) {
     auto args = parse_args(argc, argv);
     auto& config = LaunchFixture::config;
     config.executable = args["exec"].as<std::filesystem::path>();
+    config.branch = args["branch"].as<std::string>();
     config.resources_dir = args["resources-dir"].as<std::filesystem::path>();
     config.working_dir = args["working-dir"].as<std::filesystem::path>();
     config.dbname = args["dbname"].as<std::string>();

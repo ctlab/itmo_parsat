@@ -8,7 +8,6 @@ sources = glob(include=[
 pq_linkopts = [
     "-lpq", 
     "-lpqxx",
-    "-L/usr/local/lib/",
 ]
 
 base_deps = [
