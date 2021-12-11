@@ -30,7 +30,7 @@ void next_assignment(Minisat::vec<Minisat::Lit>& vec) {
     ++pos;
   }
   if (pos < vec.size()) {
-    vec[pos] = Minisat::mkLit(pos, true);
+    vec[pos] = Minisat::mkLit(Minisat::var(vec[pos]), true);
   }
 }
 

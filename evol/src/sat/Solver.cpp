@@ -21,13 +21,7 @@ void Solver::solve_assignments(
   do {
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
     bool conflict = propagate(assumptions);
-    State result;
-    if (conflict) {
-      result = UNSAT;
-    } else {
-      result = solve_limited(assumptions);
-    }
-    CHECK_EQ(result, solve_limited(assumptions));
+    State result = conflict ? UNSAT : solve_limited(assumptions);
     if (!callback(result, conflict, assumptions)) {
       break;
     }

@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
     std::atomic_uint64_t total{0};
     solver.solve_assignments(
         std::move(assignment_p), [&propagated, &total, &sig_handler, &satisfied, &unknown, &progress, &progress_lock](
-          ea::sat::State result, bool prop_conflict, auto const& asgn) {
+          ea::sat::State result, bool prop_conflict, auto) {
             if (sig_handler.is_set()) {
               return false;
             }
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
             }
             ++total;
             {
-            std::lock_guard<std::mutex> lg(progress_lock);
+              std::lock_guard<std::mutex> lg(progress_lock);
               ++progress;
             }
             switch (result) {
