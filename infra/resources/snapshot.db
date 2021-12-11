@@ -1,0 +1,102 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: launches; Type: TABLE; Schema: public; Owner: dzhiblavi
+--
+
+CREATE TABLE public.launches (
+    launch_id integer NOT NULL,
+    input_path character varying(512) NOT NULL,
+    config_path character varying(512) NOT NULL,
+    log_path character varying(512) NOT NULL,
+    backdoor boolean NOT NULL,
+    commit_hash character varying(128),
+    result character varying(16),
+    started_at timestamp without time zone,
+    finished_at timestamp without time zone
+);
+
+
+ALTER TABLE public.launches OWNER TO dzhiblavi;
+
+--
+-- Name: launches_launch_id_seq; Type: SEQUENCE; Schema: public; Owner: dzhiblavi
+--
+
+CREATE SEQUENCE public.launches_launch_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.launches_launch_id_seq OWNER TO dzhiblavi;
+
+--
+-- Name: launches_launch_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dzhiblavi
+--
+
+ALTER SEQUENCE public.launches_launch_id_seq OWNED BY public.launches.launch_id;
+
+
+--
+-- Name: launches launch_id; Type: DEFAULT; Schema: public; Owner: dzhiblavi
+--
+
+ALTER TABLE ONLY public.launches ALTER COLUMN launch_id SET DEFAULT nextval('public.launches_launch_id_seq'::regclass);
+
+
+--
+-- Data for Name: launches; Type: TABLE DATA; Schema: public; Owner: dzhiblavi
+--
+
+COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, commit_hash, result, started_at, finished_at) FROM stdin;
+1	./resources/cnf/sgen6_900_100.cnf	./resources/config/base.json	./artifacts-infra/logs/16392522511089563214.txt	f	271c77bd909c9276fcbb410cc483f41a6af88493	PASSED	2021-12-11 22:50:51	2021-12-11 23:02:15
+2	./resources/cnf/pancake_vs_selection_7_4.cnf	./resources/config/base.json	./artifacts-infra/logs/16392522511950739039.txt	f	271c77bd909c9276fcbb410cc483f41a6af88493	PASSED	2021-12-11 22:50:51	2021-12-11 23:03:02
+3	./resources/cnf/bubble_vs_pancake_7_6_simp.cnf	./resources/config/base.json	./artifacts-infra/logs/1639252251450426678.txt	f	271c77bd909c9276fcbb410cc483f41a6af88493	PASSED	2021-12-11 22:50:51	2021-12-11 23:47:42
+4	./resources/cnf/pancake_vs_selection_7_4.cnf	./resources/config/base.json	./artifacts-infra/logs/1639255662-1513355837.txt	t	271c77bd909c9276fcbb410cc483f41a6af88493	ERROR	2021-12-11 23:47:42	2021-12-11 23:47:43
+5	./resources/cnf/bubble_vs_pancake_7_6_simp.cnf	./resources/config/base.json	./artifacts-infra/logs/1639255662-527226589.txt	t	271c77bd909c9276fcbb410cc483f41a6af88493	ERROR	2021-12-11 23:47:42	2021-12-11 23:47:43
+6	./resources/cnf/sgen6_900_100.cnf	./resources/config/base.json	./artifacts-infra/logs/1639255662-1170467333.txt	t	271c77bd909c9276fcbb410cc483f41a6af88493	ERROR	2021-12-11 23:47:42	2021-12-11 23:47:43
+\.
+
+
+--
+-- Name: launches_launch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dzhiblavi
+--
+
+SELECT pg_catalog.setval('public.launches_launch_id_seq', 6, true);
+
+
+--
+-- Name: launches launches_pkey; Type: CONSTRAINT; Schema: public; Owner: dzhiblavi
+--
+
+ALTER TABLE ONLY public.launches
+    ADD CONSTRAINT launches_pkey PRIMARY KEY (launch_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
