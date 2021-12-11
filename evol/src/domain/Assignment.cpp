@@ -57,11 +57,11 @@ void get_start_and_todo(
 namespace ea::domain {
 
 Assignment::Assignment(
-    std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total)
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
     : total_(total) {
   for (int i = 0; i < (int) vars.size(); ++i) {
     if (vars[i]) {
-      assignment_.push(Minisat::mkLit(var_map.at(i), false));
+      assignment_.push(Minisat::mkLit(var_view[i], false));
     }
   }
 }
@@ -84,10 +84,6 @@ bool Assignment::operator++() {
   }
 }
 
-uint64_t Assignment::total() const noexcept {
-  return total_;
-}
-
 uint64_t SmallSearch::_set_range() {
   LOG_IF(FATAL, assignment_.size() > MAX_VARS_FULL_SEARCH)
       << "Small search can be used only for small assignments!";
@@ -96,14 +92,14 @@ uint64_t SmallSearch::_set_range() {
   return last_ - first_ + 1;
 }
 
-SmallSearch::SmallSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars)
-    : Assignment(var_map, vars, 0) {
+SmallSearch::SmallSearch(VarView const& var_view, std::vector<bool> const& vars)
+    : Assignment(var_view, vars, 0) {
   total_ = _set_range();
 }
 
 SmallSearch::SmallSearch(
-    std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total)
-    : Assignment(var_map, vars, total) {
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+    : Assignment(var_view, vars, total) {
   _set_range();
 }
 
@@ -124,8 +120,8 @@ UAssignment SmallSearch::split_search(uint64_t num_split, uint64_t index) const 
 }
 
 RandomSearch::RandomSearch(
-    std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total)
-    : Assignment(var_map, vars, total) {
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+    : Assignment(var_view, vars, total) {
   set_random(assignment_);
 }
 
@@ -139,8 +135,8 @@ void RandomSearch::_advance() {
   set_random(assignment_);
 }
 
-FullSearch::FullSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars)
-    : SmallSearch(var_map, vars) {}
+FullSearch::FullSearch(VarView const& var_view, std::vector<bool> const& vars)
+    : SmallSearch(var_view, vars) {}
 
 void FullSearch::_advance() {
   next_assignment(assignment_);
@@ -155,14 +151,14 @@ void FullSearch::_reset() {
 }
 
 UniqueSearch::UniqueSearch(
-    const std::map<int, int>& var_map, const std::vector<bool>& vars, uint64_t total)
-    : SmallSearch(var_map, vars, total) {
+    const VarView& var_view, const std::vector<bool>& vars, uint64_t total)
+    : SmallSearch(var_view, vars, total) {
   _advance_us();
 }
 
 UniqueSearch::UniqueSearch(
-    const std::map<int, int>& var_map, const std::vector<bool>& vars)
-    : SmallSearch(var_map, vars) {
+    const VarView& var_view, const std::vector<bool>& vars)
+    : SmallSearch(var_view, vars) {
   _advance_us();
 }
 
@@ -188,17 +184,17 @@ void UniqueSearch::_reset() {
   _advance();
 }
 
-UAssignment createFullSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars) {
-  return UAssignment(new FullSearch(var_map, vars));
+UAssignment createFullSearch(VarView const& var_view, std::vector<bool> const& vars) {
+  return UAssignment(new FullSearch(var_view, vars));
 }
 
 UAssignment createRandomSearch(
-    std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total) {
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
   size_t num_set = std::count(vars.begin(), vars.end(), true);
   if (num_set <= Assignment::MAX_VARS_FULL_SEARCH) {
-    return UAssignment(new UniqueSearch(var_map, vars, total));
+    return UAssignment(new UniqueSearch(var_view, vars, total));
   } else {
-    return UAssignment(new RandomSearch(var_map, vars, total));
+    return UAssignment(new RandomSearch(var_view, vars, total));
   }
 }
 

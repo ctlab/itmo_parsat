@@ -6,7 +6,7 @@
 namespace ea::method {
 
 void TwoPointCrossover::apply(domain::Instance& a, domain::Instance& b) {
-  long num_vars = (long) domain::Instance::num_vars();
+  long num_vars = (long) a.num_vars();
   long pos_1 = random::sample<long>(0, num_vars - 1);
   long pos_2 = random::sample<long>(0, num_vars - 1);
   if (pos_1 > pos_2) {

@@ -4,6 +4,8 @@
 #include <vector>
 #include <map>
 
+#include "evol/include/domain/VarView.h"
+
 namespace ea::domain {
 
 struct Vars {
@@ -19,7 +21,7 @@ struct Vars {
 
   std::vector<bool>& get_mask() noexcept;
 
-  [[nodiscard]] std::vector<int> map_to_vars(std::map<int, int> const& var_map) const;
+  [[nodiscard]] std::vector<int> map_to_vars(VarView const& var_view) const;
 };
 
 }  // namespace ea::domain

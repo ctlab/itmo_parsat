@@ -7,6 +7,7 @@
 #include "evol/include/config/Configuration.h"
 #include "evol/include/domain/Assignment.h"
 #include "evol/include/domain/Fitness.h"
+#include "evol/include/domain/VarView.h"
 #include "evol/include/domain/Vars.h"
 #include "evol/include/util/stream.h"
 #include "evol/include/util/Cache.h"
@@ -28,25 +29,29 @@ using RInstance = std::shared_ptr<Instance>;
 
 using Population = std::vector<RInstance>;
 
-void get_fit(Instance&);
-
 class Instance {
- private:
+ public:
   struct SamplingConfig {
     uint32_t samples;
     uint32_t can_scale;
     double scale;
 
    public:
-    SamplingConfig(uint32_t samples, uint32_t can_scale, double scale);
-
     void do_scale();
   };
 
- public:
-  explicit Instance(InstanceConfig const& config, sat::RSolver solver);
+  struct SharedData {
+    SamplingConfig sampling_config{};
+    Cache<std::vector<bool>, Fitness> cache{};
+    VarView var_view{};
+    uint32_t inaccurate_points = 0;
+    uint32_t omega_x{};
+  };
 
-  [[nodiscard]] Vars const& get_vars() const noexcept;
+  using RSharedData = std::shared_ptr<SharedData>;
+
+ public:
+  explicit Instance(sat::RSolver solver, RSharedData shared_data);
 
   Vars& get_vars() noexcept;
 
@@ -56,42 +61,34 @@ class Instance {
 
   [[nodiscard]] bool is_cached() const noexcept;
 
- private:
-  void _init_heuristic(InstanceConfig const& config);
+  [[nodiscard]] VarView const& var_view() const noexcept;
 
+  [[nodiscard]] size_t num_vars() const noexcept;
+
+ private:
   void _calc_fitness();
 
+  SamplingConfig& _sampling_config() noexcept;
+
+  Cache<std::vector<bool>, Fitness>& _cache() noexcept;
+
+  uint32_t& _inaccurate_points() noexcept;
+
+  VarView& _var_view() noexcept;
+
  private:
-  using cache_t = Cache<std::vector<bool>, Fitness>;
   bool cached_ = false;
   std::shared_ptr<sat::Solver> solver_;
-  std::shared_ptr<SamplingConfig> sampling_config_;
-  std::shared_ptr<cache_t> instance_cache_;
-
-  uint32_t omega_x;
+  std::shared_ptr<SharedData> shared_;
   Vars vars_;
   Fitness fit_{};
-
- private:
-  static std::map<int, int> var_map_;
-  static std::atomic_uint32_t inaccurate_points_;
-
- public:
-  static size_t num_vars() noexcept;
-
-  static uint32_t inaccurate_points();
-
-  static std::map<int, int> const& var_map() noexcept;
 
  private:
   friend std::ostream& ::operator<<(std::ostream&, ea::domain::Instance& instance);
 };
 
-RInstance createInstance(sat::RSolver const& solver);
-
 bool operator<(Instance& a, Instance& b);
 
 }  // namespace ea::domain
-
 
 #endif  // EVOL_INSTANCE_H

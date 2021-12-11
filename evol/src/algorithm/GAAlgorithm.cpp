@@ -40,7 +40,7 @@ GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config)
 void GAAlgorithm::prepare() {
   population_.reserve(q_);
   for (uint32_t i = 0; i < q_; ++i) {
-    population_.push_back(domain::createInstance(solver_));
+    _add_instance();
     fits_.push_back((double) population_.back()->fitness());
   }
 }

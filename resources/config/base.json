@@ -1,7 +1,17 @@
 {
     "algorithm_config": {
         "limit_type": "ConjLimit",
-        "solver_type": "ParSolver"
+        "solver_type": "ParSolver",
+        "instance_config": {
+            "omega_x": 20,
+            "heuristic_size": 200,
+            "max_cache_size": 1000000,
+            "sampling_config": {
+                "base_count": 4000,
+                "max_steps": 2,
+                "scale": 2.0
+            }
+        }
     },
     "resource_limit_config": {
         "memory_limit_kb": 0,
@@ -31,16 +41,6 @@
         "selector_type": "BestSelector",
         "q": 8,
         "h": 2
-    },
-    "instance_config": {
-        "omega_x": 20,
-        "heuristic_size": 200,
-        "max_cache_size": 1000000,
-        "sampling_config": {
-            "base_count": 4000,
-            "max_steps": 2,
-            "scale": 2.0
-        }
     },
     "algorithm_type": "EAAlgorithm",
     "solver_type": "SimpSolver",

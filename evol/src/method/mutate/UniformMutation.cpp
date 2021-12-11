@@ -7,9 +7,9 @@ namespace ea::method {
 UniformMutation::UniformMutation(UniformMutationConfig const& config) : scale_(config.scale()) {}
 
 void UniformMutation::apply(domain::Instance& instance) {
-  size_t num_vars = domain::Instance::num_vars();
+  size_t num_vars = instance.num_vars();
   double p = scale_ / (double) num_vars;
-  for (size_t i = 0; i < domain::Instance::num_vars(); ++i) {
+  for (size_t i = 0; i < num_vars; ++i) {
     if (random::flip_coin(p)) {
       instance.get_vars().flip(i);
     }

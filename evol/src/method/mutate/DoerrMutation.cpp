@@ -35,12 +35,13 @@ double DoerrMutation::_get_alpha(size_t size) const {
 }
 
 void DoerrMutation::apply(domain::Instance& instance) {
+  size_t num_vars = instance.num_vars();
   if (alpha_ == -1.) {
-    alpha_ = _get_alpha(domain::Instance::num_vars());
+    alpha_ = _get_alpha(num_vars);
   }
-  double p = alpha_ / (double) domain::Instance::num_vars();
+  double p = alpha_ / (double) num_vars;
 
-  for (size_t i = 0; i < domain::Instance::num_vars(); ++i) {
+  for (size_t i = 0; i < num_vars; ++i) {
     if (random::flip_coin(p)) {
       instance.get_vars().flip(i);
     }

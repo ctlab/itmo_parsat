@@ -7,7 +7,7 @@ EAAlgorithm::EAAlgorithm(EAAlgorithmConfig const& config)
     , selector_(ea::registry::Registry::resolve_selector(config.selector_type())) {}
 
 void EAAlgorithm::prepare() {
-  population_.push_back(domain::createInstance(solver_));
+  _add_instance();
 }
 
 void EAAlgorithm::step() {

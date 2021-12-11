@@ -18,12 +18,12 @@ std::vector<bool>& Vars::get_mask() noexcept {
   return bit_mask_;
 }
 
-std::vector<int> Vars::map_to_vars(std::map<int, int> const& var_map) const {
+std::vector<int> Vars::map_to_vars(VarView const& var_view) const {
   std::vector<int> vars;
   auto const& mask = bit_mask_;
   for (size_t i = 0; i < bit_mask_.size(); ++i) {
     if (mask[i]) {
-      vars.push_back(var_map.at((int) i));
+      vars.push_back(var_view[(int) i]);
     }
   }
   return vars;

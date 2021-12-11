@@ -12,6 +12,12 @@
 namespace ea::algorithm {
 
 class Algorithm {
+ private:
+  void _init_shared_data(AlgorithmConfig_InstanceConfig const& config);
+
+ protected:
+  void _add_instance();
+
  public:
   virtual ~Algorithm() = default;
 
@@ -31,6 +37,8 @@ class Algorithm {
 
   domain::Instance& get_best() noexcept;
 
+  [[nodiscard]] size_t inaccurate_points() const noexcept;
+
  protected:
   virtual void step() = 0;
 
@@ -38,6 +46,7 @@ class Algorithm {
 
  protected:
   domain::Population population_;
+  domain::Instance::RSharedData shared_data_;
   sat::RSolver solver_;
 
  private:

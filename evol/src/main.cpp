@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
 
     LOG_TIME(algorithm->process());
     auto& r_backdoor = algorithm->get_best();
-    LOG(INFO) << "Number of points visited: " << ea::domain::Instance::inaccurate_points();
+    LOG(INFO) << "Number of points visited: " << algorithm->inaccurate_points();
     LOG(INFO) << "The best backdoor is: " << r_backdoor;
 
     alg_int_handle.remove();
@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
 
     std::vector<bool> vars = r_backdoor.get_vars().get_mask();
     ea::domain::UAssignment assignment_p =
-        ea::domain::createFullSearch(ea::domain::Instance::var_map(), vars);
+        ea::domain::createFullSearch(r_backdoor.var_view(), vars);
 
     std::atomic_bool satisfied = false, unknown = false;
     size_t num_vars = r_backdoor.fitness().pow_r;

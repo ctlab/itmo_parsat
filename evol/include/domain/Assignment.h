@@ -9,6 +9,8 @@
 #include <minisat/mtl/Vec.h>
 #include <minisat/core/SolverTypes.h>
 
+#include "evol/include/domain/VarView.h"
+
 namespace ea::domain {
 
 class Assignment;
@@ -21,7 +23,7 @@ class Assignment {
 
  protected:
   explicit Assignment(
-      std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total);
+      VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
  public:
   virtual ~Assignment() = default;
@@ -55,8 +57,6 @@ class Assignment {
 
   [[nodiscard]] bool is_empty() const;
 
-  [[nodiscard]] uint64_t total() const noexcept;
-
  protected:
   virtual void _advance() = 0;
 
@@ -70,9 +70,9 @@ class SmallSearch : public Assignment {
   uint64_t _set_range();
 
  protected:
-  SmallSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars);
+  SmallSearch(VarView const& var_view, std::vector<bool> const& vars);
 
-  SmallSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total);
+  SmallSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
  public:
   [[nodiscard]] UAssignment split_search(uint64_t num_split, uint64_t index) const override;
@@ -88,11 +88,11 @@ class SmallSearch : public Assignment {
 
 class RandomSearch : public Assignment {
   friend UAssignment createRandomSearch(
-      std::map<int, int> const&, std::vector<bool> const&, uint64_t);
+      VarView const& var_view, std::vector<bool> const&, uint64_t);
 
  protected:
   explicit RandomSearch(
-      std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total);
+      VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
  public:
   [[nodiscard]] UAssignment split_search(uint64_t num_split, uint64_t index) const override;
@@ -102,10 +102,10 @@ class RandomSearch : public Assignment {
 };
 
 class FullSearch : public SmallSearch {
-  friend UAssignment createFullSearch(std::map<int, int> const&, std::vector<bool> const&);
+  friend UAssignment createFullSearch(VarView const&, std::vector<bool> const&);
 
  protected:
-  FullSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars);
+  FullSearch(VarView const& var_view, std::vector<bool> const& vars);
 
  protected:
   void _advance() override;
@@ -116,17 +116,17 @@ class FullSearch : public SmallSearch {
 };
 
 class UniqueSearch : public SmallSearch {
-  friend UAssignment createFullSearch(std::map<int, int> const&, std::vector<bool> const&);
+  friend UAssignment createFullSearch(VarView const&, std::vector<bool> const&);
 
   friend UAssignment createRandomSearch(
-      std::map<int, int> const&, std::vector<bool> const&, uint64_t);
+      VarView const&, std::vector<bool> const&, uint64_t);
 
  public:
   explicit UniqueSearch(
-      std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total);
+      VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
   explicit UniqueSearch(
-      std::map<int, int> const& var_map, std::vector<bool> const& vars);
+      VarView const& var_view, std::vector<bool> const& vars);
 
  private:
   std::set<uint64_t> visited_;
@@ -141,10 +141,10 @@ class UniqueSearch : public SmallSearch {
   void _reset() override;
 };
 
-UAssignment createFullSearch(std::map<int, int> const& var_map, std::vector<bool> const& vars);
+UAssignment createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
 
 UAssignment createRandomSearch(
-    std::map<int, int> const& var_map, std::vector<bool> const& vars, uint64_t total);
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
 }  // namespace ea::domain
 

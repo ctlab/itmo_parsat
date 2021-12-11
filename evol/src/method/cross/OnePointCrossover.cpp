@@ -6,7 +6,7 @@
 namespace ea::method {
 
 void OnePointCrossover::apply(domain::Instance& a, domain::Instance& b) {
-  long num_vars = (long) domain::Instance::num_vars();
+  long num_vars = (long) a.num_vars();
   long pos = random::sample<long>(0, num_vars - 1);
   auto& a_mask = a.get_vars().get_mask();
   auto& b_mask = b.get_vars().get_mask();

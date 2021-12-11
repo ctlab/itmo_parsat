@@ -9,7 +9,7 @@ namespace ea {
 template <typename Key, typename Value>
 class Cache {
  public:
-  explicit Cache(size_t max_cache_size)
+  explicit Cache(size_t max_cache_size = 0)
       : max_cache_size_(max_cache_size) {
     CHECK_GT(max_cache_size, 0ULL) << "Cache with size 0 is not supported.";
   }
@@ -28,6 +28,10 @@ class Cache {
 
   void invalidate() {
     map_.clear();
+  }
+
+  void set_max_size(size_t new_max_size) {
+    max_cache_size_ = new_max_size;
   }
 
  private:

@@ -1,8 +1,22 @@
 syntax = "proto3";
 
 message AlgorithmConfig {
+  message InstanceConfig {
+    message SamplingSizeConfig {
+        uint64 base_count = 1;
+        uint32 max_steps = 2;
+        double scale = 3;
+    }
+
+    uint32 omega_x = 1;
+    uint32 heuristic_size = 2;
+    uint32 max_cache_size = 3;
+    SamplingSizeConfig sampling_config = 4;
+  }
+
   string limit_type = 1;
   string solver_type = 2;
+  InstanceConfig instance_config = 3;
 }
 
 message ResourceLimitConfig {
@@ -37,19 +51,6 @@ message GAAlgorithmConfig {
   string selector_type = 3;
   uint32 q = 4;
   uint32 h = 5;
-}
-
-message InstanceConfig {
-  message SamplingSizeConfig {
-    uint64 base_count = 1;
-    uint32 max_steps = 2;
-    double scale = 3;
-  }
-
-  uint32 omega_x = 1;
-  uint32 heuristic_size = 2;
-  uint32 max_cache_size = 3;
-  SamplingSizeConfig sampling_config = 4;
 }
 
 message MinisatCliConfig {
@@ -124,7 +125,6 @@ message GlobalConfig {
   DoerrMutationConfig doerr_mutation_config = 13;
 
   string solver_type = 21;
-  InstanceConfig instance_config = 6;
   SimpSolverConfig simp_solver_config = 7;
   ParSolverConfig par_solver_config = 22;
 
