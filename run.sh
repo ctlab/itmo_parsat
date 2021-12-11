@@ -1,13 +1,21 @@
 #!/bin/bash
-set -e
+set -ex
 
 ROOT="$PWD"
+VERBOSE="2"
+DO_ALL=""
+RESOURCES_DIR="./resources"
+
 CNF_PATH="$ROOT/resources/cnf/pancake_vs_selection_7_4.cnf"
 CFG_PATH="$ROOT/resources/config/base.json"
 SOLVE_BIN="$ROOT/bazel-bin/evol/main"
 TEST_BIN="$ROOT/bazel-bin/evol/test"
-VERBOSE="2"
-DO_ALL=""
+
+INFRA_BIN="$ROOT/bazel-bin/infra/main"
+INFRA_DIR="./infra/"
+INFRA_DB_NAME="infra_db"
+INFRA_DB_SETUP="./infra/resources/create_tables.sql"
+
 
 function print_help() {
     echo "Usage: ./run.sh [options]"
@@ -15,6 +23,9 @@ function print_help() {
     echo "   -h|--help           Display this message"
     echo "   -d|--backdoor       Enable backdoor"
     echo "   -b|--build          Do build"
+    echo "   --build-infra       Build testing infrastructure"
+    echo "   --prepare-infra-db  Prepare DB for infra tests"
+    echo "   --run-infra-tests   Run tests"
     echo "   -f|--format         Do reformat"
     echo "   -p|--proto          Do proto rebuild"
     echo "   -t|--test           Do test"
@@ -81,7 +92,16 @@ function parse_options() {
             --help) {
                 print_help
             } ;;
-            --backdoor) {
+            --build-infra) {
+                BUILD_INFRA="YES"
+            } ;;
+            --prepare-infra-db) {
+                PREP_DB="YES"
+            } ;;
+            --run-infra-tests) {
+                RUN_INFRA="YES"
+            } ;;
+            --backdoor) { 
                 BACKDOOR="--backdoor"
             } ;;
             --format) {
@@ -122,7 +142,6 @@ function parse_options() {
     done
 
     ARGS=""
-
     FORMAT="$FORMAT$DO_ALL"
     BUILD="$BUILD$DO_ALL"
     PROTO="$PROTO$DO_ALL"
@@ -154,12 +173,30 @@ function main() {
         ln -s `pwd`/bazel-bin/evol/proto/config.pb.cc ./evol/proto/config.pb.cc
     fi
 
+    if ! [[ -z "$BUILD_INFRA" ]]; then
+        bazel build //infra:main
+    fi
+
     if ! [[ -z "$BUILD" ]]; then
         bazel build //evol:main //evol:test $ARGS
     fi
 
     if ! [[ -z "$TEST" ]]; then
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $TEST_BIN $FILTER
+    fi
+
+    if ! [[ -z "$PREP_DB" ]]; then
+        createdb $INFRA_DB_NAME
+        psql -d $INFRA_DB_NAME -f $INFRA_DB_SETUP
+    fi
+
+    if ! [[ -z "$RUN_INFRA" ]]; then
+        $INFRA_BIN \
+            --commit $(git rev-parse --verify HEAD) \
+            --resources-dir $RESOURCES_DIR \
+            --working-dir $INFRA_DIR \
+            --exec $SOLVE_BIN \
+            --dbname infra_db
     fi
 
     if ! [[ -z "$SOLVE" ]]; then

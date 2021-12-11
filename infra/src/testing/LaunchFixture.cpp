@@ -93,9 +93,9 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
     std::filesystem::create_directories(logs_root);
     std::filesystem::create_directories(configs_root);
     /* Setup files */
-    std::string timestamp = std::to_string(std::time(nullptr));
-    std::filesystem::path const& logs_path = logs_root / (timestamp + ".txt");
-    std::filesystem::path const& config_path = configs_root / (timestamp + ".json");
+    std::string maybe_uniq_str = std::to_string(std::time(nullptr)) + std::to_string(rand());
+    std::filesystem::path const& logs_path = logs_root / (maybe_uniq_str + ".txt");
+    std::filesystem::path const& config_path = configs_root / (maybe_uniq_str + ".json");
     /* Copy configuration */
     std::filesystem::path real_config_path =
         config.resources_dir / "config" / launch_config.config_path_;
@@ -106,14 +106,14 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
     // clang-format off
     if (launch_config.backdoor_) {
       procs_.emplace_back(
-        logs_path, config_path, real_input_path, config.branch, launch_config.expected_result_, true,
+        logs_path, config_path, real_input_path, config.commit, launch_config.expected_result_, true,
         config.executable.string(), "--backdoor",
         "--input", real_input_path.string(), "--config", real_config_path.string(),
         boost::process::std_out > logs_path, boost::process::std_err > logs_path
       );
     } else {
       procs_.emplace_back(
-        logs_path, config_path, real_input_path, config.branch, launch_config.expected_result_, false,
+        logs_path, config_path, real_input_path, config.commit, launch_config.expected_result_, false,
         config.executable.string(),
         "--input", real_input_path.string(), "--config", real_config_path.string(),
         boost::process::std_out > logs_path, boost::process::std_err > logs_path
@@ -166,5 +166,5 @@ void LaunchFixture::Launch::save_to_db(infra::domain::Launches& db_launches) {
     LOG(WARNING) << "Solution has been interrupted.";
   }
   db_launches.add(
-      infra::domain::Launch{0, input_path, config_path, logs_path, backdoor, branch, result});
+      infra::domain::Launch{0, input_path, config_path, logs_path, backdoor, commit, result});
 }

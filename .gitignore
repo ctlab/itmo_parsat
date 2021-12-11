@@ -1,6 +1,7 @@
 bazel-*
 **/*.undodir
 **/*.swp
+**/*.swo
 .clwb/
 .idea/
 **/*build*/

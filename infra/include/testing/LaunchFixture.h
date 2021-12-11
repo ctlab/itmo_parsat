@@ -17,7 +17,7 @@ class LaunchFixture : public ::testing::Test {
     std::filesystem::path executable{};
     std::filesystem::path resources_dir{};
     std::filesystem::path working_dir{};
-    std::string branch{};
+    std::string commit{};
     std::string dbname{};
     std::string user{};
     std::string password{};
@@ -68,7 +68,7 @@ class LaunchFixture : public ::testing::Test {
     std::filesystem::path logs_path;
     std::filesystem::path config_path;
     std::filesystem::path input_path;
-    std::string branch;
+    std::string commit;
     infra::domain::Result expected_result;
     bool backdoor = false;
     bool interrupted = false;
@@ -79,12 +79,12 @@ class LaunchFixture : public ::testing::Test {
     explicit Launch(std::filesystem::path logs_path,
                     std::filesystem::path config_path,
                     std::filesystem::path input_path,
-                    std::string branch,
+                    std::string commit,
                     infra::domain::Result result,
                     bool backdoor, Args&&... args)
         : proc(std::forward<Args>(args)...), logs_path(std::move(logs_path)),
           config_path(std::move(config_path)), input_path(std::move(input_path)),
-          branch(std::move(branch)), expected_result(result), backdoor(backdoor) {}
+          commit(std::move(commit)), expected_result(result), backdoor(backdoor) {}
     // clang-format on
 
     void interrupt();
