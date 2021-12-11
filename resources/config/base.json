@@ -18,7 +18,7 @@
         "time_limit_sec": 240
     },
     "fitness_limit_config": {
-        "lowest_fitness": 0.9999
+        "lowest_fitness": 0.999
     },
     "conj_limit_config": {
         "limit_type": [
