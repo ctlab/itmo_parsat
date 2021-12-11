@@ -51,7 +51,7 @@ void Instance::_init_heuristic(InstanceConfig const& config) {
       stats.emplace_back(prop_both.size(), i);
     }
 
-    uint64_t max_watched_count = config.heuristic_size();
+    uint64_t max_watched_count = std::min(config.heuristic_size(), solver_->num_vars());
     std::sort(stats.begin(), stats.end());
     auto it = stats.crbegin();
     for (size_t i = 0; i < max_watched_count; ++i, ++it) {

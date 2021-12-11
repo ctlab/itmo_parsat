@@ -6,15 +6,20 @@
 
 namespace infra::domain {
 
-enum Result {
-  ERROR,
+enum LaunchResult {
   INTERRUPTED,
+  ERROR,
+  PASSED,
+  FAILED,
+};
+
+enum SatResult {
   SAT,
   UNSAT,
   UNKNOWN,
 };
 
-std::string to_string(Result result);
+std::string to_string(LaunchResult result);
 
 struct Launch {
   uint32_t launch_id{};
@@ -23,7 +28,9 @@ struct Launch {
   std::filesystem::path log_path{};
   bool backdoor{};
   std::string commit_hash{};
-  Result result{};
+  LaunchResult result{};
+  uint64_t started_at{};
+  uint64_t finished_at{};
 };
 
 class Launches : PGDB {

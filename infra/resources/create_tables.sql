@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS Launches (
     backdoor BOOLEAN NOT NULL,
     commit_hash VARCHAR(128),
     result VARCHAR(16),
-    finished_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    started_at TIMESTAMP,
+    finished_at TIMESTAMP
 );

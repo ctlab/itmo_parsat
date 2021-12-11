@@ -23,6 +23,7 @@ cc_binary(
     srcs = sources + ["src/main.cpp"],
     deps = base_deps,
     copts = ["-Iminisat"],
+    visibility = ["//visibility:public"],
 )
 
 cc_test(
@@ -33,4 +34,5 @@ cc_test(
         "@com_google_googletest//:gtest_main",
         "//evol:main",
     ],
+    visibility = ["//visibility:public"],
 )

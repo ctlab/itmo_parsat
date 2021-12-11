@@ -11,9 +11,12 @@ LaunchFixture* _fixture = nullptr;
 
 void _sig_handler(int) {
   if (_fixture != nullptr) {
+    LOG(INFO) << "Caught interrupt!";
     _fixture->interrupt();
   }
 }
+
+namespace bp = boost::process;
 
 }  // namespace
 
@@ -33,29 +36,6 @@ void LaunchFixture::interrupt() {
   _kill_all_children();
 }
 
-LaunchFixture::LaunchConfig& LaunchFixture::LaunchConfig::backdoor(bool backdoor) noexcept {
-  backdoor_ = backdoor;
-  return *this;
-}
-
-LaunchFixture::LaunchConfig& LaunchFixture::LaunchConfig::input_path(
-    std::filesystem::path const& input_path) noexcept {
-  input_path_ = input_path;
-  return *this;
-}
-
-LaunchFixture::LaunchConfig& LaunchFixture::LaunchConfig::config_path(
-    std::filesystem::path const& config_path) noexcept {
-  config_path_ = config_path;
-  return *this;
-}
-
-LaunchFixture::LaunchConfig& LaunchFixture::LaunchConfig::expected_result(
-    infra::domain::Result result) noexcept {
-  expected_result_ = result;
-  return *this;
-}
-
 void LaunchFixture::prepare() {
   /* Create logs root directory if it does not exist */
   if (!std::filesystem::is_directory(config.working_dir)) {
@@ -69,23 +49,18 @@ void LaunchFixture::SetUp() {
 }
 
 void LaunchFixture::TearDown() {
-  for (auto& proc : procs_) {
-    proc.await();
-    proc.save_to_db(*launches);
-  }
-  procs_.clear();
+  execs_.clear();
 }
 
 void LaunchFixture::_kill_all_children() {
-  for (auto& proc : procs_) {
-    proc.interrupt();
-    proc.save_to_db(*launches);
+  for (auto& exec : execs_) {
+    exec->interrupt();
   }
-  procs_.clear();
 }
 
-void LaunchFixture::launch(LaunchConfig const& launch_config) {
-  namespace bp = boost::process;
+void LaunchFixture::launch(infra::testing::LaunchConfig const& launch_config) {
+  static std::random_device rnd_dev_;
+  static std::mt19937 rnd_gen_(rnd_dev_());
   try {
     /* Setup directories */
     std::filesystem::path const& logs_root = config.working_dir / "logs";
@@ -93,7 +68,9 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
     std::filesystem::create_directories(logs_root);
     std::filesystem::create_directories(configs_root);
     /* Setup files */
-    std::string maybe_uniq_str = std::to_string(std::time(nullptr)) + std::to_string(rand());
+    std::string maybe_uniq_str =
+        std::to_string(std::time(nullptr)) +
+        std::to_string(std::uniform_int_distribution<int>(INT_MIN, INT_MAX)(rnd_gen_));
     std::filesystem::path const& logs_path = logs_root / (maybe_uniq_str + ".txt");
     std::filesystem::path const& config_path = configs_root / (maybe_uniq_str + ".json");
     /* Copy configuration */
@@ -104,20 +81,30 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
     std::filesystem::copy_file(real_config_path, config_path);
 
     // clang-format off
+    auto callback = [=] (uint64_t started_at, uint64_t finished_at,
+                         int exit_code, bool interrupted) {
+      LOG(INFO) << "Ok, finished: " << started_at << ' ' << finished_at << ' '
+              << exit_code << ' ' << interrupted;
+      launches->add(
+        infra::domain::Launch{
+          0, real_input_path, real_config_path, logs_path, launch_config.backdoor_,
+          config.commit, _code_to_result(interrupted, exit_code, launch_config.expected_result_),
+          started_at, finished_at
+        }
+      );
+    };
     if (launch_config.backdoor_) {
-      procs_.emplace_back(
-        logs_path, config_path, real_input_path, config.commit, launch_config.expected_result_, true,
-        config.executable.string(), "--backdoor",
-        "--input", real_input_path.string(), "--config", real_config_path.string(),
-        boost::process::std_out > logs_path, boost::process::std_err > logs_path
-      );
+      execs_.emplace_back(std::make_unique<infra::Execution>(callback,
+        logs_path, logs_path, config.executable.string(), "--backdoor",
+        "--input", real_input_path.string(),
+        "--config", real_config_path.string()
+      ));
     } else {
-      procs_.emplace_back(
-        logs_path, config_path, real_input_path, config.commit, launch_config.expected_result_, false,
-        config.executable.string(),
-        "--input", real_input_path.string(), "--config", real_config_path.string(),
-        boost::process::std_out > logs_path, boost::process::std_err > logs_path
-      );
+      execs_.emplace_back(std::make_unique<infra::Execution>(callback,
+          logs_path, logs_path, config.executable.string(),
+          "--input", real_input_path.string(),
+          "--config", real_config_path.string()
+      ));
     }
     // clang-format on
     LOG(INFO) << "Launched. See logs at " << logs_path;
@@ -126,42 +113,26 @@ void LaunchFixture::launch(LaunchConfig const& launch_config) {
   }
 }
 
-void LaunchFixture::Launch::interrupt() {
-  using namespace std::chrono_literals;
-  interrupted = true;
-  auto handle = proc.native_handle();
-  kill(handle, SIGINT);
-  std::this_thread::sleep_for(100ms);
-  kill(handle, SIGINT);
-  proc.join();
-}
-
-void LaunchFixture::Launch::await() {
-  proc.join();
-}
-
-void LaunchFixture::Launch::save_to_db(infra::domain::Launches& db_launches) {
-  infra::domain::Result result = infra::domain::INTERRUPTED;
-  if (!interrupted) {
-    switch (proc.exit_code()) {
-      case 0:
-        result = infra::domain::UNSAT;
-        break;
-      case 1:
-        result = infra::domain::SAT;
-        break;
-      case 2:
-        result = infra::domain::UNKNOWN;
-        break;
-      default:
-        result = infra::domain::ERROR;
-        break;
-    }
-    LOG_IF(WARNING, result != expected_result)
-        << "Unexpected result. Expected: " << expected_result << ", but got: " << result;
-  } else {
-    LOG(WARNING) << "Solution has been interrupted.";
+infra::domain::LaunchResult LaunchFixture::_code_to_result(
+    bool interrupted, int exit_code, infra::domain::SatResult expected) noexcept {
+  if (interrupted) {
+    return infra::domain::INTERRUPTED;
   }
-  db_launches.add(
-      infra::domain::Launch{0, input_path, config_path, logs_path, backdoor, commit, result});
+
+  infra::domain::SatResult sat_result;
+  switch (exit_code) {
+    case 0:
+      sat_result = infra::domain::UNSAT;
+      break;
+    case 1:
+      sat_result = infra::domain::SAT;
+      break;
+    case 2:
+      sat_result = infra::domain::UNKNOWN;
+      break;
+    default:
+      return infra::domain::ERROR;
+  }
+
+  return sat_result == expected ? infra::domain::PASSED : infra::domain::FAILED;
 }

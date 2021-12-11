@@ -7,9 +7,12 @@
 #include <filesystem>
 #include <boost/process.hpp>
 #include <glog/logging.h>
+#include <random>
 #include <gtest/gtest.h>
 
 #include "infra/include/domain/Launches.h"
+#include "infra/include/testing/Execution.h"
+#include "infra/include/testing/LaunchConfig.h"
 
 class LaunchFixture : public ::testing::Test {
  public:
@@ -25,25 +28,6 @@ class LaunchFixture : public ::testing::Test {
   static Config config;
 
  public:
-  struct LaunchConfig {
-    bool backdoor_ = false;
-    infra::domain::Result expected_result_{};
-    std::filesystem::path config_path_{};
-    std::filesystem::path input_path_{};
-
-   public:
-    LaunchConfig() = default;
-
-    LaunchConfig& backdoor(bool backdoor = true) noexcept;
-
-    LaunchConfig& input_path(std::filesystem::path const& input_path) noexcept;
-
-    LaunchConfig& config_path(std::filesystem::path const& config_path) noexcept;
-
-    LaunchConfig& expected_result(infra::domain::Result result) noexcept;
-  };
-
- public:
   LaunchFixture();
 
   ~LaunchFixture() noexcept override;
@@ -57,46 +41,17 @@ class LaunchFixture : public ::testing::Test {
 
   void TearDown() override;
 
-  void launch(LaunchConfig const& launch_config);
+  void launch(infra::testing::LaunchConfig const& launch_config);
 
  private:
   void _kill_all_children();
 
- private:
-  struct Launch {
-    boost::process::child proc;
-    std::filesystem::path logs_path;
-    std::filesystem::path config_path;
-    std::filesystem::path input_path;
-    std::string commit;
-    infra::domain::Result expected_result;
-    bool backdoor = false;
-    bool interrupted = false;
-
-   public:
-    // clang-format off
-    template <typename... Args>
-    explicit Launch(std::filesystem::path logs_path,
-                    std::filesystem::path config_path,
-                    std::filesystem::path input_path,
-                    std::string commit,
-                    infra::domain::Result result,
-                    bool backdoor, Args&&... args)
-        : proc(std::forward<Args>(args)...), logs_path(std::move(logs_path)),
-          config_path(std::move(config_path)), input_path(std::move(input_path)),
-          commit(std::move(commit)), expected_result(result), backdoor(backdoor) {}
-    // clang-format on
-
-    void interrupt();
-
-    void await();
-
-    void save_to_db(infra::domain::Launches& launches);
-  };
+  static infra::domain::LaunchResult _code_to_result(
+      bool interrupted, int exit_code, infra::domain::SatResult expected) noexcept;
 
  private:
   std::unique_ptr<infra::domain::Launches> launches;
-  std::vector<Launch> procs_;
+  std::vector<std::unique_ptr<infra::Execution>> execs_;
 };
 
 #endif  // ITMO_PARSAT_LAUNCHFIXTURE_H
