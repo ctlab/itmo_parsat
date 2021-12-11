@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 ROOT="$PWD"
 VERBOSE="2"
@@ -12,7 +12,7 @@ SOLVE_BIN="$ROOT/bazel-bin/evol/main"
 TEST_BIN="$ROOT/bazel-bin/evol/test"
 
 INFRA_BIN="$ROOT/bazel-bin/infra/main"
-INFRA_DIR="./infra/"
+INFRA_DIR="./artifacts-infra/"
 INFRA_DB_NAME="infra_db"
 INFRA_DB_SETUP="./infra/resources/create_tables.sql"
 
@@ -191,7 +191,7 @@ function main() {
     fi
 
     if ! [[ -z "$RUN_INFRA" ]]; then
-        $INFRA_BIN \
+        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $INFRA_BIN \
             --commit $(git rev-parse --verify HEAD) \
             --resources-dir $RESOURCES_DIR \
             --working-dir $INFRA_DIR \

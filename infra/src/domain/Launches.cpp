@@ -24,12 +24,12 @@ Launches::Launches(std::string const& dbname, std::string const& user, std::stri
 Launches& Launches::add(Launch const& launch) {
   // clang-format off
   _exec0(std::string() +
-    "INSERT INTO Launches(input_path, config_path, log_path, backdoor, vcs_tag, result) VALUES (" +
+    "INSERT INTO Launches(input_path, config_path, log_path, backdoor, commit_hash, result) VALUES (" +
     "\'" + launch.input_path.string() + "\', " +
     "\'" + launch.config_path.string() + "\', " +
     "\'" + launch.log_path.string() + "\', " +
     "\'" + (launch.backdoor ? "true" : "false") + "\', " +
-    "\'" + launch.vcs_tag + "\', " +
+    "\'" + launch.commit_hash + "\', " +
     "\'" + to_string(launch.result) + "\');"
   );
   // clang-format on

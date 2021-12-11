@@ -138,6 +138,7 @@ int main(int argc, char** argv) {
   } else {
     ea::sat::RSolver solver =
         ea::registry::Registry::resolve_solver(ea::config::global_config().solver_type());
+    LOG_TIME(solver->parse_cnf(input));
     ea::SigHandler sig_handler;
     ea::SigHandler::CallbackHandle slv_int_handle = sig_handler.register_callback([&solver](int) {
       solver->interrupt();

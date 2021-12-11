@@ -22,7 +22,7 @@ struct Launch {
   std::filesystem::path config_path{};
   std::filesystem::path log_path{};
   bool backdoor{};
-  std::string vcs_tag{};
+  std::string commit_hash{};
   Result result{};
 };
 
