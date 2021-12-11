@@ -70,3 +70,19 @@ protobuf_deps()
 
 load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies")
 rules_cc_dependencies()
+
+new_git_repository(
+    name="libpqxx",
+    remote="https://github.com/jtv/libpqxx.git",
+    build_file="//third_party:libpqxx.BUILD",
+    tag="7.6.0",
+)
+
+new_git_repository(
+    name="cppgit2",
+    remote="https://github.com/p-ranav/cppgit2.git",
+    build_file="//third_party:cppgit2.BUILD",
+    recursive_init_submodules=True,
+    tag="v0.1.0",
+)
+

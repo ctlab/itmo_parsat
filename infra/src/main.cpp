@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include <pqxx/pqxx>
 #include <glog/logging.h>
 #include <boost/program_options.hpp>
 

@@ -1,7 +1,7 @@
 #ifndef ITMO_PARSAT_PGDB_H
 #define ITMO_PARSAT_PGDB_H
 
-#include <pqxx/pqxx>
+#include "pqxx/pqxx"
 
 namespace infra::domain {
 
