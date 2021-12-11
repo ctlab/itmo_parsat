@@ -21,5 +21,4 @@ bool operator<(ea::domain::Fitness const& a, ea::domain::Fitness const& b);
 
 }  // namespace ea::domain
 
-
 #endif  // ITMO_PARSAT_FITNESS_H

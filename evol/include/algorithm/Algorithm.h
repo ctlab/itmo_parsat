@@ -18,12 +18,14 @@ class Algorithm {
  protected:
   void _add_instance();
 
+  virtual void _prepare();
+
  public:
   virtual ~Algorithm() = default;
 
   Algorithm();
 
-  virtual void prepare();
+  void prepare();
 
   explicit Algorithm(AlgorithmConfig const& config);
 
@@ -45,6 +47,7 @@ class Algorithm {
   [[nodiscard]] bool is_interrupted() const;
 
  protected:
+  AlgorithmConfig_InstanceConfig instance_config_;
   domain::Population population_;
   domain::Instance::RSharedData shared_data_;
   sat::RSolver solver_;

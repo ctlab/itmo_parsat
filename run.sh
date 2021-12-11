@@ -16,196 +16,153 @@ INFRA_DIR="./artifacts-infra/"
 INFRA_DB_NAME="infra_db"
 INFRA_DB_SETUP="./infra/resources/create_tables.sql"
 
+NEXT_NATIVE=0
+BUILD_DEBUG=""
+RUN_GDB=""
 
-function print_help() {
-    echo "Usage: ./run.sh [options]"
-    echo "  Options:"
-    echo "   -h|--help           Display this message"
-    echo "   -d|--backdoor       Enable backdoor"
-    echo "   -b|--build          Do build"
-    echo "   --build-infra       Build testing infrastructure"
-    echo "   --prepare-infra-db  Prepare DB for infra tests"
-    echo "   --run-infra-tests   Run tests"
-    echo "   -f|--format         Do reformat"
-    echo "   -p|--proto          Do proto rebuild"
-    echo "   -t|--test           Do test"
-    echo "   -v|--verbose <x>    Set verbose level to x[=2]"
-    echo "   -c|--config <path>  Path to config"
-    echo "   -i|--input <path>   Path to CNF"
-    echo "   -s|--solve          Do solve"
-    echo "   -a|--all            Do all (equal to -bfpst)"
-    echo "   --sync              Synchronize external dependencies."
+declare -a order
+declare -A actions
+declare -A descs
+declare -A needs_arg
+
+function add_option() {
+    PATTERN="$1"
+    DESC="$2"
+    ACTION="$3"
+    NEEDS_ARG="$4"
+    order+=($PATTERN)
+    actions["$PATTERN"]="$ACTION"
+    descs["$PATTERN"]="$DESC"
+    needs_arg["$PATTERN"]="$NEEDS_ARG"
+}
+
+function do_help() {
+    echo "Usage: ./run.sh option* -- native-option*"
+    for i in "${!order[@]}"; do
+        pattern="${order[$i]}"
+        echo "    $pattern        ${descs[$pattern]}"
+    done
     exit 1
 }
 
-function parse_option() {
-    local opt="$1"
-    for (( i = 1; i < ${#opt}; ++i )); do
-        case "${opt:$i:1}" in
-            h) {
-                print_help
-            } ;;
-            d) {
-                BACKDOOR="--backdoor"
-            } ;;
-            f) {
-                FORMAT="YES"
-            } ;;
-            b) {
-                BUILD="YES"
-            } ;;
-            p) {
-                PROTO="YES"
-            } ;;
-            s) {
-                SOLVE="YES"
-            } ;;
-            t) {
-                TEST="YES"
-            } ;;
-            a) {
-                DO_ALL="YES"
-            } ;;
-            *) {
-                echo "Unkown option: -${opt:$i:1}"
-                exit 1
-            } ;;
-        esac
-    done
+function do_backdoor() {
+    BACKDOOR="--backdoor"
+}
+
+function do_build_debug() {
+    BUILD_DEBUG="--compilation_mode=dbg"
+}
+
+function do_run_gdb() {
+    RUN_GDB="gdb --args"
+}
+
+function do_format() {
+    find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
+}
+
+function do_build_evol() {
+    bazel build //evol:main $BUILD_DEBUG $@
+}
+
+function do_build_unit() {
+    bazel build //evol:test $BUILD_DEBUG $@
+}
+
+function do_build_infra() {
+    bazel build //infra:main $BUILD_DEBUG $@
+}
+
+function do_build_proto() {
+    rm ./evol/proto/config.pb.h || true
+    rm ./evol/proto/config.pb.cc || true
+    bazel build '//evol/proto:*' $BUILD_DEBUG $@
+    ln -s `pwd`/bazel-bin/evol/proto/config.pb.h ./evol/proto/config.pb.h
+    ln -s `pwd`/bazel-bin/evol/proto/config.pb.cc ./evol/proto/config.pb.cc
+}
+
+function do_set_verbose() {
+    VERBOSE="$1"
+}
+
+function do_unit() {
+    GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $TEST_BIN $@
+}
+
+function do_infra() {
+    GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $INFRA_BIN \
+        --commit $(git rev-parse --verify HEAD) \
+        --resources-dir $RESOURCES_DIR \
+        --working-dir $INFRA_DIR \
+        --exec $SOLVE_BIN \
+        --dbname infra_db \
+        $@
+}
+
+function do_solve() {
+    if [[ -z "$@" ]]; then
+        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
+            $BACKDOOR \
+            --input "$CNF_PATH" \
+            --config "$CFG_PATH"
+    else
+        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
+            $BACKDOOR $@
+    fi
 }
 
 function parse_options() {
-    while ! [[ -z "$1" ]]; do
-        case "$1" in
-            -v|--verbose) {
-                shift
-                VERBOSE="$1"
-            } ;;
-            -i|--input) {
-                shift
-                CNF_PATH="$1"
-            } ;;
-            -c|--config) {
-                shift
-                CFG_PATH="$1"
-            } ;;
-            --help) {
-                print_help
-            } ;;
-            --build-infra) {
-                BUILD_INFRA="YES"
-            } ;;
-            --prepare-infra-db) {
-                PREP_DB="YES"
-            } ;;
-            --run-infra-tests) {
-                RUN_INFRA="YES"
-            } ;;
-            --backdoor) { 
-                BACKDOOR="--backdoor"
-            } ;;
-            --format) {
-                FORMAT="YES"
-            } ;;
-            --build) {
-                BUILD="YES"
-            } ;;
-            --proto) {
-                PROTO="YES"
-            } ;;
-            --solve) {
-                SOLVE="YES"
-            } ;;
-            --test) {
-                TEST="YES"
-            } ;;
-            --all) {
-                DO_ALL="YES"
-            } ;;
-            --filter) {
-                shift
-                FILTER="--gtest_filter=$1"
-            } ;;
-            --sync) {
-                SYNC="YES"
-            } ;;
-            -*) {
-                parse_option $1
-            } ;;
-            *) {
-                echo "Unkown option: $1"
-                exit 1
-            } ;;
-        esac
+    while [[ -n "$1" ]]; do
+        if [[ $1 == "--" ]]; then
+            shift
+            echo "Next command will be executed as native"
+            NEXT_NATIVE=1
+        fi
+        FOUND=0
+        for i in "${!order[@]}"; do
+            pattern="${order[$i]}"
+            if [[ $1 =~ $pattern ]]; then
+                FOUND=1
+                ACTION="${actions[$pattern]}"
+                NEEDS_ARG="${needs_arg[$pattern]}"
+                DESC="${descs[$pattern]}"
+                echo "Found: '$1' ~ '$pattern' [$DESC]"
 
-        shift
+                shift
+                if [[ $NEXT_NATIVE -eq 1 ]]; then
+                    $ACTION $@
+                    exit 0
+                elif [[ $NEEDS_ARG -eq 1 ]]; then
+                    $ACTION $1
+                    shift
+                else
+                    $ACTION
+                fi
+            fi
+        done
+        if [[ $FOUND -eq 0 ]]; then
+            echo "Invalid option: $1"
+            exit 1
+        fi
     done
-
-    ARGS=""
-    FORMAT="$FORMAT$DO_ALL"
-    BUILD="$BUILD$DO_ALL"
-    PROTO="$PROTO$DO_ALL"
-    SOLVE="$SOLVE$DO_ALL"
-    TEST="$TEST$DO_ALL"
 }
 
+add_option "-h|--help" "     Display help message"       do_help         0
+add_option "-d|--backdoor" " Use backdoor search"        do_backdoor     0
+add_option "-g|--debug" "    Build with debug syms"      do_build_debug  0
+add_option "--run-debug" "   Run with gdb"               do_run_gdb      0
+add_option "-f|--format" "   Apply clang-format"         do_format       0
+add_option "-b|--build" "    Build cli binary"           do_build_evol   0
+add_option "--build-unit" "  Build unit tests"           do_build_unit   0
+add_option "--build-infra" " Build integration tests"    do_build_infra  0
+add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto  0
+add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose  1
+add_option "-u|--unit" "     Run unit tests"             do_unit         0
+add_option "--run-infra" "   Run integration tests"      do_infra        0
+add_option "-s|--solve" "    Run cli binary"             do_solve        0
 
 function main() {
     parse_options "$@"
-
-    if ! [[ -z "$SYNC" ]]; then
-        cd "$ROOT/ext/libpqxx"
-        git checkout '7.6.0'
-        ./configure
-        sudo make install
-        cd "$ROOT"
-    fi
-
-    if ! [[ -z "$FORMAT" ]]; then
-        find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
-    fi
-
-    if ! [[ -z "$PROTO" ]]; then
-        rm ./evol/proto/config.pb.h || true
-        rm ./evol/proto/config.pb.cc || true
-        bazel build '//evol/proto:*' $ARGS
-        ln -s `pwd`/bazel-bin/evol/proto/config.pb.h ./evol/proto/config.pb.h
-        ln -s `pwd`/bazel-bin/evol/proto/config.pb.cc ./evol/proto/config.pb.cc
-    fi
-
-    if ! [[ -z "$BUILD_INFRA" ]]; then
-        bazel build //infra:main
-    fi
-
-    if ! [[ -z "$BUILD" ]]; then
-        bazel build //evol:main //evol:test $ARGS
-    fi
-
-    if ! [[ -z "$TEST" ]]; then
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $TEST_BIN $FILTER
-    fi
-
-    if ! [[ -z "$PREP_DB" ]]; then
-        createdb $INFRA_DB_NAME
-        psql -d $INFRA_DB_NAME -f $INFRA_DB_SETUP
-    fi
-
-    if ! [[ -z "$RUN_INFRA" ]]; then
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $INFRA_BIN \
-            --commit $(git rev-parse --verify HEAD) \
-            --resources-dir $RESOURCES_DIR \
-            --working-dir $INFRA_DIR \
-            --exec $SOLVE_BIN \
-            --dbname infra_db
-    fi
-
-    if ! [[ -z "$SOLVE" ]]; then
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $SOLVE_BIN \
-            $BACKDOOR \
-            --input "$CNF_PATH" \
-            --config "$CFG_PATH" \
-            $ARGS
-    fi
 }
 
 main "$@"

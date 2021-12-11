@@ -12,9 +12,10 @@ class EAAlgorithm : public Algorithm {
  public:
   explicit EAAlgorithm(EAAlgorithmConfig const& config);
 
-  void prepare() override;
-
   void step() override;
+
+ protected:
+  void _prepare() override;
 
  private:
   ea::method::RMutation mutator_;

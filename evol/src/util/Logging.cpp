@@ -30,8 +30,7 @@ Logger::Logger(char const* argv0, LoggerConfig const& config) {
 bool Logger::_should_log(LogType log_type) {
   auto& entry = entries_[log_type];
   bool should;
-  if (fLI::FLAGS_v >= (int32_t) entry.config.min_verbose_level() &&
-      entry.cur_counter == 0) {
+  if (fLI::FLAGS_v >= (int32_t) entry.config.min_verbose_level() && entry.cur_counter == 0) {
     should = true;
   } else {
     should = false;

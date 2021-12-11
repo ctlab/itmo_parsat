@@ -328,7 +328,7 @@ class StringOption : public Option {
   operator const char*(void) const {
     return value;
   }
-  operator const char*&(void) {
+  operator const char* &(void) {
     return value;
   }
   StringOption& operator=(const char* x) {

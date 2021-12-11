@@ -6,7 +6,7 @@ EAAlgorithm::EAAlgorithm(EAAlgorithmConfig const& config)
     : mutator_(ea::registry::Registry::resolve_mutation(config.mutation_type()))
     , selector_(ea::registry::Registry::resolve_selector(config.selector_type())) {}
 
-void EAAlgorithm::prepare() {
+void EAAlgorithm::_prepare() {
   _add_instance();
 }
 

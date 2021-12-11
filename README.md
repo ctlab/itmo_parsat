@@ -20,14 +20,19 @@ to get the list of what can be done.
 $ ./run.sh --help
 ```
 
-For example, to run tests, use
+For example, to run only unit tests with some filter, use
 ```console
-$ ./run.sh -t
+$ ./run.sh --build-unit -v 8 -t -- --gtest_filter=*full*
 ```
 
 To run solution with some 'default' configuration, use
 ```console
-$ ./run.sh -sd
+$ ./run.sh -b -d -v 8 -s
 ```
 
-The verbosity is controlled via `v` option.
+To run solution with custom input and configuration, use
+```console
+$ ./run.sh -b -d -v 8 -- -s --input <input> --config <config>
+```
+
+Generally, all arguments after `--` are passed to executable (or bazel) through this script.

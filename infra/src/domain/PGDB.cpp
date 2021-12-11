@@ -5,9 +5,9 @@
 namespace infra::domain {
 
 PGDB::PGDB(std::string const& dbname, std::string const& user, std::string const& password)
-    : conn_(std::string() + "dbname=" + dbname +
-      (user.empty() ? "" : std::string() + "user=" + user + "password=" + password)
-    ) {
+    : conn_(
+          std::string() + "dbname=" + dbname +
+          (user.empty() ? "" : std::string() + "user=" + user + "password=" + password)) {
   LOG(INFO) << "Connected to " << conn_.dbname();
 }
 

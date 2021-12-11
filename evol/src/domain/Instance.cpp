@@ -12,7 +12,7 @@ namespace ea::domain {
 void Instance::SamplingConfig::do_scale() {
   CHECK_GT(can_scale, 0U) << "do_scale called when scaling is not possible.";
   --can_scale;
-  samples = (uint32_t) (samples * scale);
+  samples = (uint32_t)(samples * scale);
 }
 
 size_t Instance::num_vars() const noexcept {

@@ -17,7 +17,8 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
     ("exec,e", po::value<std::filesystem::path>()->required(), "Executable path")
     ("dbname,d", po::value<std::string>()->required(), "PG database name")
     ("pass,p", po::value<std::string>()->default_value(""), "PG password")
-    ("user,u", po::value<std::string>()->default_value(""), "PG user");
+    ("user,u", po::value<std::string>()->default_value(""), "PG user")
+    ("gtest-opts", po::value<std::vector<std::string>>()->multitoken(), "GTest options");
   // clang-format on
 
   po::variables_map args;
@@ -29,12 +30,26 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   return args;
 }
 
+void init_googletest(char const* argv0, std::vector<std::string> const& gtest_options) {
+  if (gtest_options.empty()) {
+    ::testing::InitGoogleTest();
+  } else {
+    int argc = (int) gtest_options.size() + 1;
+    std::vector<char const*> argv;
+    argv.push_back(argv0);
+    for (auto const& s : gtest_options) {
+      argv.push_back(s.data());
+    }
+    ::testing::InitGoogleTest(&argc, (char**) argv.data());
+  }
+}
+
 int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
-  ::testing::InitGoogleTest();
 
-  { // Prepare LaunchFixture
+  {  // Prepare LaunchFixture
     auto args = parse_args(argc, argv);
+    init_googletest(argv[0], args["gtest-opts"].as<std::vector<std::string>>());
     auto& config = LaunchFixture::config;
     config.executable = args["exec"].as<std::filesystem::path>();
     config.commit = args["commit"].as<std::string>();

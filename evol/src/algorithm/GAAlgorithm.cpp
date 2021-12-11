@@ -37,7 +37,7 @@ GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config)
     , q_(config.q())
     , h_(config.h()) {}
 
-void GAAlgorithm::prepare() {
+void GAAlgorithm::_prepare() {
   population_.reserve(q_);
   for (uint32_t i = 0; i < q_; ++i) {
     _add_instance();

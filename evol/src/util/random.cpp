@@ -4,8 +4,7 @@
 
 namespace ea::random {
 
-Generator::Generator()
-  : mt_(config::global_config().rnd_seed()) {
+Generator::Generator() : mt_(config::global_config().rnd_seed()) {
   VLOG(4) << "Set random seed to " << config::global_config().rnd_seed();
 }
 

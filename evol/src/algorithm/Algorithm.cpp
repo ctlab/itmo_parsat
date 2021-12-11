@@ -66,12 +66,16 @@ void Algorithm::_add_instance() {
 Algorithm::Algorithm() : Algorithm(config::Configuration::get_global_config().algorithm_config()) {}
 
 Algorithm::Algorithm(AlgorithmConfig const& config)
-    : solver_(registry::Registry::resolve_solver(config.solver_type()))
-    , limit_(registry::Registry::resolve_limit(config.limit_type())) {
-  _init_shared_data(config.instance_config());
+    : instance_config_(config.instance_config())
+    , solver_(registry::Registry::resolve_solver(config.solver_type()))
+    , limit_(registry::Registry::resolve_limit(config.limit_type())) {}
+
+void Algorithm::prepare() {
+  _init_shared_data(instance_config_);
+  _prepare();
 }
 
-void Algorithm::prepare() {}
+void Algorithm::_prepare() {}
 
 void Algorithm::process() {
   size_t iteration = 0;

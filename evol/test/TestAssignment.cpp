@@ -12,7 +12,7 @@ class TestAssignment : public ::testing::Test {
   void SetUp() override {
     mock_vars.resize(NUM_VARS_MAX);
     for (int i = 0; i < NUM_VARS_MAX; ++i) {
-      mock_var_map[i] = i;
+      mock_var_map.map_var(i, i);
     }
   }
 
@@ -44,7 +44,8 @@ class TestAssignment : public ::testing::Test {
   }
 
   static void test_assignment_split_search(
-      domain::UAssignment assignment_p, uint32_t target_count, uint32_t max_delta, uint32_t ranges) {
+      domain::UAssignment assignment_p, uint32_t target_count, uint32_t max_delta,
+      uint32_t ranges) {
     std::set<std::vector<int>> uniques;
     for (uint32_t index = 0; index < ranges; ++index) {
       auto split = assignment_p->split_search(ranges, index);
@@ -63,7 +64,8 @@ class TestAssignment : public ::testing::Test {
   void test_full_search_range(long size, uint32_t ranges) {
     set_size(size);
     domain::UAssignment assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
-    test_assignment_split_search(std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0, ranges);
+    test_assignment_split_search(
+        std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0, ranges);
   }
 
   void test_random_search_range(long size, uint32_t total, uint32_t ranges) {
@@ -88,7 +90,7 @@ class TestAssignment : public ::testing::Test {
 
  public:
   static constexpr long NUM_VARS_MAX = 128;
-  std::map<int, int> mock_var_map;
+  ea::domain::VarView mock_var_map;
   std::vector<bool> mock_vars;
 };
 

@@ -27,7 +27,8 @@ class ParSolver : public Solver {
   State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
   bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) override;
+      Minisat::vec<Minisat::Lit> const& assumptions,
+      Minisat::vec<Minisat::Lit>& propagated) override;
 
   void solve_assignments(domain::UAssignment assignment, slv_callback_t const& callback) override;
 

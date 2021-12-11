@@ -12,9 +12,10 @@ class GAAlgorithm : public Algorithm {
  public:
   explicit GAAlgorithm(GAAlgorithmConfig const& config);
 
-  void prepare() override;
-
   void step() override;
+
+ protected:
+  void _prepare() override;
 
  private:
   ea::method::RMutation mutator_;

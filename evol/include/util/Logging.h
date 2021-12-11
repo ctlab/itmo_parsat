@@ -33,7 +33,7 @@ class Logger {
   std::array<LogEntry, MAX_ENTRIES> entries_{};
 };
 
-}  // ea
+}  // namespace ea
 
 #define EALOG(Type) LOG_IF(INFO, ::ea::Logger::should_log(LogType::Type))
 

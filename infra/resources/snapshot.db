@@ -76,9 +76,6 @@ COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, co
 1	./resources/cnf/sgen6_900_100.cnf	./resources/config/base.json	./artifacts-infra/logs/16392522511089563214.txt	f	271c77bd909c9276fcbb410cc483f41a6af88493	PASSED	2021-12-11 22:50:51	2021-12-11 23:02:15
 2	./resources/cnf/pancake_vs_selection_7_4.cnf	./resources/config/base.json	./artifacts-infra/logs/16392522511950739039.txt	f	271c77bd909c9276fcbb410cc483f41a6af88493	PASSED	2021-12-11 22:50:51	2021-12-11 23:03:02
 3	./resources/cnf/bubble_vs_pancake_7_6_simp.cnf	./resources/config/base.json	./artifacts-infra/logs/1639252251450426678.txt	f	271c77bd909c9276fcbb410cc483f41a6af88493	PASSED	2021-12-11 22:50:51	2021-12-11 23:47:42
-4	./resources/cnf/pancake_vs_selection_7_4.cnf	./resources/config/base.json	./artifacts-infra/logs/1639255662-1513355837.txt	t	271c77bd909c9276fcbb410cc483f41a6af88493	ERROR	2021-12-11 23:47:42	2021-12-11 23:47:43
-5	./resources/cnf/bubble_vs_pancake_7_6_simp.cnf	./resources/config/base.json	./artifacts-infra/logs/1639255662-527226589.txt	t	271c77bd909c9276fcbb410cc483f41a6af88493	ERROR	2021-12-11 23:47:42	2021-12-11 23:47:43
-6	./resources/cnf/sgen6_900_100.cnf	./resources/config/base.json	./artifacts-infra/logs/1639255662-1170467333.txt	t	271c77bd909c9276fcbb410cc483f41a6af88493	ERROR	2021-12-11 23:47:42	2021-12-11 23:47:43
 \.
 
 
@@ -86,7 +83,7 @@ COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, co
 -- Name: launches_launch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dzhiblavi
 --
 
-SELECT pg_catalog.setval('public.launches_launch_id_seq', 6, true);
+SELECT pg_catalog.setval('public.launches_launch_id_seq', 15, true);
 
 
 --

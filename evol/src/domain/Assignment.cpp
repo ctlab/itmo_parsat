@@ -56,8 +56,7 @@ void get_start_and_todo(
 
 namespace ea::domain {
 
-Assignment::Assignment(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+Assignment::Assignment(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
     : total_(total) {
   for (int i = 0; i < (int) vars.size(); ++i) {
     if (vars[i]) {
@@ -97,8 +96,7 @@ SmallSearch::SmallSearch(VarView const& var_view, std::vector<bool> const& vars)
   total_ = _set_range();
 }
 
-SmallSearch::SmallSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+SmallSearch::SmallSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
     : Assignment(var_view, vars, total) {
   _set_range();
 }
@@ -119,8 +117,7 @@ UAssignment SmallSearch::split_search(uint64_t num_split, uint64_t index) const 
   return UAssignment(result);
 }
 
-RandomSearch::RandomSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
     : Assignment(var_view, vars, total) {
   set_random(assignment_);
 }
@@ -150,14 +147,12 @@ void FullSearch::_reset() {
   set_assignment(assignment_, first_);
 }
 
-UniqueSearch::UniqueSearch(
-    const VarView& var_view, const std::vector<bool>& vars, uint64_t total)
+UniqueSearch::UniqueSearch(const VarView& var_view, const std::vector<bool>& vars, uint64_t total)
     : SmallSearch(var_view, vars, total) {
   _advance_us();
 }
 
-UniqueSearch::UniqueSearch(
-    const VarView& var_view, const std::vector<bool>& vars)
+UniqueSearch::UniqueSearch(const VarView& var_view, const std::vector<bool>& vars)
     : SmallSearch(var_view, vars) {
   _advance_us();
 }

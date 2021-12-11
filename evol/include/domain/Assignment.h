@@ -22,8 +22,7 @@ class Assignment {
   static constexpr int MAX_VARS_FULL_SEARCH = 63;
 
  protected:
-  explicit Assignment(
-      VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+  explicit Assignment(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
  public:
   virtual ~Assignment() = default;
@@ -91,8 +90,7 @@ class RandomSearch : public Assignment {
       VarView const& var_view, std::vector<bool> const&, uint64_t);
 
  protected:
-  explicit RandomSearch(
-      VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+  explicit RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
  public:
   [[nodiscard]] UAssignment split_search(uint64_t num_split, uint64_t index) const override;
@@ -118,15 +116,12 @@ class FullSearch : public SmallSearch {
 class UniqueSearch : public SmallSearch {
   friend UAssignment createFullSearch(VarView const&, std::vector<bool> const&);
 
-  friend UAssignment createRandomSearch(
-      VarView const&, std::vector<bool> const&, uint64_t);
+  friend UAssignment createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
 
  public:
-  explicit UniqueSearch(
-      VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+  explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
-  explicit UniqueSearch(
-      VarView const& var_view, std::vector<bool> const& vars);
+  explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars);
 
  private:
   std::set<uint64_t> visited_;
