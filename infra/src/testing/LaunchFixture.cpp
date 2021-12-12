@@ -60,7 +60,6 @@ void LaunchFixture::TearDown() {
 }
 
 void LaunchFixture::_prepare_resources() {
-  LOG(INFO) << "Preparing!";
   if (!cnfs_.empty()) {
     return;
   }
@@ -114,9 +113,11 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
     // clang-format off
     auto callback = [=] (uint64_t started_at, uint64_t finished_at,
                          int exit_code, bool interrupted) {
-      LOG(INFO) << "Finished: " << real_input_path << ' '
-                << started_at << ' ' << finished_at << ' '
-                << exit_code << ' ' << interrupted;
+      LOG(INFO) << "\n\tFinished:"
+                << "\n\t\tInput file: " << real_input_path
+                << "\n\t\tConfiguration: " << real_config_path
+                << "\n\t\tLogs at: " << logs_path
+                << "\n\t\tExit code: " << exit_code;
       launches->add(
         infra::domain::Launch{
           0, real_input_path, real_config_path, logs_path, launch_config.backdoor_,
@@ -139,7 +140,10 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
       ));
     }
     // clang-format on
-    LOG(INFO) << "Launched. See logs at " << logs_path;
+    LOG(INFO) << "\n\tLaunched:"
+              << "\n\t\tInput file: " << real_input_path
+              << "\n\t\tConfiguration: " << real_config_path
+              << "\n\t\tLogs at: " << logs_path;
   } catch (std::exception const& e) {
     LOG(ERROR) << "Caught exception while trying to start subprocess:\n" << e.what();
   }

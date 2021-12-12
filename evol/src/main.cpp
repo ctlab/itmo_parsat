@@ -136,7 +136,6 @@ int main(int argc, char** argv) {
       result = ea::sat::UNKNOWN;
     }
   } else {
-    LOG_TIME(solver->parse_cnf(input));
     ea::SigHandler sig_handler;
     ea::SigHandler::CallbackHandle slv_int_handle =
         sig_handler.register_callback([&slv_int_handle, &solver](int) {
