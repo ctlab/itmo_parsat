@@ -18,6 +18,19 @@ void _sig_handler(int) {
 
 namespace bp = boost::process;
 
+infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
+  switch (exit_code) {
+    case 0:
+      return infra::domain::UNSAT;
+    case 1:
+      return infra::domain::SAT;
+    case 2:
+      return infra::domain::UNKNOWN;
+    default:
+      return infra::domain::SAT_ERROR;
+  }
+}
+
 }  // namespace
 
 LaunchFixture::LaunchFixture() {
@@ -113,15 +126,20 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
     // clang-format off
     auto callback = [=] (uint64_t started_at, uint64_t finished_at,
                          int exit_code, bool interrupted) {
+      infra::domain::SatResult sat_result = exit_code_to_sat_result(exit_code);
+      infra::domain::LaunchResult launch_result
+        = _get_launch_result(interrupted, sat_result, launch_config.expected_result_);
       LOG(INFO) << "\n\tFinished:"
                 << "\n\t\tInput file: " << real_input_path
                 << "\n\t\tConfiguration: " << real_config_path
                 << "\n\t\tLogs at: " << logs_path
-                << "\n\t\tExit code: " << exit_code;
+                << "\n\t\tExit code: " << exit_code
+                << "\n\t\tSat result: " << infra::domain::to_string(sat_result)
+                << "\n\t\tTest result: " << infra::domain::to_string(launch_result);
       launches->add(
         infra::domain::Launch{
           0, real_input_path, real_config_path, logs_path, launch_config.backdoor_,
-          config.commit, _code_to_result(interrupted, exit_code, launch_config.expected_result_),
+          config.commit, _get_launch_result(interrupted, sat_result, launch_config.expected_result_),
           started_at, finished_at
         }
       );
@@ -142,35 +160,21 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
     // clang-format on
     LOG(INFO) << "\n\tLaunched:"
               << "\n\t\tInput file: " << real_input_path
-              << "\n\t\tConfiguration: " << real_config_path
-              << "\n\t\tLogs at: " << logs_path;
+              << "\n\t\tConfiguration: " << real_config_path << "\n\t\tLogs at: " << logs_path
+              << "\n\t\tExpected result: "
+              << infra::domain::to_string(launch_config.expected_result_);
   } catch (std::exception const& e) {
     LOG(ERROR) << "Caught exception while trying to start subprocess:\n" << e.what();
   }
 }
 
-infra::domain::LaunchResult LaunchFixture::_code_to_result(
-    bool interrupted, int exit_code, infra::domain::SatResult expected) noexcept {
+infra::domain::LaunchResult LaunchFixture::_get_launch_result(
+    bool interrupted, infra::domain::SatResult result, infra::domain::SatResult expected) noexcept {
   if (interrupted) {
     return infra::domain::INTERRUPTED;
   }
-
-  infra::domain::SatResult sat_result;
-  switch (exit_code) {
-    case 0:
-      sat_result = infra::domain::UNSAT;
-      break;
-    case 1:
-      sat_result = infra::domain::SAT;
-      break;
-    case 2:
-      sat_result = infra::domain::UNKNOWN;
-      break;
-    default:
-      return infra::domain::ERROR;
-  }
-
-  return sat_result == expected ? infra::domain::PASSED : infra::domain::FAILED;
+  return (result == expected || expected == infra::domain::UNKNOWN) ? infra::domain::PASSED
+                                                                    : infra::domain::FAILED;
 }
 
 std::vector<std::filesystem::path> LaunchFixture::cnfs_{};

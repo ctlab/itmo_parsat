@@ -16,6 +16,20 @@ std::string to_string(LaunchResult result) {
   std::terminate();
 }
 
+std::string to_string(SatResult result) {
+  switch (result) {
+    case SAT:
+      return "SAT";
+    case UNSAT:
+      return "UNSAT";
+    case UNKNOWN:
+      return "UNKNOWN";
+    case SAT_ERROR:
+      return "SAT_ERROR";
+  }
+  std::terminate();
+}
+
 Launches::Launches(std::string const& dbname, std::string const& user, std::string const& password)
     : PGDB(dbname, user, password) {}
 

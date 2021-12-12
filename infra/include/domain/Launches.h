@@ -13,13 +13,16 @@ enum LaunchResult {
   FAILED,
 };
 
+std::string to_string(LaunchResult result);
+
 enum SatResult {
   SAT,
   UNSAT,
   UNKNOWN,
+  SAT_ERROR,
 };
 
-std::string to_string(LaunchResult result);
+std::string to_string(SatResult result);
 
 struct Launch {
   uint32_t launch_id{};
