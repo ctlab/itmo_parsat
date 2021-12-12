@@ -80,7 +80,7 @@ COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, co
 -- Name: launches_launch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dzhiblavi
 --
 
-SELECT pg_catalog.setval('public.launches_launch_id_seq', 34, true);
+SELECT pg_catalog.setval('public.launches_launch_id_seq', 239, true);
 
 
 --

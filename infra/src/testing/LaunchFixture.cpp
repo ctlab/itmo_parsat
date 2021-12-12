@@ -33,7 +33,9 @@ LaunchFixture::~LaunchFixture() noexcept {
 LaunchFixture::Config LaunchFixture::config{};
 
 void LaunchFixture::interrupt() {
-  _kill_all_children();
+  for (auto& exec : execs_) {
+    exec->interrupt();
+  }
 }
 
 void LaunchFixture::SetUpTestSuite() {
@@ -51,13 +53,10 @@ void LaunchFixture::SetUp() {
 }
 
 void LaunchFixture::TearDown() {
-  execs_.clear();
-}
-
-void LaunchFixture::_kill_all_children() {
   for (auto& exec : execs_) {
-    exec->interrupt();
+    exec->await();
   }
+  execs_.clear();
 }
 
 void LaunchFixture::_prepare_resources() {
@@ -67,18 +66,33 @@ void LaunchFixture::_prepare_resources() {
   }
   CHECK(std::filesystem::exists(config.resources_dir));
   std::vector<std::filesystem::path> result;
-  for (auto const& entry : std::filesystem::recursive_directory_iterator(config.resources_dir)) {
+  auto cnf_path = config.resources_dir / "cnf";
+  for (auto const& entry : std::filesystem::recursive_directory_iterator(cnf_path)) {
     if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
       LOG(INFO) << "Found CNF: " << entry.path();
-      cnfs_.push_back(entry.path());
+      cnfs_.push_back(std::filesystem::relative(entry.path(), cnf_path));
     }
   }
 }
 
-void LaunchFixture::launch(infra::testing::LaunchConfig const& launch_config) {
+void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
   static std::random_device rnd_dev_;
   static std::mt19937 rnd_gen_(rnd_dev_());
   try {
+    /* Setup result if unknown */
+    if (launch_config.expected_result_ == infra::domain::UNKNOWN) {
+      auto filename = launch_config.input_path_.filename().string();
+      if (filename.rfind("unsat", 0) == 0) {
+        LOG(INFO) << "Deduced UNSAT expected result for " << filename;
+        launch_config.expected_result_ = infra::domain::UNSAT;
+      } else if (filename.rfind("sat", 0) == 0) {
+        LOG(INFO) << "Deduced SAT expected result for " << filename;
+        launch_config.expected_result_ = infra::domain::SAT;
+      } else {
+        LOG(WARNING) << "Could not deduce result for " << filename << ", leaving UNKNOWN";
+      }
+    }
+
     /* Setup directories */
     std::filesystem::path const& logs_root = config.working_dir / "logs";
     std::filesystem::path const& configs_root = config.working_dir / "configs";
@@ -100,8 +114,9 @@ void LaunchFixture::launch(infra::testing::LaunchConfig const& launch_config) {
     // clang-format off
     auto callback = [=] (uint64_t started_at, uint64_t finished_at,
                          int exit_code, bool interrupted) {
-      LOG(INFO) << "Ok, finished: " << started_at << ' ' << finished_at << ' '
-              << exit_code << ' ' << interrupted;
+      LOG(INFO) << "Finished: " << real_input_path << ' '
+                << started_at << ' ' << finished_at << ' '
+                << exit_code << ' ' << interrupted;
       launches->add(
         infra::domain::Launch{
           0, real_input_path, real_config_path, logs_path, launch_config.backdoor_,

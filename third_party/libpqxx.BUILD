@@ -11,6 +11,7 @@ cmake(
   lib_name = "libpqxx",
   lib_source = ":srcs",
   visibility = ["//visibility:public"],
-  out_static_libs = ["libpqxx.a"]
+  out_static_libs = ["libpqxx.a"],
+  build_args = ["-j", "16"],
 )
 

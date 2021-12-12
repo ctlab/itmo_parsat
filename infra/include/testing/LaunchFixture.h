@@ -42,11 +42,9 @@ class LaunchFixture : public ::testing::Test {
 
   void TearDown() override;
 
-  void launch(infra::testing::LaunchConfig const& launch_config);
+  void launch(infra::testing::LaunchConfig launch_config);
 
  private:
-  void _kill_all_children();
-
   static void _prepare_resources();
 
   static infra::domain::LaunchResult _code_to_result(

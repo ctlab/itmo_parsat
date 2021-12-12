@@ -121,7 +121,7 @@ function parse_options() {
         FOUND=0
         for i in "${!order[@]}"; do
             pattern="${order[$i]}"
-            if [[ $1 =~ $pattern ]]; then
+            if [[ "$1" =~ ^$pattern$ ]]; then
                 FOUND=1
                 ACTION="${actions[$pattern]}"
                 NEEDS_ARG="${needs_arg[$pattern]}"

@@ -15,7 +15,6 @@ void Execution::interrupt() noexcept {
 }
 
 void Execution::await() noexcept {
-  cv_.notify_all();
   if (thread_.joinable()) {
     thread_.join();
   }

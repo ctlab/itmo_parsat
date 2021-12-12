@@ -49,6 +49,7 @@ class Execution {
 
           CHECK(interrupted_ || !proc_.running());
           if (proc_.running()) {
+            LOG(INFO) << "Process is still running, interrupting it.";
             kill(proc_.native_handle(), SIGINT);
           }
 
