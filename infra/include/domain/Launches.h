@@ -34,6 +34,7 @@ struct Launch {
   LaunchResult result{};
   uint64_t started_at{};
   uint64_t finished_at{};
+  std::string description{};
 };
 
 class Launches : PGDB {

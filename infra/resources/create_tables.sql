@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS Launches (
     commit_hash VARCHAR(128),
     result VARCHAR(16),
     started_at TIMESTAMP,
-    finished_at TIMESTAMP
+    finished_at TIMESTAMP,
+    description VARCHAR(512)
 );

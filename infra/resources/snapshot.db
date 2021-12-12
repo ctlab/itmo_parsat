@@ -33,7 +33,8 @@ CREATE TABLE public.launches (
     commit_hash character varying(128),
     result character varying(16),
     started_at timestamp without time zone,
-    finished_at timestamp without time zone
+    finished_at timestamp without time zone,
+    description character varying(512)
 );
 
 
@@ -72,7 +73,7 @@ ALTER TABLE ONLY public.launches ALTER COLUMN launch_id SET DEFAULT nextval('pub
 -- Data for Name: launches; Type: TABLE DATA; Schema: public; Owner: dzhiblavi
 --
 
-COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, commit_hash, result, started_at, finished_at) FROM stdin;
+COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, commit_hash, result, started_at, finished_at, description) FROM stdin;
 \.
 
 
@@ -80,7 +81,7 @@ COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, co
 -- Name: launches_launch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dzhiblavi
 --
 
-SELECT pg_catalog.setval('public.launches_launch_id_seq', 382, true);
+SELECT pg_catalog.setval('public.launches_launch_id_seq', 13, true);
 
 
 --

@@ -55,7 +55,7 @@ class LaunchFixture : public ::testing::Test {
   std::vector<std::unique_ptr<infra::Execution>> execs_;
 
  public:
-  static std::vector<std::filesystem::path> cnfs_;
+  static std::vector<std::filesystem::path> cnfs;
 };
 
 #endif  // ITMO_PARSAT_LAUNCHFIXTURE_H
