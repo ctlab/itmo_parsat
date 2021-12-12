@@ -32,9 +32,10 @@ class LaunchFixture : public ::testing::Test {
 
   ~LaunchFixture() noexcept override;
 
-  static void prepare();
-
   void interrupt();
+
+ protected:
+  static void SetUpTestSuite();
 
  protected:
   void SetUp() override;
@@ -46,12 +47,17 @@ class LaunchFixture : public ::testing::Test {
  private:
   void _kill_all_children();
 
+  static void _prepare_resources();
+
   static infra::domain::LaunchResult _code_to_result(
       bool interrupted, int exit_code, infra::domain::SatResult expected) noexcept;
 
  private:
   std::unique_ptr<infra::domain::Launches> launches;
   std::vector<std::unique_ptr<infra::Execution>> execs_;
+
+ public:
+  static std::vector<std::filesystem::path> cnfs_;
 };
 
 #endif  // ITMO_PARSAT_LAUNCHFIXTURE_H

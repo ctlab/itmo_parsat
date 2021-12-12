@@ -36,12 +36,14 @@ void LaunchFixture::interrupt() {
   _kill_all_children();
 }
 
-void LaunchFixture::prepare() {
+void LaunchFixture::SetUpTestSuite() {
   /* Create logs root directory if it does not exist */
   if (!std::filesystem::is_directory(config.working_dir)) {
     LOG(INFO) << "Creating logs root directory: " << config.working_dir;
     std::filesystem::create_directories(config.working_dir);
   }
+  /* Prepare resources */
+  _prepare_resources();
 }
 
 void LaunchFixture::SetUp() {
@@ -55,6 +57,21 @@ void LaunchFixture::TearDown() {
 void LaunchFixture::_kill_all_children() {
   for (auto& exec : execs_) {
     exec->interrupt();
+  }
+}
+
+void LaunchFixture::_prepare_resources() {
+  LOG(INFO) << "Preparing!";
+  if (!cnfs_.empty()) {
+    return;
+  }
+  CHECK(std::filesystem::exists(config.resources_dir));
+  std::vector<std::filesystem::path> result;
+  for (auto const& entry : std::filesystem::recursive_directory_iterator(config.resources_dir)) {
+    if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
+      LOG(INFO) << "Found CNF: " << entry.path();
+      cnfs_.push_back(entry.path());
+    }
   }
 }
 
@@ -136,3 +153,5 @@ infra::domain::LaunchResult LaunchFixture::_code_to_result(
 
   return sat_result == expected ? infra::domain::PASSED : infra::domain::FAILED;
 }
+
+std::vector<std::filesystem::path> LaunchFixture::cnfs_{};

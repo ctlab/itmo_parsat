@@ -5,7 +5,7 @@
         "instance_config": {
             "omega_x": 20,
             "heuristic_size": 200,
-            "max_cache_size": 1000000,
+            "max_cache_size": 10000,
             "sampling_config": {
                 "base_count": 4000,
                 "max_steps": 2,
@@ -15,7 +15,7 @@
     },
     "resource_limit_config": {
         "memory_limit_kb": 0,
-        "time_limit_sec": 240
+        "time_limit_sec": 120
     },
     "fitness_limit_config": {
         "lowest_fitness": 0.99

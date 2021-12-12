@@ -6,4 +6,3 @@ bazel-*
 .idea/
 **/*build*/
 *log*
-artifacts-infra

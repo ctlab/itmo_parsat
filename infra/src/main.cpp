@@ -58,7 +58,6 @@ int main(int argc, char** argv) {
     config.dbname = args["dbname"].as<std::string>();
     config.user = args["user"].as<std::string>();
     config.password = args["pass"].as<std::string>();
-    LaunchFixture::prepare();
   }
 
   return RUN_ALL_TESTS();
