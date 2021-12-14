@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+message MinisatCliConfig {
+  int32 verbosity_level = 1;
+  bool preprocessing = 2;
+  int32 cpu_limit = 4;
+  int32 mem_limit = 5;
+}
+
+message BaseSolverConfig {
+  double var_decay = 1;
+  double cla_decay = 2;
+  double rnd_freq = 3;
+  double rnd_seed = 4;
+  int32 ccmin_mode = 5;
+  int32 phase_saving = 6;
+  bool rnd_init = 7;
+  bool luby = 8;
+  int32 rfirst = 9;
+  double rinc = 10;
+  double gc_frac = 11;
+  int32 min_learnts = 12;
+}
+
+message SimpSolverConfig {
+  bool use_asymm = 1;
+  bool use_rcheck = 2;
+  bool use_elim = 3;
+  int32 grow = 4;
+  int32 clause_lim = 5;
+  int32 subsumption_lim = 6;
+  double simp_garbage_frac = 7;
+  MinisatCliConfig minisat_cli_config = 8;
+  BaseSolverConfig base_solver_config = 9;
+}
+
+message ParSolverConfig {
+  uint32 max_threads = 1;
+  SolverConfig solver_config = 3;
+}
+
+message SolverConfig {
+  string solver_type = 1;
+  SimpSolverConfig simp_solver_config = 4;
+  ParSolverConfig par_solver_config = 5;
+}
+
+
+message ResourceLimitConfig {
+  uint32 memory_limit_kb = 1;
+  uint32 time_limit_sec = 2;
+}
+
+message FitnessLimitConfig {
+  double lowest_fitness = 1;
+}
+
+message ConjLimitConfig {
+  repeated LimitConfig limit_config = 1;
+}
+
+message LimitConfig {
+  string limit_type = 1;
+  ResourceLimitConfig resource_limit_config = 2;
+  FitnessLimitConfig fitness_limit_config = 3;
+  ConjLimitConfig conj_limit_config = 4;
+}
+
+message UniformMutationConfig {
+  double scale = 1;
+}
+
+message DoerrMutationConfig {
+  double beta = 1;
+}
+
+message MutationConfig {
+  string mutation_type = 1;
+  UniformMutationConfig uniform_mutation_config = 2;
+  DoerrMutationConfig doerr_mutation_config = 3;
+}
+
+message CrossoverConfig {
+  string crossover_type = 1;
+}
+
+message SelectorConfig {
+  string selector_type = 1;
+}
+
+message InstanceConfig {
+  message SamplingSizeConfig {
+    uint64 base_count = 1;
+    uint32 max_steps = 2;
+    double scale = 3;
+  }
+
+  uint32 omega_x = 1;
+  uint32 heuristic_size = 2;
+  uint32 max_cache_size = 3;
+  SamplingSizeConfig sampling_config = 4;
+}
+
+message BaseAlgorithmConfig {
+  SolverConfig solver_config = 1;
+  LimitConfig limit_config = 2;
+  InstanceConfig instance_config = 3;
+}
+
+message EAAlgorithmConfig {
+  MutationConfig mutation_config = 1;
+  SelectorConfig selector_config = 2;
+  BaseAlgorithmConfig base_algorithm_config = 3;
+}
+
+message GAAlgorithmConfig {
+  uint32 q = 4;
+  uint32 h = 5;
+  MutationConfig mutation_config = 1;
+  CrossoverConfig crossover_config = 2;
+  SelectorConfig selector_config = 3;
+  BaseAlgorithmConfig base_algorithm_config = 6;
+}
+
+message AlgorithmConfig {
+  string algorithm_type = 1;
+  EAAlgorithmConfig ea_algorithm_config = 2;
+  GAAlgorithmConfig ga_algorithm_config = 3;
+}
+
+message SolveConfig {
+  AlgorithmConfig algorithm_config = 1;
+  SolverConfig solver_config = 2;
+}

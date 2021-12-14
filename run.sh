@@ -6,12 +6,12 @@ VERBOSE="2"
 DO_ALL=""
 RESOURCES_DIR="./resources"
 
-CNF_PATH="$ROOT/resources/cnf/pancake_vs_selection_7_4.cnf"
-CFG_PATH="$ROOT/resources/config/base.json"
-SOLVE_BIN="$ROOT/bazel-bin/evol/main"
-TEST_BIN="$ROOT/bazel-bin/evol/test"
+CNF_PATH="$ROOT/resources/cnf/unsat_pancake_vs_selection_7_4.cnf"
+CFG_PATH="$ROOT/resources/config/algorithm.json"
+SOLVE_BIN="$ROOT/bazel-bin/cli/solve"
+TEST_BIN="$ROOT/bazel-bin/core/test"
 
-INFRA_BIN="$ROOT/bazel-bin/infra/main"
+INFRA_BIN="$ROOT/bazel-bin/cli/infra"
 INFRA_DIR="./artifacts-infra/"
 INFRA_DB_NAME="infra_db"
 INFRA_DB_SETUP="./infra/resources/create_tables.sql"
@@ -61,24 +61,24 @@ function do_format() {
     find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
 }
 
-function do_build_evol() {
-    bazel build //evol:main $BUILD_DEBUG $@
+function do_build_solve() {
+    bazel build //cli:solve $BUILD_DEBUG $@
 }
 
 function do_build_unit() {
-    bazel build //evol:test $BUILD_DEBUG $@
+    bazel build //core:test $BUILD_DEBUG $@
 }
 
 function do_build_infra() {
-    bazel build //infra:main $BUILD_DEBUG $@
+    bazel build //cli:infra $BUILD_DEBUG $@
 }
 
 function do_build_proto() {
-    rm ./evol/proto/config.pb.h || true
-    rm ./evol/proto/config.pb.cc || true
-    bazel build '//evol/proto:*' $BUILD_DEBUG $@
-    ln -s `pwd`/bazel-bin/evol/proto/config.pb.h ./evol/proto/config.pb.h
-    ln -s `pwd`/bazel-bin/evol/proto/config.pb.cc ./evol/proto/config.pb.cc
+    rm ./core/sat/proto/config.pb.h || true
+    rm ./core/sat/proto/config.pb.cc || true
+    bazel build '//core/proto:*' $BUILD_DEBUG $@
+    ln -s `pwd`/bazel-bin/core/proto/config.pb.h ./core/proto/config.pb.h
+    ln -s `pwd`/bazel-bin/core/proto/config.pb.cc ./core/proto/config.pb.cc
 }
 
 function do_set_verbose() {
@@ -152,7 +152,7 @@ add_option "-d|--backdoor" " Use backdoor search"        do_backdoor     0
 add_option "-g|--debug" "    Build with debug syms"      do_build_debug  0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb      0
 add_option "-f|--format" "   Apply clang-format"         do_format       0
-add_option "-b|--build" "    Build cli binary"           do_build_evol   0
+add_option "-b|--build" "    Build cli binary"           do_build_solve  0
 add_option "--build-unit" "  Build unit tests"           do_build_unit   0
 add_option "--build-infra" " Build integration tests"    do_build_infra  0
 add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto  0

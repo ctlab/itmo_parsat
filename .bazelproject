@@ -1,10 +1,15 @@
 directories:
+  core/
   evol/
-  minisat/
   infra/
+  cli/
 
 targets:
-  //evol:main
-  //evol:test
-  //minisat:libminisat
-  //infra:main
+  //core/sat:*
+  //core/domain:*
+  //core/proto:*
+  //core/sat/minisat:*
+  //core/util:*
+  //core:*
+  //evol:*
+  //cli:*
