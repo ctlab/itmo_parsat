@@ -8,7 +8,7 @@
 #include "minisat/core/SolverTypes.h"
 #include "minisat/mtl/Vec.h"
 #include "core/domain/Assignment.h"
-#include "core/proto/config.pb.h"
+#include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"
 
 namespace core::sat {

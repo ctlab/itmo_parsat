@@ -1,1 +1,0 @@
-/home/dzhiblavi/itmo-parsat/bazel-bin/core/proto/config.pb.h

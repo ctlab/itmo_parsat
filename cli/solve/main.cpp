@@ -5,26 +5,30 @@
 #include <mutex>
 #include <utility>
 
-#include "cli/solve/CliConfig.h"
-#include "core/proto/config.pb.h"
+#include "core/util/CliConfig.h"
+#include "core/proto/solve_config.pb.h"
 #include "core/util/stream.h"
 #include "core/util/SigHandler.h"
+#include "core/util/signals.h"
+#include "core/util/Logger.h"
+#include "core/util/Tracer.h"
 #include "core/sat/Solver.h"
-#include "evol/algorithm/Algorithm.h"
-#include "evol/instance/Instance.h"
+#include "core/evol/algorithm/Algorithm.h"
+#include "core/evol/instance/Instance.h"
 
-ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
+core::CliConfig& add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
 
   po::options_description description;
   // clang-format off
   description.add_options()
       ("backdoor,b", "Enable rho-backdoor search.")
-      ("config,e", po::value<std::filesystem::path>(), "Path to JSON Solve configuration.")
+      ("log-config,l", po::value<std::filesystem::path>()->required(), "Path to JSON Logging configuration.")
+      ("config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
       ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
   // clang-format on
 
-  ea::config::CliConfig& cli_config = ea::config::CliConfig::instance();
+  core::CliConfig& cli_config = core::CliConfig::instance();
   cli_config.add_options(description);
   cli_config.parse(argc, argv);
   cli_config.notify();
@@ -32,35 +36,46 @@ ea::config::CliConfig& add_and_read_args(int argc, char** argv) {
   return cli_config;
 }
 
-SolveConfig read_json_configs(std::filesystem::path const& config_path) {
-  using namespace ea::config;
+std::pair<SolveConfig, LoggingConfig> read_json_configs(
+    std::filesystem::path const& solve_config_path, std::filesystem::path const& log_config_path) {
   SolveConfig solve_config;
-  std::ifstream ifs(config_path);
-  core::sat::SolverRegistry::read_config(ifs, solve_config);
-  return solve_config;
+  LoggingConfig log_config;
+  {
+    std::ifstream ifs(solve_config_path);
+    core::CliConfig::read_config(ifs, solve_config);
+  }
+  {
+    std::ifstream ifs(log_config_path);
+    core::CliConfig::read_config(ifs, log_config);
+  }
+  return {solve_config, log_config};
 }
 
 int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
-  ea::config::CliConfig& config = add_and_read_args(argc, argv);
+  core::signals::set_terminate_handler();
+
+  core::CliConfig& config = add_and_read_args(argc, argv);
   bool backdoor = config.has("backdoor");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
   std::filesystem::path solver_cfg_path = config.get<std::filesystem::path>("config");
+  std::filesystem::path logger_cfg_path = config.get<std::filesystem::path>("log-config");
   core::sat::State result;
 
-  auto solve_config = read_json_configs(solver_cfg_path);
+  auto&& [solve_config, log_config] = read_json_configs(solver_cfg_path, logger_cfg_path);
+  core::Logger logger(log_config);
+  core::Tracer tracer;
 
   LOG(INFO) << "Input file: " << input;
   core::sat::RSolver solver(core::sat::SolverRegistry::resolve(solve_config.solver_config()));
-  solver->parse_cnf(input);
-  //  LOG_TIME(solver->parse_cnf(input));
+  IPS_TRACE(solver->parse_cnf(input));
 
   if (backdoor) {
     ea::algorithm::RAlgorithm algorithm(
         ea::algorithm::AlgorithmRegistry::resolve(solve_config.algorithm_config()));
     auto& algorithm_solver = algorithm->get_solver();
     algorithm_solver.parse_cnf(input);
-    //    LOG_TIME(algorithm_solver.parse_cnf(input));
+    IPS_TRACE(algorithm_solver.parse_cnf(input));
     algorithm->prepare();
 
     core::SigHandler sig_handler;
@@ -71,8 +86,7 @@ int main(int argc, char** argv) {
           alg_int_handle.remove();
         });
 
-    algorithm->process();
-    //    LOG_TIME(algorithm->process());
+    IPS_TRACE(algorithm->process());
     auto& r_backdoor = algorithm->get_best();
     LOG(INFO) << "Number of points visited: " << algorithm->inaccurate_points();
     LOG(INFO) << "The best backdoor is: " << r_backdoor;
@@ -97,7 +111,7 @@ int main(int argc, char** argv) {
         });
 
     // clang-format off
-    solver->solve_assignments(
+    IPS_TRACE_NAMED("solve_assignments", solver->solve_assignments(
         std::move(assignment_p), [&propagated, &total, &sig_handler, &satisfied, &unknown, &progress, &progress_lock](
           core::sat::State result, bool prop_conflict, auto) {
             if (sig_handler.is_set()) {
@@ -122,7 +136,7 @@ int main(int argc, char** argv) {
               default:
                 return false;
             }
-        });
+        }));
     sig_handler.unset();
     // clang-format on
     LOG(INFO) << "Prop: " << propagated << ", total: " << total;
@@ -143,8 +157,7 @@ int main(int argc, char** argv) {
           LOG(INFO) << "Solver has been interrupted.";
           slv_int_handle.remove();
         });
-    result = solver->solve_limited();
-    //    LOG_TIME(result = solver->solve_limited());
+    IPS_TRACE(result = solver->solve_limited());
     sig_handler.unset();
   }
 

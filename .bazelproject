@@ -1,15 +1,10 @@
 directories:
   core/
-  evol/
   infra/
   cli/
 
 targets:
-  //core/sat:*
-  //core/domain:*
-  //core/proto:*
-  //core/sat/minisat:*
-  //core/util:*
   //core:*
-  //evol:*
+  //core/proto:*
   //cli:*
+  //infra:*

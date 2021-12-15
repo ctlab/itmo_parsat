@@ -1,6 +1,7 @@
 #include "core/sat/SimpSolver.h"
 
 #include "core/util/GzFile.h"
+#include "core/util/Logger.h"
 #include "minisat/core/Dimacs.h"
 #include "minisat/utils/System.h"
 
@@ -8,22 +9,14 @@ namespace core::sat {
 
 SimpSolver::SimpSolver(SimpSolverConfig const& config)
     : Minisat::SimpSolver(
-          config.grow(), config.clause_lim(),
-          config.subsumption_lim(),
-          config.simp_garbage_frac(), config.use_asymm(),
-          config.use_rcheck(), config.use_elim(),
-          config.minisat_cli_config().verbosity_level(),
-          config.base_solver_config().var_decay(),
-          config.base_solver_config().cla_decay(),
-          config.base_solver_config().rnd_freq(),
-          config.base_solver_config().rnd_seed(),
-          config.base_solver_config().luby(),
-          config.base_solver_config().ccmin_mode(),
-          config.base_solver_config().phase_saving(),
-          config.base_solver_config().rnd_init(),
-          config.base_solver_config().gc_frac(),
-          config.base_solver_config().min_learnts(),
-          config.base_solver_config().rfirst(),
+          config.grow(), config.clause_lim(), config.subsumption_lim(), config.simp_garbage_frac(),
+          config.use_asymm(), config.use_rcheck(), config.use_elim(),
+          config.minisat_cli_config().verbosity_level(), config.base_solver_config().var_decay(),
+          config.base_solver_config().cla_decay(), config.base_solver_config().rnd_freq(),
+          config.base_solver_config().rnd_seed(), config.base_solver_config().luby(),
+          config.base_solver_config().ccmin_mode(), config.base_solver_config().phase_saving(),
+          config.base_solver_config().rnd_init(), config.base_solver_config().gc_frac(),
+          config.base_solver_config().min_learnts(), config.base_solver_config().rfirst(),
           config.base_solver_config().rinc())
     , preprocess_(config.minisat_cli_config().preprocessing()) {
   verbosity = config.minisat_cli_config().verbosity_level();
@@ -48,9 +41,11 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   }
 
   if (preprocess_) {
-    //    EALOG(SOLVER_STATS) << "Stats before preprocess: " << nClauses() << ' ' << nVars();
+    IPS_LOG_INFO(SOLVER_STATS_PREPROCESS)
+        << "Stats before preprocess: " << nClauses() << ' ' << nVars();
     eliminate(true);
-    //    EALOG(SOLVER_STATS) << "Stats after preprocess: " << nClauses() << ' ' << nVars();
+    IPS_LOG_INFO(SOLVER_STATS_PREPROCESS)
+        << "Stats after preprocess: " << nClauses() << ' ' << nVars();
   }
 }
 

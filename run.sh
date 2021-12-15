@@ -7,7 +7,8 @@ DO_ALL=""
 RESOURCES_DIR="./resources"
 
 CNF_PATH="$ROOT/resources/cnf/unsat_pancake_vs_selection_7_4.cnf"
-CFG_PATH="$ROOT/resources/config/algorithm.json"
+SLV_CFG_PATH="$ROOT/resources/config/algorithm.json"
+LOG_CFG_PATH="$ROOT/resources/config/log.json"
 SOLVE_BIN="$ROOT/bazel-bin/cli/solve"
 TEST_BIN="$ROOT/bazel-bin/core/test"
 
@@ -74,11 +75,14 @@ function do_build_infra() {
 }
 
 function do_build_proto() {
-    rm ./core/sat/proto/config.pb.h || true
-    rm ./core/sat/proto/config.pb.cc || true
-    bazel build '//core/proto:*' $BUILD_DEBUG $@
-    ln -s `pwd`/bazel-bin/core/proto/config.pb.h ./core/proto/config.pb.h
-    ln -s `pwd`/bazel-bin/core/proto/config.pb.cc ./core/proto/config.pb.cc
+    rm -rf ./core/proto/*.pb.*
+    bazel build //core/proto:* $BUILD_DEBUG $@
+
+    ln -s `pwd`/bazel-bin/core/proto/solve_config.pb.h ./core/proto/solve_config.pb.h
+    ln -s `pwd`/bazel-bin/core/proto/solve_config.pb.cc ./core/proto/solve_config.pb.cc
+
+    ln -s `pwd`/bazel-bin/core/proto/logging_config.pb.h ./core/proto/logging_config.pb.h
+    ln -s `pwd`/bazel-bin/core/proto/logging_config.pb.cc ./core/proto/logging_config.pb.cc
 }
 
 function do_set_verbose() {
@@ -104,7 +108,8 @@ function do_solve() {
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
             $BACKDOOR \
             --input "$CNF_PATH" \
-            --config "$CFG_PATH"
+            --config "$SLV_CFG_PATH" \
+            --log-config "$LOG_CFG_PATH"
     else
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
             $BACKDOOR $@

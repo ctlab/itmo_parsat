@@ -10,6 +10,7 @@ cc_binary(
     name = "solve",
     srcs = glob(["solve/**/*.cpp", "solve/**/*.h"]),
     deps = base_deps + [
-        "//evol:evol",
+        "//core:evol",
     ],
+    visibility = ["//visibility:public"]
 )

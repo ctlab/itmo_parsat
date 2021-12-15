@@ -42,8 +42,8 @@ class SigHandler {
   void callback(int sig);
 
  private:
-  uint64_t next_handle_{0};
   bool registered_{false};
+  uint64_t next_handle_{0};
   std::unordered_map<uint64_t, callback_t> callbacks_;
 };
 

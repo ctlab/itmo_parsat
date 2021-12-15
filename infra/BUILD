@@ -19,7 +19,7 @@ base_deps = [
     "@com_google_protobuf//:protobuf",
     "@com_google_googletest//:gtest_main",
     "@libpqxx//:libpqxx",
-    "//evol:main",
+    "//cli:solve",
 ]
 
 cc_binary(
