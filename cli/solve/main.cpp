@@ -1,5 +1,3 @@
-#include <glog/logging.h>
-
 #include <boost/program_options.hpp>
 #include <boost/timer/progress_display.hpp>
 #include <mutex>
@@ -9,7 +7,6 @@
 #include "core/proto/solve_config.pb.h"
 #include "core/util/stream.h"
 #include "core/util/SigHandler.h"
-#include "core/util/signals.h"
 #include "core/util/Logger.h"
 #include "core/util/Tracer.h"
 #include "core/sat/Solver.h"
@@ -53,7 +50,6 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 
 int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
-  core::signals::set_terminate_handler();
 
   core::CliConfig& config = add_and_read_args(argc, argv);
   bool backdoor = config.has("backdoor");
@@ -66,7 +62,7 @@ int main(int argc, char** argv) {
   core::Logger logger(log_config);
   core::Tracer tracer;
 
-  LOG(INFO) << "Input file: " << input;
+  IPS_INFO("Input file: " << input);
   core::sat::RSolver solver(core::sat::SolverRegistry::resolve(solve_config.solver_config()));
   IPS_TRACE(solver->parse_cnf(input));
 
@@ -74,7 +70,6 @@ int main(int argc, char** argv) {
     ea::algorithm::RAlgorithm algorithm(
         ea::algorithm::AlgorithmRegistry::resolve(solve_config.algorithm_config()));
     auto& algorithm_solver = algorithm->get_solver();
-    algorithm_solver.parse_cnf(input);
     IPS_TRACE(algorithm_solver.parse_cnf(input));
     algorithm->prepare();
 
@@ -82,14 +77,14 @@ int main(int argc, char** argv) {
     core::SigHandler::CallbackHandle alg_int_handle =
         sig_handler.register_callback([&alg_int_handle, &algorithm](int) {
           algorithm->interrupt();
-          LOG(INFO) << "Algorithm has been interrupted.";
+          IPS_INFO("Algorithm has been interrupted.");
           alg_int_handle.remove();
         });
 
     IPS_TRACE(algorithm->process());
     auto& r_backdoor = algorithm->get_best();
-    LOG(INFO) << "Number of points visited: " << algorithm->inaccurate_points();
-    LOG(INFO) << "The best backdoor is: " << r_backdoor;
+    IPS_INFO("Number of points visited: " << algorithm->inaccurate_points());
+    IPS_INFO("The best backdoor is: " << r_backdoor);
 
     std::atomic_bool satisfied = false, unknown = false;
     std::atomic_uint64_t propagated{0}, total{0};
@@ -106,7 +101,7 @@ int main(int argc, char** argv) {
         sig_handler.register_callback([&slv_int_handle, &solver, &interrupted](int) {
           solver->interrupt();
           interrupted = true;
-          LOG(INFO) << "Solver has been interrupted.";
+          IPS_INFO("Solver has been interrupted.");
           slv_int_handle.remove();
         });
 
@@ -139,8 +134,8 @@ int main(int argc, char** argv) {
         }));
     sig_handler.unset();
     // clang-format on
-    LOG(INFO) << "Prop: " << propagated << ", total: " << total;
-    LOG(INFO) << "Actual rho is: " << (double) propagated / (double) total;
+    IPS_INFO("Prop: " << propagated << ", total: " << total);
+    IPS_INFO("Actual rho is: " << (double) propagated / (double) total);
 
     if (satisfied) {
       result = core::sat::SAT;
@@ -154,7 +149,7 @@ int main(int argc, char** argv) {
     core::SigHandler::CallbackHandle slv_int_handle =
         sig_handler.register_callback([&slv_int_handle, &solver](int) {
           solver->interrupt();
-          LOG(INFO) << "Solver has been interrupted.";
+          IPS_INFO("Solver has been interrupted.");
           slv_int_handle.remove();
         });
     IPS_TRACE(result = solver->solve_limited());
@@ -162,15 +157,15 @@ int main(int argc, char** argv) {
   }
 
   if (result == core::sat::UNSAT) {
-    LOG(INFO) << "UNSAT";
+    IPS_INFO("UNSAT");
     std::cout << "UNSAT";
     return 0;
   } else if (result == core::sat::SAT) {
-    LOG(INFO) << "SAT";
+    IPS_INFO("SAT");
     std::cout << "SAT";
     return 1;
   } else {
-    LOG(INFO) << "UNKNOWN";
+    IPS_INFO("UNKNOWN");
     std::cout << "UNKNOWN";
     return 2;
   }

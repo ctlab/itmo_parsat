@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <cmath>
-#include <glog/logging.h>
 
 #include "core/util/stream.h"
 #include "core/domain/Assignment.h"

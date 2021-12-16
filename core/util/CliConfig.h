@@ -5,6 +5,8 @@
 #include <boost/program_options.hpp>
 #include <google/protobuf/util/json_util.h>
 
+#include "core/util/assert.h"
+
 namespace core {
 
 class CliConfig {

@@ -1,6 +1,5 @@
 #include "core/util/SigHandler.h"
 
-#include <glog/logging.h>
 #include <memory>
 
 namespace {
@@ -9,7 +8,7 @@ core::SigHandler* handler_{};
 
 void sig_handler_(int sig) {
   if (handler_) {
-    VLOG(2) << "SigHandler caught interrupt.";
+    IPS_INFO("SigHandler caught interrupt.");
     handler_->set();
     handler_->callback(sig);
   }

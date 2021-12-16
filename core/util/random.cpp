@@ -1,11 +1,9 @@
 #include "core/util/random.h"
 
-#include <glog/logging.h>
-
 namespace core::random {
 
 Generator::Generator() : mt_(1337) {
-  VLOG(4) << "Set random seed to " << 1337;
+  IPS_INFO("Set random seed to " << 1337);
 }
 
 Generator& Generator::instance() {

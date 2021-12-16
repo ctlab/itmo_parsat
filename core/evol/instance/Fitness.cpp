@@ -1,7 +1,6 @@
 #include "core/evol/instance/Fitness.h"
 
 #include <cmath>
-#include <glog/logging.h>
 
 namespace ea::instance {
 
@@ -26,7 +25,7 @@ bool operator<(Fitness const& a, Fitness const& b) {
     return (double) a < (double) b;
   }
 
-  LOG(WARNING) << "Comparison of non-evaluable Fitness-es.";
+  IPS_WARNING("Comparison of non-evaluable Fitness-es.");
   int32_t min_pow_r = std::min(a.pow_r, b.pow_r);
   double a_val = a.rho * std::pow(2., a.pow_r - min_pow_r);
   double b_val = b.rho * std::pow(2., b.pow_r - min_pow_r);

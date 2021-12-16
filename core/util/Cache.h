@@ -2,7 +2,6 @@
 #define ITMO_PARSAT_CACHE_H
 
 #include <unordered_map>
-#include <glog/logging.h>
 
 namespace core {
 

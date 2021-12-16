@@ -1,7 +1,5 @@
 #include "core/evol/limit/ResourceLimit.h"
 
-#include <glog/logging.h>
-
 #include "core/util/mem_usage.h"
 
 namespace ea::limit {
@@ -14,11 +12,11 @@ bool ResourceLimit::proceed(instance::Population const&) {
   if (time_limit_sec_) {
     std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_;
     time_ok = std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() < time_limit_sec_;
-    LOG_IF(INFO, !time_ok) << "Time limit exceeded.";
+    IPS_INFO_IF(!time_ok, "Time limit exceeded.");
   }
   if (memory_limit_kb_) {
     mem_ok = getCurrentRSS() < memory_limit_kb_ * 1024;
-    LOG_IF(INFO, !mem_ok) << "Memory limit exceeded.";
+    IPS_INFO_IF(!mem_ok, "Memory limit exceeded.");
   }
   return time_ok && mem_ok;
 }

@@ -1,7 +1,5 @@
 #include "core/evol/method/mutate/DoerrMutation.h"
 
-#include <glog/logging.h>
-
 #include "core/util/random.h"
 
 namespace ea::method {

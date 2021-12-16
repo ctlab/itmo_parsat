@@ -8,6 +8,8 @@
 #include "core/evol/instance/Instance.h"
 #include "core/evol/limit/Limit.h"
 #include "core/evol/method/select/Selector.h"
+#include "core/util/Logger.h"
+#include "core/util/Tracer.h"
 
 namespace ea::algorithm {
 

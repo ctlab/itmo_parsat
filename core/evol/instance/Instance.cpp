@@ -10,7 +10,7 @@
 namespace ea::instance {
 
 void Instance::SamplingConfig::do_scale() {
-  CHECK_GT(can_scale, 0U) << "do_scale called when scaling is not possible.";
+  IPS_VERIFY(can_scale > 0U && bool("do_scale called when scaling is not possible."));
   --can_scale;
   samples = (uint32_t)(samples * scale);
 }
@@ -74,19 +74,19 @@ void Instance::_calc_fitness() {
       });
   // clang-format on
 
-  LOG_IF(WARNING, total != (int) samples)
-      << "Internal error: invalid assignments behaviour: " << total << " != " << samples;
+  IPS_WARNING_IF(total != (int) samples,
+      "Internal error: invalid assignments behaviour: " << total << " != " << samples);
   fit_.rho = (double) success / (double) total;
   fit_.pow_r = size;
   fit_.pow_nr = (int) shared_->omega_x;
 
   if (fit_.rho == 1.0 && _sampling_config().can_scale > 0) {
-    IPS_LOG_INFO(FITNESS_SCALE) << "Fitness reached 1, scaling sampling size, invalidating cache.";
+    IPS_INFO_T(FITNESS_SCALE, "Fitness reached 1, scaling sampling size, invalidating cache.");
     _sampling_config().do_scale();
     _cache().invalidate();
     _calc_fitness();
   } else {
-    IPS_LOG_INFO(CURRENT_INSTANCE) << *this;
+    IPS_INFO_T(CURRENT_INSTANCE, *this);
   }
 }
 

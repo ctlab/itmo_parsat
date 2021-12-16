@@ -10,6 +10,7 @@
 #include "minisat/mtl/Vec.h"
 #include "minisat/core/SolverTypes.h"
 #include "core/domain/VarView.h"
+#include "core/util/assert.h"
 
 namespace core::domain {
 

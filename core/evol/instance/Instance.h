@@ -9,6 +9,7 @@
 #include "core/domain/Vars.h"
 #include "core/evol/instance/Fitness.h"
 #include "core/util/stream.h"
+#include "core/util/Logger.h"
 #include "core/util/Cache.h"
 
 namespace ea::instance {

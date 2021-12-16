@@ -3,6 +3,7 @@
 
 #include <random>
 #include <algorithm>
+#include "core/util/Logger.h"
 
 namespace core::random {
 

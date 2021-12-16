@@ -1,7 +1,5 @@
 #include "core/util/CliConfig.h"
 
-#include <glog/logging.h>
-
 namespace core {
 
 namespace po = boost::program_options;
@@ -18,7 +16,8 @@ void CliConfig::parse(int argc, char** argv) {
   po::store(po::parse_command_line(argc, argv, desc_), vm_);
 
   if (vm_["help"].as<bool>()) {
-    LOG(FATAL) << std::endl << desc_ << std::endl;
+    std::cerr << desc_ << std::endl;
+    std::exit(-1);
   }
 }
 
@@ -43,8 +42,11 @@ void CliConfig::read_config(std::istream& is, google::protobuf::Message& message
   std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
   google::protobuf::util::Status status =
       google::protobuf::util::JsonStringToMessage(message_str, &message);
-  CHECK(status.ok()) << "Failed to read  configuration from '" << message_str << "':\n"
-                     << status.error_message();
+  if (!status.ok()) {
+    std::cerr << "Failed to read  configuration from '" << message_str << "':\n"
+              << status.error_message();
+    IPS_TERMINATE();
+  }
 }
 
 }  // namespace core

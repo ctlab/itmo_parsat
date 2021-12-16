@@ -7,7 +7,9 @@
 #include <mutex>
 #include <thread>
 #include <condition_variable>
-#include <glog/logging.h>
+
+#include "core/util/Logger.h"
+#include "core/util/assert.h"
 
 namespace core {
 
@@ -31,13 +33,21 @@ class Tracer {
   std::unordered_map<std::string, std::chrono::system_clock::time_point> start_;
 };
 
+}  // namespace core
+
+#ifndef DISABLE_TRACE
+
 #define IPS_TRACE_NAMED(name, expr)  \
   ::core::Tracer::start_trace(name); \
   expr;                              \
   ::core::Tracer::end_trace(name)
 
-#define IPS_TRACE(expr) IPS_TRACE_NAMED(#expr, expr)
+#else
 
-}  // namespace core
+#define IPS_TRACE_NAMED(name, expr) expr
+
+#endif
+
+#define IPS_TRACE(expr) IPS_TRACE_NAMED(#expr, expr)
 
 #endif  // ITMO_PARSAT_TRACER_H

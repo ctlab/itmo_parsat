@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include <glog/logging.h>
 #include <boost/program_options.hpp>
 
 #include "infra/include/testing/LaunchFixture.h"

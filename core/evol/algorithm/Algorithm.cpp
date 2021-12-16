@@ -49,13 +49,13 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
     shared_data_->var_view.map_var((int) i, it->second);
   }
 
-    if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
-      std::stringstream ss;
-      for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
-        ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
-      }
-      LOG(INFO) << "Heuristic init:\n" << ss.str();
+  if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
+    std::stringstream ss;
+    for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
+      ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
     }
+    IPS_INFO("Heuristic init:\n" << ss.str());
+  }
 }
 
 void Algorithm::_add_instance() {
@@ -79,10 +79,11 @@ void Algorithm::process() {
   limit_->start();
   while (!is_interrupted() && limit_->proceed(population_)) {
     step();
-    //    LOG_TIME(step());
-    IPS_LOG_INFO(BEST_INSTANCE) << "[Iter " << iteration << "]"
+    IPS_TRACE(step());
+    IPS_INFO_T(
+        BEST_INSTANCE, "[Iter " << iteration << "]"
                                 << "[Points " << inaccurate_points() << "]"
-                                << " Best instance: " << get_best();
+                                << " Best instance: " << get_best());
     ++iteration;
   }
 }

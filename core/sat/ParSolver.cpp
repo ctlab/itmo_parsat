@@ -2,7 +2,6 @@
 
 #include <filesystem>
 #include <mutex>
-#include <glog/logging.h>
 
 namespace core::sat {
 

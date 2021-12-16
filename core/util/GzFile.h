@@ -4,6 +4,8 @@
 #include <zlib.h>
 #include <filesystem>
 
+#include "core/util/assert.h"
+
 namespace core::util {
 
 class GzFile {

@@ -1,7 +1,5 @@
 #include "infra/include/domain/PGDB.h"
 
-#include <glog/logging.h>
-
 namespace infra::domain {
 
 PGDB::PGDB(std::string const& dbname, std::string const& user, std::string const& password)

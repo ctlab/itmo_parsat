@@ -1,6 +1,7 @@
 #ifndef ITMO_PARSAT_FITNESS_H
 #define ITMO_PARSAT_FITNESS_H
 
+#include "core/util/Logger.h"
 #include <cstdint>
 
 namespace ea::instance {

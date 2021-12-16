@@ -32,7 +32,7 @@ void Tracer::_start_trace(const std::string& identifier) {
   std::string const& full_id =
       identifier + std::to_string(std::hash<std::thread::id>()(std::this_thread::get_id()));
   std::lock_guard<std::mutex> lg(m_);
-  CHECK(start_.find(full_id) == start_.end()) << "Double call of start_trace";
+  IPS_VERIFY(start_.find(full_id) == start_.end() && bool("Double start for the same identifier"));
   start_[full_id] = std::chrono::system_clock::now();
 }
 
@@ -41,10 +41,10 @@ void Tracer::_end_trace(const std::string& identifier) {
       identifier + std::to_string(std::hash<std::thread::id>()(std::this_thread::get_id()));
   std::lock_guard<std::mutex> lg(m_);
   auto it = start_.find(full_id);
-  CHECK(it != start_.end()) << "end_trace with no start_trace";
+  IPS_VERIFY(it != start_.end() && bool("end_trace with no start_trace"));
   std::chrono::duration<double> dur = std::chrono::system_clock::now() - it->second;
   start_.erase(it);
-  LOG(INFO) << identifier << " took " << dur.count() << "s";
+  IPS_INFO(identifier << " took " << dur.count() << "s");
 }
 
 }  // namespace core

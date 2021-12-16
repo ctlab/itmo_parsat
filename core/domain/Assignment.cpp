@@ -1,6 +1,5 @@
 #include "core/domain/Assignment.h"
 
-#include <glog/logging.h>
 #include "core/util/random.h"
 
 namespace {
@@ -84,8 +83,8 @@ bool Assignment::operator++() {
 }
 
 uint64_t SmallSearch::_set_range() {
-  LOG_IF(FATAL, assignment_.size() > MAX_VARS_FULL_SEARCH)
-      << "Small search can be used only for small assignments!";
+  IPS_VERIFY(assignment_.size() <= MAX_VARS_FULL_SEARCH &&
+      bool("Small search can be used only for small assignments!"));
   first_ = 0;
   last_ = range_max(assignment_.size());
   return last_ - first_ + 1;
@@ -193,4 +192,4 @@ UAssignment createRandomSearch(
   }
 }
 
-}  // namespace core::instance
+}  // namespace core::domain

@@ -4,6 +4,7 @@
 #include <csignal>
 #include <functional>
 #include <unordered_map>
+#include "core/util/Logger.h"
 
 namespace core {
 
