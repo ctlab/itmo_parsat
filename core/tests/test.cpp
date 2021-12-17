@@ -1,7 +1,7 @@
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 
-#include "core/util/random.h"
+#include "core/util/Generator.h"
 
 using namespace core;
 

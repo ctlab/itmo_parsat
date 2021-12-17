@@ -1,6 +1,6 @@
 #include "core/domain/Assignment.h"
 
-#include "core/util/random.h"
+#include "core/util/Generator.h"
 
 namespace {
 

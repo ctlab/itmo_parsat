@@ -5,7 +5,7 @@
 #include <utility>
 
 #include "core/util/Logger.h"
-#include "core/util/random.h"
+#include "core/util/Generator.h"
 
 namespace ea::instance {
 

@@ -1,6 +1,6 @@
 #include "core/evol/algorithm/GAAlgorithm.h"
 
-#include "core/util/random.h"
+#include "core/util/Generator.h"
 
 namespace {
 
@@ -38,10 +38,10 @@ GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config)
     , h_(config.h()) {}
 
 void GAAlgorithm::_prepare() {
-  population_.reserve(q_);
+  _population.reserve(q_);
   for (uint32_t i = 0; i < q_; ++i) {
     _add_instance();
-    fits_.push_back((double) population_.back()->fitness());
+    fits_.push_back((double) _population.back()->fitness());
   }
 }
 
@@ -56,20 +56,20 @@ void GAAlgorithm::step() {
     size_t p2 = parents[2 * i + 1];
 
     size_t c1 = children.size();
-    children.emplace_back(population_[p1]->clone());
+    children.emplace_back(_population[p1]->clone());
     size_t c2 = children.size();
-    children.emplace_back(population_[p2]->clone());
+    children.emplace_back(_population[p2]->clone());
 
     cross_->apply(*children[c1], *children[c2]);
     mutator_->apply(*children[c1]);
     mutator_->apply(*children[c2]);
   }
 
-  selector_->select(population_, h_);
+  selector_->select(_population, h_);
 
   // clang-format off
-  population_.insert(
-      population_.end(),
+  _population.insert(
+      _population.end(),
       std::make_move_iterator(children.begin()), std::make_move_iterator(children.end())
   );
   // clang-format on
@@ -78,8 +78,8 @@ void GAAlgorithm::step() {
 }
 
 void GAAlgorithm::_recalc_fits() {
-  for (size_t i = 0; i < population_.size(); ++i) {
-    fits_[i] = (double) population_[i]->fitness();
+  for (size_t i = 0; i < _population.size(); ++i) {
+    fits_[i] = (double) _population[i]->fitness();
   }
 }
 

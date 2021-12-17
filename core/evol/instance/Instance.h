@@ -11,6 +11,7 @@
 #include "core/util/stream.h"
 #include "core/util/Logger.h"
 #include "core/util/LRUCache.h"
+#include "core/util/Generator.h"
 
 namespace ea::instance {
 
@@ -40,9 +41,9 @@ class Instance {
   };
 
   struct SharedData {
-    SamplingConfig sampling_config{};
     core::LRUCache<std::vector<bool>, Fitness> cache{};
     core::domain::VarView var_view{};
+    SamplingConfig sampling_config{};
     uint32_t inaccurate_points = 0;
     uint32_t omega_x{};
   };

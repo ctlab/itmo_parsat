@@ -12,14 +12,14 @@ void EAAlgorithm::_prepare() {
 }
 
 void EAAlgorithm::step() {
-  instance::RInstance child(population_.front()->clone());
+  instance::RInstance child(_population.front()->clone());
   mutator_->apply(*child);
   while (child->is_cached()) {
     mutator_->apply(*child);
   }
 
-  population_.push_back(child);
-  selector_->select(population_, 1);
+  _population.push_back(child);
+  selector_->select(_population, 1);
 }
 
 REGISTER_PROTO(Algorithm, EAAlgorithm, ea_algorithm_config);

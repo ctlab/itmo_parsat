@@ -47,14 +47,14 @@ class Algorithm {
   [[nodiscard]] bool is_interrupted() const;
 
  protected:
-  InstanceConfig instance_config_;
-  instance::Population population_;
-  instance::Instance::RSharedData shared_data_;
-  core::sat::RSolver solver_;
+  InstanceConfig _instance_config;
+  instance::Population _population;
+  instance::Instance::RSharedData _shared_data;
+  core::sat::RSolver _solver;
 
  private:
-  limit::RLimit limit_;
-  bool interrupted_ = false;
+  limit::RLimit _limit;
+  bool _interrupted = false;
 };
 
 using RAlgorithm = std::shared_ptr<Algorithm>;

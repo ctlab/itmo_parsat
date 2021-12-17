@@ -19,7 +19,7 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
 
   void interrupt() override;
 
-  [[nodiscard]] bool is_interrupted() const override;
+  [[nodiscard]] bool interrupted() const override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

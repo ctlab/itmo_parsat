@@ -87,7 +87,7 @@ class Solver {
   /**
    * Returns true if interrupt flag is set.
    */
-  [[nodiscard]] virtual bool is_interrupted() const = 0;
+  [[nodiscard]] virtual bool interrupted() const = 0;
 
   /**
    * Returns the number of variables in formula.

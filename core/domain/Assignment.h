@@ -18,6 +18,8 @@ class Assignment;
 
 using UAssignment = std::unique_ptr<Assignment>;
 
+using RAssignment = std::shared_ptr<Assignment>;
+
 class Assignment {
  public:
   static constexpr int MAX_VARS_FULL_SEARCH = 63;

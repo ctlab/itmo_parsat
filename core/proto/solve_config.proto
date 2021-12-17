@@ -124,17 +124,20 @@ message GAAlgorithmConfig {
 
 message AlgorithmConfig {
   string algorithm_type = 1;
-  EAAlgorithmConfig ea_algorithm_config = 2;
-  GAAlgorithmConfig ga_algorithm_config = 3;
+  uint32 random_seed = 2;
+  EAAlgorithmConfig ea_algorithm_config = 3;
+  GAAlgorithmConfig ga_algorithm_config = 4;
 }
 
 message SBSSolveConfig {
   AlgorithmConfig algorithm_config = 1;
   SolverConfig solver_config = 2;
+  uint32 random_seed = 3;
 }
 
 message NaiveSolveConfig {
   SolverConfig solver_config = 1;
+  uint32 random_seed = 2;
 }
 
 message SolveConfig {

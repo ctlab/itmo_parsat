@@ -5,6 +5,7 @@
 #include "core/util/SigHandler.h"
 #include "core/util/Tracer.h"
 #include "core/util/Logger.h"
+#include "core/util/Generator.h"
 
 namespace core {
 

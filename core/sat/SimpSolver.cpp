@@ -64,7 +64,7 @@ void SimpSolver::interrupt() {
   static_cast<Minisat::SimpSolver*>(this)->interrupt();
 }
 
-bool SimpSolver::is_interrupted() const {
+bool SimpSolver::interrupted() const {
   return asynch_interrupt;
 }
 

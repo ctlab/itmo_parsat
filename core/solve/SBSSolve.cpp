@@ -6,6 +6,7 @@ SBSSolve::SBSSolve(SBSSolveConfig const& config) : _cfg(config) {}
 
 sat::State SBSSolve::solve(std::filesystem::path const& input) {
   core::SigHandler sigh;
+  core::Generator generator(_cfg.random_seed());
   auto solver = _resolve_solver(_cfg.solver_config());
   ea::algorithm::RAlgorithm algorithm(
       ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config()));

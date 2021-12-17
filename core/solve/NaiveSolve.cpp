@@ -6,6 +6,7 @@ NaiveSolve::NaiveSolve(NaiveSolveConfig const& config) : _cfg(config) {}
 
 sat::State NaiveSolve::solve(std::filesystem::path const& input) {
   core::SigHandler sigh;
+  core::Generator generator(_cfg.random_seed());
   auto solver = _resolve_solver(_cfg.solver_config());
   IPS_TRACE(solver->parse_cnf(input));
 
