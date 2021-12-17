@@ -30,7 +30,7 @@ void print(char const* format, ...) {
 }
 
 // clang-format off
-[[noreturn]] void panic_(
+void panic_(
     char const* file,
     long line,
     char const* function,
@@ -97,19 +97,17 @@ void print(char const* format, ...) {
       print("%d: ", i);
       ::backtrace_symbols_fd(&stack_buffer[i], 1, STDERR_FILENO);
     }
-    LOG(FATAL);
   }
 
   if (abort && (pid > 0 || pid == -1)) {
     std::signal(SIGABRT, SIG_DFL);
+    LOG(FATAL);
     std::abort();
   }
 
   if (pid == 0) {
     ::_exit(239);
   }
-
-  __builtin_unreachable();
 }
 // clang-format on
 
@@ -118,7 +116,7 @@ void print(char const* format, ...) {
 namespace core::assert::_details {
 
 // clang-format off
-[[noreturn]] void panic(
+void panic(
     char const* file,
     long line,
     char const* function,
@@ -176,12 +174,12 @@ bool set_sigsegv_handler() {
     static constexpr int X86_PF_WRITE = 2;
     bool is_write = context->uc_mcontext.gregs[REG_ERR] & X86_PF_WRITE;
     auto ip = static_cast<std::uintptr_t>(context->uc_mcontext.gregs[REG_RIP]);
-    std::signal(SIGSEGV, SIG_DFL);
     core::assert::_details::panic(
         __FILE__, __LINE__, "SIGSEGV handler", nullptr, false,
         "segmentation fault accessing address 0x%zx; "
         "Instruction at 0x%zx; Access type: %s",
         reinterpret_cast<std::uintptr_t>(info->si_addr), ip, (is_write ? "write" : "read"));
+    std::signal(SIGSEGV, SIG_DFL);
   };
 
   IPS_SYSCALL(::sigemptyset(&sa.sa_mask));
@@ -194,3 +192,4 @@ bool set_sigsegv_handler() {
 [[gnu::unused]] const auto sigbus_handler_is_set = set_sigbus_handler();
 
 [[gnu::unused]] const auto sigsegv_handler_is_set = set_sigsegv_handler();
+

@@ -9,6 +9,8 @@ core::Logger* _logger = nullptr;
 namespace core {
 
 Logger::Logger(const LoggingConfig& config) {
+  IPS_VERIFY(nullptr == _logger && bool("Logger is initialized more than once"));
+
   for (size_t i = 0; i < entries_.size(); ++i) {
     entries_[i].config.set_log_type(LogType(i));
     entries_[i].config.set_every_n(DEFAULT_EVERY_N);
@@ -16,10 +18,10 @@ Logger::Logger(const LoggingConfig& config) {
   }
 
   for (auto const& entry_config : config.entries()) {
+    IPS_VERIFY(static_cast<size_t>(entry_config.log_type()) < entries_.size());
     entries_[entry_config.log_type()].config = entry_config;
   }
 
-  CHECK_EQ(nullptr, _logger) << "Logger is initialized more than once";
   _logger = this;
 }
 
@@ -28,7 +30,7 @@ Logger::~Logger() noexcept {
 }
 
 bool Logger::should_log(LogType log_type) noexcept {
-  CHECK_NE(nullptr, _logger) << "Logger is not initialized when calling should_log(.)";
+  IPS_VERIFY(nullptr != _logger && bool("Logger is not initialized when calling should_log(.)"));
   return _logger->_should_log(log_type);
 }
 

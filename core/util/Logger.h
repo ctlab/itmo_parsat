@@ -4,6 +4,7 @@
 #include <array>
 #include <glog/logging.h>
 
+#include "core/util/assert.h"
 #include "core/proto/logging_config.pb.h"
 
 namespace core {

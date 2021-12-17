@@ -18,7 +18,7 @@ class Instance;
 
 }  // namespace ea::instance
 
-std::ostream& operator<<(std::ostream&, ea::instance::Instance& instance);
+std::ostream& operator<<(std::ostream&, ea::instance::Instance const& instance);
 
 namespace ea::instance {
 
@@ -54,9 +54,13 @@ class Instance {
 
   core::domain::Vars& get_vars() noexcept;
 
+  core::domain::Vars const& get_vars() const noexcept;
+
   [[nodiscard]] Instance* clone();
 
   Fitness const& fitness();
+
+  Fitness const& fitness() const noexcept;
 
   [[nodiscard]] bool is_cached() const noexcept;
 
@@ -83,7 +87,7 @@ class Instance {
   Fitness fit_{};
 
  private:
-  friend std::ostream& ::operator<<(std::ostream&, ea::instance::Instance& instance);
+  friend std::ostream& ::operator<<(std::ostream&, ea::instance::Instance const& instance);
 };
 
 bool operator<(Instance& a, Instance& b);

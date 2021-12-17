@@ -2,6 +2,7 @@
 #include <boost/timer/progress_display.hpp>
 #include <mutex>
 #include <utility>
+#include <glog/logging.h>
 
 #include "core/util/CliConfig.h"
 #include "core/proto/solve_config.pb.h"
@@ -49,7 +50,8 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 }
 
 int main(int argc, char** argv) {
-  ::google::InitGoogleLogging(argv[0]);
+  core::SigHandler sig_handler;
+  google::InitGoogleLogging(argv[0]);
 
   core::CliConfig& config = add_and_read_args(argc, argv);
   bool backdoor = config.has("backdoor");
@@ -73,7 +75,6 @@ int main(int argc, char** argv) {
     IPS_TRACE(algorithm_solver.parse_cnf(input));
     algorithm->prepare();
 
-    core::SigHandler sig_handler;
     core::SigHandler::CallbackHandle alg_int_handle =
         sig_handler.register_callback([&alg_int_handle, &algorithm](int) {
           algorithm->interrupt();
@@ -158,15 +159,15 @@ int main(int argc, char** argv) {
 
   if (result == core::sat::UNSAT) {
     IPS_INFO("UNSAT");
-    std::cout << "UNSAT";
+    std::cout << "UNSAT" << std::endl;
     return 0;
   } else if (result == core::sat::SAT) {
     IPS_INFO("SAT");
-    std::cout << "SAT";
+    std::cout << "SAT" << std::endl;
     return 1;
   } else {
     IPS_INFO("UNKNOWN");
-    std::cout << "UNKNOWN";
+    std::cout << "UNKNOWN" << std::endl;
     return 2;
   }
 }

@@ -44,7 +44,7 @@ void CliConfig::read_config(std::istream& is, google::protobuf::Message& message
       google::protobuf::util::JsonStringToMessage(message_str, &message);
   if (!status.ok()) {
     std::cerr << "Failed to read  configuration from '" << message_str << "':\n"
-              << status.error_message();
+              << status.error_message() << std::endl;
     IPS_TERMINATE();
   }
 }

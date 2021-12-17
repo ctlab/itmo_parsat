@@ -131,7 +131,7 @@ function parse_options() {
                 ACTION="${actions[$pattern]}"
                 NEEDS_ARG="${needs_arg[$pattern]}"
                 DESC="${descs[$pattern]}"
-                echo "Found: '$1' ~ '$pattern' [$DESC]"
+                echo "Found: '$1' ~ '$pattern' $DESC"
 
                 shift
                 if [[ $NEXT_NATIVE -eq 1 ]]; then

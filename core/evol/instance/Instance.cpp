@@ -30,23 +30,31 @@ core::domain::Vars& Instance::get_vars() noexcept {
   return vars_;
 }
 
+core::domain::Vars const& Instance::get_vars() const noexcept {
+  return vars_;
+}
+
 Instance* Instance::clone() {
   return new Instance(*this);
 }
 
 Fitness const& Instance::fitness() {
-  if (cached_) {
-    return fit_;
+  if (!cached_) {
+    auto const& mask = vars_.get_mask();
+    auto maybe_fit = _cache().get(mask);
+    if (maybe_fit.has_value()) {
+      fit_ = maybe_fit.value();
+    } else {
+      _calc_fitness();
+      _cache().add(mask, fit_);
+    }
+    cached_ = true;
   }
-  auto const& mask = vars_.get_mask();
-  auto maybe_fit = _cache().get(mask);
-  if (maybe_fit.has_value()) {
-    fit_ = maybe_fit.value();
-  } else {
-    _calc_fitness();
-    _cache().add(mask, fit_);
-  }
-  cached_ = true;
+  return fit_;
+}
+
+Fitness const& Instance::fitness() const noexcept {
+  IPS_VERIFY(cached_ && bool("Const-fitness called on non-cached Instance"));
   return fit_;
 }
 
@@ -86,6 +94,7 @@ void Instance::_calc_fitness() {
     _cache().invalidate();
     _calc_fitness();
   } else {
+    cached_ = true;
     IPS_INFO_T(CURRENT_INSTANCE, *this);
   }
 }
@@ -120,10 +129,10 @@ bool operator<(Instance& a, Instance& b) {
 
 }  // namespace ea::instance
 
-std::ostream& operator<<(std::ostream& os, ea::instance::Instance& instance) {
+std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instance) {
   auto vars = instance.get_vars().map_to_vars(instance.var_view());
   std::sort(vars.begin(), vars.end());
   return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
             << " and fitness: " << (double) instance.fitness() << " Vars: " << vars
-            << " sampling size: " << instance._sampling_config().samples;
+            << " sampling size: " << instance.shared_->sampling_config.samples;
 }

@@ -19,7 +19,7 @@
 
 namespace core::assert::_details {
 
-[[noreturn]] void panic(
+void panic(
     char const* file, long line, char const* function, char const* expr, bool abort,
     char const* format, ...);
 
@@ -50,3 +50,4 @@ namespace core::assert::_details {
   } while (false)
 
 #endif  // ITMO_PARSAT_ASSERT_H
+

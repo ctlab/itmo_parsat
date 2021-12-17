@@ -78,7 +78,6 @@ void Algorithm::process() {
   size_t iteration = 0;
   limit_->start();
   while (!is_interrupted() && limit_->proceed(population_)) {
-    step();
     IPS_TRACE(step());
     IPS_INFO_T(
         BEST_INSTANCE, "[Iter " << iteration << "]"

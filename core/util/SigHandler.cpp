@@ -2,54 +2,87 @@
 
 #include <memory>
 
-namespace {
-
-core::SigHandler* handler_{};
-
-void sig_handler_(int sig) {
-  if (handler_) {
-    IPS_INFO("SigHandler caught interrupt.");
-    handler_->set();
-    handler_->callback(sig);
-  }
-}
-
-}  // namespace
-
 namespace core {
 
-SigHandler::CallbackHandle::CallbackHandle(uint64_t handle, SigHandler* handler)
-    : handle_(handle), handler_(handler) {}
+SigHandler::CallbackHandle::~CallbackHandle() noexcept {
+  remove();
+}
 
 void SigHandler::CallbackHandle::remove() {
-  handler_->callbacks_.erase(handle_);
+  std::lock_guard<std::mutex> lg(_handler->_cb_m);
+  _handler->_callbacks.erase(this);
 }
 
 SigHandler::SigHandler() {
-  handler_ = this;
-  std::signal(SIGINT, sig_handler_);
+  sigset_t ss;
+  sigemptyset(&ss);
+  sigaddset(&ss, SIGINT);
+  pthread_sigmask(SIG_BLOCK, &ss, nullptr);
+
+  /**
+   * This thread does all signal handling routine.
+   */
+  _t = std::thread([ss, this]() {
+    timespec ts;
+    ts.tv_nsec = 1e8; // 0.1s
+    ts.tv_sec = 0;
+    siginfo_t si;
+
+    for (;;) {
+      int err = sigtimedwait(&ss, &si, &ts);
+
+      if (_terminate) {
+        break;
+      }
+
+      if (err == -1 && errno == EAGAIN) {
+        continue;
+      } else if (err == -1) {
+        IPS_TERMINATE();
+      }
+
+      IPS_VERIFY(si.si_signo == SIGINT && bool("Only SIGINT is expected in SigHandler"));
+      IPS_INFO("Interrupted");
+      _registered = true;
+      _callback(si.si_signo);
+    }
+  });
+}
+
+SigHandler::~SigHandler() noexcept {
+  if (_t.joinable()) {
+    _terminate = true;
+    _t.join();
+  }
 }
 
 bool SigHandler::is_set() const {
-  return registered_;
+  return _registered;
 }
 
 void SigHandler::unset() {
-  registered_ = false;
-}
-
-void SigHandler::set() {
-  registered_ = true;
+  _registered = false;
 }
 
 SigHandler::CallbackHandle SigHandler::register_callback(callback_t cb) {
-  uint64_t handle = next_handle_++;
-  callbacks_[handle] = std::move(cb);
-  return {handle, this};
+  std::lock_guard<std::mutex> lg(_cb_m);
+  CallbackHandle handle;
+  handle._handler = this;
+  _callbacks[&handle] = std::move(cb);
+  return handle;
 }
 
-void SigHandler::callback(int sig) {
-  std::unordered_map<uint64_t, callback_t> copy(callbacks_);
+void SigHandler::_callback(int sig) {
+  std::unordered_map<CallbackHandle*, callback_t> copy;
+  {
+    // copy all existing callbacks and release lock
+    std::lock_guard<std::mutex> lg(_cb_m);
+    copy = _callbacks;
+  }
+  if (copy.empty()) {
+    // If there are no callbacks registered, the terminate handler will be called.
+    IPS_TERMINATE("SIGINT");
+  }
   for (auto& it : copy) {
     (it.second)(sig);
   }
