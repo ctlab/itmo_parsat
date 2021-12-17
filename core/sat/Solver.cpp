@@ -24,7 +24,8 @@ void Solver::solve_assignments(domain::UAssignment assignment_p, slv_callback_t 
   } while (++assignment);
 }
 
-void Solver::prop_assignments(core::domain::UAssignment assignment_p, prop_callback_t const& callback) {
+void Solver::prop_assignments(
+    core::domain::UAssignment assignment_p, prop_callback_t const& callback) {
   domain::Assignment& assignment = *assignment_p;
   Minisat::vec<Minisat::Lit> propagated;
   do {

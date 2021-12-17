@@ -8,7 +8,8 @@ FitnessLimit::FitnessLimit(FitnessLimitConfig const& config)
 bool FitnessLimit::proceed(instance::Population const& population) {
   auto it = std::max_element(population.begin(), population.end());
   double fitness = (*it)->fitness().rho;
-  IPS_INFO_IF(fitness >= lowest_fitness_,
+  IPS_INFO_IF(
+      fitness >= lowest_fitness_,
       "Fitness exceeded " << lowest_fitness_ << " having value of " << fitness);
   return fitness < lowest_fitness_;
 }

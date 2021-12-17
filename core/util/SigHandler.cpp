@@ -24,7 +24,7 @@ SigHandler::SigHandler() {
    */
   _t = std::thread([ss, this]() {
     timespec ts;
-    ts.tv_nsec = 1e8; // 0.1s
+    ts.tv_nsec = 1e8;  // 0.1s
     ts.tv_sec = 0;
     siginfo_t si;
 

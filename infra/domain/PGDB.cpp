@@ -15,4 +15,4 @@ void PGDB::_exec0(std::string const& sql) {
   work.commit();
 }
 
-}  // namespace infra::instance
+}  // namespace infra::domain

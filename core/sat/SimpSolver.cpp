@@ -41,11 +41,10 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   }
 
   if (preprocess_) {
-    IPS_INFO_T(SOLVER_STATS_PREPROCESS,
-        "Stats before preprocess: " << nClauses() << ' ' << nVars());
+    IPS_INFO_T(
+        SOLVER_STATS_PREPROCESS, "Stats before preprocess: " << nClauses() << ' ' << nVars());
     eliminate(true);
-    IPS_INFO_T(SOLVER_STATS_PREPROCESS,
-        "Stats after preprocess: " << nClauses() << ' ' << nVars());
+    IPS_INFO_T(SOLVER_STATS_PREPROCESS, "Stats after preprocess: " << nClauses() << ' ' << nVars());
   }
 }
 

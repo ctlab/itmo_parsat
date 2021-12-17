@@ -48,7 +48,8 @@ class LaunchFixture : public ::testing::Test {
   static void _prepare_resources();
 
   static infra::domain::LaunchResult _get_launch_result(
-      bool interrupted, infra::domain::SatResult result, infra::domain::SatResult expected) noexcept;
+      bool interrupted, infra::domain::SatResult result,
+      infra::domain::SatResult expected) noexcept;
 
  private:
   std::unique_ptr<infra::domain::Launches> launches;

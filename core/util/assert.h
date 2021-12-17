@@ -30,16 +30,16 @@ void panic(
 
 #define IPS_VERIFY assert
 
-#define IPS_SYSCALL(call)                                                     \
-  [&](char const* syscall_function) noexcept {                                \
-    auto syscall_result = call;                                               \
-    if (IPS_UNLIKELY(syscall_result == -1)) {                                 \
-      ::core::assert::_details::panic(                                        \
-          __FILE__, __LINE__, syscall_function,                               \
-          BOOST_PP_STRINGIZE(call), true, "%s (%d)", strerror(errno), errno); \
-      __builtin_unreachable();                                                \
-    }                                                                         \
-    return syscall_result;                                                    \
+#define IPS_SYSCALL(call)                                                                  \
+  [&](char const* syscall_function) noexcept {                                             \
+    auto syscall_result = call;                                                            \
+    if (IPS_UNLIKELY(syscall_result == -1)) {                                              \
+      ::core::assert::_details::panic(                                                     \
+          __FILE__, __LINE__, syscall_function, BOOST_PP_STRINGIZE(call), true, "%s (%d)", \
+          strerror(errno), errno);                                                         \
+      __builtin_unreachable();                                                             \
+    }                                                                                      \
+    return syscall_result;                                                                 \
   }(BOOST_CURRENT_FUNCTION)
 
 #define IPS_TERMINATE(...)                                                        \
@@ -50,4 +50,3 @@ void panic(
   } while (false)
 
 #endif  // ITMO_PARSAT_ASSERT_H
-

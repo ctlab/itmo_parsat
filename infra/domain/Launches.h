@@ -46,6 +46,6 @@ class Launches : PGDB {
   Launches& remove(uint32_t launch_id);
 };
 
-}  // namespace infra::instance
+}  // namespace infra::domain
 
 #endif  // ITMO_PARSAT_LAUNCHES_H

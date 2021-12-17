@@ -59,4 +59,4 @@ Launches& Launches::remove(uint32_t launch_id) {
   return *this;
 }
 
-}  // namespace infra::instance
+}  // namespace infra::domain

@@ -142,6 +142,6 @@ UAssignment createFullSearch(VarView const& var_view, std::vector<bool> const& v
 UAssignment createRandomSearch(
     VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
-}  // namespace core::instance
+}  // namespace core::domain
 
 #endif  // EVOL_ASSIGNMENT_H

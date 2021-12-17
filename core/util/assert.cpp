@@ -192,4 +192,3 @@ bool set_sigsegv_handler() {
 [[gnu::unused]] const auto sigbus_handler_is_set = set_sigbus_handler();
 
 [[gnu::unused]] const auto sigsegv_handler_is_set = set_sigsegv_handler();
-

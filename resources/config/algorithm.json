@@ -67,11 +67,11 @@
                 "instance_config": {
                     "omega_x": 20,
                     "heuristic_size": 200,
-                    "max_cache_size": 10000,
+                    "max_cache_size": 1000,
                     "sampling_config": {
                         "base_count": 4000,
-                        "max_steps": 2,
-                        "scale": 2.0
+                        "max_steps": 3,
+                        "scale": 1.5
                     }
                 }
             }

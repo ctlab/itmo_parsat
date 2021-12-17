@@ -18,6 +18,6 @@ class PGDB {
   pqxx::connection conn_;
 };
 
-}  // namespace infra::instance
+}  // namespace infra::domain
 
 #endif  // ITMO_PARSAT_PGDB_H

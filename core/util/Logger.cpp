@@ -50,4 +50,3 @@ bool Logger::_should_log(LogType log_type) noexcept {
 }
 
 }  // namespace core
-

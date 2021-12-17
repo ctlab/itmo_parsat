@@ -82,19 +82,23 @@ void Instance::_calc_fitness() {
       });
   // clang-format on
 
-  IPS_WARNING_IF(total != (int) samples,
+  IPS_WARNING_IF(
+      total != (int) samples,
       "Internal error: invalid assignments behaviour: " << total << " != " << samples);
   fit_.rho = (double) success / (double) total;
   fit_.pow_r = size;
   fit_.pow_nr = (int) shared_->omega_x;
 
+  cached_ = true;
   if (fit_.rho == 1.0 && _sampling_config().can_scale > 0) {
-    IPS_INFO_T(FITNESS_SCALE, "Fitness reached 1, scaling sampling size, invalidating cache.");
+    IPS_INFO_T(
+        FITNESS_SCALE, "Fitness reached 1, scaling sampling size, invalidating cache. Instance:\n"
+                           << *this);
+    cached_ = false;
     _sampling_config().do_scale();
     _cache().invalidate();
     _calc_fitness();
   } else {
-    cached_ = true;
     IPS_INFO_T(CURRENT_INSTANCE, *this);
   }
 }

@@ -14,4 +14,4 @@ size_t VarView::size() const noexcept {
   return map_.size();
 }
 
-}  // namespace core::instance
+}  // namespace core::domain

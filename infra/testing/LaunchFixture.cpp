@@ -119,8 +119,7 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
     /* Copy configuration */
     std::filesystem::path real_config_path =
         config.resources_dir / "config" / launch_config.config_path;
-    std::filesystem::path real_input_path =
-        config.resources_dir / "cnf" / launch_config.input_path;
+    std::filesystem::path real_input_path = config.resources_dir / "cnf" / launch_config.input_path;
     std::filesystem::copy_file(real_config_path, config_path);
 
     // clang-format off

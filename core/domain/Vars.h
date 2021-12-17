@@ -23,6 +23,6 @@ struct Vars {
   [[nodiscard]] std::vector<int> map_to_vars(VarView const& var_view) const;
 };
 
-}  // namespace core::instance
+}  // namespace core::domain
 
 #endif  // ITMO_PARSAT_VARS_H

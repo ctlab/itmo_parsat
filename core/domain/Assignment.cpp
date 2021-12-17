@@ -83,7 +83,8 @@ bool Assignment::operator++() {
 }
 
 uint64_t SmallSearch::_set_range() {
-  IPS_VERIFY(assignment_.size() <= MAX_VARS_FULL_SEARCH &&
+  IPS_VERIFY(
+      assignment_.size() <= MAX_VARS_FULL_SEARCH &&
       bool("Small search can be used only for small assignments!"));
   first_ = 0;
   last_ = range_max(assignment_.size());

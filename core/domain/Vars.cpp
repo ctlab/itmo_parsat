@@ -29,4 +29,4 @@ std::vector<int> Vars::map_to_vars(VarView const& var_view) const {
   return vars;
 }
 
-}  // namespace core::instance
+}  // namespace core::domain

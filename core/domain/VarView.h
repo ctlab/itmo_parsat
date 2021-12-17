@@ -19,6 +19,6 @@ class VarView {
   std::unordered_map<int, int> map_;
 };
 
-}  // namespace core::instance
+}  // namespace core::domain
 
 #endif  // ITMO_PARSAT_VARVIEW_H

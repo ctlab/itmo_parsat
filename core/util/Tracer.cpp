@@ -44,7 +44,7 @@ void Tracer::_end_trace(const std::string& identifier) {
   IPS_VERIFY(it != start_.end() && bool("end_trace with no start_trace"));
   std::chrono::duration<double> dur = std::chrono::system_clock::now() - it->second;
   start_.erase(it);
-  IPS_INFO(identifier << " took " << dur.count() << "s");
+  IPS_INFO_T(TRACER, identifier << " took " << dur.count() << "s");
 }
 
 }  // namespace core
