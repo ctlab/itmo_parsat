@@ -9,14 +9,20 @@ namespace ea::limit {
 
 class ConjLimit : public Limit {
  public:
+  /**
+   * Conjunction of a set of limits.
+   */
   explicit ConjLimit(const ConjLimitConfig& config);
 
-  bool proceed(instance::Population const& population) override;
+  /**
+   * @return true iff *all* of limits returned true
+   */
+  bool proceed(ea::algorithm::Algorithm& algorithm) override;
 
   void start() override;
 
  private:
-  std::vector<RLimit> limits_;
+  std::vector<RLimit> _limits;
 };
 
 }  // namespace ea::limit

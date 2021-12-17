@@ -55,6 +55,10 @@ message FitnessLimitConfig {
   double lowest_fitness = 1;
 }
 
+message PointsLimitConfig {
+  uint32 max_points_visited = 1;
+}
+
 message ConjLimitConfig {
   repeated LimitConfig limit_config = 1;
 }
@@ -64,6 +68,7 @@ message LimitConfig {
   ResourceLimitConfig resource_limit_config = 2;
   FitnessLimitConfig fitness_limit_config = 3;
   ConjLimitConfig conj_limit_config = 4;
+  PointsLimitConfig points_limit_config = 5;
 }
 
 message UniformMutationConfig {

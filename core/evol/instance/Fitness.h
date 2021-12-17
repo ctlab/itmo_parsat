@@ -6,15 +6,24 @@
 
 namespace ea::instance {
 
+/**
+ * This structure represents Instances' fitnesses.
+ * Mathematically, it is calculated as
+ *      rho * 2^{pow_r} + (1 - rho) * 2^{pow_nr}
+ */
 struct Fitness {
   double rho;
   int32_t pow_r;
   int32_t pow_nr;
 
-  /* Check whether value can be calculated using uint64 and double types. */
+  /**
+   * @return whether value can be calculated using uint64 and double types
+   */
   [[nodiscard]] bool can_calc() const;
 
-  /* Better check if `can_calc` before using. */
+  /**
+   * @return the fitness value in double
+   */
   explicit operator double() const;
 };
 

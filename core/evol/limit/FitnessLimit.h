@@ -7,16 +7,18 @@ namespace ea::limit {
 
 class FitnessLimit : public Limit {
  public:
-  explicit FitnessLimit(const FitnessLimitConfig& config);
+  /**
+   * This limit controls execution by comparing best fitness with the specified limit.
+   */
+  explicit FitnessLimit(FitnessLimitConfig const& config);
 
   /**
-   * Proceeds if the best instance in population has fitness
-   * higher than the specified value.
+   * @return iff the best instance in population has fitness higher than the specified value.
    */
-  bool proceed(instance::Population const& population) override;
+  bool proceed(ea::algorithm::Algorithm& algorithm) override;
 
  private:
-  double lowest_fitness_;
+  double _lowest_fitness;
 };
 
 }  // namespace ea::limit

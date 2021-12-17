@@ -32,7 +32,7 @@ sat::State SBSSolve::solve(std::filesystem::path const& input) {
   size_t num_vars = r_backdoor.fitness().pow_r;
   std::vector<bool> vars = r_backdoor.get_vars().get_mask();
   core::domain::UAssignment assignment_p =
-      core::domain::createFullSearch(r_backdoor.var_view(), vars);
+      core::domain::createFullSearch(algorithm->get_shared_data().var_view, vars);
   std::mutex progress_lock;
 
   boost::timer::progress_display progress((unsigned long) std::pow(2UL, num_vars), std::cerr);

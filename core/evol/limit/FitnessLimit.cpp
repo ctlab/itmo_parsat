@@ -1,17 +1,18 @@
 #include "core/evol/limit/FitnessLimit.h"
 
+#include "core/evol/algorithm/Algorithm.h"
+
 namespace ea::limit {
 
 FitnessLimit::FitnessLimit(FitnessLimitConfig const& config)
-    : lowest_fitness_(config.lowest_fitness()) {}
+    : _lowest_fitness(config.lowest_fitness()) {}
 
-bool FitnessLimit::proceed(instance::Population const& population) {
-  auto it = std::max_element(population.begin(), population.end());
-  double fitness = (*it)->fitness().rho;
+bool FitnessLimit::proceed(ea::algorithm::Algorithm& algorithm) {
+  auto fitness = static_cast<double>(algorithm.get_best().fitness());
   IPS_INFO_IF(
-      fitness >= lowest_fitness_,
-      "Fitness exceeded " << lowest_fitness_ << " having value of " << fitness);
-  return fitness < lowest_fitness_;
+      fitness >= _lowest_fitness,
+      "Fitness exceeded " << _lowest_fitness << " having value of " << fitness);
+  return fitness < _lowest_fitness;
 }
 
 REGISTER_PROTO(Limit, FitnessLimit, fitness_limit_config);

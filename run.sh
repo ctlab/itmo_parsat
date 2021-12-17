@@ -86,7 +86,8 @@ function do_set_verbose() {
 }
 
 function do_unit() {
-    GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $TEST_BIN $@
+    GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $TEST_BIN \
+        --verbose $VERBOSE $@
 }
 
 function do_infra() {
@@ -101,7 +102,8 @@ function do_infra() {
 
 function do_solve() {
     if [[ -z "$@" ]]; then
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
+        GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
+            --verbose "$VERBOSE" \
             --input "$CNF_PATH" \
             --config "$SLV_CFG_PATH" \
             --log-config "$LOG_CFG_PATH"

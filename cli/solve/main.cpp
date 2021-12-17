@@ -17,6 +17,7 @@ core::CliConfig add_and_read_args(int argc, char** argv) {
   po::options_description description;
   // clang-format off
   description.add_options()
+      ("verbose,v", po::value<int>()->default_value(2), "Verbosity level.")
       ("log-config,l", po::value<std::filesystem::path>()->required(), "Path to JSON Logging configuration.")
       ("config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
       ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
@@ -49,6 +50,9 @@ int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   core::CliConfig config = add_and_read_args(argc, argv);
 
+  if (config.has("verbose")) {
+    fLI::FLAGS_v = config.get<int>("verbose");
+  }
   std::filesystem::path input = config.get<std::filesystem::path>("input");
   std::filesystem::path solver_cfg_path = config.get<std::filesystem::path>("config");
   std::filesystem::path logger_cfg_path = config.get<std::filesystem::path>("log-config");

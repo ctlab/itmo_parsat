@@ -6,6 +6,7 @@
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"
 #include "core/evol/instance/Instance.h"
+#include "core/evol/instance/SharedData.h"
 #include "core/evol/limit/Limit.h"
 #include "core/evol/method/select/Selector.h"
 #include "core/util/Logger.h"
@@ -39,6 +40,8 @@ class Algorithm {
 
   instance::Instance& get_best() noexcept;
 
+  instance::SharedData& get_shared_data() noexcept;
+
   [[nodiscard]] size_t inaccurate_points() const noexcept;
 
  protected:
@@ -49,7 +52,7 @@ class Algorithm {
  protected:
   InstanceConfig _instance_config;
   instance::Population _population;
-  instance::Instance::RSharedData _shared_data;
+  instance::RSharedData _shared_data;
   core::sat::RSolver _solver;
 
  private:

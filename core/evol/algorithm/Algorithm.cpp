@@ -1,7 +1,6 @@
 #include "core/evol/algorithm/Algorithm.h"
 
 #include "core/util/Logger.h"
-#include "core/util/SigHandler.h"
 #include "core/util/stream.h"
 
 namespace {
@@ -20,7 +19,7 @@ void collect_stats(
 namespace ea::algorithm {
 
 void Algorithm::_init_shared_data(InstanceConfig const& config) {
-  _shared_data = std::make_shared<instance::Instance::SharedData>();
+  _shared_data = std::make_shared<instance::SharedData>();
   _shared_data->omega_x = config.omega_x();
   _shared_data->cache.set_max_size(config.max_cache_size());
   _shared_data->sampling_config.samples = config.sampling_config().base_count();
@@ -77,7 +76,7 @@ void Algorithm::_prepare() {}
 void Algorithm::process() {
   size_t iteration = 0;
   _limit->start();
-  while (!is_interrupted() && _limit->proceed(_population)) {
+  while (!is_interrupted() && _limit->proceed(*this)) {
     IPS_TRACE(step());
     IPS_INFO_T(
         BEST_INSTANCE, "[Iter " << iteration << "]"
@@ -107,6 +106,10 @@ instance::Population& Algorithm::get_population() noexcept {
 instance::Instance& Algorithm::get_best() noexcept {
   return *(*std::min_element(
       _population.begin(), _population.end(), [](auto& a, auto& b) { return *a < *b; }));
+}
+
+instance::SharedData& Algorithm::get_shared_data() noexcept {
+  return *_shared_data;
 }
 
 size_t Algorithm::inaccurate_points() const noexcept {

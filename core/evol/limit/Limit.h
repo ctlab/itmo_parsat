@@ -5,22 +5,29 @@
 
 #include "core/util/Registry.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/evol/instance/Instance.h"
+
+namespace ea::algorithm {
+
+class Algorithm;
+
+}  // namespace ea::algorithm
 
 namespace ea::limit {
 
+/**
+ * This is an interface for all limits that control the execution of an algorithm.
+ */
 class Limit {
  public:
   virtual ~Limit() = default;
 
   /**
-   * Returns true if algorithm can and should proceed.
+   * @return if algorithm can and should proceed.
    */
-  virtual bool proceed(instance::Population const& population) = 0;
+  virtual bool proceed(ea::algorithm::Algorithm& algorithm) = 0;
 
   /**
-   * Indicates that limit must start tracking parameters
-   * that it should track (for ex. memory/time consumption).
+   * @return true iff the algorithm should proceed.
    */
   virtual void start() {}
 };

@@ -9,14 +9,8 @@
 
 namespace ea::instance {
 
-void Instance::SamplingConfig::do_scale() {
-  IPS_VERIFY(can_scale > 0U && bool("do_scale called when scaling is not possible."));
-  --can_scale;
-  samples = (uint32_t)(samples * scale);
-}
-
 size_t Instance::num_vars() const noexcept {
-  return var_view().size();
+  return shared_->var_view.size();
 }
 
 Instance::Instance(core::sat::RSolver solver, RSharedData shared_data)
@@ -67,9 +61,9 @@ void Instance::_calc_fitness() {
   core::domain::UAssignment assignment_p;
   if (std::log2(samples) >= (double) size) {
     samples = (uint32_t) std::pow(2UL, size);
-    assignment_p = core::domain::createFullSearch(var_view(), mask);
+    assignment_p = core::domain::createFullSearch(_var_view(), mask);
   } else {
-    assignment_p = core::domain::createRandomSearch(var_view(), mask, samples);
+    assignment_p = core::domain::createRandomSearch(_var_view(), mask, samples);
   }
 
   // clang-format off
@@ -103,15 +97,11 @@ void Instance::_calc_fitness() {
   }
 }
 
-core::domain::VarView const& Instance::var_view() const noexcept {
-  return shared_->var_view;
-}
-
 bool Instance::is_cached() const noexcept {
   return cached_ || shared_->cache.get(vars_.get_mask()).has_value();
 }
 
-Instance::SamplingConfig& Instance::_sampling_config() noexcept {
+instance::SharedData::SamplingConfig& Instance::_sampling_config() noexcept {
   return shared_->sampling_config;
 }
 
@@ -134,7 +124,7 @@ bool operator<(Instance& a, Instance& b) {
 }  // namespace ea::instance
 
 std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instance) {
-  auto vars = instance.get_vars().map_to_vars(instance.var_view());
+  auto vars = instance.get_vars().map_to_vars(instance.shared_->var_view);
   std::sort(vars.begin(), vars.end());
   return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
             << " and fitness: " << (double) instance.fitness() << " Vars: " << vars
