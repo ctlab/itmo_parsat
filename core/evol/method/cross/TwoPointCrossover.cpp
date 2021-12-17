@@ -16,6 +16,6 @@ void TwoPointCrossover::apply(instance::Instance& a, instance::Instance& b) {
   std::swap_ranges(a_mask.begin() + pos_1, a_mask.begin() + pos_2, b_mask.begin() + pos_1);
 }
 
-REGISTER_SIMPLE(Crossover, TwoPointCrossover, CrossoverConfig);
+REGISTER_SIMPLE(Crossover, TwoPointCrossover);
 
 }  // namespace ea::method

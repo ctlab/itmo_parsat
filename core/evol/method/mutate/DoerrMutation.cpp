@@ -45,6 +45,6 @@ void DoerrMutation::apply(instance::Instance& instance) {
   }
 }
 
-REGISTER_PROTO(Mutation, DoerrMutation, MutationConfig, doerr_mutation_config);
+REGISTER_PROTO(Mutation, DoerrMutation, doerr_mutation_config);
 
 }  // namespace ea::method

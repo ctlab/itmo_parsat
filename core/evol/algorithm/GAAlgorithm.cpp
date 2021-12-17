@@ -83,6 +83,6 @@ void GAAlgorithm::_recalc_fits() {
   }
 }
 
-REGISTER_PROTO(Algorithm, GAAlgorithm, AlgorithmConfig, ga_algorithm_config);
+REGISTER_PROTO(Algorithm, GAAlgorithm, ga_algorithm_config);
 
 }  // namespace ea::algorithm

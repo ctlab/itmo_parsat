@@ -14,14 +14,25 @@
 namespace core {
 
 class Tracer {
+ private:
+  Tracer() = default;
+
  public:
-  Tracer();
-
-  ~Tracer() noexcept;
-
+  /**
+   * Starts tracing of `identifier'.
+   * Only one concurrent trace if `identifier' can occurr.
+   */
   static void start_trace(std::string const& identifier);
 
+  /**
+   * Ends tracing of `identifier' and logs execution time.
+   */
   static void end_trace(std::string const& identifier);
+
+  /**
+   * Tracer can only be accessed through this method (maybe indirectly).
+   */
+  static Tracer& instance();
 
  private:
   void _start_trace(std::string const& identifier);
@@ -42,12 +53,23 @@ class Tracer {
   expr;                              \
   ::core::Tracer::end_trace(name)
 
+#define IPS_TRACE_V_NAMED(name, expr)              \
+  [&] {                                            \
+    ::core::Tracer::start_trace(name);             \
+    auto&& result = expr;                          \
+    ::core::Tracer::end_trace(name);               \
+    return std::forward<decltype(result)>(result); \
+  }()
+
 #else
 
 #define IPS_TRACE_NAMED(name, expr) expr
+#define IPS_TRACE_V_NAMED(name, expr) expr
 
 #endif
 
 #define IPS_TRACE(expr) IPS_TRACE_NAMED(#expr, expr)
+
+#define IPS_TRACE_V(expr) IPS_TRACE_V_NAMED(#expr, expr)
 
 #endif  // ITMO_PARSAT_TRACER_H

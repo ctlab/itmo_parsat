@@ -10,7 +10,7 @@
 #include "core/evol/instance/Fitness.h"
 #include "core/util/stream.h"
 #include "core/util/Logger.h"
-#include "core/util/Cache.h"
+#include "core/util/LRUCache.h"
 
 namespace ea::instance {
 
@@ -41,7 +41,7 @@ class Instance {
 
   struct SharedData {
     SamplingConfig sampling_config{};
-    core::Cache<std::vector<bool>, Fitness> cache{};
+    core::LRUCache<std::vector<bool>, Fitness> cache{};
     core::domain::VarView var_view{};
     uint32_t inaccurate_points = 0;
     uint32_t omega_x{};
@@ -73,7 +73,7 @@ class Instance {
 
   SamplingConfig& _sampling_config() noexcept;
 
-  core::Cache<std::vector<bool>, Fitness>& _cache() noexcept;
+  core::LRUCache<std::vector<bool>, Fitness>& _cache() noexcept;
 
   uint32_t& _inaccurate_points() noexcept;
 

@@ -11,6 +11,6 @@ void BestSelector::select(instance::Population& population, size_t size) {
   }
 }
 
-REGISTER_SIMPLE(Selector, BestSelector, SelectorConfig);
+REGISTER_SIMPLE(Selector, BestSelector);
 
 }  // namespace ea::method

@@ -47,7 +47,7 @@ struct TableStruct_core_2fproto_2fsolve_5fconfig_2eproto {
       entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField
       aux[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[21] PROTOBUF_SECTION_VARIABLE(
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[23] PROTOBUF_SECTION_VARIABLE(
       protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -98,12 +98,18 @@ extern MinisatCliConfigDefaultTypeInternal _MinisatCliConfig_default_instance_;
 class MutationConfig;
 class MutationConfigDefaultTypeInternal;
 extern MutationConfigDefaultTypeInternal _MutationConfig_default_instance_;
+class NaiveSolveConfig;
+class NaiveSolveConfigDefaultTypeInternal;
+extern NaiveSolveConfigDefaultTypeInternal _NaiveSolveConfig_default_instance_;
 class ParSolverConfig;
 class ParSolverConfigDefaultTypeInternal;
 extern ParSolverConfigDefaultTypeInternal _ParSolverConfig_default_instance_;
 class ResourceLimitConfig;
 class ResourceLimitConfigDefaultTypeInternal;
 extern ResourceLimitConfigDefaultTypeInternal _ResourceLimitConfig_default_instance_;
+class SBSSolveConfig;
+class SBSSolveConfigDefaultTypeInternal;
+extern SBSSolveConfigDefaultTypeInternal _SBSSolveConfig_default_instance_;
 class SelectorConfig;
 class SelectorConfigDefaultTypeInternal;
 extern SelectorConfigDefaultTypeInternal _SelectorConfig_default_instance_;
@@ -150,9 +156,13 @@ template <>
 template <>
 ::MutationConfig* Arena::CreateMaybeMessage<::MutationConfig>(Arena*);
 template <>
+::NaiveSolveConfig* Arena::CreateMaybeMessage<::NaiveSolveConfig>(Arena*);
+template <>
 ::ParSolverConfig* Arena::CreateMaybeMessage<::ParSolverConfig>(Arena*);
 template <>
 ::ResourceLimitConfig* Arena::CreateMaybeMessage<::ResourceLimitConfig>(Arena*);
+template <>
+::SBSSolveConfig* Arena::CreateMaybeMessage<::SBSSolveConfig>(Arena*);
 template <>
 ::SelectorConfig* Arena::CreateMaybeMessage<::SelectorConfig>(Arena*);
 template <>
@@ -2771,9 +2781,8 @@ class SelectorConfig PROTOBUF_FINAL
 // -------------------------------------------------------------------
 
 class InstanceConfig_SamplingSizeConfig PROTOBUF_FINAL
-    : public ::PROTOBUF_NAMESPACE_ID::
-          Message /* @@protoc_insertion_point(class_definition:InstanceConfig.SamplingSizeConfig)
-                   */
+    : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:InstanceConfig.SamplingSizeConfig)
+                                               */
 {
  public:
   inline InstanceConfig_SamplingSizeConfig() : InstanceConfig_SamplingSizeConfig(nullptr) {}
@@ -4011,6 +4020,347 @@ class AlgorithmConfig PROTOBUF_FINAL
 };
 // -------------------------------------------------------------------
 
+class SBSSolveConfig PROTOBUF_FINAL
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:SBSSolveConfig) */ {
+ public:
+  inline SBSSolveConfig() : SBSSolveConfig(nullptr) {}
+  virtual ~SBSSolveConfig();
+
+  SBSSolveConfig(const SBSSolveConfig& from);
+  SBSSolveConfig(SBSSolveConfig&& from) noexcept : SBSSolveConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline SBSSolveConfig& operator=(const SBSSolveConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SBSSolveConfig& operator=(SBSSolveConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from)
+        InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SBSSolveConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SBSSolveConfig* internal_default_instance() {
+    return reinterpret_cast<const SBSSolveConfig*>(&_SBSSolveConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 20;
+
+  friend void swap(SBSSolveConfig& a, SBSSolveConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SBSSolveConfig* other) {
+    if (other == this)
+      return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SBSSolveConfig* other) {
+    if (other == this)
+      return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SBSSolveConfig* New() const final {
+    return CreateMaybeMessage<SBSSolveConfig>(nullptr);
+  }
+
+  SBSSolveConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SBSSolveConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SBSSolveConfig& from);
+  void MergeFrom(const SBSSolveConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(
+      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target,
+      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final {
+    return _cached_size_.Get();
+  }
+
+ private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SBSSolveConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SBSSolveConfig";
+  }
+
+ protected:
+  explicit SBSSolveConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ public:
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+ private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
+    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
+        .file_level_metadata[kIndexInFileMessages];
+  }
+
+ public:
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAlgorithmConfigFieldNumber = 1,
+    kSolverConfigFieldNumber = 2,
+  };
+  // .AlgorithmConfig algorithm_config = 1;
+  bool has_algorithm_config() const;
+
+ private:
+  bool _internal_has_algorithm_config() const;
+
+ public:
+  void clear_algorithm_config();
+  const ::AlgorithmConfig& algorithm_config() const;
+  ::AlgorithmConfig* release_algorithm_config();
+  ::AlgorithmConfig* mutable_algorithm_config();
+  void set_allocated_algorithm_config(::AlgorithmConfig* algorithm_config);
+
+ private:
+  const ::AlgorithmConfig& _internal_algorithm_config() const;
+  ::AlgorithmConfig* _internal_mutable_algorithm_config();
+
+ public:
+  void unsafe_arena_set_allocated_algorithm_config(::AlgorithmConfig* algorithm_config);
+  ::AlgorithmConfig* unsafe_arena_release_algorithm_config();
+
+  // .SolverConfig solver_config = 2;
+  bool has_solver_config() const;
+
+ private:
+  bool _internal_has_solver_config() const;
+
+ public:
+  void clear_solver_config();
+  const ::SolverConfig& solver_config() const;
+  ::SolverConfig* release_solver_config();
+  ::SolverConfig* mutable_solver_config();
+  void set_allocated_solver_config(::SolverConfig* solver_config);
+
+ private:
+  const ::SolverConfig& _internal_solver_config() const;
+  ::SolverConfig* _internal_mutable_solver_config();
+
+ public:
+  void unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config);
+  ::SolverConfig* unsafe_arena_release_solver_config();
+
+  // @@protoc_insertion_point(class_scope:SBSSolveConfig)
+ private:
+  class _Internal;
+
+  template <typename T>
+  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::AlgorithmConfig* algorithm_config_;
+  ::SolverConfig* solver_config_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NaiveSolveConfig PROTOBUF_FINAL
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:NaiveSolveConfig) */ {
+ public:
+  inline NaiveSolveConfig() : NaiveSolveConfig(nullptr) {}
+  virtual ~NaiveSolveConfig();
+
+  NaiveSolveConfig(const NaiveSolveConfig& from);
+  NaiveSolveConfig(NaiveSolveConfig&& from) noexcept : NaiveSolveConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline NaiveSolveConfig& operator=(const NaiveSolveConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NaiveSolveConfig& operator=(NaiveSolveConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from)
+        InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const NaiveSolveConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const NaiveSolveConfig* internal_default_instance() {
+    return reinterpret_cast<const NaiveSolveConfig*>(&_NaiveSolveConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 21;
+
+  friend void swap(NaiveSolveConfig& a, NaiveSolveConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NaiveSolveConfig* other) {
+    if (other == this)
+      return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NaiveSolveConfig* other) {
+    if (other == this)
+      return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline NaiveSolveConfig* New() const final {
+    return CreateMaybeMessage<NaiveSolveConfig>(nullptr);
+  }
+
+  NaiveSolveConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<NaiveSolveConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const NaiveSolveConfig& from);
+  void MergeFrom(const NaiveSolveConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(
+      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target,
+      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final {
+    return _cached_size_.Get();
+  }
+
+ private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(NaiveSolveConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "NaiveSolveConfig";
+  }
+
+ protected:
+  explicit NaiveSolveConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ public:
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+ private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
+    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
+        .file_level_metadata[kIndexInFileMessages];
+  }
+
+ public:
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSolverConfigFieldNumber = 1,
+  };
+  // .SolverConfig solver_config = 1;
+  bool has_solver_config() const;
+
+ private:
+  bool _internal_has_solver_config() const;
+
+ public:
+  void clear_solver_config();
+  const ::SolverConfig& solver_config() const;
+  ::SolverConfig* release_solver_config();
+  ::SolverConfig* mutable_solver_config();
+  void set_allocated_solver_config(::SolverConfig* solver_config);
+
+ private:
+  const ::SolverConfig& _internal_solver_config() const;
+  ::SolverConfig* _internal_mutable_solver_config();
+
+ public:
+  void unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config);
+  ::SolverConfig* unsafe_arena_release_solver_config();
+
+  // @@protoc_insertion_point(class_scope:NaiveSolveConfig)
+ private:
+  class _Internal;
+
+  template <typename T>
+  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::SolverConfig* solver_config_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SolveConfig PROTOBUF_FINAL
     : public ::PROTOBUF_NAMESPACE_ID::
           Message /* @@protoc_insertion_point(class_definition:SolveConfig) */ {
@@ -4052,7 +4402,7 @@ class SolveConfig PROTOBUF_FINAL
   static inline const SolveConfig* internal_default_instance() {
     return reinterpret_cast<const SolveConfig*>(&_SolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 20;
+  static constexpr int kIndexInFileMessages = 22;
 
   friend void swap(SolveConfig& a, SolveConfig& b) {
     a.Swap(&b);
@@ -4133,50 +4483,68 @@ class SolveConfig PROTOBUF_FINAL
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAlgorithmConfigFieldNumber = 1,
-    kSolverConfigFieldNumber = 2,
+    kSolveTypeFieldNumber = 1,
+    kNaiveSolveConfigFieldNumber = 2,
+    kSbsSolveConfigFieldNumber = 3,
   };
-  // .AlgorithmConfig algorithm_config = 1;
-  bool has_algorithm_config() const;
+  // string solve_type = 1;
+  void clear_solve_type();
+  const std::string& solve_type() const;
+  void set_solve_type(const std::string& value);
+  void set_solve_type(std::string&& value);
+  void set_solve_type(const char* value);
+  void set_solve_type(const char* value, size_t size);
+  std::string* mutable_solve_type();
+  std::string* release_solve_type();
+  void set_allocated_solve_type(std::string* solve_type);
 
  private:
-  bool _internal_has_algorithm_config() const;
+  const std::string& _internal_solve_type() const;
+  void _internal_set_solve_type(const std::string& value);
+  std::string* _internal_mutable_solve_type();
 
  public:
-  void clear_algorithm_config();
-  const ::AlgorithmConfig& algorithm_config() const;
-  ::AlgorithmConfig* release_algorithm_config();
-  ::AlgorithmConfig* mutable_algorithm_config();
-  void set_allocated_algorithm_config(::AlgorithmConfig* algorithm_config);
+  // .NaiveSolveConfig naive_solve_config = 2;
+  bool has_naive_solve_config() const;
 
  private:
-  const ::AlgorithmConfig& _internal_algorithm_config() const;
-  ::AlgorithmConfig* _internal_mutable_algorithm_config();
+  bool _internal_has_naive_solve_config() const;
 
  public:
-  void unsafe_arena_set_allocated_algorithm_config(::AlgorithmConfig* algorithm_config);
-  ::AlgorithmConfig* unsafe_arena_release_algorithm_config();
-
-  // .SolverConfig solver_config = 2;
-  bool has_solver_config() const;
+  void clear_naive_solve_config();
+  const ::NaiveSolveConfig& naive_solve_config() const;
+  ::NaiveSolveConfig* release_naive_solve_config();
+  ::NaiveSolveConfig* mutable_naive_solve_config();
+  void set_allocated_naive_solve_config(::NaiveSolveConfig* naive_solve_config);
 
  private:
-  bool _internal_has_solver_config() const;
+  const ::NaiveSolveConfig& _internal_naive_solve_config() const;
+  ::NaiveSolveConfig* _internal_mutable_naive_solve_config();
 
  public:
-  void clear_solver_config();
-  const ::SolverConfig& solver_config() const;
-  ::SolverConfig* release_solver_config();
-  ::SolverConfig* mutable_solver_config();
-  void set_allocated_solver_config(::SolverConfig* solver_config);
+  void unsafe_arena_set_allocated_naive_solve_config(::NaiveSolveConfig* naive_solve_config);
+  ::NaiveSolveConfig* unsafe_arena_release_naive_solve_config();
+
+  // .SBSSolveConfig sbs_solve_config = 3;
+  bool has_sbs_solve_config() const;
 
  private:
-  const ::SolverConfig& _internal_solver_config() const;
-  ::SolverConfig* _internal_mutable_solver_config();
+  bool _internal_has_sbs_solve_config() const;
 
  public:
-  void unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config);
-  ::SolverConfig* unsafe_arena_release_solver_config();
+  void clear_sbs_solve_config();
+  const ::SBSSolveConfig& sbs_solve_config() const;
+  ::SBSSolveConfig* release_sbs_solve_config();
+  ::SBSSolveConfig* mutable_sbs_solve_config();
+  void set_allocated_sbs_solve_config(::SBSSolveConfig* sbs_solve_config);
+
+ private:
+  const ::SBSSolveConfig& _internal_sbs_solve_config() const;
+  ::SBSSolveConfig* _internal_mutable_sbs_solve_config();
+
+ public:
+  void unsafe_arena_set_allocated_sbs_solve_config(::SBSSolveConfig* sbs_solve_config);
+  ::SBSSolveConfig* unsafe_arena_release_sbs_solve_config();
 
   // @@protoc_insertion_point(class_scope:SolveConfig)
  private:
@@ -4186,8 +4554,9 @@ class SolveConfig PROTOBUF_FINAL
   friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::AlgorithmConfig* algorithm_config_;
-  ::SolverConfig* solver_config_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr solve_type_;
+  ::NaiveSolveConfig* naive_solve_config_;
+  ::SBSSolveConfig* sbs_solve_config_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -7231,32 +7600,32 @@ inline void AlgorithmConfig::set_allocated_ga_algorithm_config(
 
 // -------------------------------------------------------------------
 
-// SolveConfig
+// SBSSolveConfig
 
 // .AlgorithmConfig algorithm_config = 1;
-inline bool SolveConfig::_internal_has_algorithm_config() const {
+inline bool SBSSolveConfig::_internal_has_algorithm_config() const {
   return this != internal_default_instance() && algorithm_config_ != nullptr;
 }
-inline bool SolveConfig::has_algorithm_config() const {
+inline bool SBSSolveConfig::has_algorithm_config() const {
   return _internal_has_algorithm_config();
 }
-inline void SolveConfig::clear_algorithm_config() {
+inline void SBSSolveConfig::clear_algorithm_config() {
   if (GetArena() == nullptr && algorithm_config_ != nullptr) {
     delete algorithm_config_;
   }
   algorithm_config_ = nullptr;
 }
-inline const ::AlgorithmConfig& SolveConfig::_internal_algorithm_config() const {
+inline const ::AlgorithmConfig& SBSSolveConfig::_internal_algorithm_config() const {
   const ::AlgorithmConfig* p = algorithm_config_;
   return p != nullptr
              ? *p
              : *reinterpret_cast<const ::AlgorithmConfig*>(&::_AlgorithmConfig_default_instance_);
 }
-inline const ::AlgorithmConfig& SolveConfig::algorithm_config() const {
-  // @@protoc_insertion_point(field_get:SolveConfig.algorithm_config)
+inline const ::AlgorithmConfig& SBSSolveConfig::algorithm_config() const {
+  // @@protoc_insertion_point(field_get:SBSSolveConfig.algorithm_config)
   return _internal_algorithm_config();
 }
-inline void SolveConfig::unsafe_arena_set_allocated_algorithm_config(
+inline void SBSSolveConfig::unsafe_arena_set_allocated_algorithm_config(
     ::AlgorithmConfig* algorithm_config) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(algorithm_config_);
@@ -7265,9 +7634,9 @@ inline void SolveConfig::unsafe_arena_set_allocated_algorithm_config(
   if (algorithm_config) {
   } else {
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SolveConfig.algorithm_config)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SBSSolveConfig.algorithm_config)
 }
-inline ::AlgorithmConfig* SolveConfig::release_algorithm_config() {
+inline ::AlgorithmConfig* SBSSolveConfig::release_algorithm_config() {
   ::AlgorithmConfig* temp = algorithm_config_;
   algorithm_config_ = nullptr;
   if (GetArena() != nullptr) {
@@ -7275,25 +7644,25 @@ inline ::AlgorithmConfig* SolveConfig::release_algorithm_config() {
   }
   return temp;
 }
-inline ::AlgorithmConfig* SolveConfig::unsafe_arena_release_algorithm_config() {
-  // @@protoc_insertion_point(field_release:SolveConfig.algorithm_config)
+inline ::AlgorithmConfig* SBSSolveConfig::unsafe_arena_release_algorithm_config() {
+  // @@protoc_insertion_point(field_release:SBSSolveConfig.algorithm_config)
 
   ::AlgorithmConfig* temp = algorithm_config_;
   algorithm_config_ = nullptr;
   return temp;
 }
-inline ::AlgorithmConfig* SolveConfig::_internal_mutable_algorithm_config() {
+inline ::AlgorithmConfig* SBSSolveConfig::_internal_mutable_algorithm_config() {
   if (algorithm_config_ == nullptr) {
     auto* p = CreateMaybeMessage<::AlgorithmConfig>(GetArena());
     algorithm_config_ = p;
   }
   return algorithm_config_;
 }
-inline ::AlgorithmConfig* SolveConfig::mutable_algorithm_config() {
-  // @@protoc_insertion_point(field_mutable:SolveConfig.algorithm_config)
+inline ::AlgorithmConfig* SBSSolveConfig::mutable_algorithm_config() {
+  // @@protoc_insertion_point(field_mutable:SBSSolveConfig.algorithm_config)
   return _internal_mutable_algorithm_config();
 }
-inline void SolveConfig::set_allocated_algorithm_config(::AlgorithmConfig* algorithm_config) {
+inline void SBSSolveConfig::set_allocated_algorithm_config(::AlgorithmConfig* algorithm_config) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete algorithm_config_;
@@ -7309,33 +7678,34 @@ inline void SolveConfig::set_allocated_algorithm_config(::AlgorithmConfig* algor
   } else {
   }
   algorithm_config_ = algorithm_config;
-  // @@protoc_insertion_point(field_set_allocated:SolveConfig.algorithm_config)
+  // @@protoc_insertion_point(field_set_allocated:SBSSolveConfig.algorithm_config)
 }
 
 // .SolverConfig solver_config = 2;
-inline bool SolveConfig::_internal_has_solver_config() const {
+inline bool SBSSolveConfig::_internal_has_solver_config() const {
   return this != internal_default_instance() && solver_config_ != nullptr;
 }
-inline bool SolveConfig::has_solver_config() const {
+inline bool SBSSolveConfig::has_solver_config() const {
   return _internal_has_solver_config();
 }
-inline void SolveConfig::clear_solver_config() {
+inline void SBSSolveConfig::clear_solver_config() {
   if (GetArena() == nullptr && solver_config_ != nullptr) {
     delete solver_config_;
   }
   solver_config_ = nullptr;
 }
-inline const ::SolverConfig& SolveConfig::_internal_solver_config() const {
+inline const ::SolverConfig& SBSSolveConfig::_internal_solver_config() const {
   const ::SolverConfig* p = solver_config_;
   return p != nullptr
              ? *p
              : *reinterpret_cast<const ::SolverConfig*>(&::_SolverConfig_default_instance_);
 }
-inline const ::SolverConfig& SolveConfig::solver_config() const {
-  // @@protoc_insertion_point(field_get:SolveConfig.solver_config)
+inline const ::SolverConfig& SBSSolveConfig::solver_config() const {
+  // @@protoc_insertion_point(field_get:SBSSolveConfig.solver_config)
   return _internal_solver_config();
 }
-inline void SolveConfig::unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config) {
+inline void SBSSolveConfig::unsafe_arena_set_allocated_solver_config(
+    ::SolverConfig* solver_config) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(solver_config_);
   }
@@ -7343,9 +7713,9 @@ inline void SolveConfig::unsafe_arena_set_allocated_solver_config(::SolverConfig
   if (solver_config) {
   } else {
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SolveConfig.solver_config)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SBSSolveConfig.solver_config)
 }
-inline ::SolverConfig* SolveConfig::release_solver_config() {
+inline ::SolverConfig* SBSSolveConfig::release_solver_config() {
   ::SolverConfig* temp = solver_config_;
   solver_config_ = nullptr;
   if (GetArena() != nullptr) {
@@ -7353,25 +7723,25 @@ inline ::SolverConfig* SolveConfig::release_solver_config() {
   }
   return temp;
 }
-inline ::SolverConfig* SolveConfig::unsafe_arena_release_solver_config() {
-  // @@protoc_insertion_point(field_release:SolveConfig.solver_config)
+inline ::SolverConfig* SBSSolveConfig::unsafe_arena_release_solver_config() {
+  // @@protoc_insertion_point(field_release:SBSSolveConfig.solver_config)
 
   ::SolverConfig* temp = solver_config_;
   solver_config_ = nullptr;
   return temp;
 }
-inline ::SolverConfig* SolveConfig::_internal_mutable_solver_config() {
+inline ::SolverConfig* SBSSolveConfig::_internal_mutable_solver_config() {
   if (solver_config_ == nullptr) {
     auto* p = CreateMaybeMessage<::SolverConfig>(GetArena());
     solver_config_ = p;
   }
   return solver_config_;
 }
-inline ::SolverConfig* SolveConfig::mutable_solver_config() {
-  // @@protoc_insertion_point(field_mutable:SolveConfig.solver_config)
+inline ::SolverConfig* SBSSolveConfig::mutable_solver_config() {
+  // @@protoc_insertion_point(field_mutable:SBSSolveConfig.solver_config)
   return _internal_mutable_solver_config();
 }
-inline void SolveConfig::set_allocated_solver_config(::SolverConfig* solver_config) {
+inline void SBSSolveConfig::set_allocated_solver_config(::SolverConfig* solver_config) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete solver_config_;
@@ -7387,12 +7757,323 @@ inline void SolveConfig::set_allocated_solver_config(::SolverConfig* solver_conf
   } else {
   }
   solver_config_ = solver_config;
-  // @@protoc_insertion_point(field_set_allocated:SolveConfig.solver_config)
+  // @@protoc_insertion_point(field_set_allocated:SBSSolveConfig.solver_config)
+}
+
+// -------------------------------------------------------------------
+
+// NaiveSolveConfig
+
+// .SolverConfig solver_config = 1;
+inline bool NaiveSolveConfig::_internal_has_solver_config() const {
+  return this != internal_default_instance() && solver_config_ != nullptr;
+}
+inline bool NaiveSolveConfig::has_solver_config() const {
+  return _internal_has_solver_config();
+}
+inline void NaiveSolveConfig::clear_solver_config() {
+  if (GetArena() == nullptr && solver_config_ != nullptr) {
+    delete solver_config_;
+  }
+  solver_config_ = nullptr;
+}
+inline const ::SolverConfig& NaiveSolveConfig::_internal_solver_config() const {
+  const ::SolverConfig* p = solver_config_;
+  return p != nullptr
+             ? *p
+             : *reinterpret_cast<const ::SolverConfig*>(&::_SolverConfig_default_instance_);
+}
+inline const ::SolverConfig& NaiveSolveConfig::solver_config() const {
+  // @@protoc_insertion_point(field_get:NaiveSolveConfig.solver_config)
+  return _internal_solver_config();
+}
+inline void NaiveSolveConfig::unsafe_arena_set_allocated_solver_config(
+    ::SolverConfig* solver_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(solver_config_);
+  }
+  solver_config_ = solver_config;
+  if (solver_config) {
+  } else {
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:NaiveSolveConfig.solver_config)
+}
+inline ::SolverConfig* NaiveSolveConfig::release_solver_config() {
+  ::SolverConfig* temp = solver_config_;
+  solver_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::SolverConfig* NaiveSolveConfig::unsafe_arena_release_solver_config() {
+  // @@protoc_insertion_point(field_release:NaiveSolveConfig.solver_config)
+
+  ::SolverConfig* temp = solver_config_;
+  solver_config_ = nullptr;
+  return temp;
+}
+inline ::SolverConfig* NaiveSolveConfig::_internal_mutable_solver_config() {
+  if (solver_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::SolverConfig>(GetArena());
+    solver_config_ = p;
+  }
+  return solver_config_;
+}
+inline ::SolverConfig* NaiveSolveConfig::mutable_solver_config() {
+  // @@protoc_insertion_point(field_mutable:NaiveSolveConfig.solver_config)
+  return _internal_mutable_solver_config();
+}
+inline void NaiveSolveConfig::set_allocated_solver_config(::SolverConfig* solver_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete solver_config_;
+  }
+  if (solver_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(solver_config);
+    if (message_arena != submessage_arena) {
+      solver_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, solver_config, submessage_arena);
+    }
+
+  } else {
+  }
+  solver_config_ = solver_config;
+  // @@protoc_insertion_point(field_set_allocated:NaiveSolveConfig.solver_config)
+}
+
+// -------------------------------------------------------------------
+
+// SolveConfig
+
+// string solve_type = 1;
+inline void SolveConfig::clear_solve_type() {
+  solve_type_.ClearToEmpty(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& SolveConfig::solve_type() const {
+  // @@protoc_insertion_point(field_get:SolveConfig.solve_type)
+  return _internal_solve_type();
+}
+inline void SolveConfig::set_solve_type(const std::string& value) {
+  _internal_set_solve_type(value);
+  // @@protoc_insertion_point(field_set:SolveConfig.solve_type)
+}
+inline std::string* SolveConfig::mutable_solve_type() {
+  // @@protoc_insertion_point(field_mutable:SolveConfig.solve_type)
+  return _internal_mutable_solve_type();
+}
+inline const std::string& SolveConfig::_internal_solve_type() const {
+  return solve_type_.Get();
+}
+inline void SolveConfig::_internal_set_solve_type(const std::string& value) {
+  solve_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void SolveConfig::set_solve_type(std::string&& value) {
+  solve_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value),
+      GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:SolveConfig.solve_type)
+}
+inline void SolveConfig::set_solve_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+
+  solve_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+      GetArena());
+  // @@protoc_insertion_point(field_set_char:SolveConfig.solve_type)
+}
+inline void SolveConfig::set_solve_type(const char* value, size_t size) {
+  solve_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:SolveConfig.solve_type)
+}
+inline std::string* SolveConfig::_internal_mutable_solve_type() {
+  return solve_type_.Mutable(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* SolveConfig::release_solve_type() {
+  // @@protoc_insertion_point(field_release:SolveConfig.solve_type)
+  return solve_type_.Release(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SolveConfig::set_allocated_solve_type(std::string* solve_type) {
+  if (solve_type != nullptr) {
+  } else {
+  }
+  solve_type_.SetAllocated(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), solve_type, GetArena());
+  // @@protoc_insertion_point(field_set_allocated:SolveConfig.solve_type)
+}
+
+// .NaiveSolveConfig naive_solve_config = 2;
+inline bool SolveConfig::_internal_has_naive_solve_config() const {
+  return this != internal_default_instance() && naive_solve_config_ != nullptr;
+}
+inline bool SolveConfig::has_naive_solve_config() const {
+  return _internal_has_naive_solve_config();
+}
+inline void SolveConfig::clear_naive_solve_config() {
+  if (GetArena() == nullptr && naive_solve_config_ != nullptr) {
+    delete naive_solve_config_;
+  }
+  naive_solve_config_ = nullptr;
+}
+inline const ::NaiveSolveConfig& SolveConfig::_internal_naive_solve_config() const {
+  const ::NaiveSolveConfig* p = naive_solve_config_;
+  return p != nullptr
+             ? *p
+             : *reinterpret_cast<const ::NaiveSolveConfig*>(&::_NaiveSolveConfig_default_instance_);
+}
+inline const ::NaiveSolveConfig& SolveConfig::naive_solve_config() const {
+  // @@protoc_insertion_point(field_get:SolveConfig.naive_solve_config)
+  return _internal_naive_solve_config();
+}
+inline void SolveConfig::unsafe_arena_set_allocated_naive_solve_config(
+    ::NaiveSolveConfig* naive_solve_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(naive_solve_config_);
+  }
+  naive_solve_config_ = naive_solve_config;
+  if (naive_solve_config) {
+  } else {
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SolveConfig.naive_solve_config)
+}
+inline ::NaiveSolveConfig* SolveConfig::release_naive_solve_config() {
+  ::NaiveSolveConfig* temp = naive_solve_config_;
+  naive_solve_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::NaiveSolveConfig* SolveConfig::unsafe_arena_release_naive_solve_config() {
+  // @@protoc_insertion_point(field_release:SolveConfig.naive_solve_config)
+
+  ::NaiveSolveConfig* temp = naive_solve_config_;
+  naive_solve_config_ = nullptr;
+  return temp;
+}
+inline ::NaiveSolveConfig* SolveConfig::_internal_mutable_naive_solve_config() {
+  if (naive_solve_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::NaiveSolveConfig>(GetArena());
+    naive_solve_config_ = p;
+  }
+  return naive_solve_config_;
+}
+inline ::NaiveSolveConfig* SolveConfig::mutable_naive_solve_config() {
+  // @@protoc_insertion_point(field_mutable:SolveConfig.naive_solve_config)
+  return _internal_mutable_naive_solve_config();
+}
+inline void SolveConfig::set_allocated_naive_solve_config(::NaiveSolveConfig* naive_solve_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete naive_solve_config_;
+  }
+  if (naive_solve_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(naive_solve_config);
+    if (message_arena != submessage_arena) {
+      naive_solve_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, naive_solve_config, submessage_arena);
+    }
+
+  } else {
+  }
+  naive_solve_config_ = naive_solve_config;
+  // @@protoc_insertion_point(field_set_allocated:SolveConfig.naive_solve_config)
+}
+
+// .SBSSolveConfig sbs_solve_config = 3;
+inline bool SolveConfig::_internal_has_sbs_solve_config() const {
+  return this != internal_default_instance() && sbs_solve_config_ != nullptr;
+}
+inline bool SolveConfig::has_sbs_solve_config() const {
+  return _internal_has_sbs_solve_config();
+}
+inline void SolveConfig::clear_sbs_solve_config() {
+  if (GetArena() == nullptr && sbs_solve_config_ != nullptr) {
+    delete sbs_solve_config_;
+  }
+  sbs_solve_config_ = nullptr;
+}
+inline const ::SBSSolveConfig& SolveConfig::_internal_sbs_solve_config() const {
+  const ::SBSSolveConfig* p = sbs_solve_config_;
+  return p != nullptr
+             ? *p
+             : *reinterpret_cast<const ::SBSSolveConfig*>(&::_SBSSolveConfig_default_instance_);
+}
+inline const ::SBSSolveConfig& SolveConfig::sbs_solve_config() const {
+  // @@protoc_insertion_point(field_get:SolveConfig.sbs_solve_config)
+  return _internal_sbs_solve_config();
+}
+inline void SolveConfig::unsafe_arena_set_allocated_sbs_solve_config(
+    ::SBSSolveConfig* sbs_solve_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(sbs_solve_config_);
+  }
+  sbs_solve_config_ = sbs_solve_config;
+  if (sbs_solve_config) {
+  } else {
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SolveConfig.sbs_solve_config)
+}
+inline ::SBSSolveConfig* SolveConfig::release_sbs_solve_config() {
+  ::SBSSolveConfig* temp = sbs_solve_config_;
+  sbs_solve_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::SBSSolveConfig* SolveConfig::unsafe_arena_release_sbs_solve_config() {
+  // @@protoc_insertion_point(field_release:SolveConfig.sbs_solve_config)
+
+  ::SBSSolveConfig* temp = sbs_solve_config_;
+  sbs_solve_config_ = nullptr;
+  return temp;
+}
+inline ::SBSSolveConfig* SolveConfig::_internal_mutable_sbs_solve_config() {
+  if (sbs_solve_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::SBSSolveConfig>(GetArena());
+    sbs_solve_config_ = p;
+  }
+  return sbs_solve_config_;
+}
+inline ::SBSSolveConfig* SolveConfig::mutable_sbs_solve_config() {
+  // @@protoc_insertion_point(field_mutable:SolveConfig.sbs_solve_config)
+  return _internal_mutable_sbs_solve_config();
+}
+inline void SolveConfig::set_allocated_sbs_solve_config(::SBSSolveConfig* sbs_solve_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete sbs_solve_config_;
+  }
+  if (sbs_solve_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(sbs_solve_config);
+    if (message_arena != submessage_arena) {
+      sbs_solve_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, sbs_solve_config, submessage_arena);
+    }
+
+  } else {
+  }
+  sbs_solve_config_ = sbs_solve_config;
+  // @@protoc_insertion_point(field_set_allocated:SolveConfig.sbs_solve_config)
 }
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

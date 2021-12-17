@@ -22,6 +22,6 @@ void EAAlgorithm::step() {
   selector_->select(population_, 1);
 }
 
-REGISTER_PROTO(Algorithm, EAAlgorithm, AlgorithmConfig, ea_algorithm_config);
+REGISTER_PROTO(Algorithm, EAAlgorithm, ea_algorithm_config);
 
 }  // namespace ea::algorithm

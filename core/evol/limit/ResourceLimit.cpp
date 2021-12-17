@@ -25,6 +25,6 @@ void ResourceLimit::start() {
   start_ = std::chrono::system_clock::now();
 }
 
-REGISTER_PROTO(Limit, ResourceLimit, LimitConfig, resource_limit_config);
+REGISTER_PROTO(Limit, ResourceLimit, resource_limit_config);
 
 }  // namespace ea::limit

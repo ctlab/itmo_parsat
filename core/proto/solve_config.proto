@@ -128,7 +128,17 @@ message AlgorithmConfig {
   GAAlgorithmConfig ga_algorithm_config = 3;
 }
 
-message SolveConfig {
+message SBSSolveConfig {
   AlgorithmConfig algorithm_config = 1;
   SolverConfig solver_config = 2;
+}
+
+message NaiveSolveConfig {
+  SolverConfig solver_config = 1;
+}
+
+message SolveConfig {
+  string solve_type = 1;
+  NaiveSolveConfig naive_solve_config = 2;
+  SBSSolveConfig sbs_solve_config = 3;
 }

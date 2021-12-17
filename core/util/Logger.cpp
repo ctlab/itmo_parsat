@@ -1,37 +1,20 @@
 #include "core/util/Logger.h"
 
-namespace {
-
-core::Logger* _logger = nullptr;
-
-}  // namespace
-
 namespace core {
 
-Logger::Logger(const LoggingConfig& config) {
-  IPS_VERIFY(nullptr == _logger && bool("Logger is initialized more than once"));
-
+Logger::Logger() {
   for (size_t i = 0; i < entries_.size(); ++i) {
     entries_[i].config.set_log_type(LogType(i));
     entries_[i].config.set_every_n(DEFAULT_EVERY_N);
     entries_[i].config.set_verbose_level(DEFAULT_VERBOSE_LEVEL);
   }
+}
 
+void Logger::_set_logger_config(LoggingConfig const& config) noexcept {
   for (auto const& entry_config : config.entries()) {
     IPS_VERIFY(static_cast<size_t>(entry_config.log_type()) < entries_.size());
     entries_[entry_config.log_type()].config = entry_config;
   }
-
-  _logger = this;
-}
-
-Logger::~Logger() noexcept {
-  _logger = nullptr;
-}
-
-bool Logger::should_log(LogType log_type) noexcept {
-  IPS_VERIFY(nullptr != _logger && bool("Logger is not initialized when calling should_log(.)"));
-  return _logger->_should_log(log_type);
 }
 
 bool Logger::_should_log(LogType log_type) noexcept {
@@ -47,6 +30,19 @@ bool Logger::_should_log(LogType log_type) noexcept {
     entry.cur_counter = 0;
   }
   return should;
+}
+
+Logger& Logger::instance() {
+  static Logger _logger;
+  return _logger;
+}
+
+void Logger::set_logger_config(const LoggingConfig& config) {
+  instance()._set_logger_config(config);
+}
+
+bool Logger::should_log(LogType log_type) noexcept {
+  return instance()._should_log(log_type);
 }
 
 }  // namespace core

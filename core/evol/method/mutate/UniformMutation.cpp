@@ -16,6 +16,6 @@ void UniformMutation::apply(instance::Instance& instance) {
   }
 }
 
-REGISTER_PROTO(Mutation, UniformMutation, MutationConfig, uniform_mutation_config);
+REGISTER_PROTO(Mutation, UniformMutation, uniform_mutation_config);
 
 }  // namespace ea::method

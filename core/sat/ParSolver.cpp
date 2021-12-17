@@ -128,6 +128,6 @@ unsigned ParSolver::num_vars() const noexcept {
   return solvers_.front()->num_vars();
 }
 
-REGISTER_PROTO(Solver, ParSolver, SolverConfig, par_solver_config);
+REGISTER_PROTO(Solver, ParSolver, par_solver_config);
 
 }  // namespace core::sat

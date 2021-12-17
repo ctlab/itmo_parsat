@@ -46,10 +46,6 @@ function do_help() {
     exit 1
 }
 
-function do_backdoor() {
-    BACKDOOR="--backdoor"
-}
-
 function do_build_debug() {
     BUILD_DEBUG="--compilation_mode=dbg"
 }
@@ -106,13 +102,12 @@ function do_infra() {
 function do_solve() {
     if [[ -z "$@" ]]; then
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
-            $BACKDOOR \
             --input "$CNF_PATH" \
             --config "$SLV_CFG_PATH" \
             --log-config "$LOG_CFG_PATH"
     else
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
-            $BACKDOOR $@
+            $@
     fi
 }
 
@@ -153,7 +148,6 @@ function parse_options() {
 }
 
 add_option "-h|--help" "     Display help message"       do_help         0
-add_option "-d|--backdoor" " Use backdoor search"        do_backdoor     0
 add_option "-g|--debug" "    Build with debug syms"      do_build_debug  0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb      0
 add_option "-f|--format" "   Apply clang-format"         do_format       0

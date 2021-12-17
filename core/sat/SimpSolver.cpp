@@ -78,6 +78,6 @@ bool SimpSolver::propagate(
   return !prop_check(assumptions, propagated, 0);
 }
 
-REGISTER_PROTO(Solver, SimpSolver, SolverConfig, simp_solver_config);
+REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);
 
 }  // namespace core::sat

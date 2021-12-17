@@ -14,6 +14,6 @@ bool FitnessLimit::proceed(instance::Population const& population) {
   return fitness < lowest_fitness_;
 }
 
-REGISTER_PROTO(Limit, FitnessLimit, LimitConfig, fitness_limit_config);
+REGISTER_PROTO(Limit, FitnessLimit, fitness_limit_config);
 
 }  // namespace ea::limit

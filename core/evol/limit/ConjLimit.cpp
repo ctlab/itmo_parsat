@@ -18,6 +18,6 @@ void ConjLimit::start() {
   std::for_each(limits_.begin(), limits_.end(), [](RLimit& limit) { limit->start(); });
 }
 
-REGISTER_PROTO(Limit, ConjLimit, LimitConfig, conj_limit_config);
+REGISTER_PROTO(Limit, ConjLimit, conj_limit_config);
 
 }  // namespace ea::limit

@@ -115,7 +115,7 @@ Instance::SamplingConfig& Instance::_sampling_config() noexcept {
   return shared_->sampling_config;
 }
 
-core::Cache<std::vector<bool>, Fitness>& Instance::_cache() noexcept {
+core::LRUCache<std::vector<bool>, Fitness>& Instance::_cache() noexcept {
   return shared_->cache;
 }
 

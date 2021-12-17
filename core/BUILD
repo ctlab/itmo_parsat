@@ -81,3 +81,17 @@ cc_library(
     alwayslink = True,
     visibility = ["//visibility:public"],
 )
+
+cc_library(
+    name = "solve",
+    srcs = glob(["solve/**/*.cpp"]),
+    hdrs = glob(["solve/**/*.h"]),
+    deps = [
+        "//core:evol",
+        "//core:sat",
+        "//core:util",
+    ],
+    linkstatic = True,
+    alwayslink = True,
+    visibility = ["//visibility:public"],
+)

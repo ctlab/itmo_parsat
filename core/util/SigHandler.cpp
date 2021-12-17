@@ -1,16 +1,22 @@
 #include "core/util/SigHandler.h"
 
-#include <memory>
-
 namespace core {
+
+SigHandler::CallbackHandle::CallbackHandle(callback_t callback, std::mutex* unlink_mutex)
+    : _callback(std::move(callback)), _unlink_mutex(unlink_mutex) {}
 
 SigHandler::CallbackHandle::~CallbackHandle() noexcept {
   remove();
+  _unlink_mutex = nullptr;
 }
 
 void SigHandler::CallbackHandle::remove() {
-  std::lock_guard<std::mutex> lg(_handler->_cb_m);
-  _handler->_callbacks.erase(this);
+  std::lock_guard<std::mutex> lg(*_unlink_mutex);
+  unlink();
+}
+
+void SigHandler::CallbackHandle::callback(int signal) {
+  _callback(signal);
 }
 
 SigHandler::SigHandler() {
@@ -56,35 +62,28 @@ SigHandler::~SigHandler() noexcept {
   }
 }
 
-bool SigHandler::is_set() const {
+bool SigHandler::is_set() const noexcept {
   return _registered;
 }
 
-void SigHandler::unset() {
+void SigHandler::unset() noexcept {
   _registered = false;
 }
 
-SigHandler::CallbackHandle SigHandler::register_callback(callback_t cb) {
+SigHandler::handle_t SigHandler::register_callback(callback_t callback) {
   std::lock_guard<std::mutex> lg(_cb_m);
-  CallbackHandle handle;
-  handle._handler = this;
-  _callbacks[&handle] = std::move(cb);
-  return handle;
+  auto handle_ptr = std::make_shared<SigHandler::CallbackHandle>(std::move(callback), &_cb_m);
+  _handles_list.push_back(*handle_ptr);
+  return handle_ptr;
 }
 
-void SigHandler::_callback(int sig) {
-  std::unordered_map<CallbackHandle*, callback_t> copy;
-  {
-    // copy all existing callbacks and release lock
-    std::lock_guard<std::mutex> lg(_cb_m);
-    copy = _callbacks;
-  }
-  if (copy.empty()) {
-    // If there are no callbacks registered, the terminate handler will be called.
+void SigHandler::_callback(int signal) {
+  if (_handles_list.empty()) {
+    // If there are no callbacks registered, terminate is called.
     IPS_TERMINATE("SIGINT");
   }
-  for (auto& it : copy) {
-    (it.second)(sig);
+  for (auto it = _handles_list.begin(); it != _handles_list.end();) {
+    (it++)->callback(signal);
   }
 }
 

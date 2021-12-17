@@ -33,11 +33,6 @@ bool CliConfig::has(const std::string& name) const {
   return vm_.count(name) > 0;
 }
 
-CliConfig& CliConfig::instance() {
-  static CliConfig config_;
-  return config_;
-}
-
 void CliConfig::read_config(std::istream& is, google::protobuf::Message& message) {
   std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
   google::protobuf::util::Status status =

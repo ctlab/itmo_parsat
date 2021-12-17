@@ -16,6 +16,6 @@ void OnePointCrossover::apply(instance::Instance& a, instance::Instance& b) {
   }
 }
 
-REGISTER_SIMPLE(Crossover, OnePointCrossover, CrossoverConfig);
+REGISTER_SIMPLE(Crossover, OnePointCrossover);
 
 }  // namespace ea::method
