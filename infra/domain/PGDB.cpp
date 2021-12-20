@@ -15,4 +15,13 @@ void PGDB::_exec0(std::string const& sql) {
   work.commit();
 }
 
+size_t PGDB::_exec_count(std::string const& sql) {
+  pqxx::work work(conn_);
+  auto row = work.exec1(sql);
+  LOG(INFO) << "count(*) result type: " << row.front().name();
+  size_t result = row.front().as<size_t>(0);
+  work.commit();
+  return result;
+}
+
 }  // namespace infra::domain

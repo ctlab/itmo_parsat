@@ -49,6 +49,8 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
+  LOG(INFO) << std::fixed << std::setprecision(5);
+
   core::CliConfig config = add_and_read_args(argc, argv);
   core::SigHandler sig_handler;
 

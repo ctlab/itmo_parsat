@@ -2,8 +2,10 @@
 #define ITMO_PARSAT_TRACER_H
 
 #include <string>
+#include <numeric>
 #include <chrono>
 #include <unordered_map>
+#include <iomanip>
 #include <vector>
 #include <sstream>
 #include <mutex>
@@ -91,6 +93,8 @@ class Tracer {
 #define IPS_TRACE(expr) expr
 
 #define IPS_TRACE_V(expr) expr
+
+#define IPS_EVENT(...)
 
 #endif
 

@@ -87,7 +87,8 @@ void LaunchFixture::_prepare_resources() {
   }
 }
 
-void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
+std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
+    infra::testing::LaunchConfig launch_config) {
   static std::random_device rnd_dev_;
   static std::mt19937 rnd_gen_(rnd_dev_());
   try {
@@ -125,8 +126,22 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
     std::filesystem::copy_file(real_config_path, config_path);
 
     // clang-format off
+    auto launch = infra::domain::Launch{
+            0, real_input_path, real_config_path, logs_path,
+            config.commit, infra::domain::ERROR,
+            0, 0, launch_config.description
+        };
+
+    if (launches->contains(launch)) {
+      LOG(INFO) << "\n\tLaunch already done [" << launch_config.description << "]:"
+                << "\n\t\tInput file: " << real_input_path
+                << "\n\t\tConfiguration: " << real_config_path
+                << "\n\t\tCommit hash: " << config.commit;
+      return {};
+    }
+
     auto callback = [=] (uint64_t started_at, uint64_t finished_at,
-                         int exit_code, bool interrupted) {
+                         int exit_code, bool interrupted) mutable {
       infra::domain::SatResult sat_result = exit_code_to_sat_result(exit_code);
       infra::domain::LaunchResult launch_result
         = _get_launch_result(interrupted, sat_result, launch_config.expected_result);
@@ -137,28 +152,33 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
                 << "\n\t\tExit code: " << exit_code
                 << "\n\t\tSat result: " << infra::domain::to_string(sat_result)
                 << "\n\t\tTest result: " << infra::domain::to_string(launch_result);
-      launches->add(
-        infra::domain::Launch{
-          0, real_input_path, real_config_path, logs_path,
-          config.commit, _get_launch_result(interrupted, sat_result, launch_config.expected_result),
-          started_at, finished_at, launch_config.description
-        }
-      );
+      launch.started_at = started_at;
+      launch.finished_at = finished_at;
+      launch.result = _get_launch_result(interrupted, sat_result, launch_config.expected_result);
+      if (launch.result != infra::domain::INTERRUPTED) {
+        launches->add(launch);
+      }
     };
-    execs_.emplace_back(std::make_unique<infra::Execution>(callback,
-        logs_path, logs_path, config.executable.string(),
-        "--input", real_input_path.string(),
-        "--log-config", real_log_config_path.string(),
-        "--config", real_config_path.string()
-    ));
+
+    auto result = std::make_shared<infra::Execution>(callback,
+      logs_path, logs_path, config.executable.string(),
+      "--verbose", "6",  // TODO(dzhiblavi@): make this a parameter
+      "--input", real_input_path.string(),
+      "--log-config", real_log_config_path.string(),
+      "--config", real_config_path.string()
+    );
+    execs_.emplace_back(result);
+
     // clang-format on
     LOG(INFO) << "\n\tLaunched [" + launch_config.description + "]:"
               << "\n\t\tInput file: " << real_input_path
               << "\n\t\tConfiguration: " << real_config_path << "\n\t\tLogs at: " << logs_path
               << "\n\t\tExpected result: "
               << infra::domain::to_string(launch_config.expected_result);
+    return result;
   } catch (std::exception const& e) {
-    LOG(ERROR) << "Caught exception while trying to start subprocess:\n" << e.what();
+    LOG(FATAL) << "Caught exception while trying to start subprocess:\n" << e.what();
+    __builtin_unreachable();
   }
 }
 

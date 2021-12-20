@@ -15,6 +15,8 @@ class PGDB {
  protected:
   void _exec0(std::string const& sql);
 
+  [[nodiscard]] size_t _exec_count(std::string const& sql);
+
  protected:
   std::mutex m_;
   pqxx::connection conn_;

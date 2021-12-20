@@ -55,8 +55,8 @@ function do_config() {
     SLV_CFG="$1.json"
 }
 
-function do_build_debug() {
-    BUILD_DEBUG="--compilation_mode=dbg"
+function do_set_build_mode() {
+    BUILD_CFG="$1"
 }
 
 function do_run_gdb() {
@@ -68,20 +68,20 @@ function do_format() {
 }
 
 function do_build_solve() {
-    bazel build //cli:solve $BUILD_DEBUG $@
+    bazel build //cli:solve --config=$BUILD_CFG $@
 }
 
 function do_build_unit() {
-    bazel build //core:test $BUILD_DEBUG $@
+    bazel build //core:test --config=$BUILD_CFG $@
 }
 
 function do_build_infra() {
-    bazel build //cli:infra $BUILD_DEBUG $@
+    bazel build //cli:infra --config=$BUILD_CFG $@
 }
 
 function do_build_proto() {
     rm -rf ./core/proto/*.pb.*
-    bazel build //core/proto:* $BUILD_DEBUG $@
+    bazel build //core/proto:* --config=$BUILD_CFG $@
 
     ln -s `pwd`/bazel-bin/core/proto/solve_config.pb.h ./core/proto/solve_config.pb.h
     ln -s `pwd`/bazel-bin/core/proto/solve_config.pb.cc ./core/proto/solve_config.pb.cc
@@ -158,20 +158,20 @@ function parse_options() {
     done
 }
 
-add_option "-h|--help" "     Display help message"       do_help         0
-add_option "-g|--debug" "    Build with debug syms"      do_build_debug  0
-add_option "--run-debug" "   Run with gdb"               do_run_gdb      0
-add_option "-i|--input" "    Input CNF path"             do_input        1
-add_option "-c|--config" "   Specify config"             do_config       1
-add_option "-f|--format" "   Apply clang-format"         do_format       0
-add_option "-b|--build" "    Build cli binary"           do_build_solve  0
-add_option "--build-unit" "  Build unit tests"           do_build_unit   0
-add_option "--build-infra" " Build integration tests"    do_build_infra  0
-add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto  0
-add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose  1
-add_option "-u|--unit" "     Run unit tests"             do_unit         0
-add_option "--run-infra" "   Run integration tests"      do_infra        0
-add_option "-s|--solve" "    Run cli binary"             do_solve        0
+add_option "-h|--help" "     Display help message"       do_help           0
+add_option "-g|--build-cfg" "Set build mode"             do_set_build_mode 1
+add_option "-b|--build" "    Build cli binary"           do_build_solve    0
+add_option "--build-unit" "  Build unit tests"           do_build_unit     0
+add_option "--build-infra" " Build integration tests"    do_build_infra    0
+add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto    0
+add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
+add_option "-i|--input" "    Input CNF path"             do_input          1
+add_option "-c|--config" "   Specify config"             do_config         1
+add_option "-f|--format" "   Apply clang-format"         do_format         0
+add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose    1
+add_option "-u|--unit" "     Run unit tests"             do_unit           0
+add_option "--run-infra" "   Run integration tests"      do_infra          0
+add_option "-s|--solve" "    Run cli binary"             do_solve          0
 
 function main() {
     parse_options "$@"

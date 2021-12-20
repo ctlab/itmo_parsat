@@ -2,12 +2,8 @@ build:dev --cxxopt="--std=c++17" --copt="-march=native"
 
 build:debug --config=dev -c dbg --copt="-O0"
 
-build:notrace --config=dev --copt="-DDISABLE_TRACE"
-
-build:nologs --config=dev --copt="-DDISABLE_LOGS"
-
 build:dev_fast --config=dev --copt="-Ofast"
 
-build:fast --config=dev --copt="-DDISABLE_LOG" --copt="-DDISABLE_TRACE" --copt="-Ofast"
+build:fast --config=dev --copt="-DDISABLE_LOG" --copt="-DDISABLE_TRACE" --copt="-DDISABLE_CHECK_ASGN" --copt="-Ofast"
 
 build --config=dev

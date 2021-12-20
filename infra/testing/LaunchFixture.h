@@ -42,7 +42,8 @@ class LaunchFixture : public ::testing::Test {
 
   void TearDown() override;
 
-  void launch(infra::testing::LaunchConfig launch_config);
+  std::optional<std::shared_ptr<infra::Execution>> launch(
+      infra::testing::LaunchConfig launch_config);
 
  private:
   static void _prepare_resources();
@@ -53,7 +54,7 @@ class LaunchFixture : public ::testing::Test {
 
  private:
   std::unique_ptr<infra::domain::Launches> launches;
-  std::vector<std::unique_ptr<infra::Execution>> execs_;
+  std::vector<std::shared_ptr<infra::Execution>> execs_;
 
  public:
   static std::vector<std::filesystem::path> cnfs;

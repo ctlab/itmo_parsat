@@ -50,27 +50,35 @@ Tracer& Tracer::instance() {
 }
 
 void Tracer::print_summary(size_t num_quantiles) {
+  std::stringstream info;
+  info << std::fixed;
+  info << std::setprecision(5);
+  info << "Tracing summary:";
+
   for (auto& p : instance()._stats) {
     std::string const& name = p.first;
     Stats& stats = p.second;
-
     if (stats.durations.empty()) {
-      IPS_INFO("Event " << name << ": total samples: " << stats.count);
+      info << "\n\t[Event]\t\t" << name << ": total samples: " << stats.count;
     } else {
-      std::sort(stats.durations.begin(), stats.durations.end());
+      float total_time = std::reduce(stats.durations.begin(), stats.durations.end(), 0.f);
+      float min = *std::min_element(stats.durations.begin(), stats.durations.end());
+      float max = *std::max_element(stats.durations.begin(), stats.durations.end());
       size_t quantiles = std::min(num_quantiles, stats.durations.size());
       size_t step = stats.durations.size() / quantiles;
 
-      std::stringstream info;
-      info << "Quantiles for " << name << ", total samples: " << stats.count << ":\n\t[ ";
+      info << "\n\t[Quantiles]\t" << name << ": total samples: " << stats.count
+           << " total time: " << total_time << "s\n\t\tMin: " << min << "s Max: " << max
+           << "s\n\t\t[ ";
       for (size_t i = 0; i < stats.durations.size(); i += step) {
+        std::nth_element(
+            stats.durations.begin(), stats.durations.begin() + i, stats.durations.end());
         info << stats.durations[i] << ' ';
       }
       info << "]";
-
-      IPS_INFO(info.str());
     }
   }
+  IPS_INFO(info.str());
 }
 
 }  // namespace core

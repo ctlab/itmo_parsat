@@ -12,9 +12,7 @@
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"
 
-#define TRACK_ASGN
-
-#ifdef TRACK_ASGN
+#ifndef DISABLE_CHECK_ASGN
 
 #include <vector>
 #include <mutex>
@@ -125,10 +123,11 @@ using USolver = std::unique_ptr<Solver>;
 
 DEFINE_REGISTRY(Solver, SolverConfig, solver);
 
-#ifdef TRACK_ASGN
+#ifndef DISABLE_CHECK_ASGN
 
 #define START_ASGN_TRACK(expected_size)    \
   std::mutex _m_asgn_track;                \
+  std::atomic_bool _stop_callback{false};  \
   uint32_t _expected_size = expected_size; \
   std::set<std::vector<bool>> _uniq_asgn
 
@@ -142,16 +141,20 @@ DEFINE_REGISTRY(Solver, SolverConfig, solver);
     _uniq_asgn.insert(std::move(_cur));             \
   } while (0)
 
-#define END_ASGN_TRACK                                          \
-  IPS_VERIFY(                                                   \
-      (interrupted() || _uniq_asgn.size() == _expected_size) && \
+#define BREAK_ASGN_TRACK _stop_callback = true;
+
+#define END_ASGN_TRACK                                                            \
+  IPS_VERIFY(                                                                     \
+      (_stop_callback || interrupted() || _uniq_asgn.size() == _expected_size) && \
       bool("Unexpected assignments behaviour"))
 
 #else
 
-#define START_ASGN_TRACK
+#define START_ASGN_TRACK(...)
 
-#define ASGN_TRACK(asgn)
+#define ASGN_TRACK(...)
+
+#define BREAK_ASGN_TRACK
 
 #define END_ASGN_TRACK
 

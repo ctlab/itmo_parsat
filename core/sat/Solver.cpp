@@ -24,6 +24,7 @@ void Solver::solve_assignments(domain::UAssignment assignment_p, slv_callback_t 
     ASGN_TRACK(assumptions);
     State result = conflict ? UNSAT : solve_limited(assumptions);
     if (!callback(result, conflict, assumptions)) {
+      BREAK_ASGN_TRACK;
       break;
     }
   } while (++assignment && !IPS_UNLIKELY(_interrupted));
@@ -40,6 +41,7 @@ void Solver::prop_assignments(
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
     ASGN_TRACK(assumptions);
     if (!callback(propagate(assumptions, propagated), assumptions, propagated)) {
+      BREAK_ASGN_TRACK;
       break;
     }
   } while (++assignment && !IPS_UNLIKELY(_interrupted));
