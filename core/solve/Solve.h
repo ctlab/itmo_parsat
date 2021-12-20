@@ -9,6 +9,7 @@
 
 #include "core/sat/Solver.h"
 #include "core/util/SigHandler.h"
+#include "core/util/Tracer.h"
 #include "core/proto/solve_config.pb.h"
 
 namespace core {

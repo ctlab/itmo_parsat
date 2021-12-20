@@ -4,6 +4,8 @@
 #include <string>
 #include <chrono>
 #include <unordered_map>
+#include <vector>
+#include <sstream>
 #include <mutex>
 #include <thread>
 #include <condition_variable>
@@ -13,63 +15,83 @@
 
 namespace core {
 
+namespace trace {
+
+struct Event {
+  explicit Event(std::string name);
+  ~Event() noexcept;
+
+ protected:
+  std::string _name;
+};
+
+struct CodeBlock {
+  explicit CodeBlock(std::string name);
+  ~CodeBlock() noexcept;
+
+ private:
+  std::string _name;
+  std::chrono::time_point<std::chrono::system_clock> _start;
+};
+
+}  // namespace trace
+
 class Tracer {
+  friend struct trace::Event;
+  friend struct trace::CodeBlock;
+
+ private:
+  struct Stats {
+    uint32_t count{0};
+    std::vector<float> durations{};
+  };
+
  private:
   Tracer() = default;
 
- public:
-  /**
-   * Starts tracing of `identifier'.
-   * Only one concurrent trace if `identifier' can occurr.
-   */
-  static void start_trace(std::string const& identifier);
-
-  /**
-   * Ends tracing of `identifier' and logs execution time.
-   */
-  static void end_trace(std::string const& identifier);
-
-  /**
-   * Tracer can only be accessed through this method (maybe indirectly).
-   */
   static Tracer& instance();
 
- private:
-  void _start_trace(std::string const& identifier);
-
-  void _end_trace(std::string const& identifier);
+ public:
+  static void print_summary(size_t num_quantiles);
 
  private:
-  std::mutex m_;
-  std::unordered_map<std::string, std::chrono::system_clock::time_point> start_;
+  std::mutex _stats_mutex;
+  std::unordered_map<std::string, Stats> _stats;
 };
 
 }  // namespace core
 
 #ifndef DISABLE_TRACE
 
-#define IPS_TRACE_NAMED(name, expr)  \
-  ::core::Tracer::start_trace(name); \
-  expr;                              \
-  ::core::Tracer::end_trace(name)
+#define IPS_TRACE_N(name, expr)         \
+  do {                                  \
+    ::core::trace::CodeBlock _cb(name); \
+    expr;                               \
+  } while (0)
 
-#define IPS_TRACE_V_NAMED(name, expr)              \
+#define IPS_TRACE_N_V(name, expr)                  \
   [&] {                                            \
-    ::core::Tracer::start_trace(name);             \
+    ::core::trace::CodeBlock _cb(name);            \
     auto&& result = expr;                          \
-    ::core::Tracer::end_trace(name);               \
     return std::forward<decltype(result)>(result); \
   }()
 
+#define IPS_TRACE(expr) IPS_TRACE_N(#expr, expr)
+
+#define IPS_TRACE_V(expr) IPS_TRACE_N_V(#expr, expr)
+
+#define IPS_EVENT(name) ::core::trace::Event _event(name);
+
 #else
 
-#define IPS_TRACE_NAMED(name, expr) expr
-#define IPS_TRACE_V_NAMED(name, expr) expr
+#define IPS_TRACE_N(name, expr) expr
+
+#define IPS_TRACE_N_V(name, expr) expr
+
+#define IPS_TRACE(expr) expr
+
+#define IPS_TRACE_V(expr) expr
 
 #endif
-
-#define IPS_TRACE(expr) IPS_TRACE_NAMED(#expr, expr)
-
-#define IPS_TRACE_V(expr) IPS_TRACE_V_NAMED(#expr, expr)
 
 #endif  // ITMO_PARSAT_TRACER_H

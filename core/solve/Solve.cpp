@@ -23,28 +23,31 @@ sat::State Solve::_final_solve(sat::Solver& solver, domain::UAssignment assignme
   std::atomic_uint64_t conflicts{0}, total{0};
   boost::timer::progress_display progress(assignment->size(), std::cerr);
 
-  solver.solve_assignments(std::move(assignment), [&](sat::State result, bool conflict, auto&&) {
-    if (core::sig::is_set()) {
-      return false;
-    }
-    ++total;
-    conflicts += conflict;
-    {
-      std::lock_guard<std::mutex> lg(progress_lock);
-      ++progress;
-    }
-    switch (result) {
-      case core::sat::UNSAT:
-        return true;
-      case core::sat::UNKNOWN:
-        unknown = true;
-        return true;
-      case core::sat::SAT:
-        satisfied = true;
-      default:
-        return false;
-    }
-  });
+  IPS_TRACE_N(
+      "Solver::final_solve",
+      solver.solve_assignments(
+          std::move(assignment), [&](sat::State result, bool conflict, auto&&) {
+            if (core::sig::is_set()) {
+              return false;
+            }
+            ++total;
+            conflicts += conflict;
+            {
+              std::lock_guard<std::mutex> lg(progress_lock);
+              ++progress;
+            }
+            switch (result) {
+              case core::sat::UNSAT:
+                return true;
+              case core::sat::UNKNOWN:
+                unknown = true;
+                return true;
+              case core::sat::SAT:
+                satisfied = true;
+              default:
+                return false;
+            }
+          }));
 
   IPS_INFO("Conflicts: " << conflicts << ", total: " << total);
   IPS_INFO("Conflict rate is: " << (double) conflicts / (double) total);

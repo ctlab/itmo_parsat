@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "core/util/Logger.h"
+#include "core/util/Tracer.h"
 #include "core/util/assert.h"
 
 namespace core {
@@ -33,7 +34,7 @@ namespace core {
    private:                                                                             \
     INTERFACE* _resolve(CONFIG_TYPE const& config) {                                    \
       std::string name = config.NAME##_type();                                          \
-      IPS_INFO_T(RESOLVE_INSTANCE, "Resolving " << name);                               \
+      IPS_EVENT("Resolve " + name)                                                      \
       IPS_VERIFY(                                                                       \
           map_.count(name) > 0 &&                                                       \
           bool("Trying to resolve non-existing implementation of " #NAME));             \

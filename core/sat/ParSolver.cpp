@@ -157,7 +157,7 @@ void ParSolver::_propagate(sat::Solver& solver, req_prop_t& req) {
       if (!req.callback(result, assignment(), propagated)) {
         break;
       }
-    } while (!interrupted() && ++assignment);
+    } while (!IPS_UNLIKELY(interrupted()) && ++assignment);
   }
   END_ASGN_TRACK;
 }

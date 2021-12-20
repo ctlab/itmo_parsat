@@ -168,7 +168,7 @@ sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   core::Generator generator(_cfg.random_seed());
 
   // Build cartesian product of non-conflict assignments
-  auto cartesian_product = _build_cartesian_product(_pre_solve(input));
+  auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
   if (cartesian_product.empty()) {
     IPS_INFO("SBS has been found during propagation, thus result is UNSAT");
     return sat::UNSAT;

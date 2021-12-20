@@ -94,7 +94,7 @@ class Instance {
   std::shared_ptr<SharedData> _shared;
   core::domain::Vars _vars;
 
-  // Mutability here is actually a design flaw, which will probably be fixed in future.
+  // Mutability here is actually a design flaw, which will probably be fixed in the future.
   // It is needed to update fitness from cache when `fitness() const` is called.
   mutable Fitness fit_{};
 

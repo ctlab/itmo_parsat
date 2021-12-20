@@ -65,6 +65,8 @@ int main(int argc, char** argv) {
   core::RSolve solve(core::SolveRegistry::resolve(solve_config));
 
   core::sat::State result = IPS_TRACE_V(solve->solve(input));
+  core::Tracer::print_summary(10);
+
   if (result == core::sat::UNSAT) {
     IPS_INFO("UNSAT");
     std::cout << "UNSAT" << std::endl;
