@@ -8,6 +8,7 @@
 #include "core/util/stream.h"
 #include "core/util/Logger.h"
 #include "core/util/Tracer.h"
+#include "core/util/SigHandler.h"
 #include "core/sat/Solver.h"
 #include "core/solve/Solve.h"
 
@@ -49,6 +50,7 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   core::CliConfig config = add_and_read_args(argc, argv);
+  core::SigHandler sig_handler;
 
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");

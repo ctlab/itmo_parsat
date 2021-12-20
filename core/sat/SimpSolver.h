@@ -17,15 +17,14 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
 
   State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
-  void interrupt() override;
-
-  [[nodiscard]] bool interrupted() const override;
-
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
   [[nodiscard]] bool propagate(
       Minisat::vec<Minisat::Lit> const& assumptions,
       Minisat::vec<Minisat::Lit>& propagated) override;
+
+ private:
+  void _do_interrupt() override;
 
  private:
   bool preprocess_;

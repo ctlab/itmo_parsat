@@ -5,13 +5,15 @@
 #include "core/util/SigHandler.h"
 #include "core/util/Tracer.h"
 #include "core/util/Logger.h"
-#include "core/util/Generator.h"
 
 namespace core {
 
+/**
+ * Naively solves SAT using the specified solver.
+ */
 class NaiveSolve : public Solve {
  public:
-  NaiveSolve(NaiveSolveConfig const& config);
+  NaiveSolve(NaiveSolveConfig config);
 
   [[nodiscard]] sat::State solve(std::filesystem::path const& input) override;
 

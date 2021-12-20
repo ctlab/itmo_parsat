@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
 #include <cmath>
 
+#include "core/domain/assignment/RandomSearch.h"
+#include "core/domain/assignment/FullSearch.h"
 #include "core/util/stream.h"
-#include "core/domain/Assignment.h"
+#include "core/util/Logger.h"
+#include "core/util/Generator.h"
 
 using namespace core;
 
@@ -38,7 +41,7 @@ class TestAssignment : public ::testing::Test {
       uniques.insert(get_vars(assignment_p));
     } while (++(*assignment_p));
     int delta = std::abs((int) uniques.size() - (int) target_count);
-    VLOG(4) << "Uniques: " << uniques.size() << ", when expected: " << target_count;
+    IPS_INFO("Uniques: " << uniques.size() << ", when expected: " << target_count);
     ASSERT_LE(delta, max_delta);
   }
 
@@ -46,17 +49,21 @@ class TestAssignment : public ::testing::Test {
       domain::UAssignment assignment_p, uint32_t target_count, uint32_t max_delta,
       uint32_t ranges) {
     std::set<std::vector<int>> uniques;
+    uint32_t total = 0;
     for (uint32_t index = 0; index < ranges; ++index) {
       auto split = assignment_p->split_search(ranges, index);
       do {
-        if (split->is_empty()) {
+        if (split->empty()) {
           break;
         }
+        ++total;
         uniques.insert(get_vars(split));
       } while (++(*split));
     }
     int delta = std::abs((int) uniques.size() - (int) target_count);
-    VLOG(4) << "Uniques: " << uniques.size() << ", when expected: " << target_count;
+    IPS_INFO(
+        "Uniques: " << uniques.size() << ", when expected: " << target_count
+                    << ", total steps: " << total);
     ASSERT_LE(delta, max_delta);
   }
 
@@ -89,6 +96,7 @@ class TestAssignment : public ::testing::Test {
 
  public:
   static constexpr long NUM_VARS_MAX = 128;
+  core::Generator gen{1337};
   core::domain::VarView mock_var_map;
   std::vector<bool> mock_vars;
 };

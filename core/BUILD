@@ -12,85 +12,25 @@ cc_test(
     name = "test",
     size = "small",
     srcs = glob(["tests/**/*.cpp"]),
+    copts = ["-Icore/sat/minisat"],
     deps = base_deps + [
         "@com_google_googletest//:gtest_main",
-        "//core:domain",
+        "@com_google_googletest//:gtest",
+        "//core:core",
     ],
     visibility = ["//visibility:public"],
 )
 
 cc_library(
-    name = "sat",
-    srcs = glob(["sat/**/*.cpp"]),
-    hdrs = glob(["sat/**/*.h"]),
-    deps = [
-        "//core:util",
-        "//core:domain",
+    name = "core",
+    srcs = glob(include=["**/*.cpp"], exclude=["tests/**/*"]),
+    hdrs = glob(include=["**/*.h"], exclude=["tests/**/*"]),
+    deps = base_deps + [
+        "//core/proto:logging_config_cc_proto",
         "//core/proto:solve_config_cc_proto",
         "//core/sat/minisat:minisat",
     ],
-    linkstatic = True,
-    alwayslink = True,
-    visibility = ["//visibility:public"],
-)
-
-cc_library(
-    name = "util",
-    srcs = glob(["util/**/*.cpp"]),
-    hdrs = glob(["util/**/*.h"]),
-    deps = base_deps + [
-        "//core/proto:logging_config_cc_proto"
-    ],
-    linkstatic = True,
-    alwayslink = True,
-    visibility = ["//visibility:public"],
-)
-
-cc_library(
-    name = "logging",
-    srcs = glob(["logging/**/*.cpp"]),
-    hdrs = glob(["logging/**/*.h"]),
-    deps = base_deps,
-    linkstatic = True,
-    alwayslink = True,
-    visibility = ["//visibility:public"],
-)
-
-cc_library(
-    name = "evol",
-    srcs = glob(["evol/**/*.cpp"]),
-    hdrs = glob(["evol/**/*.h"]),
-    deps = base_deps + [
-        "//core/proto:solve_config_cc_proto",
-        "//core:sat"
-    ],
-    linkstatic = True,
-    alwayslink = True,
-    visibility = ["//visibility:public"],
-)
-
-cc_library(
-    name = "domain",
-    srcs = glob(["domain/**/*.cpp"]),
-    hdrs = glob(["domain/**/*.h"]),
-    deps = [
-        "//core:util",
-        "//core/sat/minisat:minisat",
-    ],
-    linkstatic = True,
-    alwayslink = True,
-    visibility = ["//visibility:public"],
-)
-
-cc_library(
-    name = "solve",
-    srcs = glob(["solve/**/*.cpp"]),
-    hdrs = glob(["solve/**/*.h"]),
-    deps = [
-        "//core:evol",
-        "//core:sat",
-        "//core:util",
-    ],
+    copts = ["-Icore/sat/minisat"],
     linkstatic = True,
     alwayslink = True,
     visibility = ["//visibility:public"],

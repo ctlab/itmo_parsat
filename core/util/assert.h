@@ -8,8 +8,8 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 #include <execinfo.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include <cstdio>
+#include <cstdarg>
 #include <csignal>
 #include <cerrno>
 #include <cstring>

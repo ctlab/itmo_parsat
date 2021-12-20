@@ -16,12 +16,9 @@ struct SharedData {
    * Sampling configuration.
    */
   struct SamplingConfig {
-    uint32_t samples;
-    uint32_t can_scale;
+    uint32_t base_samples;
+    uint32_t max_scale_steps;
     double scale;
-
-   public:
-    void do_scale();
   } sampling_config{};
 
   /**

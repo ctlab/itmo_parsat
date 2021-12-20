@@ -1,8 +1,9 @@
 #include <iostream>
+#include <filesystem>
 
 #include <boost/program_options.hpp>
 
-#include "infra/include/testing/LaunchFixture.h"
+#include "infra/testing/LaunchFixture.h"
 
 boost::program_options::variables_map parse_args(int argc, char** argv) {
   namespace po = boost::program_options;
@@ -29,17 +30,18 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   return args;
 }
 
-void init_googletest(char const* argv0, std::vector<std::string> const& gtest_options) {
-  if (gtest_options.empty()) {
-    ::testing::InitGoogleTest();
+void init_googletest(char const* argv0, boost::program_options::variables_map& vmap) {
+  if (vmap.count("gtest-opts") == 0) {
+    testing::InitGoogleTest();
   } else {
+    auto const& gtest_options = vmap["gtest-opts"].as<std::vector<std::string>>();
     int argc = (int) gtest_options.size() + 1;
     std::vector<char const*> argv;
     argv.push_back(argv0);
     for (auto const& s : gtest_options) {
       argv.push_back(s.data());
     }
-    ::testing::InitGoogleTest(&argc, (char**) argv.data());
+    testing::InitGoogleTest(&argc, (char**) argv.data());
   }
 }
 
@@ -48,7 +50,7 @@ int main(int argc, char** argv) {
 
   {  // Prepare LaunchFixture
     auto args = parse_args(argc, argv);
-    init_googletest(argv[0], args["gtest-opts"].as<std::vector<std::string>>());
+    init_googletest(argv[0], args);
     auto& config = LaunchFixture::config;
     config.executable = args["exec"].as<std::filesystem::path>();
     config.commit = args["commit"].as<std::string>();

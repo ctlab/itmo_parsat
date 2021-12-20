@@ -15,6 +15,7 @@ void test_flip_coin(double p) {
 }
 
 TEST(random, flip_coin) {
+  core::Generator gen(1337);
   test_flip_coin(0.0);
   test_flip_coin(0.1);
   test_flip_coin(0.5);

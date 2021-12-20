@@ -1,11 +1,6 @@
-#include "infra/include/testing/LaunchConfig.h"
+#include "infra/testing/LaunchConfig.h"
 
 namespace infra::testing {
-
-LaunchConfig& LaunchConfig::set_backdoor(bool new_backdoor) noexcept {
-  backdoor = new_backdoor;
-  return *this;
-}
 
 LaunchConfig& LaunchConfig::set_input_path(std::filesystem::path const& new_input_path) noexcept {
   input_path = new_input_path;
@@ -14,6 +9,12 @@ LaunchConfig& LaunchConfig::set_input_path(std::filesystem::path const& new_inpu
 
 LaunchConfig& LaunchConfig::set_config_path(std::filesystem::path const& new_config_path) noexcept {
   config_path = new_config_path;
+  return *this;
+}
+
+LaunchConfig& LaunchConfig::set_log_config_path(
+    std::filesystem::path const& new_log_config_path) noexcept {
+  log_config_path = new_log_config_path;
   return *this;
 }
 

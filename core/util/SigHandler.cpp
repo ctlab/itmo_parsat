@@ -1,5 +1,11 @@
 #include "core/util/SigHandler.h"
 
+namespace {
+
+::core::SigHandler* _sig_handler = nullptr;
+
+}  // namespace
+
 namespace core {
 
 SigHandler::CallbackHandle::CallbackHandle(callback_t callback, std::mutex* unlink_mutex)
@@ -20,6 +26,8 @@ void SigHandler::CallbackHandle::callback(int signal) {
 }
 
 SigHandler::SigHandler() {
+  IPS_VERIFY(_sig_handler == nullptr && bool("SigHandler re-registered."));
+  _sig_handler = this;
   sigset_t ss;
   sigemptyset(&ss);
   sigaddset(&ss, SIGINT);
@@ -60,6 +68,7 @@ SigHandler::~SigHandler() noexcept {
     _terminate = true;
     _t.join();
   }
+  _sig_handler = nullptr;
 }
 
 bool SigHandler::is_set() const noexcept {
@@ -87,4 +96,22 @@ void SigHandler::_callback(int signal) {
   }
 }
 
+namespace sig {
+
+SigHandler::handle_t register_callback(SigHandler::callback_t callback) {
+  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
+  return _sig_handler->register_callback(std::move(callback));
+}
+
+[[nodiscard]] bool is_set() noexcept {
+  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
+  return _sig_handler->is_set();
+}
+
+void unset() noexcept {
+  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
+  _sig_handler->unset();
+}
+
+}  // namespace sig
 }  // namespace core

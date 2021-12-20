@@ -29,7 +29,6 @@ CREATE TABLE public.launches (
     input_path character varying(512) NOT NULL,
     config_path character varying(512) NOT NULL,
     log_path character varying(512) NOT NULL,
-    backdoor boolean NOT NULL,
     commit_hash character varying(128),
     result character varying(16),
     started_at timestamp without time zone,
@@ -73,20 +72,7 @@ ALTER TABLE ONLY public.launches ALTER COLUMN launch_id SET DEFAULT nextval('pub
 -- Data for Name: launches; Type: TABLE DATA; Schema: public; Owner: dzhiblavi
 --
 
-COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, commit_hash, result, started_at, finished_at, description) FROM stdin;
-14	./resources/cnf/unsat_dubois20.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-1344904405.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-15	./resources/cnf/unsat_hole6.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-1807644700.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-16	./resources/cnf/sat_quinn.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-1923514804.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-17	./resources/cnf/unsat_aim-100-1_6-no-1.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747232652372.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-18	./resources/cnf/unsat_bf0432-007.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747924103685.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-19	./resources/cnf/sat_simple_v3_c2.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-280965106.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-20	./resources/cnf/unsat_dubois22.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-946198649.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-21	./resources/cnf/sat_par8-1-c.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-372782357.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-22	./resources/cnf/sat_aim-50-1_6-yes1-4.cnf	./resources/config/base.json	./artifacts-infra/logs/16393127471407077416.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-23	./resources/cnf/unsat_dubois21.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747-1135469297.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:39:08	Basic SimpSolver test (no backdoor)
-24	./resources/cnf/unsat_sgen6_900_100.cnf	./resources/config/base.json	./artifacts-infra/logs/16393127471891423661.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:51:48	Basic SimpSolver test (no backdoor)
-25	./resources/cnf/unsat_pancake_vs_selection_7_4.cnf	./resources/config/base.json	./artifacts-infra/logs/16393127471117596103.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 15:52:42	Basic SimpSolver test (no backdoor)
-26	./resources/cnf/unsat_bubble_vs_pancake_7_6_simp.cnf	./resources/config/base.json	./artifacts-infra/logs/1639312747272745167.txt	f	f24061c82836978dfac1e69fec2032b48ea218e0	PASSED	2021-12-12 15:39:07	2021-12-12 16:36:55	Basic SimpSolver test (no backdoor)
+COPY public.launches (launch_id, input_path, config_path, log_path, commit_hash, result, started_at, finished_at, description) FROM stdin;
 \.
 
 
@@ -94,7 +80,7 @@ COPY public.launches (launch_id, input_path, config_path, log_path, backdoor, co
 -- Name: launches_launch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dzhiblavi
 --
 
-SELECT pg_catalog.setval('public.launches_launch_id_seq', 26, true);
+SELECT pg_catalog.setval('public.launches_launch_id_seq', 117, true);
 
 
 --

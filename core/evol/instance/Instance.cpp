@@ -1,6 +1,5 @@
 #include "core/evol/instance/Instance.h"
 
-#include <memory>
 #include <unordered_map>
 #include <utility>
 
@@ -10,22 +9,24 @@
 namespace ea::instance {
 
 size_t Instance::num_vars() const noexcept {
-  return shared_->var_view.size();
+  return _shared->var_view.size();
 }
 
 Instance::Instance(core::sat::RSolver solver, RSharedData shared_data)
-    : solver_(std::move(solver)), shared_(std::move(shared_data)) {
-  vars_.resize(_var_view().size());
-  vars_.flip(core::random::sample<unsigned>(0, num_vars()));
+    : _solver(std::move(solver)), _shared(std::move(shared_data)) {
+  _vars.resize(_var_view().size());
+
+  // Initialize instance by setting one random variable
+  _vars.flip(core::random::sample<unsigned>(0, num_vars()));
 }
 
 core::domain::Vars& Instance::get_vars() noexcept {
-  cached_ = false;
-  return vars_;
+  _cached = false;
+  return _vars;
 }
 
 core::domain::Vars const& Instance::get_vars() const noexcept {
-  return vars_;
+  return _vars;
 }
 
 Instance* Instance::clone() {
@@ -33,88 +34,97 @@ Instance* Instance::clone() {
 }
 
 Fitness const& Instance::fitness() {
-  if (!cached_) {
-    auto const& mask = vars_.get_mask();
+  if (!_cached) {
+    auto const& mask = _vars.get_mask();
     auto maybe_fit = _cache().get(mask);
     if (maybe_fit.has_value()) {
       fit_ = maybe_fit.value();
     } else {
       _calc_fitness();
       _cache().add(mask, fit_);
+
+      // Inaccurate number of points is calculated as number of masks
+      // for which cache-miss occurred. That means, this number will not
+      // be equal to the actual number of distinct visited points unless
+      // the number of visited points is less than maximal size of the cache.
+      ++_inaccurate_points();
     }
-    cached_ = true;
+    _cached = true;
   }
   return fit_;
 }
 
 Fitness const& Instance::fitness() const noexcept {
-  IPS_VERIFY(cached_ && bool("Const-fitness called on non-cached Instance"));
-  return fit_;
+  IPS_VERIFY(is_cached() && bool("Const-fitness called on non-cached Instance"));
+  return _cached ? fit_ : fit_ = _shared->cache.get(_vars.get_mask()).value();
 }
 
 void Instance::_calc_fitness() {
-  ++_inaccurate_points();
-  auto const& mask = vars_.get_mask();
+  // We start from base samples count
+  _calc_fitness(_sampling_config().base_samples, _sampling_config().max_scale_steps);
+}
+
+void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
+  auto const& mask = _vars.get_mask();
   int size = (int) std::count(mask.begin(), mask.end(), true);
-  std::unique_ptr<core::domain::Assignment> assignment_ptr;
-  uint32_t samples = _sampling_config().samples;
-  core::domain::UAssignment assignment_p;
+
+  core::domain::UAssignment assignment_ptr;
+  bool full_search = false;
   if (std::log2(samples) >= (double) size) {
-    samples = (uint32_t) std::pow(2UL, size);
-    assignment_p = core::domain::createFullSearch(_var_view(), mask);
+    full_search = true;
+    samples = 1ULL << size;
+    assignment_ptr = core::domain::createFullSearch(_var_view(), mask);
   } else {
-    assignment_p = core::domain::createRandomSearch(_var_view(), mask, samples);
+    assignment_ptr = core::domain::createRandomSearch(_var_view(), mask, samples);
   }
 
   // clang-format off
-  std::atomic_int success(0), total(0);
-  solver_->prop_assignments(std::move(assignment_p),
-      [&success, &total](bool conflict, auto const& asgn, auto) {
-        success += conflict;
-        ++total;
+  std::atomic_int conflicts(0);
+  _solver->prop_assignments(std::move(assignment_ptr),
+      [&conflicts](bool conflict, auto const& asgn, auto) {
+        conflicts += conflict;
         return true;
       });
   // clang-format on
 
-  IPS_WARNING_IF(
-      total != (int) samples,
-      "Internal error: invalid assignments behaviour: " << total << " != " << samples);
-  fit_.rho = (double) success / (double) total;
+  fit_.rho = (double) conflicts / (double) samples;
   fit_.pow_r = size;
-  fit_.pow_nr = (int) shared_->omega_x;
+  fit_.pow_nr = (int) _shared->omega_x;
+  fit_.samples = samples;
+  _cached = true;
 
-  cached_ = true;
-  if (fit_.rho == 1.0 && _sampling_config().can_scale > 0) {
+  if (!full_search && fit_.rho == 1.0 && steps_left > 0) {
+    uint32_t scaled_samples = samples * _sampling_config().scale;
     IPS_INFO_T(
-        FITNESS_SCALE, "Fitness reached 1, scaling sampling size, invalidating cache. Instance:\n"
+        FITNESS_SCALE, "Fitness reached 1 for sampling size "
+                           << samples << ", scaling sampling size to " << scaled_samples
+                           << " instance:\n"
                            << *this);
-    cached_ = false;
-    _sampling_config().do_scale();
-    _cache().invalidate();
-    _calc_fitness();
+    _cached = false;
+    _calc_fitness(scaled_samples, steps_left - 1);
   } else {
     IPS_INFO_T(CURRENT_INSTANCE, *this);
   }
 }
 
 bool Instance::is_cached() const noexcept {
-  return cached_ || shared_->cache.get(vars_.get_mask()).has_value();
+  return _cached || _shared->cache.get(_vars.get_mask()).has_value();
 }
 
 instance::SharedData::SamplingConfig& Instance::_sampling_config() noexcept {
-  return shared_->sampling_config;
+  return _shared->sampling_config;
 }
 
 core::LRUCache<std::vector<bool>, Fitness>& Instance::_cache() noexcept {
-  return shared_->cache;
+  return _shared->cache;
 }
 
 uint32_t& Instance::_inaccurate_points() noexcept {
-  return shared_->inaccurate_points;
+  return _shared->inaccurate_points;
 }
 
 core::domain::VarView& Instance::_var_view() noexcept {
-  return shared_->var_view;
+  return _shared->var_view;
 }
 
 bool operator<(Instance& a, Instance& b) {
@@ -124,9 +134,20 @@ bool operator<(Instance& a, Instance& b) {
 }  // namespace ea::instance
 
 std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instance) {
-  auto vars = instance.get_vars().map_to_vars(instance.shared_->var_view);
+  auto vars = instance.get_vars().map_to_vars(instance._shared->var_view);
   std::sort(vars.begin(), vars.end());
+
+  double coverage = (double) instance.fitness().samples;
+  uint32_t num_vars = instance.fitness().pow_r;
+
+  if (num_vars <= core::domain::Assignment::MAX_VARS_FULL_SEARCH) {
+    coverage /= (1ULL << num_vars);
+  } else {
+    coverage = std::pow(2., std::log2(coverage) - num_vars);
+  }
+
   return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
             << " and fitness: " << (double) instance.fitness() << " Vars: " << vars
-            << " sampling size: " << instance.shared_->sampling_config.samples;
+            << " samples: " << instance.fitness().samples << " coverage: " << 100. * coverage
+            << "%";
 }

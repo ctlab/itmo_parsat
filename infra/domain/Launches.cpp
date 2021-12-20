@@ -1,4 +1,4 @@
-#include "infra/include/domain/Launches.h"
+#include "infra/domain/Launches.h"
 
 namespace infra::domain {
 
@@ -37,12 +37,11 @@ Launches& Launches::add(Launch const& launch) {
   std::lock_guard<std::mutex> lg(m_);
   // clang-format off
   _exec0(std::string() +
-    "INSERT INTO Launches(input_path, config_path, log_path, backdoor, commit_hash, started_at, finished_at, result, description)"
+    "INSERT INTO Launches(input_path, config_path, log_path, commit_hash, started_at, finished_at, result, description)"
     " VALUES (" +
     "\'" + launch.input_path.string() + "\', " +
     "\'" + launch.config_path.string() + "\', " +
     "\'" + launch.log_path.string() + "\', " +
-    "\'" + (launch.backdoor ? "true" : "false") + "\', " +
     "\'" + launch.commit_hash + "\', " +
     "to_timestamp(" + std::to_string(launch.started_at) + "), " +
     "to_timestamp(" + std::to_string(launch.finished_at) + "), " +

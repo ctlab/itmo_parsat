@@ -5,7 +5,8 @@
 
 #include "core/evol/instance/SharedData.h"
 #include "core/sat/Solver.h"
-#include "core/domain/Assignment.h"
+#include "core/domain/assignment/RandomSearch.h"
+#include "core/domain/assignment/FullSearch.h"
 #include "core/domain/VarView.h"
 #include "core/domain/Vars.h"
 #include "core/util/stream.h"
@@ -77,6 +78,8 @@ class Instance {
  private:
   void _calc_fitness();
 
+  void _calc_fitness(uint32_t samples, uint32_t steps_left);
+
   SharedData::SamplingConfig& _sampling_config() noexcept;
 
   core::LRUCache<std::vector<bool>, Fitness>& _cache() noexcept;
@@ -86,13 +89,16 @@ class Instance {
   core::domain::VarView& _var_view() noexcept;
 
  private:
-  bool cached_ = false;
-  std::shared_ptr<core::sat::Solver> solver_;
-  std::shared_ptr<SharedData> shared_;
-  core::domain::Vars vars_;
-  Fitness fit_{};
+  bool _cached = false;
+  std::shared_ptr<core::sat::Solver> _solver;
+  std::shared_ptr<SharedData> _shared;
+  core::domain::Vars _vars;
 
- private:
+  // Mutability here is actually a design flaw, which will probably be fixed in future.
+  // It is needed to update fitness from cache when `fitness() const` is called.
+  mutable Fitness fit_{};
+
+ public:
   friend std::ostream& ::operator<<(std::ostream&, ea::instance::Instance const& instance);
 };
 

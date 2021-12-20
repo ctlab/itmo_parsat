@@ -134,19 +134,27 @@ message AlgorithmConfig {
   GAAlgorithmConfig ga_algorithm_config = 4;
 }
 
-message SBSSolveConfig {
+message NaiveSolveConfig {
+  SolverConfig solver_config = 1;
+}
+
+message RBSSolveConfig {
   AlgorithmConfig algorithm_config = 1;
   SolverConfig solver_config = 2;
   uint32 random_seed = 3;
 }
 
-message NaiveSolveConfig {
-  SolverConfig solver_config = 1;
-  uint32 random_seed = 2;
+message ParRBSSolveConfig {
+  repeated AlgorithmConfig algorithm_configs = 1;
+  SolverConfig solver_config = 2;
+  uint32 random_seed = 3;
+  uint32 num_algorithms = 4;
+  uint32 max_unpropagated = 5;
 }
 
 message SolveConfig {
   string solve_type = 1;
   NaiveSolveConfig naive_solve_config = 2;
-  SBSSolveConfig sbs_solve_config = 3;
+  RBSSolveConfig rbs_solve_config = 3;
+  ParRBSSolveConfig par_rbs_solve_config = 4;
 }

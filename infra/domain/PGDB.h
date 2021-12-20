@@ -2,6 +2,8 @@
 #define ITMO_PARSAT_PGDB_H
 
 #include <mutex>
+
+#include "core/util/Logger.h"
 #include "pqxx/pqxx"
 
 namespace infra::domain {

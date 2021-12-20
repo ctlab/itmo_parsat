@@ -15,6 +15,7 @@ struct Fitness {
   double rho;
   int32_t pow_r;
   int32_t pow_nr;
+  uint32_t samples;
 
   /**
    * @return whether value can be calculated using uint64 and double types

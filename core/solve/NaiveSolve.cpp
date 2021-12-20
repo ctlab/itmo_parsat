@@ -1,21 +1,21 @@
 #include "core/solve/NaiveSolve.h"
 
+#include <utility>
+
 namespace core {
 
-NaiveSolve::NaiveSolve(NaiveSolveConfig const& config) : _cfg(config) {}
+NaiveSolve::NaiveSolve(NaiveSolveConfig config) : _cfg(std::move(config)) {}
 
 sat::State NaiveSolve::solve(std::filesystem::path const& input) {
-  core::SigHandler sigh;
-  core::Generator generator(_cfg.random_seed());
   auto solver = _resolve_solver(_cfg.solver_config());
   IPS_TRACE(solver->parse_cnf(input));
 
-  SigHandler::handle_t slv_int_handle = sigh.register_callback([&](int) {
+  SigHandler::handle_t slv_int_handle = core::sig::register_callback([&](int) {
     solver->interrupt();
     IPS_INFO("Solver has been interrupted.");
     slv_int_handle->remove();
   });
-  sigh.unset();
+  core::sig::unset();
   return IPS_TRACE_V(solver->solve_limited());
 }
 

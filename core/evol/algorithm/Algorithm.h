@@ -2,6 +2,7 @@
 #define EA_BASE_ALGORITHM_H
 
 #include <utility>
+#include <thread>
 
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"

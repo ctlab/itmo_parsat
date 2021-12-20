@@ -22,9 +22,9 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   _shared_data = std::make_shared<instance::SharedData>();
   _shared_data->omega_x = config.omega_x();
   _shared_data->cache.set_max_size(config.max_cache_size());
-  _shared_data->sampling_config.samples = config.sampling_config().base_count();
+  _shared_data->sampling_config.base_samples = config.sampling_config().base_count();
   _shared_data->sampling_config.scale = config.sampling_config().scale();
-  _shared_data->sampling_config.can_scale = config.sampling_config().max_steps();
+  _shared_data->sampling_config.max_scale_steps = config.sampling_config().max_steps();
 
   Minisat::vec<Minisat::Lit> assumptions(1);
   Minisat::vec<Minisat::Lit> propagated;
@@ -79,9 +79,10 @@ void Algorithm::process() {
   while (!is_interrupted() && _limit->proceed(*this)) {
     IPS_TRACE(step());
     IPS_INFO_T(
-        BEST_INSTANCE, "[Iter " << iteration << "]"
-                                << "[Points " << inaccurate_points() << "]"
-                                << " Best instance: " << get_best());
+        BEST_INSTANCE, "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) % 100
+                                  << "] [Iter " << iteration << "]"
+                                  << "[Points " << inaccurate_points() << "]"
+                                  << " Best instance: " << get_best());
     ++iteration;
   }
 }

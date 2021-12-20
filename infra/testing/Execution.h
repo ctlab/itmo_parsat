@@ -40,7 +40,7 @@ class Execution {
           std::unique_lock<std::mutex> lg(cv_m_);
 
           while (!interrupted_ && proc_.running()) {
-            cv_.wait_for(lg, 1000ms,
+            cv_.wait_for(lg, 100ms,
               [this, &proc_]() {
                 return interrupted_ || !proc_.running();
               }

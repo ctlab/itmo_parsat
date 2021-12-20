@@ -8,20 +8,20 @@
 namespace infra::testing {
 
 struct LaunchConfig {
-  bool backdoor = false;
   infra::domain::SatResult expected_result{};
   std::filesystem::path config_path{};
+  std::filesystem::path log_config_path{};
   std::filesystem::path input_path{};
   std::string description{};
 
  public:
   LaunchConfig() = default;
 
-  LaunchConfig& set_backdoor(bool backdoor = true) noexcept;
-
   LaunchConfig& set_input_path(std::filesystem::path const& input_path) noexcept;
 
   LaunchConfig& set_config_path(std::filesystem::path const& config_path) noexcept;
+
+  LaunchConfig& set_log_config_path(std::filesystem::path const& config_path) noexcept;
 
   LaunchConfig& set_expected_result(infra::domain::SatResult result) noexcept;
 

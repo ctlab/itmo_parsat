@@ -21,6 +21,7 @@ SimpSolver::SimpSolver(SimpSolverConfig const& config)
     , preprocess_(config.minisat_cli_config().preprocessing()) {
   verbosity = config.minisat_cli_config().verbosity_level();
 
+  // TODO(dzhiblavi@): Get rid of these extremely strange limits
   int cpu_lim = config.minisat_cli_config().cpu_limit();
   if (cpu_lim != 0) {
     Minisat::limitTime(cpu_lim);
@@ -60,12 +61,8 @@ State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
   }
 }
 
-void SimpSolver::interrupt() {
+void SimpSolver::_do_interrupt() {
   static_cast<Minisat::SimpSolver*>(this)->interrupt();
-}
-
-bool SimpSolver::interrupted() const {
-  return asynch_interrupt;
 }
 
 unsigned SimpSolver::num_vars() const noexcept {

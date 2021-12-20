@@ -1,4 +1,4 @@
-#include "infra/include/testing/LaunchFixture.h"
+#include "infra/testing/LaunchFixture.h"
 
 #include <fstream>
 #include <csignal>
@@ -119,6 +119,8 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
     /* Copy configuration */
     std::filesystem::path real_config_path =
         config.resources_dir / "config" / launch_config.config_path;
+    std::filesystem::path real_log_config_path =
+        config.resources_dir / "config" / launch_config.log_config_path;
     std::filesystem::path real_input_path = config.resources_dir / "cnf" / launch_config.input_path;
     std::filesystem::copy_file(real_config_path, config_path);
 
@@ -137,25 +139,18 @@ void LaunchFixture::launch(infra::testing::LaunchConfig launch_config) {
                 << "\n\t\tTest result: " << infra::domain::to_string(launch_result);
       launches->add(
         infra::domain::Launch{
-          0, real_input_path, real_config_path, logs_path, launch_config.backdoor,
+          0, real_input_path, real_config_path, logs_path,
           config.commit, _get_launch_result(interrupted, sat_result, launch_config.expected_result),
           started_at, finished_at, launch_config.description
         }
       );
     };
-    if (launch_config.backdoor) {
-      execs_.emplace_back(std::make_unique<infra::Execution>(callback,
-        logs_path, logs_path, config.executable.string(), "--backdoor",
+    execs_.emplace_back(std::make_unique<infra::Execution>(callback,
+        logs_path, logs_path, config.executable.string(),
         "--input", real_input_path.string(),
+        "--log-config", real_log_config_path.string(),
         "--config", real_config_path.string()
-      ));
-    } else {
-      execs_.emplace_back(std::make_unique<infra::Execution>(callback,
-          logs_path, logs_path, config.executable.string(),
-          "--input", real_input_path.string(),
-          "--config", real_config_path.string()
-      ));
-    }
+    ));
     // clang-format on
     LOG(INFO) << "\n\tLaunched [" + launch_config.description + "]:"
               << "\n\t\tInput file: " << real_input_path

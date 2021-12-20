@@ -50,7 +50,6 @@ static void readClause(B& in, Solver& S, vec<Lit>& lits) {
 template <class B, class Solver>
 static void parse_DIMACS_main(B& in, Solver& S, bool strictp = false) {
   vec<Lit> lits;
-  int vars = 0;
   int clauses = 0;
   int cnt = 0;
   for (;;) {
@@ -59,7 +58,7 @@ static void parse_DIMACS_main(B& in, Solver& S, bool strictp = false) {
       break;
     else if (*in == 'p') {
       if (eagerMatch(in, "p cnf")) {
-        vars = parseInt(in);
+        parseInt(in);
         clauses = parseInt(in);
         // SATRACE'06 hack
         // if (clauses > 4000000)

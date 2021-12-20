@@ -7,10 +7,11 @@ DO_ALL=""
 RESOURCES_DIR="./resources"
 
 CNF_PATH="$ROOT/resources/cnf/unsat_pancake_vs_selection_7_4.cnf"
-SLV_CFG_PATH="$ROOT/resources/config/algorithm.json"
+CFG_ROOT="$ROOT/resources/config"
 LOG_CFG_PATH="$ROOT/resources/config/log.json"
 SOLVE_BIN="$ROOT/bazel-bin/cli/solve"
 TEST_BIN="$ROOT/bazel-bin/core/test"
+SLV_CFG="naive.json"
 
 INFRA_BIN="$ROOT/bazel-bin/cli/infra"
 INFRA_DIR="./artifacts-infra/"
@@ -44,6 +45,14 @@ function do_help() {
         echo "    $pattern        ${descs[$pattern]}"
     done
     exit 1
+}
+
+function do_input() {
+    CNF_PATH="$1"
+}
+
+function do_config() {
+    SLV_CFG="$1.json"
 }
 
 function do_build_debug() {
@@ -105,7 +114,7 @@ function do_solve() {
         GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
             --verbose "$VERBOSE" \
             --input "$CNF_PATH" \
-            --config "$SLV_CFG_PATH" \
+            --config "$CFG_ROOT/$SLV_CFG" \
             --log-config "$LOG_CFG_PATH"
     else
         GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
@@ -152,6 +161,8 @@ function parse_options() {
 add_option "-h|--help" "     Display help message"       do_help         0
 add_option "-g|--debug" "    Build with debug syms"      do_build_debug  0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb      0
+add_option "-i|--input" "    Input CNF path"             do_input        1
+add_option "-c|--config" "   Specify config"             do_config       1
 add_option "-f|--format" "   Apply clang-format"         do_format       0
 add_option "-b|--build" "    Build cli binary"           do_build_solve  0
 add_option "--build-unit" "  Build unit tests"           do_build_unit   0

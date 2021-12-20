@@ -53,7 +53,6 @@ class SigHandler {
     bool operator<(CallbackHandle const& other) const noexcept;
 
    private:
-    uint32_t _id;
     callback_t _callback;
     std::mutex* _unlink_mutex;
   };
@@ -101,6 +100,15 @@ class SigHandler {
   boost::intrusive::list<CallbackHandle, boost::intrusive::constant_time_size<false>> _handles_list;
 };
 
+namespace sig {
+
+SigHandler::handle_t register_callback(SigHandler::callback_t callback);
+
+[[nodiscard]] bool is_set() noexcept;
+
+void unset() noexcept;
+
+}  // namespace sig
 }  // namespace core
 
 #endif  // EVOL_SIGHANDLER_H
