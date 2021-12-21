@@ -12,12 +12,14 @@ class ResourceLimit : public Limit {
    */
   ResourceLimit(ResourceLimitConfig const& config);
 
-  /**
-   * @return true iff time and memory limits are both not reached
-   */
-  bool proceed(ea::algorithm::Algorithm& algorithm) override;
-
   void start() override;
+
+ protected:
+  /**
+   * @return true iff time and memory limits are both not reached and there
+   *         still are unvisited points left.
+   */
+  bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 
  private:
   uint32_t _memory_limit_kb;

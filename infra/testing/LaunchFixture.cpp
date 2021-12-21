@@ -1,20 +1,10 @@
 #include "infra/testing/LaunchFixture.h"
 
 #include <fstream>
-#include <csignal>
 #include <chrono>
 #include <thread>
 
 namespace {
-
-LaunchFixture* _fixture = nullptr;
-
-void _sig_handler(int) {
-  if (_fixture != nullptr) {
-    LOG(INFO) << "Caught interrupt!";
-    _fixture->interrupt();
-  }
-}
 
 namespace bp = boost::process;
 
@@ -34,19 +24,15 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 }  // namespace
 
 LaunchFixture::LaunchFixture() {
-  std::signal(SIGINT, _sig_handler);
-  _fixture = this;
+  _sig_cb = core::sig::register_callback([this](int) { interrupt(); });
 }
 
-LaunchFixture::~LaunchFixture() noexcept {
-  std::signal(SIGINT, SIG_DFL);
-  _fixture = nullptr;
-}
+LaunchFixture::~LaunchFixture() noexcept {}
 
 LaunchFixture::Config LaunchFixture::config{};
 
 void LaunchFixture::interrupt() {
-  for (auto& exec : execs_) {
+  for (auto& exec : _execs) {
     exec->interrupt();
   }
 }
@@ -62,14 +48,16 @@ void LaunchFixture::SetUpTestSuite() {
 }
 
 void LaunchFixture::SetUp() {
-  launches = std::make_unique<infra::domain::Launches>(config.dbname, config.user, config.password);
+  _launches =
+      std::make_unique<infra::domain::Launches>(config.dbname, config.user, config.password);
 }
 
 void LaunchFixture::TearDown() {
-  for (auto& exec : execs_) {
+  _ignore_cnfs.clear();
+  for (auto& exec : _execs) {
     exec->await();
   }
-  execs_.clear();
+  _execs.clear();
 }
 
 void LaunchFixture::_prepare_resources() {
@@ -91,6 +79,12 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     infra::testing::LaunchConfig launch_config) {
   static std::random_device rnd_dev_;
   static std::mt19937 rnd_gen_(rnd_dev_());
+
+  if (_ignore_cnfs.count(launch_config.input_path)) {
+    LOG(INFO) << "Launch for input path " << launch_config.input_path << " is ignored.";
+    return {};
+  }
+
   try {
     /* Setup result if unknown */
     if (launch_config.expected_result == infra::domain::UNKNOWN) {
@@ -132,11 +126,14 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
             0, 0, launch_config.description
         };
 
-    if (launches->contains(launch)) {
+    if (_launches->contains(launch)) {
       LOG(INFO) << "\n\tLaunch already done [" << launch_config.description << "]:"
+                << "\n\t\tLaunch ID: " << launch.launch_id
                 << "\n\t\tInput file: " << real_input_path
                 << "\n\t\tConfiguration: " << real_config_path
-                << "\n\t\tCommit hash: " << config.commit;
+                << "\n\t\tCommit hash: " << config.commit
+                << "\n\t\tLogs at: " << launch.log_path
+                << "\n\t\tResult: " << infra::domain::to_string(launch.result);
       return {};
     }
 
@@ -156,7 +153,7 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
       launch.finished_at = finished_at;
       launch.result = _get_launch_result(interrupted, sat_result, launch_config.expected_result);
       if (launch.result != infra::domain::INTERRUPTED) {
-        launches->add(launch);
+        _launches->add(launch);
       }
     };
 
@@ -167,19 +164,23 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
       "--log-config", real_log_config_path.string(),
       "--config", real_config_path.string()
     );
-    execs_.emplace_back(result);
-
+    _execs.emplace_back(result);
     // clang-format on
+
     LOG(INFO) << "\n\tLaunched [" + launch_config.description + "]:"
               << "\n\t\tInput file: " << real_input_path
-              << "\n\t\tConfiguration: " << real_config_path << "\n\t\tLogs at: " << logs_path
-              << "\n\t\tExpected result: "
+              << "\n\t\tConfiguration: " << real_config_path << " -> " << config_path
+              << "\n\t\tLogs at: " << logs_path << "\n\t\tExpected result: "
               << infra::domain::to_string(launch_config.expected_result);
     return result;
   } catch (std::exception const& e) {
     LOG(FATAL) << "Caught exception while trying to start subprocess:\n" << e.what();
     __builtin_unreachable();
   }
+}
+
+void LaunchFixture::ignore(std::string const& name) {
+  _ignore_cnfs.insert(name);
 }
 
 infra::domain::LaunchResult LaunchFixture::_get_launch_result(

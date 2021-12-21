@@ -48,6 +48,10 @@ class LRUCache {
     max_cache_size_ = new_max_size;
   }
 
+  [[nodiscard]] size_t size() const noexcept {
+    return map_.size();
+  }
+
  private:
   size_t max_cache_size_;
   std::unordered_map<Key, Value> map_;

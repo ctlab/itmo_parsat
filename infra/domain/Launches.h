@@ -44,7 +44,7 @@ class Launches : PGDB {
 
   Launches& remove(uint32_t launch_id);
 
-  [[nodiscard]] bool contains(Launch const& launch);
+  [[nodiscard]] bool contains(Launch& launch);
 };
 
 }  // namespace infra::domain

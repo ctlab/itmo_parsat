@@ -14,12 +14,13 @@ class ConjLimit : public Limit {
    */
   explicit ConjLimit(const ConjLimitConfig& config);
 
+  void start() override;
+
+ protected:
   /**
    * @return true iff *all* of limits returned true
    */
-  bool proceed(ea::algorithm::Algorithm& algorithm) override;
-
-  void start() override;
+  bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 
  private:
   std::vector<RLimit> _limits;

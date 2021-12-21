@@ -12,10 +12,11 @@ class PointsLimit : public Limit {
    */
   explicit PointsLimit(PointsLimitConfig const& config);
 
+ protected:
   /**
    * @return true iff the nubmer of (inaccurate) visited points is less than the specified limit
    */
-  bool proceed(ea::algorithm::Algorithm& algorithm) override;
+  bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 
  private:
   uint32_t _max_visited;

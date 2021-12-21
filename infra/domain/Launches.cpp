@@ -2,6 +2,20 @@
 
 namespace infra::domain {
 
+LaunchResult from_string(std::string const& name) {
+  if (name == "ERROR") {
+    return ERROR;
+  } else if (name == "INTERRUPTED") {
+    return INTERRUPTED;
+  } else if (name == "PASSED") {
+    return PASSED;
+  } else if (name == "FAILED") {
+    return FAILED;
+  }
+  IPS_ERROR("Failed to convert LaunchResult from string: '" << name << "'");
+  std::terminate();
+}
+
 std::string to_string(LaunchResult result) {
   switch (result) {
     case ERROR:
@@ -58,17 +72,29 @@ Launches& Launches::remove(uint32_t launch_id) {
   return *this;
 }
 
-bool Launches::contains(Launch const& launch) {
+bool Launches::contains(Launch& launch) {
   std::lock_guard<std::mutex> lg(m_);
+  pqxx::work work(conn_);
   // clang-format off
-  return _exec_count(std::string() +
-    "SELECT COUNT(*) FROM Launches WHERE " +
+  auto result = work.exec(std::string() +
+    "SELECT launch_id, log_path, result FROM Launches WHERE "
     "input_path = '" + launch.input_path.string() + "' AND " +
     "config_path = '" + launch.config_path.string() + "' AND " +
     "commit_hash = '" + launch.commit_hash + "' AND " +
     "description = '" + launch.description + "';"
-  ) > 0;
+  );
   // clang-format on
+  if (result.size() == 0) {
+    work.commit();
+    return false;
+  } else {
+    IPS_VERIFY(result.size() == 1 && bool("Multiple rows for equal launches"));
+    launch.launch_id = result.front()[0].as<size_t>(0);
+    launch.log_path = result.front()[1].as<std::string>("UNKNOWN");
+    launch.result = from_string(result.front()[2].as<std::string>("UNKNOWN"));
+    work.commit();
+    return true;
+  }
 }
 
 }  // namespace infra::domain

@@ -4,12 +4,14 @@
 #include <utility>
 #include <memory>
 #include <vector>
+#include <set>
 #include <filesystem>
 #include <boost/process.hpp>
 #include <glog/logging.h>
 #include <random>
 #include <gtest/gtest.h>
 
+#include "core/util/SigHandler.h"
 #include "infra/domain/Launches.h"
 #include "infra/testing/Execution.h"
 #include "infra/testing/LaunchConfig.h"
@@ -34,6 +36,8 @@ class LaunchFixture : public ::testing::Test {
 
   void interrupt();
 
+  void ignore(std::string const& name);
+
  protected:
   static void SetUpTestSuite();
 
@@ -53,8 +57,11 @@ class LaunchFixture : public ::testing::Test {
       infra::domain::SatResult expected) noexcept;
 
  private:
-  std::unique_ptr<infra::domain::Launches> launches;
-  std::vector<std::shared_ptr<infra::Execution>> execs_;
+  std::unique_ptr<infra::domain::Launches> _launches;
+  std::vector<std::shared_ptr<infra::Execution>> _execs;
+  std::set<std::string> _ignore_cnfs;
+  core::SigHandler _handler;
+  core::SigHandler::handle_t _sig_cb;
 
  public:
   static std::vector<std::filesystem::path> cnfs;

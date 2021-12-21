@@ -51,14 +51,8 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
 
 State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
   clearInterrupt();
-  Minisat::lbool result = IPS_TRACE_N_V("SimpSolver::solve_limited", solveLimited(assumptions));
-  if (result == Minisat::l_True) {
-    return SAT;
-  } else if (result == Minisat::l_False) {
-    return UNSAT;
-  } else {
-    return UNKNOWN;
-  }
+  bool result = IPS_TRACE_N_V("SimpSolver::solve_limited", solve(assumptions));
+  return result ? SAT : UNSAT;
 }
 
 void SimpSolver::_do_interrupt() {

@@ -127,6 +127,7 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
         non_conflict_assignments.begin(), non_conflict_assignments.end(),
         [](auto const& a, auto const& b) { return a.size() < b.size(); });
     std_cartesian = std::move(*it);
+    cartesian_expected_size = std_cartesian.size();
   } else {
     std_cartesian = std::move(non_conflict_assignments[index++]);
     cartesian_expected_size = std_cartesian.size();

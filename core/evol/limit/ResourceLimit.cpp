@@ -8,7 +8,7 @@ namespace ea::limit {
 ResourceLimit::ResourceLimit(const ResourceLimitConfig& config)
     : _memory_limit_kb(config.memory_limit_kb()), _time_limit_sec(config.time_limit_sec()) {}
 
-bool ResourceLimit::proceed(ea::algorithm::Algorithm&) {
+bool ResourceLimit::_proceed(ea::algorithm::Algorithm&) {
   bool time_ok = true, mem_ok = true;
   if (_time_limit_sec) {
     std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - _start;

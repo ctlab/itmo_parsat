@@ -9,11 +9,9 @@ sat::RSolver Solve::_resolve_solver(SolverConfig const& config) {
 sat::State Solve::_final_solve(sat::Solver& solver, domain::UAssignment assignment) {
   IPS_VERIFY(!assignment->empty() && bool("Trying to final-solve empty assignment set"));
 
-  std::atomic_bool interrupted{false};
   core::sig::unset();
   SigHandler::handle_t slv_int_handle = core::sig::register_callback([&](int) {
     solver.interrupt();
-    interrupted = true;
     IPS_INFO("Solver has been interrupted.");
     slv_int_handle->remove();
   });
@@ -52,7 +50,10 @@ sat::State Solve::_final_solve(sat::Solver& solver, domain::UAssignment assignme
   IPS_INFO("Conflicts: " << conflicts << ", total: " << total);
   IPS_INFO("Conflict rate is: " << (double) conflicts / (double) total);
 
+  bool interrupted = core::sig::is_set();
   core::sig::unset();
+
+  IPS_INFO("Unknown: " << unknown << ", interrupted: " << interrupted);
   if (satisfied) {
     return core::sat::SAT;
   } else if (!unknown && !interrupted) {

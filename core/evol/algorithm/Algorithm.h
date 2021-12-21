@@ -45,6 +45,8 @@ class Algorithm {
 
   [[nodiscard]] size_t inaccurate_points() const noexcept;
 
+  [[nodiscard]] bool has_unvisited_points() const noexcept;
+
  protected:
   virtual void step() = 0;
 
@@ -55,6 +57,7 @@ class Algorithm {
   instance::Population _population;
   instance::RSharedData _shared_data;
   core::sat::RSolver _solver;
+  size_t _total_points;
 
  private:
   limit::RLimit _limit;

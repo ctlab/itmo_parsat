@@ -7,7 +7,7 @@ namespace ea::limit {
 PointsLimit::PointsLimit(PointsLimitConfig const& config)
     : _max_visited(config.max_points_visited()) {}
 
-bool PointsLimit::proceed(ea::algorithm::Algorithm& algorithm) {
+bool PointsLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   bool stop = algorithm.inaccurate_points() >= _max_visited;
   IPS_INFO_IF(stop, "The number of visited points reached the specified maximum");
   return !stop;

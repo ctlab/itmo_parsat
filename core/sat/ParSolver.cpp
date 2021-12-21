@@ -139,6 +139,7 @@ void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
       bool conflict = solver.propagate(arg);
       State result = conflict ? UNSAT : solver.solve_limited(arg);
       if (!req.callback(result, conflict, arg)) {
+        BREAK_ASGN_TRACK;
         break;
       }
     } while (!IPS_UNLIKELY(interrupted() && !stop));
@@ -155,6 +156,7 @@ void ParSolver::_propagate(sat::Solver& solver, req_prop_t& req) {
       ASGN_TRACK(assignment());
       bool result = solver.propagate(assignment(), propagated);
       if (!req.callback(result, assignment(), propagated)) {
+        BREAK_ASGN_TRACK;
         break;
       }
     } while (!IPS_UNLIKELY(interrupted()) && ++assignment);

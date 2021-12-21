@@ -48,6 +48,8 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
     _shared_data->var_view.map_var((int) i, it->second);
   }
 
+  _total_points = _shared_data->var_view.size() > 63 ? -1 : (1ULL << _shared_data->var_view.size());
+
   if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
     for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
@@ -115,6 +117,10 @@ instance::SharedData& Algorithm::get_shared_data() noexcept {
 
 size_t Algorithm::inaccurate_points() const noexcept {
   return _shared_data->inaccurate_points;
+}
+
+bool Algorithm::has_unvisited_points() const noexcept {
+  return _total_points > _shared_data->cache.size();
 }
 
 }  // namespace ea::algorithm

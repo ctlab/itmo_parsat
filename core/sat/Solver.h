@@ -63,6 +63,7 @@ class Solver {
 
   /**
    * Runs solutions with the specified assumptions.
+   * NOTE(dzhiblavi@): currently it is solve, not solveLimited!
    */
   virtual State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
 

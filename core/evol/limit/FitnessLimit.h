@@ -12,10 +12,11 @@ class FitnessLimit : public Limit {
    */
   explicit FitnessLimit(FitnessLimitConfig const& config);
 
+ protected:
   /**
    * @return iff the best instance in population has fitness higher than the specified value.
    */
-  bool proceed(ea::algorithm::Algorithm& algorithm) override;
+  bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 
  private:
   double _lowest_fitness;

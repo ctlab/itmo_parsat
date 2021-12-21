@@ -64,13 +64,13 @@
                                         "limit_type": "ResourceLimit",
                                         "resource_limit_config": {
                                             "memory_limit_kb": 0,
-                                            "time_limit_sec": 600
+                                            "time_limit_sec": 300
                                         }
                                     },
                                     {
                                         "limit_type": "PointsLimit",
                                         "points_limit_config": {
-                                            "max_points_visited": 2000
+                                            "max_points_visited": 6000
                                         }
                                     }
                                 ]

@@ -14,22 +14,30 @@ class Algorithm;
 
 namespace ea::limit {
 
+class ConjLimit;
+
 /**
  * This is an interface for all limits that control the execution of an algorithm.
  */
 class Limit {
+  friend class ConjLimit;
+
  public:
   virtual ~Limit() = default;
 
   /**
    * @return if algorithm can and should proceed.
+   * All implementations automatically check if there are unvisited points left.
    */
-  virtual bool proceed(ea::algorithm::Algorithm& algorithm) = 0;
+  bool proceed(ea::algorithm::Algorithm& algorithm);
 
   /**
    * @return true iff the algorithm should proceed.
    */
   virtual void start() {}
+
+ protected:
+  virtual bool _proceed(ea::algorithm::Algorithm& algorithm) = 0;
 };
 
 using RLimit = std::shared_ptr<Limit>;

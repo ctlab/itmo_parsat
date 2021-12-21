@@ -7,7 +7,7 @@ namespace ea::limit {
 FitnessLimit::FitnessLimit(FitnessLimitConfig const& config)
     : _lowest_fitness(config.lowest_fitness()) {}
 
-bool FitnessLimit::proceed(ea::algorithm::Algorithm& algorithm) {
+bool FitnessLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   auto fitness = static_cast<double>(algorithm.get_best().fitness());
   IPS_INFO_IF(
       fitness >= _lowest_fitness,

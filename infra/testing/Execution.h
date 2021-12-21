@@ -51,6 +51,7 @@ class Execution {
           if (proc_.running()) {
             LOG(INFO) << "Process is still running, interrupting it.";
             kill(proc_.native_handle(), SIGINT);
+            proc_.wait();
           }
 
           callback(started_at, _timestamp(), proc_.exit_code(), interrupted_);

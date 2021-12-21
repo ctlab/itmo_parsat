@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+enum LogType {
+  ALWAYS = 0;
+  NEVER = 1;
+  SOLVER_STATS_PREPROCESS = 2;
+  RESOLVE_INSTANCE = 3;
+  HEURISTIC_RESULT = 4;
+  CURRENT_INSTANCE = 5;
+  BEST_INSTANCE = 6;
+  FITNESS_SCALE = 7;
+  TRACER = 8;
+}
+
+message LoggingConfig {
+  message Entry {
+    LogType log_type = 1;
+    uint32 verbose_level = 2;
+    uint32 every_n = 3;
+  }
+
+  repeated Entry entries = 1;
+}
+
+message TracerConfig {
+
+}
