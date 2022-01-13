@@ -19,6 +19,9 @@
 class LaunchFixture : public ::testing::Test {
  public:
   struct Config {
+    bool lookup{};
+    bool save{};
+    int size{};
     std::filesystem::path executable{};
     std::filesystem::path resources_dir{};
     std::filesystem::path working_dir{};
@@ -41,6 +44,8 @@ class LaunchFixture : public ::testing::Test {
  protected:
   static void SetUpTestSuite();
 
+  static void TearDownTestSuite();
+
  protected:
   void SetUp() override;
 
@@ -62,6 +67,7 @@ class LaunchFixture : public ::testing::Test {
   std::set<std::string> _ignore_cnfs;
   core::SigHandler _handler;
   core::SigHandler::handle_t _sig_cb;
+  static std::atomic_bool test_failed;
 
  public:
   static std::vector<std::filesystem::path> cnfs;

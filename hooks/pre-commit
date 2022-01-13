@@ -64,3 +64,6 @@ fi
 
 echo "Formatting..."
 ./run.sh --format
+
+echo "Checking cli build status..."
+./run.sh --build --build-unit --build-infra

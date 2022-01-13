@@ -38,6 +38,9 @@ void LaunchFixture::interrupt() {
 }
 
 void LaunchFixture::SetUpTestSuite() {
+  /* Reset failed flag */
+  test_failed = false;
+
   /* Create logs root directory if it does not exist */
   if (!std::filesystem::is_directory(config.working_dir)) {
     LOG(INFO) << "Creating logs root directory: " << config.working_dir;
@@ -45,6 +48,12 @@ void LaunchFixture::SetUpTestSuite() {
   }
   /* Prepare resources */
   _prepare_resources();
+}
+
+void LaunchFixture::TearDownTestSuite() {
+  if (test_failed) {
+    FAIL();
+  }
 }
 
 void LaunchFixture::SetUp() {
@@ -83,6 +92,24 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   if (_ignore_cnfs.count(launch_config.input_path)) {
     LOG(INFO) << "Launch for input path " << launch_config.input_path << " is ignored.";
     return {};
+  }
+
+  {
+    auto it = launch_config.input_path.string().find("@");
+    if (it == std::string::npos) {
+      LOG(WARNING) << "Test " << launch_config.input_path << " has unspecified size.";
+      if (config.size != 2) {
+        LOG(INFO) << "Launch for input path " << launch_config.input_path
+                  << " skipped for unknown size.";
+        return {};
+      }
+    }
+    int size = launch_config.input_path.string()[it + 1] - '0';
+    if (size > config.size) {
+      LOG(INFO) << "Launch for input path " << launch_config.input_path << " with size " << size
+                << " is skipped.";
+      return {};
+    }
   }
 
   try {
@@ -126,7 +153,7 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
             0, 0, launch_config.description
         };
 
-    if (_launches->contains(launch)) {
+    if (config.lookup && _launches->contains(launch)) {
       LOG(INFO) << "\n\tLaunch already done [" << launch_config.description << "]:"
                 << "\n\t\tLaunch ID: " << launch.launch_id
                 << "\n\t\tInput file: " << real_input_path
@@ -152,7 +179,10 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
       launch.started_at = started_at;
       launch.finished_at = finished_at;
       launch.result = _get_launch_result(interrupted, sat_result, launch_config.expected_result);
-      if (launch.result != infra::domain::INTERRUPTED) {
+      if (launch.result == infra::domain::FAILED) {
+        test_failed = true;
+      }
+      if (config.save && launch.result != infra::domain::INTERRUPTED) {
         _launches->add(launch);
       }
     };
@@ -193,3 +223,5 @@ infra::domain::LaunchResult LaunchFixture::_get_launch_result(
 }
 
 std::vector<std::filesystem::path> LaunchFixture::cnfs{};
+
+std::atomic_bool LaunchFixture::test_failed = false;

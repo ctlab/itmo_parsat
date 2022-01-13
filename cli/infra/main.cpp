@@ -12,6 +12,9 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
     ("commit", po::value<std::string>()->default_value(""), "The current commit (optional)")
+    ("lookup", po::bool_switch()->default_value(false), "Skip tests that are already done")
+    ("size", po::value<int>()->default_value(0), "Tests size (from 0 to 2)")
+    ("save", po::bool_switch()->default_value(false), "Whether to save results to DB")
     ("resources-dir,r", po::value<std::filesystem::path>()->required(), "Directory with config/ and cnf/ subdirectories")
     ("working-dir,w", po::value<std::filesystem::path>()->required(), "Testing working dir")
     ("exec,e", po::value<std::filesystem::path>()->required(), "Executable path")
@@ -52,6 +55,9 @@ int main(int argc, char** argv) {
     auto args = parse_args(argc, argv);
     init_googletest(argv[0], args);
     auto& config = LaunchFixture::config;
+    config.lookup = args["lookup"].as<bool>();
+    config.save = args["save"].as<bool>();
+    config.size = args["size"].as<int>();
     config.executable = args["exec"].as<std::filesystem::path>();
     config.commit = args["commit"].as<std::string>();
     config.resources_dir = args["resources-dir"].as<std::filesystem::path>();

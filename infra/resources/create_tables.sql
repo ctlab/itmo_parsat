@@ -8,6 +8,5 @@ CREATE TABLE IF NOT EXISTS Launches (
     started_at TIMESTAMP,
     finished_at TIMESTAMP,
     description VARCHAR(512),
-    config TEXT,
-    _log TEXT
+    config TEXT
 );

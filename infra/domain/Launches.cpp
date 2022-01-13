@@ -64,7 +64,7 @@ Launches& Launches::add(Launch const& launch) {
   _exec0(std::string() +
     "INSERT INTO Launches("
     "input_path, config_path, log_path, commit_hash, started_at, "
-    "finished_at, result, description, config, _log)"
+    "finished_at, result, description, config)"
     " VALUES (" +
     "'" + launch.input_path.string() + "', " +
     "'" + launch.config_path.string() + "', " +
@@ -74,8 +74,7 @@ Launches& Launches::add(Launch const& launch) {
     "to_timestamp(" + std::to_string(launch.finished_at) + "), " +
     "'" + to_string(launch.result) + "', " +
     "'" + launch.description + "', " +
-    "'" + read_file(launch.config_path) + "', " +
-    "'" + read_file(launch.log_path) + "');"
+    "'" + read_file(launch.config_path) + "');"
   );
   // clang-format on
   return *this;

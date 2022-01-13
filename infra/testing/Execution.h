@@ -17,7 +17,8 @@ namespace infra {
 class Execution {
  private:
   static uint64_t _timestamp() noexcept {
-    return std::chrono::duration_cast<std::chrono::seconds>(core::clock_t::now().time_since_epoch())
+    return std::chrono::duration_cast<std::chrono::seconds>(
+               std::chrono::system_clock::now().time_since_epoch())
         .count();
   }
 
