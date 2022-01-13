@@ -123,6 +123,13 @@ function do_solve() {
     fi
 }
 
+function do_setup() {
+    git config --local pull.rebase true
+    root=$(pwd)
+    rm -rf "$root/.git/hooks/pre-commit" || true
+    ln -sf "$root/hooks/pre-commit" "$root/.git/hooks/pre-commit"
+}
+
 function parse_options() {
     while [[ -n "$1" ]]; do
         if [[ $1 == "--" ]]; then
@@ -160,6 +167,7 @@ function parse_options() {
 }
 
 add_option "-h|--help" "     Display help message"       do_help           0
+add_option "--setup" "       Setup VCS hooks"            do_setup          0
 add_option "-g|--build-cfg" "Set build mode"             do_set_build_mode 1
 add_option "-b|--build" "    Build cli binary"           do_build_solve    0
 add_option "--build-unit" "  Build unit tests"           do_build_unit     0
