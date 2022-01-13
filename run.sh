@@ -21,6 +21,7 @@ INFRA_DB_SETUP="./infra/resources/create_tables.sql"
 NEXT_NATIVE=0
 BUILD_DEBUG=""
 RUN_GDB=""
+BUILD_CFG="dev_fast"
 
 declare -a order
 declare -A actions

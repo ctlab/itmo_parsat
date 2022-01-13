@@ -2,6 +2,8 @@
 #define ITMO_PARSAT_LAUNCHES_H
 
 #include <filesystem>
+#include <fstream>
+
 #include "infra/domain/PGDB.h"
 
 namespace infra::domain {

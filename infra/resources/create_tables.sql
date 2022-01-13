@@ -7,5 +7,7 @@ CREATE TABLE IF NOT EXISTS Launches (
     result VARCHAR(16),
     started_at TIMESTAMP,
     finished_at TIMESTAMP,
-    description VARCHAR(512)
+    description VARCHAR(512),
+    config TEXT,
+    _log TEXT
 );

@@ -19,11 +19,10 @@ Event::~Event() noexcept {
   }
 }
 
-CodeBlock::CodeBlock(std::string name)
-    : _name(std::move(name)), _start(std::chrono::system_clock::now()) {}
+CodeBlock::CodeBlock(std::string name) : _name(std::move(name)), _start(clock_t::now()) {}
 
 CodeBlock::~CodeBlock() noexcept {
-  std::chrono::duration<float> std_duration = std::chrono::system_clock::now() - _start;
+  std::chrono::duration<float> std_duration = clock_t::now() - _start;
   float duration = std_duration.count();
   IPS_INFO_T(TRACER, _name << " took " << duration << "s");
 

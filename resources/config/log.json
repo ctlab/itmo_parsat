@@ -39,6 +39,11 @@
             "log_type": "FITNESS_SCALE",
             "verbose_level": 6,
             "every_n": 100
+        },
+        {
+            "log_type": "TRACER",
+            "verbose_level": 6,
+            "every_n": 1
         }
     ]
 }

@@ -19,7 +19,7 @@ void print_(char const* format, va_list args) {
 }
 
 /**
- * This print impementation is equivalent to fprintf(stderr, ...)
+ * This print implementation is equivalent to fprintf(stderr, ...)
  * except it can be called from signal handler (it does no allocations).
  */
 void print(char const* format, ...) {

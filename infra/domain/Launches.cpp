@@ -1,5 +1,15 @@
 #include "infra/domain/Launches.h"
 
+namespace {
+
+std::string read_file(std::filesystem::path const& path) {
+  std::ifstream ifs(path);
+  ifs.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+  return std::string(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
+}
+
+}  // namespace
+
 namespace infra::domain {
 
 LaunchResult from_string(std::string const& name) {
@@ -49,9 +59,12 @@ Launches::Launches(std::string const& dbname, std::string const& user, std::stri
 
 Launches& Launches::add(Launch const& launch) {
   std::lock_guard<std::mutex> lg(m_);
+
   // clang-format off
   _exec0(std::string() +
-    "INSERT INTO Launches(input_path, config_path, log_path, commit_hash, started_at, finished_at, result, description)"
+    "INSERT INTO Launches("
+    "input_path, config_path, log_path, commit_hash, started_at, "
+    "finished_at, result, description, config, _log)"
     " VALUES (" +
     "'" + launch.input_path.string() + "', " +
     "'" + launch.config_path.string() + "', " +
@@ -60,7 +73,9 @@ Launches& Launches::add(Launch const& launch) {
     "to_timestamp(" + std::to_string(launch.started_at) + "), " +
     "to_timestamp(" + std::to_string(launch.finished_at) + "), " +
     "'" + to_string(launch.result) + "', " +
-    "'" + launch.description + "');"
+    "'" + launch.description + "', " +
+    "'" + read_file(launch.config_path) + "', " +
+    "'" + read_file(launch.log_path) + "');"
   );
   // clang-format on
   return *this;

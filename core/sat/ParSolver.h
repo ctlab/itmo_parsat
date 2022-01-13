@@ -25,6 +25,7 @@ class ParSolver : public Solver {
   struct req_solve_t {
     domain::RAssignment assignment;
     Solver::slv_callback_t callback;
+    int idx;
   };
 
   using task_t = std::variant<req_prop_t, req_solve_t>;
@@ -65,7 +66,7 @@ class ParSolver : public Solver {
   std::vector<sat::RSolver> _solvers;
   std::queue<std::packaged_task<void(sat::Solver&)>> _task_queue;
   std::condition_variable _cv;
-  std::mutex _m, _asgn_mutex;
+  std::mutex _m, _asgn_mutex, _slv_mutex;
   std::atomic_bool _stop{false};
 };
 

@@ -142,7 +142,7 @@ DEFINE_REGISTRY(Solver, SolverConfig, solver);
     _uniq_asgn.insert(std::move(_cur));             \
   } while (0)
 
-#define BREAK_ASGN_TRACK _stop_callback = true;
+#define BREAK_ASGN_TRACK _stop_callback = true
 
 #define END_ASGN_TRACK                                                            \
   IPS_VERIFY(                                                                     \

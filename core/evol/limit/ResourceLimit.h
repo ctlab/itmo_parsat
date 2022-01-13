@@ -2,6 +2,8 @@
 #define EVOL_RESOURCELIMIT_H
 
 #include "core/evol/limit/Limit.h"
+#include "core/util/mem_usage.h"
+#include "core/util/Tracer.h"
 
 namespace ea::limit {
 
@@ -24,7 +26,7 @@ class ResourceLimit : public Limit {
  private:
   uint32_t _memory_limit_kb;
   uint32_t _time_limit_sec;
-  std::chrono::time_point<std::chrono::system_clock> _start;
+  std::chrono::time_point<core::clock_t> _start;
 };
 
 }  // namespace ea::limit

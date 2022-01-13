@@ -17,6 +17,10 @@
 
 namespace core {
 
+using clock_t = typename std::conditional<
+    std::chrono::high_resolution_clock::is_steady, std::chrono::high_resolution_clock,
+    std::chrono::steady_clock>::type;
+
 namespace trace {
 
 struct Event {
@@ -33,7 +37,7 @@ struct CodeBlock {
 
  private:
   std::string _name;
-  std::chrono::time_point<std::chrono::system_clock> _start;
+  std::chrono::time_point<clock_t> _start;
 };
 
 }  // namespace trace

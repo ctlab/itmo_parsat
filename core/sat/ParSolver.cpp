@@ -96,7 +96,7 @@ void ParSolver::solve_assignments(
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);
   for (uint32_t index = 0; index < num_threads; ++index) {
-    futures.push_back(_submit(req_solve_t{shared_assignment, callback}));
+    futures.push_back(_submit(req_solve_t{shared_assignment, callback, (int) index}));
   }
   _wait_for_futures(futures);
 }
@@ -136,8 +136,14 @@ void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
         }
       }
       ASGN_TRACK(arg);
-      bool conflict = solver.propagate(arg);
-      State result = conflict ? UNSAT : solver.solve_limited(arg);
+      bool conflict;
+      State result;
+      {
+        //        std::lock_guard<std::mutex> lg(_slv_mutex);
+        conflict = solver.propagate(arg);
+        IPS_LOG_IF(INFO, !conflict, "Solver #" << req.idx);
+        result = conflict ? UNSAT : solver.solve_limited(arg);
+      }
       if (!req.callback(result, conflict, arg)) {
         BREAK_ASGN_TRACK;
         break;
