@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS Launches (
+CREATE TABLE IF NOT EXISTS LaunchesDao (
     launch_id SERIAL PRIMARY KEY,
     input_path VARCHAR(512) NOT NULL,
     config_path VARCHAR(512) NOT NULL,

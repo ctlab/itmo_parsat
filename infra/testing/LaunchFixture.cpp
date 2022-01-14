@@ -35,6 +35,7 @@ void LaunchFixture::interrupt() {
   for (auto& exec : _execs) {
     exec->interrupt();
   }
+  test_failed = true;
 }
 
 void LaunchFixture::SetUpTestSuite() {
@@ -50,15 +51,10 @@ void LaunchFixture::SetUpTestSuite() {
   _prepare_resources();
 }
 
-void LaunchFixture::TearDownTestSuite() {
-  if (test_failed) {
-    FAIL();
-  }
-}
-
 void LaunchFixture::SetUp() {
+  test_failed = false;
   _launches =
-      std::make_unique<infra::domain::Launches>(config.dbname, config.user, config.password);
+      std::make_unique<infra::domain::LaunchesDao>(config.dbname, config.user, config.password);
 }
 
 void LaunchFixture::TearDown() {
@@ -89,8 +85,12 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   static std::random_device rnd_dev_;
   static std::mt19937 rnd_gen_(rnd_dev_());
 
+  if (test_failed) {
+    return {};
+  }
+
   if (_ignore_cnfs.count(launch_config.input_path)) {
-    LOG(INFO) << "Launch for input path " << launch_config.input_path << " is ignored.";
+    LOG(INFO) << "LaunchInfo for input path " << launch_config.input_path << " is ignored.";
     return {};
   }
 
@@ -99,14 +99,14 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     if (it == std::string::npos) {
       LOG(WARNING) << "Test " << launch_config.input_path << " has unspecified size.";
       if (config.size != 2) {
-        LOG(INFO) << "Launch for input path " << launch_config.input_path
+        LOG(INFO) << "LaunchInfo for input path " << launch_config.input_path
                   << " skipped for unknown size.";
         return {};
       }
     }
     int size = launch_config.input_path.string()[it + 1] - '0';
     if (size > config.size) {
-      LOG(INFO) << "Launch for input path " << launch_config.input_path << " with size " << size
+      LOG(INFO) << "LaunchInfo for input path " << launch_config.input_path << " with size " << size
                 << " is skipped.";
       return {};
     }
@@ -147,15 +147,15 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     std::filesystem::copy_file(real_config_path, config_path);
 
     // clang-format off
-    auto launch = infra::domain::Launch{
+    auto launch = infra::domain::LaunchInfo{
             0, real_input_path, real_config_path, logs_path,
             config.commit, infra::domain::ERROR,
             0, 0, launch_config.description
         };
 
     if (config.lookup && _launches->contains(launch)) {
-      LOG(INFO) << "\n\tLaunch already done [" << launch_config.description << "]:"
-                << "\n\t\tLaunch ID: " << launch.launch_id
+      LOG(INFO) << "\n\tLaunchInfo already done [" << launch_config.description << "]:"
+                << "\n\t\tLaunchInfo ID: " << launch.launch_id
                 << "\n\t\tInput file: " << real_input_path
                 << "\n\t\tConfiguration: " << real_config_path
                 << "\n\t\tCommit hash: " << config.commit

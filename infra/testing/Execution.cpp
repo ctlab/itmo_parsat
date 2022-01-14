@@ -8,15 +8,15 @@ Execution::~Execution() noexcept {
 
 void Execution::interrupt() noexcept {
   {
-    std::lock_guard<std::mutex> lg(cv_m_);
-    interrupted_ = true;
+    std::lock_guard<std::mutex> lg(_cv_m);
+    _interrupted = true;
   }
-  cv_.notify_all();
+  _cv.notify_all();
 }
 
 void Execution::await() noexcept {
-  if (thread_.joinable()) {
-    thread_.join();
+  if (_thread.joinable()) {
+    _thread.join();
   }
 }
 

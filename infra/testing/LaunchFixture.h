@@ -12,7 +12,7 @@
 #include <gtest/gtest.h>
 
 #include "core/util/SigHandler.h"
-#include "infra/domain/Launches.h"
+#include "infra/domain/LaunchesDao.h"
 #include "infra/testing/Execution.h"
 #include "infra/testing/LaunchConfig.h"
 
@@ -44,8 +44,6 @@ class LaunchFixture : public ::testing::Test {
  protected:
   static void SetUpTestSuite();
 
-  static void TearDownTestSuite();
-
  protected:
   void SetUp() override;
 
@@ -62,14 +60,14 @@ class LaunchFixture : public ::testing::Test {
       infra::domain::SatResult expected) noexcept;
 
  private:
-  std::unique_ptr<infra::domain::Launches> _launches;
+  std::unique_ptr<infra::domain::LaunchesDao> _launches;
   std::vector<std::shared_ptr<infra::Execution>> _execs;
   std::set<std::string> _ignore_cnfs;
   core::SigHandler _handler;
   core::SigHandler::handle_t _sig_cb;
-  static std::atomic_bool test_failed;
 
  public:
+  static std::atomic_bool test_failed;
   static std::vector<std::filesystem::path> cnfs;
 };
 

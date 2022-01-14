@@ -1,10 +1,12 @@
-#ifndef ITMO_PARSAT_LAUNCHES_H
-#define ITMO_PARSAT_LAUNCHES_H
+#ifndef ITMO_PARSAT_LAUNCHESDAO_H
+#define ITMO_PARSAT_LAUNCHESDAO_H
 
 #include <filesystem>
 #include <fstream>
+#include <mutex>
 
-#include "infra/domain/PGDB.h"
+#include "core/util/Logger.h"
+#include "pqxx/pqxx"
 
 namespace infra::domain {
 
@@ -26,7 +28,7 @@ enum SatResult {
 
 std::string to_string(SatResult result);
 
-struct Launch {
+struct LaunchInfo {
   uint32_t launch_id{};
   std::filesystem::path input_path{};
   std::filesystem::path config_path{};
@@ -38,17 +40,24 @@ struct Launch {
   std::string description{};
 };
 
-class Launches : PGDB {
+class LaunchesDao {
+ private:
+  void _exec0(std::string const& sql);
+
  public:
-  Launches(std::string const& dbname, std::string const& user, std::string const& password);
+  LaunchesDao(std::string const& dbname, std::string const& user, std::string const& password);
 
-  Launches& add(Launch const& launch);
+  LaunchesDao& add(LaunchInfo const& launch);
 
-  Launches& remove(uint32_t launch_id);
+  LaunchesDao& remove(uint32_t launch_id);
 
-  [[nodiscard]] bool contains(Launch& launch);
+  [[nodiscard]] bool contains(LaunchInfo& launch);
+
+ private:
+  std::mutex _m;
+  pqxx::connection _conn;
 };
 
 }  // namespace infra::domain
 
-#endif  // ITMO_PARSAT_LAUNCHES_H
+#endif  // ITMO_PARSAT_LAUNCHESDAO_H

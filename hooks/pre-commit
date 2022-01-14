@@ -67,3 +67,6 @@ echo "Formatting..."
 
 echo "Checking cli build status..."
 ./run.sh --build --build-unit --build-infra
+
+git add .
+

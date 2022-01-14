@@ -29,6 +29,7 @@ TEST_F(LaunchFixture, naive_test) {
     // Executions use only one thread so can be launched concurrently
     launch(config.set_input_path(path));
   }
+  ASSERT_FALSE(test_failed);
 }
 
 TEST_F(LaunchFixture, simp_rbs_test) {
@@ -42,6 +43,7 @@ TEST_F(LaunchFixture, simp_rbs_test) {
     // We wait for execution before proceeding because it utilizes high concurrency
     apply(launch(config.set_input_path(path)), await);
   }
+  ASSERT_FALSE(test_failed);
 }
 
 TEST_F(LaunchFixture, simp_par_rbs_test) {
@@ -55,6 +57,7 @@ TEST_F(LaunchFixture, simp_par_rbs_test) {
     // We wait for execution before proceeding because it utilizes high concurrency
     apply(launch(config.set_input_path(path)), await);
   }
+  ASSERT_FALSE(test_failed);
 }
 
 TEST_F(LaunchFixture, par_rbs_test) {
@@ -68,6 +71,7 @@ TEST_F(LaunchFixture, par_rbs_test) {
     // We wait for execution before proceeding because it utilizes high concurrency
     apply(launch(config.set_input_path(path)), await);
   }
+  ASSERT_FALSE(test_failed);
 }
 
 TEST_F(LaunchFixture, par_par_rbs_test) {
@@ -81,4 +85,5 @@ TEST_F(LaunchFixture, par_par_rbs_test) {
     // We wait for execution before proceeding because it utilizes high concurrency
     apply(launch(config.set_input_path(path)), await);
   }
+  ASSERT_FALSE(test_failed);
 }

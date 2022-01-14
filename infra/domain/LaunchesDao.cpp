@@ -1,4 +1,4 @@
-#include "infra/domain/Launches.h"
+#include "infra/domain/LaunchesDao.h"
 
 namespace {
 
@@ -54,11 +54,14 @@ std::string to_string(SatResult result) {
   std::terminate();
 }
 
-Launches::Launches(std::string const& dbname, std::string const& user, std::string const& password)
-    : PGDB(dbname, user, password) {}
+LaunchesDao::LaunchesDao(
+    std::string const& dbname, std::string const& user, std::string const& password)
+    : _conn(
+          std::string() + "dbname=" + dbname +
+          (user.empty() ? "" : std::string() + "user=" + user + "password=" + password)) {}
 
-Launches& Launches::add(Launch const& launch) {
-  std::lock_guard<std::mutex> lg(m_);
+LaunchesDao& LaunchesDao::add(LaunchInfo const& launch) {
+  std::lock_guard<std::mutex> lg(_m);
 
   // clang-format off
   _exec0(std::string() +
@@ -80,15 +83,15 @@ Launches& Launches::add(Launch const& launch) {
   return *this;
 }
 
-Launches& Launches::remove(uint32_t launch_id) {
-  std::lock_guard<std::mutex> lg(m_);
+LaunchesDao& LaunchesDao::remove(uint32_t launch_id) {
+  std::lock_guard<std::mutex> lg(_m);
   _exec0(std::string() + "DELETE FROM Launches WHERE launch_id=" + std::to_string(launch_id) + ";");
   return *this;
 }
 
-bool Launches::contains(Launch& launch) {
-  std::lock_guard<std::mutex> lg(m_);
-  pqxx::work work(conn_);
+bool LaunchesDao::contains(LaunchInfo& launch) {
+  std::lock_guard<std::mutex> lg(_m);
+  pqxx::work work(_conn);
   // clang-format off
   auto result = work.exec(std::string() +
     "SELECT launch_id, log_path, result FROM Launches WHERE "
@@ -109,6 +112,12 @@ bool Launches::contains(Launch& launch) {
     work.commit();
     return true;
   }
+}
+
+void LaunchesDao::_exec0(std::string const& sql) {
+  pqxx::work work(_conn);
+  work.exec0(sql);
+  work.commit();
 }
 
 }  // namespace infra::domain
