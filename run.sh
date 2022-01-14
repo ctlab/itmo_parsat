@@ -50,7 +50,7 @@ function do_help() {
 
 function do_doc() {
     rm -rf doc/* || true
-    doxygen ./resources/doxygen.conf &> /dev/null
+    PROJECT_NAME="itmo-parsat" doxygen ./resources/doxygen.conf &> /dev/null
 }
 
 function do_input() {

@@ -76,6 +76,9 @@ echo "Formatting..."
 echo "Checking cli build status..."
 ./run.sh --build --build-unit --build-infra && print_ok || { print_fail; exit 1; }
 
+echo "Running unit tests..."
+./run.sh --unit
+
 echo "Building documentation..."
 ./run.sh --build-doc && print_ok || { print_fail; exit 1; }
 
