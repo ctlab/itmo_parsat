@@ -1,0 +1,99 @@
+\hypertarget{classea_1_1instance_1_1Instance}{}\doxysection{ea\+::instance\+::Instance Class Reference}
+\label{classea_1_1instance_1_1Instance}\index{ea::instance::Instance@{ea::instance::Instance}}
+
+
+This class represents (E$\vert$G)A instance used in this project.  
+
+
+
+
+{\ttfamily \#include $<$Instance.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classea_1_1instance_1_1Instance_acb256a6b4efffc0bfe056755d9c5abf4}{Instance}} (core\+::sat\+::\+R\+Solver solver, R\+Shared\+Data shared\+\_\+data)
+\item 
+\mbox{\hyperlink{structcore_1_1domain_1_1Vars}{core\+::domain\+::\+Vars}} \& \mbox{\hyperlink{classea_1_1instance_1_1Instance_a598567d6409fa4cc84a13cd2d97939e7}{get\+\_\+vars}} () noexcept
+\item 
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a15f8e2ead7e81da6a3a9eea5da6f6eb0}\label{classea_1_1instance_1_1Instance_a15f8e2ead7e81da6a3a9eea5da6f6eb0}} 
+\mbox{\hyperlink{structcore_1_1domain_1_1Vars}{core\+::domain\+::\+Vars}} const  \& {\bfseries get\+\_\+vars} () const noexcept
+\item 
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a7257c1ba917f29b51cc5d597b5c92315}\label{classea_1_1instance_1_1Instance_a7257c1ba917f29b51cc5d597b5c92315}} 
+\mbox{\hyperlink{classea_1_1instance_1_1Instance}{Instance}} $\ast$ \mbox{\hyperlink{classea_1_1instance_1_1Instance_a7257c1ba917f29b51cc5d597b5c92315}{clone}} ()
+\begin{DoxyCompactList}\small\item\em Clones the instance (used to create new instances through mutation or crossover). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structea_1_1instance_1_1Fitness}{Fitness}} const  \& \mbox{\hyperlink{classea_1_1instance_1_1Instance_ad2b77cfdfc613b176af0042c3b3fa606}{fitness}} ()
+\begin{DoxyCompactList}\small\item\em Calculates instance\textquotesingle{}s fitness if it is not cached. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a721a9214bc4090809071e811b42c9677}\label{classea_1_1instance_1_1Instance_a721a9214bc4090809071e811b42c9677}} 
+\mbox{\hyperlink{structea_1_1instance_1_1Fitness}{Fitness}} const  \& \mbox{\hyperlink{classea_1_1instance_1_1Instance_a721a9214bc4090809071e811b42c9677}{fitness}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the fitness value if it is cached. Otherwise, terminate is called. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a1dfec9acce2b27c9094e745d135fe38b}\label{classea_1_1instance_1_1Instance_a1dfec9acce2b27c9094e745d135fe38b}} 
+bool \mbox{\hyperlink{classea_1_1instance_1_1Instance_a1dfec9acce2b27c9094e745d135fe38b}{is\+\_\+cached}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Checks whether this instance is cached (locally or in shared cache). \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classea_1_1instance_1_1Instance_adadc7c0a34c0c1f94acf88031ae3aa6f}{num\+\_\+vars}} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_aa1ff9a6991baf2c70e70f741a20a16b6}\label{classea_1_1instance_1_1Instance_aa1ff9a6991baf2c70e70f741a20a16b6}} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&, \mbox{\hyperlink{classea_1_1instance_1_1Instance}{ea\+::instance\+::\+Instance}} const \&instance)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class represents (E$\vert$G)A instance used in this project. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_acb256a6b4efffc0bfe056755d9c5abf4}\label{classea_1_1instance_1_1Instance_acb256a6b4efffc0bfe056755d9c5abf4}} 
+\index{ea::instance::Instance@{ea::instance::Instance}!Instance@{Instance}}
+\index{Instance@{Instance}!ea::instance::Instance@{ea::instance::Instance}}
+\doxysubsubsection{\texorpdfstring{Instance()}{Instance()}}
+{\footnotesize\ttfamily ea\+::instance\+::\+Instance\+::\+Instance (\begin{DoxyParamCaption}\item[{core\+::sat\+::\+R\+Solver}]{solver,  }\item[{R\+Shared\+Data}]{shared\+\_\+data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em solver} & solver that will be used to propagate assignments. \\
+\hline
+{\em shared\+\_\+data} & shared data (created by algorithm) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_ad2b77cfdfc613b176af0042c3b3fa606}\label{classea_1_1instance_1_1Instance_ad2b77cfdfc613b176af0042c3b3fa606}} 
+\index{ea::instance::Instance@{ea::instance::Instance}!fitness@{fitness}}
+\index{fitness@{fitness}!ea::instance::Instance@{ea::instance::Instance}}
+\doxysubsubsection{\texorpdfstring{fitness()}{fitness()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structea_1_1instance_1_1Fitness}{Fitness}} const  \& ea\+::instance\+::\+Instance\+::fitness (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Calculates instance\textquotesingle{}s fitness if it is not cached. 
+
+\begin{DoxyReturn}{Returns}
+the fitness value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a598567d6409fa4cc84a13cd2d97939e7}\label{classea_1_1instance_1_1Instance_a598567d6409fa4cc84a13cd2d97939e7}} 
+\index{ea::instance::Instance@{ea::instance::Instance}!get\_vars@{get\_vars}}
+\index{get\_vars@{get\_vars}!ea::instance::Instance@{ea::instance::Instance}}
+\doxysubsubsection{\texorpdfstring{get\_vars()}{get\_vars()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcore_1_1domain_1_1Vars}{core\+::domain\+::\+Vars}} const  \& ea\+::instance\+::\+Instance\+::get\+\_\+vars (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+variables which this instance represents. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_adadc7c0a34c0c1f94acf88031ae3aa6f}\label{classea_1_1instance_1_1Instance_adadc7c0a34c0c1f94acf88031ae3aa6f}} 
+\index{ea::instance::Instance@{ea::instance::Instance}!num\_vars@{num\_vars}}
+\index{num\_vars@{num\_vars}!ea::instance::Instance@{ea::instance::Instance}}
+\doxysubsubsection{\texorpdfstring{num\_vars()}{num\_vars()}}
+{\footnotesize\ttfamily size\+\_\+t ea\+::instance\+::\+Instance\+::num\+\_\+vars (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the number of variables in this instance 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/instance/Instance.\+h\item 
+core/evol/instance/Instance.\+cpp\end{DoxyCompactItemize}

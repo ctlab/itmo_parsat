@@ -5,18 +5,23 @@
 
 namespace core {
 
+/**
+ * @brief Almost LRU cache implementaion.
+ * @tparam Key key type.
+ * @tparam Value value type.
+ */
 template <typename Key, typename Value>
 class LRUCache {
  public:
   /**
-   * Constructs LRU Cache with the specified maximal size.
+   * @brief Constructs LRU Cache with the specified maximal size.
    * @param max_cache_size max size of cache
    */
   explicit LRUCache(size_t max_cache_size = 0) : max_cache_size_(max_cache_size) {}
 
   /**
-   * Adds <key, value> pair to the cache.
-   * If size reaches maximal, unspecified <key, value> pair is removed.
+   * @brief Adds key-value pair to the cache.
+   * If size reaches maximal, unspecified key-value pair is removed.
    */
   void add(Key const& key, Value const& value) {
     if (map_.size() == max_cache_size_) {
@@ -26,7 +31,7 @@ class LRUCache {
   }
 
   /**
-   * Retrieves value by key from a cache.
+   * @brief Retrieves value by key from a cache.
    * Returns std::nullopt if key does not exist.
    */
   std::optional<Value> get(Key const& key) {
@@ -35,19 +40,23 @@ class LRUCache {
   }
 
   /**
-   * Completely invalidates the cache.
+   * @brief Completely invalidates the cache.
    */
   void invalidate() {
     map_.clear();
   }
 
   /**
-   * Changes maximal size of the cache.
+   * @brief Changes maximal size of the cache.
+   * @param new_max_size new maximal size.
    */
   void set_max_size(size_t new_max_size) {
     max_cache_size_ = new_max_size;
   }
 
+  /**
+   * @return the size of cache.
+   */
   [[nodiscard]] size_t size() const noexcept {
     return map_.size();
   }

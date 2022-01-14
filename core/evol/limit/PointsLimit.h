@@ -5,11 +5,12 @@
 
 namespace ea::limit {
 
+/**
+ * @brief This limit controls the execution by limiting the number of total (inaccurate!) points
+ * visited.
+ */
 class PointsLimit : public Limit {
  public:
-  /**
-   * This limit controls the execution by limiting the number of total (inaccurate!) points visited.
-   */
   explicit PointsLimit(PointsLimitConfig const& config);
 
  protected:

@@ -9,7 +9,7 @@
 namespace core {
 
 /**
- * Naively solves SAT using the specified solver.
+ * @brief Naively solves SAT using the specified solver.
  */
 class NaiveSolve : public Solve {
  public:

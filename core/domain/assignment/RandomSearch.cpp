@@ -13,7 +13,7 @@ void set_random(Minisat::vec<Minisat::Lit>& vec) {
 namespace core::domain {
 
 RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
-    : ModifierAssignment(var_view, vars, total) {
+    : ModifyingSearch(var_view, vars, total) {
   set_random(_assignment);
 }
 
@@ -29,13 +29,12 @@ RandomSearch* RandomSearch::clone() const {
   return new RandomSearch(*this);
 }
 
-UAssignment createRandomSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
+USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
   size_t num_set = std::count(vars.begin(), vars.end(), true);
-  if (num_set <= Assignment::MAX_VARS_FULL_SEARCH) {
-    return UAssignment(new UniqueSearch(var_view, vars, total));
+  if (num_set <= Search::MAX_VARS_FULL_SEARCH) {
+    return USearch(new UniqueSearch(var_view, vars, total));
   } else {
-    return UAssignment(new RandomSearch(var_view, vars, total));
+    return USearch(new RandomSearch(var_view, vars, total));
   }
 }
 

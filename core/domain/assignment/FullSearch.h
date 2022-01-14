@@ -1,12 +1,15 @@
 #ifndef ITMO_PARSAT_FULLSEARCH_H
 #define ITMO_PARSAT_FULLSEARCH_H
 
-#include "core/domain/assignment/ModifierAssignment.h"
+#include "core/domain/assignment/ModifyingSearch.h"
 
 namespace core::domain {
 
-class FullSearch : public ModifierAssignment {
-  friend UAssignment createFullSearch(VarView const&, std::vector<bool> const&);
+/**
+ * @brief The class used to perform full search.
+ */
+class FullSearch : public ModifyingSearch {
+  friend USearch createFullSearch(VarView const&, std::vector<bool> const&);
 
  protected:
   FullSearch(VarView const& var_view, std::vector<bool> const& vars);
@@ -19,7 +22,7 @@ class FullSearch : public ModifierAssignment {
   [[nodiscard]] FullSearch* clone() const override;
 };
 
-UAssignment createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
+USearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
 
 }  // namespace core::domain
 

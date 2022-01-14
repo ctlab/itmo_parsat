@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -62,11 +62,22 @@ else
     git add infra/resources/snapshot.db
 fi
 
+print_ok() {
+    echo -e "\033[1,33mOK\033[0m"
+}
+
+print_fail() {
+    echo -e "\033e[1,31mFAIL\033[0m"
+}
+
 echo "Formatting..."
-./run.sh --format
+./run.sh --format && print_ok || { print_fail; exit 1; }
 
 echo "Checking cli build status..."
-./run.sh --build --build-unit --build-infra
+./run.sh --build --build-unit --build-infra && print_ok || { print_fail; exit 1; }
+
+echo "Building documentation..."
+./run.sh --build-doc && print_ok || { print_fail; exit 1; }
 
 git add .
 

@@ -7,9 +7,8 @@
 namespace ea::instance {
 
 /**
- * This structure represents Instances' fitnesses.
- * Mathematically, it is calculated as
- *      rho * 2^{pow_r} + (1 - rho) * 2^{pow_nr}
+ * @brief This structure represents Instances' fitnesses.
+ * Mathematically, it is calculated as rho * 2^{pow_r} + (1 - \rho) * 2^{pow_nr}.
  */
 struct Fitness {
   double rho;

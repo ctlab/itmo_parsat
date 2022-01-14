@@ -16,7 +16,7 @@
 namespace core {
 
 /**
- * SIGINT handling routine
+ * @brief Signal handling routine
  */
 class SigHandler {
   friend class CallbackHandle;
@@ -25,7 +25,7 @@ class SigHandler {
   using callback_t = std::function<void(int)>;
 
   /**
-   * The callback handle returned as a result of registering a callback.
+   * @brief The callback handle returned as a result of registering a callback.
    * Its purpose is to remove the callback by demand or when destructed.
    */
   class CallbackHandle : public boost::intrusive::list_base_hook<
@@ -62,7 +62,7 @@ class SigHandler {
 
  public:
   /**
-   * SigHandler must be created explicitly to carry all the routine
+   * @brief SigHandler must be created explicitly to carry all the routine
    * connected with signal masking. Also, its destruction time must be
    * known to programmer, because otherwise it will not stop gracefully.
    */
@@ -71,21 +71,20 @@ class SigHandler {
   ~SigHandler() noexcept;
 
   /**
-   * Register callback for SIGINT.
+   * @brief Register callback for SIGINT.
    * Note that callback function will be executed asynchronously in a separate thread,
    * so it must be thread-safe.
-   *
    * If there are no registered callbacks, the program is terminated.
    */
   handle_t register_callback(callback_t callback);
 
   /**
-   * Checks whether the handler caught SIGINT yet.
+   * @brief Checks whether the handler caught SIGINT yet.
    */
   [[nodiscard]] bool is_set() const noexcept;
 
   /**
-   * Resets set flag.
+   * @brief Resets set flag.
    */
   void unset() noexcept;
 

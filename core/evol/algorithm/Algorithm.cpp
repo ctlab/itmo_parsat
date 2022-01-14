@@ -102,10 +102,6 @@ core::sat::Solver& Algorithm::get_solver() noexcept {
   return *_solver;
 }
 
-instance::Population& Algorithm::get_population() noexcept {
-  return _population;
-}
-
 instance::Instance& Algorithm::get_best() noexcept {
   return *(*std::min_element(
       _population.begin(), _population.end(), [](auto& a, auto& b) { return *a < *b; }));

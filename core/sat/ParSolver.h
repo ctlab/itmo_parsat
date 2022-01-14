@@ -15,15 +15,18 @@
 
 namespace core::sat {
 
+/**
+ * @brief Parallel solver implementation.
+ */
 class ParSolver : public Solver {
  private:
   struct req_prop_t {
-    domain::UAssignment assignment;
+    domain::USearch assignment;
     Solver::prop_callback_t callback;
   };
 
   struct req_solve_t {
-    domain::RAssignment assignment;
+    domain::RSearch assignment;
     Solver::slv_callback_t callback;
     int idx;
   };
@@ -50,9 +53,9 @@ class ParSolver : public Solver {
       Minisat::vec<Minisat::Lit> const& assumptions,
       Minisat::vec<Minisat::Lit>& propagated) override;
 
-  void solve_assignments(domain::UAssignment assignment, slv_callback_t const& callback) override;
+  void solve_assignments(domain::USearch assignment, slv_callback_t const& callback) override;
 
-  void prop_assignments(domain::UAssignment assignment, prop_callback_t const& callback) override;
+  void prop_assignments(domain::USearch assignment, prop_callback_t const& callback) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

@@ -25,7 +25,7 @@ sat::State RBSSolve::solve(std::filesystem::path const& input) {
   IPS_INFO("The best backdoor is: " << rho_backdoor);
 
   std::vector<bool> vars = rho_backdoor.get_vars().get_mask();
-  core::domain::UAssignment assignment_p =
+  core::domain::USearch assignment_p =
       core::domain::createFullSearch(algorithm->get_shared_data().var_view, vars);
 
   auto solver = _resolve_solver(_cfg.solver_config());

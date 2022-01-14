@@ -5,6 +5,9 @@
 
 namespace ea::method {
 
+/**
+ * @brief Selects instances by their fitness.
+ */
 class BestSelector : public Selector {
  public:
   BestSelector() = default;

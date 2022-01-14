@@ -10,6 +10,9 @@
 
 namespace core::sat {
 
+/**
+ * @brief Minisat:SimpSolver-based Solver implementation.
+ */
 class SimpSolver : public Solver, public Minisat::SimpSolver {
  public:
   explicit SimpSolver(SimpSolverConfig const& config);

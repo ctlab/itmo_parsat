@@ -6,7 +6,7 @@ VERBOSE="2"
 DO_ALL=""
 RESOURCES_DIR="./resources"
 
-CNF_PATH="$ROOT/resources/cnf/unsat_pancake_vs_selection_7_4.cnf"
+CNF_PATH="$ROOT/resources/cnf/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$ROOT/resources/config"
 LOG_CFG_PATH="$ROOT/resources/config/log.json"
 SOLVE_BIN="$ROOT/bazel-bin/cli/solve"
@@ -46,6 +46,11 @@ function do_help() {
         echo "    $pattern        ${descs[$pattern]}"
     done
     exit 1
+}
+
+function do_doc() {
+    rm -rf doc/* || true
+    doxygen ./resources/doxygen.conf &> /dev/null
 }
 
 function do_input() {
@@ -173,6 +178,7 @@ add_option "-b|--build" "    Build cli binary"           do_build_solve    0
 add_option "--build-unit" "  Build unit tests"           do_build_unit     0
 add_option "--build-infra" " Build integration tests"    do_build_infra    0
 add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto    0
+add_option "--build-doc" "   Build documentation"        do_doc            0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
 add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1

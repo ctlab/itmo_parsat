@@ -5,6 +5,9 @@
 
 namespace ea::method {
 
+/**
+ * @brief Standard two-point crossover.
+ */
 class TwoPointCrossover : public Crossover {
  public:
   void apply(instance::Instance& a, instance::Instance& b) override;

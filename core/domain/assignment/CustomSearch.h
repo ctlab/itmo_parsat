@@ -3,14 +3,23 @@
 
 #include <vector>
 
-#include "core/domain/assignment/Assignment.h"
+#include "core/domain/assignment/Search.h"
 
 namespace core::domain {
 
-class CustomSearch : public Assignment {
+/**
+ * @brief The class used to search through the custom set of assignments.
+ */
+class CustomSearch : public Search {
  public:
+  /**
+   * @param assignments the set of assignments to be searched through.
+   */
   CustomSearch(std::vector<Minisat::vec<Minisat::Lit>> const& assignments);
 
+  /**
+   * @see Search::operator()()
+   */
   Minisat::vec<Minisat::Lit> const& operator()() const override;
 
  protected:
@@ -25,7 +34,7 @@ class CustomSearch : public Assignment {
   std::vector<Minisat::vec<Minisat::Lit>> _assignments;
 };
 
-UAssignment createCustomSearch(std::vector<Minisat::vec<Minisat::Lit>> const& assignments);
+USearch createCustomSearch(std::vector<Minisat::vec<Minisat::Lit>> const& assignments);
 
 }  // namespace core::domain
 

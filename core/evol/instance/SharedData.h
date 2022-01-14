@@ -9,11 +9,11 @@
 
 namespace ea::instance {
 /**
- * This struct is shared between all instances under the same algorithm.
+ * @brief This struct is shared between all instances under the same algorithm.
  */
 struct SharedData {
   /**
-   * Sampling configuration.
+   * @brief Sampling configuration.
    */
   struct SamplingConfig {
     uint32_t base_samples;
@@ -22,26 +22,26 @@ struct SharedData {
   } sampling_config{};
 
   /**
-   * Instances cache.
+   * @brief Instances cache.
    */
   core::LRUCache<std::vector<bool>, Fitness> cache{};
 
   /**
-   * Variable subset mapping.
+   * @brief Variable subset mapping.
    */
   core::domain::VarView var_view{};
 
   /**
-   * Inaccurate number of points.
+   * @brief Inaccurate number of points.
    * It is `inaccurate' because is calculated as number
-   * of _calc_fitness calls, which happen on cache-misses.
+   * of Instance::_calc_fitness calls, which happen on cache-misses.
    * Though, we limit the size of a cache, so this number
    * may be greater than the actual number of visited points.
    */
   uint32_t inaccurate_points = 0;
 
   /**
-   * Inner configuration parameter.
+   * @brief Inner configuration parameter.
    */
   uint32_t omega_x{};
 };

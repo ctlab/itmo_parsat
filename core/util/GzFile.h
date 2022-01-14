@@ -9,7 +9,7 @@
 namespace core::util {
 
 /**
- * GZ file wrapper utility.
+ * @brief GZ file wrapper utility.
  */
 class GzFile {
  public:

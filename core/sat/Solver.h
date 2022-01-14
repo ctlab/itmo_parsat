@@ -8,7 +8,7 @@
 
 #include "minisat/core/SolverTypes.h"
 #include "minisat/mtl/Vec.h"
-#include "core/domain/assignment/Assignment.h"
+#include "core/domain/assignment/Search.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"
 
@@ -28,10 +28,13 @@ enum State {
   UNKNOWN,
 };
 
+/**
+ * @brief SAT Solver interface.
+ */
 class Solver {
  public:
   /**
-   * Both callbacks types must be thread safe for asynchronous implementations.
+   * @details Both callbacks types must be thread safe for asynchronous implementations.
    */
   // clang-format off
   typedef std::function<
@@ -52,60 +55,76 @@ class Solver {
   virtual ~Solver() = default;
 
   /**
-   * Parses cnf from .gz file with the specified path.
+   * @brief Parses cnf from .gz file with the specified path.
+   * @param path the path with formula.
    */
   virtual void parse_cnf(std::filesystem::path const& path) = 0;
 
   /**
-   * Equivalent to `solve_limited({})`.
+   * @brief Equivalent to Solver::solve_limited({}).
+   * @return the result of solving.
    */
   State solve_limited();
 
   /**
-   * Runs solutions with the specified assumptions.
-   * NOTE(dzhiblavi@): currently it is solve, not solveLimited!
+   * @brief Runs solutions with the specified assumptions.
+   * @note Currently it is solve, not solveLimited!
+   * @param assumptions assumptions to include.
+   * @return the result of solving.
    */
   virtual State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
 
   /**
-   * Propagates a given list of assumptions.
-   * Returns true iff conflicts happened.
+   */
+
+  /**
+   * @brief Propagates a given list of assumptions.
+   * @return true iff conflicts happened.
+   * @param assumptions assumptions to include.
+   * @param propagated the propagated literals.
+   * @return true if and only if conflict occurred.
    */
   virtual bool propagate(
       Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) = 0;
 
   /**
-   * Propagates a given list of assumptions.
+   * @brief Propagates a given list of assumptions.
+   * @param assumptions assumptions to include.
+   * @return true if and only if conflict occurred.
    */
   [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
 
   /**
-   * Solves CNF on all assignments by the given iterator and calls callback respectively.
+   * @brief Solves CNF on all assignments by the given iterator and calls callback respectively.
+   * @param search search engine.
+   * @param callback callback to be called on each solve.
    */
-  virtual void solve_assignments(domain::UAssignment assignment_p, slv_callback_t const& callback);
+  virtual void solve_assignments(domain::USearch search, slv_callback_t const& callback);
 
   /**
-   * Propagates all assignments by the given iterator and calls callback respectively.
+   * @brief Propagates all assignments by the given iterator and calls callback respectively.
+   * @param search search engine.
+   * @param callback callback to be called on each solve.
    */
-  virtual void prop_assignments(domain::UAssignment assignment_p, prop_callback_t const& callback);
+  virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
 
   /**
-   * Interrupts solver. Intended to be used from signal handlers.
+   * @brief Interrupts solver. Intended to be used from signal handlers.
    */
   void interrupt();
 
   /**
-   * Clears interrupt flag.
+   * @brief Clears interrupt flag.
    */
   void clear_interrupt();
 
   /**
-   * Returns true if interrupt flag is set.
+   * @brief Returns true if interrupt flag is set.
    */
   [[nodiscard]] bool interrupted() const;
 
   /**
-   * Returns the number of variables in formula.
+   * @brief Returns the number of variables in formula.
    */
   [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;
 

@@ -1,15 +1,18 @@
 #ifndef ITMO_PARSAT_UNIQUESEARCH_H
 #define ITMO_PARSAT_UNIQUESEARCH_H
 
-#include "core/domain/assignment/ModifierAssignment.h"
+#include "core/domain/assignment/ModifyingSearch.h"
 #include "core/util/Generator.h"
 
 namespace core::domain {
 
-class UniqueSearch : public ModifierAssignment {
-  friend UAssignment createFullSearch(VarView const&, std::vector<bool> const&);
+/**
+ * @brief The class used to perform unique random search. Used for small sets of variables.
+ */
+class UniqueSearch : public ModifyingSearch {
+  friend USearch createFullSearch(VarView const&, std::vector<bool> const&);
 
-  friend UAssignment createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
+  friend USearch createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
 
  public:
   explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);

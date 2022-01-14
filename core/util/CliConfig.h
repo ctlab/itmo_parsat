@@ -10,39 +10,45 @@
 namespace core {
 
 /**
- * Configuration manipulation routine
+ * @brief Configuration manipulation routine
  */
 class CliConfig {
  public:
   CliConfig();
 
   /**
-   * Adds options to routine.
+   * @param options options to be added.
    */
   void add_options(boost::program_options::options_description const& options);
 
   /**
-   * Parses options from cli args.
+   * @brief Parses options from cmd arguments.
+   * @param argc number of options.
+   * @param argv options array.
    */
   void parse(int argc, char** argv);
 
   /**
-   * Parses options from file.
+   * @brief Parses options from file.
+   * @param path file to be parsed.
    */
   void parse(std::filesystem::path const& path);
 
   /**
-   * Checks if parsing went successfull.
+   * @brief Checks if parsing went successfully.
    */
   void notify();
 
   /**
-   * Returns true iff the `name' is present in parsed options.
+   * @return true iff the `name' is present in parsed options.
    */
   [[nodiscard]] bool has(std::string const& name) const;
 
   /**
-   * Retrieves `name' option from arguments.
+   * @brief Retrieves option from arguments.
+   * @tparam T the type of option.
+   * @param name the name of option.
+   * @return the option value.
    */
   template <typename T>
   T const& get(std::string const& name) const {
@@ -50,7 +56,9 @@ class CliConfig {
   }
 
   /**
-   * Reads protobuf configuration from a specified stream.
+   * @brief Reads protobuf configuration from a specified stream.
+   * @param ifs input stream with the configuration.
+   * @param message the message to be filled.
    */
   static void read_config(std::istream& ifs, google::protobuf::Message& message);
 

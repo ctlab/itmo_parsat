@@ -1,0 +1,52 @@
+\hypertarget{structea_1_1instance_1_1SharedData}{}\doxysection{ea\+::instance\+::Shared\+Data Struct Reference}
+\label{structea_1_1instance_1_1SharedData}\index{ea::instance::SharedData@{ea::instance::SharedData}}
+
+
+This struct is shared between all instances under the same algorithm.  
+
+
+
+
+{\ttfamily \#include $<$Shared\+Data.\+h$>$}
+
+
+
+Collaboration diagram for ea\+::instance\+::Shared\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structea_1_1instance_1_1SharedData__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structea_1_1instance_1_1SharedData_1_1SamplingConfig}{Sampling\+Config}}
+\begin{DoxyCompactList}\small\item\em Sampling configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a8b77edcac91ce86eec73d3e13338dcf0}\label{structea_1_1instance_1_1SharedData_a8b77edcac91ce86eec73d3e13338dcf0}} 
+struct \mbox{\hyperlink{structea_1_1instance_1_1SharedData_1_1SamplingConfig}{ea\+::instance\+::\+Shared\+Data\+::\+Sampling\+Config}} {\bfseries sampling\+\_\+config}
+\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a039b57158606fd95b4a095990b613550}\label{structea_1_1instance_1_1SharedData_a039b57158606fd95b4a095990b613550}} 
+\mbox{\hyperlink{classcore_1_1LRUCache}{core\+::\+L\+R\+U\+Cache}}$<$ std\+::vector$<$ bool $>$, \mbox{\hyperlink{structea_1_1instance_1_1Fitness}{Fitness}} $>$ \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a039b57158606fd95b4a095990b613550}{cache}} \{\}
+\begin{DoxyCompactList}\small\item\em Instances cache. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_ad3fd332292f9de8ed19732f05da69f3b}\label{structea_1_1instance_1_1SharedData_ad3fd332292f9de8ed19732f05da69f3b}} 
+\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{core\+::domain\+::\+Var\+View}} \mbox{\hyperlink{structea_1_1instance_1_1SharedData_ad3fd332292f9de8ed19732f05da69f3b}{var\+\_\+view}} \{\}
+\begin{DoxyCompactList}\small\item\em Variable subset mapping. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a460de5ac8c80279aa3124ab84c940809}\label{structea_1_1instance_1_1SharedData_a460de5ac8c80279aa3124ab84c940809}} 
+uint32\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a460de5ac8c80279aa3124ab84c940809}{inaccurate\+\_\+points}} = 0
+\begin{DoxyCompactList}\small\item\em Inaccurate number of points. It is `inaccurate' because is calculated as number of Instance\+::\+\_\+calc\+\_\+fitness calls, which happen on cache-\/misses. Though, we limit the size of a cache, so this number may be greater than the actual number of visited points. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a4f87b9a4c998717264f985d3a9f20bd6}\label{structea_1_1instance_1_1SharedData_a4f87b9a4c998717264f985d3a9f20bd6}} 
+uint32\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a4f87b9a4c998717264f985d3a9f20bd6}{omega\+\_\+x}} \{\}
+\begin{DoxyCompactList}\small\item\em Inner configuration parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This struct is shared between all instances under the same algorithm. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/instance/Shared\+Data.\+h\end{DoxyCompactItemize}

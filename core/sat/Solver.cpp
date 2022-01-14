@@ -14,9 +14,9 @@ State Solver::solve_limited() {
   return solve_limited(assumptions);
 }
 
-void Solver::solve_assignments(domain::UAssignment assignment_p, slv_callback_t const& callback) {
+void Solver::solve_assignments(domain::USearch assignment_p, slv_callback_t const& callback) {
   clear_interrupt();
-  domain::Assignment& assignment = *assignment_p;
+  domain::Search& assignment = *assignment_p;
   START_ASGN_TRACK(assignment_p->size());
   do {
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
@@ -31,10 +31,9 @@ void Solver::solve_assignments(domain::UAssignment assignment_p, slv_callback_t 
   END_ASGN_TRACK;
 }
 
-void Solver::prop_assignments(
-    core::domain::UAssignment assignment_p, prop_callback_t const& callback) {
+void Solver::prop_assignments(core::domain::USearch assignment_p, prop_callback_t const& callback) {
   clear_interrupt();
-  domain::Assignment& assignment = *assignment_p;
+  domain::Search& assignment = *assignment_p;
   Minisat::vec<Minisat::Lit> propagated;
   START_ASGN_TRACK(assignment_p->size());
   do {

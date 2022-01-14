@@ -5,6 +5,9 @@
 
 namespace ea::method {
 
+/**
+ * @brief Doerr-optimized mutation.
+ */
 class DoerrMutation : public Mutation {
  public:
   explicit DoerrMutation(DoerrMutationConfig const& config);

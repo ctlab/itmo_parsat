@@ -7,10 +7,17 @@
 
 namespace ea::method {
 
+/**
+ * @brief Mutation interface.
+ */
 class Mutation {
  public:
   virtual ~Mutation() = default;
 
+  /**
+   * @brief Applies mutation operation to the specified instance.
+   * @param instance the instance to be mutated.
+   */
   virtual void apply(instance::Instance& instance) = 0;
 };
 

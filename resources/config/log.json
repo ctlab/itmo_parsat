@@ -42,7 +42,7 @@
         },
         {
             "log_type": "TRACER",
-            "verbose_level": 6,
+            "verbose_level": 8,
             "every_n": 1
         }
     ]

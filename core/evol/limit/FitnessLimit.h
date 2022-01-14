@@ -5,11 +5,11 @@
 
 namespace ea::limit {
 
+/**
+ * @brief This limit controls execution by comparing best fitness with the specified limit.
+ */
 class FitnessLimit : public Limit {
  public:
-  /**
-   * This limit controls execution by comparing best fitness with the specified limit.
-   */
   explicit FitnessLimit(FitnessLimitConfig const& config);
 
  protected:

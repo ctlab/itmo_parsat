@@ -7,11 +7,11 @@
 
 namespace ea::limit {
 
+/**
+ * @brief This limit controls the execution by limiting time and memory consumption of an algorithm.
+ */
 class ResourceLimit : public Limit {
  public:
-  /**
-   * This limit controls the execution by limiting time and memory consumption of an algorithm.
-   */
   ResourceLimit(ResourceLimitConfig const& config);
 
   void start() override;

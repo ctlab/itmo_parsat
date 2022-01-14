@@ -15,6 +15,9 @@
 
 namespace ea::algorithm {
 
+/**
+ * @brief The base class of (E|G)A search algorithms.
+ */
 class Algorithm {
  private:
   void _init_shared_data(InstanceConfig const& config);
@@ -27,24 +30,49 @@ class Algorithm {
  public:
   virtual ~Algorithm() = default;
 
-  void prepare();
-
+  /**
+   * @param config algorithm configuration.
+   */
   explicit Algorithm(BaseAlgorithmConfig const& config);
 
+  /**
+   * @brief Performs preparation step.
+   */
+  void prepare();
+
+  /**
+   * @brief Starts the algorithm.
+   */
   void process();
 
+  /**
+   * @brief interrupts the algorithm.
+   */
   void interrupt();
 
+  /**
+   * @return the main solver used in this instance.
+   */
   core::sat::Solver& get_solver() noexcept;
 
-  instance::Population& get_population() noexcept;
-
+  /**
+   * @return the best instance currently found.
+   */
   instance::Instance& get_best() noexcept;
 
+  /**
+   * @return the data shared between instances.
+   */
   instance::SharedData& get_shared_data() noexcept;
 
+  /**
+   * @return the inaccurate number of visited points.
+   */
   [[nodiscard]] size_t inaccurate_points() const noexcept;
 
+  /**
+   * @return inaccurately checks whether there are points that are not visited.
+   */
   [[nodiscard]] bool has_unvisited_points() const noexcept;
 
  protected:

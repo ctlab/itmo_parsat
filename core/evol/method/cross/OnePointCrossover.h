@@ -5,6 +5,9 @@
 
 namespace ea::method {
 
+/**
+ * @brief Standard one-point crossover.
+ */
 class OnePointCrossover : public Crossover {
  public:
   OnePointCrossover() = default;

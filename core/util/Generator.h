@@ -34,14 +34,14 @@ std::enable_if_t<std::is_integral_v<Int>, Int> sample(Int min, Int max) {
 }  // namespace random
 
 /**
- * In some sense thread-safe and deterministic random engine.
+ * @brief In some sense thread-safe and deterministic random engine.
  */
 class Generator {
   friend std::mt19937& random::stdgen();
 
  public:
   /**
-   * Creates the generator for the current thread.
+   * @brief Creates the generator for the current thread.
    * All methods of this instance can be accessed by functions from
    * ::core::random. This ensures that no thread-unsafe operations will
    * be performed (because generator will be created for each thread).
@@ -51,14 +51,18 @@ class Generator {
    */
   Generator(uint32_t seed);
 
-  /*
-   * Initializes generator using the seed of `other'.
+  /**
+   * @brief Initializes generator using the seed other generator.
    * Not exactly copying by design.
+   * @param other the generator to inherit from.
    */
   Generator(Generator const& other);
 
   ~Generator() noexcept;
 
+  /**
+   * @return Generator assigned to the current thread.
+   */
   [[nodiscard]] static Generator& current_thread_generator();
 
  private:

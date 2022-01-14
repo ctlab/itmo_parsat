@@ -9,6 +9,9 @@
 
 namespace ea::algorithm {
 
+/**
+ * @brief Genetic algorithm.
+ */
 class GAAlgorithm : public Algorithm {
  public:
   explicit GAAlgorithm(GAAlgorithmConfig const& config);

@@ -7,18 +7,18 @@
 
 namespace ea::limit {
 
+/**
+ * @brief Conjunction of a set of limits.
+ */
 class ConjLimit : public Limit {
  public:
-  /**
-   * Conjunction of a set of limits.
-   */
   explicit ConjLimit(const ConjLimitConfig& config);
 
   void start() override;
 
  protected:
   /**
-   * @return true iff *all* of limits returned true
+   * @return true iff *all* of limits returned true.
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 

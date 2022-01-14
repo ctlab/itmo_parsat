@@ -31,7 +31,7 @@ using RInstance = std::shared_ptr<Instance>;
 using Population = std::vector<RInstance>;
 
 /**
- * This class represents (E|G)A instance used in this project.
+ * @brief This class represents (E|G)A instance used in this project.
  */
 class Instance {
  public:
@@ -49,24 +49,24 @@ class Instance {
   core::domain::Vars const& get_vars() const noexcept;
 
   /**
-   * Clones the instance (used to create new instances through mutation or crossover).
+   * @brief Clones the instance (used to create new instances through mutation or crossover).
    */
   [[nodiscard]] Instance* clone();
 
   /**
-   * Calculates instance's fitness if it is not cached.
+   * @brief Calculates instance's fitness if it is not cached.
    * @return the fitness value
    */
   Fitness const& fitness();
 
   /**
-   * Returns the fitness value if it is cached.
+   * @brief Returns the fitness value if it is cached.
    * Otherwise, terminate is called.
    */
   Fitness const& fitness() const noexcept;
 
   /**
-   * Checks whether this instance is cached (locally or in shared cache).
+   * @brief Checks whether this instance is cached (locally or in shared cache).
    */
   [[nodiscard]] bool is_cached() const noexcept;
 

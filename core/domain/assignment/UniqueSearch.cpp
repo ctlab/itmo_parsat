@@ -3,12 +3,12 @@
 namespace core::domain {
 
 UniqueSearch::UniqueSearch(const VarView& var_view, const std::vector<bool>& vars, uint64_t total)
-    : ModifierAssignment(var_view, vars, total) {
+    : ModifyingSearch(var_view, vars, total) {
   _advance_us();
 }
 
 UniqueSearch::UniqueSearch(const VarView& var_view, const std::vector<bool>& vars)
-    : ModifierAssignment(var_view, vars) {
+    : ModifyingSearch(var_view, vars) {
   _advance_us();
 }
 

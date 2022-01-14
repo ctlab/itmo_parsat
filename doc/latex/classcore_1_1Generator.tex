@@ -1,0 +1,78 @@
+\hypertarget{classcore_1_1Generator}{}\doxysection{core\+::Generator Class Reference}
+\label{classcore_1_1Generator}\index{core::Generator@{core::Generator}}
+
+
+In some sense thread-\/safe and deterministic random engine.  
+
+
+
+
+{\ttfamily \#include $<$Generator.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcore_1_1Generator_a239dc6fb989f36c126370fedabec85b3}{Generator}} (uint32\+\_\+t seed)
+\begin{DoxyCompactList}\small\item\em Creates the generator for the current thread. All methods of this instance can be accessed by functions from \+::core\+::random. This ensures that no thread-\/unsafe operations will be performed (because generator will be created for each thread). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcore_1_1Generator_a0d8cb0f1f192a70a0975315cfed8a726}{Generator}} (\mbox{\hyperlink{classcore_1_1Generator}{Generator}} const \&other)
+\begin{DoxyCompactList}\small\item\em Initializes generator using the seed other generator. Not exactly copying by design. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classcore_1_1Generator}{Generator}} \& \mbox{\hyperlink{classcore_1_1Generator_af7634bb7c5b5674c6d96dcd3d9d372a7}{current\+\_\+thread\+\_\+generator}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1Generator_a0d1aa1ea45f5875633dddc3657c795d7}\label{classcore_1_1Generator_a0d1aa1ea45f5875633dddc3657c795d7}} 
+std\+::mt19937 \& {\bfseries random\+::stdgen} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+In some sense thread-\/safe and deterministic random engine. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcore_1_1Generator_a239dc6fb989f36c126370fedabec85b3}\label{classcore_1_1Generator_a239dc6fb989f36c126370fedabec85b3}} 
+\index{core::Generator@{core::Generator}!Generator@{Generator}}
+\index{Generator@{Generator}!core::Generator@{core::Generator}}
+\doxysubsubsection{\texorpdfstring{Generator()}{Generator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily core\+::\+Generator\+::\+Generator (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{seed }\end{DoxyParamCaption})}
+
+
+
+Creates the generator for the current thread. All methods of this instance can be accessed by functions from \+::core\+::random. This ensures that no thread-\/unsafe operations will be performed (because generator will be created for each thread). 
+
+N\+O\+TE\+: each thread that wants to use \mbox{\hyperlink{classcore_1_1Generator}{Generator}} {\itshape must} initialize an instance of this class and keep it alive while it needs its methods. \mbox{\Hypertarget{classcore_1_1Generator_a0d8cb0f1f192a70a0975315cfed8a726}\label{classcore_1_1Generator_a0d8cb0f1f192a70a0975315cfed8a726}} 
+\index{core::Generator@{core::Generator}!Generator@{Generator}}
+\index{Generator@{Generator}!core::Generator@{core::Generator}}
+\doxysubsubsection{\texorpdfstring{Generator()}{Generator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily core\+::\+Generator\+::\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1Generator}{Generator}} const \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Initializes generator using the seed other generator. Not exactly copying by design. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & the generator to inherit from. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1Generator_af7634bb7c5b5674c6d96dcd3d9d372a7}\label{classcore_1_1Generator_af7634bb7c5b5674c6d96dcd3d9d372a7}} 
+\index{core::Generator@{core::Generator}!current\_thread\_generator@{current\_thread\_generator}}
+\index{current\_thread\_generator@{current\_thread\_generator}!core::Generator@{core::Generator}}
+\doxysubsubsection{\texorpdfstring{current\_thread\_generator()}{current\_thread\_generator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1Generator}{Generator}} \& core\+::\+Generator\+::current\+\_\+thread\+\_\+generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classcore_1_1Generator}{Generator}} assigned to the current thread. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/util/Generator.\+h\item 
+core/util/Generator.\+cpp\end{DoxyCompactItemize}

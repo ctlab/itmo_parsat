@@ -228,10 +228,10 @@ class Solver {
 
   // Solver state:
   //
-  vec<CRef> clauses;   // List of problem clauses.
-  vec<CRef> learnts;   // List of learnt clauses.
-  vec<Lit> trail;      // Assignment stack; stores all assigments made in the order they were made.
-  vec<int> trail_lim;  // Separator indices for different decision levels in 'trail'.
+  vec<CRef> clauses;     // List of problem clauses.
+  vec<CRef> learnts;     // List of learnt clauses.
+  vec<Lit> trail;        // Search stack; stores all assigments made in the order they were made.
+  vec<int> trail_lim;    // Separator indices for different decision levels in 'trail'.
   vec<Lit> assumptions;  // Current set of assumptions provided to solve by the user.
 
   VMap<double> activity;  // A heuristic measurement of the activity of a variable.

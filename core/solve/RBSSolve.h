@@ -15,7 +15,7 @@
 namespace core {
 
 /**
- * This class solves SAT in the following way:
+ * @brief This class solves SAT in the following way:
  * - Uses the specified (E|G)A to find rho-backdoor B;
  * - Solves SAT formula for each assignment of variables from B.
  */

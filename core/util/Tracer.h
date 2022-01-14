@@ -42,6 +42,9 @@ struct CodeBlock {
 
 }  // namespace trace
 
+/**
+ * @brief Tracing utility class.
+ */
 class Tracer {
   friend struct trace::Event;
   friend struct trace::CodeBlock;

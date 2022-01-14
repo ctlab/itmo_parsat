@@ -23,7 +23,7 @@ class TestAssignment : public ::testing::Test {
     std::fill(mock_vars.begin() + size, mock_vars.end(), false);
   }
 
-  static std::vector<int> get_vars(domain::UAssignment const& asgn) {
+  static std::vector<int> get_vars(domain::USearch const& asgn) {
     std::vector<int> set_vars;
     auto const& vars = (*asgn)();
     for (int j = 0; j < vars.size(); ++j) {
@@ -35,7 +35,7 @@ class TestAssignment : public ::testing::Test {
   }
 
   static void test_assignment_full(
-      domain::UAssignment assignment_p, uint32_t target_count, uint32_t max_delta) {
+      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta) {
     std::set<std::vector<int>> uniques;
     do {
       uniques.insert(get_vars(assignment_p));
@@ -46,8 +46,7 @@ class TestAssignment : public ::testing::Test {
   }
 
   static void test_assignment_split_search(
-      domain::UAssignment assignment_p, uint32_t target_count, uint32_t max_delta,
-      uint32_t ranges) {
+      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta, uint32_t ranges) {
     std::set<std::vector<int>> uniques;
     uint32_t total = 0;
     for (uint32_t index = 0; index < ranges; ++index) {
@@ -69,20 +68,20 @@ class TestAssignment : public ::testing::Test {
 
   void test_full_search_range(long size, uint32_t ranges) {
     set_size(size);
-    domain::UAssignment assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
+    domain::USearch assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
     test_assignment_split_search(
         std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0, ranges);
   }
 
   void test_random_search_range(long size, uint32_t total, uint32_t ranges) {
     set_size(size);
-    domain::UAssignment assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, total));
+    domain::USearch assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, total));
     test_assignment_split_search(std::move(assignment_p), total, 0, ranges);
   }
 
   void test_full_search(long size) {
     set_size(size);
-    domain::UAssignment assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
+    domain::USearch assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
     test_assignment_full(std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0);
   }
 
@@ -90,7 +89,7 @@ class TestAssignment : public ::testing::Test {
     set_size(size);
     bool unique = size <= 63;
     uint32_t max_delta = unique ? 0 : std::max(1L, target / 100);
-    domain::UAssignment assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, target));
+    domain::USearch assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, target));
     test_assignment_full(std::move(assignment_p), target, max_delta);
   }
 

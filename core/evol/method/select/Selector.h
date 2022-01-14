@@ -9,12 +9,15 @@
 
 namespace ea::method {
 
+/**
+ * @brief Performs instance selection.
+ */
 class Selector {
  public:
   virtual ~Selector() = default;
 
   /**
-   * Performs selection of `size` instances from population.
+   * @brief Performs selection of `size` instances from population.
    */
   virtual void select(instance::Population& population, size_t size) = 0;
 };

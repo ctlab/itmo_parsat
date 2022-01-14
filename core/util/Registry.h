@@ -14,7 +14,7 @@
 namespace core {
 
 /**
- * Utility macro used to register and resolve dynamically-chosen implementations.
+ * @brief Utility macro used to register and resolve dynamically-chosen implementations.
  */
 #define DEFINE_REGISTRY(INTERFACE, CONFIG_TYPE, NAME)                                   \
   class INTERFACE##Registry {                                                           \

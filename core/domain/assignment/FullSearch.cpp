@@ -20,7 +20,7 @@ void next_assignment(Minisat::vec<Minisat::Lit>& vec) {
 namespace core::domain {
 
 FullSearch::FullSearch(VarView const& var_view, std::vector<bool> const& vars)
-    : ModifierAssignment(var_view, vars) {}
+    : ModifyingSearch(var_view, vars) {}
 
 void FullSearch::_advance() {
   next_assignment(_assignment);
@@ -34,8 +34,8 @@ void FullSearch::_reset() {
   _set_assignment(_assignment, _first);
 }
 
-UAssignment createFullSearch(VarView const& var_view, std::vector<bool> const& vars) {
-  return UAssignment(new FullSearch(var_view, vars));
+USearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars) {
+  return USearch(new FullSearch(var_view, vars));
 }
 
 }  // namespace core::domain

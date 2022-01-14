@@ -20,7 +20,7 @@
 namespace core::assert::_details {
 
 /**
- * Should not be called directly.
+ * @note Should not be called directly.
  */
 void panic(
     char const* file, long line, char const* function, char const* expr, bool abort,

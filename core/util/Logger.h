@@ -9,6 +9,9 @@
 
 namespace core {
 
+/**
+ * @brief Logging utility class.
+ */
 class Logger {
  private:
   struct LogEntry {
@@ -23,19 +26,19 @@ class Logger {
 
  public:
   /**
-   * Maximal number of log types. Needed to store log configurations
+   * @brief Maximal number of log types. Needed to store log configurations
    * in array and thus reduce performance drop.
    * Should be synchronized with logging_config.proto (<=)
    */
   static constexpr uint32_t MAX_LOG_TYPES = 16;
 
   /**
-   * The verbosity level that unconfigured log types have by default.
+   * @brief The verbosity level that unconfigured log types have by default.
    */
   static constexpr uint32_t DEFAULT_VERBOSE_LEVEL = 10;
 
   /**
-   * The every_n parameter that unconfigured log types have by default.
+   * @brief The every_n parameter that unconfigured log types have by default.
    */
   static constexpr uint32_t DEFAULT_EVERY_N = 1;
 
@@ -44,17 +47,19 @@ class Logger {
 
  public:
   /**
-   * Reconfigures Logger.
+   * @brief Reconfigures Logger.
+   * @param config the configuration.
    */
   static void set_logger_config(LoggingConfig const& config);
 
   /**
-   * Checks if the log of given LogType should be logged now.
+   * @brief Checks if the log of given LogType should be logged now.
+   * @param log_type the log type.
    */
   [[nodiscard]] static bool should_log(LogType log_type) noexcept;
 
   /**
-   * Logger can be accessed only through this method (or indirectly).
+   * @brief Logger can be accessed only through this method (or indirectly).
    */
   static Logger& instance();
 

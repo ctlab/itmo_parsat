@@ -17,7 +17,7 @@ namespace ea::limit {
 class ConjLimit;
 
 /**
- * This is an interface for all limits that control the execution of an algorithm.
+ * @brief This is an interface for all limits that control the execution of an algorithm.
  */
 class Limit {
   friend class ConjLimit;

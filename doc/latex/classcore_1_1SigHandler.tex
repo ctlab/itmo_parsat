@@ -1,0 +1,67 @@
+\hypertarget{classcore_1_1SigHandler}{}\doxysection{core\+::Sig\+Handler Class Reference}
+\label{classcore_1_1SigHandler}\index{core::SigHandler@{core::SigHandler}}
+
+
+Signal handling routine.  
+
+
+
+
+{\ttfamily \#include $<$Sig\+Handler.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcore_1_1SigHandler_1_1CallbackHandle}{Callback\+Handle}}
+\begin{DoxyCompactList}\small\item\em The callback handle returned as a result of registering a callback. Its purpose is to remove the callback by demand or when destructed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_a71d195ed635e80064350a166792e5d09}\label{classcore_1_1SigHandler_a71d195ed635e80064350a166792e5d09}} 
+using {\bfseries callback\+\_\+t} = std\+::function$<$ void(int)$>$
+\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_a6e4ae4ffe456d1fbf874d5463826b288}\label{classcore_1_1SigHandler_a6e4ae4ffe456d1fbf874d5463826b288}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcore_1_1SigHandler_1_1CallbackHandle}{Callback\+Handle}} $>$ {\bfseries handle\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcore_1_1SigHandler_ab645d6c745b771852a052a605d3d1109}{Sig\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classcore_1_1SigHandler}{Sig\+Handler}} must be created explicitly to carry all the routine connected with signal masking. Also, its destruction time must be known to programmer, because otherwise it will not stop gracefully. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_a19500e3319e0889ac39f5306d01f8cba}\label{classcore_1_1SigHandler_a19500e3319e0889ac39f5306d01f8cba}} 
+handle\+\_\+t \mbox{\hyperlink{classcore_1_1SigHandler_a19500e3319e0889ac39f5306d01f8cba}{register\+\_\+callback}} (callback\+\_\+t callback)
+\begin{DoxyCompactList}\small\item\em Register callback for S\+I\+G\+I\+NT. Note that callback function will be executed asynchronously in a separate thread, so it must be thread-\/safe. If there are no registered callbacks, the program is terminated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_aa7a0956a1438d7ae4c34cc4d24301c54}\label{classcore_1_1SigHandler_aa7a0956a1438d7ae4c34cc4d24301c54}} 
+bool \mbox{\hyperlink{classcore_1_1SigHandler_aa7a0956a1438d7ae4c34cc4d24301c54}{is\+\_\+set}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Checks whether the handler caught S\+I\+G\+I\+NT yet. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_aa1d33ee06d1dec908f4df5634cc789d2}\label{classcore_1_1SigHandler_aa1d33ee06d1dec908f4df5634cc789d2}} 
+void \mbox{\hyperlink{classcore_1_1SigHandler_aa1d33ee06d1dec908f4df5634cc789d2}{unset}} () noexcept
+\begin{DoxyCompactList}\small\item\em Resets set flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_acefb99490762deb8e47e46b75d0e55b3}\label{classcore_1_1SigHandler_acefb99490762deb8e47e46b75d0e55b3}} 
+class {\bfseries Callback\+Handle}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Signal handling routine. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcore_1_1SigHandler_ab645d6c745b771852a052a605d3d1109}\label{classcore_1_1SigHandler_ab645d6c745b771852a052a605d3d1109}} 
+\index{core::SigHandler@{core::SigHandler}!SigHandler@{SigHandler}}
+\index{SigHandler@{SigHandler}!core::SigHandler@{core::SigHandler}}
+\doxysubsubsection{\texorpdfstring{SigHandler()}{SigHandler()}}
+{\footnotesize\ttfamily core\+::\+Sig\+Handler\+::\+Sig\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classcore_1_1SigHandler}{Sig\+Handler}} must be created explicitly to carry all the routine connected with signal masking. Also, its destruction time must be known to programmer, because otherwise it will not stop gracefully. 
+
+This thread does all signal handling routine.
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/util/Sig\+Handler.\+h\item 
+core/util/Sig\+Handler.\+cpp\end{DoxyCompactItemize}

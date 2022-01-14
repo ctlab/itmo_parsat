@@ -6,7 +6,7 @@ sat::RSolver Solve::_resolve_solver(SolverConfig const& config) {
   return sat::RSolver(sat::SolverRegistry::resolve(config));
 }
 
-sat::State Solve::_final_solve(sat::Solver& solver, domain::UAssignment assignment) {
+sat::State Solve::_final_solve(sat::Solver& solver, domain::USearch assignment) {
   IPS_VERIFY(!assignment->empty() && bool("Trying to final-solve empty assignment set"));
 
   core::sig::unset();

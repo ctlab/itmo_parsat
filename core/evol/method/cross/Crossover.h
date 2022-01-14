@@ -7,10 +7,18 @@
 
 namespace ea::method {
 
+/**
+ * @brief Crossover method interface.
+ */
 class Crossover {
  public:
   virtual ~Crossover() = default;
 
+  /**
+   * @brief applies crossover to two instances.
+   * @param a the first instance.
+   * @param b the second instance.
+   */
   virtual void apply(instance::Instance& a, instance::Instance& b) = 0;
 };
 

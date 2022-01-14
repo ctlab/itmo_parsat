@@ -1,15 +1,17 @@
 #ifndef ITMO_PARSAT_RANDOMSEARCH_H
 #define ITMO_PARSAT_RANDOMSEARCH_H
 
-#include "core/domain/assignment/ModifierAssignment.h"
+#include "core/domain/assignment/ModifyingSearch.h"
 #include "core/domain/assignment/UniqueSearch.h"
 #include "core/util/Generator.h"
 
 namespace core::domain {
 
-class RandomSearch : public ModifierAssignment {
-  friend UAssignment createRandomSearch(
-      VarView const& var_view, std::vector<bool> const&, uint64_t);
+/**
+ * @brief The class used to perform random search.
+ */
+class RandomSearch : public ModifyingSearch {
+  friend USearch createRandomSearch(VarView const& var_view, std::vector<bool> const&, uint64_t);
 
  protected:
   explicit RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
@@ -22,8 +24,7 @@ class RandomSearch : public ModifierAssignment {
   [[nodiscard]] RandomSearch* clone() const override;
 };
 
-UAssignment createRandomSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
 }  // namespace core::domain
 

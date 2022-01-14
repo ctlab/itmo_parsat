@@ -16,7 +16,7 @@
 namespace core {
 
 /**
- * This class solves SAT in the following way:
+ * @brief This class solves SAT in the following way:
  * - LaunchesDao multiple RBSSolve tasks with the specified configurations, collecting rho-backdoors
  *   set { B_1, ..., B_s };
  * - For each backdoor set B_i it collects the set G_i of all assignments for which propagate finds

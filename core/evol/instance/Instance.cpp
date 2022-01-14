@@ -68,7 +68,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   auto const& mask = _vars.get_mask();
   int size = (int) std::count(mask.begin(), mask.end(), true);
 
-  core::domain::UAssignment assignment_ptr;
+  core::domain::USearch assignment_ptr;
   bool full_search = false;
   if (std::log2(samples) >= (double) size) {
     full_search = true;
@@ -140,7 +140,7 @@ std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instanc
   double coverage = (double) instance.fitness().samples;
   uint32_t num_vars = instance.fitness().pow_r;
 
-  if (num_vars <= core::domain::Assignment::MAX_VARS_FULL_SEARCH) {
+  if (num_vars <= core::domain::Search::MAX_VARS_FULL_SEARCH) {
     coverage /= (1ULL << num_vars);
   } else {
     coverage = std::pow(2., std::log2(coverage) - num_vars);

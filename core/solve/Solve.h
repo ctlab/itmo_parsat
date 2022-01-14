@@ -15,12 +15,12 @@
 namespace core {
 
 /**
- * The core class that performs all actions related to solving SAT.
+ * @brief The core class that performs all actions related to solving SAT.
  */
 class Solve {
  public:
   /**
-   * This method solves SAT. For now, it is expected to be called only once
+   * @brief This method solves SAT. For now, it is expected to be called only once
    * per object lifetime.
    * @param input path to gz archive with task description
    * @return result of the solution
@@ -30,7 +30,7 @@ class Solve {
  protected:
   [[nodiscard]] static sat::RSolver _resolve_solver(SolverConfig const& config);
 
-  [[nodiscard]] static sat::State _final_solve(sat::Solver& solver, domain::UAssignment assignment);
+  [[nodiscard]] static sat::State _final_solve(sat::Solver& solver, domain::USearch assignment);
 };
 
 using RSolve = std::shared_ptr<Solve>;

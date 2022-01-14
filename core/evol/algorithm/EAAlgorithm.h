@@ -8,6 +8,9 @@
 
 namespace ea::algorithm {
 
+/**
+ * @brief Evolutionary (1+1) algorithm.
+ */
 class EAAlgorithm : public Algorithm {
  public:
   explicit EAAlgorithm(EAAlgorithmConfig const& config);

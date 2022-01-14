@@ -84,13 +84,13 @@ bool ParSolver::propagate(
 }
 
 void ParSolver::solve_assignments(
-    domain::UAssignment assignment_p, Solver::slv_callback_t const& callback) {
+    domain::USearch assignment_p, Solver::slv_callback_t const& callback) {
   clear_interrupt();
   size_t num_threads = _t.size();
 
   // Here we share assignment between all worker threads.
   // Don't forget to release unique ptr.
-  domain::RAssignment shared_assignment(assignment_p.get());
+  domain::RSearch shared_assignment(assignment_p.get());
   assignment_p.release();
 
   std::vector<std::future<void>> futures;
@@ -102,7 +102,7 @@ void ParSolver::solve_assignments(
 }
 
 void ParSolver::prop_assignments(
-    domain::UAssignment assignment_p, Solver::prop_callback_t const& callback) {
+    domain::USearch assignment_p, Solver::prop_callback_t const& callback) {
   clear_interrupt();
   uint32_t num_threads = _t.size();
 
@@ -141,7 +141,7 @@ void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
       {
         //        std::lock_guard<std::mutex> lg(_slv_mutex);
         conflict = solver.propagate(arg);
-        IPS_LOG_IF(INFO, !conflict, "Solver #" << req.idx);
+        //        IPS_LOG_IF(INFO, !conflict, "Solver #" << req.idx);
         result = conflict ? UNSAT : solver.solve_limited(arg);
       }
       if (!req.callback(result, conflict, arg)) {

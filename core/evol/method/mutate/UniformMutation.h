@@ -5,6 +5,9 @@
 
 namespace ea::method {
 
+/**
+ * @brief Standard uniform mutation.
+ */
 class UniformMutation : public Mutation {
  public:
   explicit UniformMutation(UniformMutationConfig const& config);
