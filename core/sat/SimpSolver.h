@@ -19,7 +19,7 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
 
   void parse_cnf(std::filesystem::path const& path) override;
 
-  State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
@@ -29,6 +29,8 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
 
  private:
   void _do_interrupt() override;
+
+  void _do_clear_interrupt() override;
 
  private:
   bool preprocess_;

@@ -20,7 +20,7 @@ INFRA_DB_SETUP="./infra/resources/create_tables.sql"
 
 NEXT_NATIVE=0
 BUILD_DEBUG=""
-RUN_GDB=""
+RUN_CMD=""
 BUILD_CFG="dev_fast"
 
 declare -a order
@@ -66,7 +66,11 @@ function do_set_build_mode() {
 }
 
 function do_run_gdb() {
-    RUN_GDB="gdb --args"
+    RUN_CMD="gdb --args"
+}
+
+function do_run_perf() {
+    RUN_CMD="perf record --call-graph dwarf"
 }
 
 function do_format() {
@@ -101,12 +105,12 @@ function do_set_verbose() {
 }
 
 function do_unit() {
-    GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $TEST_BIN \
+    GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $TEST_BIN \
         --verbose $VERBOSE $@
 }
 
 function do_infra() {
-    GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $INFRA_BIN \
+    GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $INFRA_BIN \
         --commit $(git rev-parse --verify HEAD) \
         --resources-dir $RESOURCES_DIR \
         --working-dir $INFRA_DIR \
@@ -117,13 +121,13 @@ function do_infra() {
 
 function do_solve() {
     if [[ -z "$@" ]]; then
-        GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
+        GLOG_minloglevel=0 GLOG_logtostderr=1  $RUN_CMD $SOLVE_BIN \
             --verbose "$VERBOSE" \
             --input "$CNF_PATH" \
             --config "$CFG_ROOT/$SLV_CFG" \
             --log-config "$LOG_CFG_PATH"
     else
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_GDB $SOLVE_BIN \
+        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $SOLVE_BIN \
             $@
     fi
 }
@@ -182,6 +186,7 @@ add_option "--build-infra" " Build integration tests"    do_build_infra    0
 add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto    0
 add_option "--build-doc" "   Build documentation"        do_doc            0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
+add_option "--run-perf" "    Run with perf"              do_run_perf       0
 add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1
 add_option "-f|--format" "   Apply clang-format"         do_format         0

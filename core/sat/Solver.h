@@ -39,9 +39,9 @@ class Solver {
   // clang-format off
   typedef std::function<
       bool( // true iff should continue solving
-        State, // result of solve_limited
+        State, // result of solve
         bool, // true iff solved on propagate stage
-        Minisat::vec<Minisat::Lit> const& // assumptions passed to solve_limited
+        Minisat::vec<Minisat::Lit> const& // assumptions passed to solve
       )> slv_callback_t;
   typedef std::function<
       bool( // true iff should continue solving
@@ -61,26 +61,22 @@ class Solver {
   virtual void parse_cnf(std::filesystem::path const& path) = 0;
 
   /**
-   * @brief Equivalent to Solver::solve_limited({}).
+   * @brief Equivalent to Solver::solve({}).
    * @return the result of solving.
    */
   State solve_limited();
 
   /**
-   * @brief Runs solutions with the specified assumptions.
-   * @note Currently it is solve, not solveLimited!
+   * @brief Runs solution with the specified assumptions.
    * @param assumptions assumptions to include.
    * @return the result of solving.
    */
-  virtual State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
-
-  /**
-   */
+  virtual State solve(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
 
   /**
    * @brief Propagates a given list of assumptions.
    * @return true iff conflicts happened.
-   * @param assumptions assumptions to include.
+   * @param assumptions the assumptions to include.
    * @param propagated the propagated literals.
    * @return true if and only if conflict occurred.
    */
@@ -151,14 +147,14 @@ DEFINE_REGISTRY(Solver, SolverConfig, solver);
   uint32_t _expected_size = expected_size; \
   std::set<std::vector<bool>> _uniq_asgn
 
-#define ASGN_TRACK(asgn)                            \
-  do {                                              \
-    std::vector<bool> _cur(asgn.size());            \
-    for (int i = 0; i < asgn.size(); ++i) {         \
-      _cur[i] = Minisat::sign(asgn[i]);             \
-    }                                               \
-    std::lock_guard<std::mutex> _lg(_m_asgn_track); \
-    _uniq_asgn.insert(std::move(_cur));             \
+#define ASGN_TRACK(asgn)                                                                           \
+  do {                                                                                             \
+    std::vector<bool> _cur(asgn.size());                                                           \
+    for (int i = 0; i < asgn.size(); ++i) {                                                        \
+      _cur[i] = Minisat::sign(asgn[i]);                                                            \
+    }                                                                                              \
+    std::lock_guard<std::mutex> _lg(_m_asgn_track);                                                \
+    IPS_VERIFY(_uniq_asgn.insert(std::move(_cur)).second == true && bool("Duplicate assignment")); \
   } while (0)
 
 #define BREAK_ASGN_TRACK _stop_callback = true

@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <mutex>
 
+#include "core/util/stream.h"
+
 namespace {
 
 template <class... Ts>
@@ -74,8 +76,8 @@ void ParSolver::parse_cnf(std::filesystem::path const& input) {
   }
 }
 
-State ParSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
-  return _solvers.front()->solve_limited(assumptions);
+State ParSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
+  return _solvers.front()->solve(assumptions);
 }
 
 bool ParSolver::propagate(
@@ -95,8 +97,9 @@ void ParSolver::solve_assignments(
 
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);
+  _solve_finished = false;
   for (uint32_t index = 0; index < num_threads; ++index) {
-    futures.push_back(_submit(req_solve_t{shared_assignment, callback, (int) index}));
+    futures.push_back(_submit(req_solve_t{shared_assignment, callback}));
   }
   _wait_for_futures(futures);
 }
@@ -116,43 +119,30 @@ void ParSolver::prop_assignments(
 }
 
 void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
-  START_ASGN_TRACK(req.assignment->size());
   if (!req.assignment->empty()) {
     auto& assignment = *req.assignment;
     Minisat::vec<Minisat::Lit> arg(assignment().size());
-    bool stop = false;
     do {
       {
         std::lock_guard<std::mutex> asgn_lg(_asgn_mutex);
-        if (interrupted()) {
+        if (_solve_finished) {
           break;
         }
-        for (int i = 0; i < assignment().size(); ++i) {
-          arg[i] = assignment()[i];
+        auto const& arr = assignment();
+        for (int i = 0; i < arr.size(); ++i) {
+          arg[i] = arr[i];
         }
         if (!++assignment) {
-          interrupt();
-          stop = true;
+          _solve_finished = true;
         }
       }
-      ASGN_TRACK(arg);
       bool conflict = solver.propagate(arg);
-      State result;
-      if (!conflict) {
-        //        std::lock_guard<std::mutex> lg(_slv_mutex);
-        IPS_LOG(INFO, "Start solver #" << req.idx);
-        result = solver.solve_limited(arg);
-        IPS_LOG(INFO, "End Solver #" << req.idx);
-      } else {
-        result = UNSAT;
-      }
+      State result = conflict ? UNSAT : solver.solve(arg);
       if (!req.callback(result, conflict, arg)) {
-        BREAK_ASGN_TRACK;
         break;
       }
-    } while (!IPS_UNLIKELY(interrupted() && !stop));
+    } while (!IPS_UNLIKELY(interrupted()));
   }
-  END_ASGN_TRACK;
 }
 
 void ParSolver::_propagate(sat::Solver& solver, req_prop_t& req) {
@@ -167,7 +157,7 @@ void ParSolver::_propagate(sat::Solver& solver, req_prop_t& req) {
         BREAK_ASGN_TRACK;
         break;
       }
-    } while (!IPS_UNLIKELY(interrupted()) && ++assignment);
+    } while (!IPS_UNLIKELY(interrupted() || !++assignment));
   }
   END_ASGN_TRACK;
 }
@@ -177,10 +167,10 @@ std::future<void> ParSolver::_submit(task_t&& task) {
   auto p_task = std::packaged_task<void(sat::Solver&)>(
     [this, task = std::move(task)] (sat::Solver& solver) mutable {
       std::visit(overloaded{
-          [&solver, this](req_solve_t& req) {
+          [&, this](req_solve_t& req) {
             _solve(solver, req);
           },
-          [&solver, this](req_prop_t& req) {
+          [&, this](req_prop_t& req) {
             _propagate(solver, req);
           }
       }, task);
