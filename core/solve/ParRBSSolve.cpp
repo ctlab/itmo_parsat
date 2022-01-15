@@ -37,30 +37,30 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
       "Algorithms' random seeds will be ignored. Instead, root generator will provide seed");
   IPS_VERIFY(_cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
 
+  std::stringstream algorithms_info;
   std::vector<std::thread> rbs_search_threads;
+
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
     uint32_t seed = ignore_algorithm_seeds ? core::random::sample<uint32_t>(0, UINT32_MAX)
                                            : _cfg.algorithm_configs(i).random_seed();
     rbs_search_threads.emplace_back(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
+          std::mutex i_mutex;
           core::Generator generator(seed);
           ea::algorithm::RAlgorithm algorithm(ea::algorithm::AlgorithmRegistry::resolve(config));
           auto& algorithm_solver = algorithm->get_solver();
           IPS_TRACE(algorithm_solver.parse_cnf(input));
           algorithm->prepare();
-
           SigHandler::handle_t alg_int_handle = core::sig::register_callback([&](int) {
             algorithm->interrupt();
             IPS_INFO("[" << i << "] Algorithm has been interrupted.");
             alg_int_handle->remove();
           });
+
           IPS_TRACE(algorithm->process());
-          auto& rho_backdoor = algorithm->get_best();
-          IPS_INFO("[" << i << "] Number of points visited: " << algorithm->inaccurate_points());
-          IPS_INFO("[" << i << "] The best backdoor is: " << rho_backdoor);
+          auto const& rho_backdoor = algorithm->get_best();
 
           // Try to propagate all assumptions and collect ones that ended with no conflict
-          std::mutex i_mutex;
           std::atomic_uint32_t conflicts{0}, total{0};
           algorithm->get_solver().prop_assignments(
               domain::createFullSearch(
@@ -77,8 +77,17 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
                 return true;
               });
 
-          IPS_INFO("[" << i << "] Conflicts: " << conflicts << ", total: " << total);
-          IPS_INFO("[" << i << "] Actual rho value: " << (double) conflicts / (double) total);
+          {  // add the best backdoor to log
+            std::lock_guard<std::mutex> lg(i_mutex);
+            algorithms_info << "[Thread " << i << "]\n";
+            algorithms_info << "\tNumber of points visited: " << algorithm->inaccurate_points()
+                            << '\n';
+            algorithms_info << "\tThe best backdoor is: " << rho_backdoor << '\n';
+            algorithms_info << "\tConflicts: " << conflicts << ", total: " << total << '\n';
+            algorithms_info << "\tActual rho value: " << (double) conflicts / (double) total
+                            << '\n';
+          }
+
           if (non_conflict_assignments[i].empty()) {
             // This rho-backdoor is actually SBS, thus no need to solve further.
             std::raise(SIGINT);
@@ -92,6 +101,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
     thread.join();
   }
 
+  IPS_INFO("Algorithms processing info: " << algorithms_info.str());
   return non_conflict_assignments;
 }
 
