@@ -132,6 +132,7 @@ function do_setup() {
     git config --local pull.rebase true
     root=$(pwd)
     rm -rf "$root/.git/hooks/pre-commit" || true
+    rm -rf "$root/.git/hooks/prepare-commit-msg" || true
     ln -sf "$root/hooks/pre-commit" "$root/.git/hooks/pre-commit"
     ln -sf "$root/hooks/prepare-commit-msg" "$root/.git/hooks/prepare-commit-msg"
 }
