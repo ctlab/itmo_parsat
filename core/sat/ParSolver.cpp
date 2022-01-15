@@ -139,7 +139,7 @@ void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
       bool conflict = solver.propagate(arg);
       State result;
       if (!conflict) {
-        std::lock_guard<std::mutex> lg(_slv_mutex);
+        //        std::lock_guard<std::mutex> lg(_slv_mutex);
         IPS_LOG(INFO, "Start solver #" << req.idx);
         result = solver.solve_limited(arg);
         IPS_LOG(INFO, "End Solver #" << req.idx);
