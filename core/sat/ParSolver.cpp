@@ -136,13 +136,15 @@ void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
         }
       }
       ASGN_TRACK(arg);
-      bool conflict;
+      bool conflict = solver.propagate(arg);
       State result;
-      {
-        //        std::lock_guard<std::mutex> lg(_slv_mutex);
-        conflict = solver.propagate(arg);
-        //        IPS_LOG_IF(INFO, !conflict, "Solver #" << req.idx);
-        result = conflict ? UNSAT : solver.solve_limited(arg);
+      if (!conflict) {
+        std::lock_guard<std::mutex> lg(_slv_mutex);
+        IPS_LOG(INFO, "Start solver #" << req.idx);
+        result = solver.solve_limited(arg);
+        IPS_LOG(INFO, "End Solver #" << req.idx);
+      } else {
+        result = UNSAT;
       }
       if (!req.callback(result, conflict, arg)) {
         BREAK_ASGN_TRACK;
