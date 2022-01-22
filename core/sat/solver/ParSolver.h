@@ -11,7 +11,7 @@
 #include <queue>
 
 #include "core/util/Generator.h"
-#include "core/sat/Solver.h"
+#include "core/sat/solver/Solver.h"
 
 namespace core::sat {
 

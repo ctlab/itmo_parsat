@@ -80,7 +80,7 @@ class Solver {
    * @param propagated the propagated literals.
    * @return true if and only if conflict occurred.
    */
-  virtual bool propagate(
+  [[nodiscard]] virtual bool propagate(
       Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) = 0;
 
   /**
@@ -88,7 +88,7 @@ class Solver {
    * @param assumptions assumptions to include.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
+  [[nodiscard]] virtual bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
 
   /**
    * @brief Solves CNF on all assignments by the given iterator and calls callback respectively.

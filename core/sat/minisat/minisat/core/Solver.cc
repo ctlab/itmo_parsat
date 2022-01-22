@@ -698,13 +698,57 @@ CRef Solver::propagate() {
 }
 
 //=================================================================================================
+// Only checks for conflicts
+bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
+  if (!ok) {
+    return false;
+  }
+
+  bool st = true;
+  int level = decisionLevel();
+  CRef confl = CRef_Undef;
+
+  // dealing with phase saving
+  int psaving_copy = phase_saving;
+  phase_saving = psaving;
+
+#if 1  // Enqueue all assumptions at once. Faster by 6-10%.
+  newDecisionLevel();
+  for (int i = 0; st && i < assumps.size(); ++i) {
+    Lit p = assumps[i];
+    if (value(p) == l_False) {
+      st = false;
+    } else if (value(p) != l_True) {
+      uncheckedEnqueue(p);
+    }
+  }
+  if (st) {
+    confl = propagate();
+  }
+#else  // Original implementation: propagate one by one
+  for (int i = 0; st && confl == CRef_Undef && i < assumps.size(); ++i) {
+    Lit p = assumps[i];
+
+    if (value(p) == l_False)
+      st = false;
+    else if (value(p) != l_True) {
+      newDecisionLevel();
+      uncheckedEnqueue(p);
+      confl = propagate();
+    }
+  }
+#endif
+
+  if (decisionLevel() > level) {
+    cancelUntil(level);
+  }
+  phase_saving = psaving_copy;
+  return st && confl == CRef_Undef;
+}
+
+//=================================================================================================
 // Propagate and check:
 bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
-  // < WARN
-  //  this->model.clear();
-  //  this->conflict.clear();
-  // > WARN
-
   prop.clear();
 
   if (!ok) {
@@ -749,7 +793,6 @@ bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
 
   // restoring phase saving
   phase_saving = psaving_copy;
-
   return st && confl == CRef_Undef;
 }
 

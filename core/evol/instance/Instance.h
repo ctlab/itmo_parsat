@@ -4,7 +4,7 @@
 #include <set>
 
 #include "core/evol/instance/SharedData.h"
-#include "core/sat/Solver.h"
+#include "core/sat/solver/Solver.h"
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/VarView.h"

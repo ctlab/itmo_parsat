@@ -69,6 +69,8 @@ class Solver {
   // Solving:
   //
   bool prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving);
+  bool prop_check(const vec<Lit>& assumps, int psaving);
+
   bool simplify();  // Removes already satisfied clauses.
   bool solve(
       const vec<Lit>& assumps);  // Search for a model that respects a given set of assumptions.

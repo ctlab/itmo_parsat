@@ -1,4 +1,4 @@
-#include "core/sat/SimpSolver.h"
+#include "core/sat/solver/SimpSolver.h"
 
 #include "core/util/GzFile.h"
 #include "core/util/Logger.h"
@@ -62,6 +62,11 @@ bool SimpSolver::propagate(
     Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
   clearInterrupt();
   return IPS_TRACE_N_V("SimpSolver::propagate", !prop_check(assumptions, propagated, 0););
+}
+
+bool SimpSolver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
+  clearInterrupt();
+  return IPS_TRACE_N_V("SimpSolver::propagate", !prop_check(assumptions, 0););
 }
 
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);
