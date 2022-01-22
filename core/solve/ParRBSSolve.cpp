@@ -26,6 +26,11 @@ namespace core {
 
 ParRBSSolve::ParRBSSolve(ParRBSSolveConfig config) : _cfg(std::move(config)) {}
 
+void ParRBSSolve::_raise_for_sbs(int algorithm_id) noexcept {
+  IPS_INFO("[" << algorithm_id << "] Interrupting because SBS has been found");
+  core::sig::raise();
+}
+
 std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
     std::filesystem::path const& input) {
   std::vector<std::vector<std::vector<Minisat::Lit>>> non_conflict_assignments(
@@ -53,6 +58,10 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           IPS_TRACE(algorithm->process());
           auto const& rho_backdoor = algorithm->get_best();
+          if (rho_backdoor.is_sbs()) {
+            // This rho-backdoor is actually SBS, thus no need to solve further.
+            _raise_for_sbs(i);
+          }
 
           // Try to propagate all assumptions and collect ones that ended with no conflict
           std::atomic_uint32_t conflicts{0}, total{0};
@@ -84,7 +93,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           if (non_conflict_assignments[i].empty()) {
             // This rho-backdoor is actually SBS, thus no need to solve further.
-            std::raise(SIGINT);
+            _raise_for_sbs(i);
           }
         });
   }

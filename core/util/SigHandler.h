@@ -50,8 +50,6 @@ class SigHandler {
      */
     void callback(int signal);
 
-    bool operator<(CallbackHandle const& other) const noexcept;
-
    private:
     callback_t _callback;
     std::mutex* _unlink_mutex;
@@ -79,14 +77,19 @@ class SigHandler {
   handle_t register_callback(callback_t callback);
 
   /**
-   * @brief Checks whether the handler caught SIGINT yet.
-   */
-  [[nodiscard]] bool is_set() const noexcept;
-
-  /**
    * @brief Resets set flag.
    */
   void unset() noexcept;
+
+  /**
+   * @return if an interrupt has been caught
+   */
+  [[nodiscard]] bool is_set() noexcept;
+
+  /**
+   * @brief raises the 'signal', i.e. calls all registered callbacks.
+   */
+  void raise() noexcept;
 
  private:
   void _callback(int signal);
@@ -95,6 +98,7 @@ class SigHandler {
   std::mutex _cb_m;
   std::thread _t;
   std::atomic_bool _registered{false};
+  std::atomic_bool _raised{false};
   std::atomic_bool _terminate{false};
   boost::intrusive::list<CallbackHandle, boost::intrusive::constant_time_size<false>> _handles_list;
 };
@@ -103,9 +107,11 @@ namespace sig {
 
 SigHandler::handle_t register_callback(SigHandler::callback_t callback);
 
-[[nodiscard]] bool is_set() noexcept;
+bool is_set() noexcept;
 
 void unset() noexcept;
+
+void raise() noexcept;
 
 }  // namespace sig
 }  // namespace core

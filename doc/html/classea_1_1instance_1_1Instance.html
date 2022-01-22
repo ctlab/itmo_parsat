@@ -106,6 +106,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a1dfec9acce2b27c9094e745d135fe38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adadc7c0a34c0c1f94acf88031ae3aa6f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#adadc7c0a34c0c1f94acf88031ae3aa6f">num_vars</a> () const noexcept</td></tr>
 <tr class="separator:adadc7c0a34c0c1f94acf88031ae3aa6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81dab914c2b50c6d96cfb9ab9cd52f1f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">is_sbs</a> () const noexcept</td></tr>
+<tr class="separator:a81dab914c2b50c6d96cfb9ab9cd52f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43167ae120d5a84a5c5dbf4651bf95f8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#a43167ae120d5a84a5c5dbf4651bf95f8">size</a> () const noexcept</td></tr>
+<tr class="separator:a43167ae120d5a84a5c5dbf4651bf95f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -214,6 +218,32 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
 
 </div>
 </div>
+<a id="a81dab914c2b50c6d96cfb9ab9cd52f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81dab914c2b50c6d96cfb9ab9cd52f1f">&#9670;&nbsp;</a></span>is_sbs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ea::instance::Instance::is_sbs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>if this instance is a strong backdoor set </dd></dl>
+
+</div>
+</div>
 <a id="adadc7c0a34c0c1f94acf88031ae3aa6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adadc7c0a34c0c1f94acf88031ae3aa6f">&#9670;&nbsp;</a></span>num_vars()</h2>
 
@@ -236,7 +266,34 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the number of variables in this instance </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>The fact that this method is here is very bad. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of variables in the formula (not in this instance) </dd></dl>
+
+</div>
+</div>
+<a id="a43167ae120d5a84a5c5dbf4651bf95f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43167ae120d5a84a5c5dbf4651bf95f8">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t ea::instance::Instance::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the number of variables in this variables set </dd></dl>
 
 </div>
 </div>

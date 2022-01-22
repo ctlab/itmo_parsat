@@ -49,16 +49,20 @@ SigHandler::SigHandler() {
         break;
       }
 
-      if (err == -1 && errno == EAGAIN) {
-        continue;
-      } else if (err == -1) {
+      if (err == -1 && errno != EAGAIN) {
         IPS_TERMINATE();
       }
 
-      IPS_VERIFY(si.si_signo == SIGINT && bool("Only SIGINT is expected in SigHandler"));
-      IPS_INFO("Interrupted");
-      _registered = true;
-      _callback(si.si_signo);
+      if (!_raised && err == -1 && errno == EAGAIN) {
+        continue;
+      }
+
+      if (_raised || err == 0) {
+        _raised = false;
+        _registered = true;
+        IPS_INFO("SigHandler: caught interrupt");
+        _callback(si.si_signo);
+      }
     }
   });
 }
@@ -71,12 +75,16 @@ SigHandler::~SigHandler() noexcept {
   _sig_handler = nullptr;
 }
 
-bool SigHandler::is_set() const noexcept {
+void SigHandler::unset() noexcept {
+  _registered = false;
+}
+
+bool SigHandler::is_set() noexcept {
   return _registered;
 }
 
-void SigHandler::unset() noexcept {
-  _registered = false;
+void SigHandler::raise() noexcept {
+  _raised = true;
 }
 
 SigHandler::handle_t SigHandler::register_callback(callback_t callback) {
@@ -103,7 +111,7 @@ SigHandler::handle_t register_callback(SigHandler::callback_t callback) {
   return _sig_handler->register_callback(std::move(callback));
 }
 
-[[nodiscard]] bool is_set() noexcept {
+bool is_set() noexcept {
   IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
   return _sig_handler->is_set();
 }
@@ -111,6 +119,11 @@ SigHandler::handle_t register_callback(SigHandler::callback_t callback) {
 void unset() noexcept {
   IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
   _sig_handler->unset();
+}
+
+void raise() noexcept {
+  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
+  _sig_handler->raise();
 }
 
 }  // namespace sig

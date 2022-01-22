@@ -106,14 +106,16 @@ Public Member Functions</h2></td></tr>
 handle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1SigHandler.html#a19500e3319e0889ac39f5306d01f8cba">register_callback</a> (callback_t callback)</td></tr>
 <tr class="memdesc:a19500e3319e0889ac39f5306d01f8cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callback for SIGINT. Note that callback function will be executed asynchronously in a separate thread, so it must be thread-safe. If there are no registered callbacks, the program is terminated. <br /></td></tr>
 <tr class="separator:a19500e3319e0889ac39f5306d01f8cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7a0956a1438d7ae4c34cc4d24301c54"><td class="memItemLeft" align="right" valign="top"><a id="aa7a0956a1438d7ae4c34cc4d24301c54"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1SigHandler.html#aa7a0956a1438d7ae4c34cc4d24301c54">is_set</a> () const noexcept</td></tr>
-<tr class="memdesc:aa7a0956a1438d7ae4c34cc4d24301c54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the handler caught SIGINT yet. <br /></td></tr>
-<tr class="separator:aa7a0956a1438d7ae4c34cc4d24301c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d33ee06d1dec908f4df5634cc789d2"><td class="memItemLeft" align="right" valign="top"><a id="aa1d33ee06d1dec908f4df5634cc789d2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1SigHandler.html#aa1d33ee06d1dec908f4df5634cc789d2">unset</a> () noexcept</td></tr>
 <tr class="memdesc:aa1d33ee06d1dec908f4df5634cc789d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets set flag. <br /></td></tr>
 <tr class="separator:aa1d33ee06d1dec908f4df5634cc789d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90511aed12f642519273dc757592828f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1SigHandler.html#a90511aed12f642519273dc757592828f">is_set</a> () noexcept</td></tr>
+<tr class="separator:a90511aed12f642519273dc757592828f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a122f88173ea3a3b6b28c6ec6c73e0ffa"><td class="memItemLeft" align="right" valign="top"><a id="a122f88173ea3a3b6b28c6ec6c73e0ffa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1SigHandler.html#a122f88173ea3a3b6b28c6ec6c73e0ffa">raise</a> () noexcept</td></tr>
+<tr class="memdesc:a122f88173ea3a3b6b28c6ec6c73e0ffa"><td class="mdescLeft">&#160;</td><td class="mdescRight">raises the 'signal', i.e. calls all registered callbacks. <br /></td></tr>
+<tr class="separator:a122f88173ea3a3b6b28c6ec6c73e0ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -141,6 +143,33 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>CallbackHandle</b></
 
 <p><a class="el" href="classcore_1_1SigHandler.html" title="Signal handling routine.">SigHandler</a> must be created explicitly to carry all the routine connected with signal masking. Also, its destruction time must be known to programmer, because otherwise it will not stop gracefully. </p>
 <p>This thread does all signal handling routine.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a90511aed12f642519273dc757592828f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90511aed12f642519273dc757592828f">&#9670;&nbsp;</a></span>is_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::SigHandler::is_set </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>if an interrupt has been caught </dd></dl>
 
 </div>
 </div>

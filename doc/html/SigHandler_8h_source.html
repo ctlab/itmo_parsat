@@ -108,58 +108,62 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcore_1_1SigHandler_1_1CallbackHandle.html#ac60a9e23092ba4b9ac5093dfffb8ed94">callback</a>(<span class="keywordtype">int</span> signal);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classcore_1_1SigHandler_1_1CallbackHandle.html">CallbackHandle</a> <span class="keyword">const</span>&amp; other) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;   <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    callback_t _callback;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::mutex* _unlink_mutex;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  };</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">typedef</span> std::shared_ptr&lt;CallbackHandle&gt; handle_t;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="classcore_1_1SigHandler.html#ab645d6c745b771852a052a605d3d1109">SigHandler</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;   <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    callback_t _callback;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::mutex* _unlink_mutex;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  };</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">typedef</span> std::shared_ptr&lt;CallbackHandle&gt; handle_t;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="classcore_1_1SigHandler.html#ab645d6c745b771852a052a605d3d1109">SigHandler</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  ~<a class="code" href="classcore_1_1SigHandler.html">SigHandler</a>() noexcept;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  ~<a class="code" href="classcore_1_1SigHandler.html">SigHandler</a>() noexcept;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  handle_t <a class="code" href="classcore_1_1SigHandler.html#a19500e3319e0889ac39f5306d01f8cba">register_callback</a>(callback_t callback);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1SigHandler.html#aa7a0956a1438d7ae4c34cc4d24301c54">is_set</a>() const noexcept;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1SigHandler.html#aa1d33ee06d1dec908f4df5634cc789d2">unset</a>() noexcept;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; private:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">void</span> _callback(<span class="keywordtype">int</span> signal);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  handle_t <a class="code" href="classcore_1_1SigHandler.html#a19500e3319e0889ac39f5306d01f8cba">register_callback</a>(callback_t callback);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1SigHandler.html#aa1d33ee06d1dec908f4df5634cc789d2">unset</a>() noexcept;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1SigHandler.html#a90511aed12f642519273dc757592828f">is_set</a>() noexcept;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1SigHandler.html#a122f88173ea3a3b6b28c6ec6c73e0ffa">raise</a>() noexcept;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; private:</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  std::mutex _cb_m;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  std::thread _t;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  std::atomic_bool _registered{<span class="keyword">false</span>};</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  std::atomic_bool _terminate{<span class="keyword">false</span>};</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  boost::intrusive::list&lt;CallbackHandle, boost::intrusive::constant_time_size&lt;false&gt;&gt; _handles_list;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">namespace </span>sig {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;SigHandler::handle_t register_callback(SigHandler::callback_t callback);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> _callback(<span class="keywordtype">int</span> signal);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; private:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  std::mutex _cb_m;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  std::thread _t;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  std::atomic_bool _registered{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  std::atomic_bool _raised{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  std::atomic_bool _terminate{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  boost::intrusive::list&lt;CallbackHandle, boost::intrusive::constant_time_size&lt;false&gt;&gt; _handles_list;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;};</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;[[nodiscard]] <span class="keywordtype">bool</span> is_set() noexcept;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">namespace </span>sig {</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordtype">void</span> unset() noexcept;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;SigHandler::handle_t register_callback(SigHandler::callback_t callback);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}  <span class="comment">// namespace sig</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}  <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif  // EVOL_SIGHANDLER_H</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">bool</span> is_set() noexcept;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">void</span> unset() noexcept;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">void</span> raise() noexcept;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}  <span class="comment">// namespace sig</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}  <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif  // EVOL_SIGHANDLER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1SigHandler_html_ab645d6c745b771852a052a605d3d1109"><div class="ttname"><a href="classcore_1_1SigHandler.html#ab645d6c745b771852a052a605d3d1109">core::SigHandler::SigHandler</a></div><div class="ttdeci">SigHandler()</div><div class="ttdoc">SigHandler must be created explicitly to carry all the routine connected with signal masking....</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:28</div></div>
 <div class="ttc" id="aclasscore_1_1SigHandler_1_1CallbackHandle_html_ac60a9e23092ba4b9ac5093dfffb8ed94"><div class="ttname"><a href="classcore_1_1SigHandler_1_1CallbackHandle.html#ac60a9e23092ba4b9ac5093dfffb8ed94">core::SigHandler::CallbackHandle::callback</a></div><div class="ttdeci">void callback(int signal)</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:24</div></div>
+<div class="ttc" id="aclasscore_1_1SigHandler_html_a90511aed12f642519273dc757592828f"><div class="ttname"><a href="classcore_1_1SigHandler.html#a90511aed12f642519273dc757592828f">core::SigHandler::is_set</a></div><div class="ttdeci">bool is_set() noexcept</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:82</div></div>
 <div class="ttc" id="aclasscore_1_1SigHandler_html_aa1d33ee06d1dec908f4df5634cc789d2"><div class="ttname"><a href="classcore_1_1SigHandler.html#aa1d33ee06d1dec908f4df5634cc789d2">core::SigHandler::unset</a></div><div class="ttdeci">void unset() noexcept</div><div class="ttdoc">Resets set flag.</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:78</div></div>
 <div class="ttc" id="aclasscore_1_1SigHandler_html"><div class="ttname"><a href="classcore_1_1SigHandler.html">core::SigHandler</a></div><div class="ttdoc">Signal handling routine.</div><div class="ttdef"><b>Definition:</b> SigHandler.h:21</div></div>
-<div class="ttc" id="aclasscore_1_1SigHandler_html_aa7a0956a1438d7ae4c34cc4d24301c54"><div class="ttname"><a href="classcore_1_1SigHandler.html#aa7a0956a1438d7ae4c34cc4d24301c54">core::SigHandler::is_set</a></div><div class="ttdeci">bool is_set() const noexcept</div><div class="ttdoc">Checks whether the handler caught SIGINT yet.</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:74</div></div>
+<div class="ttc" id="aclasscore_1_1SigHandler_html_a122f88173ea3a3b6b28c6ec6c73e0ffa"><div class="ttname"><a href="classcore_1_1SigHandler.html#a122f88173ea3a3b6b28c6ec6c73e0ffa">core::SigHandler::raise</a></div><div class="ttdeci">void raise() noexcept</div><div class="ttdoc">raises the 'signal', i.e. calls all registered callbacks.</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:86</div></div>
 <div class="ttc" id="aclasscore_1_1SigHandler_1_1CallbackHandle_html"><div class="ttname"><a href="classcore_1_1SigHandler_1_1CallbackHandle.html">core::SigHandler::CallbackHandle</a></div><div class="ttdoc">The callback handle returned as a result of registering a callback. Its purpose is to remove the call...</div><div class="ttdef"><b>Definition:</b> SigHandler.h:31</div></div>
-<div class="ttc" id="aclasscore_1_1SigHandler_html_a19500e3319e0889ac39f5306d01f8cba"><div class="ttname"><a href="classcore_1_1SigHandler.html#a19500e3319e0889ac39f5306d01f8cba">core::SigHandler::register_callback</a></div><div class="ttdeci">handle_t register_callback(callback_t callback)</div><div class="ttdoc">Register callback for SIGINT. Note that callback function will be executed asynchronously in a separa...</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:82</div></div>
+<div class="ttc" id="aclasscore_1_1SigHandler_html_a19500e3319e0889ac39f5306d01f8cba"><div class="ttname"><a href="classcore_1_1SigHandler.html#a19500e3319e0889ac39f5306d01f8cba">core::SigHandler::register_callback</a></div><div class="ttdeci">handle_t register_callback(callback_t callback)</div><div class="ttdoc">Register callback for SIGINT. Note that callback function will be executed asynchronously in a separa...</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:90</div></div>
 <div class="ttc" id="aclasscore_1_1SigHandler_1_1CallbackHandle_html_a9a8cc4b5ab16fff6eaee8bf7ed1ce694"><div class="ttname"><a href="classcore_1_1SigHandler_1_1CallbackHandle.html#a9a8cc4b5ab16fff6eaee8bf7ed1ce694">core::SigHandler::CallbackHandle::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdef"><b>Definition:</b> SigHandler.cpp:19</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

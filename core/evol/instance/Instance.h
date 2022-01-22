@@ -71,9 +71,20 @@ class Instance {
   [[nodiscard]] bool is_cached() const noexcept;
 
   /**
-   * @return the number of variables in this instance
+   * @todo The fact that this method is here is very bad.
+   * @return the number of variables in the formula (not in this instance)
    */
   [[nodiscard]] size_t num_vars() const noexcept;
+
+  /**
+   * @return if this instance is a strong backdoor set
+   */
+  [[nodiscard]] bool is_sbs() const noexcept;
+
+  /**
+   * @return the number of variables in this variables set
+   */
+  [[nodiscard]] size_t size() const noexcept;
 
  private:
   void _calc_fitness();

@@ -5,3 +5,4 @@ bazel-*
 .clwb/
 .idea/
 **/*build*/
+artifacts-infra/

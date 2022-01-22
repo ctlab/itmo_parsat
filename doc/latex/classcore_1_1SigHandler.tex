@@ -31,12 +31,14 @@ typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcore_1_1SigHandler_1_1Ca
 \mbox{\Hypertarget{classcore_1_1SigHandler_a19500e3319e0889ac39f5306d01f8cba}\label{classcore_1_1SigHandler_a19500e3319e0889ac39f5306d01f8cba}} 
 handle\+\_\+t \mbox{\hyperlink{classcore_1_1SigHandler_a19500e3319e0889ac39f5306d01f8cba}{register\+\_\+callback}} (callback\+\_\+t callback)
 \begin{DoxyCompactList}\small\item\em Register callback for S\+I\+G\+I\+NT. Note that callback function will be executed asynchronously in a separate thread, so it must be thread-\/safe. If there are no registered callbacks, the program is terminated. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classcore_1_1SigHandler_aa7a0956a1438d7ae4c34cc4d24301c54}\label{classcore_1_1SigHandler_aa7a0956a1438d7ae4c34cc4d24301c54}} 
-bool \mbox{\hyperlink{classcore_1_1SigHandler_aa7a0956a1438d7ae4c34cc4d24301c54}{is\+\_\+set}} () const noexcept
-\begin{DoxyCompactList}\small\item\em Checks whether the handler caught S\+I\+G\+I\+NT yet. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1SigHandler_aa1d33ee06d1dec908f4df5634cc789d2}\label{classcore_1_1SigHandler_aa1d33ee06d1dec908f4df5634cc789d2}} 
 void \mbox{\hyperlink{classcore_1_1SigHandler_aa1d33ee06d1dec908f4df5634cc789d2}{unset}} () noexcept
-\begin{DoxyCompactList}\small\item\em Resets set flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Resets set flag. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1SigHandler_a90511aed12f642519273dc757592828f}{is\+\_\+set}} () noexcept
+\item 
+\mbox{\Hypertarget{classcore_1_1SigHandler_a122f88173ea3a3b6b28c6ec6c73e0ffa}\label{classcore_1_1SigHandler_a122f88173ea3a3b6b28c6ec6c73e0ffa}} 
+void \mbox{\hyperlink{classcore_1_1SigHandler_a122f88173ea3a3b6b28c6ec6c73e0ffa}{raise}} () noexcept
+\begin{DoxyCompactList}\small\item\em raises the \textquotesingle{}signal\textquotesingle{}, i.\+e. calls all registered callbacks. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -60,6 +62,18 @@ Signal handling routine.
 \mbox{\hyperlink{classcore_1_1SigHandler}{Sig\+Handler}} must be created explicitly to carry all the routine connected with signal masking. Also, its destruction time must be known to programmer, because otherwise it will not stop gracefully. 
 
 This thread does all signal handling routine.
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1SigHandler_a90511aed12f642519273dc757592828f}\label{classcore_1_1SigHandler_a90511aed12f642519273dc757592828f}} 
+\index{core::SigHandler@{core::SigHandler}!is\_set@{is\_set}}
+\index{is\_set@{is\_set}!core::SigHandler@{core::SigHandler}}
+\doxysubsubsection{\texorpdfstring{is\_set()}{is\_set()}}
+{\footnotesize\ttfamily bool core\+::\+Sig\+Handler\+::is\+\_\+set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+if an interrupt has been caught 
+\end{DoxyReturn}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
