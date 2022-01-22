@@ -6,6 +6,8 @@
 #include <map>
 #include <unordered_map>
 
+#include "minisat/core/SolverTypes.h"
+
 template <typename T>
 std::ostream& operator<<(std::ostream& os, std::vector<T> const& v) {
   os << "[ ";
@@ -32,5 +34,7 @@ std::ostream& operator<<(std::ostream& os, std::map<K, V> const& map) {
   }
   return os << "}";
 }
+
+std::ostream& operator<<(std::ostream& os, Minisat::vec<Minisat::Lit> const& vec);
 
 #endif  // EVOL_STREAM_H

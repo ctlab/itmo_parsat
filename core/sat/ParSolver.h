@@ -28,7 +28,6 @@ class ParSolver : public Solver {
   struct req_solve_t {
     domain::RSearch assignment;
     Solver::slv_callback_t callback;
-    int idx;
   };
 
   using task_t = std::variant<req_prop_t, req_solve_t>;
@@ -47,7 +46,7 @@ class ParSolver : public Solver {
 
   void parse_cnf(std::filesystem::path const& input) override;
 
-  State solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
   bool propagate(
       Minisat::vec<Minisat::Lit> const& assumptions,
@@ -69,8 +68,9 @@ class ParSolver : public Solver {
   std::vector<sat::RSolver> _solvers;
   std::queue<std::packaged_task<void(sat::Solver&)>> _task_queue;
   std::condition_variable _cv;
-  std::mutex _m, _asgn_mutex, _slv_mutex;
+  std::mutex _m, _asgn_mutex;
   std::atomic_bool _stop{false};
+  bool _solve_finished{false};
 };
 
 }  // namespace core::sat

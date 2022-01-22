@@ -22,7 +22,7 @@ namespace core {
  * - For each backdoor set B_i it collects the set G_i of all assignments for which propagate finds
  *   no conflicts;
  * - Builds cartesian product G = x { G_i };
- * - Runs solver's solve_limited for all assignments from G.
+ * - Runs solver's solve for all assignments from G.
  */
 class ParRBSSolve : public Solve {
  public:

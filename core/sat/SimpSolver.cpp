@@ -20,17 +20,6 @@ SimpSolver::SimpSolver(SimpSolverConfig const& config)
           config.base_solver_config().rinc())
     , preprocess_(config.minisat_cli_config().preprocessing()) {
   verbosity = config.minisat_cli_config().verbosity_level();
-
-  // TODO(dzhiblavi@): Get rid of these extremely strange limits
-  int cpu_lim = config.minisat_cli_config().cpu_limit();
-  if (cpu_lim != 0) {
-    Minisat::limitTime(cpu_lim);
-  }
-
-  int mem_lim = config.minisat_cli_config().mem_limit();
-  if (mem_lim != 0) {
-    Minisat::limitMemory(mem_lim);
-  }
 }
 
 void SimpSolver::parse_cnf(std::filesystem::path const& path) {
@@ -49,14 +38,20 @@ void SimpSolver::parse_cnf(std::filesystem::path const& path) {
   }
 }
 
-State SimpSolver::solve_limited(Minisat::vec<Minisat::Lit> const& assumptions) {
+State SimpSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
   clearInterrupt();
-  bool result = IPS_TRACE_N_V("SimpSolver::solve_limited", solve(assumptions));
+  bool result = IPS_TRACE_N_V(
+      "SimpSolver::solve",
+      static_cast<Minisat::SimpSolver*>(this)->solve(assumptions, true, false));
   return result ? SAT : UNSAT;
 }
 
 void SimpSolver::_do_interrupt() {
   static_cast<Minisat::SimpSolver*>(this)->interrupt();
+}
+
+void SimpSolver::_do_clear_interrupt() {
+  static_cast<Minisat::SimpSolver*>(this)->clearInterrupt();
 }
 
 unsigned SimpSolver::num_vars() const noexcept {

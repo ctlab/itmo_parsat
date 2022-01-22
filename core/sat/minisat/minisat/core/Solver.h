@@ -282,7 +282,7 @@ class Solver {
   //
   int64_t conflict_budget;     // -1 means no budget.
   int64_t propagation_budget;  // -1 means no budget.
-  bool asynch_interrupt;
+  bool asynch_interrupt = false;
 
   // Main internal methods:
   //

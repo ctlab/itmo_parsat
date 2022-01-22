@@ -11,7 +11,7 @@ bool Solver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
 State Solver::solve_limited() {
   clear_interrupt();
   Minisat::vec<Minisat::Lit> assumptions;
-  return solve_limited(assumptions);
+  return solve(assumptions);
 }
 
 void Solver::solve_assignments(domain::USearch assignment_p, slv_callback_t const& callback) {
@@ -22,7 +22,7 @@ void Solver::solve_assignments(domain::USearch assignment_p, slv_callback_t cons
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
     ASGN_TRACK(assumptions);
     bool conflict = propagate(assumptions);
-    State result = conflict ? UNSAT : solve_limited(assumptions);
+    State result = conflict ? UNSAT : solve(assumptions);
     if (!callback(result, conflict, assumptions)) {
       BREAK_ASGN_TRACK;
       break;

@@ -105,11 +105,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9cf6db209b1c87813e06c5b641e6128c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1Solver.html#a9cf6db209b1c87813e06c5b641e6128c">More...</a><br /></td></tr>
 <tr class="separator:a9cf6db209b1c87813e06c5b641e6128c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a935d83bb55ec017dbe4f68949407f905"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">solve_limited</a> ()</td></tr>
-<tr class="memdesc:a935d83bb55ec017dbe4f68949407f905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905" title="Equivalent to Solver::solve_limited({}).">Solver::solve_limited</a>({}).  <a href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">More...</a><br /></td></tr>
+<tr class="memdesc:a935d83bb55ec017dbe4f68949407f905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7" title="Runs solution with the specified assumptions.">Solver::solve</a>({}).  <a href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">More...</a><br /></td></tr>
 <tr class="separator:a935d83bb55ec017dbe4f68949407f905"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e259736e148cd14153222ae4fd5b2e1"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a0e259736e148cd14153222ae4fd5b2e1">solve_limited</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
-<tr class="memdesc:a0e259736e148cd14153222ae4fd5b2e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solutions with the specified assumptions.  <a href="classcore_1_1sat_1_1Solver.html#a0e259736e148cd14153222ae4fd5b2e1">More...</a><br /></td></tr>
-<tr class="separator:a0e259736e148cd14153222ae4fd5b2e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213663cc046932a939b43cd027f9bdb7"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">solve</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
+<tr class="memdesc:a213663cc046932a939b43cd027f9bdb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">More...</a><br /></td></tr>
+<tr class="separator:a213663cc046932a939b43cd027f9bdb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7a4827dc36d14615914cde5dc97c05f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#af7a4827dc36d14615914cde5dc97c05f">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions, Minisat::vec&lt; Minisat::Lit &gt; &amp;propagated)=0</td></tr>
 <tr class="memdesc:af7a4827dc36d14615914cde5dc97c05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1Solver.html#af7a4827dc36d14615914cde5dc97c05f">More...</a><br /></td></tr>
 <tr class="separator:af7a4827dc36d14615914cde5dc97c05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,7 +315,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 <dl class="section return"><dt>Returns</dt><dd>true iff conflicts happened. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">assumptions</td><td>assumptions to include. </td></tr>
+    <tr><td class="paramname">assumptions</td><td>the assumptions to include. </td></tr>
     <tr><td class="paramname">propagated</td><td>the propagated literals. </td></tr>
   </table>
   </dd>
@@ -323,6 +323,43 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 <dl class="section return"><dt>Returns</dt><dd>true if and only if conflict occurred. </dd></dl>
 
 <p>Implemented in <a class="el" href="classcore_1_1sat_1_1ParSolver.html#aa3c1c9b256147177034aca63e5558caf">core::sat::ParSolver</a>, and <a class="el" href="classcore_1_1sat_1_1SimpSolver.html#a050ff0ad0f72c5c4229235dd800bb384">core::sat::SimpSolver</a>.</p>
+
+</div>
+</div>
+<a id="a213663cc046932a939b43cd027f9bdb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a213663cc046932a939b43cd027f9bdb7">&#9670;&nbsp;</a></span>solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual State core::sat::Solver::solve </td>
+          <td>(</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>assumptions</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Runs solution with the specified assumptions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assumptions</td><td>assumptions to include. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the result of solving. </dd></dl>
+
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1ParSolver.html#a3cb742a3f61e05f02dddf34f965e71ba">core::sat::ParSolver</a>, and <a class="el" href="classcore_1_1sat_1_1SimpSolver.html#aab073e8b8a998eb126fee4fc7956e239">core::sat::SimpSolver</a>.</p>
 
 </div>
 </div>
@@ -374,7 +411,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 </div>
 </div>
 <a id="a935d83bb55ec017dbe4f68949407f905"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a935d83bb55ec017dbe4f68949407f905">&#9670;&nbsp;</a></span>solve_limited() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a935d83bb55ec017dbe4f68949407f905">&#9670;&nbsp;</a></span>solve_limited()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,46 +425,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
       </table>
 </div><div class="memdoc">
 
-<p>Equivalent to <a class="el" href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905" title="Equivalent to Solver::solve_limited({}).">Solver::solve_limited</a>({}). </p>
+<p>Equivalent to <a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7" title="Runs solution with the specified assumptions.">Solver::solve</a>({}). </p>
 <dl class="section return"><dt>Returns</dt><dd>the result of solving. </dd></dl>
-
-</div>
-</div>
-<a id="a0e259736e148cd14153222ae4fd5b2e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e259736e148cd14153222ae4fd5b2e1">&#9670;&nbsp;</a></span>solve_limited() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual State core::sat::Solver::solve_limited </td>
-          <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
-          <td class="paramname"><em>assumptions</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Runs solutions with the specified assumptions. </p>
-<dl class="section note"><dt>Note</dt><dd>Currently it is solve, not solveLimited! </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">assumptions</td><td>assumptions to include. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the result of solving. </dd></dl>
-
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1ParSolver.html#a2d7d840b0ebb2912e5cb6404defd4bda">core::sat::ParSolver</a>, and <a class="el" href="classcore_1_1sat_1_1SimpSolver.html#ae80ab28bc5d539587970b3d9619e5723">core::sat::SimpSolver</a>.</p>
 
 </div>
 </div>

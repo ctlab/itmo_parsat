@@ -37,8 +37,8 @@ Collaboration diagram for core\+::sat\+::Par\+Solver\+:
 \item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a067f0110a262d4eca5f8ba60dd339897}{parse\+\_\+cnf}} (std\+::filesystem\+::path const \&input) override
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-State \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a2d7d840b0ebb2912e5cb6404defd4bda}{solve\+\_\+limited}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
-\begin{DoxyCompactList}\small\item\em Runs solutions with the specified assumptions. \end{DoxyCompactList}\item 
+State \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a3cb742a3f61e05f02dddf34f965e71ba}{solve}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aa3c1c9b256147177034aca63e5558caf}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated) override
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aface88f5376860219f9e653683d93d98}{solve\+\_\+assignments}} (domain\+::\+U\+Search assignment, \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}} const \&callback) override
@@ -110,7 +110,7 @@ true iff conflicts happened.
 \end{DoxyReturn}
 
 \begin{DoxyParams}{Parameters}
-{\em assumptions} & assumptions to include. \\
+{\em assumptions} & the assumptions to include. \\
 \hline
 {\em propagated} & the propagated literals. \\
 \hline
@@ -121,6 +121,28 @@ true if and only if conflict occurred.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}{core\+::sat\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_a3cb742a3f61e05f02dddf34f965e71ba}\label{classcore_1_1sat_1_1ParSolver_a3cb742a3f61e05f02dddf34f965e71ba}} 
+\index{core::sat::ParSolver@{core::sat::ParSolver}!solve@{solve}}
+\index{solve@{solve}!core::sat::ParSolver@{core::sat::ParSolver}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily State core\+::sat\+::\+Par\+Solver\+::solve (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Runs solution with the specified assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of solving. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{core\+::sat\+::\+Solver}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_aface88f5376860219f9e653683d93d98}\label{classcore_1_1sat_1_1ParSolver_aface88f5376860219f9e653683d93d98}} 
 \index{core::sat::ParSolver@{core::sat::ParSolver}!solve\_assignments@{solve\_assignments}}
@@ -142,31 +164,6 @@ Solves C\+NF on all assignments by the given iterator and calls callback respect
 
 
 Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa3893db285a22a2988ec7ffc0b469187}{core\+::sat\+::\+Solver}}.
-
-\mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_a2d7d840b0ebb2912e5cb6404defd4bda}\label{classcore_1_1sat_1_1ParSolver_a2d7d840b0ebb2912e5cb6404defd4bda}} 
-\index{core::sat::ParSolver@{core::sat::ParSolver}!solve\_limited@{solve\_limited}}
-\index{solve\_limited@{solve\_limited}!core::sat::ParSolver@{core::sat::ParSolver}}
-\doxysubsubsection{\texorpdfstring{solve\_limited()}{solve\_limited()}}
-{\footnotesize\ttfamily State core\+::sat\+::\+Par\+Solver\+::solve\+\_\+limited (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Runs solutions with the specified assumptions. 
-
-\begin{DoxyNote}{Note}
-Currently it is solve, not solve\+Limited! 
-\end{DoxyNote}
-
-\begin{DoxyParams}{Parameters}
-{\em assumptions} & assumptions to include. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-the result of solving. 
-\end{DoxyReturn}
-
-
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a0e259736e148cd14153222ae4fd5b2e1}{core\+::sat\+::\+Solver}}.
 
 
 
