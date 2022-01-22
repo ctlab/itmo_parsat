@@ -654,7 +654,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, var_decay_),
         PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, cla_decay_),
         PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, rnd_freq_),
-        PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, rnd_seed_),
         PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, ccmin_mode_),
         PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, phase_saving_),
         PROTOBUF_FIELD_OFFSET(::BaseSolverConfig, rnd_init_),
@@ -809,7 +808,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::AlgorithmConfig, algorithm_type_),
-        PROTOBUF_FIELD_OFFSET(::AlgorithmConfig, random_seed_),
         PROTOBUF_FIELD_OFFSET(::AlgorithmConfig, ea_algorithm_config_),
         PROTOBUF_FIELD_OFFSET(::AlgorithmConfig, ga_algorithm_config_),
         ~0u,  // no _has_bits_
@@ -825,7 +823,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::RBSSolveConfig, algorithm_config_),
         PROTOBUF_FIELD_OFFSET(::RBSSolveConfig, solver_config_),
-        PROTOBUF_FIELD_OFFSET(::RBSSolveConfig, random_seed_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::ParRBSSolveConfig, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -833,7 +830,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::ParRBSSolveConfig, algorithm_configs_),
         PROTOBUF_FIELD_OFFSET(::ParRBSSolveConfig, solver_config_),
-        PROTOBUF_FIELD_OFFSET(::ParRBSSolveConfig, random_seed_),
         PROTOBUF_FIELD_OFFSET(::ParRBSSolveConfig, num_algorithms_),
         PROTOBUF_FIELD_OFFSET(::ParRBSSolveConfig, max_unpropagated_),
         ~0u,  // no _has_bits_
@@ -842,6 +838,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::SolveConfig, solve_type_),
+        PROTOBUF_FIELD_OFFSET(::SolveConfig, random_seed_),
         PROTOBUF_FIELD_OFFSET(::SolveConfig, naive_solve_config_),
         PROTOBUF_FIELD_OFFSET(::SolveConfig, rbs_solve_config_),
         PROTOBUF_FIELD_OFFSET(::SolveConfig, par_rbs_solve_config_),
@@ -850,29 +847,29 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
     protodesc_cold) = {
     {0, -1, sizeof(::MinisatCliConfig)},
     {9, -1, sizeof(::BaseSolverConfig)},
-    {26, -1, sizeof(::SimpSolverConfig)},
-    {40, -1, sizeof(::ParSolverConfig)},
-    {47, -1, sizeof(::SolverConfig)},
-    {55, -1, sizeof(::ResourceLimitConfig)},
-    {62, -1, sizeof(::FitnessLimitConfig)},
-    {68, -1, sizeof(::PointsLimitConfig)},
-    {74, -1, sizeof(::ConjLimitConfig)},
-    {80, -1, sizeof(::LimitConfig)},
-    {90, -1, sizeof(::UniformMutationConfig)},
-    {96, -1, sizeof(::DoerrMutationConfig)},
-    {102, -1, sizeof(::MutationConfig)},
-    {110, -1, sizeof(::CrossoverConfig)},
-    {116, -1, sizeof(::SelectorConfig)},
-    {122, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
-    {130, -1, sizeof(::InstanceConfig)},
-    {139, -1, sizeof(::BaseAlgorithmConfig)},
-    {147, -1, sizeof(::EAAlgorithmConfig)},
-    {155, -1, sizeof(::GAAlgorithmConfig)},
-    {166, -1, sizeof(::AlgorithmConfig)},
-    {175, -1, sizeof(::NaiveSolveConfig)},
-    {181, -1, sizeof(::RBSSolveConfig)},
-    {189, -1, sizeof(::ParRBSSolveConfig)},
-    {199, -1, sizeof(::SolveConfig)},
+    {25, -1, sizeof(::SimpSolverConfig)},
+    {39, -1, sizeof(::ParSolverConfig)},
+    {46, -1, sizeof(::SolverConfig)},
+    {54, -1, sizeof(::ResourceLimitConfig)},
+    {61, -1, sizeof(::FitnessLimitConfig)},
+    {67, -1, sizeof(::PointsLimitConfig)},
+    {73, -1, sizeof(::ConjLimitConfig)},
+    {79, -1, sizeof(::LimitConfig)},
+    {89, -1, sizeof(::UniformMutationConfig)},
+    {95, -1, sizeof(::DoerrMutationConfig)},
+    {101, -1, sizeof(::MutationConfig)},
+    {109, -1, sizeof(::CrossoverConfig)},
+    {115, -1, sizeof(::SelectorConfig)},
+    {121, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
+    {129, -1, sizeof(::InstanceConfig)},
+    {138, -1, sizeof(::BaseAlgorithmConfig)},
+    {146, -1, sizeof(::EAAlgorithmConfig)},
+    {154, -1, sizeof(::GAAlgorithmConfig)},
+    {165, -1, sizeof(::AlgorithmConfig)},
+    {173, -1, sizeof(::NaiveSolveConfig)},
+    {179, -1, sizeof(::RBSSolveConfig)},
+    {186, -1, sizeof(::ParRBSSolveConfig)},
+    {195, -1, sizeof(::SolveConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const* const file_default_instances[] = {
@@ -927,82 +924,79 @@ const char
         "\n\035core/proto/solve_config.proto\"h\n\020Minis"
         "atCliConfig\022\027\n\017verbosity_level\030\001 \001(\005\022\025\n\r"
         "preprocessing\030\002 \001(\010\022\021\n\tcpu_limit\030\004 \001(\005\022\021"
-        "\n\tmem_limit\030\005 \001(\005\"\352\001\n\020BaseSolverConfig\022\021"
+        "\n\tmem_limit\030\005 \001(\005\"\330\001\n\020BaseSolverConfig\022\021"
         "\n\tvar_decay\030\001 \001(\001\022\021\n\tcla_decay\030\002 \001(\001\022\020\n\010"
-        "rnd_freq\030\003 \001(\001\022\020\n\010rnd_seed\030\004 \001(\001\022\022\n\nccmi"
-        "n_mode\030\005 \001(\005\022\024\n\014phase_saving\030\006 \001(\005\022\020\n\010rn"
-        "d_init\030\007 \001(\010\022\014\n\004luby\030\010 \001(\010\022\016\n\006rfirst\030\t "
-        "\001"
-        "(\005\022\014\n\004rinc\030\n \001(\001\022\017\n\007gc_frac\030\013 "
-        "\001(\001\022\023\n\013min"
-        "_learnts\030\014 \001(\005\"\377\001\n\020SimpSolverConfig\022\021\n\tu"
-        "se_asymm\030\001 \001(\010\022\022\n\nuse_rcheck\030\002 \001(\010\022\020\n\010us"
-        "e_elim\030\003 \001(\010\022\014\n\004grow\030\004 \001(\005\022\022\n\nclause_lim"
-        "\030\005 \001(\005\022\027\n\017subsumption_lim\030\006 \001(\005\022\031\n\021simp_"
-        "garbage_frac\030\007 \001(\001\022-\n\022minisat_cli_config"
-        "\030\010 \001(\0132\021.MinisatCliConfig\022-\n\022base_solver"
-        "_config\030\t \001(\0132\021.BaseSolverConfig\"L\n\017ParS"
-        "olverConfig\022\023\n\013max_threads\030\001 \001(\r\022$\n\rsolv"
-        "er_config\030\003 \001(\0132\r.SolverConfig\"\177\n\014Solver"
-        "Config\022\023\n\013solver_type\030\001 \001(\t\022-\n\022simp_solv"
-        "er_config\030\004 \001(\0132\021.SimpSolverConfig\022+\n\021pa"
-        "r_solver_config\030\005 \001(\0132\020.ParSolverConfig\""
-        "F\n\023ResourceLimitConfig\022\027\n\017memory_limit_k"
-        "b\030\001 \001(\r\022\026\n\016time_limit_sec\030\002 \001(\r\",\n\022Fitne"
-        "ssLimitConfig\022\026\n\016lowest_fitness\030\001 \001(\001\"/\n"
-        "\021PointsLimitConfig\022\032\n\022max_points_visited"
-        "\030\001 \001(\r\"5\n\017ConjLimitConfig\022\"\n\014limit_confi"
-        "g\030\001 \003(\0132\014.LimitConfig\"\347\001\n\013LimitConfig\022\022\n"
-        "\nlimit_type\030\001 \001(\t\0223\n\025resource_limit_conf"
-        "ig\030\002 \001(\0132\024.ResourceLimitConfig\0221\n\024fitnes"
-        "s_limit_config\030\003 \001(\0132\023.FitnessLimitConfi"
-        "g\022+\n\021conj_limit_config\030\004 \001(\0132\020.ConjLimit"
-        "Config\022/\n\023points_limit_config\030\005 \001(\0132\022.Po"
-        "intsLimitConfig\"&\n\025UniformMutationConfig"
-        "\022\r\n\005scale\030\001 \001(\001\"#\n\023DoerrMutationConfig\022\014"
-        "\n\004beta\030\001 \001(\001\"\225\001\n\016MutationConfig\022\025\n\rmutat"
-        "ion_type\030\001 \001(\t\0227\n\027uniform_mutation_confi"
-        "g\030\002 \001(\0132\026.UniformMutationConfig\0223\n\025doerr"
-        "_mutation_config\030\003 \001(\0132\024.DoerrMutationCo"
-        "nfig\")\n\017CrossoverConfig\022\026\n\016crossover_typ"
-        "e\030\001 \001(\t\"\'\n\016SelectorConfig\022\025\n\rselector_ty"
-        "pe\030\001 \001(\t\"\332\001\n\016InstanceConfig\022\017\n\007omega_x\030\001"
-        " \001(\r\022\026\n\016heuristic_size\030\002 \001(\r\022\026\n\016max_cach"
-        "e_size\030\003 \001(\r\022;\n\017sampling_config\030\004 \001(\0132\"."
-        "InstanceConfig.SamplingSizeConfig\032J\n\022Sam"
-        "plingSizeConfig\022\022\n\nbase_count\030\001 \001(\004\022\021\n\tm"
-        "ax_steps\030\002 \001(\r\022\r\n\005scale\030\003 \001(\001\"\211\001\n\023BaseAl"
-        "gorithmConfig\022$\n\rsolver_config\030\001 \001(\0132\r.S"
-        "olverConfig\022\"\n\014limit_config\030\002 \001(\0132\014.Limi"
-        "tConfig\022(\n\017instance_config\030\003 \001(\0132\017.Insta"
-        "nceConfig\"\234\001\n\021EAAlgorithmConfig\022(\n\017mutat"
-        "ion_config\030\001 \001(\0132\017.MutationConfig\022(\n\017sel"
-        "ector_config\030\002 \001(\0132\017.SelectorConfig\0223\n\025b"
-        "ase_algorithm_config\030\003 \001(\0132\024.BaseAlgorit"
-        "hmConfig\"\336\001\n\021GAAlgorithmConfig\022\t\n\001q\030\004 \001("
-        "\r\022\t\n\001h\030\005 \001(\r\022(\n\017mutation_config\030\001 \001(\0132\017."
-        "MutationConfig\022*\n\020crossover_config\030\002 \001(\013"
-        "2\020.CrossoverConfig\022(\n\017selector_config\030\003 "
-        "\001(\0132\017.SelectorConfig\0223\n\025base_algorithm_c"
-        "onfig\030\006 \001(\0132\024.BaseAlgorithmConfig\"\240\001\n\017Al"
-        "gorithmConfig\022\026\n\016algorithm_type\030\001 \001(\t\022\023\n"
-        "\013random_seed\030\002 \001(\r\022/\n\023ea_algorithm_confi"
-        "g\030\003 \001(\0132\022.EAAlgorithmConfig\022/\n\023ga_algori"
-        "thm_config\030\004 \001(\0132\022.GAAlgorithmConfig\"8\n\020"
-        "NaiveSolveConfig\022$\n\rsolver_config\030\001 \001(\0132"
-        "\r.SolverConfig\"w\n\016RBSSolveConfig\022*\n\020algo"
-        "rithm_config\030\001 \001(\0132\020.AlgorithmConfig\022$\n\r"
-        "solver_config\030\002 \001(\0132\r.SolverConfig\022\023\n\013ra"
-        "ndom_seed\030\003 \001(\r\"\255\001\n\021ParRBSSolveConfig\022+\n"
-        "\021algorithm_configs\030\001 \003(\0132\020.AlgorithmConf"
-        "ig\022$\n\rsolver_config\030\002 \001(\0132\r.SolverConfig"
-        "\022\023\n\013random_seed\030\003 \001(\r\022\026\n\016num_algorithms\030"
-        "\004 \001(\r\022\030\n\020max_unpropagated\030\005 \001(\r\"\255\001\n\013Solv"
-        "eConfig\022\022\n\nsolve_type\030\001 \001(\t\022-\n\022naive_sol"
-        "ve_config\030\002 \001(\0132\021.NaiveSolveConfig\022)\n\020rb"
-        "s_solve_config\030\003 \001(\0132\017.RBSSolveConfig\0220\n"
-        "\024par_rbs_solve_config\030\004 \001(\0132\022.ParRBSSolv"
-        "eConfigb\006proto3";
+        "rnd_freq\030\003 \001(\001\022\022\n\nccmin_mode\030\005 \001(\005\022\024\n\014ph"
+        "ase_saving\030\006 \001(\005\022\020\n\010rnd_init\030\007 \001(\010\022\014\n\004lu"
+        "by\030\010 \001(\010\022\016\n\006rfirst\030\t \001(\005\022\014\n\004rinc\030\n "
+        "\001(\001\022\017"
+        "\n\007gc_frac\030\013 \001(\001\022\023\n\013min_learnts\030\014 \001(\005\"\377\001\n"
+        "\020SimpSolverConfig\022\021\n\tuse_asymm\030\001 \001(\010\022\022\n\n"
+        "use_rcheck\030\002 \001(\010\022\020\n\010use_elim\030\003 \001(\010\022\014\n\004gr"
+        "ow\030\004 \001(\005\022\022\n\nclause_lim\030\005 \001(\005\022\027\n\017subsumpt"
+        "ion_lim\030\006 \001(\005\022\031\n\021simp_garbage_frac\030\007 \001(\001"
+        "\022-\n\022minisat_cli_config\030\010 \001(\0132\021.MinisatCl"
+        "iConfig\022-\n\022base_solver_config\030\t \001(\0132\021.Ba"
+        "seSolverConfig\"L\n\017ParSolverConfig\022\023\n\013max"
+        "_threads\030\001 \001(\r\022$\n\rsolver_config\030\003 \001(\0132\r."
+        "SolverConfig\"\177\n\014SolverConfig\022\023\n\013solver_t"
+        "ype\030\001 \001(\t\022-\n\022simp_solver_config\030\004 \001(\0132\021."
+        "SimpSolverConfig\022+\n\021par_solver_config\030\005 "
+        "\001(\0132\020.ParSolverConfig\"F\n\023ResourceLimitCo"
+        "nfig\022\027\n\017memory_limit_kb\030\001 \001(\r\022\026\n\016time_li"
+        "mit_sec\030\002 \001(\r\",\n\022FitnessLimitConfig\022\026\n\016l"
+        "owest_fitness\030\001 \001(\001\"/\n\021PointsLimitConfig"
+        "\022\032\n\022max_points_visited\030\001 \001(\r\"5\n\017ConjLimi"
+        "tConfig\022\"\n\014limit_config\030\001 \003(\0132\014.LimitCon"
+        "fig\"\347\001\n\013LimitConfig\022\022\n\nlimit_type\030\001 \001(\t\022"
+        "3\n\025resource_limit_config\030\002 \001(\0132\024.Resourc"
+        "eLimitConfig\0221\n\024fitness_limit_config\030\003 \001"
+        "(\0132\023.FitnessLimitConfig\022+\n\021conj_limit_co"
+        "nfig\030\004 \001(\0132\020.ConjLimitConfig\022/\n\023points_l"
+        "imit_config\030\005 \001(\0132\022.PointsLimitConfig\"&\n"
+        "\025UniformMutationConfig\022\r\n\005scale\030\001 \001(\001\"#\n"
+        "\023DoerrMutationConfig\022\014\n\004beta\030\001 \001(\001\"\225\001\n\016M"
+        "utationConfig\022\025\n\rmutation_type\030\001 \001(\t\0227\n\027"
+        "uniform_mutation_config\030\002 \001(\0132\026.UniformM"
+        "utationConfig\0223\n\025doerr_mutation_config\030\003"
+        " \001(\0132\024.DoerrMutationConfig\")\n\017CrossoverC"
+        "onfig\022\026\n\016crossover_type\030\001 \001(\t\"\'\n\016Selecto"
+        "rConfig\022\025\n\rselector_type\030\001 \001(\t\"\332\001\n\016Insta"
+        "nceConfig\022\017\n\007omega_x\030\001 \001(\r\022\026\n\016heuristic_"
+        "size\030\002 \001(\r\022\026\n\016max_cache_size\030\003 \001(\r\022;\n\017sa"
+        "mpling_config\030\004 \001(\0132\".InstanceConfig.Sam"
+        "plingSizeConfig\032J\n\022SamplingSizeConfig\022\022\n"
+        "\nbase_count\030\001 \001(\004\022\021\n\tmax_steps\030\002 \001(\r\022\r\n\005"
+        "scale\030\003 \001(\001\"\211\001\n\023BaseAlgorithmConfig\022$\n\rs"
+        "olver_config\030\001 \001(\0132\r.SolverConfig\022\"\n\014lim"
+        "it_config\030\002 \001(\0132\014.LimitConfig\022(\n\017instanc"
+        "e_config\030\003 \001(\0132\017.InstanceConfig\"\234\001\n\021EAAl"
+        "gorithmConfig\022(\n\017mutation_config\030\001 \001(\0132\017"
+        ".MutationConfig\022(\n\017selector_config\030\002 \001(\013"
+        "2\017.SelectorConfig\0223\n\025base_algorithm_conf"
+        "ig\030\003 \001(\0132\024.BaseAlgorithmConfig\"\336\001\n\021GAAlg"
+        "orithmConfig\022\t\n\001q\030\004 \001(\r\022\t\n\001h\030\005 \001(\r\022(\n\017mu"
+        "tation_config\030\001 \001(\0132\017.MutationConfig\022*\n\020"
+        "crossover_config\030\002 \001(\0132\020.CrossoverConfig"
+        "\022(\n\017selector_config\030\003 \001(\0132\017.SelectorConf"
+        "ig\0223\n\025base_algorithm_config\030\006 \001(\0132\024.Base"
+        "AlgorithmConfig\"\213\001\n\017AlgorithmConfig\022\026\n\016a"
+        "lgorithm_type\030\001 \001(\t\022/\n\023ea_algorithm_conf"
+        "ig\030\003 \001(\0132\022.EAAlgorithmConfig\022/\n\023ga_algor"
+        "ithm_config\030\004 \001(\0132\022.GAAlgorithmConfig\"8\n"
+        "\020NaiveSolveConfig\022$\n\rsolver_config\030\001 \001(\013"
+        "2\r.SolverConfig\"b\n\016RBSSolveConfig\022*\n\020alg"
+        "orithm_config\030\001 \001(\0132\020.AlgorithmConfig\022$\n"
+        "\rsolver_config\030\002 \001(\0132\r.SolverConfig\"\230\001\n\021"
+        "ParRBSSolveConfig\022+\n\021algorithm_configs\030\001"
+        " \003(\0132\020.AlgorithmConfig\022$\n\rsolver_config\030"
+        "\002 \001(\0132\r.SolverConfig\022\026\n\016num_algorithms\030\004"
+        " \001(\r\022\030\n\020max_unpropagated\030\005 \001(\r\"\302\001\n\013Solve"
+        "Config\022\022\n\nsolve_type\030\001 \001(\t\022\023\n\013random_see"
+        "d\030\002 \001(\r\022-\n\022naive_solve_config\030\003 \001(\0132\021.Na"
+        "iveSolveConfig\022)\n\020rbs_solve_config\030\004 \001(\013"
+        "2\017.RBSSolveConfig\0220\n\024par_rbs_solve_confi"
+        "g\030\005 \001(\0132\022.ParRBSSolveConfigb\006proto3";
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* const
     descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps[1] = {};
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase* const
@@ -1039,7 +1033,7 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
         false,
         descriptor_table_protodef_core_2fproto_2fsolve_5fconfig_2eproto,
         "core/proto/solve_config.proto",
-        3055,
+        2995,
         &descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_once,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_sccs,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps,
@@ -1457,14 +1451,6 @@ const char* BaseSolverConfig::_InternalParse(
         } else
           goto handle_unusual;
         continue;
-      // double rnd_seed = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 33)) {
-          rnd_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-          ptr += sizeof(double);
-        } else
-          goto handle_unusual;
-        continue;
       // int32 ccmin_mode = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
@@ -1580,13 +1566,6 @@ failure:
         3, this->_internal_rnd_freq(), target);
   }
 
-  // double rnd_seed = 4;
-  if (!(this->rnd_seed() <= 0 && this->rnd_seed() >= 0)) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(
-        4, this->_internal_rnd_seed(), target);
-  }
-
   // int32 ccmin_mode = 5;
   if (this->ccmin_mode() != 0) {
     target = stream->EnsureSpace(target);
@@ -1676,11 +1655,6 @@ size_t BaseSolverConfig::ByteSizeLong() const {
     total_size += 1 + 8;
   }
 
-  // double rnd_seed = 4;
-  if (!(this->rnd_seed() <= 0 && this->rnd_seed() >= 0)) {
-    total_size += 1 + 8;
-  }
-
   // int32 ccmin_mode = 5;
   if (this->ccmin_mode() != 0) {
     total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
@@ -1763,9 +1737,6 @@ void BaseSolverConfig::MergeFrom(const BaseSolverConfig& from) {
   }
   if (!(from.rnd_freq() <= 0 && from.rnd_freq() >= 0)) {
     _internal_set_rnd_freq(from._internal_rnd_freq());
-  }
-  if (!(from.rnd_seed() <= 0 && from.rnd_seed() >= 0)) {
-    _internal_set_rnd_seed(from._internal_rnd_seed());
   }
   if (from.ccmin_mode() != 0) {
     _internal_set_ccmin_mode(from._internal_ccmin_mode());
@@ -6957,7 +6928,6 @@ AlgorithmConfig::AlgorithmConfig(const AlgorithmConfig& from) : ::PROTOBUF_NAMES
   } else {
     ga_algorithm_config_ = nullptr;
   }
-  random_seed_ = from.random_seed_;
   // @@protoc_insertion_point(copy_constructor:AlgorithmConfig)
 }
 
@@ -6969,8 +6939,9 @@ void AlgorithmConfig::SharedCtor() {
   ::memset(
       &ea_algorithm_config_, 0,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&random_seed_) - reinterpret_cast<char*>(&ea_algorithm_config_)) +
-          sizeof(random_seed_));
+          reinterpret_cast<char*>(&ga_algorithm_config_) -
+          reinterpret_cast<char*>(&ea_algorithm_config_)) +
+          sizeof(ga_algorithm_config_));
 }
 
 AlgorithmConfig::~AlgorithmConfig() {
@@ -7018,7 +6989,6 @@ void AlgorithmConfig::Clear() {
     delete ga_algorithm_config_;
   }
   ga_algorithm_config_ = nullptr;
-  random_seed_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7041,14 +7011,6 @@ const char* AlgorithmConfig::_InternalParse(
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(
               ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "AlgorithmConfig.algorithm_type"));
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 random_seed = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          random_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7109,13 +7071,6 @@ failure:
     target = stream->WriteStringMaybeAliased(1, this->_internal_algorithm_type(), target);
   }
 
-  // uint32 random_seed = 2;
-  if (this->random_seed() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
-        2, this->_internal_random_seed(), target);
-  }
-
   // .EAAlgorithmConfig ea_algorithm_config = 3;
   if (this->has_ea_algorithm_config()) {
     target = stream->EnsureSpace(target);
@@ -7166,12 +7121,6 @@ size_t AlgorithmConfig::ByteSizeLong() const {
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*ga_algorithm_config_);
   }
 
-  // uint32 random_seed = 2;
-  if (this->random_seed() != 0) {
-    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-                          this->_internal_random_seed());
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -7213,9 +7162,6 @@ void AlgorithmConfig::MergeFrom(const AlgorithmConfig& from) {
     _internal_mutable_ga_algorithm_config()->::GAAlgorithmConfig::MergeFrom(
         from._internal_ga_algorithm_config());
   }
-  if (from.random_seed() != 0) {
-    _internal_set_random_seed(from._internal_random_seed());
-  }
 }
 
 void AlgorithmConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -7245,7 +7191,8 @@ void AlgorithmConfig::InternalSwap(AlgorithmConfig* other) {
       &other->algorithm_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AlgorithmConfig, random_seed_) + sizeof(AlgorithmConfig::random_seed_) -
+      PROTOBUF_FIELD_OFFSET(AlgorithmConfig, ga_algorithm_config_) +
+      sizeof(AlgorithmConfig::ga_algorithm_config_) -
       PROTOBUF_FIELD_OFFSET(AlgorithmConfig, ea_algorithm_config_)>(
       reinterpret_cast<char*>(&ea_algorithm_config_),
       reinterpret_cast<char*>(&other->ea_algorithm_config_));
@@ -7515,7 +7462,6 @@ RBSSolveConfig::RBSSolveConfig(const RBSSolveConfig& from) : ::PROTOBUF_NAMESPAC
   } else {
     solver_config_ = nullptr;
   }
-  random_seed_ = from.random_seed_;
   // @@protoc_insertion_point(copy_constructor:RBSSolveConfig)
 }
 
@@ -7525,8 +7471,8 @@ void RBSSolveConfig::SharedCtor() {
   ::memset(
       &algorithm_config_, 0,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&random_seed_) - reinterpret_cast<char*>(&algorithm_config_)) +
-          sizeof(random_seed_));
+          reinterpret_cast<char*>(&solver_config_) - reinterpret_cast<char*>(&algorithm_config_)) +
+          sizeof(solver_config_));
 }
 
 RBSSolveConfig::~RBSSolveConfig() {
@@ -7571,7 +7517,6 @@ void RBSSolveConfig::Clear() {
     delete solver_config_;
   }
   solver_config_ = nullptr;
-  random_seed_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7599,14 +7544,6 @@ const char* RBSSolveConfig::_InternalParse(
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_solver_config(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 random_seed = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          random_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7655,13 +7592,6 @@ failure:
         2, _Internal::solver_config(this), target, stream);
   }
 
-  // uint32 random_seed = 3;
-  if (this->random_seed() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
-        3, this->_internal_random_seed(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
@@ -7690,12 +7620,6 @@ size_t RBSSolveConfig::ByteSizeLong() const {
   if (this->has_solver_config()) {
     total_size +=
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*solver_config_);
-  }
-
-  // uint32 random_seed = 3;
-  if (this->random_seed() != 0) {
-    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-                          this->_internal_random_seed());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7735,9 +7659,6 @@ void RBSSolveConfig::MergeFrom(const RBSSolveConfig& from) {
   if (from.has_solver_config()) {
     _internal_mutable_solver_config()->::SolverConfig::MergeFrom(from._internal_solver_config());
   }
-  if (from.random_seed() != 0) {
-    _internal_set_random_seed(from._internal_random_seed());
-  }
 }
 
 void RBSSolveConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -7764,7 +7685,8 @@ void RBSSolveConfig::InternalSwap(RBSSolveConfig* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RBSSolveConfig, random_seed_) + sizeof(RBSSolveConfig::random_seed_) -
+      PROTOBUF_FIELD_OFFSET(RBSSolveConfig, solver_config_) +
+      sizeof(RBSSolveConfig::solver_config_) -
       PROTOBUF_FIELD_OFFSET(RBSSolveConfig, algorithm_config_)>(
       reinterpret_cast<char*>(&algorithm_config_),
       reinterpret_cast<char*>(&other->algorithm_config_));
@@ -7803,9 +7725,9 @@ ParRBSSolveConfig::ParRBSSolveConfig(const ParRBSSolveConfig& from)
     solver_config_ = nullptr;
   }
   ::memcpy(
-      &random_seed_, &from.random_seed_,
+      &num_algorithms_, &from.num_algorithms_,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&max_unpropagated_) - reinterpret_cast<char*>(&random_seed_)) +
+          reinterpret_cast<char*>(&max_unpropagated_) - reinterpret_cast<char*>(&num_algorithms_)) +
           sizeof(max_unpropagated_));
   // @@protoc_insertion_point(copy_constructor:ParRBSSolveConfig)
 }
@@ -7858,9 +7780,9 @@ void ParRBSSolveConfig::Clear() {
   }
   solver_config_ = nullptr;
   ::memset(
-      &random_seed_, 0,
+      &num_algorithms_, 0,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&max_unpropagated_) - reinterpret_cast<char*>(&random_seed_)) +
+          reinterpret_cast<char*>(&max_unpropagated_) - reinterpret_cast<char*>(&num_algorithms_)) +
           sizeof(max_unpropagated_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -7895,14 +7817,6 @@ const char* ParRBSSolveConfig::_InternalParse(
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_solver_config(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 random_seed = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          random_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7968,13 +7882,6 @@ failure:
         2, _Internal::solver_config(this), target, stream);
   }
 
-  // uint32 random_seed = 3;
-  if (this->random_seed() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
-        3, this->_internal_random_seed(), target);
-  }
-
   // uint32 num_algorithms = 4;
   if (this->num_algorithms() != 0) {
     target = stream->EnsureSpace(target);
@@ -8017,12 +7924,6 @@ size_t ParRBSSolveConfig::ByteSizeLong() const {
   if (this->has_solver_config()) {
     total_size +=
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*solver_config_);
-  }
-
-  // uint32 random_seed = 3;
-  if (this->random_seed() != 0) {
-    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-                          this->_internal_random_seed());
   }
 
   // uint32 num_algorithms = 4;
@@ -8070,9 +7971,6 @@ void ParRBSSolveConfig::MergeFrom(const ParRBSSolveConfig& from) {
   algorithm_configs_.MergeFrom(from.algorithm_configs_);
   if (from.has_solver_config()) {
     _internal_mutable_solver_config()->::SolverConfig::MergeFrom(from._internal_solver_config());
-  }
-  if (from.random_seed() != 0) {
-    _internal_set_random_seed(from._internal_random_seed());
   }
   if (from.num_algorithms() != 0) {
     _internal_set_num_algorithms(from._internal_num_algorithms());
@@ -8172,6 +8070,7 @@ SolveConfig::SolveConfig(const SolveConfig& from) : ::PROTOBUF_NAMESPACE_ID::Mes
   } else {
     par_rbs_solve_config_ = nullptr;
   }
+  random_seed_ = from.random_seed_;
   // @@protoc_insertion_point(copy_constructor:SolveConfig)
 }
 
@@ -8182,9 +8081,8 @@ void SolveConfig::SharedCtor() {
   ::memset(
       &naive_solve_config_, 0,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&par_rbs_solve_config_) -
-          reinterpret_cast<char*>(&naive_solve_config_)) +
-          sizeof(par_rbs_solve_config_));
+          reinterpret_cast<char*>(&random_seed_) - reinterpret_cast<char*>(&naive_solve_config_)) +
+          sizeof(random_seed_));
 }
 
 SolveConfig::~SolveConfig() {
@@ -8238,6 +8136,7 @@ void SolveConfig::Clear() {
     delete par_rbs_solve_config_;
   }
   par_rbs_solve_config_ = nullptr;
+  random_seed_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -8263,25 +8162,33 @@ const char* SolveConfig::_InternalParse(
         } else
           goto handle_unusual;
         continue;
-      // .NaiveSolveConfig naive_solve_config = 2;
+      // uint32 random_seed = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          random_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .NaiveSolveConfig naive_solve_config = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_naive_solve_config(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .RBSSolveConfig rbs_solve_config = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // .RBSSolveConfig rbs_solve_config = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_rbs_solve_config(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ParRBSSolveConfig par_rbs_solve_config = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // .ParRBSSolveConfig par_rbs_solve_config = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_par_rbs_solve_config(), ptr);
           CHK_(ptr);
         } else
@@ -8326,25 +8233,32 @@ failure:
     target = stream->WriteStringMaybeAliased(1, this->_internal_solve_type(), target);
   }
 
-  // .NaiveSolveConfig naive_solve_config = 2;
+  // uint32 random_seed = 2;
+  if (this->random_seed() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_random_seed(), target);
+  }
+
+  // .NaiveSolveConfig naive_solve_config = 3;
   if (this->has_naive_solve_config()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
-        2, _Internal::naive_solve_config(this), target, stream);
+        3, _Internal::naive_solve_config(this), target, stream);
   }
 
-  // .RBSSolveConfig rbs_solve_config = 3;
+  // .RBSSolveConfig rbs_solve_config = 4;
   if (this->has_rbs_solve_config()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
-        3, _Internal::rbs_solve_config(this), target, stream);
+        4, _Internal::rbs_solve_config(this), target, stream);
   }
 
-  // .ParRBSSolveConfig par_rbs_solve_config = 4;
+  // .ParRBSSolveConfig par_rbs_solve_config = 5;
   if (this->has_par_rbs_solve_config()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
-        4, _Internal::par_rbs_solve_config(this), target, stream);
+        5, _Internal::par_rbs_solve_config(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8371,22 +8285,28 @@ size_t SolveConfig::ByteSizeLong() const {
                           this->_internal_solve_type());
   }
 
-  // .NaiveSolveConfig naive_solve_config = 2;
+  // .NaiveSolveConfig naive_solve_config = 3;
   if (this->has_naive_solve_config()) {
     total_size +=
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*naive_solve_config_);
   }
 
-  // .RBSSolveConfig rbs_solve_config = 3;
+  // .RBSSolveConfig rbs_solve_config = 4;
   if (this->has_rbs_solve_config()) {
     total_size +=
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*rbs_solve_config_);
   }
 
-  // .ParRBSSolveConfig par_rbs_solve_config = 4;
+  // .ParRBSSolveConfig par_rbs_solve_config = 5;
   if (this->has_par_rbs_solve_config()) {
     total_size +=
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*par_rbs_solve_config_);
+  }
+
+  // uint32 random_seed = 2;
+  if (this->random_seed() != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+                          this->_internal_random_seed());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8433,6 +8353,9 @@ void SolveConfig::MergeFrom(const SolveConfig& from) {
     _internal_mutable_par_rbs_solve_config()->::ParRBSSolveConfig::MergeFrom(
         from._internal_par_rbs_solve_config());
   }
+  if (from.random_seed() != 0) {
+    _internal_set_random_seed(from._internal_random_seed());
+  }
 }
 
 void SolveConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -8462,8 +8385,7 @@ void SolveConfig::InternalSwap(SolveConfig* other) {
       &other->solve_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SolveConfig, par_rbs_solve_config_) +
-      sizeof(SolveConfig::par_rbs_solve_config_) -
+      PROTOBUF_FIELD_OFFSET(SolveConfig, random_seed_) + sizeof(SolveConfig::random_seed_) -
       PROTOBUF_FIELD_OFFSET(SolveConfig, naive_solve_config_)>(
       reinterpret_cast<char*>(&naive_solve_config_),
       reinterpret_cast<char*>(&other->naive_solve_config_));

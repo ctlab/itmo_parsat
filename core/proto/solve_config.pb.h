@@ -496,7 +496,6 @@ class BaseSolverConfig PROTOBUF_FINAL
     kVarDecayFieldNumber = 1,
     kClaDecayFieldNumber = 2,
     kRndFreqFieldNumber = 3,
-    kRndSeedFieldNumber = 4,
     kCcminModeFieldNumber = 5,
     kPhaseSavingFieldNumber = 6,
     kRndInitFieldNumber = 7,
@@ -534,16 +533,6 @@ class BaseSolverConfig PROTOBUF_FINAL
  private:
   double _internal_rnd_freq() const;
   void _internal_set_rnd_freq(double value);
-
- public:
-  // double rnd_seed = 4;
-  void clear_rnd_seed();
-  double rnd_seed() const;
-  void set_rnd_seed(double value);
-
- private:
-  double _internal_rnd_seed() const;
-  void _internal_set_rnd_seed(double value);
 
  public:
   // int32 ccmin_mode = 5;
@@ -637,7 +626,6 @@ class BaseSolverConfig PROTOBUF_FINAL
   double var_decay_;
   double cla_decay_;
   double rnd_freq_;
-  double rnd_seed_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccmin_mode_;
   ::PROTOBUF_NAMESPACE_ID::int32 phase_saving_;
   bool rnd_init_;
@@ -4126,7 +4114,6 @@ class AlgorithmConfig PROTOBUF_FINAL
     kAlgorithmTypeFieldNumber = 1,
     kEaAlgorithmConfigFieldNumber = 3,
     kGaAlgorithmConfigFieldNumber = 4,
-    kRandomSeedFieldNumber = 2,
   };
   // string algorithm_type = 1;
   void clear_algorithm_type();
@@ -4187,16 +4174,6 @@ class AlgorithmConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_ga_algorithm_config(::GAAlgorithmConfig* ga_algorithm_config);
   ::GAAlgorithmConfig* unsafe_arena_release_ga_algorithm_config();
 
-  // uint32 random_seed = 2;
-  void clear_random_seed();
-  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed() const;
-  void set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_random_seed() const;
-  void _internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- public:
   // @@protoc_insertion_point(class_scope:AlgorithmConfig)
  private:
   class _Internal;
@@ -4208,7 +4185,6 @@ class AlgorithmConfig PROTOBUF_FINAL
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr algorithm_type_;
   ::EAAlgorithmConfig* ea_algorithm_config_;
   ::GAAlgorithmConfig* ga_algorithm_config_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -4497,7 +4473,6 @@ class RBSSolveConfig PROTOBUF_FINAL
   enum : int {
     kAlgorithmConfigFieldNumber = 1,
     kSolverConfigFieldNumber = 2,
-    kRandomSeedFieldNumber = 3,
   };
   // .AlgorithmConfig algorithm_config = 1;
   bool has_algorithm_config() const;
@@ -4541,16 +4516,6 @@ class RBSSolveConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config);
   ::SolverConfig* unsafe_arena_release_solver_config();
 
-  // uint32 random_seed = 3;
-  void clear_random_seed();
-  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed() const;
-  void set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_random_seed() const;
-  void _internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- public:
   // @@protoc_insertion_point(class_scope:RBSSolveConfig)
  private:
   class _Internal;
@@ -4561,7 +4526,6 @@ class RBSSolveConfig PROTOBUF_FINAL
   typedef void DestructorSkippable_;
   ::AlgorithmConfig* algorithm_config_;
   ::SolverConfig* solver_config_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -4691,7 +4655,6 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   enum : int {
     kAlgorithmConfigsFieldNumber = 1,
     kSolverConfigFieldNumber = 2,
-    kRandomSeedFieldNumber = 3,
     kNumAlgorithmsFieldNumber = 4,
     kMaxUnpropagatedFieldNumber = 5,
   };
@@ -4736,16 +4699,6 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config);
   ::SolverConfig* unsafe_arena_release_solver_config();
 
-  // uint32 random_seed = 3;
-  void clear_random_seed();
-  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed() const;
-  void set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_random_seed() const;
-  void _internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- public:
   // uint32 num_algorithms = 4;
   void clear_num_algorithms();
   ::PROTOBUF_NAMESPACE_ID::uint32 num_algorithms() const;
@@ -4776,7 +4729,6 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::AlgorithmConfig> algorithm_configs_;
   ::SolverConfig* solver_config_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed_;
   ::PROTOBUF_NAMESPACE_ID::uint32 num_algorithms_;
   ::PROTOBUF_NAMESPACE_ID::uint32 max_unpropagated_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -4907,9 +4859,10 @@ class SolveConfig PROTOBUF_FINAL
 
   enum : int {
     kSolveTypeFieldNumber = 1,
-    kNaiveSolveConfigFieldNumber = 2,
-    kRbsSolveConfigFieldNumber = 3,
-    kParRbsSolveConfigFieldNumber = 4,
+    kNaiveSolveConfigFieldNumber = 3,
+    kRbsSolveConfigFieldNumber = 4,
+    kParRbsSolveConfigFieldNumber = 5,
+    kRandomSeedFieldNumber = 2,
   };
   // string solve_type = 1;
   void clear_solve_type();
@@ -4928,7 +4881,7 @@ class SolveConfig PROTOBUF_FINAL
   std::string* _internal_mutable_solve_type();
 
  public:
-  // .NaiveSolveConfig naive_solve_config = 2;
+  // .NaiveSolveConfig naive_solve_config = 3;
   bool has_naive_solve_config() const;
 
  private:
@@ -4949,7 +4902,7 @@ class SolveConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_naive_solve_config(::NaiveSolveConfig* naive_solve_config);
   ::NaiveSolveConfig* unsafe_arena_release_naive_solve_config();
 
-  // .RBSSolveConfig rbs_solve_config = 3;
+  // .RBSSolveConfig rbs_solve_config = 4;
   bool has_rbs_solve_config() const;
 
  private:
@@ -4970,7 +4923,7 @@ class SolveConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_rbs_solve_config(::RBSSolveConfig* rbs_solve_config);
   ::RBSSolveConfig* unsafe_arena_release_rbs_solve_config();
 
-  // .ParRBSSolveConfig par_rbs_solve_config = 4;
+  // .ParRBSSolveConfig par_rbs_solve_config = 5;
   bool has_par_rbs_solve_config() const;
 
  private:
@@ -4991,6 +4944,16 @@ class SolveConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_par_rbs_solve_config(::ParRBSSolveConfig* par_rbs_solve_config);
   ::ParRBSSolveConfig* unsafe_arena_release_par_rbs_solve_config();
 
+  // uint32 random_seed = 2;
+  void clear_random_seed();
+  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed() const;
+  void set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_random_seed() const;
+  void _internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ public:
   // @@protoc_insertion_point(class_scope:SolveConfig)
  private:
   class _Internal;
@@ -5003,6 +4966,7 @@ class SolveConfig PROTOBUF_FINAL
   ::NaiveSolveConfig* naive_solve_config_;
   ::RBSSolveConfig* rbs_solve_config_;
   ::ParRBSSolveConfig* par_rbs_solve_config_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 random_seed_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -5151,25 +5115,6 @@ inline void BaseSolverConfig::_internal_set_rnd_freq(double value) {
 inline void BaseSolverConfig::set_rnd_freq(double value) {
   _internal_set_rnd_freq(value);
   // @@protoc_insertion_point(field_set:BaseSolverConfig.rnd_freq)
-}
-
-// double rnd_seed = 4;
-inline void BaseSolverConfig::clear_rnd_seed() {
-  rnd_seed_ = 0;
-}
-inline double BaseSolverConfig::_internal_rnd_seed() const {
-  return rnd_seed_;
-}
-inline double BaseSolverConfig::rnd_seed() const {
-  // @@protoc_insertion_point(field_get:BaseSolverConfig.rnd_seed)
-  return _internal_rnd_seed();
-}
-inline void BaseSolverConfig::_internal_set_rnd_seed(double value) {
-  rnd_seed_ = value;
-}
-inline void BaseSolverConfig::set_rnd_seed(double value) {
-  _internal_set_rnd_seed(value);
-  // @@protoc_insertion_point(field_set:BaseSolverConfig.rnd_seed)
 }
 
 // int32 ccmin_mode = 5;
@@ -7988,25 +7933,6 @@ inline void AlgorithmConfig::set_allocated_algorithm_type(std::string* algorithm
   // @@protoc_insertion_point(field_set_allocated:AlgorithmConfig.algorithm_type)
 }
 
-// uint32 random_seed = 2;
-inline void AlgorithmConfig::clear_random_seed() {
-  random_seed_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 AlgorithmConfig::_internal_random_seed() const {
-  return random_seed_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 AlgorithmConfig::random_seed() const {
-  // @@protoc_insertion_point(field_get:AlgorithmConfig.random_seed)
-  return _internal_random_seed();
-}
-inline void AlgorithmConfig::_internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  random_seed_ = value;
-}
-inline void AlgorithmConfig::set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_random_seed(value);
-  // @@protoc_insertion_point(field_set:AlgorithmConfig.random_seed)
-}
-
 // .EAAlgorithmConfig ea_algorithm_config = 3;
 inline bool AlgorithmConfig::_internal_has_ea_algorithm_config() const {
   return this != internal_default_instance() && ea_algorithm_config_ != nullptr;
@@ -8412,25 +8338,6 @@ inline void RBSSolveConfig::set_allocated_solver_config(::SolverConfig* solver_c
   // @@protoc_insertion_point(field_set_allocated:RBSSolveConfig.solver_config)
 }
 
-// uint32 random_seed = 3;
-inline void RBSSolveConfig::clear_random_seed() {
-  random_seed_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 RBSSolveConfig::_internal_random_seed() const {
-  return random_seed_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 RBSSolveConfig::random_seed() const {
-  // @@protoc_insertion_point(field_get:RBSSolveConfig.random_seed)
-  return _internal_random_seed();
-}
-inline void RBSSolveConfig::_internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  random_seed_ = value;
-}
-inline void RBSSolveConfig::set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_random_seed(value);
-  // @@protoc_insertion_point(field_set:RBSSolveConfig.random_seed)
-}
-
 // -------------------------------------------------------------------
 
 // ParRBSSolveConfig
@@ -8553,25 +8460,6 @@ inline void ParRBSSolveConfig::set_allocated_solver_config(::SolverConfig* solve
   // @@protoc_insertion_point(field_set_allocated:ParRBSSolveConfig.solver_config)
 }
 
-// uint32 random_seed = 3;
-inline void ParRBSSolveConfig::clear_random_seed() {
-  random_seed_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ParRBSSolveConfig::_internal_random_seed() const {
-  return random_seed_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ParRBSSolveConfig::random_seed() const {
-  // @@protoc_insertion_point(field_get:ParRBSSolveConfig.random_seed)
-  return _internal_random_seed();
-}
-inline void ParRBSSolveConfig::_internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  random_seed_ = value;
-}
-inline void ParRBSSolveConfig::set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_random_seed(value);
-  // @@protoc_insertion_point(field_set:ParRBSSolveConfig.random_seed)
-}
-
 // uint32 num_algorithms = 4;
 inline void ParRBSSolveConfig::clear_num_algorithms() {
   num_algorithms_ = 0u;
@@ -8677,7 +8565,26 @@ inline void SolveConfig::set_allocated_solve_type(std::string* solve_type) {
   // @@protoc_insertion_point(field_set_allocated:SolveConfig.solve_type)
 }
 
-// .NaiveSolveConfig naive_solve_config = 2;
+// uint32 random_seed = 2;
+inline void SolveConfig::clear_random_seed() {
+  random_seed_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 SolveConfig::_internal_random_seed() const {
+  return random_seed_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 SolveConfig::random_seed() const {
+  // @@protoc_insertion_point(field_get:SolveConfig.random_seed)
+  return _internal_random_seed();
+}
+inline void SolveConfig::_internal_set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  random_seed_ = value;
+}
+inline void SolveConfig::set_random_seed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_random_seed(value);
+  // @@protoc_insertion_point(field_set:SolveConfig.random_seed)
+}
+
+// .NaiveSolveConfig naive_solve_config = 3;
 inline bool SolveConfig::_internal_has_naive_solve_config() const {
   return this != internal_default_instance() && naive_solve_config_ != nullptr;
 }
@@ -8756,7 +8663,7 @@ inline void SolveConfig::set_allocated_naive_solve_config(::NaiveSolveConfig* na
   // @@protoc_insertion_point(field_set_allocated:SolveConfig.naive_solve_config)
 }
 
-// .RBSSolveConfig rbs_solve_config = 3;
+// .RBSSolveConfig rbs_solve_config = 4;
 inline bool SolveConfig::_internal_has_rbs_solve_config() const {
   return this != internal_default_instance() && rbs_solve_config_ != nullptr;
 }
@@ -8835,7 +8742,7 @@ inline void SolveConfig::set_allocated_rbs_solve_config(::RBSSolveConfig* rbs_so
   // @@protoc_insertion_point(field_set_allocated:SolveConfig.rbs_solve_config)
 }
 
-// .ParRBSSolveConfig par_rbs_solve_config = 4;
+// .ParRBSSolveConfig par_rbs_solve_config = 5;
 inline bool SolveConfig::_internal_has_par_rbs_solve_config() const {
   return this != internal_default_instance() && par_rbs_solve_config_ != nullptr;
 }

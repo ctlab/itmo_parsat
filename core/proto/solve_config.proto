@@ -11,7 +11,6 @@ message BaseSolverConfig {
   double var_decay = 1;
   double cla_decay = 2;
   double rnd_freq = 3;
-  double rnd_seed = 4;
   int32 ccmin_mode = 5;
   int32 phase_saving = 6;
   bool rnd_init = 7;
@@ -129,7 +128,6 @@ message GAAlgorithmConfig {
 
 message AlgorithmConfig {
   string algorithm_type = 1;
-  uint32 random_seed = 2;
   EAAlgorithmConfig ea_algorithm_config = 3;
   GAAlgorithmConfig ga_algorithm_config = 4;
 }
@@ -141,20 +139,19 @@ message NaiveSolveConfig {
 message RBSSolveConfig {
   AlgorithmConfig algorithm_config = 1;
   SolverConfig solver_config = 2;
-  uint32 random_seed = 3;
 }
 
 message ParRBSSolveConfig {
   repeated AlgorithmConfig algorithm_configs = 1;
   SolverConfig solver_config = 2;
-  uint32 random_seed = 3;
   uint32 num_algorithms = 4;
   uint32 max_unpropagated = 5;
 }
 
 message SolveConfig {
   string solve_type = 1;
-  NaiveSolveConfig naive_solve_config = 2;
-  RBSSolveConfig rbs_solve_config = 3;
-  ParRBSSolveConfig par_rbs_solve_config = 4;
+  uint32 random_seed = 2;
+  NaiveSolveConfig naive_solve_config = 3;
+  RBSSolveConfig rbs_solve_config = 4;
+  ParRBSSolveConfig par_rbs_solve_config = 5;
 }

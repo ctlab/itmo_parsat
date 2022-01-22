@@ -1,7 +1,7 @@
 {
     "solve_type": "RBSSolve",
+    "random_seed": 1337,
     "rbs_solve_config": {
-        "random_seed": 1337,
         "algorithm_config": {
             "algorithm_type": "EAAlgorithm",
             "ea_algorithm_config": {
@@ -39,7 +39,6 @@
                                         "var_decay": 0.95,
                                         "cla_decay": 0.999,
                                         "rnd_freq": 0,
-                                        "rnd_seed": 91648253,
                                         "ccmin_mode": 2,
                                         "phase_saving": 2,
                                         "rnd_init": false,
@@ -110,7 +109,6 @@
                             "var_decay": 0.95,
                             "cla_decay": 0.999,
                             "rnd_freq": 0,
-                            "rnd_seed": 91648253,
                             "ccmin_mode": 2,
                             "phase_saving": 2,
                             "rnd_init": false,

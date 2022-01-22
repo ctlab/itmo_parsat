@@ -34,12 +34,11 @@ void Solver::solve_assignments(domain::USearch assignment_p, slv_callback_t cons
 void Solver::prop_assignments(core::domain::USearch assignment_p, prop_callback_t const& callback) {
   clear_interrupt();
   domain::Search& assignment = *assignment_p;
-  Minisat::vec<Minisat::Lit> propagated;
   START_ASGN_TRACK(assignment_p->size());
   do {
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
     ASGN_TRACK(assumptions);
-    if (!callback(propagate(assumptions, propagated), assumptions, propagated)) {
+    if (!callback(propagate(assumptions), assumptions)) {
       BREAK_ASGN_TRACK;
       break;
     }

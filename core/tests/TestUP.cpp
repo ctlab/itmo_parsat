@@ -16,12 +16,12 @@ TEST(unit_propagation, performance) {
   SolveConfig solve_config;
   core::CliConfig::read_config(ifs, solve_config);
 
+  core::Generator gen(239);
   core::sat::SimpSolver simp_solver(
       solve_config.naive_solve_config().solver_config().simp_solver_config());
   core::sat::Solver& sat_solver = simp_solver;
   simp_solver.parse_cnf(cnf_path);
 
-  core::Generator gen(239);
   int num_tests = 100000;
   while (num_tests--) {
     std::set<int> vars;

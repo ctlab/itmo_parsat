@@ -1,9 +1,9 @@
 {
     "solve_type": "ParRBSSolve",
+    "random_seed": 1337,
     "par_rbs_solve_config": {
         "max_unpropagated": 50,
         "num_algorithms": 5,
-        "random_seed": 1337,
         "algorithm_configs": [
             {
                 "algorithm_type": "EAAlgorithm",
@@ -42,7 +42,6 @@
                                             "var_decay": 0.95,
                                             "cla_decay": 0.999,
                                             "rnd_freq": 0,
-                                            "rnd_seed": 91648253,
                                             "ccmin_mode": 2,
                                             "phase_saving": 2,
                                             "rnd_init": false,
@@ -114,7 +113,6 @@
                             "var_decay": 0.95,
                             "cla_decay": 0.999,
                             "rnd_freq": 0,
-                            "rnd_seed": 91648253,
                             "ccmin_mode": 2,
                             "phase_saving": 2,
                             "rnd_init": false,

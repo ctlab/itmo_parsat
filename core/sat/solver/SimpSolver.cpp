@@ -2,6 +2,7 @@
 
 #include "core/util/GzFile.h"
 #include "core/util/Logger.h"
+#include "core/util/Generator.h"
 #include "minisat/core/Dimacs.h"
 #include "minisat/utils/System.h"
 
@@ -13,7 +14,7 @@ SimpSolver::SimpSolver(SimpSolverConfig const& config)
           config.use_asymm(), config.use_rcheck(), config.use_elim(),
           config.minisat_cli_config().verbosity_level(), config.base_solver_config().var_decay(),
           config.base_solver_config().cla_decay(), config.base_solver_config().rnd_freq(),
-          config.base_solver_config().rnd_seed(), config.base_solver_config().luby(),
+          core::random::sample<int>(0, INT_MAX), config.base_solver_config().luby(),
           config.base_solver_config().ccmin_mode(), config.base_solver_config().phase_saving(),
           config.base_solver_config().rnd_init(), config.base_solver_config().gc_frac(),
           config.base_solver_config().min_learnts(), config.base_solver_config().rfirst(),
@@ -61,12 +62,12 @@ unsigned SimpSolver::num_vars() const noexcept {
 bool SimpSolver::propagate(
     Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
   clearInterrupt();
-  return IPS_TRACE_N_V("SimpSolver::propagate", !prop_check(assumptions, propagated, 0););
+  return IPS_TRACE_N_V("SimpSolver::propagate_prop", !prop_check(assumptions, propagated, 0));
 }
 
 bool SimpSolver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
   clearInterrupt();
-  return IPS_TRACE_N_V("SimpSolver::propagate", !prop_check(assumptions, 0););
+  return IPS_TRACE_N_V("SimpSolver::propagate_confl", !prop_check(assumptions, 0));
 }
 
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);

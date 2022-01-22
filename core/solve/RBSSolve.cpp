@@ -5,7 +5,6 @@ namespace core {
 RBSSolve::RBSSolve(RBSSolveConfig const& config) : _cfg(config) {}
 
 sat::State RBSSolve::solve(std::filesystem::path const& input) {
-  core::Generator generator(_cfg.random_seed());
   ea::algorithm::RAlgorithm algorithm(
       ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config()));
   auto& algorithm_solver = algorithm->get_solver();

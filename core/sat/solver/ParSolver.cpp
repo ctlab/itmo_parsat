@@ -149,11 +149,10 @@ void ParSolver::_propagate(sat::Solver& solver, req_prop_t& req) {
   START_ASGN_TRACK(req.assignment->size());
   if (!req.assignment->empty()) {
     auto& assignment = *req.assignment;
-    Minisat::vec<Minisat::Lit> propagated;
     do {
       ASGN_TRACK(assignment());
-      bool result = solver.propagate(assignment(), propagated);
-      if (!req.callback(result, assignment(), propagated)) {
+      bool result = solver.propagate(assignment());
+      if (!req.callback(result, assignment())) {
         BREAK_ASGN_TRACK;
         break;
       }

@@ -8,7 +8,7 @@ namespace {
 void collect_stats(
     ::core::sat::Solver& solver, Minisat::vec<Minisat::Lit> const& assumptions,
     Minisat::vec<Minisat::Lit>& propagated, std::set<int>& collection) {
-  solver.propagate(assumptions, propagated);
+  (void) solver.propagate(assumptions, propagated);
   for (int j = 0; j < propagated.size(); ++j) {
     collection.insert(var(propagated[(int) j]));
   }
@@ -49,7 +49,6 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   }
 
   _total_points = _shared_data->var_view.size() > 63 ? -1 : (1ULL << _shared_data->var_view.size());
-
   if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
     for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
