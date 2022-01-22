@@ -38,7 +38,7 @@ virtual State \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated)=0
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa3893db285a22a2988ec7ffc0b469187}{solve\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}} const \&callback)
 \begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
@@ -124,7 +124,7 @@ Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a1e0468b42066d32
 \index{core::sat::Solver@{core::sat::Solver}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::Solver@{core::sat::Solver}}
 \doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool core\+::sat\+::\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -138,6 +138,10 @@ Propagates a given list of assumptions.
 \begin{DoxyReturn}{Returns}
 true if and only if conflict occurred. 
 \end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}{core\+::sat\+::\+Simp\+Solver}}.
+
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}\label{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}} 
 \index{core::sat::Solver@{core::sat::Solver}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::Solver@{core::sat::Solver}}
@@ -225,5 +229,5 @@ the result of solving.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-core/sat/Solver.\+h\item 
-core/sat/Solver.\+cpp\end{DoxyCompactItemize}
+core/sat/solver/Solver.\+h\item 
+core/sat/solver/Solver.\+cpp\end{DoxyCompactItemize}

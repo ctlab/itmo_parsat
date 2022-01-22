@@ -43,6 +43,8 @@ State \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_aab073e8b8a998eb126fee4fc7
 unsigned \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_ae973f34a601b21cbf522fc9d5ff4bcff}{num\+\_\+vars}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated) override
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -70,10 +72,32 @@ Parses cnf from .gz file with the specified path.
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a9cf6db209b1c87813e06c5b641e6128c}{core\+::sat\+::\+Solver}}.
 
+\mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}\label{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}} 
+\index{core::sat::SimpSolver@{core::sat::SimpSolver}!propagate@{propagate}}
+\index{propagate@{propagate}!core::sat::SimpSolver@{core::sat::SimpSolver}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool core\+::sat\+::\+Simp\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Propagates a given list of assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if and only if conflict occurred. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}{core\+::sat\+::\+Solver}}.
+
 \mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}\label{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}} 
 \index{core::sat::SimpSolver@{core::sat::SimpSolver}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::SimpSolver@{core::sat::SimpSolver}}
-\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily bool core\+::sat\+::\+Simp\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions,  }\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
@@ -123,5 +147,5 @@ Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd0
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-core/sat/Simp\+Solver.\+h\item 
-core/sat/Simp\+Solver.\+cpp\end{DoxyCompactItemize}
+core/sat/solver/Simp\+Solver.\+h\item 
+core/sat/solver/Simp\+Solver.\+cpp\end{DoxyCompactItemize}

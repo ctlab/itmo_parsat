@@ -7,7 +7,7 @@
 
 #include <boost/timer/progress_display.hpp>
 
-#include "core/sat/Solver.h"
+#include "core/sat/solver/Solver.h"
 #include "core/util/SigHandler.h"
 #include "core/util/Tracer.h"
 #include "core/proto/solve_config.pb.h"

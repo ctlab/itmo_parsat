@@ -3,7 +3,7 @@
 
 #include <filesystem>
 
-#include "core/sat/Solver.h"
+#include "core/sat/solver/Solver.h"
 #include "core/util/Logger.h"
 #include "core/util/Tracer.h"
 #include "minisat/simp/SimpSolver.h"
@@ -26,6 +26,8 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
   [[nodiscard]] bool propagate(
       Minisat::vec<Minisat::Lit> const& assumptions,
       Minisat::vec<Minisat::Lit>& propagated) override;
+
+  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
  private:
   void _do_interrupt() override;

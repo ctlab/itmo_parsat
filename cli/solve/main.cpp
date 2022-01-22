@@ -9,7 +9,7 @@
 #include "core/util/Logger.h"
 #include "core/util/Tracer.h"
 #include "core/util/SigHandler.h"
-#include "core/sat/Solver.h"
+#include "core/sat/solver/Solver.h"
 #include "core/solve/Solve.h"
 
 core::CliConfig add_and_read_args(int argc, char** argv) {

@@ -1,4 +1,4 @@
-#include "core/sat/ParSolver.h"
+#include "core/sat/solver/ParSolver.h"
 
 #include <filesystem>
 #include <mutex>
