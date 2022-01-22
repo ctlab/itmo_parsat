@@ -81,7 +81,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   // clang-format off
   std::atomic_int conflicts(0);
   _solver->prop_assignments(std::move(assignment_ptr),
-      [&conflicts](bool conflict, auto const& asgn, auto) {
+      [&conflicts](bool conflict, auto const& asgn) {
         conflicts += conflict;
         return true;
       });

@@ -8,6 +8,7 @@
 #include "core/util/stream.h"
 #include "core/util/Logger.h"
 #include "core/util/Tracer.h"
+#include "core/util/Generator.h"
 #include "core/util/SigHandler.h"
 #include "core/sat/solver/Solver.h"
 #include "core/solve/Solve.h"
@@ -66,6 +67,7 @@ int main(int argc, char** argv) {
   core::Logger::set_logger_config(log_config);
   core::RSolve solve(core::SolveRegistry::resolve(solve_config));
 
+  core::Generator generator(solve_config.random_seed());
   core::sat::State result = IPS_TRACE_V(solve->solve(input));
   core::Tracer::print_summary(10);
 

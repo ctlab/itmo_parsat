@@ -46,8 +46,7 @@ class Solver {
   typedef std::function<
       bool( // true iff should continue solving
         bool, // true iff there's been conflict
-        Minisat::vec<Minisat::Lit> const&, // assumptions passed to propagate
-        Minisat::vec<Minisat::Lit> const& // propagated literals
+        Minisat::vec<Minisat::Lit> const& // assumptions passed to propagate
       )> prop_callback_t; //
   // clang-format on
 

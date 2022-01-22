@@ -30,19 +30,13 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
     std::filesystem::path const& input) {
   std::vector<std::vector<std::vector<Minisat::Lit>>> non_conflict_assignments(
       _cfg.num_algorithms());
-  bool ignore_algorithm_seeds =
-      _cfg.num_algorithms() != static_cast<uint32_t>(_cfg.algorithm_configs_size());
-  IPS_WARNING_IF(
-      ignore_algorithm_seeds,
-      "Algorithms' random seeds will be ignored. Instead, root generator will provide seed");
   IPS_VERIFY(_cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
 
   std::stringstream algorithms_info;
   std::vector<std::thread> rbs_search_threads;
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
-    uint32_t seed = ignore_algorithm_seeds ? core::random::sample<uint32_t>(0, UINT32_MAX)
-                                           : _cfg.algorithm_configs(i).random_seed();
+    uint32_t seed = core::random::sample<uint32_t>(0, UINT32_MAX);
     rbs_search_threads.emplace_back(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
           std::mutex i_mutex;
@@ -65,7 +59,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
           algorithm->get_solver().prop_assignments(
               domain::createFullSearch(
                   algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask()),
-              [&](bool conflict, auto const& assumption, auto&&) {
+              [&](bool conflict, auto const& assumption) {
                 ++total;
                 if (!conflict) {
                   auto std_assumption = to_std_assump(assumption);
@@ -176,8 +170,6 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
 }
 
 sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
-  core::Generator generator(_cfg.random_seed());
-
   // Build cartesian product of non-conflict assignments
   auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
   if (cartesian_product.empty()) {
