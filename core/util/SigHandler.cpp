@@ -57,12 +57,12 @@ SigHandler::SigHandler() {
         continue;
       }
 
-      if (_raised || err == 0) {
+      if (_raised) {
         _raised = false;
-        _registered = true;
-        IPS_INFO("SigHandler: caught interrupt");
-        _callback(si.si_signo);
       }
+      _registered = true;
+      IPS_INFO("SigHandler: caught interrupt");
+      _callback(si.si_signo);
     }
   });
 }
