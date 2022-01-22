@@ -6,5 +6,6 @@ var searchData=
   ['interrupted_42',['interrupted',['../classcore_1_1sat_1_1Solver.html#aad62af916fffe1f8622ef57f2041fc35',1,'core::sat::Solver']]],
   ['invalidate_43',['invalidate',['../classcore_1_1LRUCache.html#a806f39492d735f5c572cb867aeb304c5',1,'core::LRUCache']]],
   ['is_5fcached_44',['is_cached',['../classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b',1,'ea::instance::Instance']]],
-  ['is_5fset_45',['is_set',['../classcore_1_1SigHandler.html#aa7a0956a1438d7ae4c34cc4d24301c54',1,'core::SigHandler']]]
+  ['is_5fsbs_45',['is_sbs',['../classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f',1,'ea::instance::Instance']]],
+  ['is_5fset_46',['is_set',['../classcore_1_1SigHandler.html#a90511aed12f642519273dc757592828f',1,'core::SigHandler']]]
 ];

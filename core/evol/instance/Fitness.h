@@ -8,11 +8,11 @@ namespace ea::instance {
 
 /**
  * @brief This structure represents Instances' fitnesses.
- * Mathematically, it is calculated as rho * 2^{pow_r} + (1 - \rho) * 2^{pow_nr}.
+ * Mathematically, it is calculated as rho * 2^{size} + (1 - \rho) * 2^{pow_nr}.
  */
 struct Fitness {
   double rho;
-  int32_t pow_r;
+  int32_t size;
   int32_t pow_nr;
   uint32_t samples;
 

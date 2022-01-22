@@ -19,9 +19,14 @@ sat::State RBSSolve::solve(std::filesystem::path const& input) {
       });
 
   IPS_TRACE(algorithm->process());
-  auto& rho_backdoor = algorithm->get_best();
+  auto const& rho_backdoor = algorithm->get_best();
   IPS_INFO("Number of points visited: " << algorithm->inaccurate_points());
   IPS_INFO("The best backdoor is: " << rho_backdoor);
+
+  if (rho_backdoor.is_sbs()) {
+    IPS_INFO("SBS found, the result is UNSAT");
+    return sat::UNSAT;
+  }
 
   std::vector<bool> vars = rho_backdoor.get_vars().get_mask();
   core::domain::USearch assignment_p =

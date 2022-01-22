@@ -77,7 +77,7 @@ void Algorithm::_prepare() {}
 void Algorithm::process() {
   size_t iteration = 0;
   _limit->start();
-  while (!is_interrupted() && _limit->proceed(*this)) {
+  do {
     IPS_TRACE(step());
     IPS_INFO_T(
         BEST_INSTANCE, "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) % 100
@@ -85,7 +85,7 @@ void Algorithm::process() {
                                   << "[Points " << inaccurate_points() << "]"
                                   << " Best instance: " << get_best());
     ++iteration;
-  }
+  } while (!is_interrupted() && _limit->proceed(*this));
 }
 
 void Algorithm::interrupt() {

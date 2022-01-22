@@ -88,7 +88,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   // clang-format on
 
   fit_.rho = (double) conflicts / (double) samples;
-  fit_.pow_r = size;
+  fit_.size = size;
   fit_.pow_nr = (int) _shared->omega_x;
   fit_.samples = samples;
   _cached = true;
@@ -109,6 +109,15 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
 
 bool Instance::is_cached() const noexcept {
   return _cached || _shared->cache.get(_vars.get_mask()).has_value();
+}
+
+bool Instance::is_sbs() const noexcept {
+  return fit_.size <= 64 && fit_.rho == 1. && fit_.samples == (1ULL << fit_.size);
+}
+
+size_t Instance::size() const noexcept {
+  auto const& mask = _vars.get_mask();
+  return std::count(mask.begin(), mask.end(), true);
 }
 
 instance::SharedData::SamplingConfig& Instance::_sampling_config() noexcept {
@@ -138,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instanc
   std::sort(vars.begin(), vars.end());
 
   double coverage = (double) instance.fitness().samples;
-  uint32_t num_vars = instance.fitness().pow_r;
+  uint32_t num_vars = instance.fitness().size;
 
   if (num_vars <= core::domain::Search::MAX_VARS_FULL_SEARCH) {
     coverage /= (1ULL << num_vars);
@@ -146,7 +155,7 @@ std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instanc
     coverage = std::pow(2., std::log2(coverage) - num_vars);
   }
 
-  return os << "Fit: " << instance.fitness().rho << " Size: " << instance.fitness().pow_r
+  return os << "Confl. ratio: " << instance.fitness().rho << " Size: " << instance.fitness().size
             << " and fitness: " << (double) instance.fitness() << " Vars: " << vars
             << " samples: " << instance.fitness().samples << " coverage: " << 100. * coverage
             << "%";
