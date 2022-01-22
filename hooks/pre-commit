@@ -63,27 +63,28 @@ else
 fi
 
 print_ok() {
-    echo -e "\033[1,33mOK\033[0m"
+    echo -e "\033[1;33mOK\033[0m"
 }
 
 print_fail() {
-    echo -e "\033e[1,31mFAIL\033[0m"
+    echo -e "\033e[1;31mFAIL\033[0m"
+    exit 1
 }
 
 echo "Formatting..."
-./run.sh --format && print_ok || { print_fail; exit 1; }
+./run.sh --format && print_ok || print_fail
 
 echo "Checking cli build status..."
-./run.sh -g debug --build --build-unit --build-infra && print_ok || { print_fail; exit 1; }
+./run.sh -g debug --build --build-unit --build-infra && print_ok || print_fail
 
 echo "Running unit tests..."
-./run.sh --unit
+./run.sh --unit && print_ok || print_fail
 
 echo "Running integration tests..."
-./run.sh -v 6 -- --run-infra --size 0
+./run.sh -v 6 -- --run-infra --size 0 && print_ok || print_fail
 
 echo "Building documentation..."
-./run.sh --build-doc && print_ok || { print_fail; exit 1; }
+./run.sh --build-doc && print_ok || print_fail
 
 git add .
 
