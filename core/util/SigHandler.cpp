@@ -26,7 +26,7 @@ void SigHandler::CallbackHandle::callback(int signal) {
 }
 
 SigHandler::SigHandler() {
-  IPS_VERIFY(_sig_handler == nullptr && bool("SigHandler re-registered."));
+  IPS_VERIFY_S(_sig_handler == nullptr, "SigHandler re-registered.");
   _sig_handler = this;
   sigset_t ss;
   sigemptyset(&ss);
