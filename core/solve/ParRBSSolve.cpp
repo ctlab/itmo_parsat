@@ -39,12 +39,12 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
   std::stringstream algorithms_info;
   std::vector<std::thread> rbs_search_threads;
+  std::mutex mutex;
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
     uint32_t seed = core::random::sample<uint32_t>(0, UINT32_MAX);
     rbs_search_threads.emplace_back(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
-          std::mutex i_mutex;
           core::Generator generator(seed);
           ea::algorithm::RAlgorithm algorithm(ea::algorithm::AlgorithmRegistry::resolve(config));
           auto& algorithm_solver = algorithm->get_solver();
@@ -72,7 +72,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
                 ++total;
                 if (!conflict) {
                   auto std_assumption = to_std_assump(assumption);
-                  std::lock_guard<std::mutex> lg(i_mutex);
+                  std::lock_guard<std::mutex> lg(mutex);
                   non_conflict_assignments[i].push_back(std_assumption);
                 } else {
                   ++conflicts;
@@ -81,7 +81,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
               });
 
           {  // add the best backdoor to log
-            std::lock_guard<std::mutex> lg(i_mutex);
+            std::lock_guard<std::mutex> lg(mutex);
             algorithms_info << "[Thread " << i << "]\n";
             algorithms_info << "\tNumber of points visited: " << algorithm->inaccurate_points()
                             << '\n';
@@ -181,6 +181,7 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
 sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   // Build cartesian product of non-conflict assignments
   auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
+  IPS_INFO("SBS has been found during propagation, thus result is UNSAT");
   if (cartesian_product.empty()) {
     IPS_INFO("SBS has been found during propagation, thus result is UNSAT");
     return sat::UNSAT;

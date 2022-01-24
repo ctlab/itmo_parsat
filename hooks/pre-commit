@@ -67,7 +67,7 @@ print_ok() {
 }
 
 print_fail() {
-    echo -e "\033e[1;31mFAIL\033[0m"
+    echo -e "\033[1;31mFAIL\033[0m"
     exit 1
 }
 
@@ -75,7 +75,7 @@ hooks=(
     "./run.sh --format"
     "./run.sh -g debug --build --build-unit --build-infra"
     "./run.sh --unit"
-    "./run.sh -v 6 -- --run-infra --size 0"
+    "./run.sh -v 6 -- --run-infra --size 0 --test-groups common --"
     "./run.sh --build-doc"
 )
 

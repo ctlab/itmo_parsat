@@ -2,19 +2,19 @@
 
 namespace infra::testing {
 
-LaunchConfig& LaunchConfig::set_input_path(std::filesystem::path const& new_input_path) noexcept {
-  input_path = new_input_path;
+LaunchConfig& LaunchConfig::set_input_path(std::filesystem::path const& new_input) noexcept {
+  input = new_input;
   return *this;
 }
 
-LaunchConfig& LaunchConfig::set_config_path(std::filesystem::path const& new_config_path) noexcept {
-  config_path = new_config_path;
+LaunchConfig& LaunchConfig::set_config_path(std::filesystem::path const& new_config) noexcept {
+  config = new_config;
   return *this;
 }
 
 LaunchConfig& LaunchConfig::set_log_config_path(
-    std::filesystem::path const& new_log_config_path) noexcept {
-  log_config_path = new_log_config_path;
+    std::filesystem::path const& new_log_config) noexcept {
+  log_config = new_log_config;
   return *this;
 }
 

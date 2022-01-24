@@ -73,6 +73,10 @@ function do_run_perf() {
     RUN_CMD="perf record --call-graph dwarf"
 }
 
+function do_run_valgrind() {
+    RUN_CMD="valgrind --leak-check=full"
+}
+
 function do_format() {
     find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
 }
@@ -121,7 +125,7 @@ function do_infra() {
 
 function do_solve() {
     if [[ -z "$@" ]]; then
-        GLOG_minloglevel=0 GLOG_logtostderr=1  $RUN_CMD $SOLVE_BIN \
+        GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $SOLVE_BIN \
             --verbose "$VERBOSE" \
             --input "$CNF_PATH" \
             --config "$CFG_ROOT/$SLV_CFG" \
@@ -187,6 +191,7 @@ add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto    0
 add_option "--build-doc" "   Build documentation"        do_doc            0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
 add_option "--run-perf" "    Run with perf"              do_run_perf       0
+add_option "--run-valgrind" "Run with valgrind"          do_run_valgrind   0
 add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1
 add_option "-f|--format" "   Apply clang-format"         do_format         0

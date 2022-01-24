@@ -19,6 +19,8 @@
 class LaunchFixture : public ::testing::Test {
  public:
   struct Config {
+    bool allow_unspecified_size{};
+    bool unsat_only{};
     bool lookup{};
     bool save{};
     int size{};
@@ -29,6 +31,7 @@ class LaunchFixture : public ::testing::Test {
     std::string dbname{};
     std::string user{};
     std::string password{};
+    std::vector<std::string> test_groups;
   };
   static Config config;
 
@@ -52,6 +55,19 @@ class LaunchFixture : public ::testing::Test {
   std::optional<std::shared_ptr<infra::Execution>> launch(
       infra::testing::LaunchConfig launch_config);
 
+  bool _check_if_test_is_done(
+      infra::testing::LaunchConfig const& launch_config, infra::domain::LaunchInfo& launch);
+
+  bool _need_to_launch(std::string const& name);
+
+  static int _get_test_size(std::string const& name);
+
+  static std::string _get_test_group(std::string const& name);
+
+  static infra::domain::SatResult _get_sat_result(std::string const& name);
+
+  static std::string _generate_uniq_string();
+
  private:
   static void _prepare_resources();
 
@@ -62,13 +78,16 @@ class LaunchFixture : public ::testing::Test {
  private:
   std::unique_ptr<infra::domain::LaunchesDao> _launches;
   std::vector<std::shared_ptr<infra::Execution>> _execs;
-  std::set<std::string> _ignore_cnfs;
   core::SigHandler _handler;
   core::SigHandler::handle_t _sig_cb;
 
+ private:
+  std::filesystem::path logs_root;
+  std::filesystem::path configs_root;
+
  public:
   static std::atomic_bool test_failed;
-  static std::vector<std::filesystem::path> cnfs;
+  static std::set<std::filesystem::path> cnfs;
 };
 
 #endif  // ITMO_PARSAT_LAUNCHFIXTURE_H

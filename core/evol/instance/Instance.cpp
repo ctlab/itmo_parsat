@@ -17,7 +17,7 @@ Instance::Instance(core::sat::RSolver solver, RSharedData shared_data)
   _vars.resize(_var_view().size());
 
   // Initialize instance by setting one random variable
-  _vars.flip(core::random::sample<unsigned>(0, num_vars()));
+  _vars.flip(core::random::sample<unsigned>(0, num_vars() - 1));
 }
 
 core::domain::Vars& Instance::get_vars() noexcept {

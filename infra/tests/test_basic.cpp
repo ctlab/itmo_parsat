@@ -19,7 +19,6 @@ void await(std::optional<std::shared_ptr<infra::Execution>>&& exec_opt) {
 
 TEST_F(LaunchFixture, naive_test) {
   // For now, ignore this test because it is too large
-  ignore("unsat_bubble_vs_pancake_7_6_simp.cnf");
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
@@ -33,7 +32,6 @@ TEST_F(LaunchFixture, naive_test) {
 }
 
 TEST_F(LaunchFixture, simp_rbs_test) {
-  ignore("unsat_bubble_vs_pancake_7_6_simp.cnf");
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
@@ -47,7 +45,6 @@ TEST_F(LaunchFixture, simp_rbs_test) {
 }
 
 TEST_F(LaunchFixture, simp_par_rbs_test) {
-  ignore("unsat_bubble_vs_pancake_7_6_simp.cnf");
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
@@ -61,7 +58,6 @@ TEST_F(LaunchFixture, simp_par_rbs_test) {
 }
 
 TEST_F(LaunchFixture, par_rbs_test) {
-  ignore("unsat_bubble_vs_pancake_7_6_simp.cnf");
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
@@ -75,7 +71,6 @@ TEST_F(LaunchFixture, par_rbs_test) {
 }
 
 TEST_F(LaunchFixture, par_par_rbs_test) {
-  ignore("unsat_bubble_vs_pancake_7_6_simp.cnf");
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
