@@ -4,6 +4,6 @@ build:debug --config=dev -c dbg --copt="-O0"
 
 build:dev_fast --config=dev --copt="-Ofast"
 
-build:fast --config=dev --copt="-DDISABLE_LOG" --copt="-DDISABLE_TRACE" --copt="-DDISABLE_CHECK_ASGN" --copt="-Ofast"
+build:fast --config=dev --copt="-DDISABLE_LOG" --copt="-DDISABLE_TRACE" --copt="-DDISABLE_CHECK_ASGN" --copt="-DDISABLE_VERIFY" --copt="-Ofast"
 
 build --config=dev_fast

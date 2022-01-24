@@ -2,6 +2,7 @@
 #define ITMO_PARSAT_ASSERT_H
 
 #include <atomic>
+#include <iostream>
 #include <array>
 #include <chrono>
 #include <cassert>
@@ -31,6 +32,25 @@ void panic(
 #define IPS_UNLIKELY(x) __builtin_expect(x, 0)
 #define IPS_LIKELY(x) __builtin_expect(x, 1)
 
+#define IPS_TERMINATE(...)                                                        \
+  do {                                                                            \
+    ::core::assert::_details::panic(                                              \
+        __FILE__, __LINE__, "teminate_handler()", nullptr, true, "" __VA_ARGS__); \
+    __builtin_unreachable();                                                      \
+  } while (false)
+
+#ifndef DISABLE_VERIFY
+
+#define IPS_VERIFY_S(cond, stream)                                                                 \
+  do {                                                                                             \
+    if (IPS_UNLIKELY(!static_cast<bool>(cond))) {                                                  \
+      std::cerr << "IPS_VERIFY: failed condition: " #cond << "\nmessage: " << stream << std::endl; \
+      ::core::assert::_details::panic(                                                             \
+          __FILE__, __LINE__, "IPS_VERIFY] " #cond, nullptr, true, nullptr);                       \
+      __builtin_unreachable();                                                                     \
+    }                                                                                              \
+  } while (false)
+
 #define IPS_VERIFY assert
 
 #define IPS_SYSCALL(call)                                                                  \
@@ -45,11 +65,14 @@ void panic(
     return syscall_result;                                                                 \
   }(BOOST_CURRENT_FUNCTION)
 
-#define IPS_TERMINATE(...)                                                        \
-  do {                                                                            \
-    ::core::assert::_details::panic(                                              \
-        __FILE__, __LINE__, "teminate_handler()", nullptr, true, "" __VA_ARGS__); \
-    __builtin_unreachable();                                                      \
-  } while (false)
+#else
+
+#define IPS_VERIFY_S(...)
+
+#define IPS_VERIFY(...)
+
+#define IPS_SYSCALL(call) call
+
+#endif
 
 #endif  // ITMO_PARSAT_ASSERT_H
