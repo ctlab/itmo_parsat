@@ -27,6 +27,8 @@ class Solve {
    */
   [[nodiscard]] virtual sat::State solve(std::filesystem::path const& input) = 0;
 
+  virtual ~Solve() = default;
+
  protected:
   [[nodiscard]] static sat::RSolver _resolve_solver(SolverConfig const& config);
 

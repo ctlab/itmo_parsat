@@ -10,7 +10,7 @@
 
 TEST(unit_propagation, performance) {
   std::filesystem::path config_path = "./resources/config/naive.json";
-  std::filesystem::path cnf_path = "./resources/cnf/unsat_bubble_vs_pancake_7_6_simp-@3.cnf";
+  std::filesystem::path cnf_path = "./resources/cnf/common/unsat_bubble_vs_pancake_7_6_simp-@3.cnf";
 
   std::ifstream ifs(config_path);
   SolveConfig solve_config;

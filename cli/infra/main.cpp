@@ -12,6 +12,8 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
     ("commit", po::value<std::string>()->default_value(""), "The current commit (optional)")
+    ("unsat-only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
+    ("allow-unspecified-size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
     ("lookup", po::bool_switch()->default_value(false), "Skip tests that are already done")
     ("size", po::value<int>()->default_value(0), "Tests size (from 0 to 2)")
     ("save", po::bool_switch()->default_value(false), "Whether to save results to DB")
@@ -21,6 +23,7 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
     ("dbname,d", po::value<std::string>()->required(), "PG database name")
     ("pass,p", po::value<std::string>()->default_value(""), "PG password")
     ("user,u", po::value<std::string>()->default_value(""), "PG user")
+    ("test-groups", po::value<std::vector<std::string>>()->multitoken()->default_value({}, "[]"), "Enabled test groups (directories in cnf/)")
     ("gtest-opts", po::value<std::vector<std::string>>()->multitoken(), "GTest options");
   // clang-format on
 
@@ -55,6 +58,9 @@ int main(int argc, char** argv) {
     auto args = parse_args(argc, argv);
     init_googletest(argv[0], args);
     auto& config = LaunchFixture::config;
+    config.unsat_only = args["unsat-only"].as<bool>();
+    config.test_groups = args["test-groups"].as<std::vector<std::string>>();
+    config.allow_unspecified_size = args["allow-unspecified-size"].as<bool>();
     config.lookup = args["lookup"].as<bool>();
     config.save = args["save"].as<bool>();
     config.size = args["size"].as<int>();
@@ -66,6 +72,5 @@ int main(int argc, char** argv) {
     config.user = args["user"].as<std::string>();
     config.password = args["pass"].as<std::string>();
   }
-
   return RUN_ALL_TESTS();
 }

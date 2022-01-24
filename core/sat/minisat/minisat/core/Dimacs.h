@@ -66,9 +66,11 @@ static void parse_DIMACS_main(B& in, Solver& S, bool strictp = false) {
       } else {
         printf("c PARSE ERROR! Unexpected char: %c\n", *in), exit(3);
       }
-    } else if (*in == 'c' || *in == 'p')
+    } else if (*in == 'c' || *in == 'p') {
       skipLine(in);
-    else {
+    } else if (*in == '%') {
+      break;
+    } else {
       cnt++;
       readClause(in, S, lits);
       S.addClause_(lits);
