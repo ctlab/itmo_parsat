@@ -108,54 +108,55 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classea_1_1instance_1_1Instance.html#acb256a6b4efffc0bfe056755d9c5abf4">Instance</a>(core::sat::RSolver solver, RSharedData shared_data);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() noexcept;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  [[nodiscard]] <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>* <a class="code" href="classea_1_1instance_1_1Instance.html#a7257c1ba917f29b51cc5d597b5c92315">clone</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b">is_cached</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  [[nodiscard]] <span class="keywordtype">size_t</span> <a class="code" href="classea_1_1instance_1_1Instance.html#adadc7c0a34c0c1f94acf88031ae3aa6f">num_vars</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">is_sbs</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  [[nodiscard]] <span class="keywordtype">size_t</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a43167ae120d5a84a5c5dbf4651bf95f8">size</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> _calc_fitness();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">void</span> _calc_fitness(uint32_t samples, uint32_t steps_left);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <a class="code" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">SharedData::SamplingConfig</a>&amp; _sampling_config() noexcept;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  [[nodiscard]] <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>* <a class="code" href="classea_1_1instance_1_1Instance.html#a7257c1ba917f29b51cc5d597b5c92315">clone</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b">is_cached</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  [[nodiscard]] <span class="keywordtype">size_t</span> <a class="code" href="classea_1_1instance_1_1Instance.html#adadc7c0a34c0c1f94acf88031ae3aa6f">num_vars</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">is_sbs</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  [[nodiscard]] <span class="keywordtype">size_t</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a43167ae120d5a84a5c5dbf4651bf95f8">size</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> _calc_fitness();</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <a class="code" href="classcore_1_1LRUCache.html">core::LRUCache&lt;std::vector&lt;bool&gt;</a>, <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a>&gt;&amp; _cache() noexcept;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordtype">void</span> _calc_fitness(uint32_t samples, uint32_t steps_left);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  uint32_t&amp; _inaccurate_points() noexcept;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <a class="code" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">SharedData::SamplingConfig</a>&amp; _sampling_config() noexcept;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <a class="code" href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a>&amp; _var_view() noexcept;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <a class="code" href="classcore_1_1LRUCache.html">core::LRUCache&lt;std::vector&lt;bool&gt;</a>, <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a>&gt;&amp; _cache() noexcept;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">bool</span> _cached = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  std::shared_ptr&lt;core::sat::Solver&gt; _solver;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  std::shared_ptr&lt;SharedData&gt; _shared;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> _vars;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">// Mutability here is actually a design flaw, which will probably be fixed in the future.</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">// It is needed to update fitness from cache when `fitness() const` is called.</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">mutable</span> <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> fit_{};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  uint32_t&amp; _inaccurate_points() noexcept;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <a class="code" href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a>&amp; _var_view() noexcept;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordtype">bool</span> _cached = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  std::shared_ptr&lt;core::sat::Solver&gt; _solver;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  std::shared_ptr&lt;SharedData&gt; _shared;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> _vars;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keyword">friend</span> std::ostream&amp; ::operator&lt;&lt;(std::ostream&amp;, <a class="code" href="classea_1_1instance_1_1Instance.html">ea::instance::Instance</a> <span class="keyword">const</span>&amp; instance);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="comment">// Mutability here is actually a design flaw, which will probably be fixed in the future.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="comment">// It is needed to update fitness from cache when `fitness() const` is called.</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keyword">mutable</span> <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> fit_{};</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; a, <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; b);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keyword">friend</span> std::ostream&amp; ::operator&lt;&lt;(std::ostream&amp;, <a class="code" href="classea_1_1instance_1_1Instance.html">ea::instance::Instance</a> <span class="keyword">const</span>&amp; instance);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;};</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif  // EVOL_INSTANCE_H</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; a, <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; b);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif  // EVOL_INSTANCE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a43167ae120d5a84a5c5dbf4651bf95f8"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a43167ae120d5a84a5c5dbf4651bf95f8">ea::instance::Instance::size</a></div><div class="ttdeci">size_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:118</div></div>
 <div class="ttc" id="aclassea_1_1instance_1_1Instance_html_adadc7c0a34c0c1f94acf88031ae3aa6f"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#adadc7c0a34c0c1f94acf88031ae3aa6f">ea::instance::Instance::num_vars</a></div><div class="ttdeci">size_t num_vars() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:11</div></div>

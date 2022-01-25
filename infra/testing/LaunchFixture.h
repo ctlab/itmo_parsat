@@ -12,6 +12,7 @@
 #include <gtest/gtest.h>
 
 #include "core/util/SigHandler.h"
+#include "core/util/EventHandler.h"
 #include "infra/domain/LaunchesDao.h"
 #include "infra/testing/Execution.h"
 #include "infra/testing/LaunchConfig.h"
@@ -78,8 +79,8 @@ class LaunchFixture : public ::testing::Test {
  private:
   std::unique_ptr<infra::domain::LaunchesDao> _launches;
   std::vector<std::shared_ptr<infra::Execution>> _execs;
-  core::SigHandler _handler;
-  core::SigHandler::handle_t _sig_cb;
+  core::signal::SigHandler _handler;
+  core::event::EventCallbackHandle _sig_cb;
 
  private:
   std::filesystem::path logs_root;

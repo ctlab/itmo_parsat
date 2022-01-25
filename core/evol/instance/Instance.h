@@ -46,6 +46,10 @@ class Instance {
    * @return variables which this instance represents.
    */
   core::domain::Vars& get_vars() noexcept;
+
+  /**
+   * @see Instance::get_vars()
+   */
   core::domain::Vars const& get_vars() const noexcept;
 
   /**

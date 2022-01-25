@@ -89,6 +89,7 @@ void Algorithm::process() {
 }
 
 void Algorithm::interrupt() {
+  IPS_INFO_IF(!_interrupted, "Algorithm has been interrupted.");
   _interrupted = true;
   _solver->interrupt();
 }

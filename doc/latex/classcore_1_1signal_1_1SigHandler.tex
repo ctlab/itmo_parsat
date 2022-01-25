@@ -1,0 +1,43 @@
+\hypertarget{classcore_1_1signal_1_1SigHandler}{}\doxysection{core\+::signal\+::Sig\+Handler Class Reference}
+\label{classcore_1_1signal_1_1SigHandler}\index{core::signal::SigHandler@{core::signal::SigHandler}}
+
+
+Signal handling routine.  
+
+
+
+
+{\ttfamily \#include $<$Sig\+Handler.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1signal_1_1SigHandler_ada5f19a3f183782eae6e4b9606e2a482}\label{classcore_1_1signal_1_1SigHandler_ada5f19a3f183782eae6e4b9606e2a482}} 
+\mbox{\hyperlink{classcore_1_1signal_1_1SigHandler_ada5f19a3f183782eae6e4b9606e2a482}{Sig\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classcore_1_1signal_1_1SigHandler}{Sig\+Handler}} must be created explicitly to carry all the routine connected with signal masking. Also, its destruction time must be known to programmer, because otherwise it will not stop gracefully. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1signal_1_1SigHandler_abf68fd64d6a852ce902b368c85c01bee}{is\+\_\+set}} ()
+\item 
+\mbox{\Hypertarget{classcore_1_1signal_1_1SigHandler_a7dd88aa5e820142a16202cb171cdb3fe}\label{classcore_1_1signal_1_1SigHandler_a7dd88aa5e820142a16202cb171cdb3fe}} 
+void \mbox{\hyperlink{classcore_1_1signal_1_1SigHandler_a7dd88aa5e820142a16202cb171cdb3fe}{unset}} ()
+\begin{DoxyCompactList}\small\item\em Resets the set flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Signal handling routine. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1signal_1_1SigHandler_abf68fd64d6a852ce902b368c85c01bee}\label{classcore_1_1signal_1_1SigHandler_abf68fd64d6a852ce902b368c85c01bee}} 
+\index{core::signal::SigHandler@{core::signal::SigHandler}!is\_set@{is\_set}}
+\index{is\_set@{is\_set}!core::signal::SigHandler@{core::signal::SigHandler}}
+\doxysubsubsection{\texorpdfstring{is\_set()}{is\_set()}}
+{\footnotesize\ttfamily bool core\+::signal\+::\+Sig\+Handler\+::is\+\_\+set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+If the S\+I\+G\+I\+NT has been caught. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/util/Sig\+Handler.\+h\item 
+core/util/Sig\+Handler.\+cpp\end{DoxyCompactItemize}

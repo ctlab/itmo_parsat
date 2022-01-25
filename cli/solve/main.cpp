@@ -51,10 +51,9 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
-
   core::CliConfig config = add_and_read_args(argc, argv);
-  core::SigHandler sig_handler;
 
+  core::signal::SigHandler sig_handler;
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }
@@ -65,7 +64,16 @@ int main(int argc, char** argv) {
 
   auto&& [solve_config, log_config] = read_json_configs(solver_cfg_path, logger_cfg_path);
   core::Logger::set_logger_config(log_config);
+
+  // Initialize solve algorithm
   core::RSolve solve(core::SolveRegistry::resolve(solve_config));
+  core::event::EventCallbackHandle solve_interrupt_handler = core::event::attach(
+      [&] {
+        IPS_INFO("Solve has been interrupted.");
+        solve->interrupt();
+        solve_interrupt_handler->detach();
+      },
+      core::event::INTERRUPT);
 
   core::Generator generator(solve_config.random_seed());
   core::sat::State result = IPS_TRACE_V(solve->solve(input));

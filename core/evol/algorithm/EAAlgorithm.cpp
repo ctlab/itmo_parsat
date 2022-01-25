@@ -17,7 +17,6 @@ void EAAlgorithm::step() {
   while (child->is_cached()) {
     mutator_->apply(*child);
   }
-
   _population.push_back(child);
   selector_->select(_population, 1);
 }

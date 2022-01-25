@@ -6,5 +6,5 @@ var searchData=
   ['get_5fmask_173',['get_mask',['../structcore_1_1domain_1_1Vars.html#a94574704897c34d81cf5ed3671878c24',1,'core::domain::Vars::get_mask() const noexcept'],['../structcore_1_1domain_1_1Vars.html#a47da05e76089ffd5cc65d5f71a159d3f',1,'core::domain::Vars::get_mask() noexcept']]],
   ['get_5fshared_5fdata_174',['get_shared_data',['../classea_1_1algorithm_1_1Algorithm.html#a424af6ccb7a0396522e2864474c7ff16',1,'ea::algorithm::Algorithm']]],
   ['get_5fsolver_175',['get_solver',['../classea_1_1algorithm_1_1Algorithm.html#a030f15df2ae7e73784fd535d3d9d3c92',1,'ea::algorithm::Algorithm']]],
-  ['get_5fvars_176',['get_vars',['../classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7',1,'ea::instance::Instance']]]
+  ['get_5fvars_176',['get_vars',['../classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7',1,'ea::instance::Instance::get_vars() noexcept'],['../classea_1_1instance_1_1Instance.html#a15f8e2ead7e81da6a3a9eea5da6f6eb0',1,'ea::instance::Instance::get_vars() const noexcept']]]
 ];

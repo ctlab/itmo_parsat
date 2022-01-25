@@ -2,30 +2,32 @@
 
 namespace core {
 
+void Solve::interrupt() {
+  _interrupted = true;
+  if (_do_interrupt) {
+    _do_interrupt();
+  }
+}
+
+bool Solve::_is_interrupted() const noexcept {
+  return _interrupted;
+}
+
 sat::RSolver Solve::_resolve_solver(SolverConfig const& config) {
   return sat::RSolver(sat::SolverRegistry::resolve(config));
 }
 
 sat::State Solve::_final_solve(sat::Solver& solver, domain::USearch assignment) {
   IPS_VERIFY(!assignment->empty() && bool("Trying to final-solve empty assignment set"));
-
-  core::sig::unset();
-  SigHandler::handle_t slv_int_handle = core::sig::register_callback([&](int) {
-    solver.interrupt();
-    IPS_INFO("Solver has been interrupted.");
-    slv_int_handle->remove();
-  });
-
   std::mutex progress_lock;
   std::atomic_bool unknown{false}, satisfied{false};
   std::atomic_uint64_t conflicts{0}, total{0};
   boost::timer::progress_display progress(assignment->size(), std::cerr);
-
   IPS_TRACE_N(
       "Solver::final_solve",
       solver.solve_assignments(
           std::move(assignment), [&](sat::State result, bool conflict, auto&&) {
-            if (core::sig::is_set()) {
+            if (_interrupted) {
               return false;
             }
             ++total;
@@ -46,17 +48,12 @@ sat::State Solve::_final_solve(sat::Solver& solver, domain::USearch assignment) 
                 return false;
             }
           }));
-
   IPS_INFO("Conflicts: " << conflicts << ", total: " << total);
   IPS_INFO("Conflict rate is: " << (double) conflicts / (double) total);
-
-  bool interrupted = core::sig::is_set();
-  core::sig::unset();
-
-  IPS_INFO("Unknown: " << unknown << ", interrupted: " << interrupted);
+  IPS_INFO("Unknown: " << unknown << ", interrupted: " << _interrupted);
   if (satisfied) {
     return core::sat::SAT;
-  } else if (!unknown && !interrupted) {
+  } else if (!unknown && !_interrupted) {
     return core::sat::UNSAT;
   } else {
     return core::sat::UNKNOWN;

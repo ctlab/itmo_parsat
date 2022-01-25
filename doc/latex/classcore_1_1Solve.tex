@@ -23,15 +23,30 @@ Inheritance diagram for core\+::Solve\+:
 \begin{DoxyCompactItemize}
 \item 
 virtual sat\+::\+State \mbox{\hyperlink{classcore_1_1Solve_a2a566f84b4c453829c036547e68d8f6a}{solve}} (std\+::filesystem\+::path const \&input)=0
-\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a18970ec25df530b9c6d6a55115307388}\label{classcore_1_1Solve_a18970ec25df530b9c6d6a55115307388}} 
+void {\bfseries interrupt} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a4549450d64bcbad8add392b2d578369d}\label{classcore_1_1Solve_a4549450d64bcbad8add392b2d578369d}} 
+sat\+::\+State {\bfseries \+\_\+final\+\_\+solve} (\mbox{\hyperlink{classcore_1_1sat_1_1Solver}{sat\+::\+Solver}} \&solver, domain\+::\+U\+Search assignment)
+\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a90bc2d0709d44def434d0e3a4a14f4b9}\label{classcore_1_1Solve_a90bc2d0709d44def434d0e3a4a14f4b9}} 
+bool {\bfseries \+\_\+is\+\_\+interrupted} () const noexcept
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classcore_1_1Solve_a418d136b1871049702cc7df3ccecd7e8}\label{classcore_1_1Solve_a418d136b1871049702cc7df3ccecd7e8}} 
 static sat\+::\+R\+Solver {\bfseries \+\_\+resolve\+\_\+solver} (Solver\+Config const \&config)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1Solve_a4549450d64bcbad8add392b2d578369d}\label{classcore_1_1Solve_a4549450d64bcbad8add392b2d578369d}} 
-static sat\+::\+State {\bfseries \+\_\+final\+\_\+solve} (\mbox{\hyperlink{classcore_1_1sat_1_1Solver}{sat\+::\+Solver}} \&solver, domain\+::\+U\+Search assignment)
+\mbox{\Hypertarget{classcore_1_1Solve_a8ac480e50a5a6bcbbc3fb4697a1ba630}\label{classcore_1_1Solve_a8ac480e50a5a6bcbbc3fb4697a1ba630}} 
+std\+::function$<$ void()$>$ {\bfseries \+\_\+do\+\_\+interrupt}
 \end{DoxyCompactItemize}
 
 

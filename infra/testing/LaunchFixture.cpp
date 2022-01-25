@@ -24,7 +24,7 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 }  // namespace
 
 LaunchFixture::LaunchFixture() {
-  _sig_cb = core::sig::register_callback([this](int) { interrupt(); });
+  _sig_cb = core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
 }
 
 LaunchFixture::~LaunchFixture() noexcept {}

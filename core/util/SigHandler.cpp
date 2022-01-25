@@ -2,41 +2,21 @@
 
 namespace {
 
-::core::SigHandler* _sig_handler = nullptr;
+core::signal::SigHandler* _sig_handler = nullptr;
 
 }  // namespace
 
-namespace core {
-
-SigHandler::CallbackHandle::CallbackHandle(callback_t callback, std::mutex* unlink_mutex)
-    : _callback(std::move(callback)), _unlink_mutex(unlink_mutex) {}
-
-SigHandler::CallbackHandle::~CallbackHandle() noexcept {
-  remove();
-  _unlink_mutex = nullptr;
-}
-
-void SigHandler::CallbackHandle::remove() {
-  std::lock_guard<std::mutex> lg(*_unlink_mutex);
-  unlink();
-}
-
-void SigHandler::CallbackHandle::callback(int signal) {
-  _callback(signal);
-}
+namespace core::signal {
 
 SigHandler::SigHandler() {
-  IPS_VERIFY_S(_sig_handler == nullptr, "SigHandler re-registered.");
+  IPS_VERIFY_S(_sig_handler == nullptr, "SigHandler registered more than once.");
   _sig_handler = this;
   sigset_t ss;
-  sigemptyset(&ss);
-  sigaddset(&ss, SIGINT);
-  pthread_sigmask(SIG_BLOCK, &ss, nullptr);
+  IPS_SYSCALL(sigemptyset(&ss));
+  IPS_SYSCALL(sigaddset(&ss, SIGINT));
+  IPS_SYSCALL(pthread_sigmask(SIG_BLOCK, &ss, nullptr));
 
-  /**
-   * This thread does all signal handling routine.
-   */
-  _t = std::thread([ss, this]() {
+  _t = std::thread([ss, this] {
     timespec ts;
     ts.tv_nsec = 1e8;  // 0.1s
     ts.tv_sec = 0;
@@ -44,87 +24,47 @@ SigHandler::SigHandler() {
 
     for (;;) {
       int err = sigtimedwait(&ss, &si, &ts);
-
-      if (_terminate) {
+      if (_shutdown) {
         break;
       }
-
-      if (err == -1 && errno != EAGAIN) {
-        IPS_TERMINATE();
+      if (err == -1) {
+        if (errno == EAGAIN) {
+          continue;
+        } else {
+          IPS_TERMINATE();
+        }
       }
-
-      if (!_raised && err == -1 && errno == EAGAIN) {
-        continue;
-      }
-
-      if (_raised) {
-        _raised = false;
-      }
-      _registered = true;
-      IPS_INFO("SigHandler: caught interrupt");
-      _callback(si.si_signo);
+      IPS_INFO("SigHandler: caught interrupt.");
+      _interrupted = true;
+      core::event::raise(event::INTERRUPT);
     }
   });
 }
 
 SigHandler::~SigHandler() noexcept {
   if (_t.joinable()) {
-    _terminate = true;
+    _shutdown = true;
     _t.join();
   }
   _sig_handler = nullptr;
 }
 
-void SigHandler::unset() noexcept {
-  _registered = false;
+bool SigHandler::is_set() {
+  return _interrupted;
 }
 
-bool SigHandler::is_set() noexcept {
-  return _registered;
+void SigHandler::unset() {
+  _interrupted = false;
 }
 
-void SigHandler::raise() noexcept {
-  _raised = true;
+bool is_set() {
+  return _sig_handler != nullptr && _sig_handler->is_set();
 }
 
-SigHandler::handle_t SigHandler::register_callback(callback_t callback) {
-  std::lock_guard<std::mutex> lg(_cb_m);
-  auto handle_ptr = std::make_shared<SigHandler::CallbackHandle>(std::move(callback), &_cb_m);
-  _handles_list.push_back(*handle_ptr);
-  return handle_ptr;
-}
-
-void SigHandler::_callback(int signal) {
-  if (_handles_list.empty()) {
-    // If there are no callbacks registered, terminate is called.
-    IPS_TERMINATE("SIGINT");
-  }
-  for (auto it = _handles_list.begin(); it != _handles_list.end();) {
-    (it++)->callback(signal);
+void unset() {
+  if (_sig_handler != nullptr) {
+    _sig_handler->unset();
   }
 }
 
-namespace sig {
-
-SigHandler::handle_t register_callback(SigHandler::callback_t callback) {
-  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
-  return _sig_handler->register_callback(std::move(callback));
-}
-
-bool is_set() noexcept {
-  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
-  return _sig_handler->is_set();
-}
-
-void unset() noexcept {
-  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
-  _sig_handler->unset();
-}
-
-void raise() noexcept {
-  IPS_VERIFY(_sig_handler != nullptr && bool("SigHandler not registered"));
-  _sig_handler->raise();
-}
-
-}  // namespace sig
-}  // namespace core
+}  // namespace core::signal

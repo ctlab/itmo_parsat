@@ -37,10 +37,12 @@ class ParRBSSolve : public Solve {
   std::vector<Minisat::vec<Minisat::Lit>> _build_cartesian_product(
       std::vector<std::vector<std::vector<Minisat::Lit>>>&& non_conflict_assignments);
 
-  static void _raise_for_sbs(int algorithm_id) noexcept;
+  void _raise_for_sbs(int algorithm_id) noexcept;
 
  private:
   ParRBSSolveConfig _cfg;
+  std::atomic_bool _sbs_found{false};
+  std::mutex kek;
 };
 
 }  // namespace core

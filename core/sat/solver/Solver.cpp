@@ -47,6 +47,7 @@ void Solver::prop_assignments(core::domain::USearch assignment_p, prop_callback_
 }
 
 void Solver::interrupt() {
+  IPS_INFO_IF(!_interrupted, "Solver has been interrupted.");
   _interrupted = true;
   _do_interrupt();
 }
