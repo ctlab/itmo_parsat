@@ -1,5 +1,15 @@
 #include "core/util/SigHandler.h"
 
+#ifdef __APPLE__
+
+#define sigtimedwait(ss, si, ...) \
+  [&] {                           \
+    int sig;                      \
+    return sigwait(ss, &sig);     \
+  }()
+
+#endif
+
 namespace {
 
 core::signal::SigHandler* _sig_handler = nullptr;

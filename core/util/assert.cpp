@@ -1,6 +1,12 @@
 #include "core/util/assert.h"
 #include <glog/logging.h>
 
+#ifndef __unix__
+
+#define program_invocation_short_name "unknown"
+
+#endif
+
 namespace {
 
 std::array<char, 65536> print_buf_;
@@ -167,9 +173,10 @@ bool set_sigsegv_handler() {
   ss.ss_flags = 0;
   IPS_SYSCALL(::sigaltstack(&ss, nullptr));
 
-  struct sigaction sa;
+  struct sigaction sa{};
   sa.sa_flags = SA_ONSTACK | SA_SIGINFO;
   sa.sa_sigaction = [](int, siginfo_t* info, void* ctx) noexcept {
+#ifdef __unix__
     auto context = reinterpret_cast<ucontext_t*>(ctx);
     static constexpr int X86_PF_WRITE = 2;
     bool is_write = context->uc_mcontext.gregs[REG_ERR] & X86_PF_WRITE;
@@ -180,10 +187,15 @@ bool set_sigsegv_handler() {
         "Instruction at 0x%zx; Access type: %s",
         reinterpret_cast<std::uintptr_t>(info->si_addr), ip, (is_write ? "write" : "read"));
     std::signal(SIGSEGV, SIG_DFL);
+#else
+    core::assert::_details::panic(
+        __FILE__, __LINE__, "SIGSEGV handler", nullptr, false, "segmentation fault");
+    std::signal(SIGSEGV, SIG_DFL);
+#endif
   };
 
-  IPS_SYSCALL(::sigemptyset(&sa.sa_mask));
-  IPS_SYSCALL(::sigaction(SIGSEGV, &sa, nullptr));
+  IPS_SYSCALL(sigemptyset(&sa.sa_mask));
+  IPS_SYSCALL(sigaction(SIGSEGV, &sa, nullptr));
   return true;
 }
 
