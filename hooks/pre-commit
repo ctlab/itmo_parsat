@@ -45,23 +45,6 @@ EOF
 	exit 1
 fi
 
-if ! [ -x "$(command -v pg_dump)" ]; then
-	cat <<\EOF
-Error: Could not update database snapshot.
-
-Reason: could not find pg_dump command.
-
-If you know what you are doing you can skip this check using:
-
-    git commit --no-verify ...
-EOF
-  exit 1
-else
-    echo "Dumping database (infra_db) snapshot to (infra/resources/snapshot.db)..."
-    pg_dump infra_db > infra/resources/snapshot.db || exit 1
-    git add infra/resources/snapshot.db
-fi
-
 print_ok() {
     echo -e "\033[1;32mOK\033[0m"
 }

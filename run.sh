@@ -3,9 +3,7 @@ set -e
 
 ROOT="$PWD"
 VERBOSE="2"
-DO_ALL=""
-RESOURCES_DIR="./resources"
-
+RESOURCES_DIR="$ROOT/resources"
 CNF_PATH="$ROOT/resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$ROOT/resources/config"
 LOG_CFG_PATH="$ROOT/resources/config/log.json"
@@ -14,14 +12,16 @@ TEST_BIN="$ROOT/bazel-bin/core/test"
 SLV_CFG="naive.json"
 
 INFRA_BIN="$ROOT/bazel-bin/cli/infra"
-INFRA_DIR="./artifacts-infra/"
-INFRA_DB_NAME="infra_db"
+INFRA_DIR="$ROOT/../ips-artifacts"
 INFRA_DB_SETUP="./infra/resources/create_tables.sql"
 
 NEXT_NATIVE=0
 BUILD_DEBUG=""
 RUN_CMD=""
 BUILD_CFG="dev_fast"
+
+export GLOG_minloglevel=0
+export GLOG_logtostderr=1
 
 declare -a order
 declare -A actions
@@ -66,15 +66,15 @@ function do_set_build_mode() {
 }
 
 function do_run_gdb() {
-    RUN_CMD="gdb --args"
+    RUN_CMD+="gdb --args"
 }
 
 function do_run_perf() {
-    RUN_CMD="perf record --call-graph dwarf"
+    RUN_CMD+="perf record --call-graph dwarf"
 }
 
 function do_run_valgrind() {
-    RUN_CMD="valgrind --leak-check=full"
+    RUN_CMD+="valgrind --leak-check=full"
 }
 
 function do_format() {
@@ -109,30 +109,27 @@ function do_set_verbose() {
 }
 
 function do_unit() {
-    GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $TEST_BIN \
-        --verbose $VERBOSE $@
+    $RUN_CMD $TEST_BIN --verbose $VERBOSE $@
 }
 
 function do_infra() {
-    GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $INFRA_BIN \
+    $RUN_CMD $INFRA_BIN \
         --commit $(git rev-parse --verify HEAD) \
         --resources-dir $RESOURCES_DIR \
         --working-dir $INFRA_DIR \
         --exec $SOLVE_BIN \
-        --dbname infra_db \
         $@
 }
 
 function do_solve() {
     if [[ -z "$@" ]]; then
-        GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $SOLVE_BIN \
+        $RUN_CMD $SOLVE_BIN \
             --verbose "$VERBOSE" \
             --input "$CNF_PATH" \
             --config "$CFG_ROOT/$SLV_CFG" \
             --log-config "$LOG_CFG_PATH"
     else
-        GLOG_v=$VERBOSE GLOG_minloglevel=0 GLOG_logtostderr=1 $RUN_CMD $SOLVE_BIN \
-            $@
+        $RUN_CMD $SOLVE_BIN $@
     fi
 }
 
@@ -160,7 +157,7 @@ function parse_options() {
                 ACTION="${actions[$pattern]}"
                 NEEDS_ARG="${needs_arg[$pattern]}"
                 DESC="${descs[$pattern]}"
-                echo "Found: '$1' ~ '$pattern' $DESC"
+                echo "Found: '$pattern' $DESC"
 
                 shift
                 if [[ $NEXT_NATIVE -eq 1 ]]; then
