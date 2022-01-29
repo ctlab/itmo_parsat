@@ -54,11 +54,7 @@ std::string to_string(SatResult result) {
   std::terminate();
 }
 
-LaunchesDao::LaunchesDao(
-    std::string const& dbname, std::string const& user, std::string const& password)
-    : _conn(
-          std::string() + "dbname=" + dbname +
-          (user.empty() ? "" : std::string() + "user=" + user + "password=" + password)) {}
+LaunchesDao::LaunchesDao() : _conn("dbname=infra_db user=ips password=ips host=localhost") {}
 
 LaunchesDao& LaunchesDao::add(LaunchInfo const& launch) {
   std::lock_guard<std::mutex> lg(_m);

@@ -51,8 +51,8 @@ void LaunchFixture::SetUpTestSuite() {
 }
 
 void LaunchFixture::SetUp() {
-  _launches =
-      std::make_unique<infra::domain::LaunchesDao>(config.dbname, config.user, config.password);
+  /* Setup DB connection */
+  _launches = std::make_unique<infra::domain::LaunchesDao>();
   /* Setup directories */
   logs_root = config.working_dir / "logs";
   configs_root = config.working_dir / "configs";

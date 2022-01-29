@@ -29,9 +29,6 @@ class LaunchFixture : public ::testing::Test {
     std::filesystem::path resources_dir{};
     std::filesystem::path working_dir{};
     std::string commit{};
-    std::string dbname{};
-    std::string user{};
-    std::string password{};
     std::vector<std::string> test_groups;
   };
   static Config config;
