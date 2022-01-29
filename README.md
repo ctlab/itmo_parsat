@@ -1,38 +1,44 @@
-# How to build and run
+IPS: Itmo-2021/2 backdoor search based ParSat algorithms.
 
-## Build
+# Setup
+In order to start working with this project, run
 ```console
-$ git clone git@github.com:dzhiblavi/itmo-parsat.git
-$ cd itmo-parsat
-$  ./run.sh -b
+$ ./setup.sh
+```
+This script will prepare all needed symlinks, including Git hooks and utility scripts.
+
+# Docker
+To automatically prepare all need environment (and reproduce the results), you can 
+use docker containers. After setup, run
+```console
+$ ./d
 ```
 
-Build requires `g++-8` or higher. If system `g++` has lower version, use
+This will show you the list of available options to manipulate docker containers and images.
+For example, to start a container and attach to it, simply run
 ```console
-$ CC=gcc-8 CXX=g++-8 ./run.sh -b
-```
-instead of the last command.
-
-## Run
-Generally, everything can be done through `run.sh` script. One can run the following command
-to get the list of what can be done.
-```console
-$ ./run.sh --help
+$ ./d -s -b -r -a
 ```
 
-For example, to run only unit tests with some filter, use
+After attaching to the container, you can close the shell when needed, by calling `exit` command.
+This will not stop the container, you will be able to attach to it later:
 ```console
-$ ./run.sh --build-unit -v 8 -t -- --gtest_filter=*full*
+$ ./d -a
 ```
 
-To run solution with some 'default' configuration, use
+# Running
+After the environment has been prepared (via docker or manually), one can start working with the IPS.
+The `ips` script is designed for it:
 ```console
-$ ./run.sh -b -d -v 8 -s
+$ ./ips
 ```
-
-To run solution with custom input and configuration, use
+will show you the list of options. For example, one can build, then run integrational test (with size 0, the
+minimal one, and test group `common`), via the following command:
 ```console
-$ ./run.sh -b -d -v 8 -- -s --input <input> --config <config>
+$ ./ips -g dev_fast --build-infra -- --run-infra --size 0 --test-groups common --
 ```
-
-Generally, all arguments after `--` are passed to executable (or bazel) through this script.
+where the `-g dev_fast` is build mode. Available build modes are listed in `.bazelrc`.
+Another example. run the solution of the default CNF task with `par_rbs` algorithm:
+```console
+$ ./ips -g dev_fast -b -v 6 -c par_rbs -s
+```
