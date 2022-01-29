@@ -7,3 +7,5 @@ bazel-*
 **/*build*/
 ips-artifacts/
 Dockerfile
+d
+ips

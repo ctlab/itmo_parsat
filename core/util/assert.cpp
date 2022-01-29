@@ -173,7 +173,7 @@ bool set_sigsegv_handler() {
   ss.ss_flags = 0;
   IPS_SYSCALL(::sigaltstack(&ss, nullptr));
 
-  struct sigaction sa{};
+  struct sigaction sa {};
   sa.sa_flags = SA_ONSTACK | SA_SIGINFO;
   sa.sa_sigaction = [](int, siginfo_t* info, void* ctx) noexcept {
 #ifdef __unix__

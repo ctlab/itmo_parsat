@@ -14,9 +14,7 @@ RUN apt update && apt upgrade -y && \
     curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg && \
     mv bazel.gpg /etc/apt/trusted.gpg.d/ && \
     echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
-    apt update && apt install -y vim bazel git libpq5 libpq-dev libpqxx-dev libpqxx-6.4 postgresql-12
+    apt update && apt install -y vim bazel git libpq5 libpq-dev libpqxx-dev libpqxx-6.4 postgresql-12 clang-format doxygen
 
 USER ${user}
-
-RUN echo "alias ips='/home/${user}/itmo-parsat/run.sh'" >> ~/.bashrc
 WORKDIR /home/${user}

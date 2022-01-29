@@ -54,12 +54,14 @@ print_fail() {
     exit 1
 }
 
+RUN="./scripts/run.sh"
+
 hooks=(
-    "./run.sh --format"
-    "./run.sh -g debug --build --build-unit --build-infra"
-    "./run.sh --unit"
-    "./run.sh -v 6 -- --run-infra --size 0 --test-groups common --"
-    "./run.sh --build-doc"
+    "$RUN --format"
+    "$RUN -g debug --build --build-unit --build-infra"
+    "$RUN --unit"
+    "$RUN -v 6 -- --run-infra --size 0 --test-groups common --"
+    "$RUN --build-doc"
 )
 
 echo "Running pre-commit checks..."
