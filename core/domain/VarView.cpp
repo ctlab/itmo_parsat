@@ -10,7 +10,7 @@ int VarView::operator[](int index) const noexcept {
   return _map.at(index);
 }
 
-size_t VarView::size() const noexcept {
+uint32_t VarView::size() const noexcept {
   return _map.size();
 }
 

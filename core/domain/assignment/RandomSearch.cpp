@@ -1,4 +1,5 @@
 #include "core/domain/assignment/RandomSearch.h"
+#include "core/domain/SearchSpace.h"
 
 namespace {
 
@@ -30,8 +31,8 @@ RandomSearch* RandomSearch::clone() const {
 }
 
 USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
-  size_t num_set = std::count(vars.begin(), vars.end(), true);
-  if (num_set <= Search::MAX_VARS_FULL_SEARCH) {
+  uint32_t num_set = std::count(vars.begin(), vars.end(), true);
+  if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
     return USearch(new UniqueSearch(var_view, vars, total));
   } else {
     return USearch(new RandomSearch(var_view, vars, total));

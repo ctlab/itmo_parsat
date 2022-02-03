@@ -10,6 +10,7 @@
 #include "core/sat/minisat/minisat/mtl/Vec.h"
 #include "core/sat/minisat/minisat/core/SolverTypes.h"
 #include "core/domain/VarView.h"
+#include "core/domain/SearchSpace.h"
 #include "core/util/assert.h"
 
 namespace core::domain {
@@ -25,9 +26,7 @@ using RSearch = std::shared_ptr<Search>;
  */
 class Search {
  public:
-  static constexpr int MAX_VARS_FULL_SEARCH = 63;
-
-  explicit Search(size_t total);
+  explicit Search(uint64_t total);
 
  public:
   virtual ~Search() = default;
@@ -54,7 +53,7 @@ class Search {
   /**
    * @return the total number of steps.
    */
-  [[nodiscard]] size_t size() const noexcept;
+  [[nodiscard]] uint64_t size() const noexcept;
 
   /**
    * @return equivalent to Search::size() == 0.

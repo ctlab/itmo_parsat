@@ -5,7 +5,7 @@
 namespace core::domain {
 
 ModifyingSearch::ModifyingSearch(
-    VarView const& var_view, std::vector<bool> const& vars, size_t total)
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
     : Search(total) {
   for (int i = 0; i < (int) vars.size(); ++i) {
     if (vars[i]) {

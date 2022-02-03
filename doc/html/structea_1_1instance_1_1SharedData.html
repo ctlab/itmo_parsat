@@ -83,7 +83,13 @@ $(function() {
 Collaboration diagram for ea::instance::SharedData:</div>
 <div class="dyncontent">
 <div class="center"><img src="structea_1_1instance_1_1SharedData__coll__graph.png" border="0" usemap="#ea_1_1instance_1_1SharedData_coll__map" alt="Collaboration graph"/></div>
-<!-- MAP 0 -->
+<map name="ea_1_1instance_1_1SharedData_coll__map" id="ea_1_1instance_1_1SharedData_coll__map">
+<area shape="rect" title="This struct is shared between all instances under the same algorithm." alt="" coords="364,108,549,135"/>
+<area shape="rect" href="structcore_1_1domain_1_1SearchSpace.html" title=" " alt="" coords="5,5,204,32"/>
+<area shape="rect" href="classcore_1_1LRUCache.html" title=" " alt="" coords="25,56,184,112"/>
+<area shape="rect" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html" title="Sampling configuration." alt="" coords="12,137,197,178"/>
+<area shape="rect" href="classcore_1_1domain_1_1VarView.html" title="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ..." alt="" coords="20,203,189,229"/>
+</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -105,10 +111,10 @@ struct <a class="el" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.
 <a class="el" href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#ad3fd332292f9de8ed19732f05da69f3b">var_view</a> {}</td></tr>
 <tr class="memdesc:ad3fd332292f9de8ed19732f05da69f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable subset mapping. <br /></td></tr>
 <tr class="separator:ad3fd332292f9de8ed19732f05da69f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a460de5ac8c80279aa3124ab84c940809"><td class="memItemLeft" align="right" valign="top"><a id="a460de5ac8c80279aa3124ab84c940809"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a460de5ac8c80279aa3124ab84c940809">inaccurate_points</a> = 0</td></tr>
-<tr class="memdesc:a460de5ac8c80279aa3124ab84c940809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inaccurate number of points. It is &lsquo;inaccurate&rsquo; because is calculated as number of Instance::_calc_fitness calls, which happen on cache-misses. Though, we limit the size of a cache, so this number may be greater than the actual number of visited points. <br /></td></tr>
-<tr class="separator:a460de5ac8c80279aa3124ab84c940809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4f00b9ff36daf549d69bd255a47ba8"><td class="memItemLeft" align="right" valign="top"><a id="aca4f00b9ff36daf549d69bd255a47ba8"></a>
+<a class="el" href="structcore_1_1domain_1_1SearchSpace.html">core::domain::SearchSpace</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">search_space</a></td></tr>
+<tr class="memdesc:aca4f00b9ff36daf549d69bd255a47ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search space info. <br /></td></tr>
+<tr class="separator:aca4f00b9ff36daf549d69bd255a47ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f87b9a4c998717264f985d3a9f20bd6"><td class="memItemLeft" align="right" valign="top"><a id="a4f87b9a4c998717264f985d3a9f20bd6"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">omega_x</a> {}</td></tr>
 <tr class="memdesc:a4f87b9a4c998717264f985d3a9f20bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner configuration parameter. <br /></td></tr>

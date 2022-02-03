@@ -5,6 +5,7 @@
 
 #include "core/evol/instance/Fitness.h"
 #include "core/domain/VarView.h"
+#include "core/domain/SearchSpace.h"
 #include "core/util/LRUCache.h"
 
 namespace ea::instance {
@@ -32,13 +33,9 @@ struct SharedData {
   core::domain::VarView var_view{};
 
   /**
-   * @brief Inaccurate number of points.
-   * It is `inaccurate' because is calculated as number
-   * of Instance::_calc_fitness calls, which happen on cache-misses.
-   * Though, we limit the size of a cache, so this number
-   * may be greater than the actual number of visited points.
+   * @brief Search space info.
    */
-  uint32_t inaccurate_points = 0;
+  core::domain::SearchSpace search_space;
 
   /**
    * @brief Inner configuration parameter.

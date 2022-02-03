@@ -33,7 +33,7 @@ class VarView {
   /**
    * @return The size of mapping, i.e. the number of distinct keys.
    */
-  [[nodiscard]] size_t size() const noexcept;
+  [[nodiscard]] uint32_t size() const noexcept;
 
  private:
   std::unordered_map<int, int> _map;

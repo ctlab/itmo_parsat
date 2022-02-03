@@ -74,31 +74,33 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The class representing variables assignment. Variables are meant as keys in variable mapping <a class="el" href="classcore_1_1domain_1_1VarView.html" title="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...">core::domain::VarView</a>.  
+<p>The class representing variables set. Variables are meant as keys in variable mapping <a class="el" href="classcore_1_1domain_1_1VarView.html" title="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...">core::domain::VarView</a>.  
  <a href="structcore_1_1domain_1_1Vars.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Vars_8h_source.html">Vars.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af097b09fe211e52ff5cc76d39382f549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#af097b09fe211e52ff5cc76d39382f549">flip</a> (size_t pos)</td></tr>
-<tr class="memdesc:af097b09fe211e52ff5cc76d39382f549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips the value for the specified variable index.  <a href="structcore_1_1domain_1_1Vars.html#af097b09fe211e52ff5cc76d39382f549">More...</a><br /></td></tr>
-<tr class="separator:af097b09fe211e52ff5cc76d39382f549"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedd4bda848bf20a73d7df1212cd72b77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#aedd4bda848bf20a73d7df1212cd72b77">resize</a> (size_t size)</td></tr>
-<tr class="memdesc:aedd4bda848bf20a73d7df1212cd72b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the size of assignment.  <a href="structcore_1_1domain_1_1Vars.html#aedd4bda848bf20a73d7df1212cd72b77">More...</a><br /></td></tr>
-<tr class="separator:aedd4bda848bf20a73d7df1212cd72b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e7b9f01b6c82c235ed4c7ab9a3d33c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#aa3e7b9f01b6c82c235ed4c7ab9a3d33c">flip</a> (uint32_t pos)</td></tr>
+<tr class="memdesc:aa3e7b9f01b6c82c235ed4c7ab9a3d33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips the value for the specified variable index.  <a href="structcore_1_1domain_1_1Vars.html#aa3e7b9f01b6c82c235ed4c7ab9a3d33c">More...</a><br /></td></tr>
+<tr class="separator:aa3e7b9f01b6c82c235ed4c7ab9a3d33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab120d4858c192759ed2ed906751f9585"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#ab120d4858c192759ed2ed906751f9585">resize</a> (uint32_t <a class="el" href="structcore_1_1domain_1_1Vars.html#aa6946d000077dbf381ccc1a250492fc3">size</a>)</td></tr>
+<tr class="memdesc:ab120d4858c192759ed2ed906751f9585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the size of assignment.  <a href="structcore_1_1domain_1_1Vars.html#ab120d4858c192759ed2ed906751f9585">More...</a><br /></td></tr>
+<tr class="separator:ab120d4858c192759ed2ed906751f9585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94574704897c34d81cf5ed3671878c24"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt; const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#a94574704897c34d81cf5ed3671878c24">get_mask</a> () const noexcept</td></tr>
 <tr class="separator:a94574704897c34d81cf5ed3671878c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47da05e76089ffd5cc65d5f71a159d3f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#a47da05e76089ffd5cc65d5f71a159d3f">get_mask</a> () noexcept</td></tr>
 <tr class="separator:a47da05e76089ffd5cc65d5f71a159d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc32e713c31ecace114c16aae078031f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#adc32e713c31ecace114c16aae078031f">map_to_vars</a> (<a class="el" href="classcore_1_1domain_1_1VarView.html">VarView</a> const &amp;var_view) const</td></tr>
 <tr class="separator:adc32e713c31ecace114c16aae078031f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6946d000077dbf381ccc1a250492fc3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1domain_1_1Vars.html#aa6946d000077dbf381ccc1a250492fc3">size</a> () const noexcept</td></tr>
+<tr class="separator:aa6946d000077dbf381ccc1a250492fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The class representing variables assignment. Variables are meant as keys in variable mapping <a class="el" href="classcore_1_1domain_1_1VarView.html" title="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...">core::domain::VarView</a>. </p>
+<div class="textblock"><p>The class representing variables set. Variables are meant as keys in variable mapping <a class="el" href="classcore_1_1domain_1_1VarView.html" title="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...">core::domain::VarView</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="af097b09fe211e52ff5cc76d39382f549"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af097b09fe211e52ff5cc76d39382f549">&#9670;&nbsp;</a></span>flip()</h2>
+<a id="aa3e7b9f01b6c82c235ed4c7ab9a3d33c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3e7b9f01b6c82c235ed4c7ab9a3d33c">&#9670;&nbsp;</a></span>flip()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -106,7 +108,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void core::domain::Vars::flip </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -200,8 +202,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aedd4bda848bf20a73d7df1212cd72b77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedd4bda848bf20a73d7df1212cd72b77">&#9670;&nbsp;</a></span>resize()</h2>
+<a id="ab120d4858c192759ed2ed906751f9585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab120d4858c192759ed2ed906751f9585">&#9670;&nbsp;</a></span>resize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +211,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void core::domain::Vars::resize </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>size</em></td><td>)</td>
           <td></td>
         </tr>
@@ -223,6 +225,32 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa6946d000077dbf381ccc1a250492fc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6946d000077dbf381ccc1a250492fc3">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t core::domain::Vars::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the number of variables included in variables set. </dd></dl>
 
 </div>
 </div>

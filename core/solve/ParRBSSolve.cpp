@@ -136,7 +136,7 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
   if (_sbs_found || _is_interrupted()) {
     return {};
   }
-  std::vector<size_t> non_conflict_sizes;
+  std::vector<uint32_t> non_conflict_sizes;
   for (auto const& i_non_conflict_assignments : non_conflict_assignments) {
     non_conflict_sizes.push_back(i_non_conflict_assignments.size());
   }
@@ -146,14 +146,14 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
 
   // Build cartesian product of non-conflict assumptions.
   uint32_t max_non_conflict = _cfg.max_unpropagated();
-  size_t index = 0;
+  uint32_t index = 0;
   while (index < non_conflict_assignments.size() &&
          non_conflict_assignments[index].size() > max_non_conflict) {
     ++index;
   }
 
   std::vector<std::vector<Minisat::Lit>> std_cartesian;
-  size_t cartesian_expected_size;
+  uint32_t cartesian_expected_size;
 
   if (index == non_conflict_assignments.size()) {
     // All rho-backdoors have a lot of non-conflict assignments, so
@@ -173,8 +173,8 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
         continue;
       }
       cartesian_expected_size *= non_conflict_assignments[index].size();
-      size_t old_assumptions_size = std_cartesian.size();
-      for (size_t j = 0; j < old_assumptions_size; ++j) {
+      uint32_t old_assumptions_size = std_cartesian.size();
+      for (uint32_t j = 0; j < old_assumptions_size; ++j) {
         for (auto& i_non_conflict_assignments : non_conflict_assignments[index]) {
           auto j_assumption = std_cartesian[j];
           j_assumption.insert(

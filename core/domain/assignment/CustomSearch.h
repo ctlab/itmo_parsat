@@ -30,7 +30,7 @@ class CustomSearch : public Search {
   [[nodiscard]] CustomSearch* clone() const override;
 
  private:
-  size_t _idx = 0;
+  uint64_t _idx = 0;
   std::vector<Minisat::vec<Minisat::Lit>> _assignments;
 };
 

@@ -52,6 +52,7 @@ message ResourceLimitConfig {
 
 message FitnessLimitConfig {
   double lowest_fitness = 1;
+  uint32 max_size = 2;
 }
 
 message PointsLimitConfig {

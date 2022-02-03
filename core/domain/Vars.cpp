@@ -2,11 +2,11 @@
 
 namespace core::domain {
 
-void Vars::flip(size_t pos) {
+void Vars::flip(uint32_t pos) {
   _bit_mask[pos] = !_bit_mask[pos];
 }
 
-void Vars::resize(size_t size) {
+void Vars::resize(uint32_t size) {
   _bit_mask.resize(size, false);
 }
 
@@ -21,12 +21,16 @@ std::vector<bool>& Vars::get_mask() noexcept {
 std::vector<int> Vars::map_to_vars(VarView const& var_view) const {
   std::vector<int> vars;
   auto const& mask = _bit_mask;
-  for (size_t i = 0; i < _bit_mask.size(); ++i) {
+  for (uint32_t i = 0; i < _bit_mask.size(); ++i) {
     if (mask[i]) {
       vars.push_back(var_view[(int) i]);
     }
   }
   return vars;
+}
+
+uint32_t Vars::size() const noexcept {
+  return std::count(_bit_mask.begin(), _bit_mask.end(), true);
 }
 
 }  // namespace core::domain

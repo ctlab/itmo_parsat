@@ -44,11 +44,11 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   std::sort(stats.begin(), stats.end());
   auto it = stats.crbegin();
 
-  for (size_t i = 0; i < max_watched_count; ++i, ++it) {
+  for (uint32_t i = 0; i < max_watched_count; ++i, ++it) {
     _shared_data->var_view.map_var((int) i, it->second);
   }
 
-  _total_points = _shared_data->var_view.size() > 63 ? -1 : (1ULL << _shared_data->var_view.size());
+  _shared_data->search_space.reset(_shared_data->var_view.size());
   if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
     for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
@@ -75,7 +75,7 @@ void Algorithm::prepare() {
 void Algorithm::_prepare() {}
 
 void Algorithm::process() {
-  size_t iteration = 0;
+  uint64_t iteration = 0;
   _limit->start();
   do {
     IPS_TRACE(step());
@@ -111,12 +111,12 @@ instance::SharedData& Algorithm::get_shared_data() noexcept {
   return *_shared_data;
 }
 
-size_t Algorithm::inaccurate_points() const noexcept {
-  return _shared_data->inaccurate_points;
+uint64_t Algorithm::inaccurate_points() const noexcept {
+  return _shared_data->search_space.inaccurate_visited_points;
 }
 
 bool Algorithm::has_unvisited_points() const noexcept {
-  return _total_points > _shared_data->cache.size();
+  return _shared_data->search_space.has_unvisited_points();
 }
 
 }  // namespace ea::algorithm

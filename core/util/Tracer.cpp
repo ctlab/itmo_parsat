@@ -48,7 +48,7 @@ Tracer& Tracer::instance() {
   return _tracer;
 }
 
-void Tracer::print_summary(size_t num_quantiles) {
+void Tracer::print_summary(uint32_t num_quantiles) {
   std::stringstream info;
   info << std::fixed;
   info << std::setprecision(5);
@@ -63,7 +63,7 @@ void Tracer::print_summary(size_t num_quantiles) {
       float total_time = std::reduce(stats.durations.begin(), stats.durations.end(), 0.f);
       float min = *std::min_element(stats.durations.begin(), stats.durations.end());
       float max = *std::max_element(stats.durations.begin(), stats.durations.end());
-      size_t quantiles = std::min(num_quantiles, stats.durations.size());
+      size_t quantiles = std::min(num_quantiles, (uint32_t) stats.durations.size());
       size_t step = stats.durations.size() / quantiles;
 
       info << "\n\t[Quantiles]\t" << name << ": total samples: " << stats.count

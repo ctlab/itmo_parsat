@@ -1560,6 +1560,7 @@ class FitnessLimitConfig PROTOBUF_FINAL
 
   enum : int {
     kLowestFitnessFieldNumber = 1,
+    kMaxSizeFieldNumber = 2,
   };
   // double lowest_fitness = 1;
   void clear_lowest_fitness();
@@ -1571,6 +1572,16 @@ class FitnessLimitConfig PROTOBUF_FINAL
   void _internal_set_lowest_fitness(double value);
 
  public:
+  // uint32 max_size = 2;
+  void clear_max_size();
+  ::PROTOBUF_NAMESPACE_ID::uint32 max_size() const;
+  void set_max_size(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_max_size() const;
+  void _internal_set_max_size(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ public:
   // @@protoc_insertion_point(class_scope:FitnessLimitConfig)
  private:
   class _Internal;
@@ -1580,6 +1591,7 @@ class FitnessLimitConfig PROTOBUF_FINAL
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   double lowest_fitness_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 max_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -5957,6 +5969,25 @@ inline void FitnessLimitConfig::_internal_set_lowest_fitness(double value) {
 inline void FitnessLimitConfig::set_lowest_fitness(double value) {
   _internal_set_lowest_fitness(value);
   // @@protoc_insertion_point(field_set:FitnessLimitConfig.lowest_fitness)
+}
+
+// uint32 max_size = 2;
+inline void FitnessLimitConfig::clear_max_size() {
+  max_size_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 FitnessLimitConfig::_internal_max_size() const {
+  return max_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 FitnessLimitConfig::max_size() const {
+  // @@protoc_insertion_point(field_get:FitnessLimitConfig.max_size)
+  return _internal_max_size();
+}
+inline void FitnessLimitConfig::_internal_set_max_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  max_size_ = value;
+}
+inline void FitnessLimitConfig::set_max_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_max_size(value);
+  // @@protoc_insertion_point(field_set:FitnessLimitConfig.max_size)
 }
 
 // -------------------------------------------------------------------

@@ -12,8 +12,8 @@ namespace ea::instance {
  */
 struct Fitness {
   double rho;
-  int32_t size;
-  int32_t pow_nr;
+  uint32_t size;
+  uint32_t pow_nr;
   uint32_t samples;
 
   /**

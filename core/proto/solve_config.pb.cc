@@ -704,6 +704,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::FitnessLimitConfig, lowest_fitness_),
+        PROTOBUF_FIELD_OFFSET(::FitnessLimitConfig, max_size_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::PointsLimitConfig, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -852,24 +853,24 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
     {46, -1, sizeof(::SolverConfig)},
     {54, -1, sizeof(::ResourceLimitConfig)},
     {61, -1, sizeof(::FitnessLimitConfig)},
-    {67, -1, sizeof(::PointsLimitConfig)},
-    {73, -1, sizeof(::ConjLimitConfig)},
-    {79, -1, sizeof(::LimitConfig)},
-    {89, -1, sizeof(::UniformMutationConfig)},
-    {95, -1, sizeof(::DoerrMutationConfig)},
-    {101, -1, sizeof(::MutationConfig)},
-    {109, -1, sizeof(::CrossoverConfig)},
-    {115, -1, sizeof(::SelectorConfig)},
-    {121, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
-    {129, -1, sizeof(::InstanceConfig)},
-    {138, -1, sizeof(::BaseAlgorithmConfig)},
-    {146, -1, sizeof(::EAAlgorithmConfig)},
-    {154, -1, sizeof(::GAAlgorithmConfig)},
-    {165, -1, sizeof(::AlgorithmConfig)},
-    {173, -1, sizeof(::NaiveSolveConfig)},
-    {179, -1, sizeof(::RBSSolveConfig)},
-    {186, -1, sizeof(::ParRBSSolveConfig)},
-    {195, -1, sizeof(::SolveConfig)},
+    {68, -1, sizeof(::PointsLimitConfig)},
+    {74, -1, sizeof(::ConjLimitConfig)},
+    {80, -1, sizeof(::LimitConfig)},
+    {90, -1, sizeof(::UniformMutationConfig)},
+    {96, -1, sizeof(::DoerrMutationConfig)},
+    {102, -1, sizeof(::MutationConfig)},
+    {110, -1, sizeof(::CrossoverConfig)},
+    {116, -1, sizeof(::SelectorConfig)},
+    {122, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
+    {130, -1, sizeof(::InstanceConfig)},
+    {139, -1, sizeof(::BaseAlgorithmConfig)},
+    {147, -1, sizeof(::EAAlgorithmConfig)},
+    {155, -1, sizeof(::GAAlgorithmConfig)},
+    {166, -1, sizeof(::AlgorithmConfig)},
+    {174, -1, sizeof(::NaiveSolveConfig)},
+    {180, -1, sizeof(::RBSSolveConfig)},
+    {187, -1, sizeof(::ParRBSSolveConfig)},
+    {196, -1, sizeof(::SolveConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const* const file_default_instances[] = {
@@ -944,59 +945,60 @@ const char
         "SimpSolverConfig\022+\n\021par_solver_config\030\005 "
         "\001(\0132\020.ParSolverConfig\"F\n\023ResourceLimitCo"
         "nfig\022\027\n\017memory_limit_kb\030\001 \001(\r\022\026\n\016time_li"
-        "mit_sec\030\002 \001(\r\",\n\022FitnessLimitConfig\022\026\n\016l"
-        "owest_fitness\030\001 \001(\001\"/\n\021PointsLimitConfig"
-        "\022\032\n\022max_points_visited\030\001 \001(\r\"5\n\017ConjLimi"
-        "tConfig\022\"\n\014limit_config\030\001 \003(\0132\014.LimitCon"
-        "fig\"\347\001\n\013LimitConfig\022\022\n\nlimit_type\030\001 \001(\t\022"
-        "3\n\025resource_limit_config\030\002 \001(\0132\024.Resourc"
-        "eLimitConfig\0221\n\024fitness_limit_config\030\003 \001"
-        "(\0132\023.FitnessLimitConfig\022+\n\021conj_limit_co"
-        "nfig\030\004 \001(\0132\020.ConjLimitConfig\022/\n\023points_l"
-        "imit_config\030\005 \001(\0132\022.PointsLimitConfig\"&\n"
-        "\025UniformMutationConfig\022\r\n\005scale\030\001 \001(\001\"#\n"
-        "\023DoerrMutationConfig\022\014\n\004beta\030\001 \001(\001\"\225\001\n\016M"
-        "utationConfig\022\025\n\rmutation_type\030\001 \001(\t\0227\n\027"
-        "uniform_mutation_config\030\002 \001(\0132\026.UniformM"
-        "utationConfig\0223\n\025doerr_mutation_config\030\003"
-        " \001(\0132\024.DoerrMutationConfig\")\n\017CrossoverC"
-        "onfig\022\026\n\016crossover_type\030\001 \001(\t\"\'\n\016Selecto"
-        "rConfig\022\025\n\rselector_type\030\001 \001(\t\"\332\001\n\016Insta"
-        "nceConfig\022\017\n\007omega_x\030\001 \001(\r\022\026\n\016heuristic_"
-        "size\030\002 \001(\r\022\026\n\016max_cache_size\030\003 \001(\r\022;\n\017sa"
-        "mpling_config\030\004 \001(\0132\".InstanceConfig.Sam"
-        "plingSizeConfig\032J\n\022SamplingSizeConfig\022\022\n"
-        "\nbase_count\030\001 \001(\004\022\021\n\tmax_steps\030\002 \001(\r\022\r\n\005"
-        "scale\030\003 \001(\001\"\211\001\n\023BaseAlgorithmConfig\022$\n\rs"
-        "olver_config\030\001 \001(\0132\r.SolverConfig\022\"\n\014lim"
-        "it_config\030\002 \001(\0132\014.LimitConfig\022(\n\017instanc"
-        "e_config\030\003 \001(\0132\017.InstanceConfig\"\234\001\n\021EAAl"
-        "gorithmConfig\022(\n\017mutation_config\030\001 \001(\0132\017"
-        ".MutationConfig\022(\n\017selector_config\030\002 \001(\013"
-        "2\017.SelectorConfig\0223\n\025base_algorithm_conf"
-        "ig\030\003 \001(\0132\024.BaseAlgorithmConfig\"\336\001\n\021GAAlg"
-        "orithmConfig\022\t\n\001q\030\004 \001(\r\022\t\n\001h\030\005 \001(\r\022(\n\017mu"
-        "tation_config\030\001 \001(\0132\017.MutationConfig\022*\n\020"
-        "crossover_config\030\002 \001(\0132\020.CrossoverConfig"
-        "\022(\n\017selector_config\030\003 \001(\0132\017.SelectorConf"
-        "ig\0223\n\025base_algorithm_config\030\006 \001(\0132\024.Base"
-        "AlgorithmConfig\"\213\001\n\017AlgorithmConfig\022\026\n\016a"
-        "lgorithm_type\030\001 \001(\t\022/\n\023ea_algorithm_conf"
-        "ig\030\003 \001(\0132\022.EAAlgorithmConfig\022/\n\023ga_algor"
-        "ithm_config\030\004 \001(\0132\022.GAAlgorithmConfig\"8\n"
-        "\020NaiveSolveConfig\022$\n\rsolver_config\030\001 \001(\013"
-        "2\r.SolverConfig\"b\n\016RBSSolveConfig\022*\n\020alg"
-        "orithm_config\030\001 \001(\0132\020.AlgorithmConfig\022$\n"
-        "\rsolver_config\030\002 \001(\0132\r.SolverConfig\"\230\001\n\021"
-        "ParRBSSolveConfig\022+\n\021algorithm_configs\030\001"
-        " \003(\0132\020.AlgorithmConfig\022$\n\rsolver_config\030"
-        "\002 \001(\0132\r.SolverConfig\022\026\n\016num_algorithms\030\004"
-        " \001(\r\022\030\n\020max_unpropagated\030\005 \001(\r\"\302\001\n\013Solve"
-        "Config\022\022\n\nsolve_type\030\001 \001(\t\022\023\n\013random_see"
-        "d\030\002 \001(\r\022-\n\022naive_solve_config\030\003 \001(\0132\021.Na"
-        "iveSolveConfig\022)\n\020rbs_solve_config\030\004 \001(\013"
-        "2\017.RBSSolveConfig\0220\n\024par_rbs_solve_confi"
-        "g\030\005 \001(\0132\022.ParRBSSolveConfigb\006proto3";
+        "mit_sec\030\002 \001(\r\">\n\022FitnessLimitConfig\022\026\n\016l"
+        "owest_fitness\030\001 \001(\001\022\020\n\010max_size\030\002 \001(\r\"/\n"
+        "\021PointsLimitConfig\022\032\n\022max_points_visited"
+        "\030\001 \001(\r\"5\n\017ConjLimitConfig\022\"\n\014limit_confi"
+        "g\030\001 \003(\0132\014.LimitConfig\"\347\001\n\013LimitConfig\022\022\n"
+        "\nlimit_type\030\001 \001(\t\0223\n\025resource_limit_conf"
+        "ig\030\002 \001(\0132\024.ResourceLimitConfig\0221\n\024fitnes"
+        "s_limit_config\030\003 \001(\0132\023.FitnessLimitConfi"
+        "g\022+\n\021conj_limit_config\030\004 \001(\0132\020.ConjLimit"
+        "Config\022/\n\023points_limit_config\030\005 \001(\0132\022.Po"
+        "intsLimitConfig\"&\n\025UniformMutationConfig"
+        "\022\r\n\005scale\030\001 \001(\001\"#\n\023DoerrMutationConfig\022\014"
+        "\n\004beta\030\001 \001(\001\"\225\001\n\016MutationConfig\022\025\n\rmutat"
+        "ion_type\030\001 \001(\t\0227\n\027uniform_mutation_confi"
+        "g\030\002 \001(\0132\026.UniformMutationConfig\0223\n\025doerr"
+        "_mutation_config\030\003 \001(\0132\024.DoerrMutationCo"
+        "nfig\")\n\017CrossoverConfig\022\026\n\016crossover_typ"
+        "e\030\001 \001(\t\"\'\n\016SelectorConfig\022\025\n\rselector_ty"
+        "pe\030\001 \001(\t\"\332\001\n\016InstanceConfig\022\017\n\007omega_x\030\001"
+        " \001(\r\022\026\n\016heuristic_size\030\002 \001(\r\022\026\n\016max_cach"
+        "e_size\030\003 \001(\r\022;\n\017sampling_config\030\004 \001(\0132\"."
+        "InstanceConfig.SamplingSizeConfig\032J\n\022Sam"
+        "plingSizeConfig\022\022\n\nbase_count\030\001 \001(\004\022\021\n\tm"
+        "ax_steps\030\002 \001(\r\022\r\n\005scale\030\003 \001(\001\"\211\001\n\023BaseAl"
+        "gorithmConfig\022$\n\rsolver_config\030\001 \001(\0132\r.S"
+        "olverConfig\022\"\n\014limit_config\030\002 \001(\0132\014.Limi"
+        "tConfig\022(\n\017instance_config\030\003 \001(\0132\017.Insta"
+        "nceConfig\"\234\001\n\021EAAlgorithmConfig\022(\n\017mutat"
+        "ion_config\030\001 \001(\0132\017.MutationConfig\022(\n\017sel"
+        "ector_config\030\002 \001(\0132\017.SelectorConfig\0223\n\025b"
+        "ase_algorithm_config\030\003 \001(\0132\024.BaseAlgorit"
+        "hmConfig\"\336\001\n\021GAAlgorithmConfig\022\t\n\001q\030\004 \001("
+        "\r\022\t\n\001h\030\005 \001(\r\022(\n\017mutation_config\030\001 \001(\0132\017."
+        "MutationConfig\022*\n\020crossover_config\030\002 \001(\013"
+        "2\020.CrossoverConfig\022(\n\017selector_config\030\003 "
+        "\001(\0132\017.SelectorConfig\0223\n\025base_algorithm_c"
+        "onfig\030\006 \001(\0132\024.BaseAlgorithmConfig\"\213\001\n\017Al"
+        "gorithmConfig\022\026\n\016algorithm_type\030\001 \001(\t\022/\n"
+        "\023ea_algorithm_config\030\003 \001(\0132\022.EAAlgorithm"
+        "Config\022/\n\023ga_algorithm_config\030\004 \001(\0132\022.GA"
+        "AlgorithmConfig\"8\n\020NaiveSolveConfig\022$\n\rs"
+        "olver_config\030\001 \001(\0132\r.SolverConfig\"b\n\016RBS"
+        "SolveConfig\022*\n\020algorithm_config\030\001 \001(\0132\020."
+        "AlgorithmConfig\022$\n\rsolver_config\030\002 \001(\0132\r"
+        ".SolverConfig\"\230\001\n\021ParRBSSolveConfig\022+\n\021a"
+        "lgorithm_configs\030\001 \003(\0132\020.AlgorithmConfig"
+        "\022$\n\rsolver_config\030\002 \001(\0132\r.SolverConfig\022\026"
+        "\n\016num_algorithms\030\004 \001(\r\022\030\n\020max_unpropagat"
+        "ed\030\005 \001(\r\"\302\001\n\013SolveConfig\022\022\n\nsolve_type\030\001"
+        " \001(\t\022\023\n\013random_seed\030\002 \001(\r\022-\n\022naive_solve"
+        "_config\030\003 \001(\0132\021.NaiveSolveConfig\022)\n\020rbs_"
+        "solve_config\030\004 \001(\0132\017.RBSSolveConfig\0220\n\024p"
+        "ar_rbs_solve_config\030\005 \001(\0132\022.ParRBSSolveC"
+        "onfigb\006proto3";
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* const
     descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps[1] = {};
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase* const
@@ -1033,7 +1035,7 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
         false,
         descriptor_table_protodef_core_2fproto_2fsolve_5fconfig_2eproto,
         "core/proto/solve_config.proto",
-        2995,
+        3013,
         &descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_once,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_sccs,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps,
@@ -3077,12 +3079,20 @@ FitnessLimitConfig::FitnessLimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 FitnessLimitConfig::FitnessLimitConfig(const FitnessLimitConfig& from)
     : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  lowest_fitness_ = from.lowest_fitness_;
+  ::memcpy(
+      &lowest_fitness_, &from.lowest_fitness_,
+      static_cast<size_t>(
+          reinterpret_cast<char*>(&max_size_) - reinterpret_cast<char*>(&lowest_fitness_)) +
+          sizeof(max_size_));
   // @@protoc_insertion_point(copy_constructor:FitnessLimitConfig)
 }
 
 void FitnessLimitConfig::SharedCtor() {
-  lowest_fitness_ = 0;
+  ::memset(
+      &lowest_fitness_, 0,
+      static_cast<size_t>(
+          reinterpret_cast<char*>(&max_size_) - reinterpret_cast<char*>(&lowest_fitness_)) +
+          sizeof(max_size_));
 }
 
 FitnessLimitConfig::~FitnessLimitConfig() {
@@ -3115,7 +3125,11 @@ void FitnessLimitConfig::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  lowest_fitness_ = 0;
+  ::memset(
+      &lowest_fitness_, 0,
+      static_cast<size_t>(
+          reinterpret_cast<char*>(&max_size_) - reinterpret_cast<char*>(&lowest_fitness_)) +
+          sizeof(max_size_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3136,6 +3150,14 @@ const char* FitnessLimitConfig::_InternalParse(
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 9)) {
           lowest_fitness_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 max_size = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          max_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -3176,6 +3198,13 @@ failure:
         1, this->_internal_lowest_fitness(), target);
   }
 
+  // uint32 max_size = 2;
+  if (this->max_size() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_max_size(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
@@ -3197,6 +3226,12 @@ size_t FitnessLimitConfig::ByteSizeLong() const {
   // double lowest_fitness = 1;
   if (!(this->lowest_fitness() <= 0 && this->lowest_fitness() >= 0)) {
     total_size += 1 + 8;
+  }
+
+  // uint32 max_size = 2;
+  if (this->max_size() != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+                          this->_internal_max_size());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3232,6 +3267,9 @@ void FitnessLimitConfig::MergeFrom(const FitnessLimitConfig& from) {
   if (!(from.lowest_fitness() <= 0 && from.lowest_fitness() >= 0)) {
     _internal_set_lowest_fitness(from._internal_lowest_fitness());
   }
+  if (from.max_size() != 0) {
+    _internal_set_max_size(from._internal_max_size());
+  }
 }
 
 void FitnessLimitConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -3257,7 +3295,10 @@ bool FitnessLimitConfig::IsInitialized() const {
 void FitnessLimitConfig::InternalSwap(FitnessLimitConfig* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  swap(lowest_fitness_, other->lowest_fitness_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FitnessLimitConfig, max_size_) + sizeof(FitnessLimitConfig::max_size_) -
+      PROTOBUF_FIELD_OFFSET(FitnessLimitConfig, lowest_fitness_)>(
+      reinterpret_cast<char*>(&lowest_fitness_), reinterpret_cast<char*>(&other->lowest_fitness_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata FitnessLimitConfig::GetMetadata() const {

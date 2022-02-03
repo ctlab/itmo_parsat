@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inaccurate_5fpoints_222',['inaccurate_points',['../structea_1_1instance_1_1SharedData.html#a460de5ac8c80279aa3124ab84c940809',1,'ea::instance::SharedData']]]
+  ['max_5flog_5ftypes_225',['MAX_LOG_TYPES',['../classcore_1_1Logger.html#a5499e19735646fda6dd16eed350f6e00',1,'core::Logger']]]
 ];

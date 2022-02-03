@@ -67,9 +67,10 @@
                                         }
                                     },
                                     {
-                                        "limit_type": "PointsLimit",
-                                        "points_limit_config": {
-                                            "max_points_visited": 6000
+                                        "limit_type": "FitnessLimit",
+                                        "fitness_limit_config": {
+                                            "lowest_fitness": 0.97,
+                                            "max_size": 16
                                         }
                                     }
                                 ]
@@ -80,7 +81,7 @@
                             "heuristic_size": 200,
                             "max_cache_size": 1000,
                             "sampling_config": {
-                                "base_count": 4000,
+                                "base_count": 4096,
                                 "max_steps": 3,
                                 "scale": 2
                             }

@@ -15,7 +15,7 @@ class DoerrMutation : public Mutation {
   void apply(instance::Instance& instance) override;
 
  private:
-  [[nodiscard]] double _get_alpha(size_t size) const;
+  [[nodiscard]] double _get_alpha(uint32_t size) const;
 
  private:
   double beta_;

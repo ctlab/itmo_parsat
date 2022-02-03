@@ -88,7 +88,7 @@ bool ParSolver::propagate(
 void ParSolver::solve_assignments(
     domain::USearch assignment_p, Solver::slv_callback_t const& callback) {
   clear_interrupt();
-  size_t num_threads = _t.size();
+  uint32_t num_threads = _t.size();
 
   // Here we share assignment between all worker threads.
   // Don't forget to release unique ptr.

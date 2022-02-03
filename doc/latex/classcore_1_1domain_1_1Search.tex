@@ -12,12 +12,18 @@ The class representing the sequential search in assignments space.
 
 
 Inheritance diagram for core\+::domain\+::Search\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1domain_1_1Search__inherit__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_add8f0a4d20af419409a8c0e75d1ad4ab}\label{classcore_1_1domain_1_1Search_add8f0a4d20af419409a8c0e75d1ad4ab}} 
-{\bfseries Search} (size\+\_\+t total)
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_af86b664048d4b714e383fcc339988bc5}\label{classcore_1_1domain_1_1Search_af86b664048d4b714e383fcc339988bc5}} 
+{\bfseries Search} (uint64\+\_\+t total)
 \item 
 virtual Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{operator()}} () const =0
 \item 
@@ -25,15 +31,9 @@ U\+Search \mbox{\hyperlink{classcore_1_1domain_1_1Search_a17e6d8a0df067683f0a80c
 \begin{DoxyCompactList}\small\item\em Separates a part of the assignment. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3fa8ae9}{operator++}} ()
 \begin{DoxyCompactList}\small\item\em Steps to the next search. \end{DoxyCompactList}\item 
-size\+\_\+t \mbox{\hyperlink{classcore_1_1domain_1_1Search_a229a9a054ed5d94795fabd18e9ed63e6}{size}} () const noexcept
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1domain_1_1Search_a9a862b210186e060fb96d45c4a670983}{size}} () const noexcept
 \item 
 bool \mbox{\hyperlink{classcore_1_1domain_1_1Search_a34f4e198a6d8660ecffb0a6b322d95ef}{empty}} () const noexcept
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a9d69fad12dab5a7f95bd368fa62e1456}\label{classcore_1_1domain_1_1Search_a9d69fad12dab5a7f95bd368fa62e1456}} 
-static constexpr int {\bfseries M\+A\+X\+\_\+\+V\+A\+R\+S\+\_\+\+F\+U\+L\+L\+\_\+\+S\+E\+A\+R\+CH} = 63
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -81,7 +81,7 @@ The class representing the sequential search in assignments space.
 {\footnotesize\ttfamily bool core\+::domain\+::\+Search\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 \begin{DoxyReturn}{Returns}
-equivalent to \mbox{\hyperlink{classcore_1_1domain_1_1Search_a229a9a054ed5d94795fabd18e9ed63e6}{Search\+::size()}} == 0. 
+equivalent to \mbox{\hyperlink{classcore_1_1domain_1_1Search_a9a862b210186e060fb96d45c4a670983}{Search\+::size()}} == 0. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}\label{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}} 
 \index{core::domain::Search@{core::domain::Search}!operator()@{operator()}}
@@ -109,11 +109,11 @@ Steps to the next search.
 \begin{DoxyReturn}{Returns}
 true if and only if state is valid and operator() can be applied. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a229a9a054ed5d94795fabd18e9ed63e6}\label{classcore_1_1domain_1_1Search_a229a9a054ed5d94795fabd18e9ed63e6}} 
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a9a862b210186e060fb96d45c4a670983}\label{classcore_1_1domain_1_1Search_a9a862b210186e060fb96d45c4a670983}} 
 \index{core::domain::Search@{core::domain::Search}!size@{size}}
 \index{size@{size}!core::domain::Search@{core::domain::Search}}
 \doxysubsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily size\+\_\+t core\+::domain\+::\+Search\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::domain\+::\+Search\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 \begin{DoxyReturn}{Returns}
 the total number of steps. 

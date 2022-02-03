@@ -1,6 +1,8 @@
 #ifndef ITMO_PARSAT_UNIQUESEARCH_H
 #define ITMO_PARSAT_UNIQUESEARCH_H
 
+#include "unordered_set"
+
 #include "core/domain/assignment/ModifyingSearch.h"
 #include "core/util/Generator.h"
 
@@ -20,7 +22,7 @@ class UniqueSearch : public ModifyingSearch {
   explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars);
 
  private:
-  std::set<uint64_t> visited_;
+  std::unordered_set<uint64_t> visited_;
 
  protected:
   void _advance() override;
