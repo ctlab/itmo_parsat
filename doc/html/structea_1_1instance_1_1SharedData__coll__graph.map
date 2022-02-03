@@ -1,6 +1,0 @@
-<map id="ea::instance::SharedData" name="ea::instance::SharedData">
-<area shape="rect" id="node1" title="This struct is shared between all instances under the same algorithm." alt="" coords="351,93,536,120"/>
-<area shape="rect" id="node2" href="$classcore_1_1LRUCache.html" title=" " alt="" coords="19,5,177,61"/>
-<area shape="rect" id="node3" href="$structea_1_1instance_1_1SharedData_1_1SamplingConfig.html" title="Sampling configuration." alt="" coords="5,86,191,127"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1VarView.html" title="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ..." alt="" coords="13,152,183,179"/>
-</map>

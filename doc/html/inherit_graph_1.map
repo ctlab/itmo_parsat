@@ -1,8 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="5,31,164,57"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1CustomSearch.html" title="The class used to search through the custom set of assignments." alt="" coords="219,5,429,32"/>
-<area shape="rect" id="node3" href="$classcore_1_1domain_1_1ModifyingSearch.html" title="The base class for searches that step by modifying assignment." alt="" coords="212,56,436,83"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="499,5,682,32"/>
-<area shape="rect" id="node5" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="484,56,697,83"/>
-<area shape="rect" id="node6" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="488,107,693,133"/>
-</map>

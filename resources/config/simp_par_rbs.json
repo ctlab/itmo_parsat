@@ -21,7 +21,7 @@
                         "solver_config": {
                             "solver_type": "ParSolver",
                             "par_solver_config": {
-                                "max_threads": 4,
+                                "max_threads": 2,
                                 "solver_config": {
                                     "solver_type": "SimpSolver",
                                     "simp_solver_config": {
