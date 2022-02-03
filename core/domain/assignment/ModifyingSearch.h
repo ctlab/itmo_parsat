@@ -13,7 +13,7 @@ namespace core::domain {
  */
 class ModifyingSearch : public Search {
  public:
-  ModifyingSearch(VarView const& var_view, std::vector<bool> const& vars, size_t total);
+  ModifyingSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
   ModifyingSearch(VarView const& var_view, std::vector<bool> const& vars);
 

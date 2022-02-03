@@ -4,10 +4,10 @@
 
 namespace {
 
-std::vector<size_t> choose(std::vector<double> const& distrib, size_t count) {
-  std::vector<size_t> res(count);
+std::vector<uint32_t> choose(std::vector<double> const& distrib, uint32_t count) {
+  std::vector<uint32_t> res(count);
   std::vector<double> cumulative(distrib);
-  for (size_t i = 0; i < cumulative.size(); ++i) {
+  for (uint32_t i = 0; i < cumulative.size(); ++i) {
     cumulative[i] = 1. / cumulative[i];
     if (i > 0) {
       cumulative[i] += cumulative[i - 1];
@@ -46,18 +46,18 @@ void GAAlgorithm::_prepare() {
 }
 
 void GAAlgorithm::step() {
-  size_t g_ = q_ - h_;
-  std::vector<size_t> parents = choose(fits_, g_);
+  uint32_t g_ = q_ - h_;
+  std::vector<uint32_t> parents = choose(fits_, g_);
   std::vector<instance::RInstance> children;
   children.reserve(g_);
 
-  for (size_t i = 0; i < g_ / 2; ++i) {
-    size_t p1 = parents[2 * i];
-    size_t p2 = parents[2 * i + 1];
+  for (uint32_t i = 0; i < g_ / 2; ++i) {
+    uint32_t p1 = parents[2 * i];
+    uint32_t p2 = parents[2 * i + 1];
 
-    size_t c1 = children.size();
+    uint32_t c1 = children.size();
     children.emplace_back(_population[p1]->clone());
-    size_t c2 = children.size();
+    uint32_t c2 = children.size();
     children.emplace_back(_population[p2]->clone());
 
     cross_->apply(*children[c1], *children[c2]);
@@ -78,7 +78,7 @@ void GAAlgorithm::step() {
 }
 
 void GAAlgorithm::_recalc_fits() {
-  for (size_t i = 0; i < _population.size(); ++i) {
+  for (uint32_t i = 0; i < _population.size(); ++i) {
     fits_[i] = (double) _population[i]->fitness();
   }
 }

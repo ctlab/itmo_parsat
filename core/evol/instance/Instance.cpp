@@ -8,7 +8,7 @@
 
 namespace ea::instance {
 
-size_t Instance::num_vars() const noexcept {
+uint32_t Instance::num_vars() const noexcept {
   return _shared->var_view.size();
 }
 
@@ -112,12 +112,12 @@ bool Instance::is_cached() const noexcept {
 }
 
 bool Instance::is_sbs() const noexcept {
-  return fit_.size <= 64 && fit_.rho == 1. && fit_.samples == (1ULL << fit_.size);
+  return fit_.size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH && fit_.rho == 1.0 &&
+         fit_.samples == (1ULL << fit_.size);
 }
 
-size_t Instance::size() const noexcept {
-  auto const& mask = _vars.get_mask();
-  return std::count(mask.begin(), mask.end(), true);
+uint32_t Instance::size() const noexcept {
+  return _vars.size();
 }
 
 instance::SharedData::SamplingConfig& Instance::_sampling_config() noexcept {
@@ -128,8 +128,8 @@ core::LRUCache<std::vector<bool>, Fitness>& Instance::_cache() noexcept {
   return _shared->cache;
 }
 
-uint32_t& Instance::_inaccurate_points() noexcept {
-  return _shared->inaccurate_points;
+uint64_t& Instance::_inaccurate_points() noexcept {
+  return _shared->search_space.inaccurate_visited_points;
 }
 
 core::domain::VarView& Instance::_var_view() noexcept {
@@ -148,8 +148,7 @@ std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instanc
 
   double coverage = (double) instance.fitness().samples;
   uint32_t num_vars = instance.fitness().size;
-
-  if (num_vars <= core::domain::Search::MAX_VARS_FULL_SEARCH) {
+  if (num_vars <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
     coverage /= (1ULL << num_vars);
   } else {
     coverage = std::pow(2., std::log2(coverage) - num_vars);

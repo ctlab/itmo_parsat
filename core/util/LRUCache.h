@@ -17,7 +17,7 @@ class LRUCache {
    * @brief Constructs LRU Cache with the specified maximal size.
    * @param max_cache_size max size of cache
    */
-  explicit LRUCache(size_t max_cache_size = 0) : max_cache_size_(max_cache_size) {}
+  explicit LRUCache(uint32_t max_cache_size = 0) : max_cache_size_(max_cache_size) {}
 
   /**
    * @brief Adds key-value pair to the cache.
@@ -50,19 +50,19 @@ class LRUCache {
    * @brief Changes maximal size of the cache.
    * @param new_max_size new maximal size.
    */
-  void set_max_size(size_t new_max_size) {
+  void set_max_size(uint32_t new_max_size) {
     max_cache_size_ = new_max_size;
   }
 
   /**
    * @return the size of cache.
    */
-  [[nodiscard]] size_t size() const noexcept {
+  [[nodiscard]] uint32_t size() const noexcept {
     return map_.size();
   }
 
  private:
-  size_t max_cache_size_;
+  uint32_t max_cache_size_;
   std::unordered_map<Key, Value> map_;
 };
 

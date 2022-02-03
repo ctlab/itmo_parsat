@@ -61,7 +61,7 @@ class Tracer {
   static Tracer& instance();
 
  public:
-  static void print_summary(size_t num_quantiles);
+  static void print_summary(uint32_t num_quantiles);
 
  private:
   std::mutex _stats_mutex;

@@ -12,7 +12,7 @@ class BestSelector : public Selector {
  public:
   BestSelector() = default;
 
-  void select(instance::Population& population, size_t size) override;
+  void select(instance::Population& population, uint32_t size) override;
 };
 
 }  // namespace ea::method

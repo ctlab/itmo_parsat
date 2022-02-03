@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['max_5flog_5ftypes_223',['MAX_LOG_TYPES',['../classcore_1_1Logger.html#a5499e19735646fda6dd16eed350f6e00',1,'core::Logger']]]
+  ['omega_5fx_226',['omega_x',['../structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6',1,'ea::instance::SharedData']]]
 ];

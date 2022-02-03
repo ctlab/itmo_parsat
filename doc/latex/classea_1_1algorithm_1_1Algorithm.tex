@@ -12,7 +12,13 @@ The base class of (E$\vert$G)A search algorithms.
 
 
 Inheritance diagram for ea\+::algorithm\+::Algorithm\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classea_1_1algorithm_1_1Algorithm__inherit__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -33,7 +39,7 @@ void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15b
 \item 
 \mbox{\hyperlink{structea_1_1instance_1_1SharedData}{instance\+::\+Shared\+Data}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}{get\+\_\+shared\+\_\+data}} () noexcept
 \item 
-size\+\_\+t \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a6054bad37d72fa934355f8cf86178ece}{inaccurate\+\_\+points}} () const noexcept
+uint64\+\_\+t \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}{inaccurate\+\_\+points}} () const noexcept
 \item 
 bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}{has\+\_\+unvisited\+\_\+points}} () const noexcept
 \end{DoxyCompactItemize}
@@ -58,17 +64,14 @@ bool {\bfseries is\+\_\+interrupted} () const
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ac7f4aede95e2ae03ae6fecff2993b960}\label{classea_1_1algorithm_1_1Algorithm_ac7f4aede95e2ae03ae6fecff2993b960}} 
 Instance\+Config {\bfseries \+\_\+instance\+\_\+config}
 \item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a17b16a54b4e552397f89724e31448c07}\label{classea_1_1algorithm_1_1Algorithm_a17b16a54b4e552397f89724e31448c07}} 
-instance\+::\+Population {\bfseries \+\_\+population}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a43645be975cd40c5087a319ba86d48a4}\label{classea_1_1algorithm_1_1Algorithm_a43645be975cd40c5087a319ba86d48a4}} 
+ea\+::instance\+::\+Population {\bfseries \+\_\+population}
 \item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ace84205ac148190890f058d4c7ec969d}\label{classea_1_1algorithm_1_1Algorithm_ace84205ac148190890f058d4c7ec969d}} 
-instance\+::\+R\+Shared\+Data {\bfseries \+\_\+shared\+\_\+data}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}\label{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}} 
+ea\+::instance\+::\+R\+Shared\+Data {\bfseries \+\_\+shared\+\_\+data}
 \item 
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a892b424ae74542d75c8fecb3b975bcf3}\label{classea_1_1algorithm_1_1Algorithm_a892b424ae74542d75c8fecb3b975bcf3}} 
 core\+::sat\+::\+R\+Solver {\bfseries \+\_\+solver}
-\item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_aed98107cae30eccd03af9bb43f9b1f1b}\label{classea_1_1algorithm_1_1Algorithm_aed98107cae30eccd03af9bb43f9b1f1b}} 
-size\+\_\+t {\bfseries \+\_\+total\+\_\+points}
 \end{DoxyCompactItemize}
 
 
@@ -126,11 +129,11 @@ the main solver used in this instance.
 \begin{DoxyReturn}{Returns}
 inaccurately checks whether there are points that are not visited. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a6054bad37d72fa934355f8cf86178ece}\label{classea_1_1algorithm_1_1Algorithm_a6054bad37d72fa934355f8cf86178ece}} 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}\label{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!inaccurate\_points@{inaccurate\_points}}
 \index{inaccurate\_points@{inaccurate\_points}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
 \doxysubsubsection{\texorpdfstring{inaccurate\_points()}{inaccurate\_points()}}
-{\footnotesize\ttfamily size\+\_\+t ea\+::algorithm\+::\+Algorithm\+::inaccurate\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+{\footnotesize\ttfamily uint64\+\_\+t ea\+::algorithm\+::\+Algorithm\+::inaccurate\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 \begin{DoxyReturn}{Returns}
 the inaccurate number of visited points. 

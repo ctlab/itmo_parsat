@@ -78,7 +78,7 @@ class Instance {
    * @todo The fact that this method is here is very bad.
    * @return the number of variables in the formula (not in this instance)
    */
-  [[nodiscard]] size_t num_vars() const noexcept;
+  [[nodiscard]] uint32_t num_vars() const noexcept;
 
   /**
    * @return if this instance is a strong backdoor set
@@ -88,7 +88,7 @@ class Instance {
   /**
    * @return the number of variables in this variables set
    */
-  [[nodiscard]] size_t size() const noexcept;
+  [[nodiscard]] uint32_t size() const noexcept;
 
  private:
   void _calc_fitness();
@@ -99,7 +99,7 @@ class Instance {
 
   core::LRUCache<std::vector<bool>, Fitness>& _cache() noexcept;
 
-  uint32_t& _inaccurate_points() noexcept;
+  uint64_t& _inaccurate_points() noexcept;
 
   core::domain::VarView& _var_view() noexcept;
 

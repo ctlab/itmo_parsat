@@ -26,11 +26,11 @@ void get_start_and_todo(
 
 namespace core::domain {
 
-Search::Search(size_t total) : _total(total) {
+Search::Search(uint64_t total) : _total(total) {
   _set_range();
 }
 
-size_t Search::size() const noexcept {
+uint64_t Search::size() const noexcept {
   return _total;
 }
 

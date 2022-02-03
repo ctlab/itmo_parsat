@@ -86,13 +86,14 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">double</span> _lowest_fitness;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}  <span class="comment">// namespace ea::limit</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif  // EVOL_FITNESSLIMIT_H</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  uint32_t _max_size;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}  <span class="comment">// namespace ea::limit</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif  // EVOL_FITNESSLIMIT_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassea_1_1algorithm_1_1Algorithm_html"><div class="ttname"><a href="classea_1_1algorithm_1_1Algorithm.html">ea::algorithm::Algorithm</a></div><div class="ttdoc">The base class of (E|G)A search algorithms.</div><div class="ttdef"><b>Definition:</b> Algorithm.h:21</div></div>
+<div class="ttc" id="aclassea_1_1algorithm_1_1Algorithm_html"><div class="ttname"><a href="classea_1_1algorithm_1_1Algorithm.html">ea::algorithm::Algorithm</a></div><div class="ttdoc">The base class of (E|G)A search algorithms.</div><div class="ttdef"><b>Definition:</b> Algorithm.h:22</div></div>
 <div class="ttc" id="aclassea_1_1limit_1_1FitnessLimit_html"><div class="ttname"><a href="classea_1_1limit_1_1FitnessLimit.html">ea::limit::FitnessLimit</a></div><div class="ttdoc">This limit controls execution by comparing best fitness with the specified limit.</div><div class="ttdef"><b>Definition:</b> FitnessLimit.h:11</div></div>
 <div class="ttc" id="aclassea_1_1limit_1_1FitnessLimit_html_a36b530d0d007883b40fb6349dd9d37d7"><div class="ttname"><a href="classea_1_1limit_1_1FitnessLimit.html#a36b530d0d007883b40fb6349dd9d37d7">ea::limit::FitnessLimit::_proceed</a></div><div class="ttdeci">bool _proceed(ea::algorithm::Algorithm &amp;algorithm) override</div><div class="ttdef"><b>Definition:</b> FitnessLimit.cpp:10</div></div>
 <div class="ttc" id="aclassea_1_1limit_1_1Limit_html"><div class="ttname"><a href="classea_1_1limit_1_1Limit.html">ea::limit::Limit</a></div><div class="ttdoc">This is an interface for all limits that control the execution of an algorithm.</div><div class="ttdef"><b>Definition:</b> Limit.h:22</div></div>

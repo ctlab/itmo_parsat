@@ -84,7 +84,11 @@ $(function() {
 Inheritance diagram for ea::algorithm::Algorithm:</div>
 <div class="dyncontent">
 <div class="center"><img src="classea_1_1algorithm_1_1Algorithm__inherit__graph.png" border="0" usemap="#ea_1_1algorithm_1_1Algorithm_inherit__map" alt="Inheritance graph"/></div>
-<!-- MAP 0 -->
+<map name="ea_1_1algorithm_1_1Algorithm_inherit__map" id="ea_1_1algorithm_1_1Algorithm_inherit__map">
+<area shape="rect" title="The base class of (E|G)A search algorithms." alt="" coords="125,5,306,32"/>
+<area shape="rect" href="classea_1_1algorithm_1_1EAAlgorithm.html" title="Evolutionary (1+1) algorithm." alt="" coords="5,80,204,107"/>
+<area shape="rect" href="classea_1_1algorithm_1_1GAAlgorithm.html" title="Genetic algorithm." alt="" coords="227,80,427,107"/>
+</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -109,8 +113,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a81afd839286edcada16b88f3896b08a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a424af6ccb7a0396522e2864474c7ff16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structea_1_1instance_1_1SharedData.html">instance::SharedData</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a424af6ccb7a0396522e2864474c7ff16">get_shared_data</a> () noexcept</td></tr>
 <tr class="separator:a424af6ccb7a0396522e2864474c7ff16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6054bad37d72fa934355f8cf86178ece"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a6054bad37d72fa934355f8cf86178ece">inaccurate_points</a> () const noexcept</td></tr>
-<tr class="separator:a6054bad37d72fa934355f8cf86178ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b26993257ee6883c26dc6e618cc7b02"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a7b26993257ee6883c26dc6e618cc7b02">inaccurate_points</a> () const noexcept</td></tr>
+<tr class="separator:a7b26993257ee6883c26dc6e618cc7b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a8c40052d4b6a2500267a71035ee4c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a1a8c40052d4b6a2500267a71035ee4c5">has_unvisited_points</a> () const noexcept</td></tr>
 <tr class="separator:a1a8c40052d4b6a2500267a71035ee4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -134,18 +138,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac7f4aede95e2ae03ae6fecff2993b960"><td class="memItemLeft" align="right" valign="top"><a id="ac7f4aede95e2ae03ae6fecff2993b960"></a>
 InstanceConfig&#160;</td><td class="memItemRight" valign="bottom"><b>_instance_config</b></td></tr>
 <tr class="separator:ac7f4aede95e2ae03ae6fecff2993b960"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17b16a54b4e552397f89724e31448c07"><td class="memItemLeft" align="right" valign="top"><a id="a17b16a54b4e552397f89724e31448c07"></a>
-instance::Population&#160;</td><td class="memItemRight" valign="bottom"><b>_population</b></td></tr>
-<tr class="separator:a17b16a54b4e552397f89724e31448c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace84205ac148190890f058d4c7ec969d"><td class="memItemLeft" align="right" valign="top"><a id="ace84205ac148190890f058d4c7ec969d"></a>
-instance::RSharedData&#160;</td><td class="memItemRight" valign="bottom"><b>_shared_data</b></td></tr>
-<tr class="separator:ace84205ac148190890f058d4c7ec969d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43645be975cd40c5087a319ba86d48a4"><td class="memItemLeft" align="right" valign="top"><a id="a43645be975cd40c5087a319ba86d48a4"></a>
+ea::instance::Population&#160;</td><td class="memItemRight" valign="bottom"><b>_population</b></td></tr>
+<tr class="separator:a43645be975cd40c5087a319ba86d48a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72b352d0a694876302eec487cb7c1556"><td class="memItemLeft" align="right" valign="top"><a id="a72b352d0a694876302eec487cb7c1556"></a>
+ea::instance::RSharedData&#160;</td><td class="memItemRight" valign="bottom"><b>_shared_data</b></td></tr>
+<tr class="separator:a72b352d0a694876302eec487cb7c1556"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a892b424ae74542d75c8fecb3b975bcf3"><td class="memItemLeft" align="right" valign="top"><a id="a892b424ae74542d75c8fecb3b975bcf3"></a>
 core::sat::RSolver&#160;</td><td class="memItemRight" valign="bottom"><b>_solver</b></td></tr>
 <tr class="separator:a892b424ae74542d75c8fecb3b975bcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed98107cae30eccd03af9bb43f9b1f1b"><td class="memItemLeft" align="right" valign="top"><a id="aed98107cae30eccd03af9bb43f9b1f1b"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>_total_points</b></td></tr>
-<tr class="separator:aed98107cae30eccd03af9bb43f9b1f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The base class of (E|G)A search algorithms. </p>
@@ -287,8 +288,8 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>_total_points</b></
 
 </div>
 </div>
-<a id="a6054bad37d72fa934355f8cf86178ece"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6054bad37d72fa934355f8cf86178ece">&#9670;&nbsp;</a></span>inaccurate_points()</h2>
+<a id="a7b26993257ee6883c26dc6e618cc7b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b26993257ee6883c26dc6e618cc7b02">&#9670;&nbsp;</a></span>inaccurate_points()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,7 +298,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>_total_points</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t ea::algorithm::Algorithm::inaccurate_points </td>
+          <td class="memname">uint64_t ea::algorithm::Algorithm::inaccurate_points </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

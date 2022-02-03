@@ -20,6 +20,7 @@ class FitnessLimit : public Limit {
 
  private:
   double _lowest_fitness;
+  uint32_t _max_size;
 };
 
 }  // namespace ea::limit

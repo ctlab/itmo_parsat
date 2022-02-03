@@ -5,6 +5,7 @@
 #include <thread>
 
 #include "core/proto/solve_config.pb.h"
+#include "core/domain/SearchSpace.h"
 #include "core/util/Registry.h"
 #include "core/evol/instance/Instance.h"
 #include "core/evol/instance/SharedData.h"
@@ -68,7 +69,7 @@ class Algorithm {
   /**
    * @return the inaccurate number of visited points.
    */
-  [[nodiscard]] size_t inaccurate_points() const noexcept;
+  [[nodiscard]] uint64_t inaccurate_points() const noexcept;
 
   /**
    * @return inaccurately checks whether there are points that are not visited.
@@ -82,13 +83,12 @@ class Algorithm {
 
  protected:
   InstanceConfig _instance_config;
-  instance::Population _population;
-  instance::RSharedData _shared_data;
+  ea::instance::Population _population;
+  ea::instance::RSharedData _shared_data;
   core::sat::RSolver _solver;
-  size_t _total_points;
 
  private:
-  limit::RLimit _limit;
+  ea::limit::RLimit _limit;
   bool _interrupted = false;
 };
 
