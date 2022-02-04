@@ -66,7 +66,7 @@
                                 {
                                     "limit_type": "FitnessLimit",
                                     "fitness_limit_config": {
-                                        "lowest_fitness": 0.985,
+                                        "lowest_fitness": 0.99,
                                         "max_size": 16
                                     }
                                 }
