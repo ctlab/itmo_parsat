@@ -45,7 +45,7 @@ class LaunchesDao {
   void _exec0(std::string const& sql);
 
  public:
-  LaunchesDao();
+  LaunchesDao(std::string const& host);
 
   LaunchesDao& add(LaunchInfo const& launch);
 

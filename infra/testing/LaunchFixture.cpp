@@ -53,7 +53,7 @@ void LaunchFixture::SetUpTestSuite() {
 void LaunchFixture::SetUp() {
   /* Setup DB connection only if it is required. */
   if (config.save || config.lookup) {
-    _launches = std::make_unique<infra::domain::LaunchesDao>();
+    _launches = std::make_unique<infra::domain::LaunchesDao>(/* host = */ config.pg_host);
   }
   /* Setup directories */
   logs_root = config.working_dir / "logs";

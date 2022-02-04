@@ -11,6 +11,7 @@ SOLVE_BIN="$ROOT/bazel-bin/cli/solve"
 TEST_BIN="$ROOT/bazel-bin/core/test"
 SLV_CFG="naive.json"
 INFRA_BIN="$ROOT/bazel-bin/cli/infra"
+PSQL_HOST="51.250.2.131"
 
 NEXT_NATIVE=0
 BUILD_DEBUG=""
@@ -85,6 +86,7 @@ function do_infra() {
         --resources-dir $RESOURCES_DIR \
         --working-dir $INFRA_DIR \
         --exec $SOLVE_BIN \
+        --pg-host $PSQL_HOST \
         $@
 }
 
@@ -98,6 +100,14 @@ function do_solve() {
     else
         $RUN_CMD $SOLVE_BIN $@
     fi
+}
+
+function do_psql() {
+    psql -d infra_db -U ips -h "$PSQL_HOST"
+}
+
+function do_set_pg_host() {
+    PSQL_HOST="$1"
 }
 
 function do_desc() {
@@ -120,6 +130,8 @@ add_option "-f|--format" "   Apply clang-format"         do_format         0
 add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose    1
 add_option "-u|--unit" "     Run unit tests"             do_unit           0
 add_option "--run-infra" "   Run integration tests"      do_infra          0
+add_option "--psql" "        Connect to DB"              do_psql           0
+add_option "--psql-host" "   Set DB host"                do_set_pg_host    1
 add_option "-s|--solve" "    Run cli binary"             do_solve          0
 
 function main() {

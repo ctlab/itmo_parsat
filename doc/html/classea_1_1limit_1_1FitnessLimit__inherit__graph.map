@@ -1,4 +1,0 @@
-<map id="ea::limit::FitnessLimit" name="ea::limit::FitnessLimit">
-<area shape="rect" id="node1" title="This limit controls execution by comparing best fitness with the specified limit." alt="" coords="5,80,168,107"/>
-<area shape="rect" id="node2" href="$classea_1_1limit_1_1Limit.html" title="This is an interface for all limits that control the execution of an algorithm." alt="" coords="28,5,145,32"/>
-</map>

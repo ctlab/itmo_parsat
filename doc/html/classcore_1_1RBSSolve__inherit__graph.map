@@ -1,4 +1,0 @@
-<map id="core::RBSSolve" name="core::RBSSolve">
-<area shape="rect" id="node1" title="This class solves SAT in the following way:" alt="" coords="5,80,125,107"/>
-<area shape="rect" id="node2" href="$classcore_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="18,5,113,32"/>
-</map>

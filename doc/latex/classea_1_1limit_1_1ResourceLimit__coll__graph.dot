@@ -1,0 +1,9 @@
+digraph "ea::limit::ResourceLimit"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="ea::limit::ResourceLimit",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This limit controls the execution by limiting time and memory consumption of an algorithm."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="ea::limit::Limit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classea_1_1limit_1_1Limit.html",tooltip="This is an interface for all limits that control the execution of an algorithm."];
+}

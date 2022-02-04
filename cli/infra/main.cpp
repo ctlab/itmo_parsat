@@ -12,6 +12,7 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
     ("commit", po::value<std::string>()->default_value(""), "The current commit (optional)")
+    ("pg-host", po::value<std::string>()->default_value("localhost"), "The host running DB")
     ("unsat-only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
     ("allow-unspecified-size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
     ("lookup", po::bool_switch()->default_value(false), "Skip tests that are already done")
@@ -56,6 +57,7 @@ int main(int argc, char** argv) {
     init_googletest(argv[0], args);
     auto& config = LaunchFixture::config;
     config.unsat_only = args["unsat-only"].as<bool>();
+    config.pg_host = args["pg-host"].as<std::string>();
     config.test_groups = args["test-groups"].as<std::vector<std::string>>();
     config.allow_unspecified_size = args["allow-unspecified-size"].as<bool>();
     config.lookup = args["lookup"].as<bool>();

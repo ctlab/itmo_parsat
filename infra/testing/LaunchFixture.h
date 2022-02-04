@@ -28,6 +28,7 @@ class LaunchFixture : public ::testing::Test {
     std::filesystem::path executable{};
     std::filesystem::path resources_dir{};
     std::filesystem::path working_dir{};
+    std::string pg_host = "localhost";
     std::string commit{};
     std::vector<std::string> test_groups;
   };

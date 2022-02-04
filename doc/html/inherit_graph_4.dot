@@ -1,0 +1,8 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="core::domain::VarView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcore_1_1domain_1_1VarView.html",tooltip="The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ..."];
+}
