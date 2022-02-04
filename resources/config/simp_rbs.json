@@ -69,6 +69,12 @@
                                         "lowest_fitness": 0.99,
                                         "max_size": 16
                                     }
+                                },
+                                {
+                                    "limit_type": "StallLimit",
+                                    "stall_limit_config": {
+                                        "steps_before_stall": 1000
+                                    }
                                 }
                             ]
                         }

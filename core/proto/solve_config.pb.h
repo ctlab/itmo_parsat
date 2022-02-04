@@ -47,7 +47,7 @@ struct TableStruct_core_2fproto_2fsolve_5fconfig_2eproto {
       entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField
       aux[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[25] PROTOBUF_SECTION_VARIABLE(
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[26] PROTOBUF_SECTION_VARIABLE(
       protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -128,6 +128,9 @@ extern SolveConfigDefaultTypeInternal _SolveConfig_default_instance_;
 class SolverConfig;
 class SolverConfigDefaultTypeInternal;
 extern SolverConfigDefaultTypeInternal _SolverConfig_default_instance_;
+class StallLimitConfig;
+class StallLimitConfigDefaultTypeInternal;
+extern StallLimitConfigDefaultTypeInternal _StallLimitConfig_default_instance_;
 class UniformMutationConfig;
 class UniformMutationConfigDefaultTypeInternal;
 extern UniformMutationConfigDefaultTypeInternal _UniformMutationConfig_default_instance_;
@@ -181,6 +184,8 @@ template <>
 ::SolveConfig* Arena::CreateMaybeMessage<::SolveConfig>(Arena*);
 template <>
 ::SolverConfig* Arena::CreateMaybeMessage<::SolverConfig>(Arena*);
+template <>
+::StallLimitConfig* Arena::CreateMaybeMessage<::StallLimitConfig>(Arena*);
 template <>
 ::UniformMutationConfig* Arena::CreateMaybeMessage<::UniformMutationConfig>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1745,6 +1750,154 @@ class PointsLimitConfig PROTOBUF_FINAL
 };
 // -------------------------------------------------------------------
 
+class StallLimitConfig PROTOBUF_FINAL
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:StallLimitConfig) */ {
+ public:
+  inline StallLimitConfig() : StallLimitConfig(nullptr) {}
+  virtual ~StallLimitConfig();
+
+  StallLimitConfig(const StallLimitConfig& from);
+  StallLimitConfig(StallLimitConfig&& from) noexcept : StallLimitConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline StallLimitConfig& operator=(const StallLimitConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StallLimitConfig& operator=(StallLimitConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from)
+        InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const StallLimitConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const StallLimitConfig* internal_default_instance() {
+    return reinterpret_cast<const StallLimitConfig*>(&_StallLimitConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 8;
+
+  friend void swap(StallLimitConfig& a, StallLimitConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StallLimitConfig* other) {
+    if (other == this)
+      return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StallLimitConfig* other) {
+    if (other == this)
+      return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline StallLimitConfig* New() const final {
+    return CreateMaybeMessage<StallLimitConfig>(nullptr);
+  }
+
+  StallLimitConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StallLimitConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const StallLimitConfig& from);
+  void MergeFrom(const StallLimitConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(
+      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target,
+      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final {
+    return _cached_size_.Get();
+  }
+
+ private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StallLimitConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "StallLimitConfig";
+  }
+
+ protected:
+  explicit StallLimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ public:
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+ private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
+    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
+        .file_level_metadata[kIndexInFileMessages];
+  }
+
+ public:
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStepsBeforeStallFieldNumber = 1,
+  };
+  // uint32 steps_before_stall = 1;
+  void clear_steps_before_stall();
+  ::PROTOBUF_NAMESPACE_ID::uint32 steps_before_stall() const;
+  void set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_steps_before_stall() const;
+  void _internal_set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ public:
+  // @@protoc_insertion_point(class_scope:StallLimitConfig)
+ private:
+  class _Internal;
+
+  template <typename T>
+  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 steps_before_stall_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ConjLimitConfig PROTOBUF_FINAL
     : public ::PROTOBUF_NAMESPACE_ID::
           Message /* @@protoc_insertion_point(class_definition:ConjLimitConfig) */ {
@@ -1786,7 +1939,7 @@ class ConjLimitConfig PROTOBUF_FINAL
   static inline const ConjLimitConfig* internal_default_instance() {
     return reinterpret_cast<const ConjLimitConfig*>(&_ConjLimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 8;
+  static constexpr int kIndexInFileMessages = 9;
 
   friend void swap(ConjLimitConfig& a, ConjLimitConfig& b) {
     a.Swap(&b);
@@ -1944,7 +2097,7 @@ class LimitConfig PROTOBUF_FINAL
   static inline const LimitConfig* internal_default_instance() {
     return reinterpret_cast<const LimitConfig*>(&_LimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 9;
+  static constexpr int kIndexInFileMessages = 10;
 
   friend void swap(LimitConfig& a, LimitConfig& b) {
     a.Swap(&b);
@@ -2030,6 +2183,7 @@ class LimitConfig PROTOBUF_FINAL
     kFitnessLimitConfigFieldNumber = 3,
     kConjLimitConfigFieldNumber = 4,
     kPointsLimitConfigFieldNumber = 5,
+    kStallLimitConfigFieldNumber = 6,
   };
   // string limit_type = 1;
   void clear_limit_type();
@@ -2133,6 +2287,27 @@ class LimitConfig PROTOBUF_FINAL
   void unsafe_arena_set_allocated_points_limit_config(::PointsLimitConfig* points_limit_config);
   ::PointsLimitConfig* unsafe_arena_release_points_limit_config();
 
+  // .StallLimitConfig stall_limit_config = 6;
+  bool has_stall_limit_config() const;
+
+ private:
+  bool _internal_has_stall_limit_config() const;
+
+ public:
+  void clear_stall_limit_config();
+  const ::StallLimitConfig& stall_limit_config() const;
+  ::StallLimitConfig* release_stall_limit_config();
+  ::StallLimitConfig* mutable_stall_limit_config();
+  void set_allocated_stall_limit_config(::StallLimitConfig* stall_limit_config);
+
+ private:
+  const ::StallLimitConfig& _internal_stall_limit_config() const;
+  ::StallLimitConfig* _internal_mutable_stall_limit_config();
+
+ public:
+  void unsafe_arena_set_allocated_stall_limit_config(::StallLimitConfig* stall_limit_config);
+  ::StallLimitConfig* unsafe_arena_release_stall_limit_config();
+
   // @@protoc_insertion_point(class_scope:LimitConfig)
  private:
   class _Internal;
@@ -2146,6 +2321,7 @@ class LimitConfig PROTOBUF_FINAL
   ::FitnessLimitConfig* fitness_limit_config_;
   ::ConjLimitConfig* conj_limit_config_;
   ::PointsLimitConfig* points_limit_config_;
+  ::StallLimitConfig* stall_limit_config_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -2193,7 +2369,7 @@ class UniformMutationConfig PROTOBUF_FINAL
     return reinterpret_cast<const UniformMutationConfig*>(
         &_UniformMutationConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 10;
+  static constexpr int kIndexInFileMessages = 11;
 
   friend void swap(UniformMutationConfig& a, UniformMutationConfig& b) {
     a.Swap(&b);
@@ -2341,7 +2517,7 @@ class DoerrMutationConfig PROTOBUF_FINAL
   static inline const DoerrMutationConfig* internal_default_instance() {
     return reinterpret_cast<const DoerrMutationConfig*>(&_DoerrMutationConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 11;
+  static constexpr int kIndexInFileMessages = 12;
 
   friend void swap(DoerrMutationConfig& a, DoerrMutationConfig& b) {
     a.Swap(&b);
@@ -2489,7 +2665,7 @@ class MutationConfig PROTOBUF_FINAL
   static inline const MutationConfig* internal_default_instance() {
     return reinterpret_cast<const MutationConfig*>(&_MutationConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 12;
+  static constexpr int kIndexInFileMessages = 13;
 
   friend void swap(MutationConfig& a, MutationConfig& b) {
     a.Swap(&b);
@@ -2692,7 +2868,7 @@ class CrossoverConfig PROTOBUF_FINAL
   static inline const CrossoverConfig* internal_default_instance() {
     return reinterpret_cast<const CrossoverConfig*>(&_CrossoverConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 13;
+  static constexpr int kIndexInFileMessages = 14;
 
   friend void swap(CrossoverConfig& a, CrossoverConfig& b) {
     a.Swap(&b);
@@ -2847,7 +3023,7 @@ class SelectorConfig PROTOBUF_FINAL
   static inline const SelectorConfig* internal_default_instance() {
     return reinterpret_cast<const SelectorConfig*>(&_SelectorConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 14;
+  static constexpr int kIndexInFileMessages = 15;
 
   friend void swap(SelectorConfig& a, SelectorConfig& b) {
     a.Swap(&b);
@@ -3008,7 +3184,7 @@ class InstanceConfig_SamplingSizeConfig PROTOBUF_FINAL
     return reinterpret_cast<const InstanceConfig_SamplingSizeConfig*>(
         &_InstanceConfig_SamplingSizeConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 15;
+  static constexpr int kIndexInFileMessages = 16;
 
   friend void swap(InstanceConfig_SamplingSizeConfig& a, InstanceConfig_SamplingSizeConfig& b) {
     a.Swap(&b);
@@ -3180,7 +3356,7 @@ class InstanceConfig PROTOBUF_FINAL
   static inline const InstanceConfig* internal_default_instance() {
     return reinterpret_cast<const InstanceConfig*>(&_InstanceConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 16;
+  static constexpr int kIndexInFileMessages = 17;
 
   friend void swap(InstanceConfig& a, InstanceConfig& b) {
     a.Swap(&b);
@@ -3378,7 +3554,7 @@ class BaseAlgorithmConfig PROTOBUF_FINAL
   static inline const BaseAlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const BaseAlgorithmConfig*>(&_BaseAlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 17;
+  static constexpr int kIndexInFileMessages = 18;
 
   friend void swap(BaseAlgorithmConfig& a, BaseAlgorithmConfig& b) {
     a.Swap(&b);
@@ -3583,7 +3759,7 @@ class EAAlgorithmConfig PROTOBUF_FINAL
   static inline const EAAlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const EAAlgorithmConfig*>(&_EAAlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 18;
+  static constexpr int kIndexInFileMessages = 19;
 
   friend void swap(EAAlgorithmConfig& a, EAAlgorithmConfig& b) {
     a.Swap(&b);
@@ -3789,7 +3965,7 @@ class GAAlgorithmConfig PROTOBUF_FINAL
   static inline const GAAlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const GAAlgorithmConfig*>(&_GAAlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 19;
+  static constexpr int kIndexInFileMessages = 20;
 
   friend void swap(GAAlgorithmConfig& a, GAAlgorithmConfig& b) {
     a.Swap(&b);
@@ -4042,7 +4218,7 @@ class AlgorithmConfig PROTOBUF_FINAL
   static inline const AlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const AlgorithmConfig*>(&_AlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 20;
+  static constexpr int kIndexInFileMessages = 21;
 
   friend void swap(AlgorithmConfig& a, AlgorithmConfig& b) {
     a.Swap(&b);
@@ -4243,7 +4419,7 @@ class NaiveSolveConfig PROTOBUF_FINAL
   static inline const NaiveSolveConfig* internal_default_instance() {
     return reinterpret_cast<const NaiveSolveConfig*>(&_NaiveSolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 21;
+  static constexpr int kIndexInFileMessages = 22;
 
   friend void swap(NaiveSolveConfig& a, NaiveSolveConfig& b) {
     a.Swap(&b);
@@ -4402,7 +4578,7 @@ class RBSSolveConfig PROTOBUF_FINAL
   static inline const RBSSolveConfig* internal_default_instance() {
     return reinterpret_cast<const RBSSolveConfig*>(&_RBSSolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 22;
+  static constexpr int kIndexInFileMessages = 23;
 
   friend void swap(RBSSolveConfig& a, RBSSolveConfig& b) {
     a.Swap(&b);
@@ -4584,7 +4760,7 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   static inline const ParRBSSolveConfig* internal_default_instance() {
     return reinterpret_cast<const ParRBSSolveConfig*>(&_ParRBSSolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 23;
+  static constexpr int kIndexInFileMessages = 24;
 
   friend void swap(ParRBSSolveConfig& a, ParRBSSolveConfig& b) {
     a.Swap(&b);
@@ -4789,7 +4965,7 @@ class SolveConfig PROTOBUF_FINAL
   static inline const SolveConfig* internal_default_instance() {
     return reinterpret_cast<const SolveConfig*>(&_SolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 24;
+  static constexpr int kIndexInFileMessages = 25;
 
   friend void swap(SolveConfig& a, SolveConfig& b) {
     a.Swap(&b);
@@ -6016,6 +6192,30 @@ inline void PointsLimitConfig::set_max_points_visited(::PROTOBUF_NAMESPACE_ID::u
 
 // -------------------------------------------------------------------
 
+// StallLimitConfig
+
+// uint32 steps_before_stall = 1;
+inline void StallLimitConfig::clear_steps_before_stall() {
+  steps_before_stall_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 StallLimitConfig::_internal_steps_before_stall() const {
+  return steps_before_stall_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 StallLimitConfig::steps_before_stall() const {
+  // @@protoc_insertion_point(field_get:StallLimitConfig.steps_before_stall)
+  return _internal_steps_before_stall();
+}
+inline void StallLimitConfig::_internal_set_steps_before_stall(
+    ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  steps_before_stall_ = value;
+}
+inline void StallLimitConfig::set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_steps_before_stall(value);
+  // @@protoc_insertion_point(field_set:StallLimitConfig.steps_before_stall)
+}
+
+// -------------------------------------------------------------------
+
 // ConjLimitConfig
 
 // repeated .LimitConfig limit_config = 1;
@@ -6440,6 +6640,85 @@ inline void LimitConfig::set_allocated_points_limit_config(
   }
   points_limit_config_ = points_limit_config;
   // @@protoc_insertion_point(field_set_allocated:LimitConfig.points_limit_config)
+}
+
+// .StallLimitConfig stall_limit_config = 6;
+inline bool LimitConfig::_internal_has_stall_limit_config() const {
+  return this != internal_default_instance() && stall_limit_config_ != nullptr;
+}
+inline bool LimitConfig::has_stall_limit_config() const {
+  return _internal_has_stall_limit_config();
+}
+inline void LimitConfig::clear_stall_limit_config() {
+  if (GetArena() == nullptr && stall_limit_config_ != nullptr) {
+    delete stall_limit_config_;
+  }
+  stall_limit_config_ = nullptr;
+}
+inline const ::StallLimitConfig& LimitConfig::_internal_stall_limit_config() const {
+  const ::StallLimitConfig* p = stall_limit_config_;
+  return p != nullptr
+             ? *p
+             : *reinterpret_cast<const ::StallLimitConfig*>(&::_StallLimitConfig_default_instance_);
+}
+inline const ::StallLimitConfig& LimitConfig::stall_limit_config() const {
+  // @@protoc_insertion_point(field_get:LimitConfig.stall_limit_config)
+  return _internal_stall_limit_config();
+}
+inline void LimitConfig::unsafe_arena_set_allocated_stall_limit_config(
+    ::StallLimitConfig* stall_limit_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(stall_limit_config_);
+  }
+  stall_limit_config_ = stall_limit_config;
+  if (stall_limit_config) {
+  } else {
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:LimitConfig.stall_limit_config)
+}
+inline ::StallLimitConfig* LimitConfig::release_stall_limit_config() {
+  ::StallLimitConfig* temp = stall_limit_config_;
+  stall_limit_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::StallLimitConfig* LimitConfig::unsafe_arena_release_stall_limit_config() {
+  // @@protoc_insertion_point(field_release:LimitConfig.stall_limit_config)
+
+  ::StallLimitConfig* temp = stall_limit_config_;
+  stall_limit_config_ = nullptr;
+  return temp;
+}
+inline ::StallLimitConfig* LimitConfig::_internal_mutable_stall_limit_config() {
+  if (stall_limit_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::StallLimitConfig>(GetArena());
+    stall_limit_config_ = p;
+  }
+  return stall_limit_config_;
+}
+inline ::StallLimitConfig* LimitConfig::mutable_stall_limit_config() {
+  // @@protoc_insertion_point(field_mutable:LimitConfig.stall_limit_config)
+  return _internal_mutable_stall_limit_config();
+}
+inline void LimitConfig::set_allocated_stall_limit_config(::StallLimitConfig* stall_limit_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete stall_limit_config_;
+  }
+  if (stall_limit_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(stall_limit_config);
+    if (message_arena != submessage_arena) {
+      stall_limit_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, stall_limit_config, submessage_arena);
+    }
+
+  } else {
+  }
+  stall_limit_config_ = stall_limit_config;
+  // @@protoc_insertion_point(field_set_allocated:LimitConfig.stall_limit_config)
 }
 
 // -------------------------------------------------------------------
@@ -8856,6 +9135,8 @@ inline void SolveConfig::set_allocated_par_rbs_solve_config(
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

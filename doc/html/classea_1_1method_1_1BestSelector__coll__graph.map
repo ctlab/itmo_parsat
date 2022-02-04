@@ -1,0 +1,4 @@
+<map id="ea::method::BestSelector" name="ea::method::BestSelector">
+<area shape="rect" id="node1" title="Selects instances by their fitness." alt="" coords="5,80,192,107"/>
+<area shape="rect" id="node2" href="$classea_1_1method_1_1Selector.html" title="Performs instance selection." alt="" coords="20,5,177,32"/>
+</map>

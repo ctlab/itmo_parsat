@@ -59,6 +59,10 @@ message PointsLimitConfig {
   uint32 max_points_visited = 1;
 }
 
+message StallLimitConfig {
+  uint32 steps_before_stall = 1;
+}
+
 message ConjLimitConfig {
   repeated LimitConfig limit_config = 1;
 }
@@ -69,6 +73,7 @@ message LimitConfig {
   FitnessLimitConfig fitness_limit_config = 3;
   ConjLimitConfig conj_limit_config = 4;
   PointsLimitConfig points_limit_config = 5;
+  StallLimitConfig stall_limit_config = 6;
 }
 
 message UniformMutationConfig {

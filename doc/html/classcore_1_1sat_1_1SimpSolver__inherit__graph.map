@@ -1,0 +1,5 @@
+<map id="core::sat::SimpSolver" name="core::sat::SimpSolver">
+<area shape="rect" id="node1" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="70,80,230,107"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="157,5,309,32"/>
+</map>

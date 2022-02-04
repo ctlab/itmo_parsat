@@ -24,7 +24,7 @@ extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF
     internal::SCCInfo<0>
         scc_info_BaseSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
-    internal::SCCInfo<3>
+    internal::SCCInfo<4>
         scc_info_ConjLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
     internal::SCCInfo<0>
@@ -79,6 +79,9 @@ extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF
         scc_info_SimpSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
     internal::SCCInfo<0>
+        scc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
+    internal::SCCInfo<0>
         scc_info_UniformMutationConfig_core_2fproto_2fsolve_5fconfig_2eproto;
 class MinisatCliConfigDefaultTypeInternal {
  public:
@@ -112,6 +115,10 @@ class PointsLimitConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PointsLimitConfig> _instance;
 } _PointsLimitConfig_default_instance_;
+class StallLimitConfigDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StallLimitConfig> _instance;
+} _StallLimitConfig_default_instance_;
 class ConjLimitConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ConjLimitConfig> _instance;
@@ -256,14 +263,15 @@ static void InitDefaultsscc_info_ConjLimitConfig_core_2fproto_2fsolve_5fconfig_2
   ::LimitConfig::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3>
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4>
     scc_info_ConjLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto = {
-        {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0,
+        {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0,
          InitDefaultsscc_info_ConjLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto},
         {
             &scc_info_ResourceLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
             &scc_info_FitnessLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
             &scc_info_PointsLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
+            &scc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         }};
 
 static void InitDefaultsscc_info_CrossoverConfig_core_2fproto_2fsolve_5fconfig_2eproto() {
@@ -610,6 +618,23 @@ static void InitDefaultsscc_info_SolveConfig_core_2fproto_2fsolve_5fconfig_2epro
             &scc_info_ParRBSSolveConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         }};
 
+static void InitDefaultsscc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_StallLimitConfig_default_instance_;
+    new (ptr)::StallLimitConfig();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::StallLimitConfig::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0>
+    scc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto = {
+        {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0,
+         InitDefaultsscc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto},
+        {}};
+
 static void InitDefaultsscc_info_UniformMutationConfig_core_2fproto_2fsolve_5fconfig_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -628,7 +653,7 @@ static void InitDefaultsscc_info_UniformMutationConfig_core_2fproto_2fsolve_5fco
         {}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata
-    file_level_metadata_core_2fproto_2fsolve_5fconfig_2eproto[25];
+    file_level_metadata_core_2fproto_2fsolve_5fconfig_2eproto[26];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const**
     file_level_enum_descriptors_core_2fproto_2fsolve_5fconfig_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const**
@@ -712,6 +737,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::PointsLimitConfig, max_points_visited_),
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::StallLimitConfig, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        PROTOBUF_FIELD_OFFSET(::StallLimitConfig, steps_before_stall_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::ConjLimitConfig, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -727,6 +758,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         PROTOBUF_FIELD_OFFSET(::LimitConfig, fitness_limit_config_),
         PROTOBUF_FIELD_OFFSET(::LimitConfig, conj_limit_config_),
         PROTOBUF_FIELD_OFFSET(::LimitConfig, points_limit_config_),
+        PROTOBUF_FIELD_OFFSET(::LimitConfig, stall_limit_config_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::UniformMutationConfig, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -854,23 +886,24 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
     {54, -1, sizeof(::ResourceLimitConfig)},
     {61, -1, sizeof(::FitnessLimitConfig)},
     {68, -1, sizeof(::PointsLimitConfig)},
-    {74, -1, sizeof(::ConjLimitConfig)},
-    {80, -1, sizeof(::LimitConfig)},
-    {90, -1, sizeof(::UniformMutationConfig)},
-    {96, -1, sizeof(::DoerrMutationConfig)},
-    {102, -1, sizeof(::MutationConfig)},
-    {110, -1, sizeof(::CrossoverConfig)},
-    {116, -1, sizeof(::SelectorConfig)},
-    {122, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
-    {130, -1, sizeof(::InstanceConfig)},
-    {139, -1, sizeof(::BaseAlgorithmConfig)},
-    {147, -1, sizeof(::EAAlgorithmConfig)},
-    {155, -1, sizeof(::GAAlgorithmConfig)},
-    {166, -1, sizeof(::AlgorithmConfig)},
-    {174, -1, sizeof(::NaiveSolveConfig)},
-    {180, -1, sizeof(::RBSSolveConfig)},
-    {187, -1, sizeof(::ParRBSSolveConfig)},
-    {196, -1, sizeof(::SolveConfig)},
+    {74, -1, sizeof(::StallLimitConfig)},
+    {80, -1, sizeof(::ConjLimitConfig)},
+    {86, -1, sizeof(::LimitConfig)},
+    {97, -1, sizeof(::UniformMutationConfig)},
+    {103, -1, sizeof(::DoerrMutationConfig)},
+    {109, -1, sizeof(::MutationConfig)},
+    {117, -1, sizeof(::CrossoverConfig)},
+    {123, -1, sizeof(::SelectorConfig)},
+    {129, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
+    {137, -1, sizeof(::InstanceConfig)},
+    {146, -1, sizeof(::BaseAlgorithmConfig)},
+    {154, -1, sizeof(::EAAlgorithmConfig)},
+    {162, -1, sizeof(::GAAlgorithmConfig)},
+    {173, -1, sizeof(::AlgorithmConfig)},
+    {181, -1, sizeof(::NaiveSolveConfig)},
+    {187, -1, sizeof(::RBSSolveConfig)},
+    {194, -1, sizeof(::ParRBSSolveConfig)},
+    {203, -1, sizeof(::SolveConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const* const file_default_instances[] = {
@@ -889,6 +922,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const* const file_default_instances[] = 
         &::_FitnessLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_PointsLimitConfig_default_instance_),
+    reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
+        &::_StallLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_ConjLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_LimitConfig_default_instance_),
@@ -948,61 +983,63 @@ const char
         "mit_sec\030\002 \001(\r\">\n\022FitnessLimitConfig\022\026\n\016l"
         "owest_fitness\030\001 \001(\001\022\020\n\010max_size\030\002 \001(\r\"/\n"
         "\021PointsLimitConfig\022\032\n\022max_points_visited"
-        "\030\001 \001(\r\"5\n\017ConjLimitConfig\022\"\n\014limit_confi"
-        "g\030\001 \003(\0132\014.LimitConfig\"\347\001\n\013LimitConfig\022\022\n"
-        "\nlimit_type\030\001 \001(\t\0223\n\025resource_limit_conf"
-        "ig\030\002 \001(\0132\024.ResourceLimitConfig\0221\n\024fitnes"
-        "s_limit_config\030\003 \001(\0132\023.FitnessLimitConfi"
-        "g\022+\n\021conj_limit_config\030\004 \001(\0132\020.ConjLimit"
-        "Config\022/\n\023points_limit_config\030\005 \001(\0132\022.Po"
-        "intsLimitConfig\"&\n\025UniformMutationConfig"
-        "\022\r\n\005scale\030\001 \001(\001\"#\n\023DoerrMutationConfig\022\014"
-        "\n\004beta\030\001 \001(\001\"\225\001\n\016MutationConfig\022\025\n\rmutat"
-        "ion_type\030\001 \001(\t\0227\n\027uniform_mutation_confi"
-        "g\030\002 \001(\0132\026.UniformMutationConfig\0223\n\025doerr"
-        "_mutation_config\030\003 \001(\0132\024.DoerrMutationCo"
-        "nfig\")\n\017CrossoverConfig\022\026\n\016crossover_typ"
-        "e\030\001 \001(\t\"\'\n\016SelectorConfig\022\025\n\rselector_ty"
-        "pe\030\001 \001(\t\"\332\001\n\016InstanceConfig\022\017\n\007omega_x\030\001"
-        " \001(\r\022\026\n\016heuristic_size\030\002 \001(\r\022\026\n\016max_cach"
-        "e_size\030\003 \001(\r\022;\n\017sampling_config\030\004 \001(\0132\"."
-        "InstanceConfig.SamplingSizeConfig\032J\n\022Sam"
-        "plingSizeConfig\022\022\n\nbase_count\030\001 \001(\004\022\021\n\tm"
-        "ax_steps\030\002 \001(\r\022\r\n\005scale\030\003 \001(\001\"\211\001\n\023BaseAl"
-        "gorithmConfig\022$\n\rsolver_config\030\001 \001(\0132\r.S"
-        "olverConfig\022\"\n\014limit_config\030\002 \001(\0132\014.Limi"
-        "tConfig\022(\n\017instance_config\030\003 \001(\0132\017.Insta"
-        "nceConfig\"\234\001\n\021EAAlgorithmConfig\022(\n\017mutat"
-        "ion_config\030\001 \001(\0132\017.MutationConfig\022(\n\017sel"
-        "ector_config\030\002 \001(\0132\017.SelectorConfig\0223\n\025b"
-        "ase_algorithm_config\030\003 \001(\0132\024.BaseAlgorit"
-        "hmConfig\"\336\001\n\021GAAlgorithmConfig\022\t\n\001q\030\004 \001("
-        "\r\022\t\n\001h\030\005 \001(\r\022(\n\017mutation_config\030\001 \001(\0132\017."
-        "MutationConfig\022*\n\020crossover_config\030\002 \001(\013"
-        "2\020.CrossoverConfig\022(\n\017selector_config\030\003 "
-        "\001(\0132\017.SelectorConfig\0223\n\025base_algorithm_c"
-        "onfig\030\006 \001(\0132\024.BaseAlgorithmConfig\"\213\001\n\017Al"
-        "gorithmConfig\022\026\n\016algorithm_type\030\001 \001(\t\022/\n"
-        "\023ea_algorithm_config\030\003 \001(\0132\022.EAAlgorithm"
-        "Config\022/\n\023ga_algorithm_config\030\004 \001(\0132\022.GA"
-        "AlgorithmConfig\"8\n\020NaiveSolveConfig\022$\n\rs"
-        "olver_config\030\001 \001(\0132\r.SolverConfig\"b\n\016RBS"
-        "SolveConfig\022*\n\020algorithm_config\030\001 \001(\0132\020."
+        "\030\001 \001(\r\".\n\020StallLimitConfig\022\032\n\022steps_befo"
+        "re_stall\030\001 \001(\r\"5\n\017ConjLimitConfig\022\"\n\014lim"
+        "it_config\030\001 \003(\0132\014.LimitConfig\"\226\002\n\013LimitC"
+        "onfig\022\022\n\nlimit_type\030\001 \001(\t\0223\n\025resource_li"
+        "mit_config\030\002 \001(\0132\024.ResourceLimitConfig\0221"
+        "\n\024fitness_limit_config\030\003 \001(\0132\023.FitnessLi"
+        "mitConfig\022+\n\021conj_limit_config\030\004 \001(\0132\020.C"
+        "onjLimitConfig\022/\n\023points_limit_config\030\005 "
+        "\001(\0132\022.PointsLimitConfig\022-\n\022stall_limit_c"
+        "onfig\030\006 \001(\0132\021.StallLimitConfig\"&\n\025Unifor"
+        "mMutationConfig\022\r\n\005scale\030\001 \001(\001\"#\n\023DoerrM"
+        "utationConfig\022\014\n\004beta\030\001 \001(\001\"\225\001\n\016Mutation"
+        "Config\022\025\n\rmutation_type\030\001 \001(\t\0227\n\027uniform"
+        "_mutation_config\030\002 \001(\0132\026.UniformMutation"
+        "Config\0223\n\025doerr_mutation_config\030\003 \001(\0132\024."
+        "DoerrMutationConfig\")\n\017CrossoverConfig\022\026"
+        "\n\016crossover_type\030\001 \001(\t\"\'\n\016SelectorConfig"
+        "\022\025\n\rselector_type\030\001 \001(\t\"\332\001\n\016InstanceConf"
+        "ig\022\017\n\007omega_x\030\001 \001(\r\022\026\n\016heuristic_size\030\002 "
+        "\001(\r\022\026\n\016max_cache_size\030\003 \001(\r\022;\n\017sampling_"
+        "config\030\004 \001(\0132\".InstanceConfig.SamplingSi"
+        "zeConfig\032J\n\022SamplingSizeConfig\022\022\n\nbase_c"
+        "ount\030\001 \001(\004\022\021\n\tmax_steps\030\002 \001(\r\022\r\n\005scale\030\003"
+        " \001(\001\"\211\001\n\023BaseAlgorithmConfig\022$\n\rsolver_c"
+        "onfig\030\001 \001(\0132\r.SolverConfig\022\"\n\014limit_conf"
+        "ig\030\002 \001(\0132\014.LimitConfig\022(\n\017instance_confi"
+        "g\030\003 \001(\0132\017.InstanceConfig\"\234\001\n\021EAAlgorithm"
+        "Config\022(\n\017mutation_config\030\001 \001(\0132\017.Mutati"
+        "onConfig\022(\n\017selector_config\030\002 \001(\0132\017.Sele"
+        "ctorConfig\0223\n\025base_algorithm_config\030\003 \001("
+        "\0132\024.BaseAlgorithmConfig\"\336\001\n\021GAAlgorithmC"
+        "onfig\022\t\n\001q\030\004 \001(\r\022\t\n\001h\030\005 \001(\r\022(\n\017mutation_"
+        "config\030\001 \001(\0132\017.MutationConfig\022*\n\020crossov"
+        "er_config\030\002 \001(\0132\020.CrossoverConfig\022(\n\017sel"
+        "ector_config\030\003 \001(\0132\017.SelectorConfig\0223\n\025b"
+        "ase_algorithm_config\030\006 \001(\0132\024.BaseAlgorit"
+        "hmConfig\"\213\001\n\017AlgorithmConfig\022\026\n\016algorith"
+        "m_type\030\001 \001(\t\022/\n\023ea_algorithm_config\030\003 \001("
+        "\0132\022.EAAlgorithmConfig\022/\n\023ga_algorithm_co"
+        "nfig\030\004 \001(\0132\022.GAAlgorithmConfig\"8\n\020NaiveS"
+        "olveConfig\022$\n\rsolver_config\030\001 \001(\0132\r.Solv"
+        "erConfig\"b\n\016RBSSolveConfig\022*\n\020algorithm_"
+        "config\030\001 \001(\0132\020.AlgorithmConfig\022$\n\rsolver"
+        "_config\030\002 \001(\0132\r.SolverConfig\"\230\001\n\021ParRBSS"
+        "olveConfig\022+\n\021algorithm_configs\030\001 \003(\0132\020."
         "AlgorithmConfig\022$\n\rsolver_config\030\002 \001(\0132\r"
-        ".SolverConfig\"\230\001\n\021ParRBSSolveConfig\022+\n\021a"
-        "lgorithm_configs\030\001 \003(\0132\020.AlgorithmConfig"
-        "\022$\n\rsolver_config\030\002 \001(\0132\r.SolverConfig\022\026"
-        "\n\016num_algorithms\030\004 \001(\r\022\030\n\020max_unpropagat"
-        "ed\030\005 \001(\r\"\302\001\n\013SolveConfig\022\022\n\nsolve_type\030\001"
-        " \001(\t\022\023\n\013random_seed\030\002 \001(\r\022-\n\022naive_solve"
-        "_config\030\003 \001(\0132\021.NaiveSolveConfig\022)\n\020rbs_"
-        "solve_config\030\004 \001(\0132\017.RBSSolveConfig\0220\n\024p"
-        "ar_rbs_solve_config\030\005 \001(\0132\022.ParRBSSolveC"
-        "onfigb\006proto3";
+        ".SolverConfig\022\026\n\016num_algorithms\030\004 \001(\r\022\030\n"
+        "\020max_unpropagated\030\005 \001(\r\"\302\001\n\013SolveConfig\022"
+        "\022\n\nsolve_type\030\001 \001(\t\022\023\n\013random_seed\030\002 \001(\r"
+        "\022-\n\022naive_solve_config\030\003 \001(\0132\021.NaiveSolv"
+        "eConfig\022)\n\020rbs_solve_config\030\004 \001(\0132\017.RBSS"
+        "olveConfig\0220\n\024par_rbs_solve_config\030\005 \001(\013"
+        "2\022.ParRBSSolveConfigb\006proto3";
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* const
     descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps[1] = {};
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase* const
-    descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_sccs[23] = {
+    descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_sccs[24] = {
         &scc_info_AlgorithmConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_BaseAlgorithmConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_BaseSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
@@ -1025,6 +1062,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase* const
         &scc_info_SelectorConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_SimpSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_SolveConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
+        &scc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_UniformMutationConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag
@@ -1035,17 +1073,17 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
         false,
         descriptor_table_protodef_core_2fproto_2fsolve_5fconfig_2eproto,
         "core/proto/solve_config.proto",
-        3013,
+        3108,
         &descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_once,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_sccs,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps,
-        23,
+        24,
         0,
         schemas,
         file_default_instances,
         TableStruct_core_2fproto_2fsolve_5fconfig_2eproto::offsets,
         file_level_metadata_core_2fproto_2fsolve_5fconfig_2eproto,
-        25,
+        26,
         file_level_enum_descriptors_core_2fproto_2fsolve_5fconfig_2eproto,
         file_level_service_descriptors_core_2fproto_2fsolve_5fconfig_2eproto,
 };
@@ -3511,6 +3549,210 @@ void PointsLimitConfig::InternalSwap(PointsLimitConfig* other) {
 
 // ===================================================================
 
+void StallLimitConfig::InitAsDefaultInstance() {}
+class StallLimitConfig::_Internal {
+ public:
+};
+
+StallLimitConfig::StallLimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:StallLimitConfig)
+}
+StallLimitConfig::StallLimitConfig(const StallLimitConfig& from)
+    : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  steps_before_stall_ = from.steps_before_stall_;
+  // @@protoc_insertion_point(copy_constructor:StallLimitConfig)
+}
+
+void StallLimitConfig::SharedCtor() {
+  steps_before_stall_ = 0u;
+}
+
+StallLimitConfig::~StallLimitConfig() {
+  // @@protoc_insertion_point(destructor:StallLimitConfig)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void StallLimitConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+}
+
+void StallLimitConfig::ArenaDtor(void* object) {
+  StallLimitConfig* _this = reinterpret_cast<StallLimitConfig*>(object);
+  (void) _this;
+}
+void StallLimitConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {}
+void StallLimitConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const StallLimitConfig& StallLimitConfig::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
+      &::scc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
+  return *internal_default_instance();
+}
+
+void StallLimitConfig::Clear() {
+  // @@protoc_insertion_point(message_clear_start:StallLimitConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  steps_before_stall_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* StallLimitConfig::_InternalParse(
+    const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x)                     \
+  if (PROTOBUF_PREDICT_FALSE(!(x))) \
+  goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena();
+  (void) arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint32 steps_before_stall = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          steps_before_stall_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(
+            tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }    // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* StallLimitConfig::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target,
+    ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:StallLimitConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 steps_before_stall = 1;
+  if (this->steps_before_stall() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_steps_before_stall(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+            ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance),
+        target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:StallLimitConfig)
+  return target;
+}
+
+size_t StallLimitConfig::ByteSizeLong() const {
+  // @@protoc_insertion_point(message_byte_size_start:StallLimitConfig)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 steps_before_stall = 1;
+  if (this->steps_before_stall() != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+                          this->_internal_steps_before_stall());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StallLimitConfig::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  // @@protoc_insertion_point(generalized_merge_from_start:StallLimitConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  const StallLimitConfig* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StallLimitConfig>(&from);
+  if (source == nullptr) {
+    // @@protoc_insertion_point(generalized_merge_from_cast_fail:StallLimitConfig)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+    // @@protoc_insertion_point(generalized_merge_from_cast_success:StallLimitConfig)
+    MergeFrom(*source);
+  }
+}
+
+void StallLimitConfig::MergeFrom(const StallLimitConfig& from) {
+  // @@protoc_insertion_point(class_specific_merge_from_start:StallLimitConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.steps_before_stall() != 0) {
+    _internal_set_steps_before_stall(from._internal_steps_before_stall());
+  }
+}
+
+void StallLimitConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  // @@protoc_insertion_point(generalized_copy_from_start:StallLimitConfig)
+  if (&from == this)
+    return;
+  Clear();
+  MergeFrom(from);
+}
+
+void StallLimitConfig::CopyFrom(const StallLimitConfig& from) {
+  // @@protoc_insertion_point(class_specific_copy_from_start:StallLimitConfig)
+  if (&from == this)
+    return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StallLimitConfig::IsInitialized() const {
+  return true;
+}
+
+void StallLimitConfig::InternalSwap(StallLimitConfig* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(steps_before_stall_, other->steps_before_stall_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata StallLimitConfig::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+// ===================================================================
+
 void ConjLimitConfig::InitAsDefaultInstance() {}
 class ConjLimitConfig::_Internal {
  public:
@@ -3729,6 +3971,8 @@ void LimitConfig::InitAsDefaultInstance() {
       const_cast<::ConjLimitConfig*>(::ConjLimitConfig::internal_default_instance());
   ::_LimitConfig_default_instance_._instance.get_mutable()->points_limit_config_ =
       const_cast<::PointsLimitConfig*>(::PointsLimitConfig::internal_default_instance());
+  ::_LimitConfig_default_instance_._instance.get_mutable()->stall_limit_config_ =
+      const_cast<::StallLimitConfig*>(::StallLimitConfig::internal_default_instance());
 }
 class LimitConfig::_Internal {
  public:
@@ -3736,6 +3980,7 @@ class LimitConfig::_Internal {
   static const ::FitnessLimitConfig& fitness_limit_config(const LimitConfig* msg);
   static const ::ConjLimitConfig& conj_limit_config(const LimitConfig* msg);
   static const ::PointsLimitConfig& points_limit_config(const LimitConfig* msg);
+  static const ::StallLimitConfig& stall_limit_config(const LimitConfig* msg);
 };
 
 const ::ResourceLimitConfig& LimitConfig::_Internal::resource_limit_config(const LimitConfig* msg) {
@@ -3749,6 +3994,9 @@ const ::ConjLimitConfig& LimitConfig::_Internal::conj_limit_config(const LimitCo
 }
 const ::PointsLimitConfig& LimitConfig::_Internal::points_limit_config(const LimitConfig* msg) {
   return *msg->points_limit_config_;
+}
+const ::StallLimitConfig& LimitConfig::_Internal::stall_limit_config(const LimitConfig* msg) {
+  return *msg->stall_limit_config_;
 }
 LimitConfig::LimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
     : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -3784,6 +4032,11 @@ LimitConfig::LimitConfig(const LimitConfig& from) : ::PROTOBUF_NAMESPACE_ID::Mes
   } else {
     points_limit_config_ = nullptr;
   }
+  if (from._internal_has_stall_limit_config()) {
+    stall_limit_config_ = new ::StallLimitConfig(*from.stall_limit_config_);
+  } else {
+    stall_limit_config_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:LimitConfig)
 }
 
@@ -3794,9 +4047,9 @@ void LimitConfig::SharedCtor() {
   ::memset(
       &resource_limit_config_, 0,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&points_limit_config_) -
+          reinterpret_cast<char*>(&stall_limit_config_) -
           reinterpret_cast<char*>(&resource_limit_config_)) +
-          sizeof(points_limit_config_));
+          sizeof(stall_limit_config_));
 }
 
 LimitConfig::~LimitConfig() {
@@ -3816,6 +4069,8 @@ void LimitConfig::SharedDtor() {
     delete conj_limit_config_;
   if (this != internal_default_instance())
     delete points_limit_config_;
+  if (this != internal_default_instance())
+    delete stall_limit_config_;
 }
 
 void LimitConfig::ArenaDtor(void* object) {
@@ -3856,6 +4111,10 @@ void LimitConfig::Clear() {
     delete points_limit_config_;
   }
   points_limit_config_ = nullptr;
+  if (GetArena() == nullptr && stall_limit_config_ != nullptr) {
+    delete stall_limit_config_;
+  }
+  stall_limit_config_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3909,6 +4168,14 @@ const char* LimitConfig::_InternalParse(
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_points_limit_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .StallLimitConfig stall_limit_config = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_stall_limit_config(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3980,6 +4247,13 @@ failure:
         5, _Internal::points_limit_config(this), target, stream);
   }
 
+  // .StallLimitConfig stall_limit_config = 6;
+  if (this->has_stall_limit_config()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
+        6, _Internal::stall_limit_config(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
@@ -4026,6 +4300,12 @@ size_t LimitConfig::ByteSizeLong() const {
   if (this->has_points_limit_config()) {
     total_size +=
         1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*points_limit_config_);
+  }
+
+  // .StallLimitConfig stall_limit_config = 6;
+  if (this->has_stall_limit_config()) {
+    total_size +=
+        1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*stall_limit_config_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4076,6 +4356,10 @@ void LimitConfig::MergeFrom(const LimitConfig& from) {
     _internal_mutable_points_limit_config()->::PointsLimitConfig::MergeFrom(
         from._internal_points_limit_config());
   }
+  if (from.has_stall_limit_config()) {
+    _internal_mutable_stall_limit_config()->::StallLimitConfig::MergeFrom(
+        from._internal_stall_limit_config());
+  }
 }
 
 void LimitConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -4105,8 +4389,8 @@ void LimitConfig::InternalSwap(LimitConfig* other) {
       &other->limit_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(LimitConfig, points_limit_config_) +
-      sizeof(LimitConfig::points_limit_config_) -
+      PROTOBUF_FIELD_OFFSET(LimitConfig, stall_limit_config_) +
+      sizeof(LimitConfig::stall_limit_config_) -
       PROTOBUF_FIELD_OFFSET(LimitConfig, resource_limit_config_)>(
       reinterpret_cast<char*>(&resource_limit_config_),
       reinterpret_cast<char*>(&other->resource_limit_config_));
@@ -8472,6 +8756,10 @@ template <>
 PROTOBUF_NOINLINE ::PointsLimitConfig* Arena::CreateMaybeMessage<::PointsLimitConfig>(
     Arena* arena) {
   return Arena::CreateMessageInternal<::PointsLimitConfig>(arena);
+}
+template <>
+PROTOBUF_NOINLINE ::StallLimitConfig* Arena::CreateMaybeMessage<::StallLimitConfig>(Arena* arena) {
+  return Arena::CreateMessageInternal<::StallLimitConfig>(arena);
 }
 template <>
 PROTOBUF_NOINLINE ::ConjLimitConfig* Arena::CreateMaybeMessage<::ConjLimitConfig>(Arena* arena) {

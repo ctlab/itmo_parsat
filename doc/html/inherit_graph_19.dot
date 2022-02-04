@@ -1,8 +1,0 @@
-digraph "Graphical Class Hierarchy"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="ea::instance::Fitness",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structea_1_1instance_1_1Fitness.html",tooltip="This structure represents Instances' fitnesses. Mathematically, it is calculated as rho * 2^{size} + ..."];
-}
