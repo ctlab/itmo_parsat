@@ -122,6 +122,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa073ad39076e1783d364023b2b50882e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aa073ad39076e1783d364023b2b50882e">prop_assignments</a> (domain::USearch search, prop_callback_t const &amp;callback)</td></tr>
 <tr class="memdesc:aa073ad39076e1783d364023b2b50882e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1Solver.html#aa073ad39076e1783d364023b2b50882e">More...</a><br /></td></tr>
 <tr class="separator:aa073ad39076e1783d364023b2b50882e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a818f5ece3c9327a415767d5b4f140f22"><td class="memItemLeft" align="right" valign="top">virtual uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a818f5ece3c9327a415767d5b4f140f22">prop_tree</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;vars, uint32_t head_size)=0</td></tr>
+<tr class="separator:a818f5ece3c9327a415767d5b4f140f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1172842b4cfc212a0a953f632ba1bf8"><td class="memItemLeft" align="right" valign="top"><a id="ad1172842b4cfc212a0a953f632ba1bf8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#ad1172842b4cfc212a0a953f632ba1bf8">interrupt</a> ()</td></tr>
 <tr class="memdesc:ad1172842b4cfc212a0a953f632ba1bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupts solver. Intended to be used from signal handlers. <br /></td></tr>
@@ -247,6 +249,45 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 </dl>
 
 <p>Reimplemented in <a class="el" href="classcore_1_1sat_1_1ParSolver.html#a1e0468b42066d327f0482f7d1976c61b">core::sat::ParSolver</a>.</p>
+
+</div>
+</div>
+<a id="a818f5ece3c9327a415767d5b4f140f22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a818f5ece3c9327a415767d5b4f140f22">&#9670;&nbsp;</a></span>prop_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uint64_t core::sat::Solver::prop_tree </td>
+          <td>(</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>head_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>: documentation </dd></dl>
+
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1ParSolver.html#a85ce10908f91112b4c21671ddbc5dd43">core::sat::ParSolver</a>, and <a class="el" href="classcore_1_1sat_1_1SimpSolver.html#adacdd17f515486e4a6d8b37f068bf028">core::sat::SimpSolver</a>.</p>
 
 </div>
 </div>

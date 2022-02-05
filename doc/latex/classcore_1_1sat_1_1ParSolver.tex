@@ -45,6 +45,8 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aface88f5376860219f9e653683d
 \begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a1e0468b42066d327f0482f7d1976c61b}{prop\+\_\+assignments}} (domain\+::\+U\+Search assignment, prop\+\_\+callback\+\_\+t const \&callback) override
 \begin{DoxyCompactList}\small\item\em Propagates all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a85ce10908f91112b4c21671ddbc5dd43}{prop\+\_\+tree}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&vars, uint32\+\_\+t head\+\_\+size) override
+\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_aab155ed21ff328d17be258175cee1224}\label{classcore_1_1sat_1_1ParSolver_aab155ed21ff328d17be258175cee1224}} 
 unsigned \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aab155ed21ff328d17be258175cee1224}{num\+\_\+vars}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -94,6 +96,18 @@ Propagates all assignments by the given iterator and calls callback respectively
 
 
 Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa073ad39076e1783d364023b2b50882e}{core\+::sat\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_a85ce10908f91112b4c21671ddbc5dd43}\label{classcore_1_1sat_1_1ParSolver_a85ce10908f91112b4c21671ddbc5dd43}} 
+\index{core::sat::ParSolver@{core::sat::ParSolver}!prop\_tree@{prop\_tree}}
+\index{prop\_tree@{prop\_tree}!core::sat::ParSolver@{core::sat::ParSolver}}
+\doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::\+Par\+Solver\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: documentation \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a818f5ece3c9327a415767d5b4f140f22}{core\+::sat\+::\+Solver}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_aa3c1c9b256147177034aca63e5558caf}\label{classcore_1_1sat_1_1ParSolver_aa3c1c9b256147177034aca63e5558caf}} 
 \index{core::sat::ParSolver@{core::sat::ParSolver}!propagate@{propagate}}

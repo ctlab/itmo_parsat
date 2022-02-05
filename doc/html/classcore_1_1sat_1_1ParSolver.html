@@ -118,6 +118,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e0468b42066d327f0482f7d1976c61b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a1e0468b42066d327f0482f7d1976c61b">prop_assignments</a> (domain::USearch assignment, prop_callback_t const &amp;callback) override</td></tr>
 <tr class="memdesc:a1e0468b42066d327f0482f7d1976c61b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1ParSolver.html#a1e0468b42066d327f0482f7d1976c61b">More...</a><br /></td></tr>
 <tr class="separator:a1e0468b42066d327f0482f7d1976c61b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ce10908f91112b4c21671ddbc5dd43"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a85ce10908f91112b4c21671ddbc5dd43">prop_tree</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;vars, uint32_t head_size) override</td></tr>
+<tr class="separator:a85ce10908f91112b4c21671ddbc5dd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab155ed21ff328d17be258175cee1224"><td class="memItemLeft" align="right" valign="top"><a id="aab155ed21ff328d17be258175cee1224"></a>
 unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#aab155ed21ff328d17be258175cee1224">num_vars</a> () const noexcept override</td></tr>
 <tr class="memdesc:aab155ed21ff328d17be258175cee1224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
@@ -234,6 +236,45 @@ typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &
 </dl>
 
 <p>Reimplemented from <a class="el" href="classcore_1_1sat_1_1Solver.html#aa073ad39076e1783d364023b2b50882e">core::sat::Solver</a>.</p>
+
+</div>
+</div>
+<a id="a85ce10908f91112b4c21671ddbc5dd43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ce10908f91112b4c21671ddbc5dd43">&#9670;&nbsp;</a></span>prop_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t core::sat::ParSolver::prop_tree </td>
+          <td>(</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>head_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>: documentation </dd></dl>
+
+<p>Implements <a class="el" href="classcore_1_1sat_1_1Solver.html#a818f5ece3c9327a415767d5b4f140f22">core::sat::Solver</a>.</p>
 
 </div>
 </div>

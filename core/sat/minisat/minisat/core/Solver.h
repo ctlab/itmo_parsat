@@ -71,6 +71,9 @@ class Solver {
   bool prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving);
   bool prop_check(const vec<Lit>& assumps, int psaving);
 
+  uint64_t prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index);
+  uint64_t prop_check_subtree(const vec<Lit>& vars, uint32_t head_size);
+
   bool simplify();  // Removes already satisfied clauses.
   bool solve(
       const vec<Lit>& assumps);  // Search for a model that respects a given set of assumptions.

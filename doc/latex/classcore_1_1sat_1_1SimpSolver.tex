@@ -45,7 +45,9 @@ unsigned \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_ae973f34a601b21cbf522fc
 bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated) override
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_adacdd17f515486e4a6d8b37f068bf028}{prop\+\_\+tree}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&vars, uint32\+\_\+t head\+\_\+size) override
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -71,6 +73,18 @@ Parses cnf from .gz file with the specified path.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a9cf6db209b1c87813e06c5b641e6128c}{core\+::sat\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_adacdd17f515486e4a6d8b37f068bf028}\label{classcore_1_1sat_1_1SimpSolver_adacdd17f515486e4a6d8b37f068bf028}} 
+\index{core::sat::SimpSolver@{core::sat::SimpSolver}!prop\_tree@{prop\_tree}}
+\index{prop\_tree@{prop\_tree}!core::sat::SimpSolver@{core::sat::SimpSolver}}
+\doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::\+Simp\+Solver\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: documentation \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a818f5ece3c9327a415767d5b4f140f22}{core\+::sat\+::\+Solver}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}\label{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}} 
 \index{core::sat::SimpSolver@{core::sat::SimpSolver}!propagate@{propagate}}

@@ -44,6 +44,8 @@ virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa3893db285a22a2988ec7f
 \begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa073ad39076e1783d364023b2b50882e}{prop\+\_\+assignments}} (domain\+::\+U\+Search search, prop\+\_\+callback\+\_\+t const \&callback)
 \begin{DoxyCompactList}\small\item\em Propagates all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
+virtual uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a818f5ece3c9327a415767d5b4f140f22}{prop\+\_\+tree}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&vars, uint32\+\_\+t head\+\_\+size)=0
+\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_ad1172842b4cfc212a0a953f632ba1bf8}\label{classcore_1_1sat_1_1Solver_ad1172842b4cfc212a0a953f632ba1bf8}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_ad1172842b4cfc212a0a953f632ba1bf8}{interrupt}} ()
 \begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
@@ -119,6 +121,18 @@ Propagates all assignments by the given iterator and calls callback respectively
 
 
 Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a1e0468b42066d327f0482f7d1976c61b}{core\+::sat\+::\+Par\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a818f5ece3c9327a415767d5b4f140f22}\label{classcore_1_1sat_1_1Solver_a818f5ece3c9327a415767d5b4f140f22}} 
+\index{core::sat::Solver@{core::sat::Solver}!prop\_tree@{prop\_tree}}
+\index{prop\_tree@{prop\_tree}!core::sat::Solver@{core::sat::Solver}}
+\doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
+{\footnotesize\ttfamily virtual uint64\+\_\+t core\+::sat\+::\+Solver\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: documentation \end{DoxyRefDesc}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a85ce10908f91112b4c21671ddbc5dd43}{core\+::sat\+::\+Par\+Solver}}, and \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_adacdd17f515486e4a6d8b37f068bf028}{core\+::sat\+::\+Simp\+Solver}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}\label{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}} 
 \index{core::sat::Solver@{core::sat::Solver}!propagate@{propagate}}

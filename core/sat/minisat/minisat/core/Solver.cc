@@ -697,6 +697,114 @@ CRef Solver::propagate() {
   return confl;
 }
 
+uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
+  if (index == vars.size()) {
+    return 0;
+  }
+  int variable = var(vars[index]);
+  uint64_t result = 0, half_subtree_size = 1ULL << (vars.size() - index - 1);
+
+  {  // Process left subtree
+    // try to set variable to true
+    Lit positive_literal = mkLit(variable, true);
+    lbool val = value(positive_literal);
+    if (val == l_False) {
+      // Positive literal is conflicting, thus the whole subtree is conflicting.
+      result += half_subtree_size;
+    } else if (val == l_Undef) {
+      // Positive literal does not lead to conflict, but is not set, thus assign it.
+      int base_level = decisionLevel();
+      newDecisionLevel();
+      uncheckedEnqueue(positive_literal);
+      if (propagate() != CRef_Undef) {
+        // Positive literal leads to conflict. Add the whole subtree.
+        result += half_subtree_size;
+      } else {
+        // Positive literal is assigned and did not lead to conflict. Process the next one.
+        result += prop_check_subtree_impl(vars, index + 1);
+      }
+      // Retract.
+      cancelUntil(base_level);
+    } else {
+      // Current literal is already assigned to positive. Proceed with children.
+      result += prop_check_subtree_impl(vars, index + 1);
+    }
+  }
+
+  {  // Process right subtree
+    // try to set variable to false
+    Lit negative_literal = mkLit(variable, false);
+    lbool val = value(negative_literal);
+    if (val == l_False) {
+      // Positive literal is conflicting, thus the whole subtree is conflicting.
+      result += half_subtree_size;
+    } else if (val == l_Undef) {
+      // Positive literal does not lead to conflict, but is not set, thus assign it.
+      int base_level = decisionLevel();
+      newDecisionLevel();
+      uncheckedEnqueue(negative_literal);
+      if (propagate() != CRef_Undef) {
+        // Positive literal leads to conflict. Add the whole subtree.
+        result += half_subtree_size;
+      } else {
+        // Positive literal is assigned and did not lead to conflict. Process the next one.
+        result += prop_check_subtree_impl(vars, index + 1);
+      }
+      // Retract.
+      cancelUntil(base_level);
+    } else {
+      // Current literal is already assigned to negative. Proceed with children.
+      result += prop_check_subtree_impl(vars, index + 1);
+    }
+  }
+
+  return result;
+}
+
+// returns the number of conflicting assignments in the subtree, which path to root is head
+// vars: first head_size are literals, other are just variables that will be assigned.
+uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
+  uint32_t assign_size = vars.size();
+  assert(assign_size <= 63 && bool("Assignment is too large to be processed as a full tree."));
+  assert(head_size <= assign_size);
+  uint64_t subtree_size = 1ULL << (assign_size - head_size);
+
+  if (!ok) {
+    return subtree_size;
+  }
+  int level = decisionLevel();
+  uint64_t result = 0;
+
+  // Create decision level with head assigned
+  newDecisionLevel();
+  for (uint64_t i = 0; i < head_size; ++i) {
+    Lit literal = vars[i];
+    lbool val = value(literal);
+    if (val == l_False) {
+      result = subtree_size;
+      goto finish;
+    } else if (val == l_Undef) {
+      uncheckedEnqueue(literal);
+    }  // else it is already assigned.
+  }
+
+  // Check if head contains no conflicts
+  if (propagate() != CRef_Undef) {
+    // Conflict occurred => the whole subtree has conflicts.
+    result = subtree_size;
+  } else {
+    // No conflict => iterate over subtree.
+    result = prop_check_subtree_impl(vars, head_size);
+  }
+
+  // Iterate over subtree
+finish:
+  if (decisionLevel() > level) {
+    cancelUntil(level);
+  }
+  return result;
+}
+
 //=================================================================================================
 // Only checks for conflicts
 bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {

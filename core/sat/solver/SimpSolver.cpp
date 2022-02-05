@@ -70,6 +70,12 @@ bool SimpSolver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
   return IPS_TRACE_N_V("SimpSolver::propagate_confl", !prop_check(assumptions, 0));
 }
 
+uint64_t SimpSolver::prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) {
+  clearInterrupt();
+  return IPS_TRACE_N_V("SimpSolver::prop_tree", prop_check_subtree(vars, head_size));
+  //  return 0;
+}
+
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);
 
 }  // namespace core::sat

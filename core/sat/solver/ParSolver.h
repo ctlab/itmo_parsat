@@ -30,7 +30,15 @@ class ParSolver : public Solver {
     Solver::slv_callback_t callback;
   };
 
-  using task_t = std::variant<req_prop_t, req_solve_t>;
+  struct req_prop_full_t {
+    Minisat::vec<Minisat::Lit> vars;
+    uint32_t base_head;
+    uint32_t head_size;
+    uint64_t head_asgn;
+    /* return */ std::atomic_uint64_t& conflicts;
+  };
+
+  using task_t = std::variant<req_prop_t, req_solve_t, req_prop_full_t>;
 
  private:
   void _solve(sat::Solver& solver, req_solve_t& req);
@@ -55,6 +63,8 @@ class ParSolver : public Solver {
   void solve_assignments(domain::USearch assignment, slv_callback_t const& callback) override;
 
   void prop_assignments(domain::USearch assignment, prop_callback_t const& callback) override;
+
+  uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

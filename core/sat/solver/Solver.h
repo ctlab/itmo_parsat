@@ -9,6 +9,7 @@
 #include "minisat/core/SolverTypes.h"
 #include "minisat/mtl/Vec.h"
 #include "core/domain/assignment/Search.h"
+#include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"
 
@@ -102,6 +103,9 @@ class Solver {
    * @param callback callback to be called on each solve.
    */
   virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
+
+  /// @todo: documentation
+  virtual uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) = 0;
 
   /**
    * @brief Interrupts solver. Intended to be used from signal handlers.

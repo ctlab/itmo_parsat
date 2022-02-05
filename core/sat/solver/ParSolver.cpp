@@ -118,6 +118,41 @@ void ParSolver::prop_assignments(
   _wait_for_futures(futures);
 }
 
+uint64_t ParSolver::prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) {
+  if (vars.size() - head_size <= 16) {
+    //     Use single thread to process small requests.
+    return _solvers.front()->prop_tree(vars, head_size);
+  }
+
+  // We use the number of threads as the highest power of 2, lower than pool size.
+  uint32_t max_threads = 1;
+  while (max_threads * 2 < _t.size()) {
+    max_threads <<= 1;
+  }
+
+  // first hs vars are fixed, vl = |vars| - hs are left
+  // we choose new head size, hs' <= vl
+  // the number of threads will be 2^{hs'}
+  // threads <= max_threads
+  // threads = 2^{hs'} <= 2^{vl}
+  uint32_t vars_left = vars.size() - head_size;
+  uint32_t threads = std::min(uint32_t(1) << vars_left, max_threads);
+  uint32_t new_head_size = std::log2(threads);
+
+  std::atomic_uint64_t result = 0;
+  std::vector<std::future<void>> futures;
+  for (uint32_t thread = 0; thread < threads; ++thread) {
+    futures.push_back(_submit(req_prop_full_t{
+        /* vars = */ vars,
+        /* base_head = */ head_size,
+        /* head_size = */ new_head_size,
+        /* head_asgn = */ thread,
+        /* conflicts& */ result}));
+  }
+  _wait_for_futures(futures);
+  return result;
+}
+
 void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
   if (!req.assignment->empty()) {
     auto& assignment = *req.assignment;
@@ -171,6 +206,16 @@ std::future<void> ParSolver::_submit(task_t&& task) {
           },
           [&, this](req_prop_t& req) {
             _propagate(solver, req);
+          },
+          [&](req_prop_full_t& req) {
+            auto& asgn = req.vars;
+            uint32_t base_head = req.base_head;
+            uint32_t head_size = req.head_size;
+            uint64_t head_asgn = req.head_asgn;
+            for (uint32_t i = 0; i < head_size; ++i) {
+              asgn[base_head + i] = Minisat::mkLit(Minisat::var(asgn[base_head + i]), head_asgn & (1ULL << i));
+            }
+            req.conflicts += solver.prop_tree(asgn, base_head + head_size);
           }
       }, task);
   });

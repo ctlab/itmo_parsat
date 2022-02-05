@@ -29,6 +29,8 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
 
   [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
+  uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
+
  private:
   void _do_interrupt() override;
 
