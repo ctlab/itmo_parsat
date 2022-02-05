@@ -76,6 +76,10 @@ message ConjLimitConfig {
   repeated LimitConfig limit_config = 1;
 }
 
+message StallLimitConfig {
+  uint32 steps_before_stall = 1;
+}
+
 message LimitConfig {
   string limit_type = 1;
   ResourceLimitConfig resource_limit_config = 2;
