@@ -12,6 +12,7 @@
 
 #include "core/util/Generator.h"
 #include "core/sat/prop/Prop.h"
+#include "core/util/WorkerPool.h"
 
 namespace core::sat::prop {
 
@@ -20,30 +21,10 @@ namespace core::sat::prop {
  */
 class ParProp : public Prop {
  private:
-  struct req_prop_t {
-    domain::USearch assignment;
-    Prop::prop_callback_t callback;
-  };
-
-  struct req_prop_full_t {
-    Minisat::vec<Minisat::Lit> vars;
-    uint32_t base_head;
-    uint32_t head_size;
-    uint64_t head_asgn;
-    /* return */ std::atomic_uint64_t& conflicts;
-  };
-
-  using task_t = std::variant<req_prop_t, req_prop_full_t>;
-
- private:
-  void _propagate(sat::prop::Prop& prop, req_prop_t& req);
-
-  std::future<void> _submit(task_t&& task);
+  void _propagate(sat::prop::Prop& prop, domain::USearch search, prop_callback_t const& callback);
 
  public:
   explicit ParProp(ParPropConfig const& config);
-
-  ~ParProp() noexcept;
 
   void parse_cnf(std::filesystem::path const& input) override;
 
@@ -58,12 +39,8 @@ class ParProp : public Prop {
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 
  private:
-  std::vector<std::thread> _t;
-  std::vector<sat::prop::RProp> _solvers;
-  std::queue<std::packaged_task<void(sat::prop::Prop&)>> _task_queue;
-  std::condition_variable _cv;
-  std::mutex _m;
-  std::atomic_bool _stop{false};
+  using PropWorkerPool = core::util::WorkerPool<RProp>;
+  PropWorkerPool _prop_worker_pool;
 };
 
 }  // namespace core::sat::prop

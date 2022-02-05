@@ -3,6 +3,7 @@
     "random_seed": 1337,
     "par_rbs_solve_config": {
         "max_unpropagated": 100,
+        "max_cartesian_size": 500000,
         "num_algorithms": 5,
         "algorithm_configs": [
             {

@@ -151,7 +151,6 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
          non_conflict_assignments[index].size() > max_non_conflict) {
     ++index;
   }
-
   std::vector<std::vector<Minisat::Lit>> std_cartesian;
   uint32_t cartesian_expected_size;
 
@@ -168,7 +167,9 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
     std_cartesian = std::move(non_conflict_assignments[index++]);
     cartesian_expected_size = std_cartesian.size();
 
-    for (; index < non_conflict_assignments.size(); ++index) {
+    for (; index < non_conflict_assignments.size() &&
+           std_cartesian.size() < _cfg.max_cartesian_size();
+         ++index) {
       if (non_conflict_assignments[index].size() > max_non_conflict) {
         continue;
       }

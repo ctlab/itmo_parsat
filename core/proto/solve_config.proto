@@ -165,6 +165,7 @@ message ParRBSSolveConfig {
   SolverConfig solver_config = 2;
   uint32 num_algorithms = 4;
   uint32 max_unpropagated = 5;
+  uint32 max_cartesian_size = 6;
 }
 
 message SolveConfig {

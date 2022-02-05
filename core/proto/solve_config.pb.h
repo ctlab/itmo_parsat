@@ -2056,6 +2056,154 @@ class ConjLimitConfig PROTOBUF_FINAL
 };
 // -------------------------------------------------------------------
 
+class StallLimitConfig PROTOBUF_FINAL
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:StallLimitConfig) */ {
+ public:
+  inline StallLimitConfig() : StallLimitConfig(nullptr) {}
+  virtual ~StallLimitConfig();
+
+  StallLimitConfig(const StallLimitConfig& from);
+  StallLimitConfig(StallLimitConfig&& from) noexcept : StallLimitConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline StallLimitConfig& operator=(const StallLimitConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StallLimitConfig& operator=(StallLimitConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from)
+        InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const StallLimitConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const StallLimitConfig* internal_default_instance() {
+    return reinterpret_cast<const StallLimitConfig*>(&_StallLimitConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 11;
+
+  friend void swap(StallLimitConfig& a, StallLimitConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StallLimitConfig* other) {
+    if (other == this)
+      return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StallLimitConfig* other) {
+    if (other == this)
+      return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline StallLimitConfig* New() const final {
+    return CreateMaybeMessage<StallLimitConfig>(nullptr);
+  }
+
+  StallLimitConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StallLimitConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const StallLimitConfig& from);
+  void MergeFrom(const StallLimitConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(
+      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target,
+      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final {
+    return _cached_size_.Get();
+  }
+
+ private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StallLimitConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "StallLimitConfig";
+  }
+
+ protected:
+  explicit StallLimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ public:
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+ private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
+    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
+        .file_level_metadata[kIndexInFileMessages];
+  }
+
+ public:
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStepsBeforeStallFieldNumber = 1,
+  };
+  // uint32 steps_before_stall = 1;
+  void clear_steps_before_stall();
+  ::PROTOBUF_NAMESPACE_ID::uint32 steps_before_stall() const;
+  void set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_steps_before_stall() const;
+  void _internal_set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ public:
+  // @@protoc_insertion_point(class_scope:StallLimitConfig)
+ private:
+  class _Internal;
+
+  template <typename T>
+  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 steps_before_stall_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
+};
+// -------------------------------------------------------------------
+
 class LimitConfig PROTOBUF_FINAL
     : public ::PROTOBUF_NAMESPACE_ID::
           Message /* @@protoc_insertion_point(class_definition:LimitConfig) */ {
@@ -3138,9 +3286,8 @@ class SelectorConfig PROTOBUF_FINAL
 // -------------------------------------------------------------------
 
 class InstanceConfig_SamplingSizeConfig PROTOBUF_FINAL
-    : public ::PROTOBUF_NAMESPACE_ID::
-          Message /* @@protoc_insertion_point(class_definition:InstanceConfig.SamplingSizeConfig)
-                   */
+    : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:InstanceConfig.SamplingSizeConfig)
+                                               */
 {
  public:
   inline InstanceConfig_SamplingSizeConfig() : InstanceConfig_SamplingSizeConfig(nullptr) {}
@@ -4845,6 +4992,7 @@ class ParRBSSolveConfig PROTOBUF_FINAL
     kSolverConfigFieldNumber = 2,
     kNumAlgorithmsFieldNumber = 4,
     kMaxUnpropagatedFieldNumber = 5,
+    kMaxCartesianSizeFieldNumber = 6,
   };
   // repeated .AlgorithmConfig algorithm_configs = 1;
   int algorithm_configs_size() const;
@@ -4907,6 +5055,16 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   void _internal_set_max_unpropagated(::PROTOBUF_NAMESPACE_ID::uint32 value);
 
  public:
+  // uint32 max_cartesian_size = 6;
+  void clear_max_cartesian_size();
+  ::PROTOBUF_NAMESPACE_ID::uint32 max_cartesian_size() const;
+  void set_max_cartesian_size(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_max_cartesian_size() const;
+  void _internal_set_max_cartesian_size(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ public:
   // @@protoc_insertion_point(class_scope:ParRBSSolveConfig)
  private:
   class _Internal;
@@ -4919,6 +5077,7 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   ::SolverConfig* solver_config_;
   ::PROTOBUF_NAMESPACE_ID::uint32 num_algorithms_;
   ::PROTOBUF_NAMESPACE_ID::uint32 max_unpropagated_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 max_cartesian_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
 };
@@ -6255,6 +6414,30 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::LimitConfig>&
 ConjLimitConfig::limit_config() const {
   // @@protoc_insertion_point(field_list:ConjLimitConfig.limit_config)
   return limit_config_;
+}
+
+// -------------------------------------------------------------------
+
+// StallLimitConfig
+
+// uint32 steps_before_stall = 1;
+inline void StallLimitConfig::clear_steps_before_stall() {
+  steps_before_stall_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 StallLimitConfig::_internal_steps_before_stall() const {
+  return steps_before_stall_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 StallLimitConfig::steps_before_stall() const {
+  // @@protoc_insertion_point(field_get:StallLimitConfig.steps_before_stall)
+  return _internal_steps_before_stall();
+}
+inline void StallLimitConfig::_internal_set_steps_before_stall(
+    ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  steps_before_stall_ = value;
+}
+inline void StallLimitConfig::set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_steps_before_stall(value);
+  // @@protoc_insertion_point(field_set:StallLimitConfig.steps_before_stall)
 }
 
 // -------------------------------------------------------------------
@@ -8807,6 +8990,26 @@ inline void ParRBSSolveConfig::_internal_set_max_unpropagated(
 inline void ParRBSSolveConfig::set_max_unpropagated(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_max_unpropagated(value);
   // @@protoc_insertion_point(field_set:ParRBSSolveConfig.max_unpropagated)
+}
+
+// uint32 max_cartesian_size = 6;
+inline void ParRBSSolveConfig::clear_max_cartesian_size() {
+  max_cartesian_size_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ParRBSSolveConfig::_internal_max_cartesian_size() const {
+  return max_cartesian_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ParRBSSolveConfig::max_cartesian_size() const {
+  // @@protoc_insertion_point(field_get:ParRBSSolveConfig.max_cartesian_size)
+  return _internal_max_cartesian_size();
+}
+inline void ParRBSSolveConfig::_internal_set_max_cartesian_size(
+    ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  max_cartesian_size_ = value;
+}
+inline void ParRBSSolveConfig::set_max_cartesian_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_max_cartesian_size(value);
+  // @@protoc_insertion_point(field_set:ParRBSSolveConfig.max_cartesian_size)
 }
 
 // -------------------------------------------------------------------

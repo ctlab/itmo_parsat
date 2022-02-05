@@ -82,12 +82,12 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
     conflicts = _prop->prop_tree((*search)(), 0);
 #else
     Minisat::vec<Minisat::Lit> vars = (*search)();
-    _solver->prop_assignments(std::move(search),
-      [&conflicts](bool conflict, auto const& asgn) {
+    _prop->prop_assignments(std::move(search),
+      [&conflicts](bool conflict, auto&&) {
         conflicts += conflict;
         return true;
     });
-    uint64_t tree_conflicts = _solver->prop_tree(vars, 0);
+    uint64_t tree_conflicts = _prop->prop_tree(vars, 0);
     IPS_VERIFY(tree_conflicts == conflicts);
 #endif
 
