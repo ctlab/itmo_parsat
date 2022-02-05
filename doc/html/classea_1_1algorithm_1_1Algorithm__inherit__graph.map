@@ -1,0 +1,5 @@
+<map id="ea::algorithm::Algorithm" name="ea::algorithm::Algorithm">
+<area shape="rect" id="node1" title="The base class of (E|G)A search algorithms." alt="" coords="125,5,306,32"/>
+<area shape="rect" id="node2" href="$classea_1_1algorithm_1_1EAAlgorithm.html" title="Evolutionary (1+1) algorithm." alt="" coords="5,80,204,107"/>
+<area shape="rect" id="node3" href="$classea_1_1algorithm_1_1GAAlgorithm.html" title="Genetic algorithm." alt="" coords="227,80,427,107"/>
+</map>

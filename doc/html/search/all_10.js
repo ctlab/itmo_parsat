@@ -19,5 +19,6 @@ var searchData=
   ['solve_5flimited_98',['solve_limited',['../classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905',1,'core::sat::Solver']]],
   ['solver_99',['Solver',['../classcore_1_1sat_1_1Solver.html',1,'core::sat']]],
   ['split_5fsearch_100',['split_search',['../classcore_1_1domain_1_1Search.html#a17e6d8a0df067683f0a80ca2171a4acf',1,'core::domain::Search']]],
-  ['start_101',['start',['../classea_1_1limit_1_1ConjLimit.html#a112e6884f8301c5df707a78e9dd72ec9',1,'ea::limit::ConjLimit::start()'],['../classea_1_1limit_1_1Limit.html#ac43feeb7c292c1332dde400300429c91',1,'ea::limit::Limit::start()'],['../classea_1_1limit_1_1ResourceLimit.html#ab836dc2ee7c4ef7718e2f63ae39dd107',1,'ea::limit::ResourceLimit::start()']]]
+  ['stalllimit_101',['StallLimit',['../classea_1_1limit_1_1StallLimit.html',1,'ea::limit']]],
+  ['start_102',['start',['../classea_1_1limit_1_1ConjLimit.html#a112e6884f8301c5df707a78e9dd72ec9',1,'ea::limit::ConjLimit::start()'],['../classea_1_1limit_1_1Limit.html#ac43feeb7c292c1332dde400300429c91',1,'ea::limit::Limit::start()'],['../classea_1_1limit_1_1ResourceLimit.html#ab836dc2ee7c4ef7718e2f63ae39dd107',1,'ea::limit::ResourceLimit::start()']]]
 ];
