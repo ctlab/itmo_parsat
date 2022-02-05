@@ -12,14 +12,7 @@
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Registry.h"
-
-#ifndef DISABLE_CHECK_ASGN
-
-#include <vector>
-#include <mutex>
-#include <set>
-
-#endif
+#include "core/domain/assignment/TrackAssignments.h"
 
 namespace core::sat {
 
@@ -44,11 +37,6 @@ class Solver {
         bool, // true iff solved on propagate stage
         Minisat::vec<Minisat::Lit> const& // assumptions passed to solve
       )> slv_callback_t;
-  typedef std::function<
-      bool( // true iff should continue solving
-        bool, // true iff there's been conflict
-        Minisat::vec<Minisat::Lit> const& // assumptions passed to propagate
-      )> prop_callback_t; //
   // clang-format on
 
  public:
@@ -74,38 +62,11 @@ class Solver {
   virtual State solve(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
 
   /**
-   * @brief Propagates a given list of assumptions.
-   * @return true iff conflicts happened.
-   * @param assumptions the assumptions to include.
-   * @param propagated the propagated literals.
-   * @return true if and only if conflict occurred.
-   */
-  [[nodiscard]] virtual bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) = 0;
-
-  /**
-   * @brief Propagates a given list of assumptions.
-   * @param assumptions assumptions to include.
-   * @return true if and only if conflict occurred.
-   */
-  [[nodiscard]] virtual bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
-
-  /**
    * @brief Solves CNF on all assignments by the given iterator and calls callback respectively.
    * @param search search engine.
    * @param callback callback to be called on each solve.
    */
   virtual void solve_assignments(domain::USearch search, slv_callback_t const& callback);
-
-  /**
-   * @brief Propagates all assignments by the given iterator and calls callback respectively.
-   * @param search search engine.
-   * @param callback callback to be called on each solve.
-   */
-  virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
-
-  /// @todo: documentation
-  virtual uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) = 0;
 
   /**
    * @brief Interrupts solver. Intended to be used from signal handlers.
@@ -127,6 +88,12 @@ class Solver {
    */
   [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;
 
+  /**
+   * @param assumptions assumptions to be passed to solver
+   * @return whether these assumptions lead to conflict
+   */
+  [[nodiscard]] virtual bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
+
  protected:
   virtual void _do_interrupt(){};
 
@@ -141,43 +108,6 @@ using RSolver = std::shared_ptr<Solver>;
 using USolver = std::unique_ptr<Solver>;
 
 DEFINE_REGISTRY(Solver, SolverConfig, solver);
-
-#ifndef DISABLE_CHECK_ASGN
-
-#define START_ASGN_TRACK(expected_size)    \
-  std::mutex _m_asgn_track;                \
-  std::atomic_bool _stop_callback{false};  \
-  uint32_t _expected_size = expected_size; \
-  std::set<std::vector<bool>> _uniq_asgn
-
-#define ASGN_TRACK(asgn)                                                                           \
-  do {                                                                                             \
-    std::vector<bool> _cur(asgn.size());                                                           \
-    for (int i = 0; i < asgn.size(); ++i) {                                                        \
-      _cur[i] = Minisat::sign(asgn[i]);                                                            \
-    }                                                                                              \
-    std::lock_guard<std::mutex> _lg(_m_asgn_track);                                                \
-    IPS_VERIFY(_uniq_asgn.insert(std::move(_cur)).second == true && bool("Duplicate assignment")); \
-  } while (0)
-
-#define BREAK_ASGN_TRACK _stop_callback = true
-
-#define END_ASGN_TRACK                                                            \
-  IPS_VERIFY(                                                                     \
-      (_stop_callback || interrupted() || _uniq_asgn.size() == _expected_size) && \
-      bool("Unexpected assignments behaviour"))
-
-#else
-
-#define START_ASGN_TRACK(...)
-
-#define ASGN_TRACK(...)
-
-#define BREAK_ASGN_TRACK
-
-#define END_ASGN_TRACK
-
-#endif
 
 }  // namespace core::sat
 

@@ -44,6 +44,15 @@ message SolverConfig {
   ParSolverConfig par_solver_config = 5;
 }
 
+message PropConfig {
+  string prop_type = 1;
+  ParPropConfig par_prop_config = 2;
+}
+
+message ParPropConfig {
+  uint32 max_threads = 1;
+  PropConfig prop_config = 2;
+}
 
 message ResourceLimitConfig {
   uint32 memory_limit_kb = 1;
@@ -112,7 +121,7 @@ message InstanceConfig {
 }
 
 message BaseAlgorithmConfig {
-  SolverConfig solver_config = 1;
+  PropConfig prop_config = 1;
   LimitConfig limit_config = 2;
   InstanceConfig instance_config = 3;
 }

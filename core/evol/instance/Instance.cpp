@@ -12,8 +12,8 @@ uint32_t Instance::num_vars() const noexcept {
   return _shared->var_view.size();
 }
 
-Instance::Instance(core::sat::RSolver solver, RSharedData shared_data)
-    : _solver(std::move(solver)), _shared(std::move(shared_data)) {
+Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data)
+    : _prop(std::move(prop)), _shared(std::move(shared_data)) {
   _vars.resize(_var_view().size());
 
   // Initialize instance by setting one random variable
@@ -76,23 +76,26 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
     samples = 1ULL << size;
     std::unique_ptr<core::domain::FullSearch> search =
         core::domain::createFullSearch(_var_view(), mask);
-    Minisat::vec<Minisat::Lit> vars = (*search)();
     // clang-format off
-// Left here for checks.
+
+#if 1
+    conflicts = _prop->prop_tree((*search)(), 0);
+#else
+    Minisat::vec<Minisat::Lit> vars = (*search)();
     _solver->prop_assignments(std::move(search),
       [&conflicts](bool conflict, auto const& asgn) {
         conflicts += conflict;
         return true;
     });
-//    uint64_t tree_conflicts = _solver->prop_tree(vars, 0);
-//    IPS_VERIFY(tree_conflicts == conflicts);
+    uint64_t tree_conflicts = _solver->prop_tree(vars, 0);
+    IPS_VERIFY(tree_conflicts == conflicts);
+#endif
 
-//    conflicts = _solver->prop_tree(vars, 0);
     // clang-format on
   } else {
     core::domain::USearch search = core::domain::createRandomSearch(_var_view(), mask, samples);
     // clang-format off
-    _solver->prop_assignments(std::move(search),
+    _prop->prop_assignments(std::move(search),
       [&conflicts](bool conflict, auto const& asgn) {
         conflicts += conflict;
         return true;

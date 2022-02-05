@@ -20,30 +20,15 @@ namespace core::sat {
  */
 class ParSolver : public Solver {
  private:
-  struct req_prop_t {
-    domain::USearch assignment;
-    Solver::prop_callback_t callback;
-  };
-
   struct req_solve_t {
     domain::RSearch assignment;
     Solver::slv_callback_t callback;
   };
 
-  struct req_prop_full_t {
-    Minisat::vec<Minisat::Lit> vars;
-    uint32_t base_head;
-    uint32_t head_size;
-    uint64_t head_asgn;
-    /* return */ std::atomic_uint64_t& conflicts;
-  };
-
-  using task_t = std::variant<req_prop_t, req_solve_t, req_prop_full_t>;
+  using task_t = std::variant<req_solve_t>;
 
  private:
   void _solve(sat::Solver& solver, req_solve_t& req);
-
-  void _propagate(sat::Solver& solver, req_prop_t& req);
 
   std::future<void> _submit(task_t&& task);
 
@@ -56,15 +41,9 @@ class ParSolver : public Solver {
 
   State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
-  bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions,
-      Minisat::vec<Minisat::Lit>& propagated) override;
-
   void solve_assignments(domain::USearch assignment, slv_callback_t const& callback) override;
 
-  void prop_assignments(domain::USearch assignment, prop_callback_t const& callback) override;
-
-  uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
+  [[nodiscard]] bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

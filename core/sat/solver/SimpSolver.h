@@ -6,14 +6,14 @@
 #include "core/sat/solver/Solver.h"
 #include "core/util/Logger.h"
 #include "core/util/Tracer.h"
-#include "minisat/simp/SimpSolver.h"
+#include "core/sat/SimpBase.h"
 
 namespace core::sat {
 
 /**
  * @brief Minisat:SimpSolver-based Solver implementation.
  */
-class SimpSolver : public Solver, public Minisat::SimpSolver {
+class SimpSolver : public Solver, public SimpBase {
  public:
   explicit SimpSolver(SimpSolverConfig const& config);
 
@@ -23,21 +23,12 @@ class SimpSolver : public Solver, public Minisat::SimpSolver {
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
-  [[nodiscard]] bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions,
-      Minisat::vec<Minisat::Lit>& propagated) override;
-
-  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions) override;
-
-  uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
+  [[nodiscard]] bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
  private:
   void _do_interrupt() override;
 
   void _do_clear_interrupt() override;
-
- private:
-  bool preprocess_;
 };
 
 }  // namespace core::sat

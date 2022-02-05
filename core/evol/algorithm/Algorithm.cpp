@@ -6,9 +6,9 @@
 namespace {
 
 void collect_stats(
-    ::core::sat::Solver& solver, Minisat::vec<Minisat::Lit> const& assumptions,
+    ::core::sat::prop::Prop& prop, Minisat::vec<Minisat::Lit> const& assumptions,
     Minisat::vec<Minisat::Lit>& propagated, std::set<int>& collection) {
-  (void) solver.propagate(assumptions, propagated);
+  (void) prop.propagate(assumptions, propagated);
   for (int j = 0; j < propagated.size(); ++j) {
     collection.insert(var(propagated[(int) j]));
   }
@@ -29,18 +29,18 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   Minisat::vec<Minisat::Lit> assumptions(1);
   Minisat::vec<Minisat::Lit> propagated;
   std::vector<std::pair<int, int>> stats;
-  stats.reserve(_solver->num_vars());
+  stats.reserve(_prop->num_vars());
 
-  for (unsigned i = 0; i < _solver->num_vars(); ++i) {
+  for (unsigned i = 0; i < _prop->num_vars(); ++i) {
     std::set<int> prop_both;
     assumptions[0] = Minisat::mkLit((int) i, true);
-    collect_stats(*_solver, assumptions, propagated, prop_both);
+    collect_stats(*_prop, assumptions, propagated, prop_both);
     assumptions[0] = Minisat::mkLit((int) i, false);
-    collect_stats(*_solver, assumptions, propagated, prop_both);
+    collect_stats(*_prop, assumptions, propagated, prop_both);
     stats.emplace_back(prop_both.size(), i);
   }
 
-  uint32_t max_watched_count = std::min(config.heuristic_size(), _solver->num_vars());
+  uint32_t max_watched_count = std::min(config.heuristic_size(), _prop->num_vars());
   std::sort(stats.begin(), stats.end());
   auto it = stats.crbegin();
 
@@ -59,12 +59,12 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
 }
 
 void Algorithm::_add_instance() {
-  _population.push_back(std::make_shared<instance::Instance>(_solver, _shared_data));
+  _population.push_back(std::make_shared<instance::Instance>(_prop, _shared_data));
 }
 
 Algorithm::Algorithm(BaseAlgorithmConfig const& config)
     : _instance_config(config.instance_config())
-    , _solver(core::sat::SolverRegistry::resolve(config.solver_config()))
+    , _prop(core::sat::prop::PropRegistry::resolve(config.prop_config()))
     , _limit(limit::LimitRegistry::resolve(config.limit_config())) {}
 
 void Algorithm::prepare() {
@@ -91,15 +91,14 @@ void Algorithm::process() {
 void Algorithm::interrupt() {
   IPS_INFO_IF(!_interrupted, "Algorithm has been interrupted.");
   _interrupted = true;
-  _solver->interrupt();
 }
 
 bool Algorithm::is_interrupted() const {
   return _interrupted;
 }
 
-core::sat::Solver& Algorithm::get_solver() noexcept {
-  return *_solver;
+core::sat::prop::Prop& Algorithm::get_prop() noexcept {
+  return *_prop;
 }
 
 instance::Instance& Algorithm::get_best() noexcept {

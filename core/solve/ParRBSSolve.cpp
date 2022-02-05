@@ -69,7 +69,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
           core::Generator generator(seed);
           auto& algorithm = algorithms[i];
-          auto& algorithm_solver = algorithm->get_solver();
+          auto& algorithm_solver = algorithm->get_prop();
           IPS_TRACE(algorithm_solver.parse_cnf(input));
           algorithm->prepare();
           IPS_TRACE(algorithm->process());
@@ -85,7 +85,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           // Try to propagate all assumptions and collect ones that ended with no conflict
           std::atomic_uint32_t conflicts{0}, total{0};
-          algorithm->get_solver().prop_assignments(
+          algorithm->get_prop().prop_assignments(
               domain::createFullSearch(
                   algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask()),
               [&](bool conflict, auto const& assumption) {
