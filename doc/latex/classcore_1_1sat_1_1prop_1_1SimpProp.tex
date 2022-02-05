@@ -1,0 +1,138 @@
+\hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp}{}\doxysection{core\+::sat\+::prop\+::Simp\+Prop Class Reference}
+\label{classcore_1_1sat_1_1prop_1_1SimpProp}\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+
+
+Minisat\+:Simp\+Solver-\/based \mbox{\hyperlink{classcore_1_1sat_1_1Solver}{Solver}} implementation.  
+
+
+
+
+{\ttfamily \#include $<$Simp\+Prop.\+h$>$}
+
+
+
+Inheritance diagram for core\+::sat\+::prop\+::Simp\+Prop\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{classcore_1_1sat_1_1prop_1_1SimpProp__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::sat\+::prop\+::Simp\+Prop\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{classcore_1_1sat_1_1prop_1_1SimpProp__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_acbd08582b2a581e60e69b8cbe02bd36d}{parse\+\_\+cnf}} (std\+::filesystem\+::path const \&path) override
+\begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}} 
+uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}{num\+\_\+vars}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_af618cd983b7b89a5744bfa9d13372529}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated) override
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a8d74861b9503d1a67d50821334c9fb4a}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec402529f4ad9f7b38e58276}{prop\+\_\+tree}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&vars, uint32\+\_\+t head\+\_\+size) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Minisat\+:Simp\+Solver-\/based \mbox{\hyperlink{classcore_1_1sat_1_1Solver}{Solver}} implementation. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_acbd08582b2a581e60e69b8cbe02bd36d}\label{classcore_1_1sat_1_1prop_1_1SimpProp_acbd08582b2a581e60e69b8cbe02bd36d}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!parse\_cnf@{parse\_cnf}}
+\index{parse\_cnf@{parse\_cnf}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{parse\_cnf()}{parse\_cnf()}}
+{\footnotesize\ttfamily void core\+::sat\+::prop\+::\+Simp\+Prop\+::parse\+\_\+cnf (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Parses cnf from .gz file with the specified path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & the path with formula. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_aaa0eff3f4050ef47b12358d0558fe4ef}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec402529f4ad9f7b38e58276}\label{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec402529f4ad9f7b38e58276}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!prop\_tree@{prop\_tree}}
+\index{prop\_tree@{prop\_tree}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Simp\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: documentation \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ab5dfb8622e69ffc873c40b665f2e939b}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a8d74861b9503d1a67d50821334c9fb4a}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a8d74861b9503d1a67d50821334c9fb4a}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!propagate@{propagate}}
+\index{propagate@{propagate}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Simp\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Propagates a given list of assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if and only if conflict occurred. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ad90b01c01f8287663c0096f2b69eb440}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_af618cd983b7b89a5744bfa9d13372529}\label{classcore_1_1sat_1_1prop_1_1SimpProp_af618cd983b7b89a5744bfa9d13372529}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!propagate@{propagate}}
+\index{propagate@{propagate}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Simp\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions,  }\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Propagates a given list of assumptions. 
+
+\begin{DoxyReturn}{Returns}
+true iff conflicts happened. 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & the assumptions to include. \\
+\hline
+{\em propagated} & the propagated literals. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if and only if conflict occurred. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a4c1573e7cd50ef65620855f73d13ce3f}{core\+::sat\+::prop\+::\+Prop}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/prop/Simp\+Prop.\+h\item 
+core/sat/prop/Simp\+Prop.\+cpp\end{DoxyCompactItemize}

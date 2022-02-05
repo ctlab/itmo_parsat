@@ -33,7 +33,7 @@ void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}\label{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}} 
 void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}{interrupt}} ()
 \begin{DoxyCompactList}\small\item\em interrupts the algorithm. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classcore_1_1sat_1_1Solver}{core\+::sat\+::\+Solver}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a030f15df2ae7e73784fd535d3d9d3c92}{get\+\_\+solver}} () noexcept
+\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{core\+::sat\+::prop\+::\+Prop}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}{get\+\_\+prop}} () noexcept
 \item 
 \mbox{\hyperlink{classea_1_1instance_1_1Instance}{instance\+::\+Instance}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a81afd839286edcada16b88f3896b08a4}{get\+\_\+best}} () noexcept
 \item 
@@ -70,8 +70,8 @@ ea\+::instance\+::\+Population {\bfseries \+\_\+population}
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}\label{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}} 
 ea\+::instance\+::\+R\+Shared\+Data {\bfseries \+\_\+shared\+\_\+data}
 \item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a892b424ae74542d75c8fecb3b975bcf3}\label{classea_1_1algorithm_1_1Algorithm_a892b424ae74542d75c8fecb3b975bcf3}} 
-core\+::sat\+::\+R\+Solver {\bfseries \+\_\+solver}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}\label{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}} 
+core\+::sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
 \end{DoxyCompactItemize}
 
 
@@ -102,6 +102,15 @@ The base class of (E$\vert$G)A search algorithms.
 \begin{DoxyReturn}{Returns}
 the best instance currently found. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}\label{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_prop@{get\_prop}}
+\index{get\_prop@{get\_prop}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{get\_prop()}{get\_prop()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{core\+::sat\+::prop\+::\+Prop}} \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+prop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the main prop used in this algorithm. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}\label{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_shared\_data@{get\_shared\_data}}
 \index{get\_shared\_data@{get\_shared\_data}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
@@ -110,15 +119,6 @@ the best instance currently found.
 
 \begin{DoxyReturn}{Returns}
 the data shared between instances. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a030f15df2ae7e73784fd535d3d9d3c92}\label{classea_1_1algorithm_1_1Algorithm_a030f15df2ae7e73784fd535d3d9d3c92}} 
-\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_solver@{get\_solver}}
-\index{get\_solver@{get\_solver}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
-\doxysubsubsection{\texorpdfstring{get\_solver()}{get\_solver()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1sat_1_1Solver}{core\+::sat\+::\+Solver}} \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+solver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
-
-\begin{DoxyReturn}{Returns}
-the main solver used in this instance. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}\label{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!has\_unvisited\_points@{has\_unvisited\_points}}

@@ -21,4 +21,4 @@ void Prop::prop_assignments(core::domain::USearch assignment_p, prop_callback_t 
   END_ASGN_TRACK(false);
 }
 
-}  // namespace core::sat
+}  // namespace core::sat::prop

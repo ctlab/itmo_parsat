@@ -180,4 +180,4 @@ unsigned ParProp::num_vars() const noexcept {
 
 REGISTER_PROTO(Prop, ParProp, par_prop_config);
 
-}  // namespace core::sat
+}  // namespace core::sat::prop

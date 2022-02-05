@@ -26,8 +26,8 @@
 
 #define BREAK_ASGN_TRACK _stop_callback = true
 
-#define END_ASGN_TRACK(do_not_check_if)                                                   \
-  IPS_VERIFY(                                                                     \
+#define END_ASGN_TRACK(do_not_check_if)                                               \
+  IPS_VERIFY(                                                                         \
       (_stop_callback || (do_not_check_if) || _uniq_asgn.size() == _expected_size) && \
       bool("Unexpected assignments behaviour"))
 
@@ -42,6 +42,5 @@
 #define END_ASGN_TRACK(...)
 
 #endif
-
 
 #endif  // ITMO_PARSAT_TRACKASSIGNMENTS_H

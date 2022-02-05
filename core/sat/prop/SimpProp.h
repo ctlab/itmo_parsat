@@ -31,6 +31,6 @@ class SimpProp : public Prop, public SimpBase {
   uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
 };
 
-}  // namespace core::sat
+}  // namespace core::sat::prop
 
 #endif  // EVOL_SIMPPROP_H

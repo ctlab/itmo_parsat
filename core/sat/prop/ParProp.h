@@ -66,6 +66,6 @@ class ParProp : public Prop {
   std::atomic_bool _stop{false};
 };
 
-}  // namespace core::sat
+}  // namespace core::sat::prop
 
 #endif  // EVOL_PARPROP_H

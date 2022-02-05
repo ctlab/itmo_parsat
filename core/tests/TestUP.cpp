@@ -4,7 +4,7 @@
 
 #include "minisat/core/Dimacs.h"
 #include "minisat/simp/SimpSolver.h"
-#include "core/sat/solver/SimpSolver.h"
+#include "core/sat/prop/SimpProp.h"
 #include "core/util/CliConfig.h"
 #include "core/util/Generator.h"
 #include "core/util/stream.h"
@@ -29,17 +29,11 @@ uint64_t num_conflicts_in_subtree(
 
 TEST(unit_propagation, correctness_performance) {
   core::Generator gen(239);
-  std::filesystem::path config_path = "./resources/config/naive.json";
   std::filesystem::path cnf_path = "./resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf";
 
-  std::ifstream ifs(config_path);
-  SolveConfig solve_config;
-  core::CliConfig::read_config(ifs, solve_config);
-
-  core::sat::SimpSolver simp_solver(
-      solve_config.naive_solve_config().solver_config().simp_solver_config());
-  core::sat::Solver& sat_solver = simp_solver;
-  simp_solver.parse_cnf(cnf_path);
+  core::sat::prop::SimpProp simp_prop;
+  core::sat::prop::Prop& sat_solver = simp_prop;
+  simp_prop.parse_cnf(cnf_path);
 
   int num_tests = 100000;
   while (num_tests--) {
@@ -47,9 +41,9 @@ TEST(unit_propagation, correctness_performance) {
     int size = core::random::sample<int>(0, 20);
     Minisat::vec<Minisat::Lit> ms_assumption(size);
     for (int i = 0; i < size; ++i) {
-      int var = core::random::sample<int>(0, simp_solver.num_vars() - 1);
+      int var = core::random::sample<int>(0, simp_prop.num_vars() - 1);
       while (vars.find(var) != vars.end()) {
-        var = core::random::sample<int>(0, simp_solver.num_vars() - 1);
+        var = core::random::sample<int>(0, simp_prop.num_vars() - 1);
       }
       int sign = core::random::sample<int>(0, 1);
       ms_assumption[i] = Minisat::mkLit(var, sign);

@@ -80,6 +80,6 @@ using UProp = std::unique_ptr<Prop>;
 
 DEFINE_REGISTRY(Prop, PropConfig, prop);
 
-}  // namespace core::sat
+}  // namespace core::sat::prop
 
 #endif  // EVOL_PROP_H
