@@ -13,6 +13,7 @@ struct LaunchConfig {
   std::string log_config{};
   std::string input{};
   std::string description{};
+  uint32_t threads_required = 1;
 
  public:
   LaunchConfig() = default;
@@ -26,6 +27,8 @@ struct LaunchConfig {
   LaunchConfig& set_expected_result(infra::domain::SatResult result) noexcept;
 
   LaunchConfig& set_description(std::string const& desc);
+
+  LaunchConfig& set_threads_required(uint32_t threads);
 };
 
 }  // namespace infra::testing

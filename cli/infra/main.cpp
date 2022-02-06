@@ -11,6 +11,7 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   // clang-format off
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
+    ("concurrency,j", po::value<uint32_t>()->default_value(std::thread::hardware_concurrency()), "Max concurrency")
     ("branch", po::value<std::string>()->default_value("")->required(), "The current branch")
     ("commit", po::value<std::string>()->default_value("")->required(), "The current commit")
     ("pg-host", po::value<std::string>()->default_value("localhost"), "The host running DB")
@@ -29,7 +30,8 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   po::variables_map args;
   po::store(po::parse_command_line(argc, argv, options), args);
   if (args["help"].as<bool>()) {
-    LOG(FATAL) << std::endl << options;
+    std::cerr << options << std::endl;
+    std::exit(1);
   }
   po::notify(args);
   return args;
@@ -58,6 +60,7 @@ int main(int argc, char** argv) {
     init_googletest(argv[0], args);
     auto& config = LaunchFixture::config;
     config.unsat_only = args["unsat-only"].as<bool>();
+    config.max_threads = args["concurrency"].as<uint32_t>();
     config.pg_host = args["pg-host"].as<std::string>();
     config.test_groups = args["test-groups"].as<std::vector<std::string>>();
     config.allow_unspecified_size = args["allow-unspecified-size"].as<bool>();

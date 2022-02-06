@@ -67,7 +67,7 @@
         "solver_config": {
             "solver_type": "ParSolver",
             "par_solver_config": {
-                "max_threads": 10,
+                "max_threads": 8,
                 "solver_config": {
                     "solver_type": "SimpSolver",
                     "simp_solver_config": {

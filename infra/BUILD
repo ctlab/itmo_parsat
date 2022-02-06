@@ -15,7 +15,7 @@ cc_library(
     ],
     linkopts = [
         "-lpq",
-        "-lpqxx"
+        #"-lpqxx"
     ],
     alwayslink = True,
     linkstatic = True,

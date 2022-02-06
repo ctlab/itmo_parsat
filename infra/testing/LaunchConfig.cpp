@@ -28,4 +28,9 @@ LaunchConfig& LaunchConfig::set_description(std::string const& desc) {
   return *this;
 }
 
+LaunchConfig& LaunchConfig::set_threads_required(uint32_t threads) {
+  threads_required = threads;
+  return *this;
+}
+
 }  // namespace infra::testing

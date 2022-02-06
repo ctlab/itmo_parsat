@@ -23,6 +23,29 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 
 }  // namespace
 
+void LaunchFixture::Semaphore::set_max(uint32_t max) {
+  _max = max;
+}
+
+void LaunchFixture::Semaphore::acquire(uint32_t num) {
+  for (;;) {
+    std::unique_lock<std::mutex> ul(_mutex);
+    _cv.wait(ul, [this, num] { return _current + num <= _max; });
+    if (_current + num <= _max) {
+      _current += num;
+      break;
+    }
+  }
+}
+
+void LaunchFixture::Semaphore::release(uint32_t num) {
+  {
+    std::lock_guard<std::mutex> lg(_mutex);
+    _current -= num;
+  }
+  _cv.notify_all();
+}
+
 LaunchFixture::LaunchFixture() {
   _sig_cb = core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
 }
@@ -46,8 +69,17 @@ void LaunchFixture::SetUpTestSuite() {
   if (!std::filesystem::is_directory(config.working_dir)) {
     std::filesystem::create_directories(config.working_dir);
   }
+
   /* Prepare resources */
   _prepare_resources();
+
+  /* Set up semaphore */
+  uint32_t concurrency = config.max_threads;
+  if (concurrency == 0) {
+    concurrency = std::thread::hardware_concurrency();
+  }
+  semaphore.set_max(concurrency);
+  IPS_INFO("Set max concurrency to " << concurrency);
 }
 
 void LaunchFixture::SetUp() {
@@ -204,8 +236,12 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     if (config.save && launch.result != infra::domain::INTERRUPTED) {
       _launches->add(launch);
     }
+    /* Release semaphore */
+    semaphore.release(launch_config.threads_required);
   };
 
+  /* Acquire semaphore */
+  semaphore.acquire(launch_config.threads_required);
   IPS_INFO("Reproduce:\n" <<
     config.executable.string() << " --verbose 6 --input " << input_path.string() <<
     " --log-config " << log_config_path.string() << " --config " << config_path.string()
@@ -240,3 +276,5 @@ infra::domain::LaunchResult LaunchFixture::_get_launch_result(
 std::set<std::filesystem::path> LaunchFixture::cnfs{};
 
 std::atomic_bool LaunchFixture::test_failed = false;
+
+LaunchFixture::Semaphore LaunchFixture::semaphore{};

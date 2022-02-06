@@ -4,6 +4,8 @@
 #include <utility>
 #include <memory>
 #include <vector>
+#include <mutex>
+#include <condition_variable>
 #include <set>
 #include <filesystem>
 #include <boost/process.hpp>
@@ -25,6 +27,7 @@ class LaunchFixture : public ::testing::Test {
     bool lookup{};
     bool save{};
     int size{};
+    uint32_t max_threads = 0;
     std::filesystem::path executable{};
     std::filesystem::path resources_dir{};
     std::filesystem::path working_dir{};
@@ -34,6 +37,21 @@ class LaunchFixture : public ::testing::Test {
     std::vector<std::string> test_groups;
   };
   static Config config;
+
+ private:
+  struct Semaphore {
+    void set_max(uint32_t max);
+
+    void acquire(uint32_t num = 1);
+
+    void release(uint32_t num = 1);
+
+   private:
+    std::mutex _mutex;
+    std::condition_variable _cv;
+    uint32_t _current = 0;
+    uint32_t _max;
+  };
 
  public:
   LaunchFixture();
@@ -82,6 +100,7 @@ class LaunchFixture : public ::testing::Test {
  private:
   std::filesystem::path logs_root;
   std::filesystem::path configs_root;
+  static Semaphore semaphore;
 
  public:
   static std::atomic_bool test_failed;
