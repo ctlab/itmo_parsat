@@ -82,6 +82,7 @@ function do_unit() {
 
 function do_infra() {
     $RUN_CMD $INFRA_BIN \
+        --branch $(git status | grep branch | awk '{print $3}') \
         --commit $(git rev-parse --verify HEAD) \
         --resources-dir $RESOURCES_DIR \
         --working-dir $INFRA_DIR \

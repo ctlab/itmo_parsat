@@ -165,6 +165,7 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   std::string salt = _generate_uniq_string();
   std::filesystem::path const& artifact_logs_path = logs_root / (salt + ".txt");
   std::filesystem::path const& artifact_config_path = configs_root / (salt + ".json");
+  std::string test_group = _get_test_group(launch_config.input);
 
   // clang-format off
   std::filesystem::path config_path = config.resources_dir / "config" / launch_config.config;
@@ -173,8 +174,8 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   std::filesystem::copy_file(config_path, artifact_config_path);
 
   auto launch = infra::domain::LaunchInfo{
-          0, input_path, config_path, artifact_logs_path,
-          config.commit, infra::domain::ERROR,
+          0, test_group, input_path, config_path, artifact_logs_path,
+          config.branch, config.commit, infra::domain::ERROR,
           0, 0, launch_config.description
       };
 

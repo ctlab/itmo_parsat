@@ -11,7 +11,8 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   // clang-format off
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
-    ("commit", po::value<std::string>()->default_value(""), "The current commit (optional)")
+    ("branch", po::value<std::string>()->default_value("")->required(), "The current branch")
+    ("commit", po::value<std::string>()->default_value("")->required(), "The current commit")
     ("pg-host", po::value<std::string>()->default_value("localhost"), "The host running DB")
     ("unsat-only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
     ("allow-unspecified-size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
@@ -64,6 +65,7 @@ int main(int argc, char** argv) {
     config.save = args["save"].as<bool>();
     config.size = args["size"].as<int>();
     config.executable = args["exec"].as<std::filesystem::path>();
+    config.branch = args["branch"].as<std::string>();
     config.commit = args["commit"].as<std::string>();
     config.resources_dir = args["resources-dir"].as<std::filesystem::path>();
     config.working_dir = args["working-dir"].as<std::filesystem::path>();
