@@ -3286,8 +3286,9 @@ class SelectorConfig PROTOBUF_FINAL
 // -------------------------------------------------------------------
 
 class InstanceConfig_SamplingSizeConfig PROTOBUF_FINAL
-    : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:InstanceConfig.SamplingSizeConfig)
-                                               */
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:InstanceConfig.SamplingSizeConfig)
+                   */
 {
  public:
   inline InstanceConfig_SamplingSizeConfig() : InstanceConfig_SamplingSizeConfig(nullptr) {}
