@@ -5,122 +5,51 @@
 
 #include "core/util/stream.h"
 
-namespace {
-
-template <class... Ts>
-struct overloaded : Ts... {
-  using Ts::operator()...;
-};
-
-template <class... Ts>
-overloaded(Ts...) -> overloaded<Ts...>;
-
-void _wait_for_futures(std::vector<std::future<void>>& futures) noexcept {
-  for (auto& future : futures) {
-    future.get();
-  }
-}
-
-}  // namespace
-
 namespace core::sat {
 
-ParSolver::ParSolver(ParSolverConfig const& config) {
-  for (uint32_t i = 0; i < config.max_threads(); ++i) {
-    _solvers.emplace_back(SolverRegistry::resolve(config.solver_config()));
-  }
-  auto& parent_generator = core::Generator::current_thread_generator();
-
-  for (uint32_t tid = 0; tid < config.max_threads(); ++tid) {
-    _t.emplace_back([this, tid, &parent_generator] {
-      auto& solver = *_solvers[tid];
-      core::Generator child_generator(parent_generator);
-
-      while (!_stop) {
-        std::unique_lock<std::mutex> ul(_m);
-        _cv.wait(ul, [this] { return _stop || !_task_queue.empty(); });
-        if (IPS_UNLIKELY(_stop)) {
-          break;
-        }
-        if (IPS_UNLIKELY(_task_queue.empty())) {
-          continue;
-        }
-
-        auto task = std::move(_task_queue.front());
-        _task_queue.pop();
-        ul.unlock();
-        task(solver);
-      }
-    });
-  }
-}
+ParSolver::ParSolver(ParSolverConfig const& config)
+    : _solver_pool(config.max_threads(), [&config] {
+      return RSolver(SolverRegistry::resolve(config.solver_config()));
+    }) {}
 
 ParSolver::~ParSolver() noexcept {
   interrupt();
-  {
-    std::lock_guard<std::mutex> lg(_m);
-    _stop = true;
-  }
-  _cv.notify_all();
-
-  for (auto& t : _t) {
-    if (t.joinable()) {
-      t.join();
-    }
-  }
 }
 
 void ParSolver::parse_cnf(std::filesystem::path const& input) {
-  for (auto& solver : _solvers) {
+  for (auto& solver : _solver_pool.get_workers()) {
     solver->parse_cnf(input);
   }
 }
 
 State ParSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
-  return _solvers.front()->solve(assumptions);
+  return _solver_pool.get_workers().front()->solve(assumptions);
 }
 
-bool ParSolver::propagate(
-    Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
-  return _solvers.front()->propagate(assumptions, propagated);
-}
-
-void ParSolver::solve_assignments(
-    domain::USearch assignment_p, Solver::slv_callback_t const& callback) {
+void ParSolver::solve_assignments(domain::USearch search, Solver::slv_callback_t const& callback) {
   clear_interrupt();
-  uint32_t num_threads = _t.size();
+  uint32_t num_threads = _solver_pool.max_threads();
 
   // Here we share assignment between all worker threads.
   // Don't forget to release unique ptr.
-  domain::RSearch shared_assignment(assignment_p.get());
-  assignment_p.release();
+  domain::RSearch shared_search(search.get());
+  search.release();
 
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);
   _solve_finished = false;
   for (uint32_t index = 0; index < num_threads; ++index) {
-    futures.push_back(_submit(req_solve_t{shared_assignment, callback}));
+    futures.push_back(_solver_pool.submit([this, &shared_search, &callback](RSolver& solver) {
+      _solve(*solver, shared_search, callback);
+    }));
   }
-  _wait_for_futures(futures);
+  SolverWorkerPool::wait_for(futures);
 }
 
-void ParSolver::prop_assignments(
-    domain::USearch assignment_p, Solver::prop_callback_t const& callback) {
-  clear_interrupt();
-  uint32_t num_threads = _t.size();
-
-  std::vector<std::future<void>> futures;
-  futures.reserve(num_threads);
-  for (uint32_t index = 0; index < num_threads; ++index) {
-    futures.push_back(
-        _submit(req_prop_t{assignment_p->split_search(num_threads, index), callback}));
-  }
-  _wait_for_futures(futures);
-}
-
-void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
-  if (!req.assignment->empty()) {
-    auto& assignment = *req.assignment;
+void ParSolver::_solve(
+    sat::Solver& solver, domain::RSearch search, slv_callback_t const& callback) {
+  if (!search->empty()) {
+    auto& assignment = *search;
     Minisat::vec<Minisat::Lit> arg(assignment().size());
     do {
       {
@@ -136,68 +65,33 @@ void ParSolver::_solve(sat::Solver& solver, req_solve_t& req) {
           _solve_finished = true;
         }
       }
-      bool conflict = solver.propagate(arg);
+      bool conflict = solver.propagate_confl(arg);
       State result = conflict ? UNSAT : solver.solve(arg);
-      if (!req.callback(result, conflict, arg)) {
+      if (!callback(result, conflict, arg)) {
         break;
       }
     } while (!IPS_UNLIKELY(interrupted()));
   }
 }
 
-void ParSolver::_propagate(sat::Solver& solver, req_prop_t& req) {
-  START_ASGN_TRACK(req.assignment->size());
-  if (!req.assignment->empty()) {
-    auto& assignment = *req.assignment;
-    do {
-      ASGN_TRACK(assignment());
-      bool result = solver.propagate(assignment());
-      if (!req.callback(result, assignment())) {
-        BREAK_ASGN_TRACK;
-        break;
-      }
-    } while (!IPS_UNLIKELY(interrupted() || !++assignment));
-  }
-  END_ASGN_TRACK;
-}
-
-std::future<void> ParSolver::_submit(task_t&& task) {
-  // clang-format off
-  auto p_task = std::packaged_task<void(sat::Solver&)>(
-    [this, task = std::move(task)] (sat::Solver& solver) mutable {
-      std::visit(overloaded{
-          [&, this](req_solve_t& req) {
-            _solve(solver, req);
-          },
-          [&, this](req_prop_t& req) {
-            _propagate(solver, req);
-          }
-      }, task);
-  });
-  // clang-format on
-  auto future = p_task.get_future();
-  {
-    std::lock_guard<std::mutex> lg(_m);
-    _task_queue.emplace(std::move(p_task));
-  }
-  _cv.notify_one();
-  return future;
-}
-
 void ParSolver::_do_interrupt() {
-  for (auto& solver : _solvers) {
+  for (auto& solver : _solver_pool.get_workers()) {
     solver->interrupt();
   }
 }
 
 void ParSolver::_do_clear_interrupt() {
-  for (auto& solver : _solvers) {
+  for (auto& solver : _solver_pool.get_workers()) {
     solver->clear_interrupt();
   }
 }
 
 unsigned ParSolver::num_vars() const noexcept {
-  return _solvers.front()->num_vars();
+  return _solver_pool.get_workers().front()->num_vars();
+}
+
+bool ParSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) {
+  return _solver_pool.get_workers().front()->propagate_confl(assumptions);
 }
 
 REGISTER_PROTO(Solver, ParSolver, par_solver_config);

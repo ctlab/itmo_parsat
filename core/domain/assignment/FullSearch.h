@@ -9,7 +9,12 @@ namespace core::domain {
  * @brief The class used to perform full search.
  */
 class FullSearch : public ModifyingSearch {
-  friend USearch createFullSearch(VarView const&, std::vector<bool> const&);
+  friend std::unique_ptr<FullSearch> createFullSearch(VarView const&, std::vector<bool> const&);
+
+ public:
+  uint64_t first() const noexcept;
+
+  uint64_t last() const noexcept;
 
  protected:
   FullSearch(VarView const& var_view, std::vector<bool> const& vars);
@@ -22,7 +27,8 @@ class FullSearch : public ModifyingSearch {
   [[nodiscard]] FullSearch* clone() const override;
 };
 
-USearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
+std::unique_ptr<FullSearch> createFullSearch(
+    VarView const& var_view, std::vector<bool> const& vars);
 
 }  // namespace core::domain
 

@@ -3,8 +3,8 @@
 
 #include <set>
 
+#include "core/sat/prop/Prop.h"
 #include "core/evol/instance/SharedData.h"
-#include "core/sat/solver/Solver.h"
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/VarView.h"
@@ -40,7 +40,7 @@ class Instance {
    * @param solver solver that will be used to propagate assignments.
    * @param shared_data shared data (created by algorithm)
    */
-  explicit Instance(core::sat::RSolver solver, RSharedData shared_data);
+  explicit Instance(core::sat::prop::RProp prop, RSharedData shared_data);
 
   /**
    * @return variables which this instance represents.
@@ -105,7 +105,7 @@ class Instance {
 
  private:
   bool _cached = false;
-  std::shared_ptr<core::sat::Solver> _solver;
+  core::sat::prop::RProp _prop;
   std::shared_ptr<SharedData> _shared;
   core::domain::Vars _vars;
 

@@ -2,12 +2,6 @@
 
 namespace core::sat {
 
-bool Solver::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
-  clear_interrupt();
-  Minisat::vec<Minisat::Lit> props;
-  return propagate(assumptions, props);
-}
-
 State Solver::solve_limited() {
   clear_interrupt();
   Minisat::vec<Minisat::Lit> assumptions;
@@ -21,29 +15,14 @@ void Solver::solve_assignments(domain::USearch assignment_p, slv_callback_t cons
   do {
     Minisat::vec<Minisat::Lit> const& assumptions = assignment();
     ASGN_TRACK(assumptions);
-    bool conflict = propagate(assumptions);
+    bool conflict = propagate_confl(assumptions);
     State result = conflict ? UNSAT : solve(assumptions);
     if (!callback(result, conflict, assumptions)) {
       BREAK_ASGN_TRACK;
       break;
     }
   } while (!IPS_UNLIKELY(interrupted() || !(++assignment)));
-  END_ASGN_TRACK;
-}
-
-void Solver::prop_assignments(core::domain::USearch assignment_p, prop_callback_t const& callback) {
-  clear_interrupt();
-  domain::Search& assignment = *assignment_p;
-  START_ASGN_TRACK(assignment_p->size());
-  do {
-    Minisat::vec<Minisat::Lit> const& assumptions = assignment();
-    ASGN_TRACK(assumptions);
-    if (!callback(propagate(assumptions), assumptions)) {
-      BREAK_ASGN_TRACK;
-      break;
-    }
-  } while (!IPS_UNLIKELY(interrupted() || !(++assignment)));
-  END_ASGN_TRACK;
+  END_ASGN_TRACK(interrupted());
 }
 
 void Solver::interrupt() {

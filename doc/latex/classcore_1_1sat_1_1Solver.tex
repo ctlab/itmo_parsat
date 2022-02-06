@@ -23,9 +23,6 @@ Inheritance diagram for core\+::sat\+::Solver\+:
 \begin{DoxyCompactItemize}
 \item 
 typedef std\+::function$<$ bool(State, bool, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \&)$>$ \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}}
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a78cfefbbeb9f340415ecc9ea2ed455f8}\label{classcore_1_1sat_1_1Solver_a78cfefbbeb9f340415ecc9ea2ed455f8}} 
-typedef std\+::function$<$ bool(bool, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \&)$>$ {\bfseries prop\+\_\+callback\+\_\+t}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -36,14 +33,8 @@ State \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a935d83bb55ec017dbe4f68949407f
 \begin{DoxyCompactList}\small\item\em Equivalent to \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{Solver\+::solve}}(\{\}). \end{DoxyCompactList}\item 
 virtual State \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{solve}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)=0
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
-virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated)=0
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa3893db285a22a2988ec7ffc0b469187}{solve\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}} const \&callback)
 \begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa073ad39076e1783d364023b2b50882e}{prop\+\_\+assignments}} (domain\+::\+U\+Search search, prop\+\_\+callback\+\_\+t const \&callback)
-\begin{DoxyCompactList}\small\item\em Propagates all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_ad1172842b4cfc212a0a953f632ba1bf8}\label{classcore_1_1sat_1_1Solver_ad1172842b4cfc212a0a953f632ba1bf8}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_ad1172842b4cfc212a0a953f632ba1bf8}{interrupt}} ()
 \begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
@@ -55,7 +46,9 @@ bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aad62af916fffe1f8622ef57f2041fc
 \begin{DoxyCompactList}\small\item\em Returns true if interrupt flag is set. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a6ae000c28f2f1f3650ac0ae10ce9c9e8}\label{classcore_1_1sat_1_1Solver_a6ae000c28f2f1f3650ac0ae10ce9c9e8}} 
 virtual unsigned \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6ae000c28f2f1f3650ac0ae10ce9c9e8}{num\+\_\+vars}} () const noexcept=0
-\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}{propagate\+\_\+confl}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)=0
+\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -99,75 +92,23 @@ Parses cnf from .gz file with the specified path.
 
 Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_af200d5c78d927d4ac16449cb11d07176}{core\+::sat\+::\+Simp\+Solver}}, and \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a067f0110a262d4eca5f8ba60dd339897}{core\+::sat\+::\+Par\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Solver_aa073ad39076e1783d364023b2b50882e}\label{classcore_1_1sat_1_1Solver_aa073ad39076e1783d364023b2b50882e}} 
-\index{core::sat::Solver@{core::sat::Solver}!prop\_assignments@{prop\_assignments}}
-\index{prop\_assignments@{prop\_assignments}!core::sat::Solver@{core::sat::Solver}}
-\doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}}
-{\footnotesize\ttfamily void core\+::sat\+::\+Solver\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{prop\+\_\+callback\+\_\+t const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Propagates all assignments by the given iterator and calls callback respectively. 
+\mbox{\Hypertarget{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}\label{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}} 
+\index{core::sat::Solver@{core::sat::Solver}!propagate\_confl@{propagate\_confl}}
+\index{propagate\_confl@{propagate\_confl}!core::sat::Solver@{core::sat::Solver}}
+\doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
+{\footnotesize\ttfamily virtual bool core\+::sat\+::\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em search} & search engine. \\
-\hline
-{\em callback} & callback to be called on each solve. \\
-\hline
-\end{DoxyParams}
-
-
-Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a1e0468b42066d327f0482f7d1976c61b}{core\+::sat\+::\+Par\+Solver}}.
-
-\mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}\label{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}} 
-\index{core::sat::Solver@{core::sat::Solver}!propagate@{propagate}}
-\index{propagate@{propagate}!core::sat::Solver@{core::sat::Solver}}
-\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Propagates a given list of assumptions. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em assumptions} & assumptions to include. \\
+{\em assumptions} & assumptions to be passed to solver \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true if and only if conflict occurred. 
+whether these assumptions lead to conflict 
 \end{DoxyReturn}
 
 
-Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}{core\+::sat\+::\+Simp\+Solver}}.
-
-\mbox{\Hypertarget{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}\label{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}} 
-\index{core::sat::Solver@{core::sat::Solver}!propagate@{propagate}}
-\index{propagate@{propagate}!core::sat::Solver@{core::sat::Solver}}
-\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily virtual bool core\+::sat\+::\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions,  }\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-Propagates a given list of assumptions. 
-
-\begin{DoxyReturn}{Returns}
-true iff conflicts happened. 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em assumptions} & the assumptions to include. \\
-\hline
-{\em propagated} & the propagated literals. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-true if and only if conflict occurred. 
-\end{DoxyReturn}
-
-
-Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aa3c1c9b256147177034aca63e5558caf}{core\+::sat\+::\+Par\+Solver}}, and \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}{core\+::sat\+::\+Simp\+Solver}}.
+Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a93dfaed43378d01fd38ffc3ee87c66be}{core\+::sat\+::\+Par\+Solver}}, and \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_a815862c1b4c09c15ab77b223c9b181c2}{core\+::sat\+::\+Simp\+Solver}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}\label{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}} 
 \index{core::sat::Solver@{core::sat::Solver}!solve@{solve}}

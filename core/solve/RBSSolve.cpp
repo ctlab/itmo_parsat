@@ -8,7 +8,7 @@ sat::State RBSSolve::solve(std::filesystem::path const& input) {
   ea::algorithm::RAlgorithm algorithm(
       ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config()));
   _do_interrupt = [algorithm] { algorithm->interrupt(); };
-  auto& algorithm_solver = algorithm->get_solver();
+  auto& algorithm_solver = algorithm->get_prop();
   IPS_TRACE(algorithm_solver.parse_cnf(input));
   algorithm->prepare();
 

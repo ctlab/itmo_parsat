@@ -16,7 +16,7 @@ Inheritance diagram for core\+::sat\+::Simp\+Solver\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=308pt]{classcore_1_1sat_1_1SimpSolver__inherit__graph}
+\includegraphics[width=307pt]{classcore_1_1sat_1_1SimpSolver__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -26,7 +26,7 @@ Collaboration diagram for core\+::sat\+::Simp\+Solver\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=308pt]{classcore_1_1sat_1_1SimpSolver__coll__graph}
+\includegraphics[width=307pt]{classcore_1_1sat_1_1SimpSolver__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -42,10 +42,8 @@ State \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_aab073e8b8a998eb126fee4fc7
 \mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_ae973f34a601b21cbf522fc9d5ff4bcff}\label{classcore_1_1sat_1_1SimpSolver_ae973f34a601b21cbf522fc9d5ff4bcff}} 
 unsigned \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_ae973f34a601b21cbf522fc9d5ff4bcff}{num\+\_\+vars}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated) override
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{classcore_1_1sat_1_1SimpSolver_a815862c1b4c09c15ab77b223c9b181c2}{propagate\+\_\+confl}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -72,54 +70,23 @@ Parses cnf from .gz file with the specified path.
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a9cf6db209b1c87813e06c5b641e6128c}{core\+::sat\+::\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}\label{classcore_1_1sat_1_1SimpSolver_af8a831cfb258e6018845d31949e70838}} 
-\index{core::sat::SimpSolver@{core::sat::SimpSolver}!propagate@{propagate}}
-\index{propagate@{propagate}!core::sat::SimpSolver@{core::sat::SimpSolver}}
-\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::\+Simp\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Propagates a given list of assumptions. 
+\mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_a815862c1b4c09c15ab77b223c9b181c2}\label{classcore_1_1sat_1_1SimpSolver_a815862c1b4c09c15ab77b223c9b181c2}} 
+\index{core::sat::SimpSolver@{core::sat::SimpSolver}!propagate\_confl@{propagate\_confl}}
+\index{propagate\_confl@{propagate\_confl}!core::sat::SimpSolver@{core::sat::SimpSolver}}
+\doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
+{\footnotesize\ttfamily bool core\+::sat\+::\+Simp\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em assumptions} & assumptions to include. \\
+{\em assumptions} & assumptions to be passed to solver \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true if and only if conflict occurred. 
+whether these assumptions lead to conflict 
 \end{DoxyReturn}
 
 
-Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a69588172fd290c27d1a150d01cb70694}{core\+::sat\+::\+Solver}}.
-
-\mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}\label{classcore_1_1sat_1_1SimpSolver_a050ff0ad0f72c5c4229235dd800bb384}} 
-\index{core::sat::SimpSolver@{core::sat::SimpSolver}!propagate@{propagate}}
-\index{propagate@{propagate}!core::sat::SimpSolver@{core::sat::SimpSolver}}
-\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::\+Simp\+Solver\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions,  }\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Propagates a given list of assumptions. 
-
-\begin{DoxyReturn}{Returns}
-true iff conflicts happened. 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em assumptions} & the assumptions to include. \\
-\hline
-{\em propagated} & the propagated literals. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-true if and only if conflict occurred. 
-\end{DoxyReturn}
-
-
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_af7a4827dc36d14615914cde5dc97c05f}{core\+::sat\+::\+Solver}}.
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}{core\+::sat\+::\+Solver}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1SimpSolver_aab073e8b8a998eb126fee4fc7956e239}\label{classcore_1_1sat_1_1SimpSolver_aab073e8b8a998eb126fee4fc7956e239}} 
 \index{core::sat::SimpSolver@{core::sat::SimpSolver}!solve@{solve}}

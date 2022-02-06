@@ -8,11 +8,13 @@
 
 namespace core::domain {
 
+class FullSearch;
+
 /**
  * @brief The class used to perform unique random search. Used for small sets of variables.
  */
 class UniqueSearch : public ModifyingSearch {
-  friend USearch createFullSearch(VarView const&, std::vector<bool> const&);
+  friend std::unique_ptr<FullSearch> createFullSearch(VarView const&, std::vector<bool> const&);
 
   friend USearch createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
 

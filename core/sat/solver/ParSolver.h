@@ -12,6 +12,7 @@
 
 #include "core/util/Generator.h"
 #include "core/sat/solver/Solver.h"
+#include "core/util/WorkerPool.h"
 
 namespace core::sat {
 
@@ -20,24 +21,7 @@ namespace core::sat {
  */
 class ParSolver : public Solver {
  private:
-  struct req_prop_t {
-    domain::USearch assignment;
-    Solver::prop_callback_t callback;
-  };
-
-  struct req_solve_t {
-    domain::RSearch assignment;
-    Solver::slv_callback_t callback;
-  };
-
-  using task_t = std::variant<req_prop_t, req_solve_t>;
-
- private:
-  void _solve(sat::Solver& solver, req_solve_t& req);
-
-  void _propagate(sat::Solver& solver, req_prop_t& req);
-
-  std::future<void> _submit(task_t&& task);
+  void _solve(sat::Solver& solver, domain::RSearch search, slv_callback_t const& callback);
 
  public:
   explicit ParSolver(ParSolverConfig const& config);
@@ -48,13 +32,9 @@ class ParSolver : public Solver {
 
   State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
-  bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions,
-      Minisat::vec<Minisat::Lit>& propagated) override;
-
   void solve_assignments(domain::USearch assignment, slv_callback_t const& callback) override;
 
-  void prop_assignments(domain::USearch assignment, prop_callback_t const& callback) override;
+  [[nodiscard]] bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
@@ -64,13 +44,12 @@ class ParSolver : public Solver {
   void _do_clear_interrupt() override;
 
  private:
-  std::vector<std::thread> _t;
-  std::vector<sat::RSolver> _solvers;
-  std::queue<std::packaged_task<void(sat::Solver&)>> _task_queue;
-  std::condition_variable _cv;
-  std::mutex _m, _asgn_mutex;
-  std::atomic_bool _stop{false};
+  std::mutex _asgn_mutex;
   bool _solve_finished{false};
+
+ private:
+  using SolverWorkerPool = core::util::WorkerPool<RSolver>;
+  SolverWorkerPool _solver_pool;
 };
 
 }  // namespace core::sat

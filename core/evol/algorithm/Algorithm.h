@@ -4,6 +4,7 @@
 #include <utility>
 #include <thread>
 
+#include "core/sat/prop/Prop.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/domain/SearchSpace.h"
 #include "core/util/Registry.h"
@@ -52,9 +53,9 @@ class Algorithm {
   void interrupt();
 
   /**
-   * @return the main solver used in this instance.
+   * @return the main prop used in this algorithm.
    */
-  core::sat::Solver& get_solver() noexcept;
+  core::sat::prop::Prop& get_prop() noexcept;
 
   /**
    * @return the best instance currently found.
@@ -85,7 +86,7 @@ class Algorithm {
   InstanceConfig _instance_config;
   ea::instance::Population _population;
   ea::instance::RSharedData _shared_data;
-  core::sat::RSolver _solver;
+  core::sat::prop::RProp _prop;
 
  private:
   ea::limit::RLimit _limit;

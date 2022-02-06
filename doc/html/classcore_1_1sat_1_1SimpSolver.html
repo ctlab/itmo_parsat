@@ -83,9 +83,10 @@ Inheritance diagram for core::sat::SimpSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1SimpSolver__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1SimpSolver_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1SimpSolver_inherit__map" id="core_1_1sat_1_1SimpSolver_inherit__map">
-<area shape="rect" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="70,80,230,107"/>
-<area shape="rect" href="classcore_1_1sat_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,132,32"/>
-<area shape="rect" title=" " alt="" coords="157,5,309,32"/>
+<area shape="rect" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="70,155,230,181"/>
+<area shape="rect" href="classcore_1_1sat_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,80,132,107"/>
+<area shape="rect" href="classcore_1_1sat_1_1SimpBase.html" title=" " alt="" coords="156,80,307,107"/>
+<area shape="rect" title=" " alt="" coords="155,5,307,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -93,9 +94,10 @@ Collaboration diagram for core::sat::SimpSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1SimpSolver__coll__graph.png" border="0" usemap="#core_1_1sat_1_1SimpSolver_coll__map" alt="Collaboration graph"/></div>
 <map name="core_1_1sat_1_1SimpSolver_coll__map" id="core_1_1sat_1_1SimpSolver_coll__map">
-<area shape="rect" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="70,80,230,107"/>
-<area shape="rect" href="classcore_1_1sat_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,132,32"/>
-<area shape="rect" title=" " alt="" coords="157,5,309,32"/>
+<area shape="rect" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="70,155,230,181"/>
+<area shape="rect" href="classcore_1_1sat_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,80,132,107"/>
+<area shape="rect" href="classcore_1_1sat_1_1SimpBase.html" title=" " alt="" coords="156,80,307,107"/>
+<area shape="rect" title=" " alt="" coords="155,5,307,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -114,12 +116,8 @@ Public Member Functions</h2></td></tr>
 unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1SimpSolver.html#ae973f34a601b21cbf522fc9d5ff4bcff">num_vars</a> () const noexcept override</td></tr>
 <tr class="memdesc:ae973f34a601b21cbf522fc9d5ff4bcff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
 <tr class="separator:ae973f34a601b21cbf522fc9d5ff4bcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a050ff0ad0f72c5c4229235dd800bb384"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1SimpSolver.html#a050ff0ad0f72c5c4229235dd800bb384">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions, Minisat::vec&lt; Minisat::Lit &gt; &amp;propagated) override</td></tr>
-<tr class="memdesc:a050ff0ad0f72c5c4229235dd800bb384"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1SimpSolver.html#a050ff0ad0f72c5c4229235dd800bb384">More...</a><br /></td></tr>
-<tr class="separator:a050ff0ad0f72c5c4229235dd800bb384"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8a831cfb258e6018845d31949e70838"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1SimpSolver.html#af8a831cfb258e6018845d31949e70838">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</td></tr>
-<tr class="memdesc:af8a831cfb258e6018845d31949e70838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1SimpSolver.html#af8a831cfb258e6018845d31949e70838">More...</a><br /></td></tr>
-<tr class="separator:af8a831cfb258e6018845d31949e70838"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a815862c1b4c09c15ab77b223c9b181c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1SimpSolver.html#a815862c1b4c09c15ab77b223c9b181c2">propagate_confl</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</td></tr>
+<tr class="separator:a815862c1b4c09c15ab77b223c9b181c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1sat_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1sat_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1Solver.html">core::sat::Solver</a></td></tr>
 <tr class="memitem:a935d83bb55ec017dbe4f68949407f905 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">solve_limited</a> ()</td></tr>
 <tr class="memdesc:a935d83bb55ec017dbe4f68949407f905 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7" title="Runs solution with the specified assumptions.">Solver::solve</a>({}).  <a href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">More...</a><br /></td></tr>
@@ -127,9 +125,6 @@ unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memitem:aa3893db285a22a2988ec7ffc0b469187 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aa3893db285a22a2988ec7ffc0b469187">solve_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a> const &amp;callback)</td></tr>
 <tr class="memdesc:aa3893db285a22a2988ec7ffc0b469187 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves CNF on all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1Solver.html#aa3893db285a22a2988ec7ffc0b469187">More...</a><br /></td></tr>
 <tr class="separator:aa3893db285a22a2988ec7ffc0b469187 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa073ad39076e1783d364023b2b50882e inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aa073ad39076e1783d364023b2b50882e">prop_assignments</a> (domain::USearch search, prop_callback_t const &amp;callback)</td></tr>
-<tr class="memdesc:aa073ad39076e1783d364023b2b50882e inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1Solver.html#aa073ad39076e1783d364023b2b50882e">More...</a><br /></td></tr>
-<tr class="separator:aa073ad39076e1783d364023b2b50882e inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1172842b4cfc212a0a953f632ba1bf8 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="ad1172842b4cfc212a0a953f632ba1bf8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#ad1172842b4cfc212a0a953f632ba1bf8">interrupt</a> ()</td></tr>
 <tr class="memdesc:ad1172842b4cfc212a0a953f632ba1bf8 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupts solver. Intended to be used from signal handlers. <br /></td></tr>
@@ -142,15 +137,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aad62af916fffe1f8622ef57f2041fc35">interrupted</a> () const</td></tr>
 <tr class="memdesc:aad62af916fffe1f8622ef57f2041fc35 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if interrupt flag is set. <br /></td></tr>
 <tr class="separator:aad62af916fffe1f8622ef57f2041fc35 inherit pub_methods_classcore_1_1sat_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcore_1_1sat_1_1SimpBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1sat_1_1SimpBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1SimpBase.html">core::sat::SimpBase</a></td></tr>
+<tr class="memitem:ad34d47b38adfcef703380f7e85e87d05 inherit pub_methods_classcore_1_1sat_1_1SimpBase"><td class="memItemLeft" align="right" valign="top"><a id="ad34d47b38adfcef703380f7e85e87d05"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SimpBase</b> (SimpSolverConfig const &amp;config)</td></tr>
+<tr class="separator:ad34d47b38adfcef703380f7e85e87d05 inherit pub_methods_classcore_1_1sat_1_1SimpBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad696b45897b2aa7f94ca78b390eea1e0 inherit pub_methods_classcore_1_1sat_1_1SimpBase"><td class="memItemLeft" align="right" valign="top"><a id="ad696b45897b2aa7f94ca78b390eea1e0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>parse_cnf</b> (std::filesystem::path const &amp;path)</td></tr>
+<tr class="separator:ad696b45897b2aa7f94ca78b390eea1e0 inherit pub_methods_classcore_1_1sat_1_1SimpBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb7dbacffb3836b961c0a4ef1a809ff inherit pub_methods_classcore_1_1sat_1_1SimpBase"><td class="memItemLeft" align="right" valign="top"><a id="a9bb7dbacffb3836b961c0a4ef1a809ff"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_vars</b> () const noexcept</td></tr>
+<tr class="separator:a9bb7dbacffb3836b961c0a4ef1a809ff inherit pub_methods_classcore_1_1sat_1_1SimpBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classcore_1_1sat_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classcore_1_1sat_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classcore_1_1sat_1_1Solver.html">core::sat::Solver</a></td></tr>
 <tr class="memitem:a6e1e46913b318e834e03c9867beff4ac inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a></td></tr>
 <tr class="separator:a6e1e46913b318e834e03c9867beff4ac inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78cfefbbeb9f340415ecc9ea2ed455f8 inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a78cfefbbeb9f340415ecc9ea2ed455f8"></a>
-typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>prop_callback_t</b></td></tr>
-<tr class="separator:a78cfefbbeb9f340415ecc9ea2ed455f8 inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classcore_1_1sat_1_1SimpBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcore_1_1sat_1_1SimpBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1SimpBase.html">core::sat::SimpBase</a></td></tr>
+<tr class="memitem:a3a9b31eb42dca26911b32948b813c5ae inherit pro_methods_classcore_1_1sat_1_1SimpBase"><td class="memItemLeft" align="right" valign="top"><a id="a3a9b31eb42dca26911b32948b813c5ae"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate_confl</b> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)</td></tr>
+<tr class="separator:a3a9b31eb42dca26911b32948b813c5ae inherit pro_methods_classcore_1_1sat_1_1SimpBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Minisat:SimpSolver-based <a class="el" href="classcore_1_1sat_1_1Solver.html" title="SAT Solver interface.">Solver</a> implementation. </p>
@@ -191,8 +197,8 @@ typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &
 
 </div>
 </div>
-<a id="af8a831cfb258e6018845d31949e70838"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8a831cfb258e6018845d31949e70838">&#9670;&nbsp;</a></span>propagate() <span class="overload">[1/2]</span></h2>
+<a id="a815862c1b4c09c15ab77b223c9b181c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a815862c1b4c09c15ab77b223c9b181c2">&#9670;&nbsp;</a></span>propagate_confl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +207,7 @@ typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::sat::SimpSolver::propagate </td>
+          <td class="memname">bool core::sat::SimpSolver::propagate_confl </td>
           <td>(</td>
           <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
@@ -214,66 +220,15 @@ typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Propagates a given list of assumptions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">assumptions</td><td>assumptions to include. </td></tr>
+    <tr><td class="paramname">assumptions</td><td>assumptions to be passed to solver </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if and only if conflict occurred. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>whether these assumptions lead to conflict </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classcore_1_1sat_1_1Solver.html#a69588172fd290c27d1a150d01cb70694">core::sat::Solver</a>.</p>
-
-</div>
-</div>
-<a id="a050ff0ad0f72c5c4229235dd800bb384"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a050ff0ad0f72c5c4229235dd800bb384">&#9670;&nbsp;</a></span>propagate() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::sat::SimpSolver::propagate </td>
-          <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
-          <td class="paramname"><em>assumptions</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; &amp;&#160;</td>
-          <td class="paramname"><em>propagated</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Propagates a given list of assumptions. </p>
-<dl class="section return"><dt>Returns</dt><dd>true iff conflicts happened. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">assumptions</td><td>the assumptions to include. </td></tr>
-    <tr><td class="paramname">propagated</td><td>the propagated literals. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if and only if conflict occurred. </dd></dl>
-
-<p>Implements <a class="el" href="classcore_1_1sat_1_1Solver.html#af7a4827dc36d14615914cde5dc97c05f">core::sat::Solver</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1sat_1_1Solver.html#aee15df9d8d31e056eec3e8f3dfee6987">core::sat::Solver</a>.</p>
 
 </div>
 </div>

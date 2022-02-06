@@ -69,7 +69,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
           core::Generator generator(seed);
           auto& algorithm = algorithms[i];
-          auto& algorithm_solver = algorithm->get_solver();
+          auto& algorithm_solver = algorithm->get_prop();
           IPS_TRACE(algorithm_solver.parse_cnf(input));
           algorithm->prepare();
           IPS_TRACE(algorithm->process());
@@ -85,7 +85,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           // Try to propagate all assumptions and collect ones that ended with no conflict
           std::atomic_uint32_t conflicts{0}, total{0};
-          algorithm->get_solver().prop_assignments(
+          algorithm->get_prop().prop_assignments(
               domain::createFullSearch(
                   algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask()),
               [&](bool conflict, auto const& assumption) {
@@ -151,7 +151,6 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
          non_conflict_assignments[index].size() > max_non_conflict) {
     ++index;
   }
-
   std::vector<std::vector<Minisat::Lit>> std_cartesian;
   uint32_t cartesian_expected_size;
 
@@ -169,10 +168,12 @@ std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
     cartesian_expected_size = std_cartesian.size();
 
     for (; index < non_conflict_assignments.size(); ++index) {
-      if (non_conflict_assignments[index].size() > max_non_conflict) {
+      size_t cur_size = non_conflict_assignments[index].size();
+      if (cur_size > max_non_conflict ||
+          std_cartesian.size() * cur_size > _cfg.max_cartesian_size()) {
         continue;
       }
-      cartesian_expected_size *= non_conflict_assignments[index].size();
+      cartesian_expected_size *= cur_size;
       uint32_t old_assumptions_size = std_cartesian.size();
       for (uint32_t j = 0; j < old_assumptions_size; ++j) {
         for (auto& i_non_conflict_assignments : non_conflict_assignments[index]) {

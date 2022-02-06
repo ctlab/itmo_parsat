@@ -78,11 +78,11 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;core/sat/solver/Solver.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;core/util/Logger.h&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/util/Tracer.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;minisat/simp/SimpSolver.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;core/sat/SimpBase.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>core::sat {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1SimpSolver.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1SimpSolver.html">SimpSolver</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1Solver.html">Solver</a>, <span class="keyword">public</span> Minisat::SimpSolver {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1SimpSolver.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1SimpSolver.html">SimpSolver</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1Solver.html">Solver</a>, <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1SimpBase.html">SimpBase</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1SimpSolver.html">SimpSolver</a>(SimpSolverConfig <span class="keyword">const</span>&amp; config);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
@@ -92,31 +92,25 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  [[nodiscard]] <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1SimpSolver.html#ae973f34a601b21cbf522fc9d5ff4bcff">num_vars</a>() <span class="keyword">const</span> noexcept <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1SimpSolver.html#a050ff0ad0f72c5c4229235dd800bb384">propagate</a>(</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; assumptions,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      Minisat::vec&lt;Minisat::Lit&gt;&amp; propagated) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1SimpSolver.html#a050ff0ad0f72c5c4229235dd800bb384">propagate</a>(Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; assumptions) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">void</span> _do_interrupt() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> _do_clear_interrupt() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">bool</span> preprocess_;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}  <span class="comment">// namespace core::sat</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif  // EVOL_SIMPSOLVER_H</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1SimpSolver.html#a815862c1b4c09c15ab77b223c9b181c2">propagate_confl</a>(Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; assumptions) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">void</span> _do_interrupt() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">void</span> _do_clear_interrupt() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}  <span class="comment">// namespace core::sat</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif  // EVOL_SIMPSOLVER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html">core::sat::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:34</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_ae973f34a601b21cbf522fc9d5ff4bcff"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#ae973f34a601b21cbf522fc9d5ff4bcff">core::sat::SimpSolver::num_vars</a></div><div class="ttdeci">unsigned num_vars() const noexcept override</div><div class="ttdoc">Returns the number of variables in formula.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:58</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_a050ff0ad0f72c5c4229235dd800bb384"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#a050ff0ad0f72c5c4229235dd800bb384">core::sat::SimpSolver::propagate</a></div><div class="ttdeci">bool propagate(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions, Minisat::vec&lt; Minisat::Lit &gt; &amp;propagated) override</div><div class="ttdoc">Propagates a given list of assumptions.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:62</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html">core::sat::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:28</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_ae973f34a601b21cbf522fc9d5ff4bcff"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#ae973f34a601b21cbf522fc9d5ff4bcff">core::sat::SimpSolver::num_vars</a></div><div class="ttdeci">unsigned num_vars() const noexcept override</div><div class="ttdoc">Returns the number of variables in formula.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:30</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html">core::sat::SimpSolver</a></div><div class="ttdoc">Minisat:SimpSolver-based Solver implementation.</div><div class="ttdef"><b>Definition:</b> SimpSolver.h:16</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_af200d5c78d927d4ac16449cb11d07176"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#af200d5c78d927d4ac16449cb11d07176">core::sat::SimpSolver::parse_cnf</a></div><div class="ttdeci">void parse_cnf(std::filesystem::path const &amp;path) override</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:26</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_aab073e8b8a998eb126fee4fc7956e239"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#aab073e8b8a998eb126fee4fc7956e239">core::sat::SimpSolver::solve</a></div><div class="ttdeci">State solve(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</div><div class="ttdoc">Runs solution with the specified assumptions.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:42</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_af200d5c78d927d4ac16449cb11d07176"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#af200d5c78d927d4ac16449cb11d07176">core::sat::SimpSolver::parse_cnf</a></div><div class="ttdeci">void parse_cnf(std::filesystem::path const &amp;path) override</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:10</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1SimpBase_html"><div class="ttname"><a href="classcore_1_1sat_1_1SimpBase.html">core::sat::SimpBase</a></div><div class="ttdef"><b>Definition:</b> SimpBase.h:14</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_aab073e8b8a998eb126fee4fc7956e239"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#aab073e8b8a998eb126fee4fc7956e239">core::sat::SimpSolver::solve</a></div><div class="ttdeci">State solve(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</div><div class="ttdoc">Runs solution with the specified assumptions.</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:14</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1SimpSolver_html_a815862c1b4c09c15ab77b223c9b181c2"><div class="ttname"><a href="classcore_1_1sat_1_1SimpSolver.html#a815862c1b4c09c15ab77b223c9b181c2">core::sat::SimpSolver::propagate_confl</a></div><div class="ttdeci">bool propagate_confl(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</div><div class="ttdef"><b>Definition:</b> SimpSolver.cpp:34</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

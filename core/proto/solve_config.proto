@@ -44,6 +44,15 @@ message SolverConfig {
   ParSolverConfig par_solver_config = 5;
 }
 
+message PropConfig {
+  string prop_type = 1;
+  ParPropConfig par_prop_config = 2;
+}
+
+message ParPropConfig {
+  uint32 max_threads = 1;
+  PropConfig prop_config = 2;
+}
 
 message ResourceLimitConfig {
   uint32 memory_limit_kb = 1;
@@ -59,12 +68,12 @@ message PointsLimitConfig {
   uint32 max_points_visited = 1;
 }
 
-message StallLimitConfig {
-  uint32 steps_before_stall = 1;
-}
-
 message ConjLimitConfig {
   repeated LimitConfig limit_config = 1;
+}
+
+message StallLimitConfig {
+  uint32 steps_before_stall = 1;
 }
 
 message LimitConfig {
@@ -112,7 +121,7 @@ message InstanceConfig {
 }
 
 message BaseAlgorithmConfig {
-  SolverConfig solver_config = 1;
+  PropConfig prop_config = 1;
   LimitConfig limit_config = 2;
   InstanceConfig instance_config = 3;
 }
@@ -152,6 +161,7 @@ message ParRBSSolveConfig {
   SolverConfig solver_config = 2;
   uint32 num_algorithms = 4;
   uint32 max_unpropagated = 5;
+  uint32 max_cartesian_size = 6;
 }
 
 message SolveConfig {

@@ -12,8 +12,8 @@ uint32_t Instance::num_vars() const noexcept {
   return _shared->var_view.size();
 }
 
-Instance::Instance(core::sat::RSolver solver, RSharedData shared_data)
-    : _solver(std::move(solver)), _shared(std::move(shared_data)) {
+Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data)
+    : _prop(std::move(prop)), _shared(std::move(shared_data)) {
   _vars.resize(_var_view().size());
 
   // Initialize instance by setting one random variable
@@ -68,24 +68,40 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   auto const& mask = _vars.get_mask();
   int size = (int) std::count(mask.begin(), mask.end(), true);
 
-  core::domain::USearch assignment_ptr;
   bool full_search = false;
+  std::atomic_uint64_t conflicts{0};
+
   if (std::log2(samples) >= (double) size) {
     full_search = true;
     samples = 1ULL << size;
-    assignment_ptr = core::domain::createFullSearch(_var_view(), mask);
-  } else {
-    assignment_ptr = core::domain::createRandomSearch(_var_view(), mask, samples);
-  }
+    std::unique_ptr<core::domain::FullSearch> search =
+        core::domain::createFullSearch(_var_view(), mask);
+    // clang-format off
 
-  // clang-format off
-  std::atomic_int conflicts(0);
-  _solver->prop_assignments(std::move(assignment_ptr),
+#if 1
+    conflicts = _prop->prop_tree((*search)(), 0);
+#else
+    Minisat::vec<Minisat::Lit> vars = (*search)();
+    _prop->prop_assignments(std::move(search),
+      [&conflicts](bool conflict, auto&&) {
+        conflicts += conflict;
+        return true;
+    });
+    uint64_t tree_conflicts = _prop->prop_tree(vars, 0);
+    IPS_VERIFY(tree_conflicts == conflicts);
+#endif
+
+    // clang-format on
+  } else {
+    core::domain::USearch search = core::domain::createRandomSearch(_var_view(), mask, samples);
+    // clang-format off
+    _prop->prop_assignments(std::move(search),
       [&conflicts](bool conflict, auto const& asgn) {
         conflicts += conflict;
         return true;
-      });
-  // clang-format on
+    });
+    // clang-format on
+  }
 
   fit_.rho = (double) conflicts / (double) samples;
   fit_.size = size;
