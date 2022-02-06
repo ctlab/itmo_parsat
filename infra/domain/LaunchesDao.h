@@ -30,9 +30,11 @@ std::string to_string(SatResult result);
 
 struct LaunchInfo {
   uint32_t launch_id{};
+  std::string test_group{};
   std::filesystem::path input_path{};
   std::filesystem::path config_path{};
   std::filesystem::path log_path{};
+  std::string branch{};
   std::string commit_hash{};
   LaunchResult result{};
   uint64_t started_at{};

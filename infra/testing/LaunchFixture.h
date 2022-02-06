@@ -29,6 +29,7 @@ class LaunchFixture : public ::testing::Test {
     std::filesystem::path resources_dir{};
     std::filesystem::path working_dir{};
     std::string pg_host = "localhost";
+    std::string branch{};
     std::string commit{};
     std::vector<std::string> test_groups;
   };
@@ -40,8 +41,6 @@ class LaunchFixture : public ::testing::Test {
   ~LaunchFixture() noexcept override;
 
   void interrupt();
-
-  void ignore(std::string const& name);
 
  protected:
   static void SetUpTestSuite();

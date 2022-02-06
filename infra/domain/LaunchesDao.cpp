@@ -65,12 +65,14 @@ LaunchesDao& LaunchesDao::add(LaunchInfo const& launch) {
   // clang-format off
   _exec0(std::string() +
     "INSERT INTO Launches("
-    "input_path, config_path, log_path, commit_hash, started_at, "
+    "test_group, input_name, config_name, log_path, branch, commit_hash, started_at, "
     "finished_at, result, description, config)"
     " VALUES (" +
-    "'" + launch.input_path.string() + "', " +
-    "'" + launch.config_path.string() + "', " +
+    "'" + launch.test_group + "', " +
+    "'" + launch.input_path.filename().string() + "', " +
+    "'" + launch.config_path.filename().string() + "', " +
     "'" + launch.log_path.string() + "', " +
+    "'" + launch.branch + "', " +
     "'" + launch.commit_hash + "', " +
     "to_timestamp(" + std::to_string(launch.started_at) + "), " +
     "to_timestamp(" + std::to_string(launch.finished_at) + "), " +
@@ -94,8 +96,9 @@ bool LaunchesDao::contains(LaunchInfo& launch) {
   // clang-format off
   auto result = work.exec(std::string() +
     "SELECT launch_id, log_path, result FROM Launches WHERE "
-    "input_path = '" + launch.input_path.string() + "' AND " +
-    "config_path = '" + launch.config_path.string() + "' AND " +
+    "test_group = '" + launch.test_group + "' AND " +
+    "input_name = '" + launch.input_path.filename().string() + "' AND " +
+    "config_name = '" + launch.config_path.filename().string() + "' AND " +
     "commit_hash = '" + launch.commit_hash + "' AND " +
     "description = '" + launch.description + "';"
   );
