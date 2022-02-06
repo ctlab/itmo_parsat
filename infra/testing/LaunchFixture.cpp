@@ -153,9 +153,9 @@ int LaunchFixture::_get_test_size(std::string const& name) {
 
 infra::domain::SatResult LaunchFixture::_get_sat_result(std::string const& name) {
   auto filename = std::filesystem::path(name).filename().string();
-  if (filename.rfind("unsat", 0) == 0) {
+  if (filename.find("unsat", 0) != std::string::npos) {
     return infra::domain::UNSAT;
-  } else if (filename.rfind("sat", 0) == 0) {
+  } else if (filename.find("sat", 0) != std::string::npos) {
     return infra::domain::SAT;
   } else {
     LOG(WARNING) << "Could not deduce result for " << filename << ", leaving UNKNOWN";

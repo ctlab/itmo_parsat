@@ -117,6 +117,7 @@ function do_desc() {
 }
 
 function do_sync_sphinx() {
+    ssh sphinx 'cd /nfs/home/ibdzhiblavi/itmo-parsat; git stash; git pull origin dev; git stash pop'
     rsync -r bazel-bin/cli/ sphinx:/nfs/home/ibdzhiblavi/itmo-parsat/bazel-bin/cli/
 }
 
