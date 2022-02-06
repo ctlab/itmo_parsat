@@ -1,9 +1,9 @@
 FROM ubuntu:20.04
 
-ARG user
-ARG group
-ARG uid
-ARG gid
+ARG user=ips
+ARG group=ips
+ARG uid=1000
+ARG gid=100
 ARG DEBIAN_FRONTEND=nointeractive
 
 RUN groupadd --gid ${gid} ${group} && useradd --uid ${uid} --gid ${gid} --shell /bin/bash --create-home ${user}
