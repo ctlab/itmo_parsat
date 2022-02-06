@@ -116,6 +116,10 @@ function do_desc() {
     echo "Usage: ./run.sh option* -- native-option*"
 }
 
+function do_sync_sphinx() {
+    rsync -r bazel-bin/cli/ sphinx:/nfs/home/ibdzhiblavi/itmo-parsat/bazel-bin/cli/
+}
+
 add_option "-g|--build-cfg" "Set build mode"             do_set_build_mode 1
 add_option "-b|--build" "    Build cli binary"           do_build_solve    0
 add_option "--build-unit" "  Build unit tests"           do_build_unit     0
@@ -134,6 +138,7 @@ add_option "--run-infra" "   Run integration tests"      do_infra          0
 add_option "--psql" "        Connect to DB"              do_psql           0
 add_option "--psql-host" "   Set DB host"                do_set_pg_host    1
 add_option "-s|--solve" "    Run cli binary"             do_solve          0
+add_option "_sync" "Sync binaries to sphinx"             do_sync_sphinx    0
 
 function main() {
     parse_options "$@"

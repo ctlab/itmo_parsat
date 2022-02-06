@@ -23,15 +23,16 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 
 }  // namespace
 
-void LaunchFixture::Semaphore::set_max(uint32_t max) {
-  _max = max;
+void LaunchFixture::Semaphore::set_max(uint32_t max_value) {
+  max = max_value;
 }
 
 void LaunchFixture::Semaphore::acquire(uint32_t num) {
+  IPS_VERIFY(num <= max);
   for (;;) {
     std::unique_lock<std::mutex> ul(_mutex);
-    _cv.wait(ul, [this, num] { return _current + num <= _max; });
-    if (_current + num <= _max) {
+    _cv.wait(ul, [this, num] { return _current + num <= max; });
+    if (_current + num <= max) {
       _current += num;
       break;
     }
@@ -108,7 +109,8 @@ void LaunchFixture::_prepare_resources() {
   CHECK(std::filesystem::exists(config.resources_dir));
   std::vector<std::filesystem::path> result;
   auto cnf_path = config.resources_dir / "cnf";
-  for (auto const& entry : std::filesystem::recursive_directory_iterator(cnf_path)) {
+  for (auto const& entry : std::filesystem::recursive_directory_iterator(
+           cnf_path, std::filesystem::directory_options::follow_directory_symlink)) {
     if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
       cnfs.insert(std::filesystem::relative(entry.path(), cnf_path));
     }
@@ -185,6 +187,13 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     infra::testing::LaunchConfig launch_config) {
   // Check if this test needs to be launched
   if (!_need_to_launch(launch_config.input)) {
+    return {};
+  }
+
+  if (launch_config.threads_required > config.max_threads) {
+    IPS_WARNING(
+        "The test requires " << launch_config.threads_required << " threads, but only "
+                             << config.max_threads << " are available, thus skipped");
     return {};
   }
 

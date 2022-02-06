@@ -40,7 +40,7 @@ class LaunchFixture : public ::testing::Test {
 
  private:
   struct Semaphore {
-    void set_max(uint32_t max);
+    void set_max(uint32_t max_value);
 
     void acquire(uint32_t num = 1);
 
@@ -50,7 +50,9 @@ class LaunchFixture : public ::testing::Test {
     std::mutex _mutex;
     std::condition_variable _cv;
     uint32_t _current = 0;
-    uint32_t _max;
+
+   public:
+    uint32_t max;
   };
 
  public:
