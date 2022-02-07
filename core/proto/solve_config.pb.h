@@ -47,7 +47,7 @@ struct TableStruct_core_2fproto_2fsolve_5fconfig_2eproto {
       entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField
       aux[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[26] PROTOBUF_SECTION_VARIABLE(
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[28] PROTOBUF_SECTION_VARIABLE(
       protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -101,6 +101,9 @@ extern MutationConfigDefaultTypeInternal _MutationConfig_default_instance_;
 class NaiveSolveConfig;
 class NaiveSolveConfigDefaultTypeInternal;
 extern NaiveSolveConfigDefaultTypeInternal _NaiveSolveConfig_default_instance_;
+class ParPropConfig;
+class ParPropConfigDefaultTypeInternal;
+extern ParPropConfigDefaultTypeInternal _ParPropConfig_default_instance_;
 class ParRBSSolveConfig;
 class ParRBSSolveConfigDefaultTypeInternal;
 extern ParRBSSolveConfigDefaultTypeInternal _ParRBSSolveConfig_default_instance_;
@@ -110,6 +113,9 @@ extern ParSolverConfigDefaultTypeInternal _ParSolverConfig_default_instance_;
 class PointsLimitConfig;
 class PointsLimitConfigDefaultTypeInternal;
 extern PointsLimitConfigDefaultTypeInternal _PointsLimitConfig_default_instance_;
+class PropConfig;
+class PropConfigDefaultTypeInternal;
+extern PropConfigDefaultTypeInternal _PropConfig_default_instance_;
 class RBSSolveConfig;
 class RBSSolveConfigDefaultTypeInternal;
 extern RBSSolveConfigDefaultTypeInternal _RBSSolveConfig_default_instance_;
@@ -167,11 +173,15 @@ template <>
 template <>
 ::NaiveSolveConfig* Arena::CreateMaybeMessage<::NaiveSolveConfig>(Arena*);
 template <>
+::ParPropConfig* Arena::CreateMaybeMessage<::ParPropConfig>(Arena*);
+template <>
 ::ParRBSSolveConfig* Arena::CreateMaybeMessage<::ParRBSSolveConfig>(Arena*);
 template <>
 ::ParSolverConfig* Arena::CreateMaybeMessage<::ParSolverConfig>(Arena*);
 template <>
 ::PointsLimitConfig* Arena::CreateMaybeMessage<::PointsLimitConfig>(Arena*);
+template <>
+::PropConfig* Arena::CreateMaybeMessage<::PropConfig>(Arena*);
 template <>
 ::RBSSolveConfig* Arena::CreateMaybeMessage<::RBSSolveConfig>(Arena*);
 template <>
@@ -1282,6 +1292,355 @@ class SolverConfig PROTOBUF_FINAL
 };
 // -------------------------------------------------------------------
 
+class PropConfig PROTOBUF_FINAL
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:PropConfig) */ {
+ public:
+  inline PropConfig() : PropConfig(nullptr) {}
+  virtual ~PropConfig();
+
+  PropConfig(const PropConfig& from);
+  PropConfig(PropConfig&& from) noexcept : PropConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline PropConfig& operator=(const PropConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PropConfig& operator=(PropConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from)
+        InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PropConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const PropConfig* internal_default_instance() {
+    return reinterpret_cast<const PropConfig*>(&_PropConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 5;
+
+  friend void swap(PropConfig& a, PropConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PropConfig* other) {
+    if (other == this)
+      return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PropConfig* other) {
+    if (other == this)
+      return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PropConfig* New() const final {
+    return CreateMaybeMessage<PropConfig>(nullptr);
+  }
+
+  PropConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PropConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PropConfig& from);
+  void MergeFrom(const PropConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(
+      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target,
+      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final {
+    return _cached_size_.Get();
+  }
+
+ private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PropConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "PropConfig";
+  }
+
+ protected:
+  explicit PropConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ public:
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+ private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
+    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
+        .file_level_metadata[kIndexInFileMessages];
+  }
+
+ public:
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPropTypeFieldNumber = 1,
+    kParPropConfigFieldNumber = 2,
+  };
+  // string prop_type = 1;
+  void clear_prop_type();
+  const std::string& prop_type() const;
+  void set_prop_type(const std::string& value);
+  void set_prop_type(std::string&& value);
+  void set_prop_type(const char* value);
+  void set_prop_type(const char* value, size_t size);
+  std::string* mutable_prop_type();
+  std::string* release_prop_type();
+  void set_allocated_prop_type(std::string* prop_type);
+
+ private:
+  const std::string& _internal_prop_type() const;
+  void _internal_set_prop_type(const std::string& value);
+  std::string* _internal_mutable_prop_type();
+
+ public:
+  // .ParPropConfig par_prop_config = 2;
+  bool has_par_prop_config() const;
+
+ private:
+  bool _internal_has_par_prop_config() const;
+
+ public:
+  void clear_par_prop_config();
+  const ::ParPropConfig& par_prop_config() const;
+  ::ParPropConfig* release_par_prop_config();
+  ::ParPropConfig* mutable_par_prop_config();
+  void set_allocated_par_prop_config(::ParPropConfig* par_prop_config);
+
+ private:
+  const ::ParPropConfig& _internal_par_prop_config() const;
+  ::ParPropConfig* _internal_mutable_par_prop_config();
+
+ public:
+  void unsafe_arena_set_allocated_par_prop_config(::ParPropConfig* par_prop_config);
+  ::ParPropConfig* unsafe_arena_release_par_prop_config();
+
+  // @@protoc_insertion_point(class_scope:PropConfig)
+ private:
+  class _Internal;
+
+  template <typename T>
+  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr prop_type_;
+  ::ParPropConfig* par_prop_config_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ParPropConfig PROTOBUF_FINAL
+    : public ::PROTOBUF_NAMESPACE_ID::
+          Message /* @@protoc_insertion_point(class_definition:ParPropConfig) */ {
+ public:
+  inline ParPropConfig() : ParPropConfig(nullptr) {}
+  virtual ~ParPropConfig();
+
+  ParPropConfig(const ParPropConfig& from);
+  ParPropConfig(ParPropConfig&& from) noexcept : ParPropConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline ParPropConfig& operator=(const ParPropConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ParPropConfig& operator=(ParPropConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from)
+        InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ParPropConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ParPropConfig* internal_default_instance() {
+    return reinterpret_cast<const ParPropConfig*>(&_ParPropConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 6;
+
+  friend void swap(ParPropConfig& a, ParPropConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ParPropConfig* other) {
+    if (other == this)
+      return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ParPropConfig* other) {
+    if (other == this)
+      return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ParPropConfig* New() const final {
+    return CreateMaybeMessage<ParPropConfig>(nullptr);
+  }
+
+  ParPropConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ParPropConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ParPropConfig& from);
+  void MergeFrom(const ParPropConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(
+      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target,
+      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final {
+    return _cached_size_.Get();
+  }
+
+ private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ParPropConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ParPropConfig";
+  }
+
+ protected:
+  explicit ParPropConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+
+ public:
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+ private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
+    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
+        .file_level_metadata[kIndexInFileMessages];
+  }
+
+ public:
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPropConfigFieldNumber = 2,
+    kMaxThreadsFieldNumber = 1,
+  };
+  // .PropConfig prop_config = 2;
+  bool has_prop_config() const;
+
+ private:
+  bool _internal_has_prop_config() const;
+
+ public:
+  void clear_prop_config();
+  const ::PropConfig& prop_config() const;
+  ::PropConfig* release_prop_config();
+  ::PropConfig* mutable_prop_config();
+  void set_allocated_prop_config(::PropConfig* prop_config);
+
+ private:
+  const ::PropConfig& _internal_prop_config() const;
+  ::PropConfig* _internal_mutable_prop_config();
+
+ public:
+  void unsafe_arena_set_allocated_prop_config(::PropConfig* prop_config);
+  ::PropConfig* unsafe_arena_release_prop_config();
+
+  // uint32 max_threads = 1;
+  void clear_max_threads();
+  ::PROTOBUF_NAMESPACE_ID::uint32 max_threads() const;
+  void set_max_threads(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_max_threads() const;
+  void _internal_set_max_threads(::PROTOBUF_NAMESPACE_ID::uint32 value);
+
+ public:
+  // @@protoc_insertion_point(class_scope:ParPropConfig)
+ private:
+  class _Internal;
+
+  template <typename T>
+  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PropConfig* prop_config_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 max_threads_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ResourceLimitConfig PROTOBUF_FINAL
     : public ::PROTOBUF_NAMESPACE_ID::
           Message /* @@protoc_insertion_point(class_definition:ResourceLimitConfig) */ {
@@ -1323,7 +1682,7 @@ class ResourceLimitConfig PROTOBUF_FINAL
   static inline const ResourceLimitConfig* internal_default_instance() {
     return reinterpret_cast<const ResourceLimitConfig*>(&_ResourceLimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 5;
+  static constexpr int kIndexInFileMessages = 7;
 
   friend void swap(ResourceLimitConfig& a, ResourceLimitConfig& b) {
     a.Swap(&b);
@@ -1483,7 +1842,7 @@ class FitnessLimitConfig PROTOBUF_FINAL
   static inline const FitnessLimitConfig* internal_default_instance() {
     return reinterpret_cast<const FitnessLimitConfig*>(&_FitnessLimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 6;
+  static constexpr int kIndexInFileMessages = 8;
 
   friend void swap(FitnessLimitConfig& a, FitnessLimitConfig& b) {
     a.Swap(&b);
@@ -1643,7 +2002,7 @@ class PointsLimitConfig PROTOBUF_FINAL
   static inline const PointsLimitConfig* internal_default_instance() {
     return reinterpret_cast<const PointsLimitConfig*>(&_PointsLimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 7;
+  static constexpr int kIndexInFileMessages = 9;
 
   friend void swap(PointsLimitConfig& a, PointsLimitConfig& b) {
     a.Swap(&b);
@@ -1750,154 +2109,6 @@ class PointsLimitConfig PROTOBUF_FINAL
 };
 // -------------------------------------------------------------------
 
-class StallLimitConfig PROTOBUF_FINAL
-    : public ::PROTOBUF_NAMESPACE_ID::
-          Message /* @@protoc_insertion_point(class_definition:StallLimitConfig) */ {
- public:
-  inline StallLimitConfig() : StallLimitConfig(nullptr) {}
-  virtual ~StallLimitConfig();
-
-  StallLimitConfig(const StallLimitConfig& from);
-  StallLimitConfig(StallLimitConfig&& from) noexcept : StallLimitConfig() {
-    *this = ::std::move(from);
-  }
-
-  inline StallLimitConfig& operator=(const StallLimitConfig& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline StallLimitConfig& operator=(StallLimitConfig&& from) noexcept {
-    if (GetArena() == from.GetArena()) {
-      if (this != &from)
-        InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const StallLimitConfig& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const StallLimitConfig* internal_default_instance() {
-    return reinterpret_cast<const StallLimitConfig*>(&_StallLimitConfig_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 8;
-
-  friend void swap(StallLimitConfig& a, StallLimitConfig& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(StallLimitConfig* other) {
-    if (other == this)
-      return;
-    if (GetArena() == other->GetArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(StallLimitConfig* other) {
-    if (other == this)
-      return;
-    GOOGLE_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline StallLimitConfig* New() const final {
-    return CreateMaybeMessage<StallLimitConfig>(nullptr);
-  }
-
-  StallLimitConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<StallLimitConfig>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const StallLimitConfig& from);
-  void MergeFrom(const StallLimitConfig& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(
-      const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target,
-      ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final {
-    return _cached_size_.Get();
-  }
-
- private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(StallLimitConfig* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "StallLimitConfig";
-  }
-
- protected:
-  explicit StallLimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-
- private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-
- public:
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
- private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-        &::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto);
-    return ::descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto
-        .file_level_metadata[kIndexInFileMessages];
-  }
-
- public:
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kStepsBeforeStallFieldNumber = 1,
-  };
-  // uint32 steps_before_stall = 1;
-  void clear_steps_before_stall();
-  ::PROTOBUF_NAMESPACE_ID::uint32 steps_before_stall() const;
-  void set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_steps_before_stall() const;
-  void _internal_set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value);
-
- public:
-  // @@protoc_insertion_point(class_scope:StallLimitConfig)
- private:
-  class _Internal;
-
-  template <typename T>
-  friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 steps_before_stall_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_core_2fproto_2fsolve_5fconfig_2eproto;
-};
-// -------------------------------------------------------------------
-
 class ConjLimitConfig PROTOBUF_FINAL
     : public ::PROTOBUF_NAMESPACE_ID::
           Message /* @@protoc_insertion_point(class_definition:ConjLimitConfig) */ {
@@ -1939,7 +2150,7 @@ class ConjLimitConfig PROTOBUF_FINAL
   static inline const ConjLimitConfig* internal_default_instance() {
     return reinterpret_cast<const ConjLimitConfig*>(&_ConjLimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 9;
+  static constexpr int kIndexInFileMessages = 10;
 
   friend void swap(ConjLimitConfig& a, ConjLimitConfig& b) {
     a.Swap(&b);
@@ -2245,7 +2456,7 @@ class LimitConfig PROTOBUF_FINAL
   static inline const LimitConfig* internal_default_instance() {
     return reinterpret_cast<const LimitConfig*>(&_LimitConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 10;
+  static constexpr int kIndexInFileMessages = 12;
 
   friend void swap(LimitConfig& a, LimitConfig& b) {
     a.Swap(&b);
@@ -2517,7 +2728,7 @@ class UniformMutationConfig PROTOBUF_FINAL
     return reinterpret_cast<const UniformMutationConfig*>(
         &_UniformMutationConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 11;
+  static constexpr int kIndexInFileMessages = 13;
 
   friend void swap(UniformMutationConfig& a, UniformMutationConfig& b) {
     a.Swap(&b);
@@ -2665,7 +2876,7 @@ class DoerrMutationConfig PROTOBUF_FINAL
   static inline const DoerrMutationConfig* internal_default_instance() {
     return reinterpret_cast<const DoerrMutationConfig*>(&_DoerrMutationConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 12;
+  static constexpr int kIndexInFileMessages = 14;
 
   friend void swap(DoerrMutationConfig& a, DoerrMutationConfig& b) {
     a.Swap(&b);
@@ -2813,7 +3024,7 @@ class MutationConfig PROTOBUF_FINAL
   static inline const MutationConfig* internal_default_instance() {
     return reinterpret_cast<const MutationConfig*>(&_MutationConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 13;
+  static constexpr int kIndexInFileMessages = 15;
 
   friend void swap(MutationConfig& a, MutationConfig& b) {
     a.Swap(&b);
@@ -3016,7 +3227,7 @@ class CrossoverConfig PROTOBUF_FINAL
   static inline const CrossoverConfig* internal_default_instance() {
     return reinterpret_cast<const CrossoverConfig*>(&_CrossoverConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 14;
+  static constexpr int kIndexInFileMessages = 16;
 
   friend void swap(CrossoverConfig& a, CrossoverConfig& b) {
     a.Swap(&b);
@@ -3171,7 +3382,7 @@ class SelectorConfig PROTOBUF_FINAL
   static inline const SelectorConfig* internal_default_instance() {
     return reinterpret_cast<const SelectorConfig*>(&_SelectorConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 15;
+  static constexpr int kIndexInFileMessages = 17;
 
   friend void swap(SelectorConfig& a, SelectorConfig& b) {
     a.Swap(&b);
@@ -3332,7 +3543,7 @@ class InstanceConfig_SamplingSizeConfig PROTOBUF_FINAL
     return reinterpret_cast<const InstanceConfig_SamplingSizeConfig*>(
         &_InstanceConfig_SamplingSizeConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 16;
+  static constexpr int kIndexInFileMessages = 18;
 
   friend void swap(InstanceConfig_SamplingSizeConfig& a, InstanceConfig_SamplingSizeConfig& b) {
     a.Swap(&b);
@@ -3504,7 +3715,7 @@ class InstanceConfig PROTOBUF_FINAL
   static inline const InstanceConfig* internal_default_instance() {
     return reinterpret_cast<const InstanceConfig*>(&_InstanceConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 17;
+  static constexpr int kIndexInFileMessages = 19;
 
   friend void swap(InstanceConfig& a, InstanceConfig& b) {
     a.Swap(&b);
@@ -3702,7 +3913,7 @@ class BaseAlgorithmConfig PROTOBUF_FINAL
   static inline const BaseAlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const BaseAlgorithmConfig*>(&_BaseAlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 18;
+  static constexpr int kIndexInFileMessages = 20;
 
   friend void swap(BaseAlgorithmConfig& a, BaseAlgorithmConfig& b) {
     a.Swap(&b);
@@ -3783,30 +3994,30 @@ class BaseAlgorithmConfig PROTOBUF_FINAL
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSolverConfigFieldNumber = 1,
+    kPropConfigFieldNumber = 1,
     kLimitConfigFieldNumber = 2,
     kInstanceConfigFieldNumber = 3,
   };
-  // .SolverConfig solver_config = 1;
-  bool has_solver_config() const;
+  // .PropConfig prop_config = 1;
+  bool has_prop_config() const;
 
  private:
-  bool _internal_has_solver_config() const;
+  bool _internal_has_prop_config() const;
 
  public:
-  void clear_solver_config();
-  const ::SolverConfig& solver_config() const;
-  ::SolverConfig* release_solver_config();
-  ::SolverConfig* mutable_solver_config();
-  void set_allocated_solver_config(::SolverConfig* solver_config);
+  void clear_prop_config();
+  const ::PropConfig& prop_config() const;
+  ::PropConfig* release_prop_config();
+  ::PropConfig* mutable_prop_config();
+  void set_allocated_prop_config(::PropConfig* prop_config);
 
  private:
-  const ::SolverConfig& _internal_solver_config() const;
-  ::SolverConfig* _internal_mutable_solver_config();
+  const ::PropConfig& _internal_prop_config() const;
+  ::PropConfig* _internal_mutable_prop_config();
 
  public:
-  void unsafe_arena_set_allocated_solver_config(::SolverConfig* solver_config);
-  ::SolverConfig* unsafe_arena_release_solver_config();
+  void unsafe_arena_set_allocated_prop_config(::PropConfig* prop_config);
+  ::PropConfig* unsafe_arena_release_prop_config();
 
   // .LimitConfig limit_config = 2;
   bool has_limit_config() const;
@@ -3858,7 +4069,7 @@ class BaseAlgorithmConfig PROTOBUF_FINAL
   friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::SolverConfig* solver_config_;
+  ::PropConfig* prop_config_;
   ::LimitConfig* limit_config_;
   ::InstanceConfig* instance_config_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -3907,7 +4118,7 @@ class EAAlgorithmConfig PROTOBUF_FINAL
   static inline const EAAlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const EAAlgorithmConfig*>(&_EAAlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 19;
+  static constexpr int kIndexInFileMessages = 21;
 
   friend void swap(EAAlgorithmConfig& a, EAAlgorithmConfig& b) {
     a.Swap(&b);
@@ -4113,7 +4324,7 @@ class GAAlgorithmConfig PROTOBUF_FINAL
   static inline const GAAlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const GAAlgorithmConfig*>(&_GAAlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 20;
+  static constexpr int kIndexInFileMessages = 22;
 
   friend void swap(GAAlgorithmConfig& a, GAAlgorithmConfig& b) {
     a.Swap(&b);
@@ -4366,7 +4577,7 @@ class AlgorithmConfig PROTOBUF_FINAL
   static inline const AlgorithmConfig* internal_default_instance() {
     return reinterpret_cast<const AlgorithmConfig*>(&_AlgorithmConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 21;
+  static constexpr int kIndexInFileMessages = 23;
 
   friend void swap(AlgorithmConfig& a, AlgorithmConfig& b) {
     a.Swap(&b);
@@ -4567,7 +4778,7 @@ class NaiveSolveConfig PROTOBUF_FINAL
   static inline const NaiveSolveConfig* internal_default_instance() {
     return reinterpret_cast<const NaiveSolveConfig*>(&_NaiveSolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 22;
+  static constexpr int kIndexInFileMessages = 24;
 
   friend void swap(NaiveSolveConfig& a, NaiveSolveConfig& b) {
     a.Swap(&b);
@@ -4726,7 +4937,7 @@ class RBSSolveConfig PROTOBUF_FINAL
   static inline const RBSSolveConfig* internal_default_instance() {
     return reinterpret_cast<const RBSSolveConfig*>(&_RBSSolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 23;
+  static constexpr int kIndexInFileMessages = 25;
 
   friend void swap(RBSSolveConfig& a, RBSSolveConfig& b) {
     a.Swap(&b);
@@ -4908,7 +5119,7 @@ class ParRBSSolveConfig PROTOBUF_FINAL
   static inline const ParRBSSolveConfig* internal_default_instance() {
     return reinterpret_cast<const ParRBSSolveConfig*>(&_ParRBSSolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 24;
+  static constexpr int kIndexInFileMessages = 26;
 
   friend void swap(ParRBSSolveConfig& a, ParRBSSolveConfig& b) {
     a.Swap(&b);
@@ -5125,7 +5336,7 @@ class SolveConfig PROTOBUF_FINAL
   static inline const SolveConfig* internal_default_instance() {
     return reinterpret_cast<const SolveConfig*>(&_SolveConfig_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 25;
+  static constexpr int kIndexInFileMessages = 27;
 
   friend void swap(SolveConfig& a, SolveConfig& b) {
     a.Swap(&b);
@@ -6242,6 +6453,251 @@ inline void SolverConfig::set_allocated_par_solver_config(::ParSolverConfig* par
 
 // -------------------------------------------------------------------
 
+// PropConfig
+
+// string prop_type = 1;
+inline void PropConfig::clear_prop_type() {
+  prop_type_.ClearToEmpty(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& PropConfig::prop_type() const {
+  // @@protoc_insertion_point(field_get:PropConfig.prop_type)
+  return _internal_prop_type();
+}
+inline void PropConfig::set_prop_type(const std::string& value) {
+  _internal_set_prop_type(value);
+  // @@protoc_insertion_point(field_set:PropConfig.prop_type)
+}
+inline std::string* PropConfig::mutable_prop_type() {
+  // @@protoc_insertion_point(field_mutable:PropConfig.prop_type)
+  return _internal_mutable_prop_type();
+}
+inline const std::string& PropConfig::_internal_prop_type() const {
+  return prop_type_.Get();
+}
+inline void PropConfig::_internal_set_prop_type(const std::string& value) {
+  prop_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void PropConfig::set_prop_type(std::string&& value) {
+  prop_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value),
+      GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:PropConfig.prop_type)
+}
+inline void PropConfig::set_prop_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+
+  prop_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+      GetArena());
+  // @@protoc_insertion_point(field_set_char:PropConfig.prop_type)
+}
+inline void PropConfig::set_prop_type(const char* value, size_t size) {
+  prop_type_.Set(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:PropConfig.prop_type)
+}
+inline std::string* PropConfig::_internal_mutable_prop_type() {
+  return prop_type_.Mutable(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* PropConfig::release_prop_type() {
+  // @@protoc_insertion_point(field_release:PropConfig.prop_type)
+  return prop_type_.Release(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void PropConfig::set_allocated_prop_type(std::string* prop_type) {
+  if (prop_type != nullptr) {
+  } else {
+  }
+  prop_type_.SetAllocated(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), prop_type, GetArena());
+  // @@protoc_insertion_point(field_set_allocated:PropConfig.prop_type)
+}
+
+// .ParPropConfig par_prop_config = 2;
+inline bool PropConfig::_internal_has_par_prop_config() const {
+  return this != internal_default_instance() && par_prop_config_ != nullptr;
+}
+inline bool PropConfig::has_par_prop_config() const {
+  return _internal_has_par_prop_config();
+}
+inline void PropConfig::clear_par_prop_config() {
+  if (GetArena() == nullptr && par_prop_config_ != nullptr) {
+    delete par_prop_config_;
+  }
+  par_prop_config_ = nullptr;
+}
+inline const ::ParPropConfig& PropConfig::_internal_par_prop_config() const {
+  const ::ParPropConfig* p = par_prop_config_;
+  return p != nullptr
+             ? *p
+             : *reinterpret_cast<const ::ParPropConfig*>(&::_ParPropConfig_default_instance_);
+}
+inline const ::ParPropConfig& PropConfig::par_prop_config() const {
+  // @@protoc_insertion_point(field_get:PropConfig.par_prop_config)
+  return _internal_par_prop_config();
+}
+inline void PropConfig::unsafe_arena_set_allocated_par_prop_config(
+    ::ParPropConfig* par_prop_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(par_prop_config_);
+  }
+  par_prop_config_ = par_prop_config;
+  if (par_prop_config) {
+  } else {
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:PropConfig.par_prop_config)
+}
+inline ::ParPropConfig* PropConfig::release_par_prop_config() {
+  ::ParPropConfig* temp = par_prop_config_;
+  par_prop_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::ParPropConfig* PropConfig::unsafe_arena_release_par_prop_config() {
+  // @@protoc_insertion_point(field_release:PropConfig.par_prop_config)
+
+  ::ParPropConfig* temp = par_prop_config_;
+  par_prop_config_ = nullptr;
+  return temp;
+}
+inline ::ParPropConfig* PropConfig::_internal_mutable_par_prop_config() {
+  if (par_prop_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ParPropConfig>(GetArena());
+    par_prop_config_ = p;
+  }
+  return par_prop_config_;
+}
+inline ::ParPropConfig* PropConfig::mutable_par_prop_config() {
+  // @@protoc_insertion_point(field_mutable:PropConfig.par_prop_config)
+  return _internal_mutable_par_prop_config();
+}
+inline void PropConfig::set_allocated_par_prop_config(::ParPropConfig* par_prop_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete par_prop_config_;
+  }
+  if (par_prop_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(par_prop_config);
+    if (message_arena != submessage_arena) {
+      par_prop_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, par_prop_config, submessage_arena);
+    }
+
+  } else {
+  }
+  par_prop_config_ = par_prop_config;
+  // @@protoc_insertion_point(field_set_allocated:PropConfig.par_prop_config)
+}
+
+// -------------------------------------------------------------------
+
+// ParPropConfig
+
+// uint32 max_threads = 1;
+inline void ParPropConfig::clear_max_threads() {
+  max_threads_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ParPropConfig::_internal_max_threads() const {
+  return max_threads_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ParPropConfig::max_threads() const {
+  // @@protoc_insertion_point(field_get:ParPropConfig.max_threads)
+  return _internal_max_threads();
+}
+inline void ParPropConfig::_internal_set_max_threads(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  max_threads_ = value;
+}
+inline void ParPropConfig::set_max_threads(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_max_threads(value);
+  // @@protoc_insertion_point(field_set:ParPropConfig.max_threads)
+}
+
+// .PropConfig prop_config = 2;
+inline bool ParPropConfig::_internal_has_prop_config() const {
+  return this != internal_default_instance() && prop_config_ != nullptr;
+}
+inline bool ParPropConfig::has_prop_config() const {
+  return _internal_has_prop_config();
+}
+inline void ParPropConfig::clear_prop_config() {
+  if (GetArena() == nullptr && prop_config_ != nullptr) {
+    delete prop_config_;
+  }
+  prop_config_ = nullptr;
+}
+inline const ::PropConfig& ParPropConfig::_internal_prop_config() const {
+  const ::PropConfig* p = prop_config_;
+  return p != nullptr ? *p
+                      : *reinterpret_cast<const ::PropConfig*>(&::_PropConfig_default_instance_);
+}
+inline const ::PropConfig& ParPropConfig::prop_config() const {
+  // @@protoc_insertion_point(field_get:ParPropConfig.prop_config)
+  return _internal_prop_config();
+}
+inline void ParPropConfig::unsafe_arena_set_allocated_prop_config(::PropConfig* prop_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(prop_config_);
+  }
+  prop_config_ = prop_config;
+  if (prop_config) {
+  } else {
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ParPropConfig.prop_config)
+}
+inline ::PropConfig* ParPropConfig::release_prop_config() {
+  ::PropConfig* temp = prop_config_;
+  prop_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::PropConfig* ParPropConfig::unsafe_arena_release_prop_config() {
+  // @@protoc_insertion_point(field_release:ParPropConfig.prop_config)
+
+  ::PropConfig* temp = prop_config_;
+  prop_config_ = nullptr;
+  return temp;
+}
+inline ::PropConfig* ParPropConfig::_internal_mutable_prop_config() {
+  if (prop_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::PropConfig>(GetArena());
+    prop_config_ = p;
+  }
+  return prop_config_;
+}
+inline ::PropConfig* ParPropConfig::mutable_prop_config() {
+  // @@protoc_insertion_point(field_mutable:ParPropConfig.prop_config)
+  return _internal_mutable_prop_config();
+}
+inline void ParPropConfig::set_allocated_prop_config(::PropConfig* prop_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete prop_config_;
+  }
+  if (prop_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(prop_config);
+    if (message_arena != submessage_arena) {
+      prop_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, prop_config, submessage_arena);
+    }
+
+  } else {
+  }
+  prop_config_ = prop_config;
+  // @@protoc_insertion_point(field_set_allocated:ParPropConfig.prop_config)
+}
+
+// -------------------------------------------------------------------
+
 // ResourceLimitConfig
 
 // uint32 memory_limit_kb = 1;
@@ -6348,30 +6804,6 @@ inline void PointsLimitConfig::_internal_set_max_points_visited(
 inline void PointsLimitConfig::set_max_points_visited(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_max_points_visited(value);
   // @@protoc_insertion_point(field_set:PointsLimitConfig.max_points_visited)
-}
-
-// -------------------------------------------------------------------
-
-// StallLimitConfig
-
-// uint32 steps_before_stall = 1;
-inline void StallLimitConfig::clear_steps_before_stall() {
-  steps_before_stall_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 StallLimitConfig::_internal_steps_before_stall() const {
-  return steps_before_stall_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 StallLimitConfig::steps_before_stall() const {
-  // @@protoc_insertion_point(field_get:StallLimitConfig.steps_before_stall)
-  return _internal_steps_before_stall();
-}
-inline void StallLimitConfig::_internal_set_steps_before_stall(
-    ::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  steps_before_stall_ = value;
-}
-inline void StallLimitConfig::set_steps_before_stall(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_steps_before_stall(value);
-  // @@protoc_insertion_point(field_set:StallLimitConfig.steps_before_stall)
 }
 
 // -------------------------------------------------------------------
@@ -7523,83 +7955,81 @@ inline void InstanceConfig::set_allocated_sampling_config(
 
 // BaseAlgorithmConfig
 
-// .SolverConfig solver_config = 1;
-inline bool BaseAlgorithmConfig::_internal_has_solver_config() const {
-  return this != internal_default_instance() && solver_config_ != nullptr;
+// .PropConfig prop_config = 1;
+inline bool BaseAlgorithmConfig::_internal_has_prop_config() const {
+  return this != internal_default_instance() && prop_config_ != nullptr;
 }
-inline bool BaseAlgorithmConfig::has_solver_config() const {
-  return _internal_has_solver_config();
+inline bool BaseAlgorithmConfig::has_prop_config() const {
+  return _internal_has_prop_config();
 }
-inline void BaseAlgorithmConfig::clear_solver_config() {
-  if (GetArena() == nullptr && solver_config_ != nullptr) {
-    delete solver_config_;
+inline void BaseAlgorithmConfig::clear_prop_config() {
+  if (GetArena() == nullptr && prop_config_ != nullptr) {
+    delete prop_config_;
   }
-  solver_config_ = nullptr;
+  prop_config_ = nullptr;
 }
-inline const ::SolverConfig& BaseAlgorithmConfig::_internal_solver_config() const {
-  const ::SolverConfig* p = solver_config_;
-  return p != nullptr
-             ? *p
-             : *reinterpret_cast<const ::SolverConfig*>(&::_SolverConfig_default_instance_);
+inline const ::PropConfig& BaseAlgorithmConfig::_internal_prop_config() const {
+  const ::PropConfig* p = prop_config_;
+  return p != nullptr ? *p
+                      : *reinterpret_cast<const ::PropConfig*>(&::_PropConfig_default_instance_);
 }
-inline const ::SolverConfig& BaseAlgorithmConfig::solver_config() const {
-  // @@protoc_insertion_point(field_get:BaseAlgorithmConfig.solver_config)
-  return _internal_solver_config();
+inline const ::PropConfig& BaseAlgorithmConfig::prop_config() const {
+  // @@protoc_insertion_point(field_get:BaseAlgorithmConfig.prop_config)
+  return _internal_prop_config();
 }
-inline void BaseAlgorithmConfig::unsafe_arena_set_allocated_solver_config(
-    ::SolverConfig* solver_config) {
+inline void BaseAlgorithmConfig::unsafe_arena_set_allocated_prop_config(::PropConfig* prop_config) {
   if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(solver_config_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(prop_config_);
   }
-  solver_config_ = solver_config;
-  if (solver_config) {
+  prop_config_ = prop_config;
+  if (prop_config) {
   } else {
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BaseAlgorithmConfig.solver_config)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BaseAlgorithmConfig.prop_config)
 }
-inline ::SolverConfig* BaseAlgorithmConfig::release_solver_config() {
-  ::SolverConfig* temp = solver_config_;
-  solver_config_ = nullptr;
+inline ::PropConfig* BaseAlgorithmConfig::release_prop_config() {
+  ::PropConfig* temp = prop_config_;
+  prop_config_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::SolverConfig* BaseAlgorithmConfig::unsafe_arena_release_solver_config() {
-  // @@protoc_insertion_point(field_release:BaseAlgorithmConfig.solver_config)
+inline ::PropConfig* BaseAlgorithmConfig::unsafe_arena_release_prop_config() {
+  // @@protoc_insertion_point(field_release:BaseAlgorithmConfig.prop_config)
 
-  ::SolverConfig* temp = solver_config_;
-  solver_config_ = nullptr;
+  ::PropConfig* temp = prop_config_;
+  prop_config_ = nullptr;
   return temp;
 }
-inline ::SolverConfig* BaseAlgorithmConfig::_internal_mutable_solver_config() {
-  if (solver_config_ == nullptr) {
-    auto* p = CreateMaybeMessage<::SolverConfig>(GetArena());
-    solver_config_ = p;
+inline ::PropConfig* BaseAlgorithmConfig::_internal_mutable_prop_config() {
+  if (prop_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::PropConfig>(GetArena());
+    prop_config_ = p;
   }
-  return solver_config_;
+  return prop_config_;
 }
-inline ::SolverConfig* BaseAlgorithmConfig::mutable_solver_config() {
-  // @@protoc_insertion_point(field_mutable:BaseAlgorithmConfig.solver_config)
-  return _internal_mutable_solver_config();
+inline ::PropConfig* BaseAlgorithmConfig::mutable_prop_config() {
+  // @@protoc_insertion_point(field_mutable:BaseAlgorithmConfig.prop_config)
+  return _internal_mutable_prop_config();
 }
-inline void BaseAlgorithmConfig::set_allocated_solver_config(::SolverConfig* solver_config) {
+inline void BaseAlgorithmConfig::set_allocated_prop_config(::PropConfig* prop_config) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
-    delete solver_config_;
+    delete prop_config_;
   }
-  if (solver_config) {
+  if (prop_config) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(solver_config);
+        ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(prop_config);
     if (message_arena != submessage_arena) {
-      solver_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, solver_config, submessage_arena);
+      prop_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, prop_config, submessage_arena);
     }
 
   } else {
   }
-  solver_config_ = solver_config;
-  // @@protoc_insertion_point(field_set_allocated:BaseAlgorithmConfig.solver_config)
+  prop_config_ = prop_config;
+  // @@protoc_insertion_point(field_set_allocated:BaseAlgorithmConfig.prop_config)
 }
 
 // .LimitConfig limit_config = 2;
@@ -9339,6 +9769,10 @@ inline void SolveConfig::set_allocated_par_rbs_solve_config(
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

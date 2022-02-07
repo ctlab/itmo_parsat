@@ -57,6 +57,9 @@ extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF
     internal::SCCInfo<1>
         scc_info_NaiveSolveConfig_core_2fproto_2fsolve_5fconfig_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
+    internal::SCCInfo<0>
+        scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
     internal::SCCInfo<2>
         scc_info_ParRBSSolveConfig_core_2fproto_2fsolve_5fconfig_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_core_2fproto_2fsolve_5fconfig_2eproto ::PROTOBUF_NAMESPACE_ID::
@@ -103,6 +106,14 @@ class SolverConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SolverConfig> _instance;
 } _SolverConfig_default_instance_;
+class PropConfigDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PropConfig> _instance;
+} _PropConfig_default_instance_;
+class ParPropConfigDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ParPropConfig> _instance;
+} _ParPropConfig_default_instance_;
 class ResourceLimitConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ResourceLimitConfig> _instance;
@@ -115,10 +126,6 @@ class PointsLimitConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PointsLimitConfig> _instance;
 } _PointsLimitConfig_default_instance_;
-class StallLimitConfigDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StallLimitConfig> _instance;
-} _StallLimitConfig_default_instance_;
 class ConjLimitConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ConjLimitConfig> _instance;
@@ -228,7 +235,7 @@ static void InitDefaultsscc_info_BaseAlgorithmConfig_core_2fproto_2fsolve_5fconf
         {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0,
          InitDefaultsscc_info_BaseAlgorithmConfig_core_2fproto_2fsolve_5fconfig_2eproto},
         {
-            &scc_info_ParSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
+            &scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
             &scc_info_ConjLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
             &scc_info_InstanceConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         }};
@@ -465,6 +472,29 @@ static void InitDefaultsscc_info_NaiveSolveConfig_core_2fproto_2fsolve_5fconfig_
             &scc_info_ParSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         }};
 
+static void InitDefaultsscc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_PropConfig_default_instance_;
+    new (ptr)::PropConfig();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  {
+    void* ptr = &::_ParPropConfig_default_instance_;
+    new (ptr)::ParPropConfig();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::PropConfig::InitAsDefaultInstance();
+  ::ParPropConfig::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0>
+    scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto = {
+        {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0,
+         InitDefaultsscc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto},
+        {}};
+
 static void InitDefaultsscc_info_ParRBSSolveConfig_core_2fproto_2fsolve_5fconfig_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -657,7 +687,7 @@ static void InitDefaultsscc_info_UniformMutationConfig_core_2fproto_2fsolve_5fco
         {}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata
-    file_level_metadata_core_2fproto_2fsolve_5fconfig_2eproto[26];
+    file_level_metadata_core_2fproto_2fsolve_5fconfig_2eproto[28];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const**
     file_level_enum_descriptors_core_2fproto_2fsolve_5fconfig_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const**
@@ -721,6 +751,20 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         PROTOBUF_FIELD_OFFSET(::SolverConfig, simp_solver_config_),
         PROTOBUF_FIELD_OFFSET(::SolverConfig, par_solver_config_),
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::PropConfig, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        PROTOBUF_FIELD_OFFSET(::PropConfig, prop_type_),
+        PROTOBUF_FIELD_OFFSET(::PropConfig, par_prop_config_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::ParPropConfig, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        PROTOBUF_FIELD_OFFSET(::ParPropConfig, max_threads_),
+        PROTOBUF_FIELD_OFFSET(::ParPropConfig, prop_config_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::ResourceLimitConfig, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -740,12 +784,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         PROTOBUF_FIELD_OFFSET(::PointsLimitConfig, max_points_visited_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::StallLimitConfig, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        PROTOBUF_FIELD_OFFSET(::StallLimitConfig, steps_before_stall_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::ConjLimitConfig, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -823,7 +861,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
-        PROTOBUF_FIELD_OFFSET(::BaseAlgorithmConfig, solver_config_),
+        PROTOBUF_FIELD_OFFSET(::BaseAlgorithmConfig, prop_config_),
         PROTOBUF_FIELD_OFFSET(::BaseAlgorithmConfig, limit_config_),
         PROTOBUF_FIELD_OFFSET(::BaseAlgorithmConfig, instance_config_),
         ~0u,  // no _has_bits_
@@ -894,27 +932,29 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
     {25, -1, sizeof(::SimpSolverConfig)},
     {39, -1, sizeof(::ParSolverConfig)},
     {46, -1, sizeof(::SolverConfig)},
-    {54, -1, sizeof(::ResourceLimitConfig)},
-    {61, -1, sizeof(::FitnessLimitConfig)},
-    {68, -1, sizeof(::PointsLimitConfig)},
-    {74, -1, sizeof(::StallLimitConfig)},
-    {80, -1, sizeof(::ConjLimitConfig)},
-    {86, -1, sizeof(::LimitConfig)},
-    {97, -1, sizeof(::UniformMutationConfig)},
-    {103, -1, sizeof(::DoerrMutationConfig)},
-    {109, -1, sizeof(::MutationConfig)},
-    {117, -1, sizeof(::CrossoverConfig)},
-    {123, -1, sizeof(::SelectorConfig)},
-    {129, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
-    {137, -1, sizeof(::InstanceConfig)},
-    {146, -1, sizeof(::BaseAlgorithmConfig)},
-    {154, -1, sizeof(::EAAlgorithmConfig)},
-    {162, -1, sizeof(::GAAlgorithmConfig)},
-    {173, -1, sizeof(::AlgorithmConfig)},
-    {181, -1, sizeof(::NaiveSolveConfig)},
-    {187, -1, sizeof(::RBSSolveConfig)},
-    {194, -1, sizeof(::ParRBSSolveConfig)},
-    {203, -1, sizeof(::SolveConfig)},
+    {54, -1, sizeof(::PropConfig)},
+    {61, -1, sizeof(::ParPropConfig)},
+    {68, -1, sizeof(::ResourceLimitConfig)},
+    {75, -1, sizeof(::FitnessLimitConfig)},
+    {82, -1, sizeof(::PointsLimitConfig)},
+    {88, -1, sizeof(::ConjLimitConfig)},
+    {94, -1, sizeof(::StallLimitConfig)},
+    {100, -1, sizeof(::LimitConfig)},
+    {111, -1, sizeof(::UniformMutationConfig)},
+    {117, -1, sizeof(::DoerrMutationConfig)},
+    {123, -1, sizeof(::MutationConfig)},
+    {131, -1, sizeof(::CrossoverConfig)},
+    {137, -1, sizeof(::SelectorConfig)},
+    {143, -1, sizeof(::InstanceConfig_SamplingSizeConfig)},
+    {151, -1, sizeof(::InstanceConfig)},
+    {160, -1, sizeof(::BaseAlgorithmConfig)},
+    {168, -1, sizeof(::EAAlgorithmConfig)},
+    {176, -1, sizeof(::GAAlgorithmConfig)},
+    {187, -1, sizeof(::AlgorithmConfig)},
+    {195, -1, sizeof(::NaiveSolveConfig)},
+    {201, -1, sizeof(::RBSSolveConfig)},
+    {208, -1, sizeof(::ParRBSSolveConfig)},
+    {218, -1, sizeof(::SolveConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const* const file_default_instances[] = {
@@ -927,14 +967,14 @@ static ::PROTOBUF_NAMESPACE_ID::Message const* const file_default_instances[] = 
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_ParSolverConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SolverConfig_default_instance_),
+    reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_PropConfig_default_instance_),
+    reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ParPropConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_ResourceLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_FitnessLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_PointsLimitConfig_default_instance_),
-    reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
-        &::_StallLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
         &::_ConjLimitConfig_default_instance_),
     reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(
@@ -991,64 +1031,68 @@ const char
         "SolverConfig\"\177\n\014SolverConfig\022\023\n\013solver_t"
         "ype\030\001 \001(\t\022-\n\022simp_solver_config\030\004 \001(\0132\021."
         "SimpSolverConfig\022+\n\021par_solver_config\030\005 "
-        "\001(\0132\020.ParSolverConfig\"F\n\023ResourceLimitCo"
-        "nfig\022\027\n\017memory_limit_kb\030\001 \001(\r\022\026\n\016time_li"
-        "mit_sec\030\002 \001(\r\">\n\022FitnessLimitConfig\022\026\n\016l"
-        "owest_fitness\030\001 \001(\001\022\020\n\010max_size\030\002 \001(\r\"/\n"
-        "\021PointsLimitConfig\022\032\n\022max_points_visited"
-        "\030\001 \001(\r\".\n\020StallLimitConfig\022\032\n\022steps_befo"
-        "re_stall\030\001 \001(\r\"5\n\017ConjLimitConfig\022\"\n\014lim"
-        "it_config\030\001 \003(\0132\014.LimitConfig\"\226\002\n\013LimitC"
-        "onfig\022\022\n\nlimit_type\030\001 \001(\t\0223\n\025resource_li"
-        "mit_config\030\002 \001(\0132\024.ResourceLimitConfig\0221"
-        "\n\024fitness_limit_config\030\003 \001(\0132\023.FitnessLi"
-        "mitConfig\022+\n\021conj_limit_config\030\004 \001(\0132\020.C"
-        "onjLimitConfig\022/\n\023points_limit_config\030\005 "
-        "\001(\0132\022.PointsLimitConfig\022-\n\022stall_limit_c"
-        "onfig\030\006 \001(\0132\021.StallLimitConfig\"&\n\025Unifor"
-        "mMutationConfig\022\r\n\005scale\030\001 \001(\001\"#\n\023DoerrM"
-        "utationConfig\022\014\n\004beta\030\001 \001(\001\"\225\001\n\016Mutation"
-        "Config\022\025\n\rmutation_type\030\001 \001(\t\0227\n\027uniform"
-        "_mutation_config\030\002 \001(\0132\026.UniformMutation"
-        "Config\0223\n\025doerr_mutation_config\030\003 \001(\0132\024."
-        "DoerrMutationConfig\")\n\017CrossoverConfig\022\026"
-        "\n\016crossover_type\030\001 \001(\t\"\'\n\016SelectorConfig"
-        "\022\025\n\rselector_type\030\001 \001(\t\"\332\001\n\016InstanceConf"
-        "ig\022\017\n\007omega_x\030\001 \001(\r\022\026\n\016heuristic_size\030\002 "
-        "\001(\r\022\026\n\016max_cache_size\030\003 \001(\r\022;\n\017sampling_"
-        "config\030\004 \001(\0132\".InstanceConfig.SamplingSi"
-        "zeConfig\032J\n\022SamplingSizeConfig\022\022\n\nbase_c"
-        "ount\030\001 \001(\004\022\021\n\tmax_steps\030\002 \001(\r\022\r\n\005scale\030\003"
-        " \001(\001\"\211\001\n\023BaseAlgorithmConfig\022$\n\rsolver_c"
-        "onfig\030\001 \001(\0132\r.SolverConfig\022\"\n\014limit_conf"
-        "ig\030\002 \001(\0132\014.LimitConfig\022(\n\017instance_confi"
-        "g\030\003 \001(\0132\017.InstanceConfig\"\234\001\n\021EAAlgorithm"
-        "Config\022(\n\017mutation_config\030\001 \001(\0132\017.Mutati"
-        "onConfig\022(\n\017selector_config\030\002 \001(\0132\017.Sele"
-        "ctorConfig\0223\n\025base_algorithm_config\030\003 \001("
-        "\0132\024.BaseAlgorithmConfig\"\336\001\n\021GAAlgorithmC"
-        "onfig\022\t\n\001q\030\004 \001(\r\022\t\n\001h\030\005 \001(\r\022(\n\017mutation_"
-        "config\030\001 \001(\0132\017.MutationConfig\022*\n\020crossov"
-        "er_config\030\002 \001(\0132\020.CrossoverConfig\022(\n\017sel"
-        "ector_config\030\003 \001(\0132\017.SelectorConfig\0223\n\025b"
-        "ase_algorithm_config\030\006 \001(\0132\024.BaseAlgorit"
-        "hmConfig\"\213\001\n\017AlgorithmConfig\022\026\n\016algorith"
-        "m_type\030\001 \001(\t\022/\n\023ea_algorithm_config\030\003 \001("
-        "\0132\022.EAAlgorithmConfig\022/\n\023ga_algorithm_co"
-        "nfig\030\004 \001(\0132\022.GAAlgorithmConfig\"8\n\020NaiveS"
-        "olveConfig\022$\n\rsolver_config\030\001 \001(\0132\r.Solv"
-        "erConfig\"b\n\016RBSSolveConfig\022*\n\020algorithm_"
-        "config\030\001 \001(\0132\020.AlgorithmConfig\022$\n\rsolver"
-        "_config\030\002 \001(\0132\r.SolverConfig\"\230\001\n\021ParRBSS"
-        "olveConfig\022+\n\021algorithm_configs\030\001 \003(\0132\020."
-        "AlgorithmConfig\022$\n\rsolver_config\030\002 \001(\0132\r"
-        ".SolverConfig\022\026\n\016num_algorithms\030\004 \001(\r\022\030\n"
-        "\020max_unpropagated\030\005 \001(\r\"\302\001\n\013SolveConfig\022"
-        "\022\n\nsolve_type\030\001 \001(\t\022\023\n\013random_seed\030\002 \001(\r"
-        "\022-\n\022naive_solve_config\030\003 \001(\0132\021.NaiveSolv"
-        "eConfig\022)\n\020rbs_solve_config\030\004 \001(\0132\017.RBSS"
-        "olveConfig\0220\n\024par_rbs_solve_config\030\005 \001(\013"
-        "2\022.ParRBSSolveConfigb\006proto3";
+        "\001(\0132\020.ParSolverConfig\"H\n\nPropConfig\022\021\n\tp"
+        "rop_type\030\001 \001(\t\022\'\n\017par_prop_config\030\002 \001(\0132"
+        "\016.ParPropConfig\"F\n\rParPropConfig\022\023\n\013max_"
+        "threads\030\001 \001(\r\022 \n\013prop_config\030\002 \001(\0132\013.Pro"
+        "pConfig\"F\n\023ResourceLimitConfig\022\027\n\017memory"
+        "_limit_kb\030\001 \001(\r\022\026\n\016time_limit_sec\030\002 \001(\r\""
+        ">\n\022FitnessLimitConfig\022\026\n\016lowest_fitness\030"
+        "\001 \001(\001\022\020\n\010max_size\030\002 \001(\r\"/\n\021PointsLimitCo"
+        "nfig\022\032\n\022max_points_visited\030\001 \001(\r\"5\n\017Conj"
+        "LimitConfig\022\"\n\014limit_config\030\001 \003(\0132\014.Limi"
+        "tConfig\".\n\020StallLimitConfig\022\032\n\022steps_bef"
+        "ore_stall\030\001 \001(\r\"\226\002\n\013LimitConfig\022\022\n\nlimit"
+        "_type\030\001 \001(\t\0223\n\025resource_limit_config\030\002 \001"
+        "(\0132\024.ResourceLimitConfig\0221\n\024fitness_limi"
+        "t_config\030\003 \001(\0132\023.FitnessLimitConfig\022+\n\021c"
+        "onj_limit_config\030\004 \001(\0132\020.ConjLimitConfig"
+        "\022/\n\023points_limit_config\030\005 \001(\0132\022.PointsLi"
+        "mitConfig\022-\n\022stall_limit_config\030\006 \001(\0132\021."
+        "StallLimitConfig\"&\n\025UniformMutationConfi"
+        "g\022\r\n\005scale\030\001 \001(\001\"#\n\023DoerrMutationConfig\022"
+        "\014\n\004beta\030\001 \001(\001\"\225\001\n\016MutationConfig\022\025\n\rmuta"
+        "tion_type\030\001 \001(\t\0227\n\027uniform_mutation_conf"
+        "ig\030\002 \001(\0132\026.UniformMutationConfig\0223\n\025doer"
+        "r_mutation_config\030\003 \001(\0132\024.DoerrMutationC"
+        "onfig\")\n\017CrossoverConfig\022\026\n\016crossover_ty"
+        "pe\030\001 \001(\t\"\'\n\016SelectorConfig\022\025\n\rselector_t"
+        "ype\030\001 \001(\t\"\332\001\n\016InstanceConfig\022\017\n\007omega_x\030"
+        "\001 \001(\r\022\026\n\016heuristic_size\030\002 \001(\r\022\026\n\016max_cac"
+        "he_size\030\003 \001(\r\022;\n\017sampling_config\030\004 \001(\0132\""
+        ".InstanceConfig.SamplingSizeConfig\032J\n\022Sa"
+        "mplingSizeConfig\022\022\n\nbase_count\030\001 \001(\004\022\021\n\t"
+        "max_steps\030\002 \001(\r\022\r\n\005scale\030\003 \001(\001\"\205\001\n\023BaseA"
+        "lgorithmConfig\022 \n\013prop_config\030\001 \001(\0132\013.Pr"
+        "opConfig\022\"\n\014limit_config\030\002 \001(\0132\014.LimitCo"
+        "nfig\022(\n\017instance_config\030\003 \001(\0132\017.Instance"
+        "Config\"\234\001\n\021EAAlgorithmConfig\022(\n\017mutation"
+        "_config\030\001 \001(\0132\017.MutationConfig\022(\n\017select"
+        "or_config\030\002 \001(\0132\017.SelectorConfig\0223\n\025base"
+        "_algorithm_config\030\003 \001(\0132\024.BaseAlgorithmC"
+        "onfig\"\336\001\n\021GAAlgorithmConfig\022\t\n\001q\030\004 \001(\r\022\t"
+        "\n\001h\030\005 \001(\r\022(\n\017mutation_config\030\001 \001(\0132\017.Mut"
+        "ationConfig\022*\n\020crossover_config\030\002 \001(\0132\020."
+        "CrossoverConfig\022(\n\017selector_config\030\003 \001(\013"
+        "2\017.SelectorConfig\0223\n\025base_algorithm_conf"
+        "ig\030\006 \001(\0132\024.BaseAlgorithmConfig\"\213\001\n\017Algor"
+        "ithmConfig\022\026\n\016algorithm_type\030\001 \001(\t\022/\n\023ea"
+        "_algorithm_config\030\003 \001(\0132\022.EAAlgorithmCon"
+        "fig\022/\n\023ga_algorithm_config\030\004 \001(\0132\022.GAAlg"
+        "orithmConfig\"8\n\020NaiveSolveConfig\022$\n\rsolv"
+        "er_config\030\001 \001(\0132\r.SolverConfig\"b\n\016RBSSol"
+        "veConfig\022*\n\020algorithm_config\030\001 \001(\0132\020.Alg"
+        "orithmConfig\022$\n\rsolver_config\030\002 \001(\0132\r.So"
+        "lverConfig\"\264\001\n\021ParRBSSolveConfig\022+\n\021algo"
+        "rithm_configs\030\001 \003(\0132\020.AlgorithmConfig\022$\n"
+        "\rsolver_config\030\002 \001(\0132\r.SolverConfig\022\026\n\016n"
+        "um_algorithms\030\004 \001(\r\022\030\n\020max_unpropagated\030"
+        "\005 \001(\r\022\032\n\022max_cartesian_size\030\006 \001(\r\"\302\001\n\013So"
+        "lveConfig\022\022\n\nsolve_type\030\001 \001(\t\022\023\n\013random_"
+        "seed\030\002 \001(\r\022-\n\022naive_solve_config\030\003 \001(\0132\021"
+        ".NaiveSolveConfig\022)\n\020rbs_solve_config\030\004 "
+        "\001(\0132\017.RBSSolveConfig\0220\n\024par_rbs_solve_co"
+        "nfig\030\005 \001(\0132\022.ParRBSSolveConfigb\006proto3";
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* const
     descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps[1] = {};
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase* const
@@ -1067,6 +1111,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase* const
         &scc_info_MinisatCliConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_MutationConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_NaiveSolveConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
+        &scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_ParRBSSolveConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_ParSolverConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
         &scc_info_PointsLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base,
@@ -1086,7 +1131,7 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
         false,
         descriptor_table_protodef_core_2fproto_2fsolve_5fconfig_2eproto,
         "core/proto/solve_config.proto",
-        3108,
+        3278,
         &descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_once,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_sccs,
         descriptor_table_core_2fproto_2fsolve_5fconfig_2eproto_deps,
@@ -1096,7 +1141,7 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
         file_default_instances,
         TableStruct_core_2fproto_2fsolve_5fconfig_2eproto::offsets,
         file_level_metadata_core_2fproto_2fsolve_5fconfig_2eproto,
-        26,
+        28,
         file_level_enum_descriptors_core_2fproto_2fsolve_5fconfig_2eproto,
         file_level_service_descriptors_core_2fproto_2fsolve_5fconfig_2eproto,
 };
@@ -2871,6 +2916,520 @@ void SolverConfig::InternalSwap(SolverConfig* other) {
 
 // ===================================================================
 
+void PropConfig::InitAsDefaultInstance() {
+  ::_PropConfig_default_instance_._instance.get_mutable()->par_prop_config_ =
+      const_cast<::ParPropConfig*>(::ParPropConfig::internal_default_instance());
+}
+class PropConfig::_Internal {
+ public:
+  static const ::ParPropConfig& par_prop_config(const PropConfig* msg);
+};
+
+const ::ParPropConfig& PropConfig::_Internal::par_prop_config(const PropConfig* msg) {
+  return *msg->par_prop_config_;
+}
+PropConfig::PropConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PropConfig)
+}
+PropConfig::PropConfig(const PropConfig& from) : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  prop_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_prop_type().empty()) {
+    prop_type_.Set(
+        &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+        from._internal_prop_type(), GetArena());
+  }
+  if (from._internal_has_par_prop_config()) {
+    par_prop_config_ = new ::ParPropConfig(*from.par_prop_config_);
+  } else {
+    par_prop_config_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:PropConfig)
+}
+
+void PropConfig::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
+      &scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
+  prop_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  par_prop_config_ = nullptr;
+}
+
+PropConfig::~PropConfig() {
+  // @@protoc_insertion_point(destructor:PropConfig)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void PropConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  prop_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance())
+    delete par_prop_config_;
+}
+
+void PropConfig::ArenaDtor(void* object) {
+  PropConfig* _this = reinterpret_cast<PropConfig*>(object);
+  (void) _this;
+}
+void PropConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {}
+void PropConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const PropConfig& PropConfig::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
+      &::scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
+  return *internal_default_instance();
+}
+
+void PropConfig::Clear() {
+  // @@protoc_insertion_point(message_clear_start:PropConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  prop_type_.ClearToEmpty(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && par_prop_config_ != nullptr) {
+    delete par_prop_config_;
+  }
+  par_prop_config_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PropConfig::_InternalParse(
+    const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x)                     \
+  if (PROTOBUF_PREDICT_FALSE(!(x))) \
+  goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena();
+  (void) arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string prop_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_prop_type();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "PropConfig.prop_type"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ParPropConfig par_prop_config = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_par_prop_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(
+            tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }    // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* PropConfig::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target,
+    ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PropConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string prop_type = 1;
+  if (this->prop_type().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        this->_internal_prop_type().data(), static_cast<int>(this->_internal_prop_type().length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "PropConfig.prop_type");
+    target = stream->WriteStringMaybeAliased(1, this->_internal_prop_type(), target);
+  }
+
+  // .ParPropConfig par_prop_config = 2;
+  if (this->has_par_prop_config()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
+        2, _Internal::par_prop_config(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+            ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance),
+        target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PropConfig)
+  return target;
+}
+
+size_t PropConfig::ByteSizeLong() const {
+  // @@protoc_insertion_point(message_byte_size_start:PropConfig)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string prop_type = 1;
+  if (this->prop_type().size() > 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                          this->_internal_prop_type());
+  }
+
+  // .ParPropConfig par_prop_config = 2;
+  if (this->has_par_prop_config()) {
+    total_size +=
+        1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*par_prop_config_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PropConfig::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  // @@protoc_insertion_point(generalized_merge_from_start:PropConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  const PropConfig* source = ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PropConfig>(&from);
+  if (source == nullptr) {
+    // @@protoc_insertion_point(generalized_merge_from_cast_fail:PropConfig)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+    // @@protoc_insertion_point(generalized_merge_from_cast_success:PropConfig)
+    MergeFrom(*source);
+  }
+}
+
+void PropConfig::MergeFrom(const PropConfig& from) {
+  // @@protoc_insertion_point(class_specific_merge_from_start:PropConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.prop_type().size() > 0) {
+    _internal_set_prop_type(from._internal_prop_type());
+  }
+  if (from.has_par_prop_config()) {
+    _internal_mutable_par_prop_config()->::ParPropConfig::MergeFrom(
+        from._internal_par_prop_config());
+  }
+}
+
+void PropConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  // @@protoc_insertion_point(generalized_copy_from_start:PropConfig)
+  if (&from == this)
+    return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PropConfig::CopyFrom(const PropConfig& from) {
+  // @@protoc_insertion_point(class_specific_copy_from_start:PropConfig)
+  if (&from == this)
+    return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PropConfig::IsInitialized() const {
+  return true;
+}
+
+void PropConfig::InternalSwap(PropConfig* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  prop_type_.Swap(
+      &other->prop_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+  swap(par_prop_config_, other->par_prop_config_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PropConfig::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+// ===================================================================
+
+void ParPropConfig::InitAsDefaultInstance() {
+  ::_ParPropConfig_default_instance_._instance.get_mutable()->prop_config_ =
+      const_cast<::PropConfig*>(::PropConfig::internal_default_instance());
+}
+class ParPropConfig::_Internal {
+ public:
+  static const ::PropConfig& prop_config(const ParPropConfig* msg);
+};
+
+const ::PropConfig& ParPropConfig::_Internal::prop_config(const ParPropConfig* msg) {
+  return *msg->prop_config_;
+}
+ParPropConfig::ParPropConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:ParPropConfig)
+}
+ParPropConfig::ParPropConfig(const ParPropConfig& from) : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_prop_config()) {
+    prop_config_ = new ::PropConfig(*from.prop_config_);
+  } else {
+    prop_config_ = nullptr;
+  }
+  max_threads_ = from.max_threads_;
+  // @@protoc_insertion_point(copy_constructor:ParPropConfig)
+}
+
+void ParPropConfig::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
+      &scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
+  ::memset(
+      &prop_config_, 0,
+      static_cast<size_t>(
+          reinterpret_cast<char*>(&max_threads_) - reinterpret_cast<char*>(&prop_config_)) +
+          sizeof(max_threads_));
+}
+
+ParPropConfig::~ParPropConfig() {
+  // @@protoc_insertion_point(destructor:ParPropConfig)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ParPropConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  if (this != internal_default_instance())
+    delete prop_config_;
+}
+
+void ParPropConfig::ArenaDtor(void* object) {
+  ParPropConfig* _this = reinterpret_cast<ParPropConfig*>(object);
+  (void) _this;
+}
+void ParPropConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {}
+void ParPropConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ParPropConfig& ParPropConfig::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
+      &::scc_info_ParPropConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
+  return *internal_default_instance();
+}
+
+void ParPropConfig::Clear() {
+  // @@protoc_insertion_point(message_clear_start:ParPropConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArena() == nullptr && prop_config_ != nullptr) {
+    delete prop_config_;
+  }
+  prop_config_ = nullptr;
+  max_threads_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ParPropConfig::_InternalParse(
+    const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x)                     \
+  if (PROTOBUF_PREDICT_FALSE(!(x))) \
+  goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena();
+  (void) arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint32 max_threads = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          max_threads_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .PropConfig prop_config = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_prop_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(
+            tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }    // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ParPropConfig::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target,
+    ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ParPropConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 max_threads = 1;
+  if (this->max_threads() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_max_threads(), target);
+  }
+
+  // .PropConfig prop_config = 2;
+  if (this->has_prop_config()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
+        2, _Internal::prop_config(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+            ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance),
+        target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ParPropConfig)
+  return target;
+}
+
+size_t ParPropConfig::ByteSizeLong() const {
+  // @@protoc_insertion_point(message_byte_size_start:ParPropConfig)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .PropConfig prop_config = 2;
+  if (this->has_prop_config()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*prop_config_);
+  }
+
+  // uint32 max_threads = 1;
+  if (this->max_threads() != 0) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+                          this->_internal_max_threads());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ParPropConfig::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  // @@protoc_insertion_point(generalized_merge_from_start:ParPropConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ParPropConfig* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ParPropConfig>(&from);
+  if (source == nullptr) {
+    // @@protoc_insertion_point(generalized_merge_from_cast_fail:ParPropConfig)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+    // @@protoc_insertion_point(generalized_merge_from_cast_success:ParPropConfig)
+    MergeFrom(*source);
+  }
+}
+
+void ParPropConfig::MergeFrom(const ParPropConfig& from) {
+  // @@protoc_insertion_point(class_specific_merge_from_start:ParPropConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_prop_config()) {
+    _internal_mutable_prop_config()->::PropConfig::MergeFrom(from._internal_prop_config());
+  }
+  if (from.max_threads() != 0) {
+    _internal_set_max_threads(from._internal_max_threads());
+  }
+}
+
+void ParPropConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  // @@protoc_insertion_point(generalized_copy_from_start:ParPropConfig)
+  if (&from == this)
+    return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ParPropConfig::CopyFrom(const ParPropConfig& from) {
+  // @@protoc_insertion_point(class_specific_copy_from_start:ParPropConfig)
+  if (&from == this)
+    return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ParPropConfig::IsInitialized() const {
+  return true;
+}
+
+void ParPropConfig::InternalSwap(ParPropConfig* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ParPropConfig, max_threads_) + sizeof(ParPropConfig::max_threads_) -
+      PROTOBUF_FIELD_OFFSET(ParPropConfig, prop_config_)>(
+      reinterpret_cast<char*>(&prop_config_), reinterpret_cast<char*>(&other->prop_config_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ParPropConfig::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+// ===================================================================
+
 void ResourceLimitConfig::InitAsDefaultInstance() {}
 class ResourceLimitConfig::_Internal {
  public:
@@ -3557,210 +4116,6 @@ void PointsLimitConfig::InternalSwap(PointsLimitConfig* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PointsLimitConfig::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-// ===================================================================
-
-void StallLimitConfig::InitAsDefaultInstance() {}
-class StallLimitConfig::_Internal {
- public:
-};
-
-StallLimitConfig::StallLimitConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:StallLimitConfig)
-}
-StallLimitConfig::StallLimitConfig(const StallLimitConfig& from)
-    : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  steps_before_stall_ = from.steps_before_stall_;
-  // @@protoc_insertion_point(copy_constructor:StallLimitConfig)
-}
-
-void StallLimitConfig::SharedCtor() {
-  steps_before_stall_ = 0u;
-}
-
-StallLimitConfig::~StallLimitConfig() {
-  // @@protoc_insertion_point(destructor:StallLimitConfig)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void StallLimitConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-}
-
-void StallLimitConfig::ArenaDtor(void* object) {
-  StallLimitConfig* _this = reinterpret_cast<StallLimitConfig*>(object);
-  (void) _this;
-}
-void StallLimitConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {}
-void StallLimitConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const StallLimitConfig& StallLimitConfig::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
-      &::scc_info_StallLimitConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
-  return *internal_default_instance();
-}
-
-void StallLimitConfig::Clear() {
-  // @@protoc_insertion_point(message_clear_start:StallLimitConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  steps_before_stall_ = 0u;
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* StallLimitConfig::_InternalParse(
-    const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x)                     \
-  if (PROTOBUF_PREDICT_FALSE(!(x))) \
-  goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena();
-  (void) arena;
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // uint32 steps_before_stall = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          steps_before_stall_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(
-            tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }    // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* StallLimitConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target,
-    ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:StallLimitConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // uint32 steps_before_stall = 1;
-  if (this->steps_before_stall() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(
-        1, this->_internal_steps_before_stall(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
-            ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance),
-        target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:StallLimitConfig)
-  return target;
-}
-
-size_t StallLimitConfig::ByteSizeLong() const {
-  // @@protoc_insertion_point(message_byte_size_start:StallLimitConfig)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // uint32 steps_before_stall = 1;
-  if (this->steps_before_stall() != 0) {
-    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-                          this->_internal_steps_before_stall());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void StallLimitConfig::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  // @@protoc_insertion_point(generalized_merge_from_start:StallLimitConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  const StallLimitConfig* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StallLimitConfig>(&from);
-  if (source == nullptr) {
-    // @@protoc_insertion_point(generalized_merge_from_cast_fail:StallLimitConfig)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-    // @@protoc_insertion_point(generalized_merge_from_cast_success:StallLimitConfig)
-    MergeFrom(*source);
-  }
-}
-
-void StallLimitConfig::MergeFrom(const StallLimitConfig& from) {
-  // @@protoc_insertion_point(class_specific_merge_from_start:StallLimitConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.steps_before_stall() != 0) {
-    _internal_set_steps_before_stall(from._internal_steps_before_stall());
-  }
-}
-
-void StallLimitConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  // @@protoc_insertion_point(generalized_copy_from_start:StallLimitConfig)
-  if (&from == this)
-    return;
-  Clear();
-  MergeFrom(from);
-}
-
-void StallLimitConfig::CopyFrom(const StallLimitConfig& from) {
-  // @@protoc_insertion_point(class_specific_copy_from_start:StallLimitConfig)
-  if (&from == this)
-    return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool StallLimitConfig::IsInitialized() const {
-  return true;
-}
-
-void StallLimitConfig::InternalSwap(StallLimitConfig* other) {
-  using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  swap(steps_before_stall_, other->steps_before_stall_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata StallLimitConfig::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -6374,8 +6729,8 @@ void InstanceConfig::InternalSwap(InstanceConfig* other) {
 // ===================================================================
 
 void BaseAlgorithmConfig::InitAsDefaultInstance() {
-  ::_BaseAlgorithmConfig_default_instance_._instance.get_mutable()->solver_config_ =
-      const_cast<::SolverConfig*>(::SolverConfig::internal_default_instance());
+  ::_BaseAlgorithmConfig_default_instance_._instance.get_mutable()->prop_config_ =
+      const_cast<::PropConfig*>(::PropConfig::internal_default_instance());
   ::_BaseAlgorithmConfig_default_instance_._instance.get_mutable()->limit_config_ =
       const_cast<::LimitConfig*>(::LimitConfig::internal_default_instance());
   ::_BaseAlgorithmConfig_default_instance_._instance.get_mutable()->instance_config_ =
@@ -6383,14 +6738,13 @@ void BaseAlgorithmConfig::InitAsDefaultInstance() {
 }
 class BaseAlgorithmConfig::_Internal {
  public:
-  static const ::SolverConfig& solver_config(const BaseAlgorithmConfig* msg);
+  static const ::PropConfig& prop_config(const BaseAlgorithmConfig* msg);
   static const ::LimitConfig& limit_config(const BaseAlgorithmConfig* msg);
   static const ::InstanceConfig& instance_config(const BaseAlgorithmConfig* msg);
 };
 
-const ::SolverConfig& BaseAlgorithmConfig::_Internal::solver_config(
-    const BaseAlgorithmConfig* msg) {
-  return *msg->solver_config_;
+const ::PropConfig& BaseAlgorithmConfig::_Internal::prop_config(const BaseAlgorithmConfig* msg) {
+  return *msg->prop_config_;
 }
 const ::LimitConfig& BaseAlgorithmConfig::_Internal::limit_config(const BaseAlgorithmConfig* msg) {
   return *msg->limit_config_;
@@ -6408,10 +6762,10 @@ BaseAlgorithmConfig::BaseAlgorithmConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 BaseAlgorithmConfig::BaseAlgorithmConfig(const BaseAlgorithmConfig& from)
     : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_solver_config()) {
-    solver_config_ = new ::SolverConfig(*from.solver_config_);
+  if (from._internal_has_prop_config()) {
+    prop_config_ = new ::PropConfig(*from.prop_config_);
   } else {
-    solver_config_ = nullptr;
+    prop_config_ = nullptr;
   }
   if (from._internal_has_limit_config()) {
     limit_config_ = new ::LimitConfig(*from.limit_config_);
@@ -6430,9 +6784,9 @@ void BaseAlgorithmConfig::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(
       &scc_info_BaseAlgorithmConfig_core_2fproto_2fsolve_5fconfig_2eproto.base);
   ::memset(
-      &solver_config_, 0,
+      &prop_config_, 0,
       static_cast<size_t>(
-          reinterpret_cast<char*>(&instance_config_) - reinterpret_cast<char*>(&solver_config_)) +
+          reinterpret_cast<char*>(&instance_config_) - reinterpret_cast<char*>(&prop_config_)) +
           sizeof(instance_config_));
 }
 
@@ -6445,7 +6799,7 @@ BaseAlgorithmConfig::~BaseAlgorithmConfig() {
 void BaseAlgorithmConfig::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   if (this != internal_default_instance())
-    delete solver_config_;
+    delete prop_config_;
   if (this != internal_default_instance())
     delete limit_config_;
   if (this != internal_default_instance())
@@ -6472,10 +6826,10 @@ void BaseAlgorithmConfig::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && solver_config_ != nullptr) {
-    delete solver_config_;
+  if (GetArena() == nullptr && prop_config_ != nullptr) {
+    delete prop_config_;
   }
-  solver_config_ = nullptr;
+  prop_config_ = nullptr;
   if (GetArena() == nullptr && limit_config_ != nullptr) {
     delete limit_config_;
   }
@@ -6499,10 +6853,10 @@ const char* BaseAlgorithmConfig::_InternalParse(
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .SolverConfig solver_config = 1;
+      // .PropConfig prop_config = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_solver_config(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_prop_config(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6553,11 +6907,11 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .SolverConfig solver_config = 1;
-  if (this->has_solver_config()) {
+  // .PropConfig prop_config = 1;
+  if (this->has_prop_config()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessage(
-        1, _Internal::solver_config(this), target, stream);
+        1, _Internal::prop_config(this), target, stream);
   }
 
   // .LimitConfig limit_config = 2;
@@ -6592,10 +6946,9 @@ size_t BaseAlgorithmConfig::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .SolverConfig solver_config = 1;
-  if (this->has_solver_config()) {
-    total_size +=
-        1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*solver_config_);
+  // .PropConfig prop_config = 1;
+  if (this->has_prop_config()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(*prop_config_);
   }
 
   // .LimitConfig limit_config = 2;
@@ -6640,8 +6993,8 @@ void BaseAlgorithmConfig::MergeFrom(const BaseAlgorithmConfig& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_solver_config()) {
-    _internal_mutable_solver_config()->::SolverConfig::MergeFrom(from._internal_solver_config());
+  if (from.has_prop_config()) {
+    _internal_mutable_prop_config()->::PropConfig::MergeFrom(from._internal_prop_config());
   }
   if (from.has_limit_config()) {
     _internal_mutable_limit_config()->::LimitConfig::MergeFrom(from._internal_limit_config());
@@ -6678,8 +7031,8 @@ void BaseAlgorithmConfig::InternalSwap(BaseAlgorithmConfig* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(BaseAlgorithmConfig, instance_config_) +
       sizeof(BaseAlgorithmConfig::instance_config_) -
-      PROTOBUF_FIELD_OFFSET(BaseAlgorithmConfig, solver_config_)>(
-      reinterpret_cast<char*>(&solver_config_), reinterpret_cast<char*>(&other->solver_config_));
+      PROTOBUF_FIELD_OFFSET(BaseAlgorithmConfig, prop_config_)>(
+      reinterpret_cast<char*>(&prop_config_), reinterpret_cast<char*>(&other->prop_config_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata BaseAlgorithmConfig::GetMetadata() const {
@@ -8987,6 +9340,14 @@ PROTOBUF_NOINLINE ::SolverConfig* Arena::CreateMaybeMessage<::SolverConfig>(Aren
   return Arena::CreateMessageInternal<::SolverConfig>(arena);
 }
 template <>
+PROTOBUF_NOINLINE ::PropConfig* Arena::CreateMaybeMessage<::PropConfig>(Arena* arena) {
+  return Arena::CreateMessageInternal<::PropConfig>(arena);
+}
+template <>
+PROTOBUF_NOINLINE ::ParPropConfig* Arena::CreateMaybeMessage<::ParPropConfig>(Arena* arena) {
+  return Arena::CreateMessageInternal<::ParPropConfig>(arena);
+}
+template <>
 PROTOBUF_NOINLINE ::ResourceLimitConfig* Arena::CreateMaybeMessage<::ResourceLimitConfig>(
     Arena* arena) {
   return Arena::CreateMessageInternal<::ResourceLimitConfig>(arena);
@@ -9000,10 +9361,6 @@ template <>
 PROTOBUF_NOINLINE ::PointsLimitConfig* Arena::CreateMaybeMessage<::PointsLimitConfig>(
     Arena* arena) {
   return Arena::CreateMessageInternal<::PointsLimitConfig>(arena);
-}
-template <>
-PROTOBUF_NOINLINE ::StallLimitConfig* Arena::CreateMaybeMessage<::StallLimitConfig>(Arena* arena) {
-  return Arena::CreateMessageInternal<::StallLimitConfig>(arena);
 }
 template <>
 PROTOBUF_NOINLINE ::ConjLimitConfig* Arena::CreateMaybeMessage<::ConjLimitConfig>(Arena* arena) {
