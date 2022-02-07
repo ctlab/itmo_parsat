@@ -36,7 +36,7 @@
                                         "limit_type": "ResourceLimit",
                                         "resource_limit_config": {
                                             "memory_limit_kb": 0,
-                                            "time_limit_sec": 180
+                                            "time_limit_sec": 600
                                         }
                                     },
                                     {
