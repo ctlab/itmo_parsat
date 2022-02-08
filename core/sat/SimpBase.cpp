@@ -23,9 +23,10 @@ void SimpBase::parse_cnf(std::filesystem::path const& path) {
     Minisat::parse_DIMACS(gz_file.native_handle(), *this, true);
     parsing = false;
   }
-  IPS_INFO_T(SOLVER_STATS_PREPROCESS, "Stats before preprocess: " << nClauses() << ' ' << nVars());
-  eliminate(true);
-  IPS_INFO_T(SOLVER_STATS_PREPROCESS, "Stats after preprocess: " << nClauses() << ' ' << nVars());
+  IPS_WARNING("Eliminate disable for performance reasons.");
+//  IPS_INFO_T(SOLVER_STATS_PREPROCESS, "Stats before preprocess: " << nClauses() << ' ' << nVars());
+//  eliminate(true);
+//  IPS_INFO_T(SOLVER_STATS_PREPROCESS, "Stats after preprocess: " << nClauses() << ' ' << nVars());
 }
 
 uint32_t SimpBase::num_vars() const noexcept {
