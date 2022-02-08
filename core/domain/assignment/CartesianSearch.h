@@ -35,7 +35,7 @@ class CartesianSearch : public Search {
   void _set_cur(uint32_t from);
 
  private:
-  std::vector<int> _indices, _sizes;
+  std::vector<int> _indices;
   Minisat::vec<Minisat::Lit> _assignment;
   std::vector<std::vector<std::vector<Minisat::Lit>>> _cartesian;
 };

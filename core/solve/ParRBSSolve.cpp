@@ -123,6 +123,40 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
   return non_conflict_assignments;
 }
 
+domain::USearch ParRBSSolve::_prepare_cartesian(
+    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set) {
+  std::vector<std::vector<std::vector<Minisat::Lit>>> result;
+  uint32_t max_non_conflict = _cfg.max_unpropagated();
+  uint32_t max_cartesian_size = _cfg.max_cartesian_size();
+
+  auto it = std::min_element(
+      cartesian_set.begin(), cartesian_set.end(),
+      [](auto const& a, auto const& b) { return a.size() < b.size(); });
+
+  if (it->size() > max_non_conflict) {
+    IPS_INFO("Sets are too large. Taking minimal with size " << it->size());
+    result.push_back(std::move(*it));
+  } else {
+    uint64_t size = 1;
+    for (size_t i = 0; i < cartesian_set.size(); ++i) {
+      uint32_t cur_size = cartesian_set[i].size();
+      if (cur_size > max_non_conflict) {
+        IPS_INFO("Skip because set is too large: " << cur_size);
+        continue;
+      }
+      if (cur_size * size > max_cartesian_size) {
+        IPS_INFO("Skip because result is too large: " << cur_size);
+        continue;
+      }
+      IPS_INFO("Take set with size " << cur_size);
+      result.push_back(std::move(cartesian_set[i]));
+      size *= cur_size;
+    }
+  }
+
+  return domain::createCartesianSearch(std::move(result));
+}
+
 sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   // Build cartesian product of non-conflict assignments
   //  auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
@@ -138,7 +172,7 @@ sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   auto solver = _resolve_solver(_cfg.solver_config());
   _do_interrupt = [solver] { solver->interrupt(); };
   IPS_TRACE(solver->parse_cnf(input));
-  return _final_solve(*solver, domain::createCartesianSearch(std::move(cartesian_set)));
+  return _final_solve(*solver, _prepare_cartesian(std::move(cartesian_set)));
 }
 
 REGISTER_PROTO(Solve, ParRBSSolve, par_rbs_solve_config);

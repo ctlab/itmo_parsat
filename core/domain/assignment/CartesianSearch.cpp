@@ -13,10 +13,6 @@ CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Minisat::Li
   , _cartesian(std::move(cartesian)) {
   // clang-format on
   _indices.resize(_cartesian.size(), 0);
-  _sizes.resize(_cartesian.size());
-  for (size_t i = 0; i < _sizes.size(); ++i) {
-    _sizes[i] = (int) _cartesian[i].size();
-  }
   _set_cur(0);
 }
 
@@ -29,11 +25,12 @@ void CartesianSearch::_set_cur(uint32_t from) {
   for (uint32_t i = 0; i < from; ++i) {
     offset += _cartesian[i][_indices[i]].size();
   }
-  for (size_t i = offset; i < _sizes.size(); ++i) {
+  for (size_t i = from; i < _indices.size(); ++i) {
     size_t cur_index = _indices[i];
-    size_t cur_size = _cartesian[i][cur_index].size();
+    auto const& assignment = _cartesian[i][cur_index];
+    size_t cur_size = assignment.size();
     for (size_t j = 0; j < cur_size; ++j) {
-      _assignment[offset + j] = _cartesian[i][cur_index][j];
+      _assignment[offset + j] = assignment[j];
     }
     offset += cur_size;
   }
@@ -41,7 +38,7 @@ void CartesianSearch::_set_cur(uint32_t from) {
 
 void CartesianSearch::_advance() {
   int index = (int) _indices.size() - 1;
-  while (index >= 0 && _indices[index] + 1 == _sizes[index]) {
+  while (index >= 0 && _indices[index] + 1 == _cartesian[index].size()) {
     _indices[index] = 0;
     --index;
   }
