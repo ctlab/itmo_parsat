@@ -11,7 +11,7 @@
 #include "core/util/Logger.h"
 #include "core/util/assert.h"
 #include "core/util/Generator.h"
-#include "core/domain/assignment/CustomSearch.h"
+#include "core/domain/assignment/CartesianSearch.h"
 
 namespace core {
 
@@ -34,15 +34,14 @@ class ParRBSSolve : public Solve {
   std::vector<std::vector<std::vector<Minisat::Lit>>> _pre_solve(
       std::filesystem::path const& input);
 
-  std::vector<Minisat::vec<Minisat::Lit>> _build_cartesian_product(
-      std::vector<std::vector<std::vector<Minisat::Lit>>>&& non_conflict_assignments);
+  domain::USearch _prepare_cartesian(
+      std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set);
 
   void _raise_for_sbs(int algorithm_id) noexcept;
 
  private:
   ParRBSSolveConfig _cfg;
   std::atomic_bool _sbs_found{false};
-  std::mutex kek;
 };
 
 }  // namespace core

@@ -12,14 +12,6 @@ std::vector<Minisat::Lit> to_std_assump(Minisat::vec<Minisat::Lit> const& assump
   return result;
 }
 
-Minisat::vec<Minisat::Lit> to_ms_assump(std::vector<Minisat::Lit> const& assumption) {
-  Minisat::vec<Minisat::Lit> result((int) assumption.size());
-  for (int i = 0; i < result.size(); ++i) {
-    result[i] = assumption[i];
-  }
-  return result;
-}
-
 }  // namespace
 
 namespace core {
@@ -131,80 +123,44 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
   return non_conflict_assignments;
 }
 
-std::vector<Minisat::vec<Minisat::Lit>> ParRBSSolve::_build_cartesian_product(
-    std::vector<std::vector<std::vector<Minisat::Lit>>>&& non_conflict_assignments) {
-  if (_sbs_found || _is_interrupted()) {
-    return {};
-  }
-  std::vector<uint32_t> non_conflict_sizes;
-  for (auto const& i_non_conflict_assignments : non_conflict_assignments) {
-    non_conflict_sizes.push_back(i_non_conflict_assignments.size());
-  }
-
-  IPS_INFO("Non-conflict set sizes: " << non_conflict_sizes);
-  IPS_INFO("Only sets with sizes less or equal to " << _cfg.max_unpropagated() << " will be used.");
-
-  // Build cartesian product of non-conflict assumptions.
+domain::USearch ParRBSSolve::_prepare_cartesian(
+    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set) {
+  std::vector<std::vector<std::vector<Minisat::Lit>>> result;
   uint32_t max_non_conflict = _cfg.max_unpropagated();
-  uint32_t index = 0;
-  while (index < non_conflict_assignments.size() &&
-         non_conflict_assignments[index].size() > max_non_conflict) {
-    ++index;
-  }
-  std::vector<std::vector<Minisat::Lit>> std_cartesian;
-  uint32_t cartesian_expected_size;
+  uint32_t max_cartesian_size = _cfg.max_cartesian_size();
 
-  if (index == non_conflict_assignments.size()) {
-    // All rho-backdoors have a lot of non-conflict assignments, so
-    // we roll back to RBS algorithm: take the one with the least amount of
-    // non-conflict assignments.
-    auto it = std::min_element(
-        non_conflict_assignments.begin(), non_conflict_assignments.end(),
-        [](auto const& a, auto const& b) { return a.size() < b.size(); });
-    std_cartesian = std::move(*it);
-    cartesian_expected_size = std_cartesian.size();
+  auto it = std::min_element(
+      cartesian_set.begin(), cartesian_set.end(),
+      [](auto const& a, auto const& b) { return a.size() < b.size(); });
+
+  if (it->size() > max_non_conflict) {
+    IPS_INFO("Sets are too large. Taking minimal with size " << it->size());
+    result.push_back(std::move(*it));
   } else {
-    std_cartesian = std::move(non_conflict_assignments[index++]);
-    cartesian_expected_size = std_cartesian.size();
-
-    for (; index < non_conflict_assignments.size(); ++index) {
-      size_t cur_size = non_conflict_assignments[index].size();
-      if (cur_size > max_non_conflict ||
-          std_cartesian.size() * cur_size > _cfg.max_cartesian_size()) {
+    uint64_t size = 1;
+    for (size_t i = 0; i < cartesian_set.size(); ++i) {
+      uint32_t cur_size = cartesian_set[i].size();
+      if (cur_size > max_non_conflict) {
+        IPS_INFO("Skip because set is too large: " << cur_size);
         continue;
       }
-      cartesian_expected_size *= cur_size;
-      uint32_t old_assumptions_size = std_cartesian.size();
-      for (uint32_t j = 0; j < old_assumptions_size; ++j) {
-        for (auto& i_non_conflict_assignments : non_conflict_assignments[index]) {
-          auto j_assumption = std_cartesian[j];
-          j_assumption.insert(
-              j_assumption.end(), std::make_move_iterator(i_non_conflict_assignments.begin()),
-              std::make_move_iterator(i_non_conflict_assignments.end()));
-          std_cartesian.push_back(std::move(j_assumption));
-        }
+      if (cur_size * size > max_cartesian_size) {
+        IPS_INFO("Skip because result is too large: " << cur_size);
+        continue;
       }
-      std_cartesian.erase(std_cartesian.begin(), std_cartesian.begin() + old_assumptions_size);
+      IPS_INFO("Take set with size " << cur_size);
+      result.push_back(std::move(cartesian_set[i]));
+      size *= cur_size;
     }
   }
 
-  IPS_INFO("Cartesian product size: " << std_cartesian.size());
-  IPS_VERIFY(
-      std_cartesian.size() == cartesian_expected_size &&
-      bool("Internal error: failed to build cartesian product correctly"));
-
-  // Convert assignments back to MS types
-  std::vector<Minisat::vec<Minisat::Lit>> ms_cartesian;
-  for (auto& assump : std_cartesian) {
-    ms_cartesian.push_back(to_ms_assump(assump));
-  }
-
-  return ms_cartesian;
+  return domain::createCartesianSearch(std::move(result));
 }
 
 sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   // Build cartesian product of non-conflict assignments
-  auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
+  //  auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
+  auto cartesian_set = IPS_TRACE_V(_pre_solve(input));
   if (_sbs_found) {
     IPS_INFO("SBS has been found during propagation, thus result is UNSAT");
     return sat::UNSAT;
@@ -216,7 +172,7 @@ sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   auto solver = _resolve_solver(_cfg.solver_config());
   _do_interrupt = [solver] { solver->interrupt(); };
   IPS_TRACE(solver->parse_cnf(input));
-  return _final_solve(*solver, domain::createCustomSearch(cartesian_product));
+  return _final_solve(*solver, _prepare_cartesian(std::move(cartesian_set)));
 }
 
 REGISTER_PROTO(Solve, ParRBSSolve, par_rbs_solve_config);

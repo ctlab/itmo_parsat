@@ -1,0 +1,93 @@
+\hypertarget{classcore_1_1domain_1_1CartesianSearch}{}\doxysection{core\+::domain\+::Cartesian\+Search Class Reference}
+\label{classcore_1_1domain_1_1CartesianSearch}\index{core::domain::CartesianSearch@{core::domain::CartesianSearch}}
+
+
+The class used to search through the cartesian product of custom searches.  
+
+
+
+
+{\ttfamily \#include $<$Cartesian\+Search.\+h$>$}
+
+
+
+Inheritance diagram for core\+::domain\+::Cartesian\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classcore_1_1domain_1_1CartesianSearch__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::domain\+::Cartesian\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classcore_1_1domain_1_1CartesianSearch__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_ab43146b3ee2c7de2baaeec1b0522b575}{Cartesian\+Search}} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ Minisat\+::\+Lit $>$$>$$>$ \&\&cartesian)
+\item 
+Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_aefac5a2e44d4a8635b812f708b288316}{operator()}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1CartesianSearch_a0d28f38454b9aeea02c2b25a5856728c}\label{classcore_1_1domain_1_1CartesianSearch_a0d28f38454b9aeea02c2b25a5856728c}} 
+void {\bfseries \+\_\+advance} () override
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1CartesianSearch_ab35d71ce16a87ff962c94ed3c69719f0}\label{classcore_1_1domain_1_1CartesianSearch_ab35d71ce16a87ff962c94ed3c69719f0}} 
+void {\bfseries \+\_\+reset} () override
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1CartesianSearch_abbe16f9c68944e98c91e93c6a514fa44}\label{classcore_1_1domain_1_1CartesianSearch_abbe16f9c68944e98c91e93c6a514fa44}} 
+\mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch}{Cartesian\+Search}} $\ast$ {\bfseries clone} () const override
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1CartesianSearch_a897d0a52662fc95b86ef79ee429a9598}\label{classcore_1_1domain_1_1CartesianSearch_a897d0a52662fc95b86ef79ee429a9598}} 
+void {\bfseries \+\_\+set\+\_\+cur} (uint32\+\_\+t from)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The class used to search through the cartesian product of custom searches. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1CartesianSearch_ab43146b3ee2c7de2baaeec1b0522b575}\label{classcore_1_1domain_1_1CartesianSearch_ab43146b3ee2c7de2baaeec1b0522b575}} 
+\index{core::domain::CartesianSearch@{core::domain::CartesianSearch}!CartesianSearch@{CartesianSearch}}
+\index{CartesianSearch@{CartesianSearch}!core::domain::CartesianSearch@{core::domain::CartesianSearch}}
+\doxysubsubsection{\texorpdfstring{CartesianSearch()}{CartesianSearch()}}
+{\footnotesize\ttfamily core\+::domain\+::\+Cartesian\+Search\+::\+Cartesian\+Search (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ Minisat\+::\+Lit $>$$>$$>$ \&\&}]{cartesian }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em assignments} & the set of assignments to be searched through. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1CartesianSearch_aefac5a2e44d4a8635b812f708b288316}\label{classcore_1_1domain_1_1CartesianSearch_aefac5a2e44d4a8635b812f708b288316}} 
+\index{core::domain::CartesianSearch@{core::domain::CartesianSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::domain::CartesianSearch@{core::domain::CartesianSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& core\+::domain\+::\+Cartesian\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{Search\+::operator()()}} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{core\+::domain\+::\+Search}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/domain/assignment/Cartesian\+Search.\+h\item 
+core/domain/assignment/Cartesian\+Search.\+cpp\end{DoxyCompactItemize}

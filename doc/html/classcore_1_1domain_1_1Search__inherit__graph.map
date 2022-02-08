@@ -1,8 +1,8 @@
 <map id="core::domain::Search" name="core::domain::Search">
-<area shape="rect" id="node1" title="The class representing the sequential search in assignments space." alt="" coords="151,5,309,32"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1CustomSearch.html" title="The class used to search through the custom set of assignments." alt="" coords="5,80,215,107"/>
-<area shape="rect" id="node3" href="$classcore_1_1domain_1_1ModifyingSearch.html" title="The base class for searches that step by modifying assignment." alt="" coords="239,80,463,107"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="37,155,220,181"/>
-<area shape="rect" id="node5" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="245,155,458,181"/>
-<area shape="rect" id="node6" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="482,155,687,181"/>
+<area shape="rect" id="node1" title="The class representing the sequential search in assignments space." alt="" coords="159,5,318,32"/>
+<area shape="rect" id="node2" href="$classcore_1_1domain_1_1CartesianSearch.html" title="The class used to search through the cartesian product of custom searches." alt="" coords="5,80,227,107"/>
+<area shape="rect" id="node3" href="$classcore_1_1domain_1_1ModifyingSearch.html" title="The base class for searches that step by modifying assignment." alt="" coords="251,80,475,107"/>
+<area shape="rect" id="node4" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="49,155,231,181"/>
+<area shape="rect" id="node5" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="256,155,469,181"/>
+<area shape="rect" id="node6" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="493,155,699,181"/>
 </map>

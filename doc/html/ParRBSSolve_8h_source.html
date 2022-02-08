@@ -83,7 +83,7 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;core/util/Logger.h&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;core/util/assert.h&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;core/util/Generator.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/CustomSearch.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/CartesianSearch.h&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>core {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
@@ -97,22 +97,21 @@ $(function() {
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  std::vector&lt;std::vector&lt;std::vector&lt;Minisat::Lit&gt;&gt;&gt; _pre_solve(</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      std::filesystem::path <span class="keyword">const</span>&amp; input);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  std::vector&lt;Minisat::vec&lt;Minisat::Lit&gt;&gt; _build_cartesian_product(</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      std::vector&lt;std::vector&lt;std::vector&lt;Minisat::Lit&gt;&gt;&gt;&amp;&amp; non_conflict_assignments);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  domain::USearch _prepare_cartesian(</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      std::vector&lt;std::vector&lt;std::vector&lt;Minisat::Lit&gt;&gt;&gt;&amp;&amp; cartesian_set);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">void</span> _raise_for_sbs(<span class="keywordtype">int</span> algorithm_id) noexcept;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  ParRBSSolveConfig _cfg;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  std::atomic_bool _sbs_found{<span class="keyword">false</span>};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  std::mutex kek;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}  <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PARRBSSOLVE_H</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}  <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PARRBSSOLVE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1ParRBSSolve_html_a13e611989d3b3a60abc6190d4d87bf61"><div class="ttname"><a href="classcore_1_1ParRBSSolve.html#a13e611989d3b3a60abc6190d4d87bf61">core::ParRBSSolve::solve</a></div><div class="ttdeci">sat::State solve(std::filesystem::path const &amp;input) override</div><div class="ttdoc">This method solves SAT. For now, it is expected to be called only once per object lifetime.</div><div class="ttdef"><b>Definition:</b> ParRBSSolve.cpp:205</div></div>
+<div class="ttc" id="aclasscore_1_1ParRBSSolve_html_a13e611989d3b3a60abc6190d4d87bf61"><div class="ttname"><a href="classcore_1_1ParRBSSolve.html#a13e611989d3b3a60abc6190d4d87bf61">core::ParRBSSolve::solve</a></div><div class="ttdeci">sat::State solve(std::filesystem::path const &amp;input) override</div><div class="ttdoc">This method solves SAT. For now, it is expected to be called only once per object lifetime.</div><div class="ttdef"><b>Definition:</b> ParRBSSolve.cpp:160</div></div>
 <div class="ttc" id="aclasscore_1_1ParRBSSolve_html"><div class="ttname"><a href="classcore_1_1ParRBSSolve.html">core::ParRBSSolve</a></div><div class="ttdoc">This class solves SAT in the following way:</div><div class="ttdef"><b>Definition:</b> ParRBSSolve.h:27</div></div>
 <div class="ttc" id="aclasscore_1_1Solve_html"><div class="ttname"><a href="classcore_1_1Solve.html">core::Solve</a></div><div class="ttdoc">The core class that performs all actions related to solving SAT.</div><div class="ttdef"><b>Definition:</b> Solve.h:21</div></div>
 <!-- start footer part -->
