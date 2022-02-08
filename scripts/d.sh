@@ -1,6 +1,8 @@
 #!/bin/bash
 source scripts/base.sh
 
+IPS_NAME="dzhiblavi/itmo-parsat:dev"
+
 function do_desc() {
     echo "Docker containers manipulation utility."
     echo "Usage: d option* -- native-option*"
@@ -86,7 +88,7 @@ function do_build() {
     echo "Stopping IPS container..."
     do_stop_ips
     echo "Building IPS container..."
-    docker build -t itmo-parsat \
+    docker build -t "$IPS_NAME" \
         --build-arg user=$(id -un)  \
         --build-arg uid=$(id -u)    \
         --build-arg group=$(id -gn) \
@@ -123,6 +125,10 @@ function show_status() {
     fi
 }
 
+function do_singular() {
+    singularity run "$IPS_NAME"
+}
+
 function do_status() {
     get_pg_cid
     show_status "$cid" "PG"
@@ -140,6 +146,7 @@ add_option "--run-pg" "       Run PG container"            do_run_pg     0
 add_option "--run-ips" "      Run IPS container"           do_run_ips    0
 add_option "--run|-r" "       Run all containers"          do_run_all    0
 add_option "--status" "       Display containers' status"  do_status     0
+add_option "--singular" "     Start singularity container" do_singular   0
 
 function main() {
     parse_options "$@"
