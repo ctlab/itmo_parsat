@@ -11,7 +11,7 @@
 #include "core/util/Logger.h"
 #include "core/util/assert.h"
 #include "core/util/Generator.h"
-#include "core/domain/assignment/CustomSearch.h"
+#include "core/domain/assignment/CartesianSearch.h"
 
 namespace core {
 
