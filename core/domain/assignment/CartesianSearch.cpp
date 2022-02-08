@@ -17,16 +17,19 @@ CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Minisat::Li
   for (size_t i = 0; i < _sizes.size(); ++i) {
     _sizes[i] = (int) _cartesian[i].size();
   }
-  _set_cur();
+  _set_cur(0);
 }
 
 Minisat::vec<Minisat::Lit> const& CartesianSearch::operator()() const {
   return _assignment;
 }
 
-void CartesianSearch::_set_cur() {
+void CartesianSearch::_set_cur(uint32_t from) {
   uint32_t offset = 0;
-  for (size_t i = 0; i < _sizes.size(); ++i) {
+  for (uint32_t i = 0; i < from; ++i) {
+    offset += _cartesian[i][_indices[i]].size();
+  }
+  for (size_t i = offset; i < _sizes.size(); ++i) {
     size_t cur_index = _indices[i];
     size_t cur_size = _cartesian[i][cur_index].size();
     for (size_t j = 0; j < cur_size; ++j) {
@@ -45,7 +48,7 @@ void CartesianSearch::_advance() {
   if (index >= 0) {
     ++_indices[index];
   }
-  _set_cur();
+  _set_cur(std::max(index, 0));
 }
 
 void CartesianSearch::_reset() {

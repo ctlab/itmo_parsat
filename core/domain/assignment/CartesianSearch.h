@@ -32,7 +32,7 @@ class CartesianSearch : public Search {
 
   [[nodiscard]] CartesianSearch* clone() const override;
 
-  void _set_cur();
+  void _set_cur(uint32_t from);
 
  private:
   std::vector<int> _indices, _sizes;
