@@ -2,6 +2,7 @@
 #define ITMO_PARSAT_TRACER_H
 
 #include <string>
+#include <algorithm>
 #include <numeric>
 #include <chrono>
 #include <unordered_map>

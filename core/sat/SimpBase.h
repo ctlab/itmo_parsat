@@ -8,6 +8,8 @@
 #include "core/proto/solve_config.pb.h"
 #include "core/util/Generator.h"
 #include "core/util/GzFile.h"
+#include "core/util/Logger.h"
+#include "core/util/Tracer.h"
 
 namespace core::sat {
 

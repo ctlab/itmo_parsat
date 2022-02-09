@@ -7,7 +7,7 @@ CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Minisat::Li
   : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
       return size * v.size();
     }))
-  , _assignment(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(0), [] (uint32_t size, auto const& v) {
+  , _assignment((int) std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(0), [] (uint32_t size, auto const& v) {
       return size + v.front().size();
     }))
   , _cartesian(std::move(cartesian)) {
@@ -26,11 +26,11 @@ void CartesianSearch::_set_cur(uint32_t from) {
     offset += _cartesian[i][_indices[i]].size();
   }
   for (size_t i = from; i < _indices.size(); ++i) {
-    size_t cur_index = _indices[i];
+    uint32_t cur_index = _indices[i];
     auto const& assignment = _cartesian[i][cur_index];
-    size_t cur_size = assignment.size();
-    for (size_t j = 0; j < cur_size; ++j) {
-      _assignment[offset + j] = assignment[j];
+    uint32_t cur_size = assignment.size();
+    for (uint32_t j = 0; j < cur_size; ++j) {
+      _assignment[(int) (offset + j)] = assignment[j];
     }
     offset += cur_size;
   }
