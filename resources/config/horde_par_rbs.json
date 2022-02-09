@@ -1,0 +1,94 @@
+{
+    "solve_type": "ParRBSSolve",
+    "random_seed": 1337,
+    "par_rbs_solve_config": {
+        "max_unpropagated": 100,
+        "max_cartesian_size": 1000000,
+        "num_algorithms": 5,
+        "algorithm_configs": [
+            {
+                "algorithm_type": "EAAlgorithm",
+                "ea_algorithm_config": {
+                    "mutation_config": {
+                        "mutation_type": "DoerrMutation",
+                        "doerr_mutation_config": {
+                            "beta": 3.0
+                        }
+                    },
+                    "selector_config": {
+                        "selector_type": "BestSelector"
+                    },
+                    "base_algorithm_config": {
+                        "prop_config": {
+                            "prop_type": "ParProp",
+                            "par_prop_config": {
+                                "max_threads": 2,
+                                "prop_config": {
+                                    "prop_type": "SimpProp"
+                                }
+                            }
+                        },
+                        "limit_config": {
+                            "limit_type": "ConjLimit",
+                            "conj_limit_config": {
+                                "limit_config": [
+                                    {
+                                        "limit_type": "ResourceLimit",
+                                        "resource_limit_config": {
+                                            "memory_limit_kb": 0,
+                                            "time_limit_sec": 600
+                                        }
+                                    },
+                                    {
+                                        "limit_type": "FitnessLimit",
+                                        "fitness_limit_config": {
+                                            "lowest_fitness": 0.995,
+                                            "max_size": 16
+                                        }
+                                    },
+                                    {
+                                        "limit_type": "StallLimit",
+                                        "stall_limit_config": {
+                                            "steps_before_stall": 10000
+                                        }
+                                    },
+                                    {
+                                        "limit_type": "StallLimit",
+                                        "stall_limit_config": {
+                                            "steps_before_stall": 1000
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "instance_config": {
+                            "omega_x": 20,
+                            "heuristic_size": 200,
+                            "max_cache_size": 1000,
+                            "sampling_config": {
+                                "base_count": 262144,
+                                "max_steps": 3,
+                                "scale": 2
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "solver_config": {
+            "solver_type": "HordeSatSolver",
+            "hordesat_solver_config": {
+                "seed": 239,
+                "threads": 8,
+                "verbose": 0,
+                "filter_duplicate_clauses": true,
+                "max_rounds": 0,
+                "sharing_interval_us": 10000,
+                "wakeup_interval_us": 100,
+                "seq_solver": "MINISAT",
+                "diversification": "SPARSE",
+                "clause_exchange_mode": "ALL_TO_ALL"
+            }
+        }
+    }
+}

@@ -4,20 +4,18 @@ source scripts/base.sh
 ROOT="$PWD"
 VERBOSE="2"
 RESOURCES_DIR="$ROOT/resources"
-#CNF_PATH="$ROOT/resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf"
-CNF_PATH="$ROOT/resources/cnf/test/unsat_MVD_ADS_S1_5_5.cnf"
+CNF_PATH="$ROOT/resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$ROOT/resources/config"
 LOG_CFG_PATH="$ROOT/resources/config/log.json"
-SOLVE_BIN="$ROOT/bazel-bin/cli/solve"
-TEST_BIN="$ROOT/bazel-bin/core/test"
+SOLVE_BIN="$ROOT/build/cli/solve_bin"
+TEST_BIN="$ROOT/build/core/core_unit_tests"
 SLV_CFG="naive.json"
-INFRA_BIN="$ROOT/bazel-bin/cli/infra"
+INFRA_BIN="$ROOT/build/cli/infra_bin"
 PSQL_HOST="51.250.2.131"
 
 NEXT_NATIVE=0
 BUILD_DEBUG=""
 RUN_CMD=""
-BUILD_CFG="dev_fast"
 
 function do_doc() {
     rm -rf doc/* || true
@@ -52,25 +50,21 @@ function do_format() {
     find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
 }
 
-function do_build_solve() {
-    bazel build //cli:solve --config=$BUILD_CFG $@
+function do_build() {
+    cd build
+    rm -rf * || true
+    CC=gcc-9 CXX=g++-9 cmake .. -DCMAKE_BUILD_TYPE=Release
+    CC=gcc-9 CXX=g++-9 make -j $(nproc)
+    cd "$ROOT"
 }
 
-function do_build_unit() {
-    bazel build //core:test --config=$BUILD_CFG $@
-}
-
-function do_build_infra() {
-    bazel build //cli:infra --config=$BUILD_CFG $@
-}
-
-function do_build_proto() {
-    rm -rf ./core/proto/*.pb.*
-    bazel build //core/proto:* --config=$BUILD_CFG $@
-    ln -s `pwd`/bazel-bin/core/proto/solve_config.pb.h ./core/proto/solve_config.pb.h
-    ln -s `pwd`/bazel-bin/core/proto/solve_config.pb.cc ./core/proto/solve_config.pb.cc
-    ln -s `pwd`/bazel-bin/core/proto/logging_config.pb.h ./core/proto/logging_config.pb.h
-    ln -s `pwd`/bazel-bin/core/proto/logging_config.pb.cc ./core/proto/logging_config.pb.cc
+function do_rebuild() {
+    cd "$ROOT/core/sat/hordesat"
+    rm libhordesat.a
+    ./makehordesat.sh
+    cd "$ROOT"
+    rm -rf build/*
+    do_build
 }
 
 function do_set_verbose() {
@@ -117,16 +111,9 @@ function do_desc() {
     echo "Usage: ./run.sh option* -- native-option*"
 }
 
-function do_sync_sphinx() {
-    ssh sphinx 'cd /nfs/home/ibdzhiblavi/itmo-parsat; git stash; git pull origin dev; git stash pop'
-    rsync -r bazel-bin/cli/ sphinx:/nfs/home/ibdzhiblavi/itmo-parsat/bazel-bin/cli/
-}
-
 add_option "-g|--build-cfg" "Set build mode"             do_set_build_mode 1
-add_option "-b|--build" "    Build cli binary"           do_build_solve    0
-add_option "--build-unit" "  Build unit tests"           do_build_unit     0
-add_option "--build-infra" " Build integration tests"    do_build_infra    0
-add_option "--build-proto" " Rebuild and s-link proto"   do_build_proto    0
+add_option "-b|--build" "    Build cli binary"           do_build          0
+add_option "--rebuild" "     Reuild cli binary"          do_rebuild        0
 add_option "--build-doc" "   Build documentation"        do_doc            0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
 add_option "--run-perf" "    Run with perf"              do_run_perf       0
@@ -140,7 +127,6 @@ add_option "--run-infra" "   Run integration tests"      do_infra          0
 add_option "--psql" "        Connect to DB"              do_psql           0
 add_option "--psql-host" "   Set DB host"                do_set_pg_host    1
 add_option "-s|--solve" "    Run cli binary"             do_solve          0
-add_option "_sync" "Sync binaries to sphinx"             do_sync_sphinx    0
 
 function main() {
     parse_options "$@"

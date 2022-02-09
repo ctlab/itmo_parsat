@@ -1,4 +1,0 @@
-<map id="core::domain::ModifyingSearch" name="core::domain::ModifyingSearch">
-<area shape="rect" id="node1" title="The base class for searches that step by modifying assignment." alt="" coords="5,80,229,107"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="38,5,197,32"/>
-</map>
