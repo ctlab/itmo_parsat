@@ -15,76 +15,74 @@
 
 struct LGL;
 
-class Lingeling: public PortfolioSolverInterface {
+class Lingeling : public PortfolioSolverInterface {
+ private:
+  LGL* solver;
+  int stopSolver;
+  LearnedClauseCallback* callback;
+  int glueLimit;
+  Mutex clauseAddMutex;
+  int myId;
 
-private:
-	LGL* solver;
-	int stopSolver;
-	LearnedClauseCallback* callback;
-	int glueLimit;
-	Mutex clauseAddMutex;
-	int myId;
+  // callback friends
+  friend int termCallback(void* solverPtr);
+  friend void produce(void* sp, int* cls, int glue);
+  friend void produceUnit(void* sp, int lit);
+  friend void consumeUnits(void* sp, int** start, int** end);
+  friend void consumeCls(void* sp, int** clause, int* glue);
 
-	// callback friends
-	friend int termCallback(void* solverPtr);
-	friend void produce(void* sp, int* cls, int glue);
-	friend void produceUnit(void* sp, int lit);
-	friend void consumeUnits(void* sp, int** start, int** end);
-	friend void consumeCls(void* sp, int** clause, int* glue);
+  // clause addition
+  vector<vector<int> > clausesToAdd;
+  vector<vector<int> > learnedClausesToAdd;
+  vector<int> unitsToAdd;
+  int* unitsBuffer;
+  size_t unitsBufferSize;
+  int* clsBuffer;
+  size_t clsBufferSize;
 
-	// clause addition
-	vector<vector<int> > clausesToAdd;
-	vector<vector<int> > learnedClausesToAdd;
-	vector<int> unitsToAdd;
-	int* unitsBuffer;
-	size_t unitsBufferSize;
-	int* clsBuffer;
-	size_t clsBufferSize;
+ public:
+  // Load formula from a given dimacs file, return false if failed
+  bool loadFormula(const char* filename);
 
-public:
+  // Get the number of variables of the formula
+  int getVariablesCount();
 
-	// Load formula from a given dimacs file, return false if failed
-	bool loadFormula(const char* filename);
+  // Get a variable suitable for search splitting
+  int getSplittingVariable();
 
-	// Get the number of variables of the formula
-	int getVariablesCount();
+  // Set initial phase for a given variable
+  void setPhase(const int var, const bool phase);
 
-	// Get a variable suitable for search splitting
-	int getSplittingVariable();
+  // Interrupt the SAT solving, so it can be started again with new assumptions and added clauses
+  void setSolverInterrupt();
+  void unsetSolverInterrupt();
 
-	// Set initial phase for a given variable
-	void setPhase(const int var, const bool phase);
+  // Solve the formula with a given set of assumptions
+  SatResult solve(const vector<int>& assumptions);
 
-	// Interrupt the SAT solving, so it can be started again with new assumptions and added clauses
-	void setSolverInterrupt();
-	void unsetSolverInterrupt();
+  // Add a (list of) permanent clause(s) to the formula
+  void addClause(vector<int>& clause);
+  void addClauses(vector<vector<int> >& clauses);
+  void addInitialClauses(vector<vector<int> >& clauses);
 
-	// Solve the formula with a given set of assumptions
-	SatResult solve(const vector<int>& assumptions);
+  // Add a (list of) learned clause(s) to the formula
+  // The learned clauses might be added later or possibly never
+  void addLearnedClause(vector<int>& clauses);
+  void addLearnedClauses(vector<vector<int> >& clauses);
 
-	// Add a (list of) permanent clause(s) to the formula
-	void addClause(vector<int>& clause);
-	void addClauses(vector<vector<int> >& clauses);
-	void addInitialClauses(vector<vector<int> >& clauses);
+  // Set a function that should be called for each learned clause
+  void setLearnedClauseCallback(LearnedClauseCallback* callback, int solverId);
 
-	// Add a (list of) learned clause(s) to the formula
-	// The learned clauses might be added later or possibly never
-	void addLearnedClause(vector<int>& clauses);
-	void addLearnedClauses(vector<vector<int> >& clauses);
+  // Request the solver to produce more clauses
+  void increaseClauseProduction();
 
-	// Set a function that should be called for each learned clause
-	void setLearnedClauseCallback(LearnedClauseCallback* callback, int solverId);
+  // Get solver statistics
+  SolvingStatistics getStatistics();
 
-	// Request the solver to produce more clauses
-	void increaseClauseProduction();
+  void diversify(int rank, int size);
 
-	// Get solver statistics
-	SolvingStatistics getStatistics();
-
-	void diversify(int rank, int size);
-
-	Lingeling();
-	 ~Lingeling();
+  Lingeling();
+  ~Lingeling();
 };
 
 #endif /* LINGELING_H_ */

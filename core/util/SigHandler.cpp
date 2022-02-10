@@ -44,7 +44,6 @@ SigHandler::SigHandler() {
           IPS_TERMINATE();
         }
       }
-      IPS_INFO("SigHandler: caught interrupt.");
       _interrupted = true;
       core::event::raise(event::INTERRUPT);
     }

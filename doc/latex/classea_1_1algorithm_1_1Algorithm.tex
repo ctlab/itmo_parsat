@@ -1,0 +1,146 @@
+\hypertarget{classea_1_1algorithm_1_1Algorithm}{}\doxysection{ea\+::algorithm\+::Algorithm Class Reference}
+\label{classea_1_1algorithm_1_1Algorithm}\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+
+
+The base class of (E$\vert$G)A search algorithms.  
+
+
+
+
+{\ttfamily \#include $<$Algorithm.\+h$>$}
+
+
+
+Inheritance diagram for ea\+::algorithm\+::Algorithm\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classea_1_1algorithm_1_1Algorithm__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}{Algorithm}} (Base\+Algorithm\+Config const \&config)
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ad8d78717fa980cc380e3145a54b26293}\label{classea_1_1algorithm_1_1Algorithm_ad8d78717fa980cc380e3145a54b26293}} 
+void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ad8d78717fa980cc380e3145a54b26293}{prepare}} ()
+\begin{DoxyCompactList}\small\item\em Performs preparation step. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}\label{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}} 
+void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}{process}} ()
+\begin{DoxyCompactList}\small\item\em Starts the algorithm. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}\label{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}} 
+void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}{interrupt}} ()
+\begin{DoxyCompactList}\small\item\em interrupts the algorithm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{core\+::sat\+::prop\+::\+Prop}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}{get\+\_\+prop}} () noexcept
+\item 
+\mbox{\hyperlink{classea_1_1instance_1_1Instance}{instance\+::\+Instance}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a81afd839286edcada16b88f3896b08a4}{get\+\_\+best}} () noexcept
+\item 
+\mbox{\hyperlink{structea_1_1instance_1_1SharedData}{instance\+::\+Shared\+Data}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}{get\+\_\+shared\+\_\+data}} () noexcept
+\item 
+uint64\+\_\+t \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}{inaccurate\+\_\+points}} () const noexcept
+\item 
+bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}{has\+\_\+unvisited\+\_\+points}} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a366891907b529e97f745158907e7956c}\label{classea_1_1algorithm_1_1Algorithm_a366891907b529e97f745158907e7956c}} 
+void {\bfseries \+\_\+add\+\_\+instance} ()
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_acdcb5dcdc05f450d50b3d599c7b096c7}\label{classea_1_1algorithm_1_1Algorithm_acdcb5dcdc05f450d50b3d599c7b096c7}} 
+virtual void {\bfseries \+\_\+prepare} ()
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a4ad15d6343e072efcd9359fb3496d90c}\label{classea_1_1algorithm_1_1Algorithm_a4ad15d6343e072efcd9359fb3496d90c}} 
+virtual void {\bfseries step} ()=0
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}\label{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}} 
+bool {\bfseries is\+\_\+interrupted} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ac7f4aede95e2ae03ae6fecff2993b960}\label{classea_1_1algorithm_1_1Algorithm_ac7f4aede95e2ae03ae6fecff2993b960}} 
+Instance\+Config {\bfseries \+\_\+instance\+\_\+config}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a43645be975cd40c5087a319ba86d48a4}\label{classea_1_1algorithm_1_1Algorithm_a43645be975cd40c5087a319ba86d48a4}} 
+ea\+::instance\+::\+Population {\bfseries \+\_\+population}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}\label{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}} 
+ea\+::instance\+::\+R\+Shared\+Data {\bfseries \+\_\+shared\+\_\+data}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}\label{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}} 
+core\+::sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The base class of (E$\vert$G)A search algorithms. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}\label{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!Algorithm@{Algorithm}}
+\index{Algorithm@{Algorithm}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{Algorithm()}{Algorithm()}}
+{\footnotesize\ttfamily ea\+::algorithm\+::\+Algorithm\+::\+Algorithm (\begin{DoxyParamCaption}\item[{Base\+Algorithm\+Config const \&}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & algorithm configuration. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a81afd839286edcada16b88f3896b08a4}\label{classea_1_1algorithm_1_1Algorithm_a81afd839286edcada16b88f3896b08a4}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_best@{get\_best}}
+\index{get\_best@{get\_best}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{get\_best()}{get\_best()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classea_1_1instance_1_1Instance}{instance\+::\+Instance}} \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+best (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the best instance currently found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}\label{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_prop@{get\_prop}}
+\index{get\_prop@{get\_prop}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{get\_prop()}{get\_prop()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{core\+::sat\+::prop\+::\+Prop}} \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+prop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the main prop used in this algorithm. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}\label{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_shared\_data@{get\_shared\_data}}
+\index{get\_shared\_data@{get\_shared\_data}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{get\_shared\_data()}{get\_shared\_data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structea_1_1instance_1_1SharedData}{instance\+::\+Shared\+Data}} \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+shared\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the data shared between instances. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}\label{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!has\_unvisited\_points@{has\_unvisited\_points}}
+\index{has\_unvisited\_points@{has\_unvisited\_points}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{has\_unvisited\_points()}{has\_unvisited\_points()}}
+{\footnotesize\ttfamily bool ea\+::algorithm\+::\+Algorithm\+::has\+\_\+unvisited\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+inaccurately checks whether there are points that are not visited. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}\label{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!inaccurate\_points@{inaccurate\_points}}
+\index{inaccurate\_points@{inaccurate\_points}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{inaccurate\_points()}{inaccurate\_points()}}
+{\footnotesize\ttfamily uint64\+\_\+t ea\+::algorithm\+::\+Algorithm\+::inaccurate\+\_\+points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the inaccurate number of visited points. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/algorithm/Algorithm.\+h\item 
+core/evol/algorithm/Algorithm.\+cpp\end{DoxyCompactItemize}

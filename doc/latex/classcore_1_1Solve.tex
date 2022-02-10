@@ -1,0 +1,84 @@
+\hypertarget{classcore_1_1Solve}{}\doxysection{core\+::Solve Class Reference}
+\label{classcore_1_1Solve}\index{core::Solve@{core::Solve}}
+
+
+The core class that performs all actions related to solving S\+AT.  
+
+
+
+
+{\ttfamily \#include $<$Solve.\+h$>$}
+
+
+
+Inheritance diagram for core\+::Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1Solve__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual sat\+::\+State \mbox{\hyperlink{classcore_1_1Solve_a2a566f84b4c453829c036547e68d8f6a}{solve}} (std\+::filesystem\+::path const \&input)=0
+\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a18970ec25df530b9c6d6a55115307388}\label{classcore_1_1Solve_a18970ec25df530b9c6d6a55115307388}} 
+void {\bfseries interrupt} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a4549450d64bcbad8add392b2d578369d}\label{classcore_1_1Solve_a4549450d64bcbad8add392b2d578369d}} 
+sat\+::\+State {\bfseries \+\_\+final\+\_\+solve} (\mbox{\hyperlink{classcore_1_1sat_1_1Solver}{sat\+::\+Solver}} \&solver, domain\+::\+U\+Search assignment)
+\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a90bc2d0709d44def434d0e3a4a14f4b9}\label{classcore_1_1Solve_a90bc2d0709d44def434d0e3a4a14f4b9}} 
+bool {\bfseries \+\_\+is\+\_\+interrupted} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a418d136b1871049702cc7df3ccecd7e8}\label{classcore_1_1Solve_a418d136b1871049702cc7df3ccecd7e8}} 
+static sat\+::\+R\+Solver {\bfseries \+\_\+resolve\+\_\+solver} (Solver\+Config const \&config)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1Solve_a8ac480e50a5a6bcbbc3fb4697a1ba630}\label{classcore_1_1Solve_a8ac480e50a5a6bcbbc3fb4697a1ba630}} 
+std\+::function$<$ void()$>$ {\bfseries \+\_\+do\+\_\+interrupt}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The core class that performs all actions related to solving S\+AT. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1Solve_a2a566f84b4c453829c036547e68d8f6a}\label{classcore_1_1Solve_a2a566f84b4c453829c036547e68d8f6a}} 
+\index{core::Solve@{core::Solve}!solve@{solve}}
+\index{solve@{solve}!core::Solve@{core::Solve}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily virtual sat\+::\+State core\+::\+Solve\+::solve (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+This method solves S\+AT. For now, it is expected to be called only once per object lifetime. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & path to gz archive with task description \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of the solution 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1ParRBSSolve_a13e611989d3b3a60abc6190d4d87bf61}{core\+::\+Par\+R\+B\+S\+Solve}}, \mbox{\hyperlink{classcore_1_1RBSSolve_a68a656425dec8ae39c2ab8bad3a2a391}{core\+::\+R\+B\+S\+Solve}}, and \mbox{\hyperlink{classcore_1_1NaiveSolve_a2c0a9591136b60be59804a750361a6d5}{core\+::\+Naive\+Solve}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/Solve.\+h\item 
+core/solve/Solve.\+cpp\end{DoxyCompactItemize}

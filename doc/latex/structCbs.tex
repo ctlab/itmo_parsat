@@ -1,0 +1,92 @@
+\hypertarget{structCbs}{}\doxysection{Cbs Struct Reference}
+\label{structCbs}\index{Cbs@{Cbs}}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structCbs_a500d108f3788876a50de0bc55e737a83}\label{structCbs_a500d108f3788876a50de0bc55e737a83}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>int($\ast$ {\bfseries fun} )(void $\ast$)\\
+\>void $\ast$ {\bfseries state}\\
+\>int {\bfseries done}\\
+\} {\bfseries term}\\
+
+\end{tabbing}\item 
+\mbox{\Hypertarget{structCbs_a8642b208b62821d2f189470ab346b994}\label{structCbs_a8642b208b62821d2f189470ab346b994}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries produce}\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries consumed}\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int $\ast$$\ast$, int $\ast$$\ast$)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries consume}\\
+\} {\bfseries units}\\
+
+\end{tabbing}\item 
+\mbox{\Hypertarget{structCbs_a6d86213ca339cef0551a648335007cd7}\label{structCbs_a6d86213ca339cef0551a648335007cd7}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int $\ast$, int)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries produce}\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int $\ast$$\ast$, int $\ast$)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries consume}\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries consumed}\\
+\} {\bfseries cls}\\
+
+\end{tabbing}\item 
+\mbox{\Hypertarget{structCbs_aa1342aa3109bb46b540b6464316d8e73}\label{structCbs_aa1342aa3109bb46b540b6464316d8e73}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \{\\
+\>\>int $\ast$($\ast$ {\bfseries fun} )(void $\ast$)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries lock}\\
+\>struct \{\\
+\>\>void($\ast$ {\bfseries fun} )(void $\ast$, int, int)\\
+\>\>void $\ast$ {\bfseries state}\\
+\>\} {\bfseries unlock}\\
+\} {\bfseries eqs}\\
+
+\end{tabbing}\item 
+\mbox{\Hypertarget{structCbs_af3e38995ed41ce418cbac21fba8a0011}\label{structCbs_af3e38995ed41ce418cbac21fba8a0011}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>void($\ast$ {\bfseries lock} )(void $\ast$)\\
+\>void($\ast$ {\bfseries unlock} )(void $\ast$)\\
+\>void $\ast$ {\bfseries state}\\
+\} {\bfseries msglock}\\
+
+\end{tabbing}\item 
+\mbox{\Hypertarget{structCbs_aaa1b33235cb53d54a5b1f1c9f943e8c0}\label{structCbs_aaa1b33235cb53d54a5b1f1c9f943e8c0}} 
+double($\ast$ {\bfseries getime} )(void)
+\item 
+\mbox{\Hypertarget{structCbs_a13b5573470bb6f6f6d6388a358fcf4b4}\label{structCbs_a13b5573470bb6f6f6d6388a358fcf4b4}} 
+void($\ast$ {\bfseries onabort} )(void $\ast$)
+\item 
+\mbox{\Hypertarget{structCbs_a3db1fe5972a7de1d854dface919d2f27}\label{structCbs_a3db1fe5972a7de1d854dface919d2f27}} 
+void $\ast$ {\bfseries abortstate}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/lingeling/lglib.\+c\end{DoxyCompactItemize}

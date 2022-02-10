@@ -12,7 +12,6 @@
 double getTime();
 double getAbsoluteTime();
 void setVerbosityLevel(int level);
-void log(int verbosityLevel, const char* fmt ...);
-
+void log(int verbosityLevel, const char* fmt...);
 
 #endif /* LOGGER_H_ */

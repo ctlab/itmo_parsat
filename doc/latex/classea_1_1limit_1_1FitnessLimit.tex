@@ -1,0 +1,67 @@
+\hypertarget{classea_1_1limit_1_1FitnessLimit}{}\doxysection{ea\+::limit\+::Fitness\+Limit Class Reference}
+\label{classea_1_1limit_1_1FitnessLimit}\index{ea::limit::FitnessLimit@{ea::limit::FitnessLimit}}
+
+
+This limit controls execution by comparing best fitness with the specified limit.  
+
+
+
+
+{\ttfamily \#include $<$Fitness\+Limit.\+h$>$}
+
+
+
+Inheritance diagram for ea\+::limit\+::Fitness\+Limit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classea_1_1limit_1_1FitnessLimit__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ea\+::limit\+::Fitness\+Limit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classea_1_1limit_1_1FitnessLimit__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1limit_1_1FitnessLimit_ad80d286ec9973aa1e93c7187ca001f42}\label{classea_1_1limit_1_1FitnessLimit_ad80d286ec9973aa1e93c7187ca001f42}} 
+{\bfseries Fitness\+Limit} (Fitness\+Limit\+Config const \&config)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classea_1_1limit_1_1FitnessLimit_a36b530d0d007883b40fb6349dd9d37d7}{\+\_\+proceed}} (\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&algorithm) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This limit controls execution by comparing best fitness with the specified limit. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classea_1_1limit_1_1FitnessLimit_a36b530d0d007883b40fb6349dd9d37d7}\label{classea_1_1limit_1_1FitnessLimit_a36b530d0d007883b40fb6349dd9d37d7}} 
+\index{ea::limit::FitnessLimit@{ea::limit::FitnessLimit}!\_proceed@{\_proceed}}
+\index{\_proceed@{\_proceed}!ea::limit::FitnessLimit@{ea::limit::FitnessLimit}}
+\doxysubsubsection{\texorpdfstring{\_proceed()}{\_proceed()}}
+{\footnotesize\ttfamily bool ea\+::limit\+::\+Fitness\+Limit\+::\+\_\+proceed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&}]{algorithm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+iff the best instance in population has fitness higher than the specified value. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classea_1_1limit_1_1Limit}{ea\+::limit\+::\+Limit}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/limit/Fitness\+Limit.\+h\item 
+core/evol/limit/Fitness\+Limit.\+cpp\end{DoxyCompactItemize}

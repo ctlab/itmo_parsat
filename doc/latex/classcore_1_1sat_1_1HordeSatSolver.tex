@@ -1,0 +1,106 @@
+\hypertarget{classcore_1_1sat_1_1HordeSatSolver}{}\doxysection{core\+::sat\+::Horde\+Sat\+Solver Class Reference}
+\label{classcore_1_1sat_1_1HordeSatSolver}\index{core::sat::HordeSatSolver@{core::sat::HordeSatSolver}}
+
+
+Inheritance diagram for core\+::sat\+::Horde\+Sat\+Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classcore_1_1sat_1_1HordeSatSolver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::sat\+::Horde\+Sat\+Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classcore_1_1sat_1_1HordeSatSolver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1HordeSatSolver_a7749c1bc9da2b7fb552191dc8a37515d}\label{classcore_1_1sat_1_1HordeSatSolver_a7749c1bc9da2b7fb552191dc8a37515d}} 
+{\bfseries Horde\+Sat\+Solver} (Horde\+Sat\+Solver\+Config const \&config)
+\item 
+void \mbox{\hyperlink{classcore_1_1sat_1_1HordeSatSolver_a5311a461b14873cd8295777ec580e98a}{parse\+\_\+cnf}} (std\+::filesystem\+::path const \&path) override
+\begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
+State \mbox{\hyperlink{classcore_1_1sat_1_1HordeSatSolver_a95b66628faf8e554ec08d5b71e1cbcce}{solve}} (\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1HordeSatSolver_aaa54f2989a950a479618ef61125f93b7}\label{classcore_1_1sat_1_1HordeSatSolver_aaa54f2989a950a479618ef61125f93b7}} 
+unsigned \mbox{\hyperlink{classcore_1_1sat_1_1HordeSatSolver_aaa54f2989a950a479618ef61125f93b7}{num\+\_\+vars}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1HordeSatSolver_a1d7b052b0e1711ab6ec38fc144659d2e}{propagate\+\_\+confl}} (\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1HordeSatSolver_a5311a461b14873cd8295777ec580e98a}\label{classcore_1_1sat_1_1HordeSatSolver_a5311a461b14873cd8295777ec580e98a}} 
+\index{core::sat::HordeSatSolver@{core::sat::HordeSatSolver}!parse\_cnf@{parse\_cnf}}
+\index{parse\_cnf@{parse\_cnf}!core::sat::HordeSatSolver@{core::sat::HordeSatSolver}}
+\doxysubsubsection{\texorpdfstring{parse\_cnf()}{parse\_cnf()}}
+{\footnotesize\ttfamily void core\+::sat\+::\+Horde\+Sat\+Solver\+::parse\+\_\+cnf (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Parses cnf from .gz file with the specified path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & the path with formula. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a9cf6db209b1c87813e06c5b641e6128c}{core\+::sat\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1HordeSatSolver_a1d7b052b0e1711ab6ec38fc144659d2e}\label{classcore_1_1sat_1_1HordeSatSolver_a1d7b052b0e1711ab6ec38fc144659d2e}} 
+\index{core::sat::HordeSatSolver@{core::sat::HordeSatSolver}!propagate\_confl@{propagate\_confl}}
+\index{propagate\_confl@{propagate\_confl}!core::sat::HordeSatSolver@{core::sat::HordeSatSolver}}
+\doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
+{\footnotesize\ttfamily bool core\+::sat\+::\+Horde\+Sat\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to be passed to solver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether these assumptions lead to conflict 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}{core\+::sat\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1HordeSatSolver_a95b66628faf8e554ec08d5b71e1cbcce}\label{classcore_1_1sat_1_1HordeSatSolver_a95b66628faf8e554ec08d5b71e1cbcce}} 
+\index{core::sat::HordeSatSolver@{core::sat::HordeSatSolver}!solve@{solve}}
+\index{solve@{solve}!core::sat::HordeSatSolver@{core::sat::HordeSatSolver}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily State core\+::sat\+::\+Horde\+Sat\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Runs solution with the specified assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of solving. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{core\+::sat\+::\+Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/solver/Horde\+Sat\+Solver.\+h\item 
+core/sat/solver/Horde\+Sat\+Solver.\+cpp\end{DoxyCompactItemize}

@@ -11,14 +11,14 @@
 
 #include "AllToAllSharingManager.h"
 
-class LogSharingManager: public virtual AllToAllSharingManager {
-private:
-	int exchangeCount;
-public:
-	LogSharingManager(int mpi_size, int mpi_rank, vector<PortfolioSolverInterface*> solvers,
-			bool fd);
-	void doSharing();
-	virtual ~LogSharingManager();
+class LogSharingManager : public virtual AllToAllSharingManager {
+ private:
+  int exchangeCount;
+
+ public:
+  LogSharingManager(int mpi_size, int mpi_rank, vector<PortfolioSolverInterface*> solvers, bool fd);
+  void doSharing();
+  virtual ~LogSharingManager();
 };
 
 #endif /* SHARING_LOGSHARINGMANAGER_H_ */

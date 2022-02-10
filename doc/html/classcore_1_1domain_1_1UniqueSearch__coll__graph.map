@@ -1,0 +1,6 @@
+<map id="core::domain::UniqueSearch" name="core::domain::UniqueSearch">
+<area shape="rect" id="node1" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="74,185,279,212"/>
+<area shape="rect" id="node2" href="$classcore_1_1domain_1_1ModifyingSearch.html" title="The base class for searches that step by modifying assignment." alt="" coords="65,109,289,136"/>
+<area shape="rect" id="node3" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="5,13,164,39"/>
+<area shape="rect" id="node4" href="$classMinisat_1_1vec.html" title=" " alt="" coords="188,5,352,47"/>
+</map>

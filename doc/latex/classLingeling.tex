@@ -1,0 +1,97 @@
+\hypertarget{classLingeling}{}\doxysection{Lingeling Class Reference}
+\label{classLingeling}\index{Lingeling@{Lingeling}}
+
+
+Inheritance diagram for Lingeling\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classLingeling__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Lingeling\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classLingeling__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLingeling_af57fd7bf26450625e60a0761be93933b}\label{classLingeling_af57fd7bf26450625e60a0761be93933b}} 
+bool {\bfseries load\+Formula} (const char $\ast$filename)
+\item 
+\mbox{\Hypertarget{classLingeling_a69fd6b4f2f380d3b9c57cca55dc6f7f7}\label{classLingeling_a69fd6b4f2f380d3b9c57cca55dc6f7f7}} 
+int {\bfseries get\+Variables\+Count} ()
+\item 
+\mbox{\Hypertarget{classLingeling_a92321905e4f66ff09feb6b7b8bdb5667}\label{classLingeling_a92321905e4f66ff09feb6b7b8bdb5667}} 
+int {\bfseries get\+Splitting\+Variable} ()
+\item 
+\mbox{\Hypertarget{classLingeling_a4e2874e5f58513b1f53a06bf244b2c72}\label{classLingeling_a4e2874e5f58513b1f53a06bf244b2c72}} 
+void {\bfseries set\+Phase} (const int var, const bool phase)
+\item 
+\mbox{\Hypertarget{classLingeling_abe4f119fd0850892121cb73d4fd050f9}\label{classLingeling_abe4f119fd0850892121cb73d4fd050f9}} 
+void {\bfseries set\+Solver\+Interrupt} ()
+\item 
+\mbox{\Hypertarget{classLingeling_afcbb63645b20e707b8c2ef25903deeec}\label{classLingeling_afcbb63645b20e707b8c2ef25903deeec}} 
+void {\bfseries unset\+Solver\+Interrupt} ()
+\item 
+\mbox{\Hypertarget{classLingeling_af631f09a66646515f1b83a75a6fc37cb}\label{classLingeling_af631f09a66646515f1b83a75a6fc37cb}} 
+Sat\+Result {\bfseries solve} (const vector$<$ int $>$ \&assumptions)
+\item 
+\mbox{\Hypertarget{classLingeling_a88bf19feed2415a9127891d4089d8dc2}\label{classLingeling_a88bf19feed2415a9127891d4089d8dc2}} 
+void {\bfseries add\+Clause} (vector$<$ int $>$ \&clause)
+\item 
+\mbox{\Hypertarget{classLingeling_afa12957192a0210cc9ecfbda97dd29b9}\label{classLingeling_afa12957192a0210cc9ecfbda97dd29b9}} 
+void {\bfseries add\+Clauses} (vector$<$ vector$<$ int $>$ $>$ \&clauses)
+\item 
+\mbox{\Hypertarget{classLingeling_a4fc1bd30fb4b1a286aca0dd639cc4833}\label{classLingeling_a4fc1bd30fb4b1a286aca0dd639cc4833}} 
+void {\bfseries add\+Initial\+Clauses} (vector$<$ vector$<$ int $>$ $>$ \&clauses)
+\item 
+\mbox{\Hypertarget{classLingeling_a2ffdc8e5b4c9c3223e6dc8dc683d6ec9}\label{classLingeling_a2ffdc8e5b4c9c3223e6dc8dc683d6ec9}} 
+void {\bfseries add\+Learned\+Clause} (vector$<$ int $>$ \&clauses)
+\item 
+\mbox{\Hypertarget{classLingeling_afae119485c405efee00766e4f2c16be1}\label{classLingeling_afae119485c405efee00766e4f2c16be1}} 
+void {\bfseries add\+Learned\+Clauses} (vector$<$ vector$<$ int $>$ $>$ \&clauses)
+\item 
+\mbox{\Hypertarget{classLingeling_a61b2942063177e0848c2de502f09b5f7}\label{classLingeling_a61b2942063177e0848c2de502f09b5f7}} 
+void {\bfseries set\+Learned\+Clause\+Callback} (\mbox{\hyperlink{classLearnedClauseCallback}{Learned\+Clause\+Callback}} $\ast$callback, int solver\+Id)
+\item 
+\mbox{\Hypertarget{classLingeling_a4b53daec62569160eae66a075dedc88a}\label{classLingeling_a4b53daec62569160eae66a075dedc88a}} 
+void {\bfseries increase\+Clause\+Production} ()
+\item 
+\mbox{\Hypertarget{classLingeling_aea63ee6683b027848ec781543133bc93}\label{classLingeling_aea63ee6683b027848ec781543133bc93}} 
+\mbox{\hyperlink{structSolvingStatistics}{Solving\+Statistics}} {\bfseries get\+Statistics} ()
+\item 
+\mbox{\Hypertarget{classLingeling_a3da84861094a7393ce76a312085f570b}\label{classLingeling_a3da84861094a7393ce76a312085f570b}} 
+void {\bfseries diversify} (int rank, int size)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLingeling_a1833b9d275e437e8b9bb9a8bb0b8c968}\label{classLingeling_a1833b9d275e437e8b9bb9a8bb0b8c968}} 
+int {\bfseries term\+Callback} (void $\ast$solver\+Ptr)
+\item 
+\mbox{\Hypertarget{classLingeling_abe807b89aa46386592166d397bd93672}\label{classLingeling_abe807b89aa46386592166d397bd93672}} 
+void {\bfseries produce} (void $\ast$sp, int $\ast$cls, int glue)
+\item 
+\mbox{\Hypertarget{classLingeling_a87dd71ea49da4261e5b501b6efecaa64}\label{classLingeling_a87dd71ea49da4261e5b501b6efecaa64}} 
+void {\bfseries produce\+Unit} (void $\ast$sp, int lit)
+\item 
+\mbox{\Hypertarget{classLingeling_ad4bee17e3249275e1b5a58e82b0977c9}\label{classLingeling_ad4bee17e3249275e1b5a58e82b0977c9}} 
+void {\bfseries consume\+Units} (void $\ast$sp, int $\ast$$\ast$start, int $\ast$$\ast$end)
+\item 
+\mbox{\Hypertarget{classLingeling_ad08709acf24a15cbc5f620d1fc39f3b5}\label{classLingeling_ad08709acf24a15cbc5f620d1fc39f3b5}} 
+void {\bfseries consume\+Cls} (void $\ast$sp, int $\ast$$\ast$clause, int $\ast$glue)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/hordesat/hordesat-\/src/solvers/Lingeling.\+h\item 
+core/sat/hordesat/hordesat-\/src/solvers/Lingeling.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classcore_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="5,56,100,83"/>
+<area shape="rect" id="node2" href="$classcore_1_1NaiveSolve.html" title="Naively solves SAT using the specified solver." alt="" coords="153,5,285,32"/>
+<area shape="rect" id="node3" href="$classcore_1_1ParRBSSolve.html" title="This class solves SAT in the following way:" alt="" coords="148,56,289,83"/>
+<area shape="rect" id="node4" href="$classcore_1_1RBSSolve.html" title="This class solves SAT in the following way:" alt="" coords="159,107,279,133"/>
+</map>

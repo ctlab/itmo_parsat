@@ -1,0 +1,63 @@
+\hypertarget{structea_1_1instance_1_1Fitness}{}\doxysection{ea\+::instance\+::Fitness Struct Reference}
+\label{structea_1_1instance_1_1Fitness}\index{ea::instance::Fitness@{ea::instance::Fitness}}
+
+
+This structure represents Instances\textquotesingle{} fitnesses. Mathematically, it is calculated as rho $\ast$ 2$^\wedge$\{size\} + (1 -\/ \textbackslash{}rho) $\ast$ 2$^\wedge$\{pow\+\_\+nr\}.  
+
+
+
+
+{\ttfamily \#include $<$Fitness.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structea_1_1instance_1_1Fitness_a54cde7ec09ddced791ea72362f1f33f9}{can\+\_\+calc}} () const
+\item 
+\mbox{\hyperlink{structea_1_1instance_1_1Fitness_a3ef6f0194cbe1aa0781471438e0fc98e}{operator double}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a9864fd589381e85a2e88567d052f705e}\label{structea_1_1instance_1_1Fitness_a9864fd589381e85a2e88567d052f705e}} 
+double {\bfseries rho}
+\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a283180454350855cae5aee44883ee2eb}\label{structea_1_1instance_1_1Fitness_a283180454350855cae5aee44883ee2eb}} 
+uint32\+\_\+t {\bfseries size}
+\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a97b12edba584037d46aee20c17b8a1cd}\label{structea_1_1instance_1_1Fitness_a97b12edba584037d46aee20c17b8a1cd}} 
+uint32\+\_\+t {\bfseries pow\+\_\+nr}
+\item 
+\mbox{\Hypertarget{structea_1_1instance_1_1Fitness_ab323951cf3f10f7065a6d76184997530}\label{structea_1_1instance_1_1Fitness_ab323951cf3f10f7065a6d76184997530}} 
+uint32\+\_\+t {\bfseries samples}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This structure represents Instances\textquotesingle{} fitnesses. Mathematically, it is calculated as rho $\ast$ 2$^\wedge$\{size\} + (1 -\/ \textbackslash{}rho) $\ast$ 2$^\wedge$\{pow\+\_\+nr\}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a54cde7ec09ddced791ea72362f1f33f9}\label{structea_1_1instance_1_1Fitness_a54cde7ec09ddced791ea72362f1f33f9}} 
+\index{ea::instance::Fitness@{ea::instance::Fitness}!can\_calc@{can\_calc}}
+\index{can\_calc@{can\_calc}!ea::instance::Fitness@{ea::instance::Fitness}}
+\doxysubsubsection{\texorpdfstring{can\_calc()}{can\_calc()}}
+{\footnotesize\ttfamily bool ea\+::instance\+::\+Fitness\+::can\+\_\+calc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+whether value can be calculated using uint64 and double types 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a3ef6f0194cbe1aa0781471438e0fc98e}\label{structea_1_1instance_1_1Fitness_a3ef6f0194cbe1aa0781471438e0fc98e}} 
+\index{ea::instance::Fitness@{ea::instance::Fitness}!operator double@{operator double}}
+\index{operator double@{operator double}!ea::instance::Fitness@{ea::instance::Fitness}}
+\doxysubsubsection{\texorpdfstring{operator double()}{operator double()}}
+{\footnotesize\ttfamily ea\+::instance\+::\+Fitness\+::operator double (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\begin{DoxyReturn}{Returns}
+the fitness value in double 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/instance/Fitness.\+h\item 
+core/evol/instance/Fitness.\+cpp\end{DoxyCompactItemize}

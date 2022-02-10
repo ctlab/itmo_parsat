@@ -1,0 +1,4 @@
+<map id="core::domain::CartesianSearch" name="core::domain::CartesianSearch">
+<area shape="rect" id="node1" title="The class used to search through the cartesian product of custom searches." alt="" coords="5,80,227,107"/>
+<area shape="rect" id="node2" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="37,5,195,32"/>
+</map>

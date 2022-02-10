@@ -1,0 +1,81 @@
+\hypertarget{classAllToAllSharingManager}{}\doxysection{All\+To\+All\+Sharing\+Manager Class Reference}
+\label{classAllToAllSharingManager}\index{AllToAllSharingManager@{AllToAllSharingManager}}
+
+
+Inheritance diagram for All\+To\+All\+Sharing\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classAllToAllSharingManager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for All\+To\+All\+Sharing\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAllToAllSharingManager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classAllToAllSharingManager_1_1Callback}{Callback}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_ab911a72ac83701fe3e89527ca3c045b4}\label{classAllToAllSharingManager_ab911a72ac83701fe3e89527ca3c045b4}} 
+{\bfseries All\+To\+All\+Sharing\+Manager} (int mpi\+\_\+size, int mpi\+\_\+rank, vector$<$ \mbox{\hyperlink{classPortfolioSolverInterface}{Portfolio\+Solver\+Interface}} $\ast$ $>$ solvers, bool fd)
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_abc24821ce616fd23e508ba922e192245}\label{classAllToAllSharingManager_abc24821ce616fd23e508ba922e192245}} 
+void {\bfseries do\+Sharing} ()
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_a5e0e9999e3b2c5f9ad18a24de0fa8e5c}\label{classAllToAllSharingManager_a5e0e9999e3b2c5f9ad18a24de0fa8e5c}} 
+\mbox{\hyperlink{structSharingStatistics}{Sharing\+Statistics}} {\bfseries get\+Statistics} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_aea2d0bcc43387987c6df225769fd8ba0}\label{classAllToAllSharingManager_aea2d0bcc43387987c6df225769fd8ba0}} 
+int {\bfseries size}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_a294919b2b2e5c18161f61f92463fd340}\label{classAllToAllSharingManager_a294919b2b2e5c18161f61f92463fd340}} 
+int {\bfseries rank}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_af716450a101839e857b06512f63fc2e9}\label{classAllToAllSharingManager_af716450a101839e857b06512f63fc2e9}} 
+vector$<$ \mbox{\hyperlink{classPortfolioSolverInterface}{Portfolio\+Solver\+Interface}} $\ast$ $>$ {\bfseries solvers}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_abfd2f9af9e584edf6ed8410b3e6257b5}\label{classAllToAllSharingManager_abfd2f9af9e584edf6ed8410b3e6257b5}} 
+vector$<$ \mbox{\hyperlink{classClauseFilter}{Clause\+Filter}} $\ast$ $>$ {\bfseries solver\+Filters}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_a32985a8c477e1cfb7294d4a6b84c5e8c}\label{classAllToAllSharingManager_a32985a8c477e1cfb7294d4a6b84c5e8c}} 
+bool {\bfseries fd}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_a16628c2cd21db4e6a27f6f23cca5fa65}\label{classAllToAllSharingManager_a16628c2cd21db4e6a27f6f23cca5fa65}} 
+\mbox{\hyperlink{classClauseDatabase}{Clause\+Database}} {\bfseries cdb}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_af198055c0d411fb01d9f98f5be6183f0}\label{classAllToAllSharingManager_af198055c0d411fb01d9f98f5be6183f0}} 
+\mbox{\hyperlink{classClauseFilter}{Clause\+Filter}} {\bfseries node\+Filter}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_ae702685938796f7f6e7b3b784330a3a1}\label{classAllToAllSharingManager_ae702685938796f7f6e7b3b784330a3a1}} 
+int {\bfseries out\+Buffer} \mbox{[}C\+O\+M\+M\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE\mbox{]}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_ac06e7d199b11f9bfb7d700efd03e399f}\label{classAllToAllSharingManager_ac06e7d199b11f9bfb7d700efd03e399f}} 
+int $\ast$ {\bfseries incomming\+Buffer}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_a787ef1a3f563229f41919e07985e4a43}\label{classAllToAllSharingManager_a787ef1a3f563229f41919e07985e4a43}} 
+\mbox{\hyperlink{classAllToAllSharingManager_1_1Callback}{Callback}} {\bfseries callback}
+\item 
+\mbox{\Hypertarget{classAllToAllSharingManager_a0b85b06192fdf1d407f89ab6a6cf3eaa}\label{classAllToAllSharingManager_a0b85b06192fdf1d407f89ab6a6cf3eaa}} 
+\mbox{\hyperlink{structSharingStatistics}{Sharing\+Statistics}} {\bfseries stats}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/hordesat/hordesat-\/src/sharing/All\+To\+All\+Sharing\+Manager.\+h\item 
+core/sat/hordesat/hordesat-\/src/sharing/All\+To\+All\+Sharing\+Manager.\+cpp\end{DoxyCompactItemize}

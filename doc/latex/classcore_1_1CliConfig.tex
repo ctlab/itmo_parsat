@@ -1,0 +1,137 @@
+\hypertarget{classcore_1_1CliConfig}{}\doxysection{core\+::Cli\+Config Class Reference}
+\label{classcore_1_1CliConfig}\index{core::CliConfig@{core::CliConfig}}
+
+
+Configuration manipulation routine.  
+
+
+
+
+{\ttfamily \#include $<$Cli\+Config.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classcore_1_1CliConfig_a21ecbbad8395ef026dfe5d6754e6392c}{add\+\_\+options}} (boost\+::program\+\_\+options\+::options\+\_\+description const \&options)
+\item 
+void \mbox{\hyperlink{classcore_1_1CliConfig_af71bd503589bba4b044e95a42be9a4e5}{parse}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Parses options from cmd arguments. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcore_1_1CliConfig_a2221b62a2502772b0cbecfb702867e6a}{parse}} (std\+::filesystem\+::path const \&path)
+\begin{DoxyCompactList}\small\item\em Parses options from file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1CliConfig_aa080bfd14aa8034c6dc17b9d5ed1dc29}\label{classcore_1_1CliConfig_aa080bfd14aa8034c6dc17b9d5ed1dc29}} 
+void \mbox{\hyperlink{classcore_1_1CliConfig_aa080bfd14aa8034c6dc17b9d5ed1dc29}{notify}} ()
+\begin{DoxyCompactList}\small\item\em Checks if parsing went successfully. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1CliConfig_a9477929a58a1ac00a46f3eea35fd1828}{has}} (std\+::string const \&name) const
+\item 
+{\footnotesize template$<$typename T $>$ }\\T const  \& \mbox{\hyperlink{classcore_1_1CliConfig_a08dab20cbc371cbb330477a630a1e88b}{get}} (std\+::string const \&name) const
+\begin{DoxyCompactList}\small\item\em Retrieves option from arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classcore_1_1CliConfig_aabd8d4e799e2cdb112b4fd2f9e976c36}{read\+\_\+config}} (std\+::istream \&ifs, google\+::protobuf\+::\+Message \&message)
+\begin{DoxyCompactList}\small\item\em Reads protobuf configuration from a specified stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration manipulation routine. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1CliConfig_a21ecbbad8395ef026dfe5d6754e6392c}\label{classcore_1_1CliConfig_a21ecbbad8395ef026dfe5d6754e6392c}} 
+\index{core::CliConfig@{core::CliConfig}!add\_options@{add\_options}}
+\index{add\_options@{add\_options}!core::CliConfig@{core::CliConfig}}
+\doxysubsubsection{\texorpdfstring{add\_options()}{add\_options()}}
+{\footnotesize\ttfamily void core\+::\+Cli\+Config\+::add\+\_\+options (\begin{DoxyParamCaption}\item[{boost\+::program\+\_\+options\+::options\+\_\+description const \&}]{options }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em options} & options to be added. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcore_1_1CliConfig_a08dab20cbc371cbb330477a630a1e88b}\label{classcore_1_1CliConfig_a08dab20cbc371cbb330477a630a1e88b}} 
+\index{core::CliConfig@{core::CliConfig}!get@{get}}
+\index{get@{get}!core::CliConfig@{core::CliConfig}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T const\& core\+::\+Cli\+Config\+::get (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieves option from arguments. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & the type of option. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of option. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the option value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1CliConfig_a9477929a58a1ac00a46f3eea35fd1828}\label{classcore_1_1CliConfig_a9477929a58a1ac00a46f3eea35fd1828}} 
+\index{core::CliConfig@{core::CliConfig}!has@{has}}
+\index{has@{has}!core::CliConfig@{core::CliConfig}}
+\doxysubsubsection{\texorpdfstring{has()}{has()}}
+{\footnotesize\ttfamily bool core\+::\+Cli\+Config\+::has (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{name }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+true iff the `name' is present in parsed options. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1CliConfig_af71bd503589bba4b044e95a42be9a4e5}\label{classcore_1_1CliConfig_af71bd503589bba4b044e95a42be9a4e5}} 
+\index{core::CliConfig@{core::CliConfig}!parse@{parse}}
+\index{parse@{parse}!core::CliConfig@{core::CliConfig}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void core\+::\+Cli\+Config\+::parse (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Parses options from cmd arguments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & number of options. \\
+\hline
+{\em argv} & options array. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcore_1_1CliConfig_a2221b62a2502772b0cbecfb702867e6a}\label{classcore_1_1CliConfig_a2221b62a2502772b0cbecfb702867e6a}} 
+\index{core::CliConfig@{core::CliConfig}!parse@{parse}}
+\index{parse@{parse}!core::CliConfig@{core::CliConfig}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void core\+::\+Cli\+Config\+::parse (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Parses options from file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & file to be parsed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcore_1_1CliConfig_aabd8d4e799e2cdb112b4fd2f9e976c36}\label{classcore_1_1CliConfig_aabd8d4e799e2cdb112b4fd2f9e976c36}} 
+\index{core::CliConfig@{core::CliConfig}!read\_config@{read\_config}}
+\index{read\_config@{read\_config}!core::CliConfig@{core::CliConfig}}
+\doxysubsubsection{\texorpdfstring{read\_config()}{read\_config()}}
+{\footnotesize\ttfamily void core\+::\+Cli\+Config\+::read\+\_\+config (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{ifs,  }\item[{google\+::protobuf\+::\+Message \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads protobuf configuration from a specified stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ifs} & input stream with the configuration. \\
+\hline
+{\em message} & the message to be filled. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/util/Cli\+Config.\+h\item 
+core/util/Cli\+Config.\+cpp\end{DoxyCompactItemize}

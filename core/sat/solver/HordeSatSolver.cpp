@@ -240,7 +240,7 @@ void HordeSatSolver::_diversify() {
       break;
     default:
       IPS_TERMINATE("HordeSat: invalid diversification mode.");
-    }
+  }
 }
 
 void HordeSatSolver::parse_cnf(std::filesystem::path const& path) {

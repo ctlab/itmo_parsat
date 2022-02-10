@@ -1,0 +1,4 @@
+<map id="ea::limit::StallLimit" name="ea::limit::StallLimit">
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,152,107"/>
+<area shape="rect" id="node2" href="$classea_1_1limit_1_1Limit.html" title="This is an interface for all limits that control the execution of an algorithm." alt="" coords="20,5,137,32"/>
+</map>

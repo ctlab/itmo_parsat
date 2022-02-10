@@ -66,3 +66,16 @@ TEST_F(LaunchFixture, par_par_rbs_test) {
   }
   ASSERT_FALSE(test_failed);
 }
+
+TEST_F(LaunchFixture, horde_par_rbs_test) {
+  infra::testing::LaunchConfig config;
+  config.set_expected_result(infra::domain::UNKNOWN)
+      .set_log_config_path("log.json")
+      .set_config_path("horde_par_rbs.json")
+      .set_threads_required(8)
+      .set_description("ParRBSSearch solver tests (ParRBS, HordeSat solve)");
+  for (const auto& path : LaunchFixture::cnfs) {
+    launch(config.set_input_path(path));
+  }
+  ASSERT_FALSE(test_failed);
+}

@@ -1,0 +1,82 @@
+\hypertarget{classea_1_1limit_1_1ConjLimit}{}\doxysection{ea\+::limit\+::Conj\+Limit Class Reference}
+\label{classea_1_1limit_1_1ConjLimit}\index{ea::limit::ConjLimit@{ea::limit::ConjLimit}}
+
+
+Conjunction of a set of limits.  
+
+
+
+
+{\ttfamily \#include $<$Conj\+Limit.\+h$>$}
+
+
+
+Inheritance diagram for ea\+::limit\+::Conj\+Limit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classea_1_1limit_1_1ConjLimit__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ea\+::limit\+::Conj\+Limit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classea_1_1limit_1_1ConjLimit__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1limit_1_1ConjLimit_ac8f05a340bbf766b8a4dd5dd02a197a0}\label{classea_1_1limit_1_1ConjLimit_ac8f05a340bbf766b8a4dd5dd02a197a0}} 
+{\bfseries Conj\+Limit} (const Conj\+Limit\+Config \&config)
+\item 
+void \mbox{\hyperlink{classea_1_1limit_1_1ConjLimit_a112e6884f8301c5df707a78e9dd72ec9}{start}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classea_1_1limit_1_1ConjLimit_ac0fe5cce7f30e9d5bec42002b1719990}{\+\_\+proceed}} (\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&algorithm) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Conjunction of a set of limits. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classea_1_1limit_1_1ConjLimit_ac0fe5cce7f30e9d5bec42002b1719990}\label{classea_1_1limit_1_1ConjLimit_ac0fe5cce7f30e9d5bec42002b1719990}} 
+\index{ea::limit::ConjLimit@{ea::limit::ConjLimit}!\_proceed@{\_proceed}}
+\index{\_proceed@{\_proceed}!ea::limit::ConjLimit@{ea::limit::ConjLimit}}
+\doxysubsubsection{\texorpdfstring{\_proceed()}{\_proceed()}}
+{\footnotesize\ttfamily bool ea\+::limit\+::\+Conj\+Limit\+::\+\_\+proceed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&}]{algorithm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+true iff {\itshape all} of limits returned true. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classea_1_1limit_1_1Limit}{ea\+::limit\+::\+Limit}}.
+
+\mbox{\Hypertarget{classea_1_1limit_1_1ConjLimit_a112e6884f8301c5df707a78e9dd72ec9}\label{classea_1_1limit_1_1ConjLimit_a112e6884f8301c5df707a78e9dd72ec9}} 
+\index{ea::limit::ConjLimit@{ea::limit::ConjLimit}!start@{start}}
+\index{start@{start}!ea::limit::ConjLimit@{ea::limit::ConjLimit}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily void ea\+::limit\+::\+Conj\+Limit\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+true iff the algorithm should proceed. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}{ea\+::limit\+::\+Limit}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/limit/Conj\+Limit.\+h\item 
+core/evol/limit/Conj\+Limit.\+cpp\end{DoxyCompactItemize}

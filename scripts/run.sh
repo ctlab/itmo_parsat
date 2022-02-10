@@ -2,15 +2,18 @@
 source scripts/base.sh
 
 ROOT="$PWD"
-VERBOSE="2"
+VERBOSE="6"
+
 RESOURCES_DIR="$ROOT/resources"
 CNF_PATH="$ROOT/resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$ROOT/resources/config"
 LOG_CFG_PATH="$ROOT/resources/config/log.json"
+
 SOLVE_BIN="$ROOT/build/cli/solve_bin"
 TEST_BIN="$ROOT/build/core/core_unit_tests"
-SLV_CFG="naive.json"
 INFRA_BIN="$ROOT/build/cli/infra_bin"
+
+SLV_CFG="naive.json"
 PSQL_HOST="51.250.2.131"
 
 NEXT_NATIVE=0
@@ -52,19 +55,13 @@ function do_format() {
 
 function do_build() {
     cd build
-    rm -rf * || true
-    CC=gcc-9 CXX=g++-9 cmake .. -DCMAKE_BUILD_TYPE=Release
+    CC=gcc-9 CXX=g++-9 cmake .. -DCMAKE_BUILD_TYPE="$BUILD_CFG"
     CC=gcc-9 CXX=g++-9 make -j $(nproc)
     cd "$ROOT"
 }
 
-function do_rebuild() {
-    cd "$ROOT/core/sat/hordesat"
-    rm libhordesat.a
-    ./makehordesat.sh
-    cd "$ROOT"
+function do_clean() {
     rm -rf build/*
-    do_build
 }
 
 function do_set_verbose() {
@@ -114,6 +111,7 @@ function do_desc() {
 add_option "-g|--build-cfg" "Set build mode"             do_set_build_mode 1
 add_option "-b|--build" "    Build cli binary"           do_build          0
 add_option "--rebuild" "     Reuild cli binary"          do_rebuild        0
+add_option "--clean" "       Clean build directory"      do_clean          0
 add_option "--build-doc" "   Build documentation"        do_doc            0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
 add_option "--run-perf" "    Run with perf"              do_run_perf       0

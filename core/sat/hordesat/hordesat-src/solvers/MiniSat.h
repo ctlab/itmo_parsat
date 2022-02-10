@@ -17,68 +17,64 @@ using namespace std;
 
 // some forward declatarations for Minisat
 namespace Minisat {
-	class Solver;
-	class Lit;
-	template<class T, class _Size> class vec;
-}
-
+class Solver;
+class Lit;
+template <class T, class _Size>
+class vec;
+}  // namespace Minisat
 
 class MiniSat : public PortfolioSolverInterface {
+ private:
+  Minisat::Solver* solver;
+  vector<vector<int> > learnedClausesToAdd;
+  vector<vector<int> > clausesToAdd;
+  Mutex clauseAddingLock;
+  int myId;
+  LearnedClauseCallback* callback;
+  int learnedLimit;
+  friend void miniLearnCallback(const Minisat::vec<Minisat::Lit, int>& cls, void* issuer);
 
-private:
-	Minisat::Solver *solver;
-	vector< vector<int> > learnedClausesToAdd;
-	vector< vector<int> > clausesToAdd;
-	Mutex clauseAddingLock;
-	int myId;
-	LearnedClauseCallback* callback;
-	int learnedLimit;
-	friend void miniLearnCallback(const Minisat::vec<Minisat::Lit,int>& cls, void* issuer);
+ public:
+  bool loadFormula(const char* filename);
+  // Get the number of variables of the formula
+  int getVariablesCount();
+  // Get a variable suitable for search splitting
+  int getSplittingVariable();
+  // Set initial phase for a given variable
+  void setPhase(const int var, const bool phase);
+  // Interrupt the SAT solving, so it can be started again with new assumptions
+  void setSolverInterrupt();
+  void unsetSolverInterrupt();
 
-public:
+  // Solve the formula with a given set of assumptions
+  // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
+  SatResult solve(const vector<int>& assumptions);
 
-	bool loadFormula(const char* filename);
-	//Get the number of variables of the formula
-	int getVariablesCount();
-	// Get a variable suitable for search splitting
-	int getSplittingVariable();
-	// Set initial phase for a given variable
-	void setPhase(const int var, const bool phase);
-	// Interrupt the SAT solving, so it can be started again with new assumptions
-	void setSolverInterrupt();
-	void unsetSolverInterrupt();
+  // Add a (list of) permanent clause(s) to the formula
+  void addClause(vector<int>& clause);
+  void addClauses(vector<vector<int> >& clauses);
+  void addInitialClauses(vector<vector<int> >& clauses);
 
-	// Solve the formula with a given set of assumptions
-	// return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
-	SatResult solve(const vector<int>& assumptions);
+  // Add a (list of) learned clause(s) to the formula
+  // The learned clauses might be added later or possibly never
+  void addLearnedClause(vector<int>& clauses);
+  void addLearnedClauses(vector<vector<int> >& clauses);
 
-	// Add a (list of) permanent clause(s) to the formula
-	void addClause(vector<int>& clause);
-	void addClauses(vector<vector<int> >& clauses);
-	void addInitialClauses(vector<vector<int> >& clauses);
+  // Set a function that should be called for each learned clause
+  void setLearnedClauseCallback(LearnedClauseCallback* callback, int solverId);
 
-	// Add a (list of) learned clause(s) to the formula
-	// The learned clauses might be added later or possibly never
-	void addLearnedClause(vector<int>& clauses);
-	void addLearnedClauses(vector<vector<int> >& clauses);
+  // Request the solver to produce more clauses
+  void increaseClauseProduction();
 
-	// Set a function that should be called for each learned clause
-	void setLearnedClauseCallback(LearnedClauseCallback* callback, int solverId);
+  // Get solver statistics
+  SolvingStatistics getStatistics();
+  // Diversify
+  void diversify(int rank, int size);
 
-	// Request the solver to produce more clauses
-	void increaseClauseProduction();
-
-	// Get solver statistics
-	SolvingStatistics getStatistics();
-	// Diversify
-	void diversify(int rank, int size);
-
-	// constructor
-	MiniSat();
-	// destructor
-	virtual ~MiniSat();
-
+  // constructor
+  MiniSat();
+  // destructor
+  virtual ~MiniSat();
 };
-
 
 #endif /* MINISAT_H_ */

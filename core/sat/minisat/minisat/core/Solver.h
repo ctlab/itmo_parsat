@@ -66,6 +66,12 @@ class Solver {
   bool addClause_(vec<Lit>& ps);  // Add a clause to the solver without making superflous internal
                                   // copy. Will change the passed vector 'ps'.
 
+  // Portfolio support
+  void (*learnedClsCallback)(const vec<Lit>&, void* issuer);  // callback for clause learning
+  void* issuer;                                               // used as the callback parameter
+  void addLearnedClause(const vec<Lit>& cls);                 // add a learned clause by hand
+  int lastDecision;  // the last decision made by the solver
+
   // Solving:
   //
   bool prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving);
@@ -373,6 +379,12 @@ class Solver {
 
 //=================================================================================================
 // Implementation of inline methods:
+inline void Solver::addLearnedClause(const vec<Lit>& cls) {
+  CRef cr = ca.alloc(cls, true);
+  learnts.push(cr);
+  attachClause(cr);
+  claBumpActivity(ca[cr]);
+}
 
 inline CRef Solver::reason(Var x) const {
   return vardata[x].reason;

@@ -1,0 +1,64 @@
+\hypertarget{classClauseDatabase}{}\doxysection{Clause\+Database Class Reference}
+\label{classClauseDatabase}\index{ClauseDatabase@{ClauseDatabase}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \mbox{\hyperlink{classClauseDatabase_a78919e90545e657acf44115ae833bf09}{add\+Clause}} (vector$<$ int $>$ \&clause)
+\item 
+void \mbox{\hyperlink{classClauseDatabase_aa238dd3e3cf204db61b8397f002b66b2}{add\+V\+I\+P\+Clause}} (vector$<$ int $>$ \&clause)
+\item 
+unsigned int \mbox{\hyperlink{classClauseDatabase_a6b9a5450188d087bb48752a903f7eebd}{give\+Selection}} (int $\ast$buffer, unsigned int size, int $\ast$selected\+Count=N\+U\+LL)
+\item 
+void \mbox{\hyperlink{classClauseDatabase_a28a745b013663aa388976eebcab5586b}{set\+Incoming\+Buffer}} (const int $\ast$buffer, int size, int nodes, int this\+Node)
+\item 
+bool \mbox{\hyperlink{classClauseDatabase_a3d902ce66fe17822b3976e6ce1de2fa1}{get\+Next\+Incoming\+V\+I\+P\+Clause}} (vector$<$ int $>$ \&clause)
+\item 
+bool \mbox{\hyperlink{classClauseDatabase_a8da8fb98b441a275d509f41c76a185e0}{get\+Next\+Incoming\+Clause}} (vector$<$ int $>$ \&clause)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classClauseDatabase_a78919e90545e657acf44115ae833bf09}\label{classClauseDatabase_a78919e90545e657acf44115ae833bf09}} 
+\index{ClauseDatabase@{ClauseDatabase}!addClause@{addClause}}
+\index{addClause@{addClause}!ClauseDatabase@{ClauseDatabase}}
+\doxysubsubsection{\texorpdfstring{addClause()}{addClause()}}
+{\footnotesize\ttfamily int $\ast$ Clause\+Database\+::add\+Clause (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{clause }\end{DoxyParamCaption})}
+
+Add a learned clause that you want to share. Return a pointer to it \mbox{\Hypertarget{classClauseDatabase_aa238dd3e3cf204db61b8397f002b66b2}\label{classClauseDatabase_aa238dd3e3cf204db61b8397f002b66b2}} 
+\index{ClauseDatabase@{ClauseDatabase}!addVIPClause@{addVIPClause}}
+\index{addVIPClause@{addVIPClause}!ClauseDatabase@{ClauseDatabase}}
+\doxysubsubsection{\texorpdfstring{addVIPClause()}{addVIPClause()}}
+{\footnotesize\ttfamily void Clause\+Database\+::add\+V\+I\+P\+Clause (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{clause }\end{DoxyParamCaption})}
+
+Add a very important learned clause that you want to share \mbox{\Hypertarget{classClauseDatabase_a8da8fb98b441a275d509f41c76a185e0}\label{classClauseDatabase_a8da8fb98b441a275d509f41c76a185e0}} 
+\index{ClauseDatabase@{ClauseDatabase}!getNextIncomingClause@{getNextIncomingClause}}
+\index{getNextIncomingClause@{getNextIncomingClause}!ClauseDatabase@{ClauseDatabase}}
+\doxysubsubsection{\texorpdfstring{getNextIncomingClause()}{getNextIncomingClause()}}
+{\footnotesize\ttfamily bool Clause\+Database\+::get\+Next\+Incoming\+Clause (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{clause }\end{DoxyParamCaption})}
+
+Fill the given clause with the literals of the next incomming clause. Return false if no more clauses. \mbox{\Hypertarget{classClauseDatabase_a3d902ce66fe17822b3976e6ce1de2fa1}\label{classClauseDatabase_a3d902ce66fe17822b3976e6ce1de2fa1}} 
+\index{ClauseDatabase@{ClauseDatabase}!getNextIncomingVIPClause@{getNextIncomingVIPClause}}
+\index{getNextIncomingVIPClause@{getNextIncomingVIPClause}!ClauseDatabase@{ClauseDatabase}}
+\doxysubsubsection{\texorpdfstring{getNextIncomingVIPClause()}{getNextIncomingVIPClause()}}
+{\footnotesize\ttfamily bool Clause\+Database\+::get\+Next\+Incoming\+V\+I\+P\+Clause (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{clause }\end{DoxyParamCaption})}
+
+Fill the given clause with the literals of the next V\+IP clause. Return false if no more V\+IP clauses. \mbox{\Hypertarget{classClauseDatabase_a6b9a5450188d087bb48752a903f7eebd}\label{classClauseDatabase_a6b9a5450188d087bb48752a903f7eebd}} 
+\index{ClauseDatabase@{ClauseDatabase}!giveSelection@{giveSelection}}
+\index{giveSelection@{giveSelection}!ClauseDatabase@{ClauseDatabase}}
+\doxysubsubsection{\texorpdfstring{giveSelection()}{giveSelection()}}
+{\footnotesize\ttfamily unsigned int Clause\+Database\+::give\+Selection (\begin{DoxyParamCaption}\item[{int $\ast$}]{buffer,  }\item[{unsigned int}]{size,  }\item[{int $\ast$}]{selected\+Count = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+Fill the given buffer with data for the sending our learned clauses Return the number of used memory, at most size.
+
+Format of the data in the buffer\+: pos 0\+: the total length of all V\+IP clauses (with separators) pos 1 .. k\+: the V\+IP clause literals separated by zeros pos k+1\+: the number of unary clauses pos k+2 .. l\+: the literals of unary clauses (without separators) pos l+1\+: the number of binary clauses pos l+2 .. m\+: the literals of binary clauses (without separators) ... until size ints are used. \mbox{\Hypertarget{classClauseDatabase_a28a745b013663aa388976eebcab5586b}\label{classClauseDatabase_a28a745b013663aa388976eebcab5586b}} 
+\index{ClauseDatabase@{ClauseDatabase}!setIncomingBuffer@{setIncomingBuffer}}
+\index{setIncomingBuffer@{setIncomingBuffer}!ClauseDatabase@{ClauseDatabase}}
+\doxysubsubsection{\texorpdfstring{setIncomingBuffer()}{setIncomingBuffer()}}
+{\footnotesize\ttfamily void Clause\+Database\+::set\+Incoming\+Buffer (\begin{DoxyParamCaption}\item[{const int $\ast$}]{buffer,  }\item[{int}]{size,  }\item[{int}]{nodes,  }\item[{int}]{this\+Node }\end{DoxyParamCaption})}
+
+Set the pointer for the buffer containing the incoming shared clauses which is a concatenation of the data returned by the give\+Selection method for all the nodes. Each part has \char`\"{}size\char`\"{} integers. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/hordesat/hordesat-\/src/utilities/Clause\+Database.\+h\item 
+core/sat/hordesat/hordesat-\/src/utilities/Clause\+Database.\+cpp\end{DoxyCompactItemize}

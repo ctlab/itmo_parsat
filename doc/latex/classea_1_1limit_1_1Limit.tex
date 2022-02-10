@@ -1,0 +1,74 @@
+\hypertarget{classea_1_1limit_1_1Limit}{}\doxysection{ea\+::limit\+::Limit Class Reference}
+\label{classea_1_1limit_1_1Limit}\index{ea::limit::Limit@{ea::limit::Limit}}
+
+
+This is an interface for all limits that control the execution of an algorithm.  
+
+
+
+
+{\ttfamily \#include $<$Limit.\+h$>$}
+
+
+
+Inheritance diagram for ea\+::limit\+::Limit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{classea_1_1limit_1_1Limit__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classea_1_1limit_1_1Limit_a52fd2ef621ed877cc66abd26c56c0685}{proceed}} (\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&algorithm)
+\item 
+virtual void \mbox{\hyperlink{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}{start}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1limit_1_1Limit_ad870e855fedaa1874ef98b356af3bbf0}\label{classea_1_1limit_1_1Limit_ad870e855fedaa1874ef98b356af3bbf0}} 
+virtual bool {\bfseries \+\_\+proceed} (\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&algorithm)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classea_1_1limit_1_1Limit_a4cb01d599b220a9393650134db2b7afa}\label{classea_1_1limit_1_1Limit_a4cb01d599b220a9393650134db2b7afa}} 
+class {\bfseries Conj\+Limit}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is an interface for all limits that control the execution of an algorithm. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classea_1_1limit_1_1Limit_a52fd2ef621ed877cc66abd26c56c0685}\label{classea_1_1limit_1_1Limit_a52fd2ef621ed877cc66abd26c56c0685}} 
+\index{ea::limit::Limit@{ea::limit::Limit}!proceed@{proceed}}
+\index{proceed@{proceed}!ea::limit::Limit@{ea::limit::Limit}}
+\doxysubsubsection{\texorpdfstring{proceed()}{proceed()}}
+{\footnotesize\ttfamily bool ea\+::limit\+::\+Limit\+::proceed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&}]{algorithm }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+if algorithm can and should proceed. All implementations automatically check if there are unvisited points left. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}\label{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}} 
+\index{ea::limit::Limit@{ea::limit::Limit}!start@{start}}
+\index{start@{start}!ea::limit::Limit@{ea::limit::Limit}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily virtual void ea\+::limit\+::\+Limit\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+true iff the algorithm should proceed. 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classea_1_1limit_1_1ConjLimit_a112e6884f8301c5df707a78e9dd72ec9}{ea\+::limit\+::\+Conj\+Limit}}, and \mbox{\hyperlink{classea_1_1limit_1_1ResourceLimit_ab836dc2ee7c4ef7718e2f63ae39dd107}{ea\+::limit\+::\+Resource\+Limit}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/evol/limit/Limit.\+h\item 
+core/evol/limit/Limit.\+cpp\end{DoxyCompactItemize}

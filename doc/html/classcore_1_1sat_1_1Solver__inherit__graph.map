@@ -1,0 +1,6 @@
+<map id="core::sat::Solver" name="core::sat::Solver">
+<area shape="rect" id="node1" title="SAT Solver interface." alt="" coords="227,5,354,32"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1HordeSatSolver.html" title=" " alt="" coords="5,80,192,107"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1ParSolver.html" title="Parallel solver implementation." alt="" coords="217,80,365,107"/>
+<area shape="rect" id="node4" href="$classcore_1_1sat_1_1SimpSolver.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="389,80,549,107"/>
+</map>
