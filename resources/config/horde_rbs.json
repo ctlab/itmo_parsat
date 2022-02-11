@@ -18,7 +18,7 @@
                     "prop_config": {
                         "prop_type": "ParProp",
                         "par_prop_config": {
-                            "max_threads": 8,
+                            "max_threads": 16,
                             "prop_config": {
                                 "prop_type": "SimpProp"
                             }
@@ -68,13 +68,13 @@
             "solver_type": "HordeSatSolver",
             "hordesat_solver_config": {
                 "seed": 239,
-                "threads": 8,
+                "threads": 16,
                 "verbose": 0,
                 "filter_duplicate_clauses": "true",
                 "max_rounds": 0,
                 "sharing_interval_us": 100000,
                 "wakeup_interval_us": 100,
-                "seq_solver": "LINGELING",
+                "seq_solver": "MINISAT",
                 "diversification": "SPARSE",
                 "clause_exchange_mode": "ALL_TO_ALL"
             }

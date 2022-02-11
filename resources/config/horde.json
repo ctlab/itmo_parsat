@@ -6,7 +6,7 @@
             "solver_type": "HordeSatSolver",
             "hordesat_solver_config": {
                 "seed": 239,
-                "threads": 8,
+                "threads": 16,
                 "verbose": 0,
                 "filter_duplicate_clauses": true,
                 "max_rounds": 0,

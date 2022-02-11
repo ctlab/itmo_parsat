@@ -193,8 +193,8 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   if (launch_config.threads_required > config.max_threads) {
     IPS_WARNING(
         "The test requires " << launch_config.threads_required << " threads, but only "
-                             << config.max_threads << " are available, thus skipped");
-    return {};
+                             << config.max_threads << " are available.");
+    launch_config.threads_required = config.max_threads;
   }
 
   // Setup result if unknown

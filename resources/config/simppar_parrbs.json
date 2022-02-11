@@ -4,7 +4,7 @@
     "par_rbs_solve_config": {
         "max_unpropagated": 100,
         "max_cartesian_size": 1000000,
-        "num_algorithms": 5,
+        "num_algorithms": 4,
         "algorithm_configs": [
             {
                 "algorithm_type": "EAAlgorithm",
@@ -22,7 +22,7 @@
                         "prop_config": {
                             "prop_type": "ParProp",
                             "par_prop_config": {
-                                "max_threads": 2,
+                                "max_threads": 4,
                                 "prop_config": {
                                     "prop_type": "SimpProp"
                                 }
@@ -78,7 +78,7 @@
         "solver_config": {
             "solver_type": "ParSolver",
             "par_solver_config": {
-                "max_threads": 8,
+                "max_threads": 16,
                 "solver_config": {
                     "solver_type": "SimpSolver",
                     "simp_solver_config": {
