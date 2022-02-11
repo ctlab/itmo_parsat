@@ -9,7 +9,7 @@ function do_desc() {
 }
 
 function get_ips_cid() {
-    cid=$(docker container ls | grep itmo-parsat | awk '{print $1}')
+    cid=$(docker container ls | grep "$IPS_NAME" | awk '{print $1}')
 }
 
 function get_pg_cid() {
@@ -78,7 +78,7 @@ function do_run_ips() {
                 --net=host \
                 --mount type=bind,source="$(pwd)",target="/home/$(id -un)/itmo-parsat" \
                 --mount type=bind,source="$(pwd)/../ips-artifacts",target="/home/$(id -un)/ips-artifacts" \
-                itmo-parsat \
+                "$IPS_NAME" \
         )
         echo "Started IPS container: $cid."
     fi
