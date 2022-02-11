@@ -45,7 +45,7 @@
                                 {
                                     "limit_type": "StallLimit",
                                     "stall_limit_config": {
-                                        "steps_before_stall": 1000
+                                        "steps_before_stall": 10000
                                     }
                                 }
                             ]
