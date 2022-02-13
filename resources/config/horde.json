@@ -5,14 +5,14 @@
         "solver_config": {
             "solver_type": "HordeSatSolver",
             "hordesat_solver_config": {
-                "seed": 239,
+                "seed": 2015,
                 "threads": 16,
                 "verbose": 0,
-                "filter_duplicate_clauses": true,
+                "filter_duplicate_clauses": false,
                 "max_rounds": 0,
-                "sharing_interval_us": 10000,
-                "wakeup_interval_us": 100,
-                "seq_solver": "MINISAT",
+                "sharing_interval_us": 100000,
+                "wakeup_interval_us": 100000,
+                "seq_solver": "LINGELING",
                 "diversification": "SPARSE",
                 "clause_exchange_mode": "ALL_TO_ALL"
             }
