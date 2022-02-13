@@ -12,6 +12,7 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
   options.add_options()
     ("help,h", po::bool_switch()->default_value(false), "Display help message")
     ("concurrency,j", po::value<uint32_t>()->default_value(std::thread::hardware_concurrency()), "Max concurrency")
+    ("time-limit", po::value<uint64_t>()->default_value(UINT64_MAX), "Time limit in seconds")
     ("branch", po::value<std::string>()->default_value("")->required(), "The current branch")
     ("commit", po::value<std::string>()->default_value("")->required(), "The current commit")
     ("pg-host", po::value<std::string>()->default_value("localhost"), "The host running DB")
@@ -61,6 +62,7 @@ int main(int argc, char** argv) {
     auto& config = LaunchFixture::config;
     config.unsat_only = args["unsat-only"].as<bool>();
     config.max_threads = args["concurrency"].as<uint32_t>();
+    config.time_limit_s = args["time-limit"].as<uint64_t>();
     config.pg_host = args["pg-host"].as<std::string>();
     config.test_groups = args["test-groups"].as<std::vector<std::string>>();
     config.allow_unspecified_size = args["allow-unspecified-size"].as<bool>();

@@ -21,6 +21,8 @@ LaunchResult from_string(std::string const& name) {
     return PASSED;
   } else if (name == "FAILED") {
     return FAILED;
+  } else if (name == "TLE") {
+    return TLE;
   }
   IPS_ERROR("Failed to convert LaunchResult from string: '" << name << "'");
   std::terminate();
@@ -36,6 +38,8 @@ std::string to_string(LaunchResult result) {
       return "PASSED";
     case FAILED:
       return "FAILED";
+    case TLE:
+      return "TLE";
   }
   std::terminate();
 }

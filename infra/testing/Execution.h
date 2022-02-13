@@ -23,12 +23,22 @@ class Execution {
   }
 
  public:
-  using callback_t = std::function<void(uint64_t, uint64_t, int, bool)>;
+  // clang-format off
+  using callback_t = std::function<void(
+      uint64_t,  // started_at
+      uint64_t,  // finished_at
+      int,       // exit code
+      bool,      // is interrupted?
+      bool       // time_limit is exceeded?
+  )>;
+  // clang-format on
 
  public:
   template <typename... Args, typename Stderr, typename Stdout>
-  explicit Execution(callback_t const& callback, Stderr d_stderr, Stdout d_stdout, Args&&... args) {
-    _thread = std::thread([this, callback, d_stderr, d_stdout,
+  explicit Execution(
+      callback_t const& callback, Stderr d_stderr, Stdout d_stdout, uint64_t time_limit_s,
+      Args&&... args) {
+    _thread = std::thread([this, time_limit_s, callback, d_stderr, d_stdout,
                            args = std::make_tuple(std::forward<Args>(args)...)]() mutable {
       uint64_t started_at = _timestamp();
       boost::process::child proc_ = std::apply(
@@ -41,18 +51,20 @@ class Execution {
       using namespace std::chrono_literals;
       std::unique_lock<std::mutex> lg(_cv_m);
 
-      while (!_interrupted && proc_.running()) {
+      bool time_limit_exceeded = false;
+      while (!_interrupted && proc_.running() && !time_limit_exceeded) {
         _cv.wait_for(lg, 100ms, [this, &proc_]() { return _interrupted || !proc_.running(); });
+        time_limit_exceeded = (_timestamp() - started_at) > time_limit_s;
       }
 
-      CHECK(_interrupted || !proc_.running());
+      CHECK(time_limit_exceeded || _interrupted || !proc_.running());
       if (proc_.running()) {
         LOG(INFO) << "Process is still running, killing it.";
         IPS_SYSCALL(kill(proc_.native_handle(), SIGKILL));
         proc_.wait();
       }
 
-      callback(started_at, _timestamp(), proc_.exit_code(), _interrupted);
+      callback(started_at, _timestamp(), proc_.exit_code(), _interrupted, time_limit_exceeded);
     });
   }
 

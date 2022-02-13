@@ -27,6 +27,7 @@ class LaunchFixture : public ::testing::Test {
     bool lookup{};
     bool save{};
     int size{};
+    uint64_t time_limit_s = UINT64_MAX;
     uint32_t max_threads = 0;
     std::filesystem::path executable{};
     std::filesystem::path resources_dir{};
@@ -58,7 +59,7 @@ class LaunchFixture : public ::testing::Test {
  public:
   LaunchFixture();
 
-  ~LaunchFixture() noexcept override;
+  ~LaunchFixture() noexcept = default;
 
   void interrupt();
 
@@ -90,7 +91,7 @@ class LaunchFixture : public ::testing::Test {
   static void _prepare_resources();
 
   static infra::domain::LaunchResult _get_launch_result(
-      bool interrupted, infra::domain::SatResult result,
+      bool interrupted, bool tle, infra::domain::SatResult result,
       infra::domain::SatResult expected) noexcept;
 
  private:

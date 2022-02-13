@@ -12,6 +12,7 @@ namespace infra::domain {
 
 enum LaunchResult {
   INTERRUPTED,
+  TLE,
   ERROR,
   PASSED,
   FAILED,
