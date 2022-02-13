@@ -63,7 +63,7 @@ class Prop {
    * @param search search engine.
    * @param callback callback to be called on each solve.
    */
-  virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
+  virtual void prop_assignments(domain::USplittableSearch search, prop_callback_t const& callback);
 
   /// @todo: documentation
   virtual uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) = 0;

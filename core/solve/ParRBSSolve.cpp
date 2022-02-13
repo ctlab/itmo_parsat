@@ -18,7 +18,7 @@ namespace core {
 
 ParRBSSolve::ParRBSSolve(ParRBSSolveConfig config) : _cfg(std::move(config)) {}
 
-void ParRBSSolve::_raise_for_sbs(int algorithm_id) noexcept {
+void ParRBSSolve::_raise_for_sbs(uint32_t algorithm_id) noexcept {
   bool expect = false;
   if (_sbs_found.compare_exchange_strong(expect, true)) {
     IPS_INFO("[" << algorithm_id << "] Found SBS.");
@@ -63,7 +63,10 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
           auto& algorithm = algorithms[i];
           auto& algorithm_solver = algorithm->get_prop();
           IPS_TRACE(algorithm_solver.parse_cnf(input));
-          algorithm->prepare();
+          if (!algorithm->prepare()) {
+            non_conflict_assignments[i].push_back({});
+            return;
+          }
           IPS_TRACE(algorithm->process());
 
           auto const& rho_backdoor = algorithm->get_best();
@@ -83,9 +86,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
               [&](bool conflict, auto const& assumption) {
                 ++total;
                 if (!conflict) {
-                  auto std_assumption = to_std_assump(assumption);
-                  std::lock_guard<std::mutex> lg(mutex);
-                  non_conflict_assignments[i].push_back(std_assumption);
+                  non_conflict_assignments[i].push_back(to_std_assump(assumption));
                 } else {
                   ++conflicts;
                 }
@@ -138,8 +139,8 @@ domain::USearch ParRBSSolve::_prepare_cartesian(
     result.push_back(std::move(*it));
   } else {
     uint64_t size = 1;
-    for (size_t i = 0; i < cartesian_set.size(); ++i) {
-      uint32_t cur_size = cartesian_set[i].size();
+    for (auto& c_set : cartesian_set) {
+      uint32_t cur_size = c_set.size();
       if (cur_size > max_non_conflict) {
         IPS_INFO("Skip because set is too large: " << cur_size);
         continue;
@@ -149,7 +150,7 @@ domain::USearch ParRBSSolve::_prepare_cartesian(
         continue;
       }
       IPS_INFO("Take set with size " << cur_size);
-      result.push_back(std::move(cartesian_set[i]));
+      result.push_back(std::move(c_set));
       size *= cur_size;
     }
   }

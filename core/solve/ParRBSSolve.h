@@ -37,7 +37,7 @@ class ParRBSSolve : public Solve {
   domain::USearch _prepare_cartesian(
       std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set);
 
-  void _raise_for_sbs(int algorithm_id) noexcept;
+  void _raise_for_sbs(uint32_t algorithm_id) noexcept;
 
  private:
   ParRBSSolveConfig _cfg;

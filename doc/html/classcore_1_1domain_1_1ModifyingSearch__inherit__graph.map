@@ -1,7 +1,0 @@
-<map id="core::domain::ModifyingSearch" name="core::domain::ModifyingSearch">
-<area shape="rect" id="node1" title="The base class for searches that step by modifying assignment." alt="" coords="207,80,431,107"/>
-<area shape="rect" id="node3" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="5,155,188,181"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="213,155,426,181"/>
-<area shape="rect" id="node5" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="450,155,655,181"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="240,5,399,32"/>
-</map>

@@ -2,13 +2,8 @@
 
 namespace core::domain {
 
-UniqueSearch::UniqueSearch(const VarView& var_view, const std::vector<bool>& vars, uint64_t total)
-    : ModifyingSearch(var_view, vars, total) {
-  _advance_us();
-}
-
-UniqueSearch::UniqueSearch(const VarView& var_view, const std::vector<bool>& vars)
-    : ModifyingSearch(var_view, vars) {
+UniqueSearch::UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+    : AssignmentModifier(var_view, vars), SplittableSearch(total) {
   _advance_us();
 }
 
@@ -32,6 +27,10 @@ UniqueSearch* UniqueSearch::clone() const {
 void UniqueSearch::_reset() {
   visited_.clear();
   _advance();
+}
+
+Minisat::vec<Minisat::Lit> const& UniqueSearch::operator()() const {
+  return get();
 }
 
 }  // namespace core::domain

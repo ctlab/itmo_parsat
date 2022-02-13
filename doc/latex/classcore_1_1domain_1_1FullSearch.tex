@@ -16,7 +16,7 @@ Inheritance diagram for core\+::domain\+::Full\+Search\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{classcore_1_1domain_1_1FullSearch__inherit__graph}
+\includegraphics[width=350pt]{classcore_1_1domain_1_1FullSearch__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -26,44 +26,72 @@ Collaboration diagram for core\+::domain\+::Full\+Search\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{classcore_1_1domain_1_1FullSearch__coll__graph}
+\includegraphics[width=350pt]{classcore_1_1domain_1_1FullSearch__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a17807841d60fdd2bba51e1bae8915bce}\label{classcore_1_1domain_1_1FullSearch_a17807841d60fdd2bba51e1bae8915bce}} 
-uint64\+\_\+t {\bfseries first} () const noexcept
+\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a494d3519fe2688520d0376996e535d52}\label{classcore_1_1domain_1_1FullSearch_a494d3519fe2688520d0376996e535d52}} 
+{\bfseries Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars)
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a3f2018b5721676c546f6a4d7ba263707}\label{classcore_1_1domain_1_1FullSearch_a3f2018b5721676c546f6a4d7ba263707}} 
-uint64\+\_\+t {\bfseries last} () const noexcept
+\mbox{\hyperlink{classcore_1_1domain_1_1FullSearch}{Full\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}{clone}} () const override
+\begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\item 
+Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ac4af45116b197f56fa6f0f9f575e3c14}{operator()}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a494d3519fe2688520d0376996e535d52}\label{classcore_1_1domain_1_1FullSearch_a494d3519fe2688520d0376996e535d52}} 
-{\bfseries Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars)
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_ac3c24d6c0add2b049449f261cf50b1ef}\label{classcore_1_1domain_1_1FullSearch_ac3c24d6c0add2b049449f261cf50b1ef}} 
 void {\bfseries \+\_\+advance} () override
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a1aee4a4e7876032a6410f8a83d64d504}\label{classcore_1_1domain_1_1FullSearch_a1aee4a4e7876032a6410f8a83d64d504}} 
 void {\bfseries \+\_\+reset} () override
-\item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}\label{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}} 
-\mbox{\hyperlink{classcore_1_1domain_1_1FullSearch}{Full\+Search}} $\ast$ {\bfseries clone} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a103203dd61229e83b8e25ecaa6ebfc36}\label{classcore_1_1domain_1_1FullSearch_a103203dd61229e83b8e25ecaa6ebfc36}} 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch}{Full\+Search}} $>$ {\bfseries create\+Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&)
+\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a4dfe2fd07d3f55b52c273007f6215324}\label{classcore_1_1domain_1_1FullSearch_a4dfe2fd07d3f55b52c273007f6215324}} 
+U\+Full\+Search {\bfseries create\+Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
 The class used to perform full search. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}\label{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}} 
+\index{core::domain::FullSearch@{core::domain::FullSearch}!clone@{clone}}
+\index{clone@{clone}!core::domain::FullSearch@{core::domain::FullSearch}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch}{Full\+Search}} $\ast$ core\+::domain\+::\+Full\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Clones the current search. 
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1SplittableSearch_a4e873898a0ec72cf851990814c00a5f1}{core\+::domain\+::\+Splittable\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_ac4af45116b197f56fa6f0f9f575e3c14}\label{classcore_1_1domain_1_1FullSearch_ac4af45116b197f56fa6f0f9f575e3c14}} 
+\index{core::domain::FullSearch@{core::domain::FullSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::domain::FullSearch@{core::domain::FullSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& core\+::domain\+::\+Full\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{core\+::domain\+::\+Search}}.
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

@@ -18,7 +18,7 @@ void collect_stats(
 
 namespace ea::algorithm {
 
-void Algorithm::_init_shared_data(InstanceConfig const& config) {
+bool Algorithm::_init_shared_data(InstanceConfig const& config) {
   _shared_data = std::make_shared<instance::SharedData>();
   _shared_data->omega_x = config.omega_x();
   _shared_data->cache.set_max_size(config.max_cache_size());
@@ -44,7 +44,14 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   std::sort(stats.begin(), stats.end());
   auto it = stats.crbegin();
 
-  for (uint32_t i = 0; i < max_watched_count; ++i, ++it) {
+  /// @brief Check if the 'best' variable has propagated more than one literal.
+  /// otherwise, it makes no sense to use EA for this problem.
+  if (it->first <= 1) {
+    IPS_WARNING("Algorithm will not proceed because best prop is 1.");
+    return false;
+  }
+
+  for (uint32_t i = 0; i < max_watched_count && it->first > 1; ++i, ++it) {
     _shared_data->var_view.map_var((int) i, it->second);
   }
 
@@ -56,6 +63,7 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
     }
     IPS_INFO("Heuristic init:\n" << ss.str());
   }
+  return true;
 }
 
 void Algorithm::_add_instance() {
@@ -67,9 +75,13 @@ Algorithm::Algorithm(BaseAlgorithmConfig const& config)
     , _prop(core::sat::prop::PropRegistry::resolve(config.prop_config()))
     , _limit(limit::LimitRegistry::resolve(config.limit_config())) {}
 
-void Algorithm::prepare() {
-  _init_shared_data(_instance_config);
-  _prepare();
+bool Algorithm::prepare() {
+  if (!_init_shared_data(_instance_config)) {
+    return false;
+  } else {
+    _prepare();
+    return true;
+  }
 }
 
 void Algorithm::_prepare() {}
