@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['uniformmutation_191',['UniformMutation',['../classea_1_1method_1_1UniformMutation.html',1,'ea::method']]],
-  ['uniquesearch_192',['UniqueSearch',['../classcore_1_1domain_1_1UniqueSearch.html',1,'core::domain']]],
-  ['unset_193',['unset',['../classcore_1_1signal_1_1SigHandler.html#a7dd88aa5e820142a16202cb171cdb3fe',1,'core::signal::SigHandler']]]
+  ['var_5fview_117',['var_view',['../structea_1_1instance_1_1SharedData.html#ad3fd332292f9de8ed19732f05da69f3b',1,'ea::instance::SharedData']]],
+  ['vars_118',['Vars',['../structcore_1_1domain_1_1Vars.html',1,'core::domain']]],
+  ['varview_119',['VarView',['../classcore_1_1domain_1_1VarView.html',1,'core::domain::VarView'],['../classcore_1_1domain_1_1VarView.html#a8aa25b240be2e924439782f586271dc9',1,'core::domain::VarView::VarView()']]]
 ];

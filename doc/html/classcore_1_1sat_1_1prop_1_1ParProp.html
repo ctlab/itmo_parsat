@@ -105,27 +105,27 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7ddf577bd58f55fdd79bb1e17c7e0c29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a7ddf577bd58f55fdd79bb1e17c7e0c29">parse_cnf</a> (std::filesystem::path const &amp;input) override</td></tr>
 <tr class="memdesc:a7ddf577bd58f55fdd79bb1e17c7e0c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#a7ddf577bd58f55fdd79bb1e17c7e0c29">More...</a><br /></td></tr>
 <tr class="separator:a7ddf577bd58f55fdd79bb1e17c7e0c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a4a054aa235cc08a8171ec9d35eb5f17b">propagate</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;assumptions, <a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; &amp;propagated) override</td></tr>
+<tr class="memitem:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a4a054aa235cc08a8171ec9d35eb5f17b">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions, Minisat::vec&lt; Minisat::Lit &gt; &amp;propagated) override</td></tr>
 <tr class="memdesc:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#a4a054aa235cc08a8171ec9d35eb5f17b">More...</a><br /></td></tr>
 <tr class="separator:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae392f2128831436a9e15e68bc274b8d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#ae392f2128831436a9e15e68bc274b8d4">prop_assignments</a> (domain::USearch assignment, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a> const &amp;callback) override</td></tr>
 <tr class="memdesc:ae392f2128831436a9e15e68bc274b8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#ae392f2128831436a9e15e68bc274b8d4">More...</a><br /></td></tr>
 <tr class="separator:ae392f2128831436a9e15e68bc274b8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dcfa4fea83f4cd653abc8e8a63aa4df"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a6dcfa4fea83f4cd653abc8e8a63aa4df">prop_tree</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;vars, uint32_t head_size) override</td></tr>
+<tr class="memitem:a6dcfa4fea83f4cd653abc8e8a63aa4df"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a6dcfa4fea83f4cd653abc8e8a63aa4df">prop_tree</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;vars, uint32_t head_size) override</td></tr>
 <tr class="separator:a6dcfa4fea83f4cd653abc8e8a63aa4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3751024fcb1dad93a47adf190ec91eb8"><td class="memItemLeft" align="right" valign="top"><a id="a3751024fcb1dad93a47adf190ec91eb8"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a3751024fcb1dad93a47adf190ec91eb8">num_vars</a> () const noexcept override</td></tr>
 <tr class="memdesc:a3751024fcb1dad93a47adf190ec91eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
 <tr class="separator:a3751024fcb1dad93a47adf190ec91eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1sat_1_1prop_1_1Prop')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a></td></tr>
-<tr class="memitem:ad90b01c01f8287663c0096f2b69eb440 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#ad90b01c01f8287663c0096f2b69eb440">propagate</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;assumptions)</td></tr>
+<tr class="memitem:ad90b01c01f8287663c0096f2b69eb440 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#ad90b01c01f8287663c0096f2b69eb440">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)</td></tr>
 <tr class="memdesc:ad90b01c01f8287663c0096f2b69eb440 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#ad90b01c01f8287663c0096f2b69eb440">More...</a><br /></td></tr>
 <tr class="separator:ad90b01c01f8287663c0096f2b69eb440 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classcore_1_1sat_1_1prop_1_1Prop')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a></td></tr>
-<tr class="memitem:a8b1a3b21d711913befbcaa0d2e8ad727 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, <a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a></td></tr>
+<tr class="memitem:a8b1a3b21d711913befbcaa0d2e8ad727 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a></td></tr>
 <tr class="separator:a8b1a3b21d711913befbcaa0d2e8ad727 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -226,7 +226,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">uint64_t core::sat::prop::ParProp::prop_tree </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -265,13 +265,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool core::sat::prop::ParProp::propagate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; &amp;&#160;</td>
           <td class="paramname"><em>propagated</em>&#160;</td>
         </tr>
         <tr>

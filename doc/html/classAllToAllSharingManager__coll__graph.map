@@ -1,9 +1,0 @@
-<map id="AllToAllSharingManager" name="AllToAllSharingManager">
-<area shape="rect" id="node1" title=" " alt="" coords="309,81,485,108"/>
-<area shape="rect" id="node4" href="$classAllToAllSharingManager_1_1Callback.html" title=" " alt="" coords="592,43,768,85"/>
-<area shape="rect" id="node2" href="$classSharingManagerInterface.html" title=" " alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node3" href="$classClauseDatabase.html" title=" " alt="" coords="35,56,163,83"/>
-<area shape="rect" id="node5" href="$classLearnedClauseCallback.html" title=" " alt="" coords="310,16,485,43"/>
-<area shape="rect" id="node6" href="$classClauseFilter.html" title=" " alt="" coords="49,107,148,133"/>
-<area shape="rect" id="node7" href="$structSharingStatistics.html" title=" " alt="" coords="33,157,164,184"/>
-</map>

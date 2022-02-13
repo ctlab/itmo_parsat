@@ -94,7 +94,7 @@ Inheritance diagram for core::sat::Solver:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6e1e46913b318e834e03c9867beff4ac"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, <a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a></td></tr>
+<tr class="memitem:a6e1e46913b318e834e03c9867beff4ac"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a></td></tr>
 <tr class="separator:a6e1e46913b318e834e03c9867beff4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -105,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a935d83bb55ec017dbe4f68949407f905"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">solve_limited</a> ()</td></tr>
 <tr class="memdesc:a935d83bb55ec017dbe4f68949407f905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7" title="Runs solution with the specified assumptions.">Solver::solve</a>({}).  <a href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">More...</a><br /></td></tr>
 <tr class="separator:a935d83bb55ec017dbe4f68949407f905"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a213663cc046932a939b43cd027f9bdb7"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">solve</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
+<tr class="memitem:a213663cc046932a939b43cd027f9bdb7"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">solve</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
 <tr class="memdesc:a213663cc046932a939b43cd027f9bdb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">More...</a><br /></td></tr>
 <tr class="separator:a213663cc046932a939b43cd027f9bdb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3893db285a22a2988ec7ffc0b469187"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aa3893db285a22a2988ec7ffc0b469187">solve_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a> const &amp;callback)</td></tr>
@@ -127,7 +127,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a6ae000c28f2f1f3650ac0ae10ce9c9e8">num_vars</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a6ae000c28f2f1f3650ac0ae10ce9c9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
 <tr class="separator:a6ae000c28f2f1f3650ac0ae10ce9c9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee15df9d8d31e056eec3e8f3dfee6987"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aee15df9d8d31e056eec3e8f3dfee6987">propagate_confl</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
+<tr class="memitem:aee15df9d8d31e056eec3e8f3dfee6987"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#aee15df9d8d31e056eec3e8f3dfee6987">propagate_confl</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
 <tr class="separator:aee15df9d8d31e056eec3e8f3dfee6987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -149,7 +149,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::function&lt; bool( State, bool, <a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt;Minisat::Lit&gt; const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">core::sat::Solver::slv_callback_t</a></td>
+          <td class="memname">typedef std::function&lt; bool( State, bool, Minisat::vec&lt;Minisat::Lit&gt; const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">core::sat::Solver::slv_callback_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -206,7 +206,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
         <tr>
           <td class="memname">virtual bool core::sat::Solver::propagate_confl </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -241,7 +241,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
         <tr>
           <td class="memname">virtual State core::sat::Solver::solve </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>

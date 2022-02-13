@@ -37,11 +37,11 @@ Collaboration diagram for core\+::sat\+::Par\+Solver\+:
 \item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a067f0110a262d4eca5f8ba60dd339897}{parse\+\_\+cnf}} (std\+::filesystem\+::path const \&input) override
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-State \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a3cb742a3f61e05f02dddf34f965e71ba}{solve}} (\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+State \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a3cb742a3f61e05f02dddf34f965e71ba}{solve}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aface88f5376860219f9e653683d93d98}{solve\+\_\+assignments}} (domain\+::\+U\+Search assignment, \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}} const \&callback) override
 \begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a93dfaed43378d01fd38ffc3ee87c66be}{propagate\+\_\+confl}} (\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+bool \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_a93dfaed43378d01fd38ffc3ee87c66be}{propagate\+\_\+confl}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
 \item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1ParSolver_aab155ed21ff328d17be258175cee1224}\label{classcore_1_1sat_1_1ParSolver_aab155ed21ff328d17be258175cee1224}} 
 unsigned \mbox{\hyperlink{classcore_1_1sat_1_1ParSolver_aab155ed21ff328d17be258175cee1224}{num\+\_\+vars}} () const noexcept override
@@ -76,7 +76,7 @@ Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a9cf6db209b1c87813e06c5b6
 \index{core::sat::ParSolver@{core::sat::ParSolver}!propagate\_confl@{propagate\_confl}}
 \index{propagate\_confl@{propagate\_confl}!core::sat::ParSolver@{core::sat::ParSolver}}
 \doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
-{\footnotesize\ttfamily bool core\+::sat\+::\+Par\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool core\+::sat\+::\+Par\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 \begin{DoxyParams}{Parameters}
@@ -94,7 +94,7 @@ Implements \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3
 \index{core::sat::ParSolver@{core::sat::ParSolver}!solve@{solve}}
 \index{solve@{solve}!core::sat::ParSolver@{core::sat::ParSolver}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily State core\+::sat\+::\+Par\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily State core\+::sat\+::\+Par\+Solver\+::solve (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 

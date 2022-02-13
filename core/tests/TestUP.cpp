@@ -26,8 +26,7 @@ uint64_t num_conflicts_in_subtree(
 
 TEST(unit_propagation, correctness_performance) {
   core::Generator gen(239);
-  std::filesystem::path cnf_path =
-      "/home/dzhiblavi/itmo-parsat/resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf";
+  std::filesystem::path cnf_path = "./resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf";
 
   core::sat::prop::SimpProp simp_prop;
   core::sat::prop::Prop& sat_solver = simp_prop;
@@ -58,8 +57,7 @@ TEST(unit_propagation, correctness_performance) {
 
 TEST(subtree_propagation, correctness_performance) {
   core::Generator gen(239);
-  std::filesystem::path cnf_path =
-      "/home/dzhiblavi/itmo-parsat/resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf";
+  std::filesystem::path cnf_path = "./resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf";
   Minisat::SimpSolver solver;
 
   {

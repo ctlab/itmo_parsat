@@ -105,13 +105,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a067f0110a262d4eca5f8ba60dd339897"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a067f0110a262d4eca5f8ba60dd339897">parse_cnf</a> (std::filesystem::path const &amp;input) override</td></tr>
 <tr class="memdesc:a067f0110a262d4eca5f8ba60dd339897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1ParSolver.html#a067f0110a262d4eca5f8ba60dd339897">More...</a><br /></td></tr>
 <tr class="separator:a067f0110a262d4eca5f8ba60dd339897"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cb742a3f61e05f02dddf34f965e71ba"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a3cb742a3f61e05f02dddf34f965e71ba">solve</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;assumptions) override</td></tr>
+<tr class="memitem:a3cb742a3f61e05f02dddf34f965e71ba"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a3cb742a3f61e05f02dddf34f965e71ba">solve</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</td></tr>
 <tr class="memdesc:a3cb742a3f61e05f02dddf34f965e71ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1ParSolver.html#a3cb742a3f61e05f02dddf34f965e71ba">More...</a><br /></td></tr>
 <tr class="separator:a3cb742a3f61e05f02dddf34f965e71ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aface88f5376860219f9e653683d93d98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#aface88f5376860219f9e653683d93d98">solve_assignments</a> (domain::USearch assignment, <a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a> const &amp;callback) override</td></tr>
 <tr class="memdesc:aface88f5376860219f9e653683d93d98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves CNF on all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1ParSolver.html#aface88f5376860219f9e653683d93d98">More...</a><br /></td></tr>
 <tr class="separator:aface88f5376860219f9e653683d93d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93dfaed43378d01fd38ffc3ee87c66be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a93dfaed43378d01fd38ffc3ee87c66be">propagate_confl</a> (<a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;assumptions) override</td></tr>
+<tr class="memitem:a93dfaed43378d01fd38ffc3ee87c66be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#a93dfaed43378d01fd38ffc3ee87c66be">propagate_confl</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions) override</td></tr>
 <tr class="separator:a93dfaed43378d01fd38ffc3ee87c66be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab155ed21ff328d17be258175cee1224"><td class="memItemLeft" align="right" valign="top"><a id="aab155ed21ff328d17be258175cee1224"></a>
 unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1ParSolver.html#aab155ed21ff328d17be258175cee1224">num_vars</a> () const noexcept override</td></tr>
@@ -137,7 +137,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classcore_1_1sat_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classcore_1_1sat_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classcore_1_1sat_1_1Solver.html">core::sat::Solver</a></td></tr>
-<tr class="memitem:a6e1e46913b318e834e03c9867beff4ac inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, <a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a></td></tr>
+<tr class="memitem:a6e1e46913b318e834e03c9867beff4ac inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a></td></tr>
 <tr class="separator:a6e1e46913b318e834e03c9867beff4ac inherit pub_types_classcore_1_1sat_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -191,7 +191,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">bool core::sat::ParSolver::propagate_confl </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -226,7 +226,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">State core::sat::ParSolver::solve </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMinisat_1_1vec.html">Minisat::vec</a>&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>

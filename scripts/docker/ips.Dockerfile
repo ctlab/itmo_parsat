@@ -1,11 +1,7 @@
 FROM ubuntu:20.04
 
 ARG user
-ARG group
-ARG uid
-ARG gid
 ARG DEBIAN_FRONTEND=nointeractive
-RUN groupadd --gid ${gid} ${group} && useradd --uid ${uid} --gid ${gid} --shell /bin/bash --create-home ${user}
 
 WORKDIR /tmp
 
@@ -36,5 +32,4 @@ RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/p
     tar xvf protobuf-all-3.14.0.tar.gz --no-same-owner && cd protobuf-3.14.0 && \
     ./configure && make -j $(nproc) && make install && ldconfig
 
-USER ${user}
 WORKDIR /home/${user}

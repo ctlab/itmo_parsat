@@ -22,7 +22,7 @@ Inheritance diagram for core\+::sat\+::Solver\+:
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-typedef std\+::function$<$ bool(State, bool, \mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const  \&)$>$ \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}}
+typedef std\+::function$<$ bool(State, bool, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \&)$>$ \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -31,7 +31,7 @@ virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a9cf6db209b1c87813e06c5
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
 State \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a935d83bb55ec017dbe4f68949407f905}{solve\+\_\+limited}} ()
 \begin{DoxyCompactList}\small\item\em Equivalent to \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{Solver\+::solve}}(\{\}). \end{DoxyCompactList}\item 
-virtual State \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{solve}} (\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&assumptions)=0
+virtual State \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a213663cc046932a939b43cd027f9bdb7}{solve}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)=0
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aa3893db285a22a2988ec7ffc0b469187}{solve\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{slv\+\_\+callback\+\_\+t}} const \&callback)
 \begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
@@ -47,7 +47,7 @@ bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aad62af916fffe1f8622ef57f2041fc
 \mbox{\Hypertarget{classcore_1_1sat_1_1Solver_a6ae000c28f2f1f3650ac0ae10ce9c9e8}\label{classcore_1_1sat_1_1Solver_a6ae000c28f2f1f3650ac0ae10ce9c9e8}} 
 virtual unsigned \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6ae000c28f2f1f3650ac0ae10ce9c9e8}{num\+\_\+vars}} () const noexcept=0
 \begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
-virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}{propagate\+\_\+confl}} (\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&assumptions)=0
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1Solver_aee15df9d8d31e056eec3e8f3dfee6987}{propagate\+\_\+confl}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -68,7 +68,7 @@ S\+AT \mbox{\hyperlink{classcore_1_1sat_1_1Solver}{Solver}} interface.
 \index{core::sat::Solver@{core::sat::Solver}!slv\_callback\_t@{slv\_callback\_t}}
 \index{slv\_callback\_t@{slv\_callback\_t}!core::sat::Solver@{core::sat::Solver}}
 \doxysubsubsection{\texorpdfstring{slv\_callback\_t}{slv\_callback\_t}}
-{\footnotesize\ttfamily typedef std\+::function$<$ bool( State, bool, \mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$Minisat\+::\+Lit$>$ const\& )$>$ \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{core\+::sat\+::\+Solver\+::slv\+\_\+callback\+\_\+t}}}
+{\footnotesize\ttfamily typedef std\+::function$<$ bool( State, bool, Minisat\+::vec$<$Minisat\+::\+Lit$>$ const\& )$>$ \mbox{\hyperlink{classcore_1_1sat_1_1Solver_a6e1e46913b318e834e03c9867beff4ac}{core\+::sat\+::\+Solver\+::slv\+\_\+callback\+\_\+t}}}
 
 Both callbacks types must be thread safe for asynchronous implementations. 
 
@@ -96,7 +96,7 @@ Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1HordeSatSolver_a5311a461b148
 \index{core::sat::Solver@{core::sat::Solver}!propagate\_confl@{propagate\_confl}}
 \index{propagate\_confl@{propagate\_confl}!core::sat::Solver@{core::sat::Solver}}
 \doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
-{\footnotesize\ttfamily virtual bool core\+::sat\+::\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual bool core\+::sat\+::\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 \begin{DoxyParams}{Parameters}
@@ -114,7 +114,7 @@ Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1HordeSatSolver_a1d7b052b0e17
 \index{core::sat::Solver@{core::sat::Solver}!solve@{solve}}
 \index{solve@{solve}!core::sat::Solver@{core::sat::Solver}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily virtual State core\+::sat\+::\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMinisat_1_1vec}{Minisat\+::vec}}$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual State core\+::sat\+::\+Solver\+::solve (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
