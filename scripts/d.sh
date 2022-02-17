@@ -1,7 +1,8 @@
 #!/bin/bash
 source scripts/base.sh
 
-IPS_NAME="dzhiblavi/itmo-parsat:dev"
+IPS_NAME="itmo-parsat"
+DB_NAME="infra_pg_db"
 
 function do_desc() {
     echo "Docker containers manipulation utility."
@@ -9,11 +10,11 @@ function do_desc() {
 }
 
 function get_ips_cid() {
-    cid=$(docker container ls | grep itmo-parsat | awk '{print $1}')
+    cid=$(docker container ls | grep "$IPS_NAME" | awk '{print $1}')
 }
 
 function get_pg_cid() {
-    cid=$(docker container ls | grep infra_pg_db | awk '{print $1}')
+    cid=$(docker container ls | grep "$DB_NAME" | awk '{print $1}')
 }
 
 function do_run_pg() {
@@ -22,7 +23,7 @@ function do_run_pg() {
         echo "DB container is already running: $cid"
     else
         cid=$(
-            docker run --name infra_pg_db \
+            docker run --name "$DB_NAME" \
                 -p 5432:5432 \
                 -e POSTGRES_USER=ips \
                 -e POSTGRES_PASSWORD=ips \
@@ -47,7 +48,7 @@ function do_stop_pg() {
     if [[ -n "$cid" ]]; then
         echo "Stopping DB container $cid."
         docker stop "$cid"
-        docker rm infra_pg_db || true
+        docker rm "$DB_NAME" || true
     else
         echo "DB Container is not running."
     fi
@@ -77,8 +78,7 @@ function do_run_ips() {
             docker run -dt \
                 --net=host \
                 --mount type=bind,source="$(pwd)",target="/home/$(id -un)/itmo-parsat" \
-                --mount type=bind,source="$(pwd)/../ips-artifacts",target="/home/$(id -un)/ips-artifacts" \
-                itmo-parsat \
+                "$IPS_NAME" \
         )
         echo "Started IPS container: $cid."
     fi
@@ -88,11 +88,7 @@ function do_build() {
     echo "Stopping IPS container..."
     do_stop_ips
     echo "Building IPS container..."
-    docker build -t "$IPS_NAME" \
-        --build-arg user=$(id -un)  \
-        --build-arg uid=$(id -u)    \
-        --build-arg group=$(id -gn) \
-        --build-arg gid=$(id -g) .
+    docker build -t "$IPS_NAME" --build-arg user=$(id -un) .
 }
 
 function do_attach_ips() {
@@ -125,10 +121,6 @@ function show_status() {
     fi
 }
 
-function do_singular() {
-    singularity run "$IPS_NAME"
-}
-
 function do_status() {
     get_pg_cid
     show_status "$cid" "PG"
@@ -136,17 +128,16 @@ function do_status() {
     show_status "$cid" "IPS"
 }
 
-add_option "--stop-all|-s" "  Stop all running containers" do_stop_all   0
+add_option "-s|--stop-all" "  Stop all running containers" do_stop_all   0
+add_option "-a|--attach-ips" "Attach to ips container"     do_attach_ips 0
+add_option "-b|--build" "     Rebuild IPS container"       do_build      0
+add_option "-r|--run-ips" "   Run IPS container"           do_run_ips    0
 add_option "--stop-ips" "     Stop IPS container"          do_stop_ips   0
 add_option "--stop-pg" "      Stop PG container"           do_stop_pg    0
-add_option "--attach-ips|-a" "Attach to ips container"     do_attach_ips 0
 add_option "--attach-pg" "    Attach to PG container"      do_attach_pg  0
-add_option "--build|-b" "     Rebuild IPS container"       do_build      0
 add_option "--run-pg" "       Run PG container"            do_run_pg     0
-add_option "--run-ips" "      Run IPS container"           do_run_ips    0
-add_option "--run|-r" "       Run all containers"          do_run_all    0
+add_option "--run" "          Run all containers"          do_run_all    0
 add_option "--status" "       Display containers' status"  do_status     0
-add_option "--singular" "     Start singularity container" do_singular   0
 
 function main() {
     parse_options "$@"

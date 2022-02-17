@@ -48,16 +48,9 @@ void CartesianSearch::_advance() {
   _set_cur(std::max(index, 0));
 }
 
-void CartesianSearch::_reset() {
-  IPS_ERROR("Reset/Split is not supported for CartesianSearch");
-}
-
-CartesianSearch* CartesianSearch::clone() const {
-  return new CartesianSearch(*this);
-}
-
-USearch createCartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian) {
-  return USearch(new CartesianSearch(std::move(cartesian)));
+UCartesianSearch createCartesianSearch(
+    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian) {
+  return UCartesianSearch(new CartesianSearch(std::move(cartesian)));
 }
 
 }  // namespace core::domain

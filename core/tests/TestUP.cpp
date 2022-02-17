@@ -1,13 +1,10 @@
 #include <gtest/gtest.h>
 #include <filesystem>
-#include <fstream>
 
 #include "minisat/core/Dimacs.h"
 #include "minisat/simp/SimpSolver.h"
 #include "core/sat/prop/SimpProp.h"
-#include "core/util/CliConfig.h"
 #include "core/util/Generator.h"
-#include "core/util/stream.h"
 #include "core/util/Tracer.h"
 #include "core/util/GzFile.h"
 

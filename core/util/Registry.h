@@ -35,9 +35,9 @@ namespace core {
     INTERFACE* _resolve(CONFIG_TYPE const& config) {                                    \
       std::string name = config.NAME##_type();                                          \
       IPS_EVENT("Resolve " + name)                                                      \
-      IPS_VERIFY(                                                                       \
-          map_.count(name) > 0 &&                                                       \
-          bool("Trying to resolve non-existing implementation of " #NAME));             \
+      IPS_VERIFY_S(                                                                     \
+          map_.count(name) > 0,                                                         \
+          "Trying to resolve non-existing implementation of " #NAME << ": " << name);   \
       return map_[name](config);                                                        \
     }                                                                                   \
                                                                                         \

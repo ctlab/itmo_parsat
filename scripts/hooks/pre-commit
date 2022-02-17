@@ -58,7 +58,7 @@ RUN="./scripts/run.sh"
 
 hooks=(
     "$RUN --format"
-    "$RUN -g debug --build --build-unit --build-infra"
+    "$RUN -g DEV_FAST --build"
     "$RUN --unit"
     "$RUN -v 6 -- --run-infra --size 0 --test-groups common --"
     "$RUN --build-doc"

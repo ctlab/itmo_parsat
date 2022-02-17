@@ -1,6 +1,0 @@
-[submodule "ext/libpqxx"]
-	path = ext/libpqxx
-	url = https://github.com/jtv/libpqxx
-[submodule "ext/cppgit2"]
-	path = ext/cppgit2
-	url = https://github.com/p-ranav/cppgit2

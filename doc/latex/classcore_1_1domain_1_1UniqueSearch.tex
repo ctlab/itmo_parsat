@@ -16,7 +16,7 @@ Inheritance diagram for core\+::domain\+::Unique\+Search\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{classcore_1_1domain_1_1UniqueSearch__inherit__graph}
+\includegraphics[width=350pt]{classcore_1_1domain_1_1UniqueSearch__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -26,7 +26,7 @@ Collaboration diagram for core\+::domain\+::Unique\+Search\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{classcore_1_1domain_1_1UniqueSearch__coll__graph}
+\includegraphics[width=350pt]{classcore_1_1domain_1_1UniqueSearch__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -35,8 +35,7 @@ Collaboration diagram for core\+::domain\+::Unique\+Search\+:
 \mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a703c4a918e5e14e84a7a3356584ffe0d}\label{classcore_1_1domain_1_1UniqueSearch_a703c4a918e5e14e84a7a3356584ffe0d}} 
 {\bfseries Unique\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars, uint64\+\_\+t total)
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a3be621d179ebb5b3d8076d5e76e12dad}\label{classcore_1_1domain_1_1UniqueSearch_a3be621d179ebb5b3d8076d5e76e12dad}} 
-{\bfseries Unique\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars)
+Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_aa751e3e4177d9bedabe217452630802a}{operator()}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -47,9 +46,8 @@ void {\bfseries \+\_\+advance} () override
 \mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a31b1c6fb15eeff33682b092343763187}\label{classcore_1_1domain_1_1UniqueSearch_a31b1c6fb15eeff33682b092343763187}} 
 void {\bfseries \+\_\+reset} () override
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a69512d46fec4e98dbefb3812125602b4}\label{classcore_1_1domain_1_1UniqueSearch_a69512d46fec4e98dbefb3812125602b4}} 
-\mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch}{Unique\+Search}} $\ast$ {\bfseries clone} () const override
-\item 
+\mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch}{Unique\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_a69512d46fec4e98dbefb3812125602b4}{clone}} () const override
+\begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_aed154199c5fa207678578a46adeef687}\label{classcore_1_1domain_1_1UniqueSearch_aed154199c5fa207678578a46adeef687}} 
 void {\bfseries \+\_\+advance\+\_\+us} ()
 \end{DoxyCompactItemize}
@@ -59,14 +57,47 @@ void {\bfseries \+\_\+advance\+\_\+us} ()
 \mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a103203dd61229e83b8e25ecaa6ebfc36}\label{classcore_1_1domain_1_1UniqueSearch_a103203dd61229e83b8e25ecaa6ebfc36}} 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch}{Full\+Search}} $>$ {\bfseries create\+Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&)
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a92ef461872bdf5de495cf202d85aaa08}\label{classcore_1_1domain_1_1UniqueSearch_a92ef461872bdf5de495cf202d85aaa08}} 
-U\+Search {\bfseries create\+Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&, uint64\+\_\+t)
+\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a2b60a3c98697c92e91441f095eb86cad}\label{classcore_1_1domain_1_1UniqueSearch_a2b60a3c98697c92e91441f095eb86cad}} 
+U\+Splittable\+Search {\bfseries create\+Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&, uint64\+\_\+t)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
 The class used to perform unique random search. Used for small sets of variables. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a69512d46fec4e98dbefb3812125602b4}\label{classcore_1_1domain_1_1UniqueSearch_a69512d46fec4e98dbefb3812125602b4}} 
+\index{core::domain::UniqueSearch@{core::domain::UniqueSearch}!clone@{clone}}
+\index{clone@{clone}!core::domain::UniqueSearch@{core::domain::UniqueSearch}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch}{Unique\+Search}} $\ast$ core\+::domain\+::\+Unique\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Clones the current search. 
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1SplittableSearch_a4e873898a0ec72cf851990814c00a5f1}{core\+::domain\+::\+Splittable\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_aa751e3e4177d9bedabe217452630802a}\label{classcore_1_1domain_1_1UniqueSearch_aa751e3e4177d9bedabe217452630802a}} 
+\index{core::domain::UniqueSearch@{core::domain::UniqueSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::domain::UniqueSearch@{core::domain::UniqueSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& core\+::domain\+::\+Unique\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{core\+::domain\+::\+Search}}.
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

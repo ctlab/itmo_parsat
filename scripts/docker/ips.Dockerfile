@@ -1,20 +1,35 @@
 FROM ubuntu:20.04
 
 ARG user
-ARG group
-ARG uid
-ARG gid
 ARG DEBIAN_FRONTEND=nointeractive
 
-RUN groupadd --gid ${gid} ${group} && useradd --uid ${uid} --gid ${gid} --shell /bin/bash --create-home ${user}
+WORKDIR /tmp
 
-# Install required packages
+# Apt packages
 RUN apt update && apt upgrade -y && \
-    apt install -y apt-transport-https curl gnupg && \
-    curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg && \
-    mv bazel.gpg /etc/apt/trusted.gpg.d/ && \
-    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
-    apt update && apt install -y vim bazel git libpq5 libpq-dev libpqxx-dev libpqxx-6.4 postgresql-12 clang-format doxygen
+    apt install -y wget gcc-9 g++-9 gcc g++ make libssl-dev libgtest-dev \
+    libgoogle-glog-dev git libopenmpi-dev libpqxx-dev zlib1g-dev vim doxygen clang-format
 
-USER ${user}
+# CMake
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.0-rc1/cmake-3.23.0-rc1.tar.gz && \
+    tar xvf cmake-3.23.0-rc1.tar.gz --no-same-owner && cd cmake-3.23.0-rc1 && \
+    ./configure && make -j $(nproc) && make install
+
+# Boost 1.76
+RUN wget https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz && \
+    tar xf boost_1_76_0.tar.gz --no-same-owner && cd boost_1_76_0 && \
+    ./bootstrap.sh && ./b2 install
+
+# GLog
+RUN git clone https://github.com/google/glog.git && \
+    cd glog && \
+    cmake -S . -B build -G "Unix Makefiles" && \
+    cmake --build build && \
+    cmake --build build --target install
+
+# Protobuf
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protobuf-all-3.14.0.tar.gz && \
+    tar xvf protobuf-all-3.14.0.tar.gz --no-same-owner && cd protobuf-3.14.0 && \
+    ./configure && make -j $(nproc) && make install && ldconfig
+
 WORKDIR /home/${user}

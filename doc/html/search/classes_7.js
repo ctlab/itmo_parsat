@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['instance_140',['Instance',['../classea_1_1instance_1_1Instance.html',1,'ea::instance']]]
+  ['hordesatsolver_144',['HordeSatSolver',['../classcore_1_1sat_1_1HordeSatSolver.html',1,'core::sat']]]
 ];

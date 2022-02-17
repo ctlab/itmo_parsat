@@ -33,6 +33,39 @@ message SimpSolverConfig {
   BaseSolverConfig base_solver_config = 9;
 }
 
+message HordeSatSolverConfig {
+  enum Diversification {
+    DVS_NONE = 0;
+    SPARSE = 1;
+    RANDOM = 2;
+    NATIVE = 3;
+    BIN = 4;
+    SPARSE_NATIVE = 5;
+    SPARSE_RANDOM = 6;
+    SPARSE_RANDOM_NATIVE = 7;
+  }
+  enum ClauseExchangeMode {
+    CEM_NONE = 0;
+    ALL_TO_ALL = 1;
+    LOG_PARTNERS = 2;
+  }
+  enum SeqSolver {
+    MINISAT = 0;
+    LINGELING = 1;
+    COMBO = 2;
+  }
+  uint32 seed = 10;
+  uint32 threads = 1;
+  int32 verbose = 2;
+  bool filter_duplicate_clauses = 3;
+  uint32 max_rounds = 4;
+  uint32 sharing_interval_us = 5;
+  uint32 wakeup_interval_us = 6;
+  SeqSolver seq_solver = 7;
+  Diversification diversification = 8;
+  ClauseExchangeMode clause_exchange_mode = 9;
+}
+
 message ParSolverConfig {
   uint32 max_threads = 1;
   SolverConfig solver_config = 3;
@@ -41,7 +74,8 @@ message ParSolverConfig {
 message SolverConfig {
   string solver_type = 1;
   SimpSolverConfig simp_solver_config = 4;
-  ParSolverConfig par_solver_config = 5;
+  HordeSatSolverConfig hordesat_solver_config = 5;
+  ParSolverConfig par_solver_config = 6;
 }
 
 message PropConfig {

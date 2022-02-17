@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eux
 
+mkdir -p build &> /dev/null || true
 git config --local pull.rebase true
 root=$(pwd)
 ln -sf "$root/scripts/hooks/pre-commit" "$root/.git/hooks/pre-commit"

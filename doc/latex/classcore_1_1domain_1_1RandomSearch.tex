@@ -16,7 +16,7 @@ Inheritance diagram for core\+::domain\+::Random\+Search\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{classcore_1_1domain_1_1RandomSearch__inherit__graph}
+\includegraphics[width=350pt]{classcore_1_1domain_1_1RandomSearch__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -26,9 +26,16 @@ Collaboration diagram for core\+::domain\+::Random\+Search\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{classcore_1_1domain_1_1RandomSearch__coll__graph}
+\includegraphics[width=350pt]{classcore_1_1domain_1_1RandomSearch__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch}{Random\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}{clone}} () const override
+\begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\item 
+Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}{operator()}} () const override
+\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -40,21 +47,51 @@ void {\bfseries \+\_\+advance} () override
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_a6801b52d06300b472e02256d473b4b1f}\label{classcore_1_1domain_1_1RandomSearch_a6801b52d06300b472e02256d473b4b1f}} 
 void {\bfseries \+\_\+reset} () override
-\item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}\label{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}} 
-\mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch}{Random\+Search}} $\ast$ {\bfseries clone} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_a916f6d0b18108b40928990b2df3f0899}\label{classcore_1_1domain_1_1RandomSearch_a916f6d0b18108b40928990b2df3f0899}} 
-U\+Search {\bfseries create\+Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&, uint64\+\_\+t)
+\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_a7a2bb43184a5fd766341c2747d9d4b9c}\label{classcore_1_1domain_1_1RandomSearch_a7a2bb43184a5fd766341c2747d9d4b9c}} 
+U\+Splittable\+Search {\bfseries create\+Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&, uint64\+\_\+t)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
 The class used to perform random search. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}\label{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}} 
+\index{core::domain::RandomSearch@{core::domain::RandomSearch}!clone@{clone}}
+\index{clone@{clone}!core::domain::RandomSearch@{core::domain::RandomSearch}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch}{Random\+Search}} $\ast$ core\+::domain\+::\+Random\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Clones the current search. 
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1SplittableSearch_a4e873898a0ec72cf851990814c00a5f1}{core\+::domain\+::\+Splittable\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}\label{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}} 
+\index{core::domain::RandomSearch@{core::domain::RandomSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::domain::RandomSearch@{core::domain::RandomSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& core\+::domain\+::\+Random\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{core\+::domain\+::\+Search}}.
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

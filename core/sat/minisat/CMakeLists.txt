@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(minisat)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -47,10 +47,10 @@ set(MINISAT_LIB_SOURCES
     minisat/simp/SimpSolver.cc)
 
 add_library(minisat-lib-static STATIC ${MINISAT_LIB_SOURCES})
-add_library(minisat-lib-shared SHARED ${MINISAT_LIB_SOURCES})
+#add_library(minisat-lib-shared SHARED ${MINISAT_LIB_SOURCES})
 
-target_link_libraries(minisat-lib-shared ${ZLIB_LIBRARY})
 target_link_libraries(minisat-lib-static ${ZLIB_LIBRARY})
+#target_link_libraries(minisat-lib-shared ${ZLIB_LIBRARY})
 
 add_executable(minisat_core minisat/core/Main.cc)
 add_executable(minisat_simp minisat/simp/Main.cc)
@@ -59,23 +59,23 @@ if(STATIC_BINARIES)
   target_link_libraries(minisat_core minisat-lib-static)
   target_link_libraries(minisat_simp minisat-lib-static)
 else()
-  target_link_libraries(minisat_core minisat-lib-shared)
-  target_link_libraries(minisat_simp minisat-lib-shared)
+#  target_link_libraries(minisat_core minisat-lib-shared)
+#  target_link_libraries(minisat_simp minisat-lib-shared)
 endif()
 
 set_target_properties(minisat-lib-static PROPERTIES OUTPUT_NAME "minisat")
-set_target_properties(minisat-lib-shared
-  PROPERTIES
-    OUTPUT_NAME "minisat" 
-    VERSION ${MINISAT_VERSION}
-    SOVERSION ${MINISAT_SOVERSION})
-
+#set_target_properties(minisat-lib-shared
+#  PROPERTIES
+#    OUTPUT_NAME "minisat"
+#    VERSION ${MINISAT_VERSION}
+#    SOVERSION ${MINISAT_SOVERSION})
+#
 set_target_properties(minisat_simp       PROPERTIES OUTPUT_NAME "minisat")
 
 #--------------------------------------------------------------------------------------------------
 # Installation targets:
 
-install(TARGETS minisat-lib-static minisat-lib-shared minisat_core minisat_simp 
+install(TARGETS minisat-lib-static minisat_core minisat_simp
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)

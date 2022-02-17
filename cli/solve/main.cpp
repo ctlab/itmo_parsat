@@ -2,6 +2,7 @@
 #include <mutex>
 #include <utility>
 #include <glog/logging.h>
+#include <mpi.h>
 
 #include "core/util/CliConfig.h"
 #include "core/proto/solve_config.pb.h"
@@ -38,10 +39,12 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
   SolveConfig solve_config;
   LoggingConfig log_config;
   {
+    IPS_INFO("Solve config: " << solve_config_path);
     std::ifstream ifs(solve_config_path);
     core::CliConfig::read_config(ifs, solve_config);
   }
   {
+    IPS_INFO("Log config: " << log_config_path);
     std::ifstream ifs(log_config_path);
     core::CliConfig::read_config(ifs, log_config);
   }
@@ -49,6 +52,8 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 }
 
 int main(int argc, char** argv) {
+  MPI_Init(&argc, &argv);
+
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   core::CliConfig config = add_and_read_args(argc, argv);
@@ -78,6 +83,8 @@ int main(int argc, char** argv) {
   core::Generator generator(solve_config.random_seed());
   core::sat::State result = IPS_TRACE_V(solve->solve(input));
   core::Tracer::print_summary(10);
+
+  MPI_Finalize();
 
   if (result == core::sat::UNSAT) {
     IPS_INFO("UNSAT");

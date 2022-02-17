@@ -1,11 +1,9 @@
-bazel-*
 **/*.undodir
 **/*.swp
 **/*.swo
 .clwb/
 .idea/
 **/*build*/
-ips-artifacts/
 Dockerfile
 d
 ips

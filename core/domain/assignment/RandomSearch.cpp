@@ -1,5 +1,6 @@
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/domain/SearchSpace.h"
+#include "UniqueSearch.h"
 
 namespace {
 
@@ -14,7 +15,7 @@ void set_random(Minisat::vec<Minisat::Lit>& vec) {
 namespace core::domain {
 
 RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
-    : ModifyingSearch(var_view, vars, total) {
+    : AssignmentModifier(var_view, vars), SplittableSearch(total) {
   set_random(_assignment);
 }
 
@@ -30,12 +31,17 @@ RandomSearch* RandomSearch::clone() const {
   return new RandomSearch(*this);
 }
 
-USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
+Minisat::vec<Minisat::Lit> const& RandomSearch::operator()() const {
+  return get();
+}
+
+USplittableSearch createRandomSearch(
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
   uint32_t num_set = std::count(vars.begin(), vars.end(), true);
   if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
-    return USearch(new UniqueSearch(var_view, vars, total));
+    return USplittableSearch(new UniqueSearch(var_view, vars, total));
   } else {
-    return USearch(new RandomSearch(var_view, vars, total));
+    return USplittableSearch(new RandomSearch(var_view, vars, total));
   }
 }
 

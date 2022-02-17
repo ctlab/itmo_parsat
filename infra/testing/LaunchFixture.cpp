@@ -51,8 +51,6 @@ LaunchFixture::LaunchFixture() {
   _sig_cb = core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
 }
 
-LaunchFixture::~LaunchFixture() noexcept {}
-
 LaunchFixture::Config LaunchFixture::config{};
 
 void LaunchFixture::interrupt() {
@@ -158,7 +156,6 @@ infra::domain::SatResult LaunchFixture::_get_sat_result(std::string const& name)
   } else if (filename.find("sat", 0) != std::string::npos) {
     return infra::domain::SAT;
   } else {
-    LOG(WARNING) << "Could not deduce result for " << filename << ", leaving UNKNOWN";
     return infra::domain::UNKNOWN;
   }
 }
@@ -193,8 +190,8 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   if (launch_config.threads_required > config.max_threads) {
     IPS_WARNING(
         "The test requires " << launch_config.threads_required << " threads, but only "
-                             << config.max_threads << " are available, thus skipped");
-    return {};
+                             << config.max_threads << " are available.");
+    launch_config.threads_required = config.max_threads;
   }
 
   // Setup result if unknown
@@ -225,10 +222,10 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   }
 
   auto callback = [=] (uint64_t started_at, uint64_t finished_at,
-                       int exit_code, bool interrupted) mutable {
+                       int exit_code, bool interrupted, bool tle) mutable {
     infra::domain::SatResult sat_result = exit_code_to_sat_result(exit_code);
     infra::domain::LaunchResult launch_result
-      = _get_launch_result(interrupted, sat_result, launch_config.expected_result);
+      = _get_launch_result(interrupted, tle, sat_result, launch_config.expected_result);
     LOG(INFO) << "\n\tFinished [" + launch_config.description + "]:"
               << "\n\t\tInput file: " << input_path
               << "\n\t\tConfiguration: " << config_path
@@ -238,10 +235,11 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
               << "\n\t\tTest result: " << infra::domain::to_string(launch_result);
     launch.started_at = started_at;
     launch.finished_at = finished_at;
-    launch.result = _get_launch_result(interrupted, sat_result, launch_config.expected_result);
+    launch.result = launch_result;
     if (launch.result == infra::domain::FAILED) {
       test_failed = true;
     }
+    // We do not add interrupted launches to DB.
     if (config.save && launch.result != infra::domain::INTERRUPTED) {
       _launches->add(launch);
     }
@@ -257,7 +255,8 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   );
 
   auto result = std::make_shared<infra::Execution>(callback,
-    artifact_logs_path, artifact_logs_path, config.executable.string(),
+    artifact_logs_path, artifact_logs_path, config.time_limit_s,
+    config.executable.string(),
     "--verbose", "6",
     "--input", input_path.string(),
     "--log-config", log_config_path.string(),
@@ -274,9 +273,13 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
 }
 
 infra::domain::LaunchResult LaunchFixture::_get_launch_result(
-    bool interrupted, infra::domain::SatResult result, infra::domain::SatResult expected) noexcept {
+    bool interrupted, bool tle, infra::domain::SatResult result,
+    infra::domain::SatResult expected) noexcept {
   if (interrupted) {
     return infra::domain::INTERRUPTED;
+  }
+  if (tle) {
+    return infra::domain::TLE;
   }
   return (result == expected || expected == infra::domain::UNKNOWN) ? infra::domain::PASSED
                                                                     : infra::domain::FAILED;

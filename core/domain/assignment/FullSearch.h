@@ -1,34 +1,34 @@
 #ifndef ITMO_PARSAT_FULLSEARCH_H
 #define ITMO_PARSAT_FULLSEARCH_H
 
-#include "core/domain/assignment/ModifyingSearch.h"
+#include "core/domain/assignment/AssignmentModifier.h"
+#include "core/domain/assignment/SplittableSearch.h"
 
 namespace core::domain {
+
+class FullSearch;
+MAKE_REFS(FullSearch);
 
 /**
  * @brief The class used to perform full search.
  */
-class FullSearch : public ModifyingSearch {
-  friend std::unique_ptr<FullSearch> createFullSearch(VarView const&, std::vector<bool> const&);
+class FullSearch : AssignmentModifier, public SplittableSearch {
+  friend UFullSearch createFullSearch(VarView const&, std::vector<bool> const&);
 
  public:
-  uint64_t first() const noexcept;
-
-  uint64_t last() const noexcept;
-
- protected:
   FullSearch(VarView const& var_view, std::vector<bool> const& vars);
+
+  [[nodiscard]] FullSearch* clone() const override;
+
+  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
 
  protected:
   void _advance() override;
 
   void _reset() override;
-
-  [[nodiscard]] FullSearch* clone() const override;
 };
 
-std::unique_ptr<FullSearch> createFullSearch(
-    VarView const& var_view, std::vector<bool> const& vars);
+UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
 
 }  // namespace core::domain
 

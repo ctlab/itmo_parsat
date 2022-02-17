@@ -21,7 +21,7 @@ namespace core {
  */
 class RBSSolve : public Solve {
  public:
-  RBSSolve(RBSSolveConfig const& config);
+  explicit RBSSolve(RBSSolveConfig const& config);
 
   [[nodiscard]] sat::State solve(std::filesystem::path const& input) override;
 

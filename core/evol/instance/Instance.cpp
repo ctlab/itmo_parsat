@@ -74,8 +74,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   if (std::log2(samples) >= (double) size) {
     full_search = true;
     samples = 1ULL << size;
-    std::unique_ptr<core::domain::FullSearch> search =
-        core::domain::createFullSearch(_var_view(), mask);
+    core::domain::UFullSearch search = core::domain::createFullSearch(_var_view(), mask);
     // clang-format off
 
 #if 1
@@ -93,7 +92,8 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
 
     // clang-format on
   } else {
-    core::domain::USearch search = core::domain::createRandomSearch(_var_view(), mask, samples);
+    core::domain::USplittableSearch search =
+        core::domain::createRandomSearch(_var_view(), mask, samples);
     // clang-format off
     _prop->prop_assignments(std::move(search),
       [&conflicts](bool conflict, auto const& asgn) {

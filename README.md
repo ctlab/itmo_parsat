@@ -35,10 +35,10 @@ $ ./ips
 will show you the list of options. For example, one can build, then run integrational test (with size 0, the
 minimal one, and test group `common`), via the following command:
 ```console
-$ ./ips -g dev_fast --build-infra -- --run-infra --size 0 --test-groups common --
+$ ./ips -g DEV_FAST --build-infra -- --run-infra --size 0 --test-groups common --
 ```
 where the `-g dev_fast` is build mode. Available build modes are listed in `.bazelrc`.
 Another example. run the solution of the default CNF task with `par_rbs` algorithm:
 ```console
-$ ./ips -g dev_fast -b -v 6 -c par_rbs -s
+$ ./ips -g DEV_FAST -b -v 6 -c par_rbs -s
 ```

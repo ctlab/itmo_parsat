@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['omega_5fx_247',['omega_x',['../structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6',1,'ea::instance::SharedData']]]
+  ['omega_5fx_253',['omega_x',['../structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6',1,'ea::instance::SharedData']]]
 ];

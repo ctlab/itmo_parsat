@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['naivesolve_147',['NaiveSolve',['../classcore_1_1NaiveSolve.html',1,'core']]]
+  ['mutation_150',['Mutation',['../classea_1_1method_1_1Mutation.html',1,'ea::method']]]
 ];

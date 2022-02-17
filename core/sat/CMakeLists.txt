@@ -1,0 +1,3 @@
+add_subdirectory(lingeling)
+add_subdirectory(minisat)
+add_subdirectory(hordesat)

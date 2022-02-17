@@ -23,7 +23,8 @@ bool ParProp::propagate(
   return _prop_worker_pool.get_workers().front()->propagate(assumptions, propagated);
 }
 
-void ParProp::prop_assignments(domain::USearch search, Prop::prop_callback_t const& callback) {
+void ParProp::prop_assignments(
+    domain::USplittableSearch search, Prop::prop_callback_t const& callback) {
   uint32_t num_threads = _prop_worker_pool.max_threads();
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);

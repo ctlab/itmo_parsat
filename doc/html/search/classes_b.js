@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['onepointcrossover_148',['OnePointCrossover',['../classea_1_1method_1_1OnePointCrossover.html',1,'ea::method']]]
+  ['naivesolve_151',['NaiveSolve',['../classcore_1_1NaiveSolve.html',1,'core']]]
 ];

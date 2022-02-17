@@ -60,7 +60,7 @@ void Tracer::print_summary(uint32_t num_quantiles) {
     if (stats.durations.empty()) {
       info << "\n\t[Event]\t\t" << name << ": total samples: " << stats.count;
     } else {
-      float total_time = std::reduce(stats.durations.begin(), stats.durations.end(), 0.f);
+      float total_time = std::accumulate(stats.durations.begin(), stats.durations.end(), 0.f);
       float min = *std::min_element(stats.durations.begin(), stats.durations.end());
       float max = *std::max_element(stats.durations.begin(), stats.durations.end());
       size_t quantiles = std::min(num_quantiles, (uint32_t) stats.durations.size());

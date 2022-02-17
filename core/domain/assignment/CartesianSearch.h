@@ -10,6 +10,9 @@
 
 namespace core::domain {
 
+class CartesianSearch;
+MAKE_REFS(CartesianSearch);
+
 /**
  * @brief The class used to search through the cartesian product of custom searches.
  */
@@ -18,7 +21,7 @@ class CartesianSearch : public Search {
   /**
    * @param assignments the set of assignments to be searched through.
    */
-  CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
+  explicit CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
 
   /**
    * @see Search::operator()()
@@ -28,10 +31,6 @@ class CartesianSearch : public Search {
  protected:
   void _advance() override;
 
-  void _reset() override;
-
-  [[nodiscard]] CartesianSearch* clone() const override;
-
   void _set_cur(uint32_t from);
 
  private:
@@ -40,7 +39,8 @@ class CartesianSearch : public Search {
   std::vector<std::vector<std::vector<Minisat::Lit>>> _cartesian;
 };
 
-USearch createCartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
+UCartesianSearch createCartesianSearch(
+    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
 
 }  // namespace core::domain
 

@@ -6,20 +6,19 @@
 #include <map>
 #include <memory>
 #include <optional>
+#include <algorithm>
 
 #include "core/sat/minisat/minisat/mtl/Vec.h"
 #include "core/sat/minisat/minisat/core/SolverTypes.h"
 #include "core/domain/VarView.h"
 #include "core/domain/SearchSpace.h"
+#include "core/util/Reference.h"
 #include "core/util/assert.h"
 
 namespace core::domain {
 
 class Search;
-
-using USearch = std::unique_ptr<Search>;
-
-using RSearch = std::shared_ptr<Search>;
+MAKE_REFS(Search);
 
 /**
  * @brief The class representing the sequential search in assignments space.
@@ -34,15 +33,7 @@ class Search {
   /**
    * @return the current assignment
    */
-  virtual Minisat::vec<Minisat::Lit> const& operator()() const = 0;
-
-  /**
-   * @brief Separates a part of the assignment.
-   * @param num_split number of searches this search will be split to.
-   * @param index Index of current search in range [0, num_split).
-   * @return new assignment instance.
-   */
-  [[nodiscard]] USearch split_search(uint64_t num_split, uint64_t index) const;
+  [[nodiscard]] virtual Minisat::vec<Minisat::Lit> const& operator()() const = 0;
 
   /**
    * @brief Steps to the next search.
@@ -60,23 +51,32 @@ class Search {
    */
   [[nodiscard]] bool empty() const noexcept;
 
+ public:
+  static uint64_t total_size(std::vector<bool> const& vars);
+
  protected:
   virtual void _advance() = 0;
-
-  virtual void _reset() = 0;
-
-  [[nodiscard]] virtual Search* clone() const = 0;
 
  protected:
   static void _set_assignment(Minisat::vec<Minisat::Lit>& vec, uint64_t value);
 
- private:
-  void _set_range();
-
  protected:
   uint32_t _total, _done = 0;
-  uint32_t _first, _last;
 };
+
+class SingleSearch final : public Search {
+ public:
+  SingleSearch();
+
+  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+
+ private:
+  void _advance() override;
+};
+
+MAKE_REFS(SingleSearch);
+
+USingleSearch createSingleSearch();
 
 }  // namespace core::domain
 

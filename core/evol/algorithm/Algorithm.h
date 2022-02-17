@@ -22,7 +22,8 @@ namespace ea::algorithm {
  */
 class Algorithm {
  private:
-  void _init_shared_data(InstanceConfig const& config);
+  /// @brief returns true if algorithm should proceed.
+  bool _init_shared_data(InstanceConfig const& config);
 
  protected:
   void _add_instance();
@@ -39,8 +40,9 @@ class Algorithm {
 
   /**
    * @brief Performs preparation step.
+   * @return if proceed can be called
    */
-  void prepare();
+  bool prepare();
 
   /**
    * @brief Starts the algorithm.
