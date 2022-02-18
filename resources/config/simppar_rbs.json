@@ -56,7 +56,7 @@
                         "heuristic_size": 200,
                         "max_cache_size": 1000,
                         "sampling_config": {
-                            "base_count": 262144,
+                            "base_count": 16384,
                             "max_steps": 3,
                             "scale": 2
                         }

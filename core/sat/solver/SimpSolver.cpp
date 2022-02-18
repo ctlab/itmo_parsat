@@ -1,14 +1,13 @@
 #include "core/sat/solver/SimpSolver.h"
 
-#include "core/util/GzFile.h"
 #include "minisat/core/Dimacs.h"
 
-namespace core::sat {
+namespace core::sat::solver {
 
 SimpSolver::SimpSolver(SimpSolverConfig const& config) : SimpBase(config) {}
 
-void SimpSolver::parse_cnf(std::filesystem::path const& path) {
-  SimpBase::parse_cnf(path);
+void SimpSolver::load_problem(Problem const& problem) {
+    static_cast<SimpBase*>(this)->load_problem(problem);
 }
 
 State SimpSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
@@ -37,4 +36,4 @@ bool SimpSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) 
 
 REGISTER_PROTO(Solver, SimpSolver, simp_solver_config);
 
-}  // namespace core::sat
+}  // namespace core::sat::solver

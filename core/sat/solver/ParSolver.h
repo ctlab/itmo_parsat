@@ -10,25 +10,25 @@
 #include <future>
 #include <queue>
 
-#include "core/util/Generator.h"
+#include "util/Generator.h"
 #include "core/sat/solver/Solver.h"
-#include "core/util/WorkerPool.h"
+#include "util/WorkerPool.h"
 
-namespace core::sat {
+namespace core::sat::solver {
 
 /**
  * @brief Parallel solver implementation.
  */
 class ParSolver : public Solver {
  private:
-  void _solve(sat::Solver& solver, domain::RSearch search, slv_callback_t const& callback);
+  void _solve(Solver& solver, domain::RSearch search, slv_callback_t const& callback);
 
  public:
   explicit ParSolver(ParSolverConfig const& config);
 
-  ~ParSolver() noexcept;
+  ~ParSolver() noexcept override;
 
-  void parse_cnf(std::filesystem::path const& input) override;
+  void load_problem(Problem const& problem) override;
 
   State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
@@ -48,10 +48,10 @@ class ParSolver : public Solver {
   bool _solve_finished{false};
 
  private:
-  using SolverWorkerPool = core::util::WorkerPool<RSolver>;
+  using SolverWorkerPool = util::WorkerPool<RSolver>;
   SolverWorkerPool _solver_pool;
 };
 
-}  // namespace core::sat
+}  // namespace core::sat::solver
 
 #endif  // EVOL_PARSOLVER_H

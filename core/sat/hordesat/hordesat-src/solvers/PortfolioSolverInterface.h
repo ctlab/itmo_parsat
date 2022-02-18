@@ -58,7 +58,7 @@ class PortfolioSolverInterface {
   // Add a (list of) permanent clause(s) to the formula
   virtual void addClause(vector<int>& clause) = 0;
   virtual void addClauses(vector<vector<int> >& clauses) = 0;
-  virtual void addInitialClauses(vector<vector<int> >& clauses) = 0;
+  virtual void addInitialClauses(vector<vector<int> > const& clauses) = 0;
 
   // Add a (list of) learned clause(s) to the formula
   // The learned clauses might be added later or possibly never

@@ -22,6 +22,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #define Minisat_Solver_h
 
 #include <sstream>
+#include <iostream>
 
 #include "minisat/core/SolverTypes.h"
 #include "minisat/mtl/Alg.h"

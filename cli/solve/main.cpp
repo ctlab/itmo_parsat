@@ -2,15 +2,14 @@
 #include <mutex>
 #include <utility>
 #include <glog/logging.h>
-#include <mpi.h>
 
-#include "core/util/CliConfig.h"
+#include "util/CliConfig.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/util/stream.h"
-#include "core/util/Logger.h"
-#include "core/util/Tracer.h"
-#include "core/util/Generator.h"
-#include "core/util/SigHandler.h"
+#include "util/stream.h"
+#include "util/Logger.h"
+#include "util/Tracer.h"
+#include "util/Generator.h"
+#include "util/SigHandler.h"
 #include "core/sat/solver/Solver.h"
 #include "core/solve/Solve.h"
 
@@ -52,8 +51,6 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 }
 
 int main(int argc, char** argv) {
-  MPI_Init(&argc, &argv);
-
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   core::CliConfig config = add_and_read_args(argc, argv);
@@ -70,6 +67,9 @@ int main(int argc, char** argv) {
   auto&& [solve_config, log_config] = read_json_configs(solver_cfg_path, logger_cfg_path);
   core::Logger::set_logger_config(log_config);
 
+  // Load problem
+  core::sat::Problem problem(input);
+
   // Initialize solve algorithm
   core::RSolve solve(core::SolveRegistry::resolve(solve_config));
   core::event::EventCallbackHandle solve_interrupt_handler = core::event::attach(
@@ -81,10 +81,8 @@ int main(int argc, char** argv) {
       core::event::INTERRUPT);
 
   core::Generator generator(solve_config.random_seed());
-  core::sat::State result = IPS_TRACE_V(solve->solve(input));
+  core::sat::State result = IPS_TRACE_V(solve->solve(problem));
   core::Tracer::print_summary(10);
-
-  MPI_Finalize();
 
   if (result == core::sat::UNSAT) {
     IPS_INFO("UNSAT");

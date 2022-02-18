@@ -16,7 +16,7 @@ class LogSharingManager : public virtual AllToAllSharingManager {
   int exchangeCount;
 
  public:
-  LogSharingManager(int mpi_size, int mpi_rank, vector<PortfolioSolverInterface*> solvers, bool fd);
+  LogSharingManager(vector<PortfolioSolverInterface*> solvers, bool fd);
   void doSharing();
   virtual ~LogSharingManager();
 };

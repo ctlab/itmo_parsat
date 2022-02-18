@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <iostream>
 
-bool loadFormulaToSolvers(vector<PortfolioSolverInterface*> solvers, const char* filename) {
+bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char* filename) {
   FILE* f = fopen(filename, "r");
   if (f == NULL) {
     return false;
@@ -64,9 +64,12 @@ bool loadFormulaToSolvers(vector<PortfolioSolverInterface*> solvers, const char*
   }
   fclose(f);
 
-  for (size_t i = 0; i < solvers.size(); i++) {
-    solvers[i]->addInitialClauses(clauses);
-  }
-
+  loadClausesToSolvers(solvers, clauses);
   return true;
+}
+
+void loadClausesToSolvers(vector<PortfolioSolverInterface*>& solvers, vector<vector<int>> const& clauses) {
+  for (auto& solver : solvers) {
+    solver->addInitialClauses(clauses);
+  }
 }

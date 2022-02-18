@@ -7,18 +7,15 @@
  */
 
 #include "AllToAllSharingManager.h"
-#include <mpi/mpi.h>
 #include "../utilities/Logger.h"
 
 AllToAllSharingManager::AllToAllSharingManager(
-    int mpi_size, int mpi_rank, vector<PortfolioSolverInterface*> solvers, bool fd)
-    : size(mpi_size)
-    , rank(mpi_rank)
-    , solvers(solvers)
+    vector<PortfolioSolverInterface*> solvers, bool fd)
+    : solvers(solvers)
     , fd(fd)
     , incommingBuffer(NULL)
     , callback(*this) {
-  incommingBuffer = new int[(COMM_BUFFER_SIZE) *size];
+  incommingBuffer = new int[COMM_BUFFER_SIZE];
   for (size_t i = 0; i < solvers.size(); i++) {
     solvers[i]->setLearnedClauseCallback(&callback, i);
     if (solvers.size() > 1) {
@@ -40,19 +37,19 @@ void AllToAllSharingManager::doSharing() {
   if (usedPercent < 80) {
     int increaser = lastInc++ % solvers.size();
     solvers[increaser]->increaseClauseProduction();
-    log(2, "Node %d production increase for %d. time, core %d will increase.\n", rank, prodInc++,
+    log(2, "Node %d production increase for %d. time, core %d will increase.\n", 0, prodInc++,
         increaser);
   }
-  log(2, "Node %d filled %d%% of its learned clause buffer\n", rank, usedPercent);
-  MPI_Allgather(
-      outBuffer, COMM_BUFFER_SIZE, MPI_INT, incommingBuffer, COMM_BUFFER_SIZE, MPI_INT,
-      MPI_COMM_WORLD);
+  log(2, "Node %d filled %d%% of its learned clause buffer\n", 0, usedPercent);
+  for (int i = 0; i < COMM_BUFFER_SIZE; ++i) {
+    incommingBuffer[i] = outBuffer[i];
+  }
   if (solvers.size() > 1) {
     // get all the clauses
-    cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, size, -1);
+    cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, 1, -1);
   } else {
     // get all the clauses except for those that this node sent
-    cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, size, rank);
+    cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, 1, 0);
   }
   vector<int> cl;
   int passedFilter = 0;

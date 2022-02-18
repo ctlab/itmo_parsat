@@ -6,19 +6,18 @@
  *      Author: balyo
  */
 
+#include <cassert>
 #include "LogSharingManager.h"
-#include <mpi/mpi.h>
 #include "../utilities/Logger.h"
 
-LogSharingManager::LogSharingManager(
-    int mpi_size, int mpi_rank, vector<PortfolioSolverInterface*> solvers, bool fd)
-    : AllToAllSharingManager(mpi_size, mpi_rank, solvers, fd) {
+LogSharingManager::LogSharingManager(vector<PortfolioSolverInterface*> solvers, bool fd)
+    : AllToAllSharingManager(solvers, fd) {
   exchangeCount = 0;
-  int tsize = mpi_size;
+  int tsize = 1;
   while (tsize >>= 1) {
     exchangeCount++;
   }
-  log(2, "Clause exchange partners: %d (log(%d))\n", exchangeCount, size);
+  log(2, "Clause exchange partners: %d (log(%d))\n", exchangeCount, 1);
   if (exchangeCount > 0) {
     delete[] incommingBuffer;
     incommingBuffer = new int[COMM_BUFFER_SIZE * exchangeCount];
@@ -26,6 +25,7 @@ LogSharingManager::LogSharingManager(
 }
 
 void LogSharingManager::doSharing() {
+  assert(false && bool("Should not be used."));
   static int round = 0;
   static int prodInc = 1;
   static int lastInc = 0;
@@ -39,20 +39,20 @@ void LogSharingManager::doSharing() {
   if (usedPercent < 80) {
     int increaser = lastInc++ % solvers.size();
     solvers[increaser]->increaseClauseProduction();
-    log(2, "Node %d production increase for %d. time, core %d will increase.\n", rank, prodInc++,
+    log(2, "Node %d production increase for %d. time, core %d will increase.\n", 0, prodInc++,
         increaser);
   }
-  log(2, "Node %d filled %d%% of its learned clause buffer\n", rank, usedPercent);
+  log(2, "Node %d filled %d%% of its learned clause buffer\n", 0, usedPercent);
   for (int i = 0; i < exchangeCount; i++) {
-    int partner = (round - rank + size) % size;
-    if (partner == rank && (size % 2 == 0)) {
-      partner = (partner + size / 2) % size;
+    int partner = (round - 0 + 1) % 1;
+    if (partner == 0 && (1 % 2 == 0)) {
+      partner = (partner + 1 / 2) % 1;
     }
     round++;
-    log(2, "Clause exchange between %d and %d\n", rank, partner);
-    MPI_Sendrecv(
-        outBuffer, COMM_BUFFER_SIZE, MPI_INT, partner, 0, incommingBuffer + i * COMM_BUFFER_SIZE,
-        COMM_BUFFER_SIZE, MPI_INT, partner, 0, MPI_COMM_WORLD, 0);
+    log(2, "Clause exchange between %d and %d\n", 0, partner);
+//    MPI_Sendrecv(
+//        outBuffer, COMM_BUFFER_SIZE, MPI_INT, partner, 0, incommingBuffer + i * COMM_BUFFER_SIZE,
+//        COMM_BUFFER_SIZE, MPI_INT, partner, 0, MPI_COMM_WORLD, 0);
   }
   if (exchangeCount == 0) {
     memcpy(incommingBuffer, outBuffer, sizeof(int) * COMM_BUFFER_SIZE);

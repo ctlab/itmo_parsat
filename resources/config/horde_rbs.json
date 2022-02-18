@@ -56,7 +56,7 @@
                         "heuristic_size": 200,
                         "max_cache_size": 1000,
                         "sampling_config": {
-                            "base_count": 262144,
+                            "base_count": 65536,
                             "max_steps": 3,
                             "scale": 2
                         }
@@ -70,13 +70,22 @@
                 "seed": 2015,
                 "threads": 16,
                 "verbose": 0,
-                "filter_duplicate_clauses": "true",
+                "filter_duplicate_clauses": "false",
                 "max_rounds": 0,
                 "sharing_interval_us": 100000,
                 "wakeup_interval_us": 1000,
                 "seq_solver": "MINISAT",
                 "diversification": "SPARSE",
-                "clause_exchange_mode": "ALL_TO_ALL"
+                "clause_exchange_mode": "ALL_TO_ALL",
+                "prop_config": {
+                    "prop_type": "ParProp",
+                    "par_prop_config": {
+                        "max_threads": 16,
+                        "prop_config": {
+                            "prop_type": "SimpProp"
+                        }
+                    }
+                }
             }
         }
     }

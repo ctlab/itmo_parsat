@@ -1,6 +1,6 @@
 #include "core/evol/method/mutate/UniformMutation.h"
 
-#include "core/util/Generator.h"
+#include "util/Generator.h"
 
 namespace ea::method {
 

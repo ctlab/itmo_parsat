@@ -8,7 +8,7 @@ bool Prop::propagate(Minisat::vec<Minisat::Lit> const& assumptions) {
 }
 
 void Prop::prop_assignments(
-    core::domain::USplittableSearch assignment_p, prop_callback_t const& callback) {
+    core::domain::USearch assignment_p, prop_callback_t const& callback) {
   domain::Search& assignment = *assignment_p;
   START_ASGN_TRACK(assignment_p->size());
   do {

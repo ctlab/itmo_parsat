@@ -2,20 +2,18 @@
 
 namespace {
 
-constexpr int SOLVING_DONE = -10;
-
 void solverRunningThread(
-    PortfolioSolverInterface* solver, Mutex& interruptLock, bool& solvingDoneLocal,
+    PortfolioSolverInterface* solver, std::mutex& interrupt_lock, bool& solvingDoneLocal,
     core::sat::State& result, std::vector<int> const& assumptions) {
   while (true) {
-    interruptLock.lock();
-    if (solvingDoneLocal) {
-      interruptLock.unlock();
-      break;
-    } else {
-      solver->unsetSolverInterrupt();
+    {
+      std::lock_guard<std::mutex> lg(interrupt_lock);
+      if (solvingDoneLocal) {
+        break;
+      } else {
+        solver->unsetSolverInterrupt();
+      }
     }
-    interruptLock.unlock();
     SatResult res = solver->solve(assumptions);
     if (res == SAT) {
       solvingDoneLocal = true;
@@ -29,40 +27,32 @@ void solverRunningThread(
 }
 
 void stopAllSolvers(
-    Mutex& interruptLock, bool& solvingDoneLocal, std::vector<PortfolioSolverInterface*>& solvers) {
+    std::mutex& interrupt_lock, bool& solvingDoneLocal,
+    std::vector<PortfolioSolverInterface*>& solvers) {
   int solversCount = (int) solvers.size();
-  interruptLock.lock();
+  std::lock_guard<std::mutex> lg(interrupt_lock);
   solvingDoneLocal = true;
   for (int i = 0; i < solversCount; i++) {
     solvers[i]->setSolverInterrupt();
   }
-  interruptLock.unlock();
 }
 
 bool getGlobalEnding(
-    int mpi_size, int mpi_rank, bool& solvingDoneLocal, int* endingBuffer, Mutex& interruptLock,
+    bool& solvingDoneLocal, core::sat::State& result, std::mutex& interrupt_lock,
     std::vector<PortfolioSolverInterface*>& solvers) {
-  int sendMsg = 0;
-  if (solvingDoneLocal) {
-    sendMsg = SOLVING_DONE;
-  }
-  MPI_Allgather(&sendMsg, 1, MPI_INT, endingBuffer, 1, MPI_INT, MPI_COMM_WORLD);
-  for (int r = 0; r < mpi_size; r++) {
-    if (endingBuffer[r] == SOLVING_DONE) {
-      stopAllSolvers(interruptLock, solvingDoneLocal, solvers);
-      return true;
-    }
+  if (result != core::sat::UNKNOWN) {
+    stopAllSolvers(interrupt_lock, solvingDoneLocal, solvers);
+    return true;
   }
   return false;
 }
 
-void sparseDiversification(
-    int mpi_size, int mpi_rank, std::vector<PortfolioSolverInterface*>& solvers) {
+void sparseDiversification(std::vector<PortfolioSolverInterface*>& solvers) {
   int solversCount = (int) solvers.size();
-  int totalSolvers = mpi_size * solversCount;
+  int totalSolvers = solversCount;
   int vars = solvers[0]->getVariablesCount();
   for (int sid = 0; sid < solversCount; sid++) {
-    int shift = (mpi_rank * solversCount) + sid;
+    int shift = solversCount + sid;
     for (int var = 1; var + totalSolvers < vars; var += totalSolvers) {
       solvers[sid]->setPhase(var + shift, true);
     }
@@ -81,10 +71,10 @@ void randomDiversification(unsigned int seed, std::vector<PortfolioSolverInterfa
 }
 
 void sparseRandomDiversification(
-    unsigned int seed, int mpi_size, std::vector<PortfolioSolverInterface*>& solvers) {
+    unsigned int seed, std::vector<PortfolioSolverInterface*>& solvers) {
   int solversCount = (int) solvers.size();
   srand(seed);
-  int totalSolvers = solversCount * mpi_size;
+  int totalSolvers = solversCount;
   int vars = solvers[0]->getVariablesCount();
   for (int sid = 0; sid < solversCount; sid++) {
     for (int var = 1; var <= vars; var++) {
@@ -95,19 +85,17 @@ void sparseRandomDiversification(
   }
 }
 
-void nativeDiversification(
-    int mpi_rank, int mpi_size, std::vector<PortfolioSolverInterface*>& solvers) {
+void nativeDiversification(std::vector<PortfolioSolverInterface*>& solvers) {
   int solversCount = (int) solvers.size();
-  int base = mpi_rank * solversCount;
+  int base = solversCount;
   for (int sid = 0; sid < solversCount; sid++) {
-    solvers[sid]->diversify(sid + base, mpi_size * solversCount);
+    solvers[sid]->diversify(sid + base, solversCount);
   }
 }
 
-void binValueDiversification(
-    int mpi_size, int mpi_rank, std::vector<PortfolioSolverInterface*>& solvers) {
+void binValueDiversification(std::vector<PortfolioSolverInterface*>& solvers) {
   int solversCount = (int) solvers.size();
-  int totalSolvers = mpi_size * solversCount;
+  int totalSolvers = solversCount;
   int tmp = totalSolvers;
   int log = 0;
   while (tmp) {
@@ -116,7 +104,7 @@ void binValueDiversification(
   }
   int vars = solvers[0]->getVariablesCount();
   for (int sid = 0; sid < solversCount; sid++) {
-    int num = mpi_rank * sid;
+    int num = sid;
     for (int var = 1; var < vars; var++) {
       int bit = var % log;
       bool phase = (num >> bit) & 1 ? true : false;
@@ -127,13 +115,12 @@ void binValueDiversification(
 
 }  // namespace
 
-namespace core::sat {
+namespace core::sat::solver {
 
 HordeSatSolver::HordeSatSolver(HordeSatSolverConfig const& config)
-    : _num_solvers(config.threads()), _cfg(config) {
+    : _num_solvers(config.threads()), _cfg(config)
+    , _prop(core::sat::prop::PropRegistry::resolve(config.prop_config())) {
   setVerbosityLevel(config.verbose());
-  MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
-  MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
 
   for (uint32_t i = 0; i < _num_solvers; ++i) {
     switch (config.seq_solver()) {
@@ -144,7 +131,7 @@ HordeSatSolver::HordeSatSolver(HordeSatSolverConfig const& config)
         _solvers.push_back(std::make_unique<Lingeling>());
         break;
       case HordeSatSolverConfig_SeqSolver_COMBO:
-        if ((mpi_rank + i) % 2 == 0) {
+        if (i % 2 == 0) {
           _solvers.push_back(std::make_unique<MiniSat>());
         } else {
           _solvers.push_back(std::make_unique<Lingeling>());
@@ -160,19 +147,15 @@ HordeSatSolver::HordeSatSolver(HordeSatSolverConfig const& config)
     case HordeSatSolverConfig_ClauseExchangeMode_CEM_NONE:
       break;
     case HordeSatSolverConfig_ClauseExchangeMode_ALL_TO_ALL:
-      _sharing_manager = std::make_unique<AllToAllSharingManager>(
-          mpi_size, mpi_rank, _solver_ptrs, config.filter_duplicate_clauses());
+      _sharing_manager =
+          std::make_unique<AllToAllSharingManager>(_solver_ptrs, config.filter_duplicate_clauses());
       break;
     case HordeSatSolverConfig_ClauseExchangeMode_LOG_PARTNERS:
-      _sharing_manager =
-          std::make_unique<LogSharingManager>(mpi_size, mpi_rank, _solver_ptrs, false);
+      _sharing_manager = std::make_unique<LogSharingManager>(_solver_ptrs, false);
       break;
     default:
       IPS_TERMINATE("HordeSat: invalid clause exchange mode.");
   }
-
-  // initialize ending detection
-  _ending_buffer.reset(new int[mpi_size]);
 
   for (uint32_t tid = 0; tid < _num_solvers; ++tid) {
     _solver_threads.emplace_back([this, tid] {
@@ -192,7 +175,7 @@ HordeSatSolver::HordeSatSolver(HordeSatSolverConfig const& config)
         }
         local_solve_index = _solve_idx;
         ul.unlock();
-        solverRunningThread(solver, _interruptLock, _solvingDoneLocal, _result, _assumptions);
+        solverRunningThread(solver, _interrupt_lock, _solvingDoneLocal, _result, _assumptions);
       }
     });
   }
@@ -216,42 +199,42 @@ void HordeSatSolver::_diversify() {
     case HordeSatSolverConfig_Diversification_DVS_NONE:
       break;
     case HordeSatSolverConfig_Diversification_SPARSE:
-      sparseDiversification(mpi_size, mpi_rank, _solver_ptrs);
+      sparseDiversification(_solver_ptrs);
       break;
     case HordeSatSolverConfig_Diversification_RANDOM:
       randomDiversification(_cfg.seed(), _solver_ptrs);
       break;
     case HordeSatSolverConfig_Diversification_NATIVE:
-      nativeDiversification(mpi_rank, mpi_size, _solver_ptrs);
+      nativeDiversification(_solver_ptrs);
       break;
     case HordeSatSolverConfig_Diversification_BIN:
-      binValueDiversification(mpi_size, mpi_rank, _solver_ptrs);
+      binValueDiversification(_solver_ptrs);
       break;
     case HordeSatSolverConfig_Diversification_SPARSE_NATIVE:
-      sparseDiversification(mpi_size, mpi_rank, _solver_ptrs);
-      nativeDiversification(mpi_rank, mpi_size, _solver_ptrs);
+      sparseDiversification(_solver_ptrs);
+      nativeDiversification(_solver_ptrs);
       break;
     case HordeSatSolverConfig_Diversification_SPARSE_RANDOM:
-      sparseRandomDiversification(_cfg.seed(), mpi_size, _solver_ptrs);
+      sparseRandomDiversification(_cfg.seed(), _solver_ptrs);
       break;
     case HordeSatSolverConfig_Diversification_SPARSE_RANDOM_NATIVE:
-      sparseRandomDiversification(_cfg.seed(), mpi_size, _solver_ptrs);
-      nativeDiversification(mpi_rank, mpi_size, _solver_ptrs);
+      sparseRandomDiversification(_cfg.seed(), _solver_ptrs);
+      nativeDiversification(_solver_ptrs);
       break;
     default:
       IPS_TERMINATE("HordeSat: invalid diversification mode.");
   }
 }
 
-void HordeSatSolver::parse_cnf(std::filesystem::path const& path) {
-  _prop.parse_cnf(path);
-  loadFormulaToSolvers(_solver_ptrs, path.c_str());
+void HordeSatSolver::load_problem(Problem const& problem) {
+  loadClausesToSolvers(_solver_ptrs, problem.clauses());
+  _prop->load_problem(problem);
   _diversify();
 }
 
 State HordeSatSolver::solve(const Minisat::vec<Minisat::Lit>& assumptions) {
   // clear ending detection
-  std::fill(_ending_buffer.get(), _ending_buffer.get() + mpi_size, 0);
+  _do_clear_interrupt();
   _result = UNKNOWN;
   _solvingDoneLocal = false;
 
@@ -273,8 +256,11 @@ State HordeSatSolver::solve(const Minisat::vec<Minisat::Lit>& assumptions) {
   uint32_t cur_step = 0;
 
   // wait for result
-  while (!getGlobalEnding(
-      mpi_size, mpi_rank, _solvingDoneLocal, _ending_buffer.get(), _interruptLock, _solver_ptrs)) {
+  while (!getGlobalEnding(_solvingDoneLocal, _result, _interrupt_lock, _solver_ptrs)) {
+    if (_interrupted) {
+      stopAllSolvers(_interrupt_lock, _solvingDoneLocal, _solver_ptrs);
+      break;
+    }
     usleep(sleep_between);
     ++cur_step;
     if (cur_step == _cfg.max_rounds()) {
@@ -288,14 +274,35 @@ State HordeSatSolver::solve(const Minisat::vec<Minisat::Lit>& assumptions) {
   return _result;
 }
 
+void HordeSatSolver::solve_assignments(domain::USearch search, Solver::slv_callback_t const& callback) {
+  _prop->prop_assignments(std::move(search), [&, this] (bool has_conflict, auto const& assumptions) {
+    if (has_conflict) {
+      callback(UNSAT, true, assumptions);
+    } else {
+      std::lock_guard<std::mutex> solve_lock(_solve_mutex);
+      callback(solve(assumptions), false, assumptions);
+//      callback(UNSAT, true, assumptions);
+    }
+    return !_interrupted;
+  });
+}
+
 unsigned HordeSatSolver::num_vars() const noexcept {
   return _solvers.front()->getVariablesCount();
 }
 
 bool HordeSatSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) {
-  return _prop.propagate(assumptions);
+  return _prop->propagate(assumptions);
+}
+
+void HordeSatSolver::_do_interrupt() {
+  _interrupted = true;
+}
+
+void HordeSatSolver::_do_clear_interrupt() {
+  _interrupted = false;
 }
 
 REGISTER_PROTO(Solver, HordeSatSolver, hordesat_solver_config);
 
-}  // namespace core::sat
+}  // namespace core::sat::solver

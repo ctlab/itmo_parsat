@@ -18,8 +18,6 @@
 
 class AllToAllSharingManager : public SharingManagerInterface {
  protected:
-  // MPI paramaters
-  int size, rank;
   // associated solvers
   vector<PortfolioSolverInterface*> solvers;
   vector<ClauseFilter*> solverFilters;
@@ -54,8 +52,7 @@ class AllToAllSharingManager : public SharingManagerInterface {
   SharingStatistics stats;
 
  public:
-  AllToAllSharingManager(
-      int mpi_size, int mpi_rank, vector<PortfolioSolverInterface*> solvers, bool fd);
+  AllToAllSharingManager(vector<PortfolioSolverInterface*> solvers, bool fd);
   void doSharing();
   SharingStatistics getStatistics();
   ~AllToAllSharingManager();

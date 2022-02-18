@@ -6,10 +6,11 @@
 #include "minisat/simp/SimpSolver.h"
 #include "minisat/core/Dimacs.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/util/Generator.h"
-#include "core/util/GzFile.h"
-#include "core/util/Logger.h"
-#include "core/util/Tracer.h"
+#include "core/sat/Problem.h"
+#include "util/Generator.h"
+#include "util/GzFile.h"
+#include "util/Logger.h"
+#include "util/Tracer.h"
 
 namespace core::sat {
 
@@ -17,11 +18,12 @@ class SimpBase : public Minisat::SimpSolver {
  public:
   SimpBase() = default;
 
-  SimpBase(SimpSolverConfig const& config);
-
-  void parse_cnf(std::filesystem::path const& path);
+  explicit SimpBase(SimpSolverConfig const& config);
 
   [[nodiscard]] uint32_t num_vars() const noexcept;
+
+  /// @brief returns false if the formula has been solved during initialization (UNSAT)
+  bool load_problem(Problem const& problem);
 
  protected:
   bool _propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions);

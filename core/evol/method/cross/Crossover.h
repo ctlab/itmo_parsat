@@ -1,7 +1,7 @@
 #ifndef EVOL_CROSSOVER_H
 #define EVOL_CROSSOVER_H
 
-#include "core/util/Registry.h"
+#include "util/Registry.h"
 #include "core/evol/instance/Instance.h"
 #include "core/proto/solve_config.pb.h"
 

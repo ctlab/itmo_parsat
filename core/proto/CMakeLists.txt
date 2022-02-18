@@ -1,4 +1,3 @@
-find_package(Protobuf 3 REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
 
 protobuf_generate_cpp(LOGGING_PROTO_SRCS LOGGING_PROTO_HDRS logging_config.proto)

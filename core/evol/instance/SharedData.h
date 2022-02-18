@@ -6,7 +6,7 @@
 #include "core/evol/instance/Fitness.h"
 #include "core/domain/VarView.h"
 #include "core/domain/SearchSpace.h"
-#include "core/util/LRUCache.h"
+#include "util/LRUCache.h"
 
 namespace ea::instance {
 /**

@@ -53,7 +53,7 @@ class MiniSat : public PortfolioSolverInterface {
   // Add a (list of) permanent clause(s) to the formula
   void addClause(vector<int>& clause);
   void addClauses(vector<vector<int> >& clauses);
-  void addInitialClauses(vector<vector<int> >& clauses);
+  void addInitialClauses(vector<vector<int> > const& clauses);
 
   // Add a (list of) learned clause(s) to the formula
   // The learned clauses might be added later or possibly never

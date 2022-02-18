@@ -3,8 +3,8 @@
 
 #include "core/domain/assignment/AssignmentModifier.h"
 #include "core/domain/assignment/UniqueSearch.h"
-#include "core/domain/assignment/SplittableSearch.h"
-#include "core/util/Generator.h"
+#include "core/domain/assignment/Search.h"
+#include "util/Generator.h"
 
 namespace core::domain {
 
@@ -14,9 +14,8 @@ MAKE_REFS(RandomSearch);
 /**
  * @brief The class used to perform random search.
  */
-class RandomSearch : AssignmentModifier, public SplittableSearch {
-  friend USplittableSearch createRandomSearch(
-      VarView const& var_view, std::vector<bool> const&, uint64_t);
+class RandomSearch : AssignmentModifier, public Search {
+  friend USearch createRandomSearch(VarView const& var_view, std::vector<bool> const&, uint64_t);
 
  public:
   [[nodiscard]] RandomSearch* clone() const override;
@@ -32,8 +31,7 @@ class RandomSearch : AssignmentModifier, public SplittableSearch {
   void _reset() override;
 };
 
-USplittableSearch createRandomSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
 }  // namespace core::domain
 

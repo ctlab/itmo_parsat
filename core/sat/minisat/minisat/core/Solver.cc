@@ -808,6 +808,8 @@ finish:
 //=================================================================================================
 // Only checks for conflicts
 bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
+  // TODO: collect garbage manually
+//  garbageCollect();
   if (!ok) {
     return false;
   }
@@ -820,7 +822,7 @@ bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
   int psaving_copy = phase_saving;
   phase_saving = psaving;
 
-#if 1  // Enqueue all assumptions at once. Faster by 6-10%.
+#if 0  // Enqueue all assumptions at once. Faster by 6-10%.
   newDecisionLevel();
   for (int i = 0; st && i < assumps.size(); ++i) {
     Lit p = assumps[i];
@@ -1389,6 +1391,7 @@ void Solver::relocAll(ClauseAllocator& to) {
 }
 
 void Solver::garbageCollect() {
+  std::cerr << "collect" << std::endl;
   // Initialize the next region to a size corresponding to the estimated utilization degree. This
   // is not precise but should avoid some unnecessary reallocations for the new region:
   ClauseAllocator to(ca.size() - ca.wasted());

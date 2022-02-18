@@ -186,7 +186,7 @@ void Lingeling::addClauses(vector<vector<int> >& clauses) {
   clauseAddMutex.unlock();
 }
 
-void Lingeling::addInitialClauses(vector<vector<int> >& clauses) {
+void Lingeling::addInitialClauses(vector<vector<int> > const& clauses) {
   for (size_t i = 0; i < clauses.size(); i++) {
     for (size_t j = 0; j < clauses[i].size(); j++) {
       int lit = clauses[i][j];

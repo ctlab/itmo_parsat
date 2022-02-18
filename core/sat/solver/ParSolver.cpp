@@ -3,9 +3,9 @@
 #include <filesystem>
 #include <mutex>
 
-#include "core/util/stream.h"
+#include "util/stream.h"
 
-namespace core::sat {
+namespace core::sat::solver {
 
 ParSolver::ParSolver(ParSolverConfig const& config)
     : _solver_pool(config.max_threads(), [&config] {
@@ -16,9 +16,9 @@ ParSolver::~ParSolver() noexcept {
   interrupt();
 }
 
-void ParSolver::parse_cnf(std::filesystem::path const& input) {
+void ParSolver::load_problem(Problem const& problem) {
   for (auto& solver : _solver_pool.get_workers()) {
-    solver->parse_cnf(input);
+    solver->load_problem(problem);
   }
 }
 
@@ -32,8 +32,7 @@ void ParSolver::solve_assignments(domain::USearch search, Solver::slv_callback_t
 
   // Here we share assignment between all worker threads.
   // Don't forget to release unique ptr.
-  domain::RSearch shared_search(search.get());
-  search.release();
+  domain::RSearch shared_search(search.release());
 
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);
@@ -47,7 +46,7 @@ void ParSolver::solve_assignments(domain::USearch search, Solver::slv_callback_t
 }
 
 void ParSolver::_solve(
-    sat::Solver& solver, domain::RSearch search, slv_callback_t const& callback) {
+    sat::solver::Solver& solver, domain::RSearch search, slv_callback_t const& callback) {
   if (!search->empty()) {
     auto& assignment = *search;
     Minisat::vec<Minisat::Lit> arg(assignment().size());
@@ -96,4 +95,4 @@ bool ParSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) {
 
 REGISTER_PROTO(Solver, ParSolver, par_solver_config);
 
-}  // namespace core::sat
+}  // namespace core::sat::solver

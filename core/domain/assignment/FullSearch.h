@@ -2,7 +2,7 @@
 #define ITMO_PARSAT_FULLSEARCH_H
 
 #include "core/domain/assignment/AssignmentModifier.h"
-#include "core/domain/assignment/SplittableSearch.h"
+#include "core/domain/assignment/Search.h"
 
 namespace core::domain {
 
@@ -12,7 +12,7 @@ MAKE_REFS(FullSearch);
 /**
  * @brief The class used to perform full search.
  */
-class FullSearch : AssignmentModifier, public SplittableSearch {
+class FullSearch : AssignmentModifier, public Search {
   friend UFullSearch createFullSearch(VarView const&, std::vector<bool> const&);
 
  public:

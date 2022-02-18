@@ -4,11 +4,11 @@
 #include <filesystem>
 
 #include "core/sat/solver/Solver.h"
-#include "core/util/Logger.h"
-#include "core/util/Tracer.h"
+#include "util/Logger.h"
+#include "util/Tracer.h"
 #include "core/sat/SimpBase.h"
 
-namespace core::sat {
+namespace core::sat::solver {
 
 /**
  * @brief Minisat:SimpSolver-based Solver implementation.
@@ -17,7 +17,7 @@ class SimpSolver : public Solver, public SimpBase {
  public:
   explicit SimpSolver(SimpSolverConfig const& config);
 
-  void parse_cnf(std::filesystem::path const& path) override;
+  void load_problem(Problem const& problem) override;
 
   State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
 
@@ -31,6 +31,6 @@ class SimpSolver : public Solver, public SimpBase {
   void _do_clear_interrupt() override;
 };
 
-}  // namespace core::sat
+}  // namespace core::sat::solver
 
 #endif  // EVOL_SIMPSOLVER_H

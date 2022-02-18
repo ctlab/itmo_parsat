@@ -7,13 +7,13 @@
 #include "core/sat/prop/Prop.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/domain/SearchSpace.h"
-#include "core/util/Registry.h"
+#include "util/Registry.h"
 #include "core/evol/instance/Instance.h"
 #include "core/evol/instance/SharedData.h"
 #include "core/evol/limit/Limit.h"
 #include "core/evol/method/select/Selector.h"
-#include "core/util/Logger.h"
-#include "core/util/Tracer.h"
+#include "util/Logger.h"
+#include "util/Tracer.h"
 
 namespace ea::algorithm {
 

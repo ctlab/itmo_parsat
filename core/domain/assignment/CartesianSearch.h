@@ -6,7 +6,7 @@
 #include <algorithm>
 
 #include "core/domain/assignment/Search.h"
-#include "core/util/Logger.h"
+#include "util/Logger.h"
 
 namespace core::domain {
 
@@ -18,20 +18,20 @@ MAKE_REFS(CartesianSearch);
  */
 class CartesianSearch : public Search {
  public:
-  /**
-   * @param assignments the set of assignments to be searched through.
-   */
   explicit CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
 
-  /**
-   * @see Search::operator()()
-   */
+  explicit CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian);
+
   Minisat::vec<Minisat::Lit> const& operator()() const override;
+
+  [[nodiscard]] Search* clone() const override;
 
  protected:
   void _advance() override;
 
   void _set_cur(uint32_t from);
+
+  void _reset() override;
 
  private:
   std::vector<uint32_t> _indices;

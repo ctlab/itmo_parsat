@@ -3,7 +3,7 @@
 namespace core::domain {
 
 UniqueSearch::UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
-    : AssignmentModifier(var_view, vars), SplittableSearch(total) {
+    : AssignmentModifier(var_view, vars), Search(total) {
   _advance_us();
 }
 

@@ -9,10 +9,10 @@
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/VarView.h"
 #include "core/domain/Vars.h"
-#include "core/util/stream.h"
-#include "core/util/Logger.h"
-#include "core/util/LRUCache.h"
-#include "core/util/Generator.h"
+#include "util/stream.h"
+#include "util/Logger.h"
+#include "util/LRUCache.h"
+#include "util/Generator.h"
 
 namespace ea::instance {
 

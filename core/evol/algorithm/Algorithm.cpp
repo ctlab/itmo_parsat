@@ -1,7 +1,7 @@
 #include "core/evol/algorithm/Algorithm.h"
 
-#include "core/util/Logger.h"
-#include "core/util/stream.h"
+#include "util/Logger.h"
+#include "util/stream.h"
 
 namespace {
 

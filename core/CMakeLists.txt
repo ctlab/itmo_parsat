@@ -3,10 +3,7 @@ file(GLOB _EVOL_SRC "evol/algorithm/*" "evol/instance/*" "evol/limit/*" "evol/me
 file(GLOB _SOLVE_SRC "solve/*")
 file(GLOB _TEST_SRC "tests/*")
 file(GLOB _PROP_SRC "sat/prop/*")
-file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*")
-file(GLOB CORE_UTIL_SRC "util/*")
-
-set(CORE_UTIL_SRC ${CORE_UTIL_SRC} PARENT_SCOPE)
+file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*" "sat/Problem.*")
 
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(${CMAKE_BINARY_DIR})
@@ -27,9 +24,8 @@ set(CORE_SRC
         ${_PROP_SRC}
         ${_SOLVER_SRC}
         ${LOGGING_PROTO_SRCS}
-        ${SOLVE_PROTO_SRCS}
-        ${CORE_UTIL_SRC})
+        ${SOLVE_PROTO_SRCS})
 set(CORE_SRC ${CORE_SRC} PARENT_SCOPE)
 
-add_executable(core_unit_tests ${_TEST_SRC} ${CORE_SRC})
+add_executable(core_unit_tests ${_TEST_SRC} ${UTIL_SRC} ${CORE_SRC})
 target_link_libraries(core_unit_tests ${CORE_LIBS} ${GTEST_LIBRARIES})

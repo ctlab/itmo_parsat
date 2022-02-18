@@ -134,7 +134,7 @@ void MiniSat::addClauses(vector<vector<int> >& clauses) {
   setSolverInterrupt();
 }
 
-void MiniSat::addInitialClauses(vector<vector<int> >& clauses) {
+void MiniSat::addInitialClauses(vector<vector<int> > const& clauses) {
   for (size_t ind = 0; ind < clauses.size(); ind++) {
     vec<Lit> mcls;
     for (size_t i = 0; i < clauses[ind].size(); i++) {

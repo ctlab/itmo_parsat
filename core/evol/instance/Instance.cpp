@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <utility>
 
-#include "core/util/Logger.h"
-#include "core/util/Generator.h"
+#include "util/Logger.h"
+#include "util/Generator.h"
 
 namespace ea::instance {
 
@@ -92,7 +92,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
 
     // clang-format on
   } else {
-    core::domain::USplittableSearch search =
+    core::domain::USearch search =
         core::domain::createRandomSearch(_var_view(), mask, samples);
     // clang-format off
     _prop->prop_assignments(std::move(search),

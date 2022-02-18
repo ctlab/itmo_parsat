@@ -7,10 +7,10 @@
 
 #include "core/solve/Solve.h"
 #include "core/evol/algorithm/Algorithm.h"
-#include "core/util/SigHandler.h"
-#include "core/util/Logger.h"
-#include "core/util/assert.h"
-#include "core/util/Generator.h"
+#include "util/SigHandler.h"
+#include "util/Logger.h"
+#include "util/assert.h"
+#include "util/Generator.h"
 #include "core/domain/assignment/CartesianSearch.h"
 
 namespace core {
@@ -28,11 +28,10 @@ class ParRBSSolve : public Solve {
  public:
   explicit ParRBSSolve(ParRBSSolveConfig config);
 
-  [[nodiscard]] sat::State solve(std::filesystem::path const& input) override;
+  [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
  private:
-  std::vector<std::vector<std::vector<Minisat::Lit>>> _pre_solve(
-      std::filesystem::path const& input);
+  std::vector<std::vector<std::vector<Minisat::Lit>>> _pre_solve(sat::Problem const& problem);
 
   domain::USearch _prepare_cartesian(
       std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set);

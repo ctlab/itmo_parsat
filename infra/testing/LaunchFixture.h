@@ -13,8 +13,8 @@
 #include <random>
 #include <gtest/gtest.h>
 
-#include "core/util/SigHandler.h"
-#include "core/util/EventHandler.h"
+#include "util/SigHandler.h"
+#include "util/EventHandler.h"
 #include "infra/domain/LaunchesDao.h"
 #include "infra/testing/Execution.h"
 #include "infra/testing/LaunchConfig.h"

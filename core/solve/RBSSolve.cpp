@@ -4,12 +4,12 @@ namespace core {
 
 RBSSolve::RBSSolve(RBSSolveConfig const& config) : _cfg(config) {}
 
-sat::State RBSSolve::solve(std::filesystem::path const& input) {
+sat::State RBSSolve::solve(sat::Problem const& problem) {
   ea::algorithm::RAlgorithm algorithm(
       ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config()));
   _do_interrupt = [algorithm] { algorithm->interrupt(); };
   auto& algorithm_solver = algorithm->get_prop();
-  IPS_TRACE(algorithm_solver.parse_cnf(input));
+  IPS_TRACE(algorithm_solver.load_problem(problem));
   domain::USearch final_search;
   if (!algorithm->prepare()) {
     final_search = domain::createSingleSearch();
@@ -30,7 +30,7 @@ sat::State RBSSolve::solve(std::filesystem::path const& input) {
   }
   auto solver = _resolve_solver(_cfg.solver_config());
   _do_interrupt = [solver] { solver->interrupt(); };
-  IPS_TRACE(solver->parse_cnf(input));
+  IPS_TRACE(solver->load_problem(problem));
   return _final_solve(*solver, std::move(final_search));
 }
 

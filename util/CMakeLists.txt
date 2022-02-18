@@ -1,0 +1,2 @@
+file(GLOB UTIL_SRC "*")
+set(UTIL_SRC ${UTIL_SRC} PARENT_SCOPE)
