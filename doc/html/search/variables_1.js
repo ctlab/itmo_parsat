@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['default_5fevery_5fn_250',['DEFAULT_EVERY_N',['../classcore_1_1Logger.html#aa974f9b737df195e83e2c52757a014bb',1,'core::Logger']]],
-  ['default_5fverbose_5flevel_251',['DEFAULT_VERBOSE_LEVEL',['../classcore_1_1Logger.html#ab4c1a970926f8d7a2e900343d57326e8',1,'core::Logger']]]
+  ['omega_5fx_182',['omega_x',['../structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6',1,'ea::instance::SharedData']]]
 ];

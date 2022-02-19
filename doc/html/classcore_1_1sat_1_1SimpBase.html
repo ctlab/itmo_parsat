@@ -79,10 +79,10 @@ Inheritance diagram for core::sat::SimpBase:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1SimpBase__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1SimpBase_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1SimpBase_inherit__map" id="core_1_1sat_1_1SimpBase_inherit__map">
-<area shape="rect" title=" " alt="" coords="121,80,272,107"/>
-<area shape="rect" href="classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="5,155,191,181"/>
-<area shape="rect" href="classcore_1_1sat_1_1SimpSolver.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="215,155,375,181"/>
-<area shape="rect" title=" " alt="" coords="121,5,273,32"/>
+<area shape="rect" title=" " alt="" coords="115,80,265,107"/>
+<area shape="rect" href="classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="5,162,191,189"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="215,155,349,196"/>
+<area shape="rect" title=" " alt="" coords="114,5,266,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -100,12 +100,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad34d47b38adfcef703380f7e85e87d05"><td class="memItemLeft" align="right" valign="top"><a id="ad34d47b38adfcef703380f7e85e87d05"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SimpBase</b> (SimpSolverConfig const &amp;config)</td></tr>
 <tr class="separator:ad34d47b38adfcef703380f7e85e87d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad696b45897b2aa7f94ca78b390eea1e0"><td class="memItemLeft" align="right" valign="top"><a id="ad696b45897b2aa7f94ca78b390eea1e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>parse_cnf</b> (std::filesystem::path const &amp;path)</td></tr>
-<tr class="separator:ad696b45897b2aa7f94ca78b390eea1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bb7dbacffb3836b961c0a4ef1a809ff"><td class="memItemLeft" align="right" valign="top"><a id="a9bb7dbacffb3836b961c0a4ef1a809ff"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>num_vars</b> () const noexcept</td></tr>
 <tr class="separator:a9bb7dbacffb3836b961c0a4ef1a809ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06087c9f842b1b5e1d67a1393dbd22a7"><td class="memItemLeft" align="right" valign="top"><a id="a06087c9f842b1b5e1d67a1393dbd22a7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1SimpBase.html#a06087c9f842b1b5e1d67a1393dbd22a7">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">Problem</a> const &amp;problem)</td></tr>
+<tr class="memdesc:a06087c9f842b1b5e1d67a1393dbd22a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns false if the formula has been solved during initialization (UNSAT) <br /></td></tr>
+<tr class="separator:a06087c9f842b1b5e1d67a1393dbd22a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>

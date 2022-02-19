@@ -42,6 +42,9 @@ class CartesianSearch : public Search {
 UCartesianSearch createCartesianSearch(
     std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
 
+UCartesianSearch createCartesianSearch(
+    std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian);
+
 }  // namespace core::domain
 
 #endif  // ITMO_PARSAT_CARTESIANSEARCH_H

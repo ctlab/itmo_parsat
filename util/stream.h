@@ -37,4 +37,6 @@ std::ostream& operator<<(std::ostream& os, std::map<K, V> const& map) {
 
 std::ostream& operator<<(std::ostream& os, Minisat::vec<Minisat::Lit> const& vec);
 
+std::ostream& operator<<(std::ostream& os, Minisat::Lit const& lit);
+
 #endif  // EVOL_STREAM_H

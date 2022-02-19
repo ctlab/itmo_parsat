@@ -5,7 +5,7 @@
 
 #include "core/sat/prop/Prop.h"
 #include "util/Logger.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "core/sat/SimpBase.h"
 #include "minisat/simp/SimpSolver.h"
 

@@ -10,7 +10,7 @@
 #include "util/Generator.h"
 #include "util/GzFile.h"
 #include "util/Logger.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 
 namespace core::sat {
 

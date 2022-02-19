@@ -31,6 +31,10 @@ bool Algorithm::_init_shared_data(InstanceConfig const& config) {
   std::vector<std::pair<int, int>> stats;
   stats.reserve(_prop->num_vars());
 
+  if (_prop->num_vars() == 0) {
+    return false;
+  }
+
   for (unsigned i = 0; i < _prop->num_vars(); ++i) {
     std::set<int> prop_both;
     assumptions[0] = Minisat::mkLit((int) i, true);

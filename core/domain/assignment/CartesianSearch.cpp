@@ -43,14 +43,11 @@ Search* CartesianSearch::clone() const {
 }
 
 void CartesianSearch::_reset() {
-  /// skip _first elements of product
-  std::fill(_indices.begin(), _indices.end(), 0);
-
-  for (size_t i = _indices.size(); i-- > 0; ) {
-    _indices[i] = _first % _cartesian[i].size();
-    _first /= _cartesian[i].size();
+  size_t tmp_first = _first;
+  for (size_t i = _indices.size(); i-- > 0;) {
+    _indices[i] = tmp_first % _cartesian[i].size();
+    tmp_first /= _cartesian[i].size();
   }
-
   _set_cur(0);
 }
 
@@ -85,6 +82,11 @@ void CartesianSearch::_advance() {
 UCartesianSearch createCartesianSearch(
     std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian) {
   return std::make_unique<CartesianSearch>(std::move(cartesian));
+}
+
+UCartesianSearch createCartesianSearch(
+    std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian) {
+  return std::make_unique<CartesianSearch>(cartesian);
 }
 
 }  // namespace core::domain

@@ -11,3 +11,7 @@ std::ostream& operator<<(std::ostream& os, Minisat::vec<Minisat::Lit> const& vec
   }
   return os << "]";
 }
+
+std::ostream& operator<<(std::ostream& os, Minisat::Lit const& lit) {
+  return os << (Minisat::sign(lit) ? "!" : "") << Minisat::var(lit);
+}

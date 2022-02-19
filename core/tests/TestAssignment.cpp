@@ -3,9 +3,22 @@
 
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/domain/assignment/FullSearch.h"
+#include "core/domain/assignment/CartesianSearch.h"
 #include "util/stream.h"
 #include "util/Logger.h"
 #include "util/Generator.h"
+
+namespace {
+
+std::vector<Minisat::Lit> gen_mv(size_t size, int s1, int s2) {
+  std::vector<Minisat::Lit> v(size);
+  for (int i = 0; i < v.size(); ++i) {
+    v[i] = Minisat::mkLit((s1 + 1) * 100 + i, s2 & (1 << i));
+  }
+  return v;
+}
+
+}  // namespace
 
 using namespace core;
 
@@ -23,9 +36,8 @@ class TestAssignment : public ::testing::Test {
     std::fill(mock_vars.begin() + size, mock_vars.end(), false);
   }
 
-  static std::vector<int> get_vars(domain::USearch const& asgn) {
+  static std::vector<int> get_vars(Minisat::vec<Minisat::Lit> const& vars) {
     std::vector<int> set_vars;
-    auto const& vars = (*asgn)();
     for (int j = 0; j < vars.size(); ++j) {
       if (Minisat::sign(vars[j])) {
         set_vars.push_back(j);
@@ -38,7 +50,7 @@ class TestAssignment : public ::testing::Test {
       domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta) {
     std::set<std::vector<int>> uniques;
     do {
-      uniques.insert(get_vars(assignment_p));
+      uniques.insert(get_vars((*assignment_p)()));
     } while (++(*assignment_p));
     int delta = std::abs((int) uniques.size() - (int) target_count);
     IPS_INFO("Uniques: " << uniques.size() << ", when expected: " << target_count);
@@ -46,8 +58,7 @@ class TestAssignment : public ::testing::Test {
   }
 
   static void test_assignment_split_search(
-      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta,
-      uint32_t ranges) {
+      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta, uint32_t ranges) {
     std::set<std::vector<int>> uniques;
     uint32_t total = 0;
     for (uint32_t index = 0; index < ranges; ++index) {
@@ -57,7 +68,7 @@ class TestAssignment : public ::testing::Test {
           break;
         }
         ++total;
-        uniques.insert(get_vars(split));
+        uniques.insert(get_vars((*split)()));
       } while (++(*split));
     }
     int delta = std::abs((int) uniques.size() - (int) target_count);
@@ -76,8 +87,7 @@ class TestAssignment : public ::testing::Test {
 
   void test_random_search_range(long size, uint32_t total, uint32_t ranges) {
     set_size(size);
-    domain::USearch assignment_p(
-        domain::createRandomSearch(mock_var_map, mock_vars, total));
+    domain::USearch assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, total));
     test_assignment_split_search(std::move(assignment_p), total, 0, ranges);
   }
 
@@ -91,8 +101,7 @@ class TestAssignment : public ::testing::Test {
     set_size(size);
     bool unique = size <= 63;
     uint32_t max_delta = unique ? 0 : std::max(1L, target / 100);
-    domain::USearch assignment_p(
-        domain::createRandomSearch(mock_var_map, mock_vars, target));
+    domain::USearch assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, target));
     test_assignment_full(std::move(assignment_p), target, max_delta);
   }
 
@@ -173,4 +182,65 @@ TEST_F(TestAssignment, random_search_range_16_8) {
 
 TEST_F(TestAssignment, random_search_range_16_16) {
   test_random_search_range(16, 5000, 16);
+}
+
+TEST_F(TestAssignment, cartesian_search) {
+  int num_tests = 100;
+  while (num_tests--) {
+    std::vector<std::vector<std::vector<Minisat::Lit>>> csp(5);
+    uint64_t csp_size = 1;
+    for (size_t i = 0; i < 5; ++i) {
+      // generate assumption set
+      int assump_size = core::random::sample<int>(0, 10);
+      int set_size = std::min(1 << assump_size, core::random::sample<int>(1, 10));
+      csp_size *= set_size;
+      for (int j = 0; j < set_size; ++j) {
+        csp[i].push_back(gen_mv(assump_size, i, j));
+      }
+    }
+    auto search = domain::createCartesianSearch(csp);
+    std::set<std::vector<int>> assumptions;
+    auto& search_ref = *search;
+    do {
+      auto vars = get_vars(search_ref());
+      ASSERT_EQ(0, assumptions.count(vars));
+      assumptions.insert(vars);
+    } while (++search_ref);
+    CHECK_EQ(assumptions.size(), csp_size);
+  }
+}
+
+TEST_F(TestAssignment, cartesian_search_split) {
+  int num_tests = 1000;
+  while (num_tests--) {
+    int size = core::random::sample(1, 5);
+    std::vector<std::vector<std::vector<Minisat::Lit>>> csp(size);
+    uint64_t csp_size = 1;
+    for (size_t i = 0; i < size; ++i) {
+      // generate assumption set
+      int assump_size = core::random::sample<int>(0, 10);
+      int set_size = std::min(1 << assump_size, core::random::sample<int>(1, 10));
+      csp_size *= set_size;
+      for (int j = 0; j < set_size; ++j) {
+        csp[i].push_back(gen_mv(assump_size, i, j));
+      }
+    }
+    auto search = domain::createCartesianSearch(csp);
+    std::set<std::vector<int>> assumptions;
+
+    for (int ns = 0; ns < 16; ++ns) {
+      auto split = search->split_search(16, ns);
+      auto& split_ref = *split;
+      if (split_ref.empty()) {
+        break;
+      }
+      do {
+        auto vars = get_vars(split_ref());
+        ASSERT_EQ(0, assumptions.count(vars));
+        assumptions.insert(vars);
+      } while (++split_ref);
+    }
+
+    CHECK_EQ(assumptions.size(), csp_size);
+  }
 }

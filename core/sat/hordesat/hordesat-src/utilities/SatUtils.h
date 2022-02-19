@@ -13,6 +13,7 @@
 
 bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char* filename);
 
-void loadClausesToSolvers(vector<PortfolioSolverInterface*>& solvers, vector<vector<int>> const& clauses);
+void loadClausesToSolvers(
+    vector<PortfolioSolverInterface*>& solvers, vector<vector<int>> const& clauses);
 
 #endif /* SATUTILS_H_ */

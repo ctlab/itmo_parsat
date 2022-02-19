@@ -42,8 +42,11 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
   }
 
   _do_interrupt = [&] {
+    std::lock_guard<std::mutex> lg(mutex);
     for (auto& algorithm : algorithms) {
-      algorithm->interrupt();
+      if (algorithm) {
+        algorithm->interrupt();
+      }
     }
   };
 
@@ -112,6 +115,9 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
             if (_sbs_found) {
               algorithms_info << "\tMay be stopped because SBS has been found.\n";
             }
+
+            // Delete algorithm and free resources (under global mutex).
+            algorithms[i].reset();
           }
         });
   }

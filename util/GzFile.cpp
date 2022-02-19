@@ -3,7 +3,8 @@
 namespace util {
 
 GzFile::GzFile(std::filesystem::path const& path) {
-  IPS_VERIFY_S(nullptr != (file_ = gzopen(path.c_str(), "rb")), "Failed to open file " << path);
+  file_ = gzopen(path.c_str(), "rb");
+  IPS_VERIFY_S(nullptr != file_, "Failed to open file " << path);
 }
 
 GzFile::~GzFile() noexcept {

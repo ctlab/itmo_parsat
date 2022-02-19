@@ -5,7 +5,7 @@
 
 #include "core/sat/solver/Solver.h"
 #include "util/Logger.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "core/sat/SimpBase.h"
 
 namespace core::sat::solver {

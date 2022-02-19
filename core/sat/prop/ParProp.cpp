@@ -1,6 +1,8 @@
 #include "core/sat/prop/ParProp.h"
 
 #include <mutex>
+#include <algorithm>
+#include <execution>
 
 #include "util/stream.h"
 
@@ -12,9 +14,10 @@ ParProp::ParProp(ParPropConfig const& config)
     }) {}
 
 void ParProp::load_problem(Problem const& problem) {
-  for (auto& solver : _prop_worker_pool.get_workers()) {
-    solver->load_problem(problem);
-  }
+  auto& workers = _prop_worker_pool.get_workers();
+  std::for_each(std::execution::par_unseq, workers.begin(), workers.end(), [&problem](auto& prop) {
+    prop->load_problem(problem);
+  });
 }
 
 bool ParProp::propagate(
@@ -22,8 +25,7 @@ bool ParProp::propagate(
   return _prop_worker_pool.get_workers().front()->propagate(assumptions, propagated);
 }
 
-void ParProp::prop_assignments(
-    domain::USearch search, Prop::prop_callback_t const& callback) {
+void ParProp::prop_assignments(domain::USearch search, Prop::prop_callback_t const& callback) {
   uint32_t num_threads = _prop_worker_pool.max_threads();
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);

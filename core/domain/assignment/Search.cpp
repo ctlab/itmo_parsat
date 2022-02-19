@@ -57,7 +57,6 @@ uint64_t Search::total_size(std::vector<bool> const& vars) {
 }
 
 USearch Search::split_search(uint64_t num_split, uint64_t index) const {
-  IPS_INFO("CLONE");
   auto* result = clone();
   uint64_t start, to_do;
   get_start_and_todo(_total, num_split, index, start, to_do);

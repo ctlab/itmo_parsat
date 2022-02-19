@@ -3,7 +3,7 @@
 
 #include "core/solve/Solve.h"
 #include "util/SigHandler.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "util/Logger.h"
 
 namespace core {

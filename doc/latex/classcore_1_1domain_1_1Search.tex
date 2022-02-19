@@ -32,7 +32,11 @@ bool \mbox{\hyperlink{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3f
 uint64\+\_\+t \mbox{\hyperlink{classcore_1_1domain_1_1Search_a9a862b210186e060fb96d45c4a670983}{size}} () const noexcept
 \item 
 bool \mbox{\hyperlink{classcore_1_1domain_1_1Search_a34f4e198a6d8660ecffb0a6b322d95ef}{empty}} () const noexcept
-\end{DoxyCompactItemize}
+\item 
+U\+Search \mbox{\hyperlink{classcore_1_1domain_1_1Search_a17e6d8a0df067683f0a80ca2171a4acf}{split\+\_\+search}} (uint64\+\_\+t num\+\_\+split, uint64\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em Separates a part of the assignment. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classcore_1_1domain_1_1Search}{Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d346e679fa66}{clone}} () const =0
+\begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -44,6 +48,9 @@ static uint64\+\_\+t {\bfseries total\+\_\+size} (std\+::vector$<$ bool $>$ cons
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1Search_a3b5c8a2fa951bce8f561364d68f82f45}\label{classcore_1_1domain_1_1Search_a3b5c8a2fa951bce8f561364d68f82f45}} 
 virtual void {\bfseries \+\_\+advance} ()=0
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a5ca8a8c2a3134f452ba4eefed015432d}\label{classcore_1_1domain_1_1Search_a5ca8a8c2a3134f452ba4eefed015432d}} 
+virtual void {\bfseries \+\_\+reset} ()=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -54,11 +61,17 @@ static void {\bfseries \+\_\+set\+\_\+assignment} (Minisat\+::vec$<$ Minisat\+::
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_acabde3654236523558c5719dd53dcf25}\label{classcore_1_1domain_1_1Search_acabde3654236523558c5719dd53dcf25}} 
-uint32\+\_\+t {\bfseries \+\_\+total}
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a274fce3f3fa8cf064bb1f7b9d4c21067}\label{classcore_1_1domain_1_1Search_a274fce3f3fa8cf064bb1f7b9d4c21067}} 
+uint64\+\_\+t {\bfseries \+\_\+total}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_adb69eceda730029c612b60890980cf12}\label{classcore_1_1domain_1_1Search_adb69eceda730029c612b60890980cf12}} 
-uint32\+\_\+t {\bfseries \+\_\+done} = 0
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a60eeed4b3f8193f1899b1382bd340202}\label{classcore_1_1domain_1_1Search_a60eeed4b3f8193f1899b1382bd340202}} 
+uint64\+\_\+t {\bfseries \+\_\+done} = 0
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_aaeb9dbae6b638e1b6b4a37954c9e4805}\label{classcore_1_1domain_1_1Search_aaeb9dbae6b638e1b6b4a37954c9e4805}} 
+uint64\+\_\+t {\bfseries \+\_\+first} = 0
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_aa86c1f7a3320c4e8a04f56a12fef157e}\label{classcore_1_1domain_1_1Search_aa86c1f7a3320c4e8a04f56a12fef157e}} 
+uint64\+\_\+t {\bfseries \+\_\+last} = 0
 \end{DoxyCompactItemize}
 
 
@@ -66,6 +79,23 @@ uint32\+\_\+t {\bfseries \+\_\+done} = 0
 The class representing the sequential search in assignments space. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d346e679fa66}\label{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d346e679fa66}} 
+\index{core::domain::Search@{core::domain::Search}!clone@{clone}}
+\index{clone@{clone}!core::domain::Search@{core::domain::Search}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classcore_1_1domain_1_1Search}{Search}}$\ast$ core\+::domain\+::\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Clones the current search. 
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_a6292070a225c5b714ae943ba514bd694}{core\+::domain\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_a69512d46fec4e98dbefb3812125602b4}{core\+::domain\+::\+Unique\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_a21102a433cf729b84afeda9f254c6ee9}{core\+::domain\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}{core\+::domain\+::\+Full\+Search}}, and \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}{core\+::domain\+::\+Random\+Search}}.
+
 \mbox{\Hypertarget{classcore_1_1domain_1_1Search_a34f4e198a6d8660ecffb0a6b322d95ef}\label{classcore_1_1domain_1_1Search_a34f4e198a6d8660ecffb0a6b322d95ef}} 
 \index{core::domain::Search@{core::domain::Search}!empty@{empty}}
 \index{empty@{empty}!core::domain::Search@{core::domain::Search}}
@@ -86,7 +116,7 @@ the current assignment
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_a33aa55305bf94833c85b155eb25dbf6e}{core\+::domain\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_aefac5a2e44d4a8635b812f708b288316}{core\+::domain\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_aa751e3e4177d9bedabe217452630802a}{core\+::domain\+::\+Unique\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}{core\+::domain\+::\+Random\+Search}}, and \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ac4af45116b197f56fa6f0f9f575e3c14}{core\+::domain\+::\+Full\+Search}}.
+Implemented in \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_a33aa55305bf94833c85b155eb25dbf6e}{core\+::domain\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_aa751e3e4177d9bedabe217452630802a}{core\+::domain\+::\+Unique\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_aefac5a2e44d4a8635b812f708b288316}{core\+::domain\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ac4af45116b197f56fa6f0f9f575e3c14}{core\+::domain\+::\+Full\+Search}}, and \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}{core\+::domain\+::\+Random\+Search}}.
 
 \mbox{\Hypertarget{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3fa8ae9}\label{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3fa8ae9}} 
 \index{core::domain::Search@{core::domain::Search}!operator++@{operator++}}
@@ -109,6 +139,26 @@ true if and only if state is valid and operator() can be applied.
 
 \begin{DoxyReturn}{Returns}
 the total number of steps. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a17e6d8a0df067683f0a80ca2171a4acf}\label{classcore_1_1domain_1_1Search_a17e6d8a0df067683f0a80ca2171a4acf}} 
+\index{core::domain::Search@{core::domain::Search}!split\_search@{split\_search}}
+\index{split\_search@{split\_search}!core::domain::Search@{core::domain::Search}}
+\doxysubsubsection{\texorpdfstring{split\_search()}{split\_search()}}
+{\footnotesize\ttfamily U\+Search core\+::domain\+::\+Search\+::split\+\_\+search (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{num\+\_\+split,  }\item[{uint64\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Separates a part of the assignment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+split} & number of searches this search will be split to. \\
+\hline
+{\em index} & Index of current search in range \mbox{[}0, num\+\_\+split). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new assignment instance. 
 \end{DoxyReturn}
 
 

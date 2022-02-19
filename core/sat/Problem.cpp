@@ -5,27 +5,49 @@
 
 namespace {
 
+using namespace std;
+
 void read_clauses_to(std::filesystem::path const& path, std::vector<std::vector<int>>& clauses) {
-  util::GzFile file(path);
-  Minisat::SimpSolver solver;
-  {
-    util::GzFile gz_file(path);
-    solver.parsing = true;
-    Minisat::parse_DIMACS(gz_file.native_handle(), solver, true);
-    solver.parsing = false;
-  }
-  IPS_INFO("Performing elimination.");
-  solver.eliminate(true);
-  clauses.clear();
-  for (auto it = solver.clausesBegin(); it != solver.clausesEnd(); ++it) {
-    auto const& clause = *it;
-    std::vector<int> clause_vec(clause.size());
-    for (int i = 0; i < clause.size(); ++i) {
-      clause_vec[i] = INT_LIT(clause[i]);
+  FILE* f = fopen(path.c_str(), "r");
+  IPS_VERIFY_S(f != nullptr, "Failed to read CNF from " << path);
+  int c = 0;
+  bool neg = false;
+  vector<int> cls;
+  while (c != EOF) {
+    c = fgetc(f);
+    if (c == 'c' || c == 'p') {
+      while (c != '\n') {
+        c = fgetc(f);
+      }
+      continue;
     }
-    clauses.push_back(std::move(clause_vec));
+    if (isspace(c)) {
+      continue;
+    }
+    if (c == '-') {
+      neg = true;
+      continue;
+    }
+    if (isdigit(c)) {
+      int num = c - '0';
+      c = fgetc(f);
+      while (isdigit(c)) {
+        num = num * 10 + (c - '0');
+        c = fgetc(f);
+      }
+      if (neg) {
+        num *= -1;
+      }
+      neg = false;
+      if (num != 0) {
+        cls.push_back(num);
+      } else {
+        clauses.push_back(vector<int>(cls));
+        cls.clear();
+      }
+    }
   }
-  IPS_INFO("Elimination performed, clauses saved.");
+  fclose(f);
 }
 
 }  // namespace

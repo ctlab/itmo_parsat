@@ -25,24 +25,26 @@ bool SimpBase::_propagate_confl(const Minisat::vec<Minisat::Lit>& assumptions) {
 }
 
 bool SimpBase::load_problem(Problem const& problem) {
-  IPS_TRACE_N("load_problem",
-      auto& clauses = problem.clauses();
-      for (const auto& clause : clauses) {
-        Minisat::vec<Minisat::Lit> mcls;
-        for (int lit : clause) {
-          int var = abs(lit);
-          while (nVars() < var) {
-            newVar();
-          }
-          mcls.push(MINI_LIT(lit));
+  bool result = true;
+  IPS_TRACE_N("load_problem", {
+    auto& clauses = problem.clauses();
+    for (const auto& clause : clauses) {
+      Minisat::vec<Minisat::Lit> mcls;
+      for (int lit : clause) {
+        int var = abs(lit);
+        while (nVars() < var) {
+          newVar();
         }
-        if (!addClause(mcls)) {
-          IPS_INFO("The formula has been solved during initialization (UNSAT).");
-          return false;
-        }
+        mcls.push(MINI_LIT(lit));
       }
-      return true;
-  );
+      if (!addClause(mcls)) {
+        IPS_INFO("The formula has been solved during initialization (UNSAT).");
+        result = false;
+      }
+    }
+  });
+  IPS_TRACE(eliminate(true));
+  return result;
 }
 
 }  // namespace core::sat

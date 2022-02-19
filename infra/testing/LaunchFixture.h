@@ -107,6 +107,7 @@ class LaunchFixture : public ::testing::Test {
 
  public:
   static std::atomic_bool test_failed;
+  static std::atomic_bool is_interrupted;
   static std::set<std::filesystem::path> cnfs;
 };
 

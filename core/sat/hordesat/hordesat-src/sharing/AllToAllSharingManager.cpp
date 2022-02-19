@@ -9,12 +9,8 @@
 #include "AllToAllSharingManager.h"
 #include "../utilities/Logger.h"
 
-AllToAllSharingManager::AllToAllSharingManager(
-    vector<PortfolioSolverInterface*> solvers, bool fd)
-    : solvers(solvers)
-    , fd(fd)
-    , incommingBuffer(NULL)
-    , callback(*this) {
+AllToAllSharingManager::AllToAllSharingManager(vector<PortfolioSolverInterface*> solvers, bool fd)
+    : solvers(solvers), fd(fd), incommingBuffer(NULL), callback(*this) {
   incommingBuffer = new int[COMM_BUFFER_SIZE];
   for (size_t i = 0; i < solvers.size(); i++) {
     solvers[i]->setLearnedClauseCallback(&callback, i);

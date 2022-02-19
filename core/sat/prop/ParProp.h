@@ -32,8 +32,7 @@ class ParProp : public Prop {
       Minisat::vec<Minisat::Lit> const& assumptions,
       Minisat::vec<Minisat::Lit>& propagated) override;
 
-  void prop_assignments(
-      domain::USearch assignment, prop_callback_t const& callback) override;
+  void prop_assignments(domain::USearch assignment, prop_callback_t const& callback) override;
 
   uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unset_247',['unset',['../classcore_1_1signal_1_1SigHandler.html#a7dd88aa5e820142a16202cb171cdb3fe',1,'core::signal::SigHandler']]]
+  ['varview_180',['VarView',['../classcore_1_1domain_1_1VarView.html#a8aa25b240be2e924439782f586271dc9',1,'core::domain::VarView']]]
 ];

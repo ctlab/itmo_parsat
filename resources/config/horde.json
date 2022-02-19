@@ -14,7 +14,10 @@
                 "wakeup_interval_us": 100000,
                 "seq_solver": "LINGELING",
                 "diversification": "SPARSE",
-                "clause_exchange_mode": "ALL_TO_ALL"
+                "clause_exchange_mode": "ALL_TO_ALL",
+                "prop_config": {
+                    "prop_type": "SimpProp"
+                }
             }
         }
     }

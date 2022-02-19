@@ -7,7 +7,7 @@
 #include "core/proto/solve_config.pb.h"
 #include "util/stream.h"
 #include "util/Logger.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "util/Generator.h"
 #include "util/SigHandler.h"
 #include "core/sat/solver/Solver.h"
@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
 
   core::Generator generator(solve_config.random_seed());
   core::sat::State result = IPS_TRACE_V(solve->solve(problem));
-  core::Tracer::print_summary(10);
+  core::TimeTracer::print_summary(10);
 
   if (result == core::sat::UNSAT) {
     IPS_INFO("UNSAT");

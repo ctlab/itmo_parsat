@@ -8,7 +8,7 @@
 #include <fstream>
 
 #include "Logger.h"
-#include "Tracer.h"
+#include "TimeTracer.h"
 #include "assert.h"
 
 namespace core {

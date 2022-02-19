@@ -18,6 +18,8 @@
 #include <boost/current_function.hpp>
 #include <boost/preprocessor/stringize.hpp>
 
+void print(char const* format, ...);
+
 namespace core::assert::_details {
 
 /**

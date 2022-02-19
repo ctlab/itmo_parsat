@@ -8,7 +8,7 @@ WORKDIR /tmp
 # Apt packages
 RUN apt update && apt upgrade -y && \
     apt install -y wget gcc-9 g++-9 gcc g++ make libssl-dev libgtest-dev \
-    libgoogle-glog-dev git libopenmpi-dev libpqxx-dev zlib1g-dev vim doxygen clang-format
+    libgoogle-glog-dev git libopenmpi-dev libpqxx-dev zlib1g-dev vim doxygen clang-format libtbb-dev
 
 # CMake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.0-rc1/cmake-3.23.0-rc1.tar.gz && \

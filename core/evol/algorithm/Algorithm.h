@@ -13,7 +13,7 @@
 #include "core/evol/limit/Limit.h"
 #include "core/evol/method/select/Selector.h"
 #include "util/Logger.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 
 namespace ea::algorithm {
 

@@ -7,7 +7,7 @@ namespace core::sat::solver {
 SimpSolver::SimpSolver(SimpSolverConfig const& config) : SimpBase(config) {}
 
 void SimpSolver::load_problem(Problem const& problem) {
-    static_cast<SimpBase*>(this)->load_problem(problem);
+  static_cast<SimpBase*>(this)->load_problem(problem);
 }
 
 State SimpSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {

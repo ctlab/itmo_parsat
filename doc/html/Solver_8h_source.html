@@ -80,82 +80,78 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;minisat/core/SolverTypes.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;minisat/mtl/Vec.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/Search.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/FullSearch.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;core/proto/solve_config.pb.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;core/util/Registry.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/TrackAssignments.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>core::sat {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">enum</span> State {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  SAT,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  UNSAT,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  UNKNOWN,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1Solver.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1Solver.html">Solver</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="comment">// clang-format off</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">typedef</span> std::function&lt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      bool( <span class="comment">// true iff should continue solving</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        State, <span class="comment">// result of solve</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">bool</span>, <span class="comment">// true iff solved on propagate stage</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; <span class="comment">// assumptions passed to solve</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">   39</a></span>&#160;      )&gt; <a class="code" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">// clang-format on</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classcore_1_1sat_1_1Solver.html">Solver</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#a9cf6db209b1c87813e06c5b641e6128c">parse_cnf</a>(std::filesystem::path <span class="keyword">const</span>&amp; path) = 0;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  State <a class="code" href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">solve_limited</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">virtual</span> State <a class="code" href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">solve</a>(Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; assumptions) = 0;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#aa3893db285a22a2988ec7ffc0b469187">solve_assignments</a>(domain::USearch search, <a class="code" href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">slv_callback_t</a> <span class="keyword">const</span>&amp; callback);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;util/Registry.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;core/sat/Problem.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/Search.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/FullSearch.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;core/proto/solve_config.pb.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/TrackAssignments.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>core::sat::solver {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1Solver.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="comment">// clang-format off</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">typedef</span> std::function&lt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      bool( <span class="comment">// true iff should continue solving</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        State, <span class="comment">// result of solve</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">bool</span>, <span class="comment">// true iff solved on propagate stage</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; <span class="comment">// assumptions passed to solve</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">   34</a></span>&#160;      )&gt; <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">slv_callback_t</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// clang-format on</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; problem) = 0;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  State <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a54bb85350ce89403b8a66bfe6d708cc7">solve_limited</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">virtual</span> State <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a39ee40aaa252078dfc6964ff99abf3bf">solve</a>(Minisat::vec&lt;Minisat::Lit&gt; <span class="keyword">const</span>&amp; assumptions) = 0;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a0c5ed3425646f54ce97201aff8c883dd">solve_assignments</a>(domain::USearch search, <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">slv_callback_t</a> <span class="keyword">const</span>&amp; callback);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a2f22bb52001026a96719cbcdd5dafceb">interrupt</a>();</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#ad1172842b4cfc212a0a953f632ba1bf8">interrupt</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#acedabea35ce8e127bfa4348efef61b2c">clear_interrupt</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#a2fd11bc43ff3f61c93d4f27f5d407f58">clear_interrupt</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a812faf713b4b04d05a5b850ae264e07c">interrupted</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#aad62af916fffe1f8622ef57f2041fc35">interrupted</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">num_vars</a>() const noexcept = 0;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#a6ae000c28f2f1f3650ac0ae10ce9c9e8">num_vars</a>() const noexcept = 0;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  [[nodiscard]] virtual <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1Solver.html#aee15df9d8d31e056eec3e8f3dfee6987">propagate_confl</a>(Minisat::vec&lt;Minisat::Lit&gt; const&amp; assumptions) = 0;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  [[nodiscard]] virtual <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a62e6dfc469ae00cc045b4233a3712f8f">propagate_confl</a>(Minisat::vec&lt;Minisat::Lit&gt; const&amp; assumptions) = 0;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; protected:</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  virtual <span class="keywordtype">void</span> _do_interrupt(){};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> _do_clear_interrupt(){};</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; protected:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  virtual <span class="keywordtype">void</span> _do_interrupt(){};</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> _do_clear_interrupt(){};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  std::atomic_bool _interrupted{<span class="keyword">false</span>};</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;};</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">using</span> RSolver = std::shared_ptr&lt;Solver&gt;;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">using</span> USolver = std::unique_ptr&lt;Solver&gt;;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;DEFINE_REGISTRY(Solver, SolverConfig, solver);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}  <span class="comment">// namespace core::sat</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif  // EVOL_SOLVER_H</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  std::atomic_bool _interrupted{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">using</span> RSolver = std::shared_ptr&lt;Solver&gt;;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">using</span> USolver = std::unique_ptr&lt;Solver&gt;;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;DEFINE_REGISTRY(Solver, SolverConfig, solver);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#endif  // EVOL_SOLVER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html">core::sat::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:28</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_aa3893db285a22a2988ec7ffc0b469187"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#aa3893db285a22a2988ec7ffc0b469187">core::sat::Solver::solve_assignments</a></div><div class="ttdeci">virtual void solve_assignments(domain::USearch search, slv_callback_t const &amp;callback)</div><div class="ttdoc">Solves CNF on all assignments by the given iterator and calls callback respectively.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:11</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_a6e1e46913b318e834e03c9867beff4ac"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#a6e1e46913b318e834e03c9867beff4ac">core::sat::Solver::slv_callback_t</a></div><div class="ttdeci">std::function&lt; bool(State, bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt; slv_callback_t</div><div class="ttdef"><b>Definition:</b> Solver.h:39</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_aad62af916fffe1f8622ef57f2041fc35"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#aad62af916fffe1f8622ef57f2041fc35">core::sat::Solver::interrupted</a></div><div class="ttdeci">bool interrupted() const</div><div class="ttdoc">Returns true if interrupt flag is set.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:39</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_a9cf6db209b1c87813e06c5b641e6128c"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#a9cf6db209b1c87813e06c5b641e6128c">core::sat::Solver::parse_cnf</a></div><div class="ttdeci">virtual void parse_cnf(std::filesystem::path const &amp;path)=0</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_a6ae000c28f2f1f3650ac0ae10ce9c9e8"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#a6ae000c28f2f1f3650ac0ae10ce9c9e8">core::sat::Solver::num_vars</a></div><div class="ttdeci">virtual unsigned num_vars() const noexcept=0</div><div class="ttdoc">Returns the number of variables in formula.</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_a935d83bb55ec017dbe4f68949407f905"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#a935d83bb55ec017dbe4f68949407f905">core::sat::Solver::solve_limited</a></div><div class="ttdeci">State solve_limited()</div><div class="ttdoc">Equivalent to Solver::solve({}).</div><div class="ttdef"><b>Definition:</b> Solver.cpp:5</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_a2fd11bc43ff3f61c93d4f27f5d407f58"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#a2fd11bc43ff3f61c93d4f27f5d407f58">core::sat::Solver::clear_interrupt</a></div><div class="ttdeci">void clear_interrupt()</div><div class="ttdoc">Clears interrupt flag.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:34</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_a213663cc046932a939b43cd027f9bdb7"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#a213663cc046932a939b43cd027f9bdb7">core::sat::Solver::solve</a></div><div class="ttdeci">virtual State solve(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</div><div class="ttdoc">Runs solution with the specified assumptions.</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_aee15df9d8d31e056eec3e8f3dfee6987"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#aee15df9d8d31e056eec3e8f3dfee6987">core::sat::Solver::propagate_confl</a></div><div class="ttdeci">virtual bool propagate_confl(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Solver_html_ad1172842b4cfc212a0a953f632ba1bf8"><div class="ttname"><a href="classcore_1_1sat_1_1Solver.html#ad1172842b4cfc212a0a953f632ba1bf8">core::sat::Solver::interrupt</a></div><div class="ttdeci">void interrupt()</div><div class="ttdoc">Interrupts solver. Intended to be used from signal handlers.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:28</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a812faf713b4b04d05a5b850ae264e07c"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a812faf713b4b04d05a5b850ae264e07c">core::sat::solver::Solver::interrupted</a></div><div class="ttdeci">bool interrupted() const</div><div class="ttdoc">Returns true if interrupt flag is set.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:39</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_aa65828d34692b28456b4078dec908157"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">core::sat::solver::Solver::load_problem</a></div><div class="ttdeci">virtual void load_problem(Problem const &amp;problem)=0</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_acedabea35ce8e127bfa4348efef61b2c"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#acedabea35ce8e127bfa4348efef61b2c">core::sat::solver::Solver::clear_interrupt</a></div><div class="ttdeci">void clear_interrupt()</div><div class="ttdoc">Clears interrupt flag.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:34</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a62e6dfc469ae00cc045b4233a3712f8f"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a62e6dfc469ae00cc045b4233a3712f8f">core::sat::solver::Solver::propagate_confl</a></div><div class="ttdeci">virtual bool propagate_confl(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a2f22bb52001026a96719cbcdd5dafceb"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a2f22bb52001026a96719cbcdd5dafceb">core::sat::solver::Solver::interrupt</a></div><div class="ttdeci">void interrupt()</div><div class="ttdoc">Interrupts solver. Intended to be used from signal handlers.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:28</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a54bb85350ce89403b8a66bfe6d708cc7"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a54bb85350ce89403b8a66bfe6d708cc7">core::sat::solver::Solver::solve_limited</a></div><div class="ttdeci">State solve_limited()</div><div class="ttdoc">Equivalent to Solver::solve({}).</div><div class="ttdef"><b>Definition:</b> Solver.cpp:5</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:23</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_ac03623f555c568e06537a83b13a624a7"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">core::sat::solver::Solver::slv_callback_t</a></div><div class="ttdeci">std::function&lt; bool(State, bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt; slv_callback_t</div><div class="ttdef"><b>Definition:</b> Solver.h:34</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a0c5ed3425646f54ce97201aff8c883dd"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a0c5ed3425646f54ce97201aff8c883dd">core::sat::solver::Solver::solve_assignments</a></div><div class="ttdeci">virtual void solve_assignments(domain::USearch search, slv_callback_t const &amp;callback)</div><div class="ttdoc">Solves CNF on all assignments by the given iterator and calls callback respectively.</div><div class="ttdef"><b>Definition:</b> Solver.cpp:11</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a39ee40aaa252078dfc6964ff99abf3bf"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a39ee40aaa252078dfc6964ff99abf3bf">core::sat::solver::Solver::solve</a></div><div class="ttdeci">virtual State solve(Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</div><div class="ttdoc">Runs solution with the specified assumptions.</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdef"><b>Definition:</b> Problem.h:19</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a27940fb676610241500f1a99529d02fe"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">core::sat::solver::Solver::num_vars</a></div><div class="ttdeci">virtual unsigned num_vars() const noexcept=0</div><div class="ttdoc">Returns the number of variables in formula.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

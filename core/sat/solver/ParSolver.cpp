@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <mutex>
+#include <execution>
 
 #include "util/stream.h"
 
@@ -17,9 +18,10 @@ ParSolver::~ParSolver() noexcept {
 }
 
 void ParSolver::load_problem(Problem const& problem) {
-  for (auto& solver : _solver_pool.get_workers()) {
-    solver->load_problem(problem);
-  }
+  auto& workers = _solver_pool.get_workers();
+  std::for_each(
+      std::execution::par_unseq, workers.begin(), workers.end(),
+      [&problem](auto& solver) { solver->load_problem(problem); });
 }
 
 State ParSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
@@ -74,15 +76,17 @@ void ParSolver::_solve(
 }
 
 void ParSolver::_do_interrupt() {
-  for (auto& solver : _solver_pool.get_workers()) {
+  auto& workers = _solver_pool.get_workers();
+  std::for_each(std::execution::par_unseq, workers.begin(), workers.end(), [](auto& solver) {
     solver->interrupt();
-  }
+  });
 }
 
 void ParSolver::_do_clear_interrupt() {
-  for (auto& solver : _solver_pool.get_workers()) {
+  auto& workers = _solver_pool.get_workers();
+  std::for_each(std::execution::par_unseq, workers.begin(), workers.end(), [](auto& solver) {
     solver->clear_interrupt();
-  }
+  });
 }
 
 unsigned ParSolver::num_vars() const noexcept {

@@ -1,7 +1,0 @@
-<map id="core::domain::SplittableSearch" name="core::domain::SplittableSearch">
-<area shape="rect" id="node1" title=" " alt="" coords="231,80,408,121"/>
-<area shape="rect" id="node3" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="5,169,188,196"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="213,169,426,196"/>
-<area shape="rect" id="node5" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="450,169,655,196"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="240,5,399,32"/>
-</map>

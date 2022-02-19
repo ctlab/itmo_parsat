@@ -7,7 +7,7 @@
 #include "core/evol/algorithm/Algorithm.h"
 #include "core/solve/Solve.h"
 #include "util/SigHandler.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "util/Logger.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/assignment/RandomSearch.h"

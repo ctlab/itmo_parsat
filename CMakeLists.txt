@@ -6,6 +6,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(SANITIZE "Enable -fsanitize=address" OFF)
 
+link_libraries(tbb)
+
 if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     message(STATUS "DEBUG build mode. All checks are enabled, log and tracer are enabled.")
     add_compile_options(-O0 -g)

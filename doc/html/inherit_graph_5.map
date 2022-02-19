@@ -1,4 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,124,39"/>
-<area shape="rect" id="node2" href="$classcore_1_1event_1_1__details_1_1EventCallbackHandle.html" title=" " alt="" coords="172,5,341,47"/>
+<area shape="rect" id="node1" href="$classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="149,31,301,57"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1prop_1_1ParProp.html" title="Parallel propagation implementation." alt="" coords="355,5,529,32"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="349,56,535,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,111,101,137"/>
+<area shape="rect" id="node5" href="$classcore_1_1sat_1_1SimpBase.html" title=" " alt="" coords="150,111,301,137"/>
+<area shape="rect" id="node6" href="$classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="375,107,509,149"/>
+<area shape="rect" id="node7" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="158,173,293,214"/>
+<area shape="rect" id="node8" href="$classcore_1_1sat_1_1solver_1_1HordeSatSolver.html" title=" " alt="" coords="375,173,509,214"/>
+<area shape="rect" id="node9" href="$classcore_1_1sat_1_1solver_1_1ParSolver.html" title="Parallel solver implementation." alt="" coords="375,238,509,279"/>
 </map>

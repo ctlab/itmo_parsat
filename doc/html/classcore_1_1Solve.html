@@ -95,27 +95,27 @@ Inheritance diagram for core::Solve:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2a566f84b4c453829c036547e68d8f6a"><td class="memItemLeft" align="right" valign="top">virtual sat::State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Solve.html#a2a566f84b4c453829c036547e68d8f6a">solve</a> (std::filesystem::path const &amp;input)=0</td></tr>
-<tr class="memdesc:a2a566f84b4c453829c036547e68d8f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method solves SAT. For now, it is expected to be called only once per object lifetime.  <a href="classcore_1_1Solve.html#a2a566f84b4c453829c036547e68d8f6a">More...</a><br /></td></tr>
-<tr class="separator:a2a566f84b4c453829c036547e68d8f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b5977512ad1b41df4fb802fa4b30e65"><td class="memItemLeft" align="right" valign="top">virtual sat::State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Solve.html#a6b5977512ad1b41df4fb802fa4b30e65">solve</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem)=0</td></tr>
+<tr class="memdesc:a6b5977512ad1b41df4fb802fa4b30e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method solves SAT. For now, it is expected to be called only once per object lifetime.  <a href="classcore_1_1Solve.html#a6b5977512ad1b41df4fb802fa4b30e65">More...</a><br /></td></tr>
+<tr class="separator:a6b5977512ad1b41df4fb802fa4b30e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18970ec25df530b9c6d6a55115307388"><td class="memItemLeft" align="right" valign="top"><a id="a18970ec25df530b9c6d6a55115307388"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>interrupt</b> ()</td></tr>
 <tr class="separator:a18970ec25df530b9c6d6a55115307388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4549450d64bcbad8add392b2d578369d"><td class="memItemLeft" align="right" valign="top"><a id="a4549450d64bcbad8add392b2d578369d"></a>
-sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_final_solve</b> (<a class="el" href="classcore_1_1sat_1_1Solver.html">sat::Solver</a> &amp;solver, domain::USearch assignment)</td></tr>
-<tr class="separator:a4549450d64bcbad8add392b2d578369d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a00424c02f8832ad41ce68a8bb0c1ac"><td class="memItemLeft" align="right" valign="top"><a id="a2a00424c02f8832ad41ce68a8bb0c1ac"></a>
+sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_final_solve</b> (<a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html">sat::solver::Solver</a> &amp;solver, domain::USearch assignment)</td></tr>
+<tr class="separator:a2a00424c02f8832ad41ce68a8bb0c1ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90bc2d0709d44def434d0e3a4a14f4b9"><td class="memItemLeft" align="right" valign="top"><a id="a90bc2d0709d44def434d0e3a4a14f4b9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>_is_interrupted</b> () const noexcept</td></tr>
 <tr class="separator:a90bc2d0709d44def434d0e3a4a14f4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a418d136b1871049702cc7df3ccecd7e8"><td class="memItemLeft" align="right" valign="top"><a id="a418d136b1871049702cc7df3ccecd7e8"></a>
-static sat::RSolver&#160;</td><td class="memItemRight" valign="bottom"><b>_resolve_solver</b> (SolverConfig const &amp;config)</td></tr>
-<tr class="separator:a418d136b1871049702cc7df3ccecd7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2022010ee96a2a2b7314386b210cc1ca"><td class="memItemLeft" align="right" valign="top"><a id="a2022010ee96a2a2b7314386b210cc1ca"></a>
+static sat::solver::RSolver&#160;</td><td class="memItemRight" valign="bottom"><b>_resolve_solver</b> (SolverConfig const &amp;config)</td></tr>
+<tr class="separator:a2022010ee96a2a2b7314386b210cc1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -126,8 +126,8 @@ std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The core class that performs all actions related to solving SAT. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2a566f84b4c453829c036547e68d8f6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a566f84b4c453829c036547e68d8f6a">&#9670;&nbsp;</a></span>solve()</h2>
+<a id="a6b5977512ad1b41df4fb802fa4b30e65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b5977512ad1b41df4fb802fa4b30e65">&#9670;&nbsp;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,8 +138,8 @@ std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom">
         <tr>
           <td class="memname">virtual sat::State core::Solve::solve </td>
           <td>(</td>
-          <td class="paramtype">std::filesystem::path const &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;&#160;</td>
+          <td class="paramname"><em>problem</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -159,7 +159,7 @@ std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom">
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>result of the solution </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1ParRBSSolve.html#a13e611989d3b3a60abc6190d4d87bf61">core::ParRBSSolve</a>, <a class="el" href="classcore_1_1RBSSolve.html#a68a656425dec8ae39c2ab8bad3a2a391">core::RBSSolve</a>, and <a class="el" href="classcore_1_1NaiveSolve.html#a2c0a9591136b60be59804a750361a6d5">core::NaiveSolve</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1ParRBSSolve.html#a74ad9e9d691bc0485b789072793fdbb8">core::ParRBSSolve</a>, <a class="el" href="classcore_1_1RBSSolve.html#a24e43117333bfadf2990c3de48bc7735">core::RBSSolve</a>, and <a class="el" href="classcore_1_1NaiveSolve.html#a351bd7a9b5ad29f5ed64f2ca40ff653c">core::NaiveSolve</a>.</p>
 
 </div>
 </div>

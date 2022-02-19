@@ -57,7 +57,7 @@ void LaunchFixture::interrupt() {
   for (auto& exec : _execs) {
     exec->interrupt();
   }
-  test_failed = true;
+  is_interrupted = true;
 }
 
 void LaunchFixture::SetUpTestSuite() {
@@ -98,6 +98,7 @@ void LaunchFixture::TearDown() {
     exec->await();
   }
   _execs.clear();
+  ASSERT_TRUE(!test_failed);
 }
 
 void LaunchFixture::_prepare_resources() {
@@ -120,7 +121,7 @@ std::string LaunchFixture::_get_test_group(std::string const& name) {
 }
 
 bool LaunchFixture::_need_to_launch(std::string const& name) {
-  if (test_failed) {
+  if (is_interrupted) {
     return false;
   }
   if (std::find(config.test_groups.begin(), config.test_groups.end(), _get_test_group(name)) ==
@@ -288,5 +289,7 @@ infra::domain::LaunchResult LaunchFixture::_get_launch_result(
 std::set<std::filesystem::path> LaunchFixture::cnfs{};
 
 std::atomic_bool LaunchFixture::test_failed = false;
+
+std::atomic_bool LaunchFixture::is_interrupted = false;
 
 LaunchFixture::Semaphore LaunchFixture::semaphore{};

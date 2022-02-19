@@ -10,6 +10,8 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <iostream>
+#include <algorithm>
+#include <execution>
 
 bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char* filename) {
   FILE* f = fopen(filename, "r");
@@ -18,7 +20,7 @@ bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char
   }
   int c = 0;
   bool neg = false;
-  vector<vector<int> > clauses;
+  vector<vector<int>> clauses;
   vector<int> cls;
   while (c != EOF) {
     c = fgetc(f);
@@ -68,8 +70,9 @@ bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char
   return true;
 }
 
-void loadClausesToSolvers(vector<PortfolioSolverInterface*>& solvers, vector<vector<int>> const& clauses) {
-  for (auto& solver : solvers) {
-    solver->addInitialClauses(clauses);
-  }
+void loadClausesToSolvers(
+    vector<PortfolioSolverInterface*>& solvers, vector<vector<int>> const& clauses) {
+  std::for_each(
+      std::execution::par_unseq, solvers.begin(), solvers.end(),
+      [&clauses](auto& solver) { solver->addInitialClauses(clauses); });
 }

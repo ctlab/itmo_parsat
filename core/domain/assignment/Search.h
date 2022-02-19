@@ -97,7 +97,7 @@ class SingleSearch final : public Search {
  private:
   void _advance() override;
 
-  void _reset() override {};
+  void _reset() override{};
 };
 
 MAKE_REFS(SingleSearch);

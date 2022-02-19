@@ -50,9 +50,9 @@ void LogSharingManager::doSharing() {
     }
     round++;
     log(2, "Clause exchange between %d and %d\n", 0, partner);
-//    MPI_Sendrecv(
-//        outBuffer, COMM_BUFFER_SIZE, MPI_INT, partner, 0, incommingBuffer + i * COMM_BUFFER_SIZE,
-//        COMM_BUFFER_SIZE, MPI_INT, partner, 0, MPI_COMM_WORLD, 0);
+    //    MPI_Sendrecv(
+    //        outBuffer, COMM_BUFFER_SIZE, MPI_INT, partner, 0, incommingBuffer + i *
+    //        COMM_BUFFER_SIZE, COMM_BUFFER_SIZE, MPI_INT, partner, 0, MPI_COMM_WORLD, 0);
   }
   if (exchangeCount == 0) {
     memcpy(incommingBuffer, outBuffer, sizeof(int) * COMM_BUFFER_SIZE);

@@ -53,7 +53,7 @@ void sparseDiversification(std::vector<PortfolioSolverInterface*>& solvers) {
   int vars = solvers[0]->getVariablesCount();
   for (int sid = 0; sid < solversCount; sid++) {
     int shift = solversCount + sid;
-    for (int var = 1; var + totalSolvers < vars; var += totalSolvers) {
+    for (int var = 1; var + shift < vars; var += totalSolvers) {
       solvers[sid]->setPhase(var + shift, true);
     }
   }
@@ -118,7 +118,8 @@ void binValueDiversification(std::vector<PortfolioSolverInterface*>& solvers) {
 namespace core::sat::solver {
 
 HordeSatSolver::HordeSatSolver(HordeSatSolverConfig const& config)
-    : _num_solvers(config.threads()), _cfg(config)
+    : _num_solvers(config.threads())
+    , _cfg(config)
     , _prop(core::sat::prop::PropRegistry::resolve(config.prop_config())) {
   setVerbosityLevel(config.verbose());
 
@@ -274,14 +275,14 @@ State HordeSatSolver::solve(const Minisat::vec<Minisat::Lit>& assumptions) {
   return _result;
 }
 
-void HordeSatSolver::solve_assignments(domain::USearch search, Solver::slv_callback_t const& callback) {
-  _prop->prop_assignments(std::move(search), [&, this] (bool has_conflict, auto const& assumptions) {
+void HordeSatSolver::solve_assignments(
+    domain::USearch search, Solver::slv_callback_t const& callback) {
+  _prop->prop_assignments(std::move(search), [&, this](bool has_conflict, auto const& assumptions) {
     if (has_conflict) {
       callback(UNSAT, true, assumptions);
     } else {
       std::lock_guard<std::mutex> solve_lock(_solve_mutex);
       callback(solve(assumptions), false, assumptions);
-//      callback(UNSAT, true, assumptions);
     }
     return !_interrupted;
   });

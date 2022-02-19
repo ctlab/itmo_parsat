@@ -5,7 +5,7 @@
 #include "minisat/simp/SimpSolver.h"
 #include "core/sat/prop/SimpProp.h"
 #include "util/Generator.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "util/GzFile.h"
 
 namespace {
@@ -52,7 +52,7 @@ TEST(unit_propagation, correctness_performance) {
     ASSERT_EQ(a, b);
   }
 
-  core::Tracer::print_summary(10);
+  core::TimeTracer::print_summary(10);
 }
 
 TEST(subtree_propagation, correctness_performance) {
@@ -88,5 +88,5 @@ TEST(subtree_propagation, correctness_performance) {
     ASSERT_EQ(fast, naive);
   }
 
-  core::Tracer::print_summary(10);
+  core::TimeTracer::print_summary(10);
 }

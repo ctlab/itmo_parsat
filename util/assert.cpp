@@ -23,6 +23,7 @@ void print_(char const* format, va_list args) {
     offset += bytes_written;
   }
 }
+}  // namespace
 
 /**
  * This print implementation is equivalent to fprintf(stderr, ...)
@@ -34,6 +35,8 @@ void print(char const* format, ...) {
   print_(format, args);
   va_end(args);
 }
+
+namespace {
 
 // clang-format off
 void panic_(

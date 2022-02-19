@@ -10,7 +10,7 @@
 #include "core/sat/solver/Solver.h"
 #include "util/EventHandler.h"
 #include "util/SigHandler.h"
-#include "util/Tracer.h"
+#include "util/TimeTracer.h"
 #include "core/proto/solve_config.pb.h"
 
 namespace core {
