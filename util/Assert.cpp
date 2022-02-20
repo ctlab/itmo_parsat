@@ -1,4 +1,5 @@
-#include "assert.h"
+#include "util/Assert.h"
+
 #include <glog/logging.h>
 
 #ifndef __unix__

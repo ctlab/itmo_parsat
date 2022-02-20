@@ -11,7 +11,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <algorithm>
-#include <execution>
+
+#include "util/options.h"
 
 bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char* filename) {
   FILE* f = fopen(filename, "r");
@@ -72,7 +73,7 @@ bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char
 
 void loadClausesToSolvers(
     vector<PortfolioSolverInterface*>& solvers, vector<vector<int>> const& clauses) {
-  std::for_each(
-      std::execution::par_unseq, solvers.begin(), solvers.end(),
-      [&clauses](auto& solver) { solver->addInitialClauses(clauses); });
+  std::for_each(IPS_EXEC_POLICY, solvers.begin(), solvers.end(), [&clauses](auto& solver) {
+    solver->addInitialClauses(clauses);
+  });
 }

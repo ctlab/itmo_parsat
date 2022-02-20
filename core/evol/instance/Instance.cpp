@@ -4,7 +4,7 @@
 #include <utility>
 
 #include "util/Logger.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 
 namespace ea::instance {
 
@@ -17,7 +17,7 @@ Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data)
   _vars.resize(_var_view().size());
 
   // Initialize instance by setting one random variable
-  _vars.flip(core::random::sample<unsigned>(0, num_vars() - 1));
+  _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
 }
 
 core::domain::Vars& Instance::get_vars() noexcept {

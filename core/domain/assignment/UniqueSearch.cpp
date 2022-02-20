@@ -14,7 +14,7 @@ void UniqueSearch::_advance() {
 void UniqueSearch::_advance_us() {
   uint64_t sample = _first;
   while (visited_.count(sample)) {
-    sample = random::sample<uint64_t>(_first + 1, _last);
+    sample = util::random::sample<uint64_t>(_first + 1, _last);
   }
   visited_.insert(sample);
   _set_assignment(_assignment, sample);

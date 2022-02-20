@@ -4,7 +4,7 @@
 #include <zlib.h>
 #include <filesystem>
 
-#include "assert.h"
+#include "util/Assert.h"
 
 namespace util {
 

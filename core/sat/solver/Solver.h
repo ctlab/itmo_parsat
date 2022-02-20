@@ -6,14 +6,14 @@
 #include <memory>
 #include <atomic>
 
-#include "minisat/core/SolverTypes.h"
-#include "minisat/mtl/Vec.h"
-#include "util/Registry.h"
 #include "core/sat/Problem.h"
 #include "core/domain/assignment/Search.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/domain/assignment/TrackAssignments.h"
+#include "minisat/core/SolverTypes.h"
+#include "minisat/mtl/Vec.h"
+#include "util/Registry.h"
 
 namespace core::sat::solver {
 

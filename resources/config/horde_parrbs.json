@@ -77,7 +77,7 @@
                 "verbose": 0,
                 "filter_duplicate_clauses": false,
                 "max_rounds": 0,
-                "sharing_interval_us": 1000000,
+                "sharing_interval_us": 100000,
                 "wakeup_interval_us": 1000,
                 "seq_solver": "MINISAT",
                 "diversification": "SPARSE",

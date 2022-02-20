@@ -8,28 +8,29 @@
 #include "util/stream.h"
 #include "util/Logger.h"
 #include "util/TimeTracer.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 #include "util/SigHandler.h"
 #include "core/sat/solver/Solver.h"
 #include "core/solve/Solve.h"
 
 core::CliConfig add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
-
-  po::options_description description;
+  po::options_description options;
   // clang-format off
-  description.add_options()
+  options.add_options()
       ("verbose,v", po::value<int>()->default_value(2), "Verbosity level.")
       ("log-config,l", po::value<std::filesystem::path>()->required(), "Path to JSON Logging configuration.")
-      ("config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
+      ("solve-config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
       ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
   // clang-format on
 
   core::CliConfig cli_config;
-  cli_config.add_options(description);
-  cli_config.parse(argc, argv);
-  cli_config.notify();
+  cli_config.add_options(options);
+  if (!cli_config.parse(argc, argv)) {
+    std::exit(0);
+  }
 
+  cli_config.notify();
   return cli_config;
 }
 
@@ -60,7 +61,7 @@ int main(int argc, char** argv) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }
   std::filesystem::path input = config.get<std::filesystem::path>("input");
-  std::filesystem::path solver_cfg_path = config.get<std::filesystem::path>("config");
+  std::filesystem::path solver_cfg_path = config.get<std::filesystem::path>("solve-config");
   std::filesystem::path logger_cfg_path = config.get<std::filesystem::path>("log-config");
   IPS_INFO("Input file: " << input);
 
@@ -80,7 +81,7 @@ int main(int argc, char** argv) {
       },
       core::event::INTERRUPT);
 
-  core::Generator generator(solve_config.random_seed());
+  util::random::Generator generator(solve_config.random_seed());
   core::sat::State result = IPS_TRACE_V(solve->solve(problem));
   core::TimeTracer::print_summary(10);
 

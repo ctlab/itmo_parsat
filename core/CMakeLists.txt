@@ -7,13 +7,15 @@ file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*" "sat/Problem.*")
 
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(${CMAKE_BINARY_DIR})
-include_directories(sat/minisat)
+include_directories(sat/native/minisat)
 
 add_subdirectory(proto)
 add_subdirectory(sat)
 
 set(CORE_LIBS
-        minisat-lib-static hordesat-lib-static ips-proto glog::glog z
+        lingeling-lib-static
+        hordesat-lib-static core-proto-lib-static
+        glog::glog z
         ${Boost_LIBRARIES} ${MPI_CXX_LIBRARIES} ${Protobuf_LIBRARIES})
 set(CORE_LIBS ${CORE_LIBS} PARENT_SCOPE)
 
@@ -28,4 +30,4 @@ set(CORE_SRC
 set(CORE_SRC ${CORE_SRC} PARENT_SCOPE)
 
 add_executable(core_unit_tests ${_TEST_SRC} ${UTIL_SRC} ${CORE_SRC})
-target_link_libraries(core_unit_tests ${CORE_LIBS} ${GTEST_LIBRARIES})
+target_link_libraries(core_unit_tests ${GTEST_LIBRARIES} ${UTIL_LIBS} ${CORE_LIBS})

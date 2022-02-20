@@ -7,7 +7,7 @@
 
 #include "EventHandler.h"
 #include "Logger.h"
-#include "assert.h"
+#include "util/Assert.h"
 
 namespace core::signal {
 

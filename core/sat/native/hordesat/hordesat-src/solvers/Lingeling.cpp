@@ -8,7 +8,7 @@
 
 #include "Lingeling.h"
 #include <ctype.h>
-#include "../utilities/DebugUtils.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/DebugUtils.h"
 
 extern "C" {
 #include "lglib.h"

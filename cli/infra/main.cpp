@@ -3,14 +3,14 @@
 
 #include <boost/program_options.hpp>
 
+#include "util/CliConfig.h"
 #include "infra/testing/LaunchFixture.h"
 
-boost::program_options::variables_map parse_args(int argc, char** argv) {
+core::CliConfig parse_args(int argc, char** argv) {
   namespace po = boost::program_options;
   po::options_description options("CLI testing utility");
   // clang-format off
   options.add_options()
-    ("help,h", po::bool_switch()->default_value(false), "Display help message")
     ("concurrency,j", po::value<uint32_t>()->default_value(std::thread::hardware_concurrency()), "Max concurrency")
     ("time-limit", po::value<uint64_t>()->default_value(UINT64_MAX), "Time limit in seconds")
     ("branch", po::value<std::string>()->default_value("")->required(), "The current branch")
@@ -28,21 +28,21 @@ boost::program_options::variables_map parse_args(int argc, char** argv) {
     ("gtest-opts", po::value<std::vector<std::string>>()->multitoken(), "GTest options");
   // clang-format on
 
-  po::variables_map args;
-  po::store(po::parse_command_line(argc, argv, options), args);
-  if (args["help"].as<bool>()) {
-    std::cerr << options << std::endl;
-    std::exit(1);
+  core::CliConfig cli_config;
+  cli_config.add_options(options);
+  if (!cli_config.parse(argc, argv)) {
+    std::exit(0);
   }
-  po::notify(args);
-  return args;
+
+  cli_config.notify();
+  return cli_config;
 }
 
-void init_googletest(char const* argv0, boost::program_options::variables_map& vmap) {
-  if (vmap.count("gtest-opts") == 0) {
+void init_googletest(char const* argv0, core::CliConfig const& config) {
+  if (!config.has("gtest-opts")) {
     testing::InitGoogleTest();
   } else {
-    auto const& gtest_options = vmap["gtest-opts"].as<std::vector<std::string>>();
+    auto const& gtest_options = config.get<std::vector<std::string>>("gtest-opts");
     int argc = (int) gtest_options.size() + 1;
     std::vector<char const*> argv;
     argv.push_back(argv0);
@@ -57,23 +57,23 @@ int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
 
   {  // Prepare LaunchFixture
-    auto args = parse_args(argc, argv);
-    init_googletest(argv[0], args);
-    auto& config = LaunchFixture::config;
-    config.unsat_only = args["unsat-only"].as<bool>();
-    config.max_threads = args["concurrency"].as<uint32_t>();
-    config.time_limit_s = args["time-limit"].as<uint64_t>();
-    config.pg_host = args["pg-host"].as<std::string>();
-    config.test_groups = args["test-groups"].as<std::vector<std::string>>();
-    config.allow_unspecified_size = args["allow-unspecified-size"].as<bool>();
-    config.lookup = args["lookup"].as<bool>();
-    config.save = args["save"].as<bool>();
-    config.size = args["size"].as<int>();
-    config.executable = args["exec"].as<std::filesystem::path>();
-    config.branch = args["branch"].as<std::string>();
-    config.commit = args["commit"].as<std::string>();
-    config.resources_dir = args["resources-dir"].as<std::filesystem::path>();
-    config.working_dir = args["working-dir"].as<std::filesystem::path>();
+    core::CliConfig config = parse_args(argc, argv);
+    init_googletest(argv[0], config);
+    auto& lf_config = LaunchFixture::config;
+    lf_config.unsat_only = config.get<bool>("unsat-only");
+    lf_config.max_threads = config.get<uint32_t>("concurrency");
+    lf_config.time_limit_s = config.get<uint64_t>("time-limit");
+    lf_config.pg_host = config.get<std::string>("pg-host");
+    lf_config.test_groups = config.get<std::vector<std::string>>("test-groups");
+    lf_config.allow_unspecified_size = config.get<bool>("allow-unspecified-size");
+    lf_config.lookup = config.get<bool>("lookup");
+    lf_config.save = config.get<bool>("save");
+    lf_config.size = config.get<int>("size");
+    lf_config.executable = config.get<std::filesystem::path>("exec");
+    lf_config.branch = config.get<std::string>("branch");
+    lf_config.commit = config.get<std::string>("commit");
+    lf_config.resources_dir = config.get<std::filesystem::path>("resources-dir");
+    lf_config.working_dir = config.get<std::filesystem::path>("working-dir");
   }
   return RUN_ALL_TESTS();
 }

@@ -14,7 +14,7 @@
 #include <condition_variable>
 
 #include "Logger.h"
-#include "assert.h"
+#include "util/Assert.h"
 
 namespace core {
 
@@ -51,8 +51,12 @@ class TimeTracer {
   friend struct trace::CodeBlock;
 
  private:
-  struct Stats {
-    uint32_t count{0};
+  struct EventStats {
+    uint64_t count{0};
+  };
+
+  struct DurStats {
+    uint64_t count{0};
     std::vector<float> durations{};
   };
 
@@ -66,12 +70,13 @@ class TimeTracer {
 
  private:
   std::mutex _stats_mutex;
-  std::unordered_map<std::string, Stats> _stats;
+  std::unordered_map<std::string, EventStats> _event_stats;
+  std::unordered_map<std::string, DurStats> _dur_stats;
 };
 
 }  // namespace core
 
-#ifndef DISABLE_TRACE
+#ifndef IPS_DISABLE_TRACE
 
 #define IPS_TRACE_N(name, expr)         \
   do {                                  \

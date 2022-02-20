@@ -59,13 +59,13 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
       event::SBS_FOUND);
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
-    uint32_t seed = core::random::sample<uint32_t>(0, UINT32_MAX);
+    uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
     rbs_search_threads.emplace_back(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
-          core::Generator generator(seed);
+          util::random::Generator generator(seed);
           auto& algorithm = algorithms[i];
-          auto& algorithm_solver = algorithm->get_prop();
-          IPS_TRACE(algorithm_solver.load_problem(problem));
+          auto& alg_prop = algorithm->get_prop();
+          IPS_TRACE(alg_prop.load_problem(problem));
           if (!IPS_TRACE_V(algorithm->prepare())) {
             non_conflict_assignments[i].push_back({});
             return;
@@ -105,7 +105,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           {  // add the best backdoor to log
             std::lock_guard<std::mutex> lg(mutex);
-            algorithms_info << "[Thread " << i << "]\n";
+            algorithms_info << "\n[Thread " << i << "]\n";
             algorithms_info << "\tNumber of points visited: " << algorithm->inaccurate_points()
                             << '\n';
             algorithms_info << "\tThe best backdoor is: " << rho_backdoor << '\n';

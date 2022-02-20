@@ -10,7 +10,7 @@
 #define MINISAT_H_
 
 #include "PortfolioSolverInterface.h"
-#include "../utilities/Threading.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/Threading.h"
 using namespace std;
 
 #define CLS_COUNT_INTERRUPT_LIMIT 300

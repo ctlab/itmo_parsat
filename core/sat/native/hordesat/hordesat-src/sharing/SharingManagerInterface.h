@@ -9,7 +9,7 @@
 #ifndef SHARING_SHARINGMANAGERINTERFACE_H_
 #define SHARING_SHARINGMANAGERINTERFACE_H_
 
-#include "../solvers/PortfolioSolverInterface.h"
+#include "core/sat/native/hordesat/hordesat-src/solvers/PortfolioSolverInterface.h"
 
 struct SharingStatistics {
   SharingStatistics() : sharedClauses(0), importedClauses(0), filteredClauses(0), dropped(0) {}

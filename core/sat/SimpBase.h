@@ -7,7 +7,7 @@
 #include "minisat/core/Dimacs.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/sat/Problem.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 #include "util/GzFile.h"
 #include "util/Logger.h"
 #include "util/TimeTracer.h"

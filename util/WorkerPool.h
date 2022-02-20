@@ -9,7 +9,7 @@
 #include <queue>
 #include <vector>
 
-#include "Generator.h"
+#include "Random.h"
 
 namespace util {
 
@@ -23,10 +23,10 @@ class WorkerPool {
     for (uint32_t i = 0; i < max_threads; ++i) {
       _workers.push_back(worker_generator());
     }
-    auto& parent_generator = core::Generator::current_thread_generator();
+    auto& parent_generator = util::random::Generator::current_thread_generator();
     for (uint32_t thread = 0; thread < max_threads; ++thread) {
       _threads.emplace_back([this, &parent_generator, thread] {
-        core::Generator this_thread_generator(parent_generator);
+        util::random::Generator this_thread_generator(parent_generator);
         auto& worker = _workers[thread];
         while (!_stop) {
           std::unique_lock<std::mutex> ul(_mutex);

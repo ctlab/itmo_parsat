@@ -41,7 +41,7 @@ void panic(
     __builtin_unreachable();                                                      \
   } while (false)
 
-#ifndef DISABLE_VERIFY
+#ifndef IPS_DISABLE_VERIFY
 
 #define IPS_VERIFY_S(cond, stream)                                                                 \
   do {                                                                                             \

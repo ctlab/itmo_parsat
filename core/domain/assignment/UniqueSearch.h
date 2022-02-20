@@ -5,7 +5,7 @@
 
 #include "core/domain/assignment/AssignmentModifier.h"
 #include "core/domain/assignment/Search.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 
 namespace core::domain {
 

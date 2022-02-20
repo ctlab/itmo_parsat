@@ -8,7 +8,7 @@ SimpBase::SimpBase(SimpSolverConfig const& config)
           config.use_asymm(), config.use_rcheck(), config.use_elim(),
           config.minisat_cli_config().verbosity_level(), config.base_solver_config().var_decay(),
           config.base_solver_config().cla_decay(), config.base_solver_config().rnd_freq(),
-          core::random::sample<int>(0, INT_MAX), config.base_solver_config().luby(),
+          util::random::sample<int>(0, INT_MAX), config.base_solver_config().luby(),
           config.base_solver_config().ccmin_mode(), config.base_solver_config().phase_saving(),
           config.base_solver_config().rnd_init(), config.base_solver_config().gc_frac(),
           config.base_solver_config().min_learnts(), config.base_solver_config().rfirst(),

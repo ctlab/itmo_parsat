@@ -4,8 +4,8 @@
 #include <array>
 #include <glog/logging.h>
 
-#include "assert.h"
-#include "core/proto/logging_config.pb.h"
+#include "util/Assert.h"
+#include "util/proto/logging_config.pb.h"
 
 namespace core {
 
@@ -74,7 +74,7 @@ class Logger {
 
 }  // namespace core
 
-#ifndef DISABLE_LOG
+#ifndef IPS_DISABLE_LOG
 
 #define IPS_LOG(LOG_TYPE, STREAM) LOG(LOG_TYPE) << STREAM
 #define IPS_LOG_T(G_LOG_TYPE, LOG_TYPE, STREAM) \

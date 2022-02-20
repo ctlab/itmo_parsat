@@ -8,12 +8,12 @@
 #include <optional>
 #include <algorithm>
 
-#include "core/sat/minisat/minisat/mtl/Vec.h"
-#include "core/sat/minisat/minisat/core/SolverTypes.h"
+#include "core/sat/native/minisat/minisat/mtl/Vec.h"
+#include "core/sat/native/minisat/minisat/core/SolverTypes.h"
 #include "core/domain/VarView.h"
 #include "core/domain/SearchSpace.h"
 #include "util/Reference.h"
-#include "util/assert.h"
+#include "util/Assert.h"
 
 namespace core::domain {
 

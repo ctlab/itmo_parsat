@@ -9,8 +9,8 @@
 #include "core/evol/algorithm/Algorithm.h"
 #include "util/SigHandler.h"
 #include "util/Logger.h"
-#include "util/assert.h"
-#include "util/Generator.h"
+#include "util/Assert.h"
+#include "util/Random.h"
 #include "core/domain/assignment/CartesianSearch.h"
 
 namespace core {

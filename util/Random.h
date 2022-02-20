@@ -5,9 +5,7 @@
 #include <algorithm>
 #include "Logger.h"
 
-namespace core {
-
-namespace random {
+namespace util::random {
 
 /**
  * @return MTE associated with the current thread.
@@ -31,8 +29,6 @@ std::enable_if_t<std::is_integral_v<Int>, Int> sample(Int min, Int max) {
   return std::uniform_int_distribution<Int>(min, max)(stdgen());
 }
 
-}  // namespace random
-
 /**
  * @brief In some sense thread-safe and deterministic random engine.
  */
@@ -43,7 +39,7 @@ class Generator {
   /**
    * @brief Creates the generator for the current thread.
    * All methods of this instance can be accessed by functions from
-   * ::core::random. This ensures that no thread-unsafe operations will
+   * ::util::random. This ensures that no thread-unsafe operations will
    * be performed (because generator will be created for each thread).
    *
    * NOTE: each thread that wants to use Generator *must* initialize
@@ -70,6 +66,6 @@ class Generator {
   std::mt19937 _mt;
 };
 
-}  // namespace core
+}  // namespace util::random
 
 #endif  // EVOL_RANDOM_H

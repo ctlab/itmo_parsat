@@ -2,8 +2,8 @@
 
 #include <mutex>
 #include <algorithm>
-#include <execution>
 
+#include "util/options.h"
 #include "util/stream.h"
 
 namespace core::sat::prop {
@@ -15,7 +15,7 @@ ParProp::ParProp(ParPropConfig const& config)
 
 void ParProp::load_problem(Problem const& problem) {
   auto& workers = _prop_worker_pool.get_workers();
-  std::for_each(std::execution::par_unseq, workers.begin(), workers.end(), [&problem](auto& prop) {
+  std::for_each(IPS_EXEC_POLICY, workers.begin(), workers.end(), [&problem](auto& prop) {
     prop->load_problem(problem);
   });
 }

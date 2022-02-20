@@ -6,7 +6,7 @@
 #include "core/domain/assignment/CartesianSearch.h"
 #include "util/stream.h"
 #include "util/Logger.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 
 namespace {
 
@@ -107,7 +107,7 @@ class TestAssignment : public ::testing::Test {
 
  public:
   static constexpr long NUM_VARS_MAX = 128;
-  core::Generator gen{1337};
+  util::random::Generator gen{1337};
   core::domain::VarView mock_var_map;
   std::vector<bool> mock_vars;
 };
@@ -191,8 +191,8 @@ TEST_F(TestAssignment, cartesian_search) {
     uint64_t csp_size = 1;
     for (size_t i = 0; i < 5; ++i) {
       // generate assumption set
-      int assump_size = core::random::sample<int>(0, 10);
-      int set_size = std::min(1 << assump_size, core::random::sample<int>(1, 10));
+      int assump_size = util::random::sample<int>(0, 10);
+      int set_size = std::min(1 << assump_size, util::random::sample<int>(1, 10));
       csp_size *= set_size;
       for (int j = 0; j < set_size; ++j) {
         csp[i].push_back(gen_mv(assump_size, i, j));
@@ -213,13 +213,13 @@ TEST_F(TestAssignment, cartesian_search) {
 TEST_F(TestAssignment, cartesian_search_split) {
   int num_tests = 1000;
   while (num_tests--) {
-    int size = core::random::sample(1, 5);
+    int size = util::random::sample(1, 5);
     std::vector<std::vector<std::vector<Minisat::Lit>>> csp(size);
     uint64_t csp_size = 1;
     for (size_t i = 0; i < size; ++i) {
       // generate assumption set
-      int assump_size = core::random::sample<int>(0, 10);
-      int set_size = std::min(1 << assump_size, core::random::sample<int>(1, 10));
+      int assump_size = util::random::sample<int>(0, 10);
+      int set_size = std::min(1 << assump_size, util::random::sample<int>(1, 10));
       csp_size *= set_size;
       for (int j = 0; j < set_size; ++j) {
         csp[i].push_back(gen_mv(assump_size, i, j));

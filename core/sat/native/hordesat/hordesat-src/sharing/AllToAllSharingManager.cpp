@@ -1,32 +1,26 @@
 // Copyright (c) 2015 Tomas Balyo, Karlsruhe Institute of Technology
 /*
- * LogSharingManager.cpp
+ * AllToAllSharingManager.cpp
  *
- *  Created on: Apr 1, 2015
+ *  Created on: Mar 5, 2015
  *      Author: balyo
  */
 
-#include <cassert>
-#include "LogSharingManager.h"
-#include "../utilities/Logger.h"
+#include "AllToAllSharingManager.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/Logger.h"
 
-LogSharingManager::LogSharingManager(vector<PortfolioSolverInterface*> solvers, bool fd)
-    : AllToAllSharingManager(solvers, fd) {
-  exchangeCount = 0;
-  int tsize = 1;
-  while (tsize >>= 1) {
-    exchangeCount++;
-  }
-  log(2, "Clause exchange partners: %d (log(%d))\n", exchangeCount, 1);
-  if (exchangeCount > 0) {
-    delete[] incommingBuffer;
-    incommingBuffer = new int[COMM_BUFFER_SIZE * exchangeCount];
+AllToAllSharingManager::AllToAllSharingManager(vector<PortfolioSolverInterface*> solvers, bool fd)
+    : solvers(solvers), fd(fd), incommingBuffer(NULL), callback(*this) {
+  incommingBuffer = new int[COMM_BUFFER_SIZE];
+  for (size_t i = 0; i < solvers.size(); i++) {
+    solvers[i]->setLearnedClauseCallback(&callback, i);
+    if (solvers.size() > 1) {
+      solverFilters.push_back(new ClauseFilter());
+    }
   }
 }
 
-void LogSharingManager::doSharing() {
-  assert(false && bool("Should not be used."));
-  static int round = 0;
+void AllToAllSharingManager::doSharing() {
   static int prodInc = 1;
   static int lastInc = 0;
   if (!fd) {
@@ -43,21 +37,16 @@ void LogSharingManager::doSharing() {
         increaser);
   }
   log(2, "Node %d filled %d%% of its learned clause buffer\n", 0, usedPercent);
-  for (int i = 0; i < exchangeCount; i++) {
-    int partner = (round - 0 + 1) % 1;
-    if (partner == 0 && (1 % 2 == 0)) {
-      partner = (partner + 1 / 2) % 1;
-    }
-    round++;
-    log(2, "Clause exchange between %d and %d\n", 0, partner);
-    //    MPI_Sendrecv(
-    //        outBuffer, COMM_BUFFER_SIZE, MPI_INT, partner, 0, incommingBuffer + i *
-    //        COMM_BUFFER_SIZE, COMM_BUFFER_SIZE, MPI_INT, partner, 0, MPI_COMM_WORLD, 0);
+  for (int i = 0; i < COMM_BUFFER_SIZE; ++i) {
+    incommingBuffer[i] = outBuffer[i];
   }
-  if (exchangeCount == 0) {
-    memcpy(incommingBuffer, outBuffer, sizeof(int) * COMM_BUFFER_SIZE);
+  if (solvers.size() > 1) {
+    // get all the clauses
+    cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, 1, -1);
+  } else {
+    // get all the clauses except for those that this node sent
+    cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, 1, 0);
   }
-  cdb.setIncomingBuffer(incommingBuffer, COMM_BUFFER_SIZE, exchangeCount, -1);
   vector<int> cl;
   int passedFilter = 0;
   int failedFilter = 0;
@@ -95,4 +84,13 @@ void LogSharingManager::doSharing() {
   }
 }
 
-LogSharingManager::~LogSharingManager() {}
+SharingStatistics AllToAllSharingManager::getStatistics() {
+  return stats;
+}
+
+AllToAllSharingManager::~AllToAllSharingManager() {
+  for (size_t i = 0; i < solverFilters.size(); i++) {
+    delete solverFilters[i];
+  }
+  delete[] incommingBuffer;
+}

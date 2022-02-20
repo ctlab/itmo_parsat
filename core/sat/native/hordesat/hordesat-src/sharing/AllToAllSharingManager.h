@@ -10,9 +10,9 @@
 #define SHARING_ALLTOALLSHARINGMANAGER_H_
 
 #include "SharingManagerInterface.h"
-#include "../utilities/ClauseDatabase.h"
-#include "../utilities/ClauseFilter.h"
-#include "../utilities/ParameterProcessor.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/ClauseDatabase.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/ClauseFilter.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/ParameterProcessor.h"
 
 #define COMM_BUFFER_SIZE 1500
 

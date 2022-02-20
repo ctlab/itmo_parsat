@@ -2,10 +2,11 @@
 #define EVOL_CLICONFIG_H
 
 #include <filesystem>
+#include <fstream>
 #include <boost/program_options.hpp>
 #include <google/protobuf/util/json_util.h>
 
-#include "assert.h"
+#include "util/Assert.h"
 
 namespace core {
 
@@ -26,13 +27,7 @@ class CliConfig {
    * @param argc number of options.
    * @param argv options array.
    */
-  void parse(int argc, char** argv);
-
-  /**
-   * @brief Parses options from file.
-   * @param path file to be parsed.
-   */
-  void parse(std::filesystem::path const& path);
+  bool parse(int argc, char** argv);
 
   /**
    * @brief Checks if parsing went successfully.

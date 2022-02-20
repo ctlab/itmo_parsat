@@ -252,7 +252,7 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   semaphore.acquire(launch_config.threads_required);
   IPS_INFO("Reproduce:\n" <<
     config.executable.string() << " --verbose 6 --input " << input_path.string() <<
-    " --log-config " << log_config_path.string() << " --config " << config_path.string()
+    " --log-config " << log_config_path.string() << " --solve-config " << config_path.string()
   );
 
   auto result = std::make_shared<infra::Execution>(callback,
@@ -261,7 +261,7 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     "--verbose", "6",
     "--input", input_path.string(),
     "--log-config", log_config_path.string(),
-    "--config", config_path.string()
+    "--solve-config", config_path.string()
   );
   _execs.emplace_back(result);
   // clang-format on

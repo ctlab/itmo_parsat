@@ -8,7 +8,7 @@
 
 #include "minisat/utils/System.h"
 #include "minisat/core/Dimacs.h"
-#include "../utilities/DebugUtils.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/DebugUtils.h"
 #include "MiniSat.h"
 #include "minisat/core/Solver.h"
 #include <iostream>

@@ -10,7 +10,7 @@
 #include <future>
 #include <queue>
 
-#include "util/Generator.h"
+#include "util/Random.h"
 #include "core/sat/prop/Prop.h"
 #include "util/WorkerPool.h"
 

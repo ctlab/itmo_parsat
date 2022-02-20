@@ -4,7 +4,7 @@
 #include "minisat/core/Dimacs.h"
 #include "minisat/simp/SimpSolver.h"
 #include "core/sat/prop/SimpProp.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 #include "util/TimeTracer.h"
 #include "util/GzFile.h"
 
@@ -25,7 +25,7 @@ uint64_t num_conflicts_in_subtree(
 }  // namespace
 
 TEST(unit_propagation, correctness_performance) {
-  core::Generator gen(239);
+  util::random::Generator gen(239);
   core::sat::Problem problem("./resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf");
 
   core::sat::prop::SimpProp simp_prop;
@@ -35,20 +35,20 @@ TEST(unit_propagation, correctness_performance) {
   int num_tests = 100000;
   while (num_tests--) {
     std::set<int> vars;
-    int size = core::random::sample<int>(0, 20);
+    int size = util::random::sample<int>(0, 20);
     Minisat::vec<Minisat::Lit> ms_assumption(size);
     for (int i = 0; i < size; ++i) {
-      int var = core::random::sample<int>(0, simp_prop.num_vars() - 1);
+      int var = util::random::sample<int>(0, simp_prop.num_vars() - 1);
       while (vars.find(var) != vars.end()) {
-        var = core::random::sample<int>(0, simp_prop.num_vars() - 1);
+        var = util::random::sample<int>(0, simp_prop.num_vars() - 1);
       }
-      int sign = core::random::sample<int>(0, 1);
+      int sign = util::random::sample<int>(0, 1);
       ms_assumption[i] = Minisat::mkLit(var, sign);
     }
 
     Minisat::vec<Minisat::Lit> dummy;
-    bool a = IPS_TRACE_V(sat_solver.propagate(ms_assumption, dummy));
-    bool b = IPS_TRACE_V(sat_solver.propagate(ms_assumption));
+    bool a = IPS_TRACE_N_V("With-dummy-prop", sat_solver.propagate(ms_assumption, dummy));
+    bool b = IPS_TRACE_N_V("Without-dummy-prop", sat_solver.propagate(ms_assumption));
     ASSERT_EQ(a, b);
   }
 
@@ -56,7 +56,7 @@ TEST(unit_propagation, correctness_performance) {
 }
 
 TEST(subtree_propagation, correctness_performance) {
-  core::Generator gen(239);
+  util::random::Generator gen(239);
   std::filesystem::path cnf_path = "./resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf";
   Minisat::SimpSolver solver;
 
@@ -71,20 +71,21 @@ TEST(subtree_propagation, correctness_performance) {
   int num_tests = 1000;
   while (num_tests--) {
     std::set<int> vars;
-    int size = core::random::sample<int>(0, 20);
-    int head_size = core::random::sample<int>(0, size);
+    int size = util::random::sample<int>(0, 20);
+    int head_size = util::random::sample<int>(0, size);
     Minisat::vec<Minisat::Lit> ms_assumption(size);
     for (int i = 0; i < size; ++i) {
-      int var = core::random::sample<int>(0, solver.nVars() - 1);
+      int var = util::random::sample<int>(0, solver.nVars() - 1);
       while (vars.find(var) != vars.end()) {
-        var = core::random::sample<int>(0, solver.nVars() - 1);
+        var = util::random::sample<int>(0, solver.nVars() - 1);
       }
-      int sign = core::random::sample<int>(0, 1);
+      int sign = util::random::sample<int>(0, 1);
       ms_assumption[i] = Minisat::mkLit(var, sign);
     }
 
-    uint64_t fast = IPS_TRACE_V(solver.prop_check_subtree(ms_assumption, head_size));
-    uint64_t naive = IPS_TRACE_V(num_conflicts_in_subtree(solver, ms_assumption, head_size));
+    uint64_t fast = IPS_TRACE_N_V("Subtree", solver.prop_check_subtree(ms_assumption, head_size));
+    uint64_t naive =
+        IPS_TRACE_N_V("Native", num_conflicts_in_subtree(solver, ms_assumption, head_size));
     ASSERT_EQ(fast, naive);
   }
 

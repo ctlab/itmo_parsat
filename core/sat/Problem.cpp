@@ -1,6 +1,6 @@
 #include "core/sat/Problem.h"
 
-#include "core/sat/minisat/minisat/simp/SimpSolver.h"
+#include "core/sat/native/minisat/minisat/simp/SimpSolver.h"
 #include "minisat/core/Dimacs.h"
 
 namespace {

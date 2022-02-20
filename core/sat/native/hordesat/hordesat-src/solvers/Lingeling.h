@@ -9,9 +9,9 @@
 #ifndef LINGELING_H_
 #define LINGELING_H_
 
-#include "../utilities/SatUtils.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/SatUtils.h"
 #include "PortfolioSolverInterface.h"
-#include "../utilities/Threading.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/Threading.h"
 
 struct LGL;
 

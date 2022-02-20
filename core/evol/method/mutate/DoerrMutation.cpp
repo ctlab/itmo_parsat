@@ -1,6 +1,6 @@
 #include "core/evol/method/mutate/DoerrMutation.h"
 
-#include "util/Generator.h"
+#include "util/Random.h"
 
 namespace ea::method {
 
@@ -13,7 +13,7 @@ double DoerrMutation::_get_alpha(uint32_t size) const {
   }
 
   double ll = 0., rr = 0.;
-  double p = core::random::sample<double>(0., 1.);
+  double p = util::random::sample<double>(0., 1.);
   double c = 0.;
 
   for (uint32_t i = 1; i < bound; ++i) {
@@ -39,7 +39,7 @@ void DoerrMutation::apply(instance::Instance& instance) {
   double p = alpha_ / (double) num_vars;
 
   for (uint32_t i = 0; i < num_vars; ++i) {
-    if (core::random::flip_coin(p)) {
+    if (util::random::flip_coin(p)) {
       instance.get_vars().flip(i);
     }
   }

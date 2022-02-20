@@ -9,7 +9,7 @@
 #ifndef SATUTILS_H_
 #define SATUTILS_H_
 
-#include "../solvers/PortfolioSolverInterface.h"
+#include "core/sat/native/hordesat/hordesat-src/solvers/PortfolioSolverInterface.h"
 
 bool loadFormulaToSolvers(vector<PortfolioSolverInterface*>& solvers, const char* filename);
 

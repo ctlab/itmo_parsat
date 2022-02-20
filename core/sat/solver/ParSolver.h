@@ -10,7 +10,7 @@
 #include <future>
 #include <queue>
 
-#include "util/Generator.h"
+#include "util/Random.h"
 #include "core/sat/solver/Solver.h"
 #include "util/WorkerPool.h"
 
@@ -26,7 +26,7 @@ class ParSolver : public Solver {
  public:
   explicit ParSolver(ParSolverConfig const& config);
 
-  ~ParSolver() noexcept override;
+  ~ParSolver() noexcept = default;
 
   void load_problem(Problem const& problem) override;
 

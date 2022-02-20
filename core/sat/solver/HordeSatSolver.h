@@ -10,14 +10,14 @@
 #include "core/sat/prop/ParProp.h"
 #include "util/Registry.h"
 
-#include "core/sat/hordesat/hordesat-src/solvers/MiniSat.h"
-#include "core/sat/hordesat/hordesat-src/solvers/Lingeling.h"
-#include "core/sat/hordesat/hordesat-src/utilities/DebugUtils.h"
-#include "core/sat/hordesat/hordesat-src/utilities/Logger.h"
-#include "core/sat/hordesat/hordesat-src/utilities/Threading.h"
-#include "core/sat/hordesat/hordesat-src/utilities/ParameterProcessor.h"
-#include "core/sat/hordesat/hordesat-src/sharing/AllToAllSharingManager.h"
-#include "core/sat/hordesat/hordesat-src/sharing/LogSharingManager.h"
+#include "core/sat/native/hordesat/hordesat-src/solvers/MiniSat.h"
+#include "core/sat/native/hordesat/hordesat-src/solvers/Lingeling.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/DebugUtils.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/Logger.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/Threading.h"
+#include "core/sat/native/hordesat/hordesat-src/utilities/ParameterProcessor.h"
+#include "core/sat/native/hordesat/hordesat-src/sharing/AllToAllSharingManager.h"
+#include "core/sat/native/hordesat/hordesat-src/sharing/LogSharingManager.h"
 
 namespace core::sat::solver {
 

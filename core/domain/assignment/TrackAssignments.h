@@ -1,7 +1,7 @@
 #ifndef ITMO_PARSAT_TRACKASSIGNMENTS_H
 #define ITMO_PARSAT_TRACKASSIGNMENTS_H
 
-#ifndef DISABLE_CHECK_ASGN
+#ifndef IPS_DISABLE_HEAVY_CHECKS
 
 #include <vector>
 #include <mutex>

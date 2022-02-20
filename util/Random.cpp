@@ -1,12 +1,12 @@
-#include "Generator.h"
+#include "Random.h"
 
 namespace {
 
-thread_local ::core::Generator* _this_thread_generator = nullptr;
+thread_local ::util::random::Generator* _this_thread_generator = nullptr;
 
 }  // namespace
 
-namespace core {
+namespace util::random {
 
 Generator::Generator(uint32_t seed) : _seed(seed), _mt(seed) {
   IPS_VERIFY(
@@ -29,8 +29,6 @@ Generator& Generator::current_thread_generator() {
   return *_this_thread_generator;
 }
 
-namespace random {
-
 std::mt19937& stdgen() {
   IPS_VERIFY(
       _this_thread_generator != nullptr && bool("This thread did not initialize Generator."));
@@ -41,5 +39,4 @@ bool flip_coin(double p) {
   return p >= std::uniform_real_distribution<double>(0., 1.)(stdgen());
 }
 
-}  // namespace random
-}  // namespace core
+}  // namespace util::random

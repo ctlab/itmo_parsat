@@ -1,9 +1,8 @@
 #include "core/sat/solver/ParSolver.h"
 
-#include <filesystem>
 #include <mutex>
-#include <execution>
 
+#include "util/options.h"
 #include "util/stream.h"
 
 namespace core::sat::solver {
@@ -13,15 +12,11 @@ ParSolver::ParSolver(ParSolverConfig const& config)
       return RSolver(SolverRegistry::resolve(config.solver_config()));
     }) {}
 
-ParSolver::~ParSolver() noexcept {
-  interrupt();
-}
-
 void ParSolver::load_problem(Problem const& problem) {
   auto& workers = _solver_pool.get_workers();
-  std::for_each(
-      std::execution::par_unseq, workers.begin(), workers.end(),
-      [&problem](auto& solver) { solver->load_problem(problem); });
+  std::for_each(IPS_EXEC_POLICY, workers.begin(), workers.end(), [&problem](auto& solver) {
+    solver->load_problem(problem);
+  });
 }
 
 State ParSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
@@ -33,7 +28,6 @@ void ParSolver::solve_assignments(domain::USearch search, Solver::slv_callback_t
   uint32_t num_threads = _solver_pool.max_threads();
 
   // Here we share assignment between all worker threads.
-  // Don't forget to release unique ptr.
   domain::RSearch shared_search(search.release());
 
   std::vector<std::future<void>> futures;
@@ -77,14 +71,13 @@ void ParSolver::_solve(
 
 void ParSolver::_do_interrupt() {
   auto& workers = _solver_pool.get_workers();
-  std::for_each(std::execution::par_unseq, workers.begin(), workers.end(), [](auto& solver) {
-    solver->interrupt();
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, workers.begin(), workers.end(), [](auto& solver) { solver->interrupt(); });
 }
 
 void ParSolver::_do_clear_interrupt() {
   auto& workers = _solver_pool.get_workers();
-  std::for_each(std::execution::par_unseq, workers.begin(), workers.end(), [](auto& solver) {
+  std::for_each(IPS_EXEC_POLICY, workers.begin(), workers.end(), [](auto& solver) {
     solver->clear_interrupt();
   });
 }

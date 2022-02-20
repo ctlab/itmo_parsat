@@ -10,8 +10,8 @@ sat::State RBSSolve::solve(sat::Problem const& problem) {
     ea::algorithm::RAlgorithm algorithm(
         ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config()));
     _do_interrupt = [algorithm] { algorithm->interrupt(); };
-    auto& algorithm_solver = algorithm->get_prop();
-    IPS_TRACE(algorithm_solver.load_problem(problem));
+    auto& alg_prop = algorithm->get_prop();
+    IPS_TRACE(alg_prop.load_problem(problem));
     if (!algorithm->prepare()) {
       final_search = domain::createSingleSearch();
     } else {

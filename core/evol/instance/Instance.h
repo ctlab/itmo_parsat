@@ -12,7 +12,7 @@
 #include "util/stream.h"
 #include "util/Logger.h"
 #include "util/LRUCache.h"
-#include "util/Generator.h"
+#include "util/Random.h"
 
 namespace ea::instance {
 

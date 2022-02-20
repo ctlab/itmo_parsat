@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['uniformmutation_86',['UniformMutation',['../classea_1_1method_1_1UniformMutation.html',1,'ea::method']]],
-  ['uniquesearch_87',['UniqueSearch',['../classcore_1_1domain_1_1UniqueSearch.html',1,'core::domain']]]
+  ['uniformmutation_87',['UniformMutation',['../classea_1_1method_1_1UniformMutation.html',1,'ea::method']]],
+  ['uniquesearch_88',['UniqueSearch',['../classcore_1_1domain_1_1UniqueSearch.html',1,'core::domain']]]
 ];

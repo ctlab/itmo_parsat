@@ -9,7 +9,7 @@
 
 #include "Logger.h"
 #include "TimeTracer.h"
-#include "assert.h"
+#include "util/Assert.h"
 
 namespace core {
 
@@ -34,7 +34,7 @@ namespace core {
    private:                                                                             \
     INTERFACE* _resolve(CONFIG_TYPE const& config) {                                    \
       std::string name = config.NAME##_type();                                          \
-      IPS_EVENT("Resolve " + name)                                                      \
+      IPS_EVENT("Resolve_" + name)                                                      \
       IPS_VERIFY_S(                                                                     \
           map_.count(name) > 0,                                                         \
           "Trying to resolve non-existing implementation of " #NAME << ": " << name);   \
