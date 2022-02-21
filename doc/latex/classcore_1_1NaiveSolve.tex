@@ -35,7 +35,7 @@ Collaboration diagram for core\+::Naive\+Solve\+:
 \mbox{\Hypertarget{classcore_1_1NaiveSolve_ab45b62b33dcd92f4e457388f34c88963}\label{classcore_1_1NaiveSolve_ab45b62b33dcd92f4e457388f34c88963}} 
 {\bfseries Naive\+Solve} (Naive\+Solve\+Config config)
 \item 
-sat\+::\+State \mbox{\hyperlink{classcore_1_1NaiveSolve_a2c0a9591136b60be59804a750361a6d5}{solve}} (std\+::filesystem\+::path const \&input) override
+sat\+::\+State \mbox{\hyperlink{classcore_1_1NaiveSolve_a351bd7a9b5ad29f5ed64f2ca40ff653c}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -44,11 +44,11 @@ sat\+::\+State \mbox{\hyperlink{classcore_1_1NaiveSolve_a2c0a9591136b60be59804a7
 Naively solves S\+AT using the specified solver. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classcore_1_1NaiveSolve_a2c0a9591136b60be59804a750361a6d5}\label{classcore_1_1NaiveSolve_a2c0a9591136b60be59804a750361a6d5}} 
+\mbox{\Hypertarget{classcore_1_1NaiveSolve_a351bd7a9b5ad29f5ed64f2ca40ff653c}\label{classcore_1_1NaiveSolve_a351bd7a9b5ad29f5ed64f2ca40ff653c}} 
 \index{core::NaiveSolve@{core::NaiveSolve}!solve@{solve}}
 \index{solve@{solve}!core::NaiveSolve@{core::NaiveSolve}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily sat\+::\+State core\+::\+Naive\+Solve\+::solve (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily sat\+::\+State core\+::\+Naive\+Solve\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -64,7 +64,7 @@ result of the solution
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classcore_1_1Solve_a2a566f84b4c453829c036547e68d8f6a}{core\+::\+Solve}}.
+Implements \mbox{\hyperlink{classcore_1_1Solve_a6b5977512ad1b41df4fb802fa4b30e65}{core\+::\+Solve}}.
 
 
 

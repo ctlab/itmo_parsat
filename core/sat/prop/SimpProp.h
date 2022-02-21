@@ -4,8 +4,8 @@
 #include <filesystem>
 
 #include "core/sat/prop/Prop.h"
-#include "core/util/Logger.h"
-#include "core/util/Tracer.h"
+#include "util/Logger.h"
+#include "util/TimeTracer.h"
 #include "core/sat/SimpBase.h"
 #include "minisat/simp/SimpSolver.h"
 
@@ -18,7 +18,7 @@ class SimpProp : public Prop, public SimpBase {
  public:
   SimpProp() = default;
 
-  void parse_cnf(std::filesystem::path const& path) override;
+  void load_problem(Problem const& problem) override;
 
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 

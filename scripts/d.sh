@@ -3,6 +3,7 @@ source scripts/base.sh
 
 IPS_NAME="itmo-parsat"
 DB_NAME="infra_pg_db"
+MOUNT=""
 
 function do_desc() {
     echo "Docker containers manipulation utility."
@@ -69,6 +70,10 @@ function do_stop_all() {
     do_stop_pg
 }
 
+function do_mount() {
+    MOUNT="--mount type=bind,source=$1,target=$1"
+}
+
 function do_run_ips() {
     get_ips_cid
     if [[ -n "$cid" ]]; then
@@ -76,7 +81,9 @@ function do_run_ips() {
     else
         cid=$( \
             docker run -dt \
-                --net=host \
+                --cpus=16 \
+                --memory=32g \
+                --net=host $MOUNT \
                 --mount type=bind,source="$(pwd)",target="/home/$(id -un)/itmo-parsat" \
                 "$IPS_NAME" \
         )

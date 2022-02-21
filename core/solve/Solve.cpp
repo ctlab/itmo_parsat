@@ -13,11 +13,11 @@ bool Solve::_is_interrupted() const noexcept {
   return _interrupted;
 }
 
-sat::RSolver Solve::_resolve_solver(SolverConfig const& config) {
-  return sat::RSolver(sat::SolverRegistry::resolve(config));
+sat::solver::RSolver Solve::_resolve_solver(SolverConfig const& config) {
+  return sat::solver::RSolver(sat::solver::SolverRegistry::resolve(config));
 }
 
-sat::State Solve::_final_solve(sat::Solver& solver, domain::USearch assignment) {
+sat::State Solve::_final_solve(sat::solver::Solver& solver, domain::USearch assignment) {
   IPS_VERIFY(!assignment->empty() && bool("Trying to final-solve empty assignment set"));
   std::mutex progress_lock;
   std::atomic_bool unknown{false}, satisfied{false};

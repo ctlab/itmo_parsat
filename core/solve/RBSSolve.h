@@ -6,9 +6,9 @@
 
 #include "core/evol/algorithm/Algorithm.h"
 #include "core/solve/Solve.h"
-#include "core/util/SigHandler.h"
-#include "core/util/Tracer.h"
-#include "core/util/Logger.h"
+#include "util/SigHandler.h"
+#include "util/TimeTracer.h"
+#include "util/Logger.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/assignment/RandomSearch.h"
 
@@ -23,7 +23,7 @@ class RBSSolve : public Solve {
  public:
   explicit RBSSolve(RBSSolveConfig const& config);
 
-  [[nodiscard]] sat::State solve(std::filesystem::path const& input) override;
+  [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
  private:
   RBSSolveConfig _cfg;

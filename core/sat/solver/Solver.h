@@ -6,21 +6,16 @@
 #include <memory>
 #include <atomic>
 
-#include "minisat/core/SolverTypes.h"
-#include "minisat/mtl/Vec.h"
+#include "core/sat/Problem.h"
 #include "core/domain/assignment/Search.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/util/Registry.h"
 #include "core/domain/assignment/TrackAssignments.h"
+#include "minisat/core/SolverTypes.h"
+#include "minisat/mtl/Vec.h"
+#include "util/Registry.h"
 
-namespace core::sat {
-
-enum State {
-  SAT,
-  UNSAT,
-  UNKNOWN,
-};
+namespace core::sat::solver {
 
 /**
  * @brief SAT Solver interface.
@@ -46,7 +41,7 @@ class Solver {
    * @brief Parses cnf from .gz file with the specified path.
    * @param path the path with formula.
    */
-  virtual void parse_cnf(std::filesystem::path const& path) = 0;
+  virtual void load_problem(Problem const& problem) = 0;
 
   /**
    * @brief Equivalent to Solver::solve({}).
@@ -109,6 +104,6 @@ using USolver = std::unique_ptr<Solver>;
 
 DEFINE_REGISTRY(Solver, SolverConfig, solver);
 
-}  // namespace core::sat
+}  // namespace core::sat::solver
 
 #endif  // EVOL_SOLVER_H

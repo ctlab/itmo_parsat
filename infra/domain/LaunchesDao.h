@@ -5,7 +5,7 @@
 #include <fstream>
 #include <mutex>
 
-#include "core/util/Logger.h"
+#include "util/Logger.h"
 #include "pqxx/pqxx"
 
 namespace infra::domain {

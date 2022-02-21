@@ -1,3 +1,3 @@
-add_subdirectory(lingeling)
-add_subdirectory(minisat)
-add_subdirectory(hordesat)
+add_subdirectory(native/lingeling)
+add_subdirectory(native/minisat)
+add_subdirectory(native/hordesat)

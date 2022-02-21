@@ -1,6 +1,6 @@
 #include "core/evol/algorithm/GAAlgorithm.h"
 
-#include "core/util/Generator.h"
+#include "util/Random.h"
 
 namespace {
 
@@ -17,7 +17,7 @@ std::vector<uint32_t> choose(std::vector<double> const& distrib, uint32_t count)
   std::for_each(cumulative.begin(), cumulative.end(), [sum](double& x) { x /= sum; });
 
   while (count--) {
-    double sample = ::core::random::sample<double>(0., 1.);
+    double sample = ::util::random::sample<double>(0., 1.);
     res[count] =
         std::lower_bound(cumulative.begin(), cumulative.end(), sample) - cumulative.begin();
   }

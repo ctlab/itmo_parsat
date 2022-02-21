@@ -57,10 +57,10 @@ print_fail() {
 RUN="./scripts/run.sh"
 
 hooks=(
-    "$RUN --format"
-    "$RUN -g DEV_FAST --build"
+    "$RUN --check-format"
+    "$RUN --sanitize -g DEV_FAST --build"
     "$RUN --unit"
-    "$RUN -v 6 -- --run-infra --size 0 --test-groups common --"
+    "$RUN -v 6 -- --run-infra --config ./resources/launch/infra_common_0"
     "$RUN --build-doc"
 )
 
@@ -71,5 +71,6 @@ for hook in "${hooks[@]}"; do
     $hook && print_ok || print_fail
 done
 
-git add .
+# Add documentation manually
+git add doc/
 

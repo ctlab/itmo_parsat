@@ -1,6 +1,7 @@
 #include "core/domain/assignment/FullSearch.h"
 
 #include <iostream>
+#include <memory>
 
 namespace {
 
@@ -20,7 +21,7 @@ void next_assignment(Minisat::vec<Minisat::Lit>& vec) {
 namespace core::domain {
 
 FullSearch::FullSearch(VarView const& var_view, std::vector<bool> const& vars)
-    : AssignmentModifier(var_view, vars), SplittableSearch(Search::total_size(vars)) {}
+    : AssignmentModifier(var_view, vars), Search(Search::total_size(vars)) {}
 
 void FullSearch::_advance() {
   next_assignment(_assignment);
@@ -39,7 +40,7 @@ Minisat::vec<Minisat::Lit> const& FullSearch::operator()() const {
 }
 
 UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars) {
-  return UFullSearch(new FullSearch(var_view, vars));
+  return std::make_unique<FullSearch>(var_view, vars);
 }
 
 }  // namespace core::domain

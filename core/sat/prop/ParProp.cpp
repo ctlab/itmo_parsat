@@ -1,9 +1,10 @@
 #include "core/sat/prop/ParProp.h"
 
-#include <filesystem>
 #include <mutex>
+#include <algorithm>
 
-#include "core/util/stream.h"
+#include "util/options.h"
+#include "util/stream.h"
 
 namespace core::sat::prop {
 
@@ -12,10 +13,11 @@ ParProp::ParProp(ParPropConfig const& config)
       return RProp(PropRegistry::resolve(config.prop_config()));
     }) {}
 
-void ParProp::parse_cnf(std::filesystem::path const& input) {
-  for (auto& solver : _prop_worker_pool.get_workers()) {
-    solver->parse_cnf(input);
-  }
+void ParProp::load_problem(Problem const& problem) {
+  auto& workers = _prop_worker_pool.get_workers();
+  std::for_each(IPS_EXEC_POLICY, workers.begin(), workers.end(), [&problem](auto& prop) {
+    prop->load_problem(problem);
+  });
 }
 
 bool ParProp::propagate(
@@ -23,8 +25,7 @@ bool ParProp::propagate(
   return _prop_worker_pool.get_workers().front()->propagate(assumptions, propagated);
 }
 
-void ParProp::prop_assignments(
-    domain::USplittableSearch search, Prop::prop_callback_t const& callback) {
+void ParProp::prop_assignments(domain::USearch search, Prop::prop_callback_t const& callback) {
   uint32_t num_threads = _prop_worker_pool.max_threads();
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);

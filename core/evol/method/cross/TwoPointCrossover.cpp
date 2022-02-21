@@ -1,13 +1,13 @@
 #include "core/evol/method/cross/TwoPointCrossover.h"
 
-#include "core/util/Generator.h"
+#include "util/Random.h"
 
 namespace ea::method {
 
 void TwoPointCrossover::apply(instance::Instance& a, instance::Instance& b) {
   long num_vars = (long) a.num_vars();
-  long pos_1 = core::random::sample<long>(0, num_vars - 1);
-  long pos_2 = core::random::sample<long>(0, num_vars - 1);
+  long pos_1 = util::random::sample<long>(0, num_vars - 1);
+  long pos_2 = util::random::sample<long>(0, num_vars - 1);
   if (pos_1 > pos_2) {
     std::swap(pos_1, pos_2);
   }

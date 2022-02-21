@@ -5,7 +5,6 @@
 constexpr uint32_t parallel = 16;
 
 TEST_F(LaunchFixture, simp_test) {
-  // For now, ignore this test because it is too large
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
@@ -63,6 +62,19 @@ TEST_F(LaunchFixture, simppar_parrbs_test) {
       .set_config_path("simppar_parrbs.json")
       .set_threads_required(parallel)
       .set_description("ParRBSSearch solver tests (ParRBS, ParSolver(SimpSolver) solve)");
+  for (const auto& path : LaunchFixture::cnfs) {
+    launch(config.set_input_path(path));
+  }
+  ASSERT_FALSE(test_failed);
+}
+
+TEST_F(LaunchFixture, lingpar_parrbs_test) {
+  infra::testing::LaunchConfig config;
+  config.set_expected_result(infra::domain::UNKNOWN)
+      .set_log_config_path("log.json")
+      .set_config_path("lingpar_parrbs.json")
+      .set_threads_required(parallel)
+      .set_description("RBSSearch solver tests (RBS, ParSolver(LingelingSolver) solve)");
   for (const auto& path : LaunchFixture::cnfs) {
     launch(config.set_input_path(path));
   }

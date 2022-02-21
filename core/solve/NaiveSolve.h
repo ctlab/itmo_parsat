@@ -2,9 +2,9 @@
 #define ITMO_PARSAT_NAIVESOLVE_H
 
 #include "core/solve/Solve.h"
-#include "core/util/SigHandler.h"
-#include "core/util/Tracer.h"
-#include "core/util/Logger.h"
+#include "util/SigHandler.h"
+#include "util/TimeTracer.h"
+#include "util/Logger.h"
 
 namespace core {
 
@@ -15,7 +15,7 @@ class NaiveSolve : public Solve {
  public:
   NaiveSolve(NaiveSolveConfig config);
 
-  [[nodiscard]] sat::State solve(std::filesystem::path const& input) override;
+  [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
  private:
   NaiveSolveConfig _cfg;

@@ -8,9 +8,9 @@
 #include <boost/timer/progress_display.hpp>
 
 #include "core/sat/solver/Solver.h"
-#include "core/util/EventHandler.h"
-#include "core/util/SigHandler.h"
-#include "core/util/Tracer.h"
+#include "util/EventHandler.h"
+#include "util/SigHandler.h"
+#include "util/TimeTracer.h"
 #include "core/proto/solve_config.pb.h"
 
 namespace core {
@@ -28,16 +28,16 @@ class Solve {
    * @param input path to gz archive with task description
    * @return result of the solution
    */
-  [[nodiscard]] virtual sat::State solve(std::filesystem::path const& input) = 0;
+  [[nodiscard]] virtual sat::State solve(sat::Problem const& problem) = 0;
 
   virtual ~Solve() = default;
 
   void interrupt();
 
  protected:
-  [[nodiscard]] static sat::RSolver _resolve_solver(SolverConfig const& config);
+  [[nodiscard]] static sat::solver::RSolver _resolve_solver(SolverConfig const& config);
 
-  [[nodiscard]] sat::State _final_solve(sat::Solver& solver, domain::USearch assignment);
+  [[nodiscard]] sat::State _final_solve(sat::solver::Solver& solver, domain::USearch assignment);
 
  protected:
   [[nodiscard]] bool _is_interrupted() const noexcept;

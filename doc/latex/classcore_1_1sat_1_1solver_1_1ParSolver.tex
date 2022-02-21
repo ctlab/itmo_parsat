@@ -1,0 +1,141 @@
+\hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver}{}\doxysection{core\+::sat\+::solver\+::Par\+Solver Class Reference}
+\label{classcore_1_1sat_1_1solver_1_1ParSolver}\index{core::sat::solver::ParSolver@{core::sat::solver::ParSolver}}
+
+
+Parallel solver implementation.  
+
+
+
+
+{\ttfamily \#include $<$Par\+Solver.\+h$>$}
+
+
+
+Inheritance diagram for core\+::sat\+::solver\+::Par\+Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classcore_1_1sat_1_1solver_1_1ParSolver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::sat\+::solver\+::Par\+Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classcore_1_1sat_1_1solver_1_1ParSolver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver_aa594a89ac2d383614136a88490e6133b}\label{classcore_1_1sat_1_1solver_1_1ParSolver_aa594a89ac2d383614136a88490e6133b}} 
+{\bfseries Par\+Solver} (Par\+Solver\+Config const \&config)
+\item 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1ParSolver_a1f028eed2efe1f75ab8461e0aaa8b51c}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
+\begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
+State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1ParSolver_abcb4038b6723b7e81f9ff30cd5a22132}{solve}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1ParSolver_ad3f7d2adb735b68058d3b07c2b493409}{solve\+\_\+assignments}} (domain\+::\+U\+Search assignment, \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_ac03623f555c568e06537a83b13a624a7}{slv\+\_\+callback\+\_\+t}} const \&callback) override
+\begin{DoxyCompactList}\small\item\em Solves C\+NF on all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1ParSolver_a8df29c250fc558e3c5b07cced4add862}{propagate\+\_\+confl}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions) override
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver_a2febfef51c6654b5119d61b8af394f86}\label{classcore_1_1sat_1_1solver_1_1ParSolver_a2febfef51c6654b5119d61b8af394f86}} 
+unsigned \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1ParSolver_a2febfef51c6654b5119d61b8af394f86}{num\+\_\+vars}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Parallel solver implementation. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver_a1f028eed2efe1f75ab8461e0aaa8b51c}\label{classcore_1_1sat_1_1solver_1_1ParSolver_a1f028eed2efe1f75ab8461e0aaa8b51c}} 
+\index{core::sat::solver::ParSolver@{core::sat::solver::ParSolver}!load\_problem@{load\_problem}}
+\index{load\_problem@{load\_problem}!core::sat::solver::ParSolver@{core::sat::solver::ParSolver}}
+\doxysubsubsection{\texorpdfstring{load\_problem()}{load\_problem()}}
+{\footnotesize\ttfamily void core\+::sat\+::solver\+::\+Par\+Solver\+::load\+\_\+problem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Parses cnf from .gz file with the specified path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & the path with formula. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver_a8df29c250fc558e3c5b07cced4add862}\label{classcore_1_1sat_1_1solver_1_1ParSolver_a8df29c250fc558e3c5b07cced4add862}} 
+\index{core::sat::solver::ParSolver@{core::sat::solver::ParSolver}!propagate\_confl@{propagate\_confl}}
+\index{propagate\_confl@{propagate\_confl}!core::sat::solver::ParSolver@{core::sat::solver::ParSolver}}
+\doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
+{\footnotesize\ttfamily bool core\+::sat\+::solver\+::\+Par\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to be passed to solver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether these assumptions lead to conflict 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a62e6dfc469ae00cc045b4233a3712f8f}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver_abcb4038b6723b7e81f9ff30cd5a22132}\label{classcore_1_1sat_1_1solver_1_1ParSolver_abcb4038b6723b7e81f9ff30cd5a22132}} 
+\index{core::sat::solver::ParSolver@{core::sat::solver::ParSolver}!solve@{solve}}
+\index{solve@{solve}!core::sat::solver::ParSolver@{core::sat::solver::ParSolver}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+Par\+Solver\+::solve (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Runs solution with the specified assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of solving. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a39ee40aaa252078dfc6964ff99abf3bf}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1ParSolver_ad3f7d2adb735b68058d3b07c2b493409}\label{classcore_1_1sat_1_1solver_1_1ParSolver_ad3f7d2adb735b68058d3b07c2b493409}} 
+\index{core::sat::solver::ParSolver@{core::sat::solver::ParSolver}!solve\_assignments@{solve\_assignments}}
+\index{solve\_assignments@{solve\_assignments}!core::sat::solver::ParSolver@{core::sat::solver::ParSolver}}
+\doxysubsubsection{\texorpdfstring{solve\_assignments()}{solve\_assignments()}}
+{\footnotesize\ttfamily void core\+::sat\+::solver\+::\+Par\+Solver\+::solve\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_ac03623f555c568e06537a83b13a624a7}{Solver\+::slv\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Solves C\+NF on all assignments by the given iterator and calls callback respectively. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em search} & search engine. \\
+\hline
+{\em callback} & callback to be called on each solve. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a0c5ed3425646f54ce97201aff8c883dd}{core\+::sat\+::solver\+::\+Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/solver/Par\+Solver.\+h\item 
+core/sat/solver/Par\+Solver.\+cpp\end{DoxyCompactItemize}

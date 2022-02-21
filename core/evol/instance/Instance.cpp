@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <utility>
 
-#include "core/util/Logger.h"
-#include "core/util/Generator.h"
+#include "util/Logger.h"
+#include "util/Random.h"
 
 namespace ea::instance {
 
@@ -17,7 +17,7 @@ Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data)
   _vars.resize(_var_view().size());
 
   // Initialize instance by setting one random variable
-  _vars.flip(core::random::sample<unsigned>(0, num_vars() - 1));
+  _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
 }
 
 core::domain::Vars& Instance::get_vars() noexcept {
@@ -92,8 +92,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
 
     // clang-format on
   } else {
-    core::domain::USplittableSearch search =
-        core::domain::createRandomSearch(_var_view(), mask, samples);
+    core::domain::USearch search = core::domain::createRandomSearch(_var_view(), mask, samples);
     // clang-format off
     _prop->prop_assignments(std::move(search),
       [&conflicts](bool conflict, auto const& asgn) {

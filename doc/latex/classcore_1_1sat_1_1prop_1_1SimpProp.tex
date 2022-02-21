@@ -2,7 +2,7 @@
 \label{classcore_1_1sat_1_1prop_1_1SimpProp}\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
 
 
-Minisat\+:Simp\+Solver-\/based \mbox{\hyperlink{classcore_1_1sat_1_1Solver}{Solver}} implementation.  
+Minisat\+:Simp\+Solver-\/based Solver implementation.  
 
 
 
@@ -32,7 +32,7 @@ Collaboration diagram for core\+::sat\+::prop\+::Simp\+Prop\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_acbd08582b2a581e60e69b8cbe02bd36d}{parse\+\_\+cnf}} (std\+::filesystem\+::path const \&path) override
+void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}} 
 uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}{num\+\_\+vars}} () const noexcept override
@@ -47,14 +47,14 @@ uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec4
 
 
 \doxysubsection{Detailed Description}
-Minisat\+:Simp\+Solver-\/based \mbox{\hyperlink{classcore_1_1sat_1_1Solver}{Solver}} implementation. 
+Minisat\+:Simp\+Solver-\/based Solver implementation. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_acbd08582b2a581e60e69b8cbe02bd36d}\label{classcore_1_1sat_1_1prop_1_1SimpProp_acbd08582b2a581e60e69b8cbe02bd36d}} 
-\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!parse\_cnf@{parse\_cnf}}
-\index{parse\_cnf@{parse\_cnf}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
-\doxysubsubsection{\texorpdfstring{parse\_cnf()}{parse\_cnf()}}
-{\footnotesize\ttfamily void core\+::sat\+::prop\+::\+Simp\+Prop\+::parse\+\_\+cnf (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!load\_problem@{load\_problem}}
+\index{load\_problem@{load\_problem}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{load\_problem()}{load\_problem()}}
+{\footnotesize\ttfamily void core\+::sat\+::prop\+::\+Simp\+Prop\+::load\+\_\+problem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -67,7 +67,7 @@ Parses cnf from .gz file with the specified path.
 \end{DoxyParams}
 
 
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_aaa0eff3f4050ef47b12358d0558fe4ef}{core\+::sat\+::prop\+::\+Prop}}.
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a528c2a9c9fb63e471fbd99d2f5f06d44}{core\+::sat\+::prop\+::\+Prop}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec402529f4ad9f7b38e58276}\label{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec402529f4ad9f7b38e58276}} 
 \index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!prop\_tree@{prop\_tree}}
@@ -76,7 +76,7 @@ Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_aaa0eff3f4050ef47b1
 {\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Simp\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: documentation \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]\+: documentation \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ab5dfb8622e69ffc873c40b665f2e939b}{core\+::sat\+::prop\+::\+Prop}}.

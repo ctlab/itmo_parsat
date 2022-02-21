@@ -64,6 +64,7 @@ message HordeSatSolverConfig {
   SeqSolver seq_solver = 7;
   Diversification diversification = 8;
   ClauseExchangeMode clause_exchange_mode = 9;
+  PropConfig prop_config = 11;
 }
 
 message ParSolverConfig {

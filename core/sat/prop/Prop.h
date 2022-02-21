@@ -8,11 +8,12 @@
 
 #include "minisat/core/SolverTypes.h"
 #include "minisat/mtl/Vec.h"
+#include "util/Registry.h"
 #include "core/domain/assignment/Search.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/util/Registry.h"
 #include "core/domain/assignment/TrackAssignments.h"
+#include "core/sat/Problem.h"
 
 namespace core::sat::prop {
 
@@ -39,7 +40,7 @@ class Prop {
    * @brief Parses cnf from .gz file with the specified path.
    * @param path the path with formula.
    */
-  virtual void parse_cnf(std::filesystem::path const& path) = 0;
+  virtual void load_problem(Problem const& problem) = 0;
 
   /**
    * @brief Propagates a given list of assumptions.
@@ -63,7 +64,7 @@ class Prop {
    * @param search search engine.
    * @param callback callback to be called on each solve.
    */
-  virtual void prop_assignments(domain::USplittableSearch search, prop_callback_t const& callback);
+  virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
 
   /// @todo: documentation
   virtual uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) = 0;

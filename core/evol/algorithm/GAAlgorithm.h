@@ -5,7 +5,7 @@
 #include "core/evol/method/select/Selector.h"
 #include "core/evol/method/mutate/Mutation.h"
 #include "core/evol/method/cross/Crossover.h"
-#include "core/util/Registry.h"
+#include "util/Registry.h"
 
 namespace ea::algorithm {
 

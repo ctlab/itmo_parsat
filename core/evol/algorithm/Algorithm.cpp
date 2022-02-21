@@ -1,7 +1,7 @@
 #include "core/evol/algorithm/Algorithm.h"
 
-#include "core/util/Logger.h"
-#include "core/util/stream.h"
+#include "util/Logger.h"
+#include "util/stream.h"
 
 namespace {
 
@@ -30,6 +30,10 @@ bool Algorithm::_init_shared_data(InstanceConfig const& config) {
   Minisat::vec<Minisat::Lit> propagated;
   std::vector<std::pair<int, int>> stats;
   stats.reserve(_prop->num_vars());
+
+  if (_prop->num_vars() == 0) {
+    return false;
+  }
 
   for (unsigned i = 0; i < _prop->num_vars(); ++i) {
     std::set<int> prop_both;

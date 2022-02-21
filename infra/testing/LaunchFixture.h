@@ -13,8 +13,8 @@
 #include <random>
 #include <gtest/gtest.h>
 
-#include "core/util/SigHandler.h"
-#include "core/util/EventHandler.h"
+#include "util/SigHandler.h"
+#include "util/EventHandler.h"
 #include "infra/domain/LaunchesDao.h"
 #include "infra/testing/Execution.h"
 #include "infra/testing/LaunchConfig.h"
@@ -107,6 +107,7 @@ class LaunchFixture : public ::testing::Test {
 
  public:
   static std::atomic_bool test_failed;
+  static std::atomic_bool is_interrupted;
   static std::set<std::filesystem::path> cnfs;
 };
 

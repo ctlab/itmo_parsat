@@ -4,8 +4,8 @@
 #include "unordered_set"
 
 #include "core/domain/assignment/AssignmentModifier.h"
-#include "core/domain/assignment/SplittableSearch.h"
-#include "core/util/Generator.h"
+#include "core/domain/assignment/Search.h"
+#include "util/Random.h"
 
 namespace core::domain {
 
@@ -16,10 +16,10 @@ MAKE_REFS(UniqueSearch);
 /**
  * @brief The class used to perform unique random search. Used for small sets of variables.
  */
-class UniqueSearch : AssignmentModifier, public SplittableSearch {
+class UniqueSearch : AssignmentModifier, public Search {
   friend std::unique_ptr<FullSearch> createFullSearch(VarView const&, std::vector<bool> const&);
 
-  friend USplittableSearch createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
+  friend USearch createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
 
  public:
   explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);

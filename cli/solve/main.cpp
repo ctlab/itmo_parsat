@@ -2,35 +2,35 @@
 #include <mutex>
 #include <utility>
 #include <glog/logging.h>
-#include <mpi.h>
 
-#include "core/util/CliConfig.h"
+#include "util/CliConfig.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/util/stream.h"
-#include "core/util/Logger.h"
-#include "core/util/Tracer.h"
-#include "core/util/Generator.h"
-#include "core/util/SigHandler.h"
+#include "util/stream.h"
+#include "util/Logger.h"
+#include "util/TimeTracer.h"
+#include "util/Random.h"
+#include "util/SigHandler.h"
 #include "core/sat/solver/Solver.h"
 #include "core/solve/Solve.h"
 
 core::CliConfig add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
-
-  po::options_description description;
+  po::options_description options;
   // clang-format off
-  description.add_options()
+  options.add_options()
       ("verbose,v", po::value<int>()->default_value(2), "Verbosity level.")
       ("log-config,l", po::value<std::filesystem::path>()->required(), "Path to JSON Logging configuration.")
-      ("config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
+      ("solve-config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
       ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
   // clang-format on
 
   core::CliConfig cli_config;
-  cli_config.add_options(description);
-  cli_config.parse(argc, argv);
-  cli_config.notify();
+  cli_config.add_options(options);
+  if (!cli_config.parse(argc, argv)) {
+    std::exit(0);
+  }
 
+  cli_config.notify();
   return cli_config;
 }
 
@@ -52,8 +52,6 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 }
 
 int main(int argc, char** argv) {
-  MPI_Init(&argc, &argv);
-
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   core::CliConfig config = add_and_read_args(argc, argv);
@@ -63,12 +61,15 @@ int main(int argc, char** argv) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }
   std::filesystem::path input = config.get<std::filesystem::path>("input");
-  std::filesystem::path solver_cfg_path = config.get<std::filesystem::path>("config");
+  std::filesystem::path solver_cfg_path = config.get<std::filesystem::path>("solve-config");
   std::filesystem::path logger_cfg_path = config.get<std::filesystem::path>("log-config");
   IPS_INFO("Input file: " << input);
 
   auto&& [solve_config, log_config] = read_json_configs(solver_cfg_path, logger_cfg_path);
   core::Logger::set_logger_config(log_config);
+
+  // Load problem
+  core::sat::Problem problem(input);
 
   // Initialize solve algorithm
   core::RSolve solve(core::SolveRegistry::resolve(solve_config));
@@ -80,11 +81,9 @@ int main(int argc, char** argv) {
       },
       core::event::INTERRUPT);
 
-  core::Generator generator(solve_config.random_seed());
-  core::sat::State result = IPS_TRACE_V(solve->solve(input));
-  core::Tracer::print_summary(10);
-
-  MPI_Finalize();
+  util::random::Generator generator(solve_config.random_seed());
+  core::sat::State result = IPS_TRACE_V(solve->solve(problem));
+  core::TimeTracer::print_summary(10);
 
   if (result == core::sat::UNSAT) {
     IPS_INFO("UNSAT");

@@ -1,0 +1,7 @@
+# Description: launch all tests of both sat/unsat (small cnfs)
+# Size: small
+# Purpose: integration testing
+
+time-limit = 5
+size = 0
+test-groups = common

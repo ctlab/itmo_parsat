@@ -102,15 +102,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f4f451f33abc7392046d26b8d0cafb9"><td class="memItemLeft" align="right" valign="top"><a id="a4f4f451f33abc7392046d26b8d0cafb9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ParProp</b> (ParPropConfig const &amp;config)</td></tr>
 <tr class="separator:a4f4f451f33abc7392046d26b8d0cafb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ddf577bd58f55fdd79bb1e17c7e0c29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a7ddf577bd58f55fdd79bb1e17c7e0c29">parse_cnf</a> (std::filesystem::path const &amp;input) override</td></tr>
-<tr class="memdesc:a7ddf577bd58f55fdd79bb1e17c7e0c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#a7ddf577bd58f55fdd79bb1e17c7e0c29">More...</a><br /></td></tr>
-<tr class="separator:a7ddf577bd58f55fdd79bb1e17c7e0c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ea8aa51556a5dda209f5173d5b9ed6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a2ea8aa51556a5dda209f5173d5b9ed6a">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">Problem</a> const &amp;problem) override</td></tr>
+<tr class="memdesc:a2ea8aa51556a5dda209f5173d5b9ed6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#a2ea8aa51556a5dda209f5173d5b9ed6a">More...</a><br /></td></tr>
+<tr class="separator:a2ea8aa51556a5dda209f5173d5b9ed6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a4a054aa235cc08a8171ec9d35eb5f17b">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions, Minisat::vec&lt; Minisat::Lit &gt; &amp;propagated) override</td></tr>
 <tr class="memdesc:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#a4a054aa235cc08a8171ec9d35eb5f17b">More...</a><br /></td></tr>
 <tr class="separator:a4a054aa235cc08a8171ec9d35eb5f17b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7a6c4f58b103463ca7e05a9b9677185"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#ad7a6c4f58b103463ca7e05a9b9677185">prop_assignments</a> (domain::USplittableSearch assignment, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a> const &amp;callback) override</td></tr>
-<tr class="memdesc:ad7a6c4f58b103463ca7e05a9b9677185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#ad7a6c4f58b103463ca7e05a9b9677185">More...</a><br /></td></tr>
-<tr class="separator:ad7a6c4f58b103463ca7e05a9b9677185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae392f2128831436a9e15e68bc274b8d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#ae392f2128831436a9e15e68bc274b8d4">prop_assignments</a> (domain::USearch assignment, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a> const &amp;callback) override</td></tr>
+<tr class="memdesc:ae392f2128831436a9e15e68bc274b8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1prop_1_1ParProp.html#ae392f2128831436a9e15e68bc274b8d4">More...</a><br /></td></tr>
+<tr class="separator:ae392f2128831436a9e15e68bc274b8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dcfa4fea83f4cd653abc8e8a63aa4df"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a6dcfa4fea83f4cd653abc8e8a63aa4df">prop_tree</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;vars, uint32_t head_size) override</td></tr>
 <tr class="separator:a6dcfa4fea83f4cd653abc8e8a63aa4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3751024fcb1dad93a47adf190ec91eb8"><td class="memItemLeft" align="right" valign="top"><a id="a3751024fcb1dad93a47adf190ec91eb8"></a>
@@ -131,8 +131,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Parallel propagation implementation. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7ddf577bd58f55fdd79bb1e17c7e0c29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ddf577bd58f55fdd79bb1e17c7e0c29">&#9670;&nbsp;</a></span>parse_cnf()</h2>
+<a id="a2ea8aa51556a5dda209f5173d5b9ed6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea8aa51556a5dda209f5173d5b9ed6a">&#9670;&nbsp;</a></span>load_problem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,10 +141,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::sat::prop::ParProp::parse_cnf </td>
+          <td class="memname">void core::sat::prop::ParProp::load_problem </td>
           <td>(</td>
-          <td class="paramtype">std::filesystem::path const &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1Problem.html">Problem</a> const &amp;&#160;</td>
+          <td class="paramname"><em>problem</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -163,12 +163,12 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#aaa0eff3f4050ef47b12358d0558fe4ef">core::sat::prop::Prop</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a528c2a9c9fb63e471fbd99d2f5f06d44">core::sat::prop::Prop</a>.</p>
 
 </div>
 </div>
-<a id="ad7a6c4f58b103463ca7e05a9b9677185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7a6c4f58b103463ca7e05a9b9677185">&#9670;&nbsp;</a></span>prop_assignments()</h2>
+<a id="ae392f2128831436a9e15e68bc274b8d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae392f2128831436a9e15e68bc274b8d4">&#9670;&nbsp;</a></span>prop_assignments()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,7 +179,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void core::sat::prop::ParProp::prop_assignments </td>
           <td>(</td>
-          <td class="paramtype">domain::USplittableSearch&#160;</td>
+          <td class="paramtype">domain::USearch&#160;</td>
           <td class="paramname"><em>search</em>, </td>
         </tr>
         <tr>
@@ -210,7 +210,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#aebfaee06175f343eb3361c9d2b6ca2d0">core::sat::prop::Prop</a>.</p>
+<p>Reimplemented from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">core::sat::prop::Prop</a>.</p>
 
 </div>
 </div>
@@ -247,7 +247,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>: documentation </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>: documentation </dd></dl>
 
 <p>Implements <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#ab5dfb8622e69ffc873c40b665f2e939b">core::sat::prop::Prop</a>.</p>
 

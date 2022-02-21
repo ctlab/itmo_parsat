@@ -6,7 +6,7 @@ namespace {
 
 void set_random(Minisat::vec<Minisat::Lit>& vec) {
   for (int i = 0; i < vec.size(); ++i) {
-    vec[i] = Minisat::mkLit(Minisat::var(vec[i]), ::core::random::sample<int>(0, 1));
+    vec[i] = Minisat::mkLit(Minisat::var(vec[i]), ::util::random::sample<int>(0, 1));
   }
 }
 
@@ -15,7 +15,7 @@ void set_random(Minisat::vec<Minisat::Lit>& vec) {
 namespace core::domain {
 
 RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
-    : AssignmentModifier(var_view, vars), SplittableSearch(total) {
+    : AssignmentModifier(var_view, vars), Search(total) {
   set_random(_assignment);
 }
 
@@ -35,13 +35,12 @@ Minisat::vec<Minisat::Lit> const& RandomSearch::operator()() const {
   return get();
 }
 
-USplittableSearch createRandomSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
+USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
   uint32_t num_set = std::count(vars.begin(), vars.end(), true);
   if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
-    return USplittableSearch(new UniqueSearch(var_view, vars, total));
+    return USearch(new UniqueSearch(var_view, vars, total));
   } else {
-    return USplittableSearch(new RandomSearch(var_view, vars, total));
+    return USearch(new RandomSearch(var_view, vars, total));
   }
 }
 

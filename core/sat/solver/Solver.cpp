@@ -1,6 +1,6 @@
 #include "core/sat/solver/Solver.h"
 
-namespace core::sat {
+namespace core::sat::solver {
 
 State Solver::solve_limited() {
   clear_interrupt();
@@ -40,4 +40,4 @@ bool Solver::interrupted() const {
   return _interrupted;
 }
 
-}  // namespace core::sat
+}  // namespace core::sat::solver

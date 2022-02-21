@@ -2,8 +2,8 @@
 #define EVOL_RESOURCELIMIT_H
 
 #include "core/evol/limit/Limit.h"
-#include "core/util/mem_usage.h"
-#include "core/util/Tracer.h"
+#include "util/mem_usage.h"
+#include "util/TimeTracer.h"
 
 namespace ea::limit {
 

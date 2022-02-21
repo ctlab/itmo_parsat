@@ -3,7 +3,7 @@
 namespace core::domain {
 
 UniqueSearch::UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
-    : AssignmentModifier(var_view, vars), SplittableSearch(total) {
+    : AssignmentModifier(var_view, vars), Search(total) {
   _advance_us();
 }
 
@@ -14,7 +14,7 @@ void UniqueSearch::_advance() {
 void UniqueSearch::_advance_us() {
   uint64_t sample = _first;
   while (visited_.count(sample)) {
-    sample = random::sample<uint64_t>(_first + 1, _last);
+    sample = util::random::sample<uint64_t>(_first + 1, _last);
   }
   visited_.insert(sample);
   _set_assignment(_assignment, sample);

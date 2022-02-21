@@ -20,6 +20,10 @@ PSQL_HOST="51.250.2.131"
 NEXT_NATIVE=0
 BUILD_DEBUG=""
 RUN_CMD=""
+SANITIZE="OFF"
+
+export GLOG_logtostderr=1
+export ASAN_OPTIONS=exitcode=1337
 
 function do_doc() {
     rm -rf doc/* || true
@@ -54,6 +58,10 @@ function do_format() {
     find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format -i
 }
 
+function do_chk_format() {
+    find . -iname *.h -o -iname *.hpp -o -iname *.cpp -o -iname *.cc | xargs clang-format --dry-run --Werror
+}
+
 function do_clean() {
     rm -rf build/*
 }
@@ -74,11 +82,19 @@ function do_set_res() {
     RESOURCES_DIR="$1"
 }
 
+function do_sanitize() {
+    SANITIZE="ON"
+}
+
 function do_build() {
     cd build
-    CC=gcc-9 CXX=g++-9 cmake .. -DCMAKE_BUILD_TYPE="$BUILD_CFG"
+    CC=gcc-9 CXX=g++-9 cmake .. -DCMAKE_BUILD_TYPE="$BUILD_CFG" -DSANITIZE="$SANITIZE"
     CC=gcc-9 CXX=g++-9 make -j $(nproc)
     cd "$ROOT"
+}
+
+function do_verify() {
+    ./scripts/hooks/pre-commit
 }
 
 function do_unit() {
@@ -100,7 +116,7 @@ function do_solve() {
         $RUN_CMD $SOLVE_BIN \
             --verbose "$VERBOSE" \
             --input "$CNF_PATH" \
-            --config "$CFG_ROOT/$SLV_CFG" \
+            --solve-config "$CFG_ROOT/$SLV_CFG" \
             --log-config "$LOG_CFG_PATH"
     else
         $RUN_CMD $SOLVE_BIN $@
@@ -118,9 +134,12 @@ add_option "-r|--resources" "Set resources directory"    do_set_res        1
 add_option "-b|--build" "    Build cli binary"           do_build          0
 add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1
-add_option "-f|--format" "   Apply clang-format"         do_format         0
 add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose    1
 add_option "-u|--unit" "     Run unit tests"             do_unit           0
+add_option "--format" "   Apply clang-format"            do_format         0
+add_option "--check-format" "Check format"               do_chk_format     0
+add_option "--verify" "      Run verification"           do_verify         0
+add_option "--sanitize" "    Enable sanitizer"           do_sanitize       0
 add_option "--run-debug" "   Run with gdb"               do_run_gdb        0
 add_option "--run-perf" "    Run with perf"              do_run_perf       0
 add_option "--run-valgrind" "Run with valgrind"          do_run_valgrind   0

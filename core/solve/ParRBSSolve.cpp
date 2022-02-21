@@ -27,7 +27,7 @@ void ParRBSSolve::_raise_for_sbs(uint32_t algorithm_id) noexcept {
 }
 
 std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
-    std::filesystem::path const& input) {
+    sat::Problem const& problem) {
   std::vector<std::vector<std::vector<Minisat::Lit>>> non_conflict_assignments(
       _cfg.num_algorithms());
   IPS_VERIFY(_cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
@@ -42,8 +42,11 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
   }
 
   _do_interrupt = [&] {
+    std::lock_guard<std::mutex> lg(mutex);
     for (auto& algorithm : algorithms) {
-      algorithm->interrupt();
+      if (algorithm) {
+        algorithm->interrupt();
+      }
     }
   };
 
@@ -56,14 +59,14 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
       event::SBS_FOUND);
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
-    uint32_t seed = core::random::sample<uint32_t>(0, UINT32_MAX);
+    uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
     rbs_search_threads.emplace_back(
         [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
-          core::Generator generator(seed);
+          util::random::Generator generator(seed);
           auto& algorithm = algorithms[i];
-          auto& algorithm_solver = algorithm->get_prop();
-          IPS_TRACE(algorithm_solver.parse_cnf(input));
-          if (!algorithm->prepare()) {
+          auto& alg_prop = algorithm->get_prop();
+          IPS_TRACE(alg_prop.load_problem(problem));
+          if (!IPS_TRACE_V(algorithm->prepare())) {
             non_conflict_assignments[i].push_back({});
             return;
           }
@@ -80,12 +83,14 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           // Try to propagate all assumptions and collect ones that ended with no conflict
           std::atomic_uint32_t conflicts{0}, total{0};
+          std::mutex nca_mutex;
           algorithm->get_prop().prop_assignments(
               domain::createFullSearch(
                   algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask()),
               [&](bool conflict, auto const& assumption) {
                 ++total;
                 if (!conflict) {
+                  std::lock_guard<std::mutex> lg(nca_mutex);
                   non_conflict_assignments[i].push_back(to_std_assump(assumption));
                 } else {
                   ++conflicts;
@@ -100,7 +105,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 
           {  // add the best backdoor to log
             std::lock_guard<std::mutex> lg(mutex);
-            algorithms_info << "[Thread " << i << "]\n";
+            algorithms_info << "\n[Thread " << i << "]\n";
             algorithms_info << "\tNumber of points visited: " << algorithm->inaccurate_points()
                             << '\n';
             algorithms_info << "\tThe best backdoor is: " << rho_backdoor << '\n';
@@ -110,6 +115,9 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
             if (_sbs_found) {
               algorithms_info << "\tMay be stopped because SBS has been found.\n";
             }
+
+            // Delete algorithm and free resources (under global mutex).
+            algorithms[i].reset();
           }
         });
   }
@@ -155,13 +163,14 @@ domain::USearch ParRBSSolve::_prepare_cartesian(
     }
   }
 
+  IPS_INFO("Creating cartesian search");
   return domain::createCartesianSearch(std::move(result));
 }
 
-sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
+sat::State ParRBSSolve::solve(sat::Problem const& problem) {
   // Build cartesian product of non-conflict assignments
   //  auto cartesian_product = IPS_TRACE_V(_build_cartesian_product(_pre_solve(input)));
-  auto cartesian_set = IPS_TRACE_V(_pre_solve(input));
+  auto cartesian_set = IPS_TRACE_V(_pre_solve(problem));
   if (_sbs_found) {
     IPS_INFO("SBS has been found during propagation, thus result is UNSAT");
     return sat::UNSAT;
@@ -172,7 +181,7 @@ sat::State ParRBSSolve::solve(std::filesystem::path const& input) {
   // Solve for the built assignments
   auto solver = _resolve_solver(_cfg.solver_config());
   _do_interrupt = [solver] { solver->interrupt(); };
-  IPS_TRACE(solver->parse_cnf(input));
+  IPS_TRACE(solver->load_problem(problem));
   return _final_solve(*solver, _prepare_cartesian(std::move(cartesian_set)));
 }
 
