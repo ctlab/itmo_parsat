@@ -57,6 +57,7 @@ print_fail() {
 RUN="./scripts/run.sh"
 
 hooks=(
+    "$RUN --clean"
     "$RUN --check-format"
     "$RUN --sanitize -g DEV_FAST --build"
     "$RUN --unit"

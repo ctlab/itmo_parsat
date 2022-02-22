@@ -7,14 +7,21 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Enables LTO
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
+# Options
+set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
+option(SANITIZE "Enable sanitizers"         OFF)
+option(GPROF    "Enable -pg flag for gprof" OFF)
+option(PGO_GEN  "Enable pgo generation"     OFF)
+option(PGO_USE  "Enable pgo usage"          OFF)
+
+message(STATUS "The architecture is " ${ARCH})
+
 # Global compiler options
-add_compile_options(-march=native)
+add_compile_options(-march=${ARCH})
+add_link_options(-march=${ARCH})
 
 # Global linker options
 link_libraries(tbb)
-
-# Options
-option(SANITIZE "Enable sanitizers" OFF)
 
 if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     message(STATUS "DEBUG build mode (Og). All checks are enabled, log and tracer are enabled.")
@@ -37,6 +44,24 @@ if (SANITIZE)
             -fsanitize=leak
             -fsanitize=undefined
     )
+endif ()
+
+if (GPROF)
+    message(STATUS "GPROF options (-pg) enabled.")
+    add_compile_options(-pg)
+    add_link_options(-pg)
+endif ()
+
+if (PGO_GEN)
+    message(STATUS "PGO generation enabled.")
+    add_compile_options(-fprofile-generate -fprofile-correction)
+    add_link_options(-fprofile-generate)
+endif ()
+
+if (PGO_USE)
+    message(STATUS "PGO usage enabled.")
+    add_compile_options(-fprofile-use -fprofile-correction)
+    add_link_options(-fprofile-use)
 endif ()
 
 # Dependencies
