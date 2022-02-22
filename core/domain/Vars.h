@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <cstdint>
 
 #include "core/domain/VarView.h"
 

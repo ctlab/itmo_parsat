@@ -63,10 +63,14 @@ class TimeTracer {
  private:
   TimeTracer() = default;
 
+  void _clean() noexcept;
+
   static TimeTracer& instance();
 
  public:
   static void print_summary(uint32_t num_quantiles);
+
+  static void clean();
 
  private:
   std::mutex _stats_mutex;

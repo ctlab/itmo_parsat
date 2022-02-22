@@ -79,7 +79,7 @@
                 "max_rounds": 0,
                 "sharing_interval_us": 100000,
                 "wakeup_interval_us": 1000,
-                "seq_solver": "MINISAT",
+                "seq_solver": "LINGELING",
                 "diversification": "SPARSE",
                 "clause_exchange_mode": "ALL_TO_ALL",
                 "prop_config": {

@@ -15,7 +15,7 @@
 
 core::CliConfig add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
-  po::options_description options;
+  po::options_description options("SAT solver CLI tool");
   // clang-format off
   options.add_options()
       ("verbose,v", po::value<int>()->default_value(2), "Verbosity level.")
@@ -55,7 +55,6 @@ int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   core::CliConfig config = add_and_read_args(argc, argv);
-
   core::signal::SigHandler sig_handler;
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");
@@ -70,7 +69,6 @@ int main(int argc, char** argv) {
 
   // Load problem
   core::sat::Problem problem(input);
-
   // Initialize solve algorithm
   core::RSolve solve(core::SolveRegistry::resolve(solve_config));
   core::event::EventCallbackHandle solve_interrupt_handler = core::event::attach(
@@ -80,7 +78,6 @@ int main(int argc, char** argv) {
         solve_interrupt_handler->detach();
       },
       core::event::INTERRUPT);
-
   util::random::Generator generator(solve_config.random_seed());
   core::sat::State result = IPS_TRACE_V(solve->solve(problem));
   core::TimeTracer::print_summary(10);

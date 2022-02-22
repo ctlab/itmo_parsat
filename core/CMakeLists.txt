@@ -5,7 +5,6 @@ file(GLOB _TEST_SRC "tests/*")
 file(GLOB _PROP_SRC "sat/prop/*")
 file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*" "sat/Problem.*")
 
-include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(sat/native/minisat)
 
@@ -16,7 +15,7 @@ set(CORE_LIBS
         lingeling-lib-static
         hordesat-lib-static core-proto-lib-static
         glog::glog z
-        ${Boost_LIBRARIES} ${MPI_CXX_LIBRARIES} ${Protobuf_LIBRARIES})
+        ${Boost_LIBRARIES} ${Protobuf_LIBRARIES})
 set(CORE_LIBS ${CORE_LIBS} PARENT_SCOPE)
 
 set(CORE_SRC

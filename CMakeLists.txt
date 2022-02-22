@@ -4,13 +4,11 @@ project(itmo-parsat)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Enables LTO
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-
 # Options
 set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
 option(SANITIZE "Enable sanitizers"         OFF)
 option(GPROF    "Enable -pg flag for gprof" OFF)
+option(LTO      "Enable LTO"                ON)
 option(PGO_GEN  "Enable pgo generation"     OFF)
 option(PGO_USE  "Enable pgo usage"          OFF)
 
@@ -50,6 +48,15 @@ if (GPROF)
     message(STATUS "GPROF options (-pg) enabled.")
     add_compile_options(-pg)
     add_link_options(-pg)
+else ()
+    message(STATUS "GPROF options (-pg) disabled.")
+endif ()
+
+if (LTO)
+    message(STATUS "LTO enabled.")
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+else ()
+    message(STATUS "LTO disabled.")
 endif ()
 
 if (PGO_GEN)
@@ -60,8 +67,8 @@ endif ()
 
 if (PGO_USE)
     message(STATUS "PGO usage enabled.")
-    add_compile_options(-fprofile-use -fprofile-correction)
-    add_link_options(-fprofile-use)
+    add_compile_options(-fprofile-use -fprofile-correction -fprofile-partial-training)
+    add_link_options(-fprofile-use -fprofile-partial-training)
 endif ()
 
 # Dependencies

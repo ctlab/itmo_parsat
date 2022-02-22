@@ -2,6 +2,7 @@
 #define ITMO_PARSAT_VARVIEW_H
 
 #include <unordered_map>
+#include <cstdint>
 
 namespace core::domain {
 

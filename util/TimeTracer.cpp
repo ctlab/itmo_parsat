@@ -89,4 +89,14 @@ void TimeTracer::print_summary(uint32_t num_quantiles) {
   IPS_INFO(info.str() << quant.str());
 }
 
+void TimeTracer::_clean() noexcept {
+  std::lock_guard<std::mutex> lg(_stats_mutex);
+  _event_stats.clear();
+  _dur_stats.clear();
+}
+
+void TimeTracer::clean() {
+  instance()._clean();
+}
+
 }  // namespace core

@@ -24,6 +24,7 @@ CMAKE_OPTS=""
 
 export GLOG_logtostderr=1
 export ASAN_OPTIONS=exitcode=1337
+export PGPASSWORD=ips
 
 function do_doc() {
     rm -rf doc/* || true
@@ -101,10 +102,10 @@ function do_pgo_use() {
 
 function do_build() {
     cd build
-    CC=gcc-9 CXX=g++-9 cmake .. \
+    CC=gcc-10 CXX=g++-10 cmake .. \
         -DARCH=$(gcc -march=native -Q --help=target | grep march | head -n 1 | awk '{print $2}') \
         -DCMAKE_BUILD_TYPE="$BUILD_CFG" $CMAKE_OPTS
-    CC=gcc-9 CXX=g++-9 make -j $(nproc)
+    CC=gcc-10 CXX=g++-10 make -j $(nproc)
     cd "$ROOT"
 }
 
@@ -138,6 +139,18 @@ function do_solve() {
     fi
 }
 
+function do_run_pgo() {
+    echo "Running PGO benchmarks"
+    local inputs_file="./resources/pgo/inputs.txt"
+    local configs_file="./resources/pgo/configs.txt"
+    while read input; do
+        while read config; do
+            echo "in: $input, cfg: $config"
+            ./ips -v "$VERBOSE" -c "$config" -i "$input" -s || true
+        done < "$configs_file"
+    done < "$inputs_file"
+}
+
 function do_desc() {
     echo "Running and/or building IPS."
     echo "Usage: ./run.sh option* -- native-option*"
@@ -159,6 +172,7 @@ add_option "--format" "      Apply clang-format"         do_format         0
 add_option "--check-format" "Check format"               do_chk_format     0
 add_option "--verify" "      Run verification"           do_verify         0
 add_option "--sanitize" "    Enable sanitizer"           do_sanitize       0
+add_option "--run-pgo" "     Run PGO warmup binary"      do_run_pgo        0
 add_option "--run-cmd" "     Specify run prefix"         do_run_cmd        1
 add_option "--run-infra" "   Run integration tests"      do_infra          0
 add_option "--build-doc" "   Build documentation"        do_doc            0

@@ -1,7 +1,6 @@
 add_executable(infra_bin infra/main.cpp ${UTIL_SRC} ${INFRA_SRC})
 add_executable(solve_bin solve/main.cpp ${UTIL_SRC} ${CORE_SRC})
 
-include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(../core/sat/native/minisat)
 

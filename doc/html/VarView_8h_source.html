@@ -74,29 +74,30 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ITMO_PARSAT_VARVIEW_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>core::domain {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classcore_1_1domain_1_1VarView.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="classcore_1_1domain_1_1VarView.html#a8aa25b240be2e924439782f586271dc9">VarView</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1domain_1_1VarView.html#a0d0a340f40fbe82dc0eec154632ef2ad">map_var</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> var);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classcore_1_1domain_1_1VarView.html#aee841e80b89cedb734da3f97d72927e1">operator[]</a>(<span class="keywordtype">int</span> index) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  [[nodiscard]] uint32_t <a class="code" href="classcore_1_1domain_1_1VarView.html#a7db8ea8de0a2cdd62a415e6a8171ecc9">size</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  std::unordered_map&lt;int, int&gt; _map;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_VARVIEW_H</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>core::domain {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classcore_1_1domain_1_1VarView.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="classcore_1_1domain_1_1VarView.html#a8aa25b240be2e924439782f586271dc9">VarView</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1domain_1_1VarView.html#a0d0a340f40fbe82dc0eec154632ef2ad">map_var</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> var);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classcore_1_1domain_1_1VarView.html#aee841e80b89cedb734da3f97d72927e1">operator[]</a>(<span class="keywordtype">int</span> index) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  [[nodiscard]] uint32_t <a class="code" href="classcore_1_1domain_1_1VarView.html#a7db8ea8de0a2cdd62a415e6a8171ecc9">size</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  std::unordered_map&lt;int, int&gt; _map;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_VARVIEW_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html_a8aa25b240be2e924439782f586271dc9"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html#a8aa25b240be2e924439782f586271dc9">core::domain::VarView::VarView</a></div><div class="ttdeci">VarView()=default</div><div class="ttdoc">Constructs empty mapping.</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1VarView_html"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a></div><div class="ttdoc">The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...</div><div class="ttdef"><b>Definition:</b> VarView.h:12</div></div>
+<div class="ttc" id="aclasscore_1_1domain_1_1VarView_html"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a></div><div class="ttdoc">The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...</div><div class="ttdef"><b>Definition:</b> VarView.h:13</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html_aee841e80b89cedb734da3f97d72927e1"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html#aee841e80b89cedb734da3f97d72927e1">core::domain::VarView::operator[]</a></div><div class="ttdeci">int operator[](int index) const noexcept</div><div class="ttdef"><b>Definition:</b> VarView.cpp:9</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html_a7db8ea8de0a2cdd62a415e6a8171ecc9"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html#a7db8ea8de0a2cdd62a415e6a8171ecc9">core::domain::VarView::size</a></div><div class="ttdeci">uint32_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> VarView.cpp:13</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html_a0d0a340f40fbe82dc0eec154632ef2ad"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html#a0d0a340f40fbe82dc0eec154632ef2ad">core::domain::VarView::map_var</a></div><div class="ttdeci">void map_var(int index, int var)</div><div class="ttdoc">Maps the specified index to the specified variable.</div><div class="ttdef"><b>Definition:</b> VarView.cpp:5</div></div>
