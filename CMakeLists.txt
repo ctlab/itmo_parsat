@@ -4,6 +4,9 @@ project(itmo-parsat)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Link boost statically
+set(Boost_USE_STATIC_LIBS ON)
+
 # Options
 set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
 option(SANITIZE "Enable sanitizers"         OFF)

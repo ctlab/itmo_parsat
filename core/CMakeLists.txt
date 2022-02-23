@@ -12,10 +12,8 @@ add_subdirectory(proto)
 add_subdirectory(sat)
 
 set(CORE_LIBS
-        lingeling-lib-static
-        hordesat-lib-static core-proto-lib-static
-        glog::glog z
-        ${Boost_LIBRARIES} ${Protobuf_LIBRARIES})
+        hordesat-lib-static core-proto-lib-static ${Boost_LIBRARIES}
+        libglog.a libgflags.a libunwind.a liblzma.a libprotobuf.a libz.a)
 set(CORE_LIBS ${CORE_LIBS} PARENT_SCOPE)
 
 set(CORE_SRC

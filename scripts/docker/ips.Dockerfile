@@ -7,7 +7,7 @@ WORKDIR /tmp
 
 # Apt packages
 RUN apt update && apt upgrade -y && \
-    apt install -y wget gcc-10 g++-10 gcc g++ make libssl-dev libgtest-dev \
+    apt install -y wget gcc-10 g++-10 gcc g++ make libssl-dev libgtest-dev libunwind-dev lzma-dev \
     libgoogle-glog-dev git libopenmpi-dev libpqxx-dev zlib1g-dev vim doxygen clang-format libtbb-dev
 
 # CMake

@@ -81,19 +81,6 @@ TEST_F(LaunchFixture, lingpar_parrbs_test) {
   ASSERT_FALSE(test_failed);
 }
 
-TEST_F(LaunchFixture, hordesat_test) {
-  infra::testing::LaunchConfig config;
-  config.set_expected_result(infra::domain::UNKNOWN)
-      .set_log_config_path("log.json")
-      .set_config_path("horde.json")
-      .set_threads_required(parallel)
-      .set_description("HordeSat solver tests");
-  for (const auto& path : LaunchFixture::cnfs) {
-    launch(config.set_input_path(path));
-  }
-  ASSERT_FALSE(test_failed);
-}
-
 TEST_F(LaunchFixture, horde_rbs_test) {
   infra::testing::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
