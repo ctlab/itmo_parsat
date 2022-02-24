@@ -11,9 +11,11 @@
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/domain/assignment/TrackAssignments.h"
-#include "minisat/core/SolverTypes.h"
-#include "minisat/mtl/Vec.h"
 #include "util/Registry.h"
+#include "core/sat/SimpBase.h"
+
+#include "core/sat/native/mini/utils/Lit.h"
+#include "core/sat/native/mini/mtl/Vec.h"
 
 namespace core::sat::solver {
 
@@ -22,6 +24,8 @@ namespace core::sat::solver {
  */
 class Solver {
  public:
+  typedef Mini::vec<Mini::Lit> vec_lit_t;
+
   /**
    * @details Both callbacks types must be thread safe for asynchronous implementations.
    */
@@ -30,7 +34,7 @@ class Solver {
       bool( // true iff should continue solving
         State, // result of solve
         bool, // true iff solved on propagate stage
-        Minisat::vec<Minisat::Lit> const& // assumptions passed to solve
+        vec_lit_t const& // assumptions passed to solve
       )> slv_callback_t;
   // clang-format on
 
@@ -54,7 +58,7 @@ class Solver {
    * @param assumptions assumptions to include.
    * @return the result of solving.
    */
-  virtual State solve(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
+  virtual State solve(vec_lit_t const& assumptions) = 0;
 
   /**
    * @brief Solves CNF on all assignments by the given iterator and calls callback respectively.
@@ -87,7 +91,7 @@ class Solver {
    * @param assumptions assumptions to be passed to solver
    * @return whether these assumptions lead to conflict
    */
-  [[nodiscard]] virtual bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) = 0;
+  [[nodiscard]] virtual bool propagate_confl(vec_lit_t const& assumptions) = 0;
 
  protected:
   virtual void _do_interrupt(){};

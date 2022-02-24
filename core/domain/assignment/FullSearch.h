@@ -20,7 +20,7 @@ class FullSearch : AssignmentModifier, public Search {
 
   [[nodiscard]] FullSearch* clone() const override;
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+  [[nodiscard]] lit_vec_t const& operator()() const override;
 
  protected:
   void _advance() override;

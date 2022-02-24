@@ -18,7 +18,7 @@
   do {                                                                                             \
     std::vector<bool> _cur(asgn.size());                                                           \
     for (int i = 0; i < asgn.size(); ++i) {                                                        \
-      _cur[i] = Minisat::sign(asgn[i]);                                                            \
+      _cur[i] = Mini::sign(asgn[i]);                                                              \
     }                                                                                              \
     std::lock_guard<std::mutex> _lg(_m_asgn_track);                                                \
     IPS_VERIFY(_uniq_asgn.insert(std::move(_cur)).second == true && bool("Duplicate assignment")); \

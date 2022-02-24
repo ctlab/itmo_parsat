@@ -23,40 +23,14 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 
 }  // namespace
 
-void LaunchFixture::Semaphore::set_max(uint32_t max_value) {
-  max = max_value;
-}
-
-void LaunchFixture::Semaphore::acquire(uint32_t num) {
-  IPS_VERIFY(num <= max);
-  for (;;) {
-    std::unique_lock<std::mutex> ul(_mutex);
-    _cv.wait(ul, [this, num] { return _current + num <= max; });
-    if (_current + num <= max) {
-      _current += num;
-      break;
-    }
-  }
-}
-
-void LaunchFixture::Semaphore::release(uint32_t num) {
-  {
-    std::lock_guard<std::mutex> lg(_mutex);
-    _current -= num;
-  }
-  _cv.notify_all();
-}
-
 LaunchFixture::LaunchFixture() {
   _sig_cb = core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
 }
 
-LaunchFixture::Config LaunchFixture::config{};
+infra::testing::TestingConfiguration LaunchFixture::config{};
 
 void LaunchFixture::interrupt() {
-  for (auto& exec : _execs) {
-    exec->interrupt();
-  }
+  _exec_manager->interrupt();
   is_interrupted = true;
 }
 
@@ -77,27 +51,22 @@ void LaunchFixture::SetUpTestSuite() {
   if (concurrency == 0) {
     concurrency = std::thread::hardware_concurrency();
   }
-  semaphore.set_max(concurrency);
   IPS_INFO("Set max concurrency to " << concurrency);
 }
 
 void LaunchFixture::SetUp() {
-  /* Setup DB connection only if it is required. */
-  if (config.save || config.lookup) {
-    _launches = std::make_unique<infra::domain::LaunchesDao>(/* host = */ config.pg_host);
-  }
+  _info = std::make_unique<infra::domain::LaunchInfo>(config);
+  _exec_manager = std::make_unique<infra::execution::ExecutionManager>(config.max_threads);
+
   /* Setup directories */
-  logs_root = config.working_dir / "logs";
-  configs_root = config.working_dir / "configs";
-  std::filesystem::create_directories(logs_root);
-  std::filesystem::create_directories(configs_root);
+  _logs_root = config.working_dir / "logs";
+  _configs_root = config.working_dir / "configs";
+  std::filesystem::create_directories(_logs_root);
+  std::filesystem::create_directories(_configs_root);
 }
 
 void LaunchFixture::TearDown() {
-  for (auto& exec : _execs) {
-    exec->await();
-  }
-  _execs.clear();
+  _exec_manager->await();
   ASSERT_TRUE(!test_failed);
 }
 
@@ -116,64 +85,6 @@ void LaunchFixture::_prepare_resources() {
   }
 }
 
-std::string LaunchFixture::_get_test_group(std::string const& name) {
-  return std::filesystem::path(name).parent_path().filename();
-}
-
-bool LaunchFixture::_need_to_launch(std::string const& name) {
-  if (is_interrupted) {
-    return false;
-  }
-  if (std::find(config.test_groups.begin(), config.test_groups.end(), _get_test_group(name)) ==
-      config.test_groups.end()) {
-    return false;
-  }
-  if (_get_sat_result(name) != infra::domain::UNSAT && config.unsat_only) {
-    return false;
-  }
-  int test_size = _get_test_size(name);
-  if (test_size == -1 && !config.allow_unspecified_size) {
-    return false;
-  }
-  if (test_size > config.size) {
-    return false;
-  }
-  return true;
-}
-
-int LaunchFixture::_get_test_size(std::string const& name) {
-  auto it = name.find("@");
-  if (it == std::string::npos) {
-    return -1;
-  } else {
-    return name[it + 1] - '0';
-  }
-}
-
-infra::domain::SatResult LaunchFixture::_get_sat_result(std::string const& name) {
-  auto filename = std::filesystem::path(name).filename().string();
-  if (filename.find("unsat", 0) != std::string::npos) {
-    return infra::domain::UNSAT;
-  } else if (filename.find("sat", 0) != std::string::npos) {
-    return infra::domain::SAT;
-  } else {
-    return infra::domain::UNKNOWN;
-  }
-}
-
-bool LaunchFixture::_check_if_test_is_done(
-    infra::testing::LaunchConfig const& launch_config, infra::domain::LaunchInfo& launch) {
-  if (config.lookup && _launches->contains(launch)) {
-    LOG(INFO) << "\n\tLaunchInfo already done [" << launch_config.description << "]:"
-              << "\n\t\tLaunchInfo ID: " << launch.launch_id
-              << "\n\t\tCommit hash: " << config.commit << "\n\t\tLogs at: " << launch.log_path
-              << "\n\t\tResult: " << infra::domain::to_string(launch.result);
-    return true;
-  } else {
-    return false;
-  }
-}
-
 std::string LaunchFixture::_generate_uniq_string() {
   static std::random_device rnd_dev;
   static std::mt19937 gen(rnd_dev());
@@ -181,11 +92,10 @@ std::string LaunchFixture::_generate_uniq_string() {
          std::to_string(std::uniform_int_distribution<int>(INT_MIN, INT_MAX)(gen));
 }
 
-std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
-    infra::testing::LaunchConfig launch_config) {
-  // Check if this test needs to be launched
-  if (!_need_to_launch(launch_config.input)) {
-    return {};
+void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
+  if (!_info->should_be_launched(launch_config)) {
+    IPS_INFO("Test skipped: " << launch_config.config << ' ' << launch_config.input);
+    return;
   }
 
   if (launch_config.threads_required > config.max_threads) {
@@ -195,16 +105,15 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     launch_config.threads_required = config.max_threads;
   }
 
-  // Setup result if unknown
   if (launch_config.expected_result == infra::domain::UNKNOWN) {
-    launch_config.expected_result = _get_sat_result(launch_config.input);
+    launch_config.expected_result = _info->get_sat_result(launch_config);
   }
 
   /* Setup files */
   std::string salt = _generate_uniq_string();
-  std::filesystem::path const& artifact_logs_path = logs_root / (salt + ".txt");
-  std::filesystem::path const& artifact_config_path = configs_root / (salt + ".json");
-  std::string test_group = _get_test_group(launch_config.input);
+  std::filesystem::path const& artifact_logs_path = _logs_root / (salt + ".txt");
+  std::filesystem::path const& artifact_config_path = _configs_root / (salt + ".json");
+  std::string test_group = _info->get_test_group(launch_config);
 
   // clang-format off
   std::filesystem::path config_path = config.resources_dir / "config" / launch_config.config;
@@ -212,15 +121,13 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
   std::filesystem::path input_path = config.resources_dir / "cnf" / launch_config.input;
   std::filesystem::copy_file(config_path, artifact_config_path);
 
-  auto launch = infra::domain::LaunchInfo{
-          0, test_group, input_path, config_path, artifact_logs_path,
-          config.branch, config.commit, infra::domain::ERROR,
-          0, 0, launch_config.description
-      };
-
-  if (_check_if_test_is_done(launch_config, launch)) {
-    return {};
-  }
+  infra::domain::LaunchObject launch;
+  launch.test_group = test_group;
+  launch.config_name = launch_config.config;
+  launch.log_path = artifact_logs_path;
+  launch.commit_hash = config.commit;
+  launch.branch = config.branch;
+  launch.description = launch_config.description;
 
   auto callback = [=] (uint64_t started_at, uint64_t finished_at,
                        int exit_code, bool interrupted, bool tle) mutable {
@@ -240,22 +147,10 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     if (launch.result == infra::domain::FAILED) {
       test_failed = true;
     }
-    // We do not add interrupted launches to DB.
-    if (config.save && launch.result != infra::domain::INTERRUPTED) {
-      _launches->add(launch);
-    }
-    /* Release semaphore */
-    semaphore.release(launch_config.threads_required);
+    _info->add(launch);
   };
 
-  /* Acquire semaphore */
-  semaphore.acquire(launch_config.threads_required);
-  IPS_INFO("Reproduce:\n" <<
-    config.executable.string() << " --verbose 6 --input " << input_path.string() <<
-    " --log-config " << log_config_path.string() << " --solve-config " << config_path.string()
-  );
-
-  auto result = std::make_shared<infra::Execution>(callback,
+  _exec_manager->execute(launch_config.threads_required, callback,
     artifact_logs_path, artifact_logs_path, config.time_limit_s,
     config.executable.string(),
     "--verbose", "6",
@@ -263,14 +158,12 @@ std::optional<std::shared_ptr<infra::Execution>> LaunchFixture::launch(
     "--log-config", log_config_path.string(),
     "--solve-config", config_path.string()
   );
-  _execs.emplace_back(result);
   // clang-format on
 
   LOG(INFO) << "\n\tLaunched [" + launch_config.description + "]:"
             << "\n\t\tInput file: " << input_path << "\n\t\tConfiguration: " << config_path
             << " -> " << artifact_config_path << "\n\t\tLogs at: " << artifact_logs_path
             << "\n\t\tExpected result: " << infra::domain::to_string(launch_config.expected_result);
-  return result;
 }
 
 infra::domain::LaunchResult LaunchFixture::_get_launch_result(
@@ -278,12 +171,13 @@ infra::domain::LaunchResult LaunchFixture::_get_launch_result(
     infra::domain::SatResult expected) noexcept {
   if (interrupted) {
     return infra::domain::INTERRUPTED;
-  }
-  if (tle) {
+  } else if (tle) {
     return infra::domain::TLE;
+  } else if (result != expected && expected != infra::domain::UNKNOWN) {
+    return infra::domain::FAILED;
+  } else {
+    return infra::domain::PASSED;
   }
-  return (result == expected || expected == infra::domain::UNKNOWN) ? infra::domain::PASSED
-                                                                    : infra::domain::FAILED;
 }
 
 std::set<std::filesystem::path> LaunchFixture::cnfs{};
@@ -291,5 +185,3 @@ std::set<std::filesystem::path> LaunchFixture::cnfs{};
 std::atomic_bool LaunchFixture::test_failed = false;
 
 std::atomic_bool LaunchFixture::is_interrupted = false;
-
-LaunchFixture::Semaphore LaunchFixture::semaphore{};

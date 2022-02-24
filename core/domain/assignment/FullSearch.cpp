@@ -5,14 +5,14 @@
 
 namespace {
 
-void next_assignment(Minisat::vec<Minisat::Lit>& vec) {
+void next_assignment(Mini::vec<Mini::Lit>& vec) {
   int pos = 0;
   while (pos < vec.size() && sign(vec[pos])) {
     vec[pos] = ~vec[pos];
     ++pos;
   }
   if (pos < vec.size()) {
-    vec[pos] = Minisat::mkLit(Minisat::var(vec[pos]), true);
+    vec[pos] = Mini::mkLit(Mini::var(vec[pos]), true);
   }
 }
 
@@ -35,7 +35,7 @@ void FullSearch::_reset() {
   _set_assignment(_assignment, _first);
 }
 
-Minisat::vec<Minisat::Lit> const& FullSearch::operator()() const {
+Mini::vec<Mini::Lit> const& FullSearch::operator()() const {
   return get();
 }
 

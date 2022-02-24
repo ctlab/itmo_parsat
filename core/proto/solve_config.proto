@@ -1,70 +1,13 @@
 syntax = "proto3";
 
-message MinisatCliConfig {
-  int32 verbosity_level = 1;
-  bool preprocessing = 2;
-  int32 cpu_limit = 4;
-  int32 mem_limit = 5;
-}
-
-message BaseSolverConfig {
-  double var_decay = 1;
-  double cla_decay = 2;
-  double rnd_freq = 3;
-  int32 ccmin_mode = 5;
-  int32 phase_saving = 6;
-  bool rnd_init = 7;
-  bool luby = 8;
-  int32 rfirst = 9;
-  double rinc = 10;
-  double gc_frac = 11;
-  int32 min_learnts = 12;
-}
-
-message SimpSolverConfig {
-  bool use_asymm = 1;
-  bool use_rcheck = 2;
-  bool use_elim = 3;
-  int32 grow = 4;
-  int32 clause_lim = 5;
-  int32 subsumption_lim = 6;
-  double simp_garbage_frac = 7;
-  MinisatCliConfig minisat_cli_config = 8;
-  BaseSolverConfig base_solver_config = 9;
-}
-
-message HordeSatSolverConfig {
-  enum Diversification {
-    DVS_NONE = 0;
-    SPARSE = 1;
-    RANDOM = 2;
-    NATIVE = 3;
-    BIN = 4;
-    SPARSE_NATIVE = 5;
-    SPARSE_RANDOM = 6;
-    SPARSE_RANDOM_NATIVE = 7;
-  }
-  enum ClauseExchangeMode {
-    CEM_NONE = 0;
-    ALL_TO_ALL = 1;
-    LOG_PARTNERS = 2;
-  }
-  enum SeqSolver {
-    MINISAT = 0;
-    LINGELING = 1;
-    COMBO = 2;
-  }
-  uint32 seed = 10;
-  uint32 threads = 1;
-  int32 verbose = 2;
-  bool filter_duplicate_clauses = 3;
-  uint32 max_rounds = 4;
-  uint32 sharing_interval_us = 5;
-  uint32 wakeup_interval_us = 6;
-  SeqSolver seq_solver = 7;
-  Diversification diversification = 8;
-  ClauseExchangeMode clause_exchange_mode = 9;
-  PropConfig prop_config = 11;
+message PainlessSolverConfig {
+  uint32 max_threads = 1;
+  uint32 max_memory = 2;
+  uint32 time_limit_s = 3;
+  uint32 lbd_limit = 4;
+  uint32 shr_sleep_us = 5;
+  uint32 shr_lit = 6;
+  uint32 slv_sleep_us = 7;
 }
 
 message ParSolverConfig {
@@ -74,8 +17,7 @@ message ParSolverConfig {
 
 message SolverConfig {
   string solver_type = 1;
-  SimpSolverConfig simp_solver_config = 4;
-  HordeSatSolverConfig hordesat_solver_config = 5;
+  PainlessSolverConfig painless_solver_config = 5;
   ParSolverConfig par_solver_config = 6;
 }
 
@@ -201,8 +143,9 @@ message ParRBSSolveConfig {
 
 message SolveConfig {
   string solve_type = 1;
-  uint32 random_seed = 2;
-  NaiveSolveConfig naive_solve_config = 3;
-  RBSSolveConfig rbs_solve_config = 4;
-  ParRBSSolveConfig par_rbs_solve_config = 5;
+  uint32 cpu_limit = 2;
+  uint32 random_seed = 3;
+  NaiveSolveConfig naive_solve_config = 4;
+  RBSSolveConfig rbs_solve_config = 5;
+  ParRBSSolveConfig par_rbs_solve_config = 6;
 }

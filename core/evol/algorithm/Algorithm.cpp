@@ -6,8 +6,8 @@
 namespace {
 
 void collect_stats(
-    ::core::sat::prop::Prop& prop, Minisat::vec<Minisat::Lit> const& assumptions,
-    Minisat::vec<Minisat::Lit>& propagated, std::set<int>& collection) {
+    ::core::sat::prop::Prop& prop, Mini::vec<Mini::Lit> const& assumptions,
+    Mini::vec<Mini::Lit>& propagated, std::set<int>& collection) {
   (void) prop.propagate(assumptions, propagated);
   for (int j = 0; j < propagated.size(); ++j) {
     collection.insert(var(propagated[(int) j]));
@@ -26,8 +26,8 @@ bool Algorithm::_init_shared_data(InstanceConfig const& config) {
   _shared_data->sampling_config.scale = config.sampling_config().scale();
   _shared_data->sampling_config.max_scale_steps = config.sampling_config().max_steps();
 
-  Minisat::vec<Minisat::Lit> assumptions(1);
-  Minisat::vec<Minisat::Lit> propagated;
+  Mini::vec<Mini::Lit> assumptions(1);
+  Mini::vec<Mini::Lit> propagated;
   std::vector<std::pair<int, int>> stats;
   stats.reserve(_prop->num_vars());
 
@@ -37,9 +37,9 @@ bool Algorithm::_init_shared_data(InstanceConfig const& config) {
 
   for (unsigned i = 0; i < _prop->num_vars(); ++i) {
     std::set<int> prop_both;
-    assumptions[0] = Minisat::mkLit((int) i, true);
+    assumptions[0] = Mini::mkLit((int) i, true);
     collect_stats(*_prop, assumptions, propagated, prop_both);
-    assumptions[0] = Minisat::mkLit((int) i, false);
+    assumptions[0] = Mini::mkLit((int) i, false);
     collect_stats(*_prop, assumptions, propagated, prop_both);
     stats.emplace_back(prop_both.size(), i);
   }

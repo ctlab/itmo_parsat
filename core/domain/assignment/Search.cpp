@@ -46,9 +46,9 @@ bool Search::operator++() {
   }
 }
 
-void Search::_set_assignment(Minisat::vec<Minisat::Lit>& vec, uint64_t value) {
+void Search::_set_assignment(lit_vec_t& vec, uint64_t value) {
   for (int i = 0; i < vec.size(); ++i) {
-    vec[i] = Minisat::mkLit(Minisat::var(vec[i]), value & (1ULL << i));
+    vec[i] = Mini::mkLit(Mini::var(vec[i]), value & (1ULL << i));
   }
 }
 
@@ -79,8 +79,8 @@ void Search::_set_range() {
 
 SingleSearch::SingleSearch() : Search(1) {}
 
-Minisat::vec<Minisat::Lit> const& SingleSearch::operator()() const {
-  static Minisat::vec<Minisat::Lit> empty_asgn;
+Mini::vec<Mini::Lit> const& SingleSearch::operator()() const {
+  static Mini::vec<Mini::Lit> empty_asgn;
   return empty_asgn;
 }
 

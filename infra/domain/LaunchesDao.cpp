@@ -63,7 +63,7 @@ LaunchesDao::LaunchesDao(std::string const& host)
   IPS_INFO("Connecting to infra_db on host '" << host << "'");
 }
 
-LaunchesDao& LaunchesDao::add(LaunchInfo const& launch) {
+LaunchesDao& LaunchesDao::add(LaunchObject const& launch) {
   std::lock_guard<std::mutex> lg(_m);
 
   // clang-format off
@@ -73,8 +73,8 @@ LaunchesDao& LaunchesDao::add(LaunchInfo const& launch) {
     "finished_at, result, description, config)"
     " VALUES (" +
     "'" + launch.test_group + "', " +
-    "'" + launch.input_path.filename().string() + "', " +
-    "'" + launch.config_path.filename().string() + "', " +
+    "'" + launch.input_name + "', " +
+    "'" + launch.config_name + "', " +
     "'" + launch.log_path.string() + "', " +
     "'" + launch.branch + "', " +
     "'" + launch.commit_hash + "', " +
@@ -82,7 +82,7 @@ LaunchesDao& LaunchesDao::add(LaunchInfo const& launch) {
     "to_timestamp(" + std::to_string(launch.finished_at) + "), " +
     "'" + to_string(launch.result) + "', " +
     "'" + launch.description + "', " +
-    "'" + read_file(launch.config_path) + "');"
+    "'');"
   );
   // clang-format on
   return *this;
@@ -94,29 +94,26 @@ LaunchesDao& LaunchesDao::remove(uint32_t launch_id) {
   return *this;
 }
 
-bool LaunchesDao::contains(LaunchInfo& launch) {
+std::optional<uint32_t> LaunchesDao::get_launch_id(LaunchObject const& launch) {
   std::lock_guard<std::mutex> lg(_m);
   pqxx::work work(_conn);
   // clang-format off
   auto result = work.exec(std::string() +
-    "SELECT launch_id, log_path, result FROM Launches WHERE "
+    "SELECT launch_id, result FROM Launches WHERE "
     "test_group = '" + launch.test_group + "' AND " +
-    "input_name = '" + launch.input_path.filename().string() + "' AND " +
-    "config_name = '" + launch.config_path.filename().string() + "' AND " +
-    "commit_hash = '" + launch.commit_hash + "' AND " +
-    "description = '" + launch.description + "';"
+    "input_name = '" + launch.input_name + "' AND " +
+    "config_name = '" + launch.config_name + "' AND " +
+    "branch = '" + launch.branch + "' AND " +
+    "commit_hash = '" + launch.commit_hash + "';"
   );
   // clang-format on
   if (result.size() == 0) {
     work.commit();
-    return false;
+    return std::nullopt;
   } else {
     IPS_VERIFY(result.size() == 1 && bool("Multiple rows for equal launches"));
-    launch.launch_id = result.front()[0].as<size_t>(0);
-    launch.log_path = result.front()[1].as<std::string>("UNKNOWN");
-    launch.result = from_string(result.front()[2].as<std::string>("UNKNOWN"));
     work.commit();
-    return true;
+    return result.front().at("launch_id").as<uint32_t>();
   }
 }
 

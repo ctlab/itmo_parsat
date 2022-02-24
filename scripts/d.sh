@@ -81,7 +81,7 @@ function do_run_ips() {
     else
         cid=$( \
             docker run -dt \
-                --cpus=16 \
+                --cpus=8 \
                 --memory=32g \
                 --net=host $MOUNT \
                 --mount type=bind,source="$(pwd)",target="/home/$(id -un)/itmo-parsat" \

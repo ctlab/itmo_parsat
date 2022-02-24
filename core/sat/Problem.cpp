@@ -1,7 +1,6 @@
 #include "core/sat/Problem.h"
 
-#include "core/sat/native/minisat/minisat/simp/SimpSolver.h"
-#include "minisat/core/Dimacs.h"
+#include "core/sat/native/mini/mapleCOMSPS/mapleCOMSPS/core/Dimacs.h"
 
 namespace {
 
@@ -54,15 +53,19 @@ void read_clauses_to(std::filesystem::path const& path, std::vector<std::vector<
 
 namespace core::sat {
 
-Problem::Problem(std::filesystem::path const& path) : _path(path) {
-  read_clauses_to(path, _clauses);
-}
+Problem::Problem(std::filesystem::path const& path) : _path(path) {}
 
 std::filesystem::path const& Problem::path() const noexcept {
   return _path;
 }
 
 std::vector<std::vector<int>> const& Problem::clauses() const noexcept {
+  if (_clauses.empty()) {
+    std::lock_guard<std::mutex> lg(_load_mutex);
+    if (_clauses.empty()) {
+      read_clauses_to(path(), _clauses);
+    }
+  }
   return _clauses;
 }
 

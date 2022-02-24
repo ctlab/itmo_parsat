@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   core::CliConfig config = add_and_read_args(argc, argv);
-  core::signal::SigHandler sig_handler;
+  //  core::signal::SigHandler sig_handler;
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }
@@ -64,6 +64,7 @@ int main(int argc, char** argv) {
   std::filesystem::path logger_cfg_path = config.get<std::filesystem::path>("log-config");
   IPS_INFO("Input file: " << input);
 
+  core::sat::State result;
   auto&& [solve_config, log_config] = read_json_configs(solver_cfg_path, logger_cfg_path);
   core::Logger::set_logger_config(log_config);
 
@@ -79,7 +80,7 @@ int main(int argc, char** argv) {
       },
       core::event::INTERRUPT);
   util::random::Generator generator(solve_config.random_seed());
-  core::sat::State result = IPS_TRACE_V(solve->solve(problem));
+  result = IPS_TRACE_V(solve->solve(problem));
   core::TimeTracer::print_summary(10);
 
   if (result == core::sat::UNSAT) {

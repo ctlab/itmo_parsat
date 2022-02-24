@@ -1,5 +1,6 @@
 file(GLOB LINGELING_SRC "*.h" "*.c")
-list(REMOVE_ITEM LINGELING_SRC "lglmain.c")
+file(GLOB LINGELING_MAIN "*lglmain.c")
+list(REMOVE_ITEM LINGELING_SRC "${LINGELING_MAIN}")
 
 include_directories(.)
 add_compile_definitions(NDBLSCR NLGLPICOSAT NDEBUG NLGLDRUPLIG NLGLYALSAT NLGLOG NCHKSOL)

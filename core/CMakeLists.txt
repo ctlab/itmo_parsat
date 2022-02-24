@@ -6,13 +6,12 @@ file(GLOB _PROP_SRC "sat/prop/*")
 file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*" "sat/Problem.*")
 
 include_directories(${CMAKE_BINARY_DIR})
-include_directories(sat/native/minisat)
 
 add_subdirectory(proto)
 add_subdirectory(sat)
 
 set(CORE_LIBS
-        hordesat-lib-static core-proto-lib-static ${Boost_LIBRARIES}
+        ${NATIVE_LIBS_STATIC} core-proto-lib-static ${Boost_LIBRARIES}
         libglog.a libgflags.a libunwind.a liblzma.a libprotobuf.a libz.a)
 set(CORE_LIBS ${CORE_LIBS} PARENT_SCOPE)
 
@@ -21,9 +20,7 @@ set(CORE_SRC
         ${_EVOL_SRC}
         ${_SOLVE_SRC}
         ${_PROP_SRC}
-        ${_SOLVER_SRC}
-        ${LOGGING_PROTO_SRCS}
-        ${SOLVE_PROTO_SRCS})
+        ${_SOLVER_SRC})
 set(CORE_SRC ${CORE_SRC} PARENT_SCOPE)
 
 add_executable(core_unit_tests ${_TEST_SRC} ${UTIL_SRC} ${CORE_SRC})

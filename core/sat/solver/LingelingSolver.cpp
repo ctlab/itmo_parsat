@@ -20,7 +20,7 @@ void LingelingSolver::load_problem(Problem const& problem) {
   }
 }
 
-State LingelingSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
+State LingelingSolver::solve(vec_lit_t const& assumptions) {
   // clang-format off
   IPS_TRACE_N(
     "LingelingSolver::solve", for (int i = 0; i < assumptions.size(); ++i) {
@@ -41,7 +41,7 @@ unsigned LingelingSolver::num_vars() const noexcept {
   return lglnvars(_solver);
 }
 
-bool LingelingSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) {
+bool LingelingSolver::propagate_confl(vec_lit_t const& assumptions) {
   /// @note It's actually faster to ignore propagation for Lingeling.
   return false;
 }

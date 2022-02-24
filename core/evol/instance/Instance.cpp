@@ -80,7 +80,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
 #if 1
     conflicts = _prop->prop_tree((*search)(), 0);
 #else
-    Minisat::vec<Minisat::Lit> vars = (*search)();
+    Mini::vec<Mini::Lit> vars = (*search)();
     _prop->prop_assignments(std::move(search),
       [&conflicts](bool conflict, auto&&) {
         conflicts += conflict;

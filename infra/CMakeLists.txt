@@ -3,6 +3,6 @@ find_library(PQXX_LIB pqxx)
 find_library(PQ_LIB pq)
 
 include_directories(${CMAKE_BINARY_DIR})
-file(GLOB INFRA_SRC "domain/*" "testing/*" "tests/*")
+file(GLOB INFRA_SRC "domain/*" "testing/*" "tests/*" "execution/*")
 set(INFRA_SRC ${INFRA_SRC} PARENT_SCOPE)
 set(INFRA_LIBS ${CORE_LIBS} pqxx pq ${GTEST_LIBRARIES} PARENT_SCOPE)

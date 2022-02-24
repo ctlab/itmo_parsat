@@ -29,7 +29,7 @@ void UniqueSearch::_reset() {
   _advance();
 }
 
-Minisat::vec<Minisat::Lit> const& UniqueSearch::operator()() const {
+Mini::vec<Mini::Lit> const& UniqueSearch::operator()() const {
   return get();
 }
 

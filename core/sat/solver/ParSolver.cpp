@@ -19,7 +19,7 @@ void ParSolver::load_problem(Problem const& problem) {
   });
 }
 
-State ParSolver::solve(Minisat::vec<Minisat::Lit> const& assumptions) {
+State ParSolver::solve(vec_lit_t const& assumptions) {
   return _solver_pool.get_workers().front()->solve(assumptions);
 }
 
@@ -45,7 +45,7 @@ void ParSolver::_solve(
     sat::solver::Solver& solver, domain::RSearch search, slv_callback_t const& callback) {
   if (!search->empty()) {
     auto& assignment = *search;
-    Minisat::vec<Minisat::Lit> arg(assignment().size());
+    vec_lit_t arg(assignment().size());
     do {
       {
         std::lock_guard<std::mutex> asgn_lg(_asgn_mutex);
@@ -86,7 +86,7 @@ unsigned ParSolver::num_vars() const noexcept {
   return _solver_pool.get_workers().front()->num_vars();
 }
 
-bool ParSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) {
+bool ParSolver::propagate_confl(vec_lit_t const& assumptions) {
   return _solver_pool.get_workers().front()->propagate_confl(assumptions);
 }
 

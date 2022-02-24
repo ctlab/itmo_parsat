@@ -10,10 +10,10 @@
 
 namespace {
 
-std::vector<Minisat::Lit> gen_mv(size_t size, int s1, int s2) {
-  std::vector<Minisat::Lit> v(size);
+std::vector<Mini::Lit> gen_mv(size_t size, int s1, int s2) {
+  std::vector<Mini::Lit> v(size);
   for (int i = 0; i < v.size(); ++i) {
-    v[i] = Minisat::mkLit((s1 + 1) * 100 + i, s2 & (1 << i));
+    v[i] = Mini::mkLit((s1 + 1) * 100 + i, s2 & (1 << i));
   }
   return v;
 }
@@ -36,10 +36,10 @@ class TestAssignment : public ::testing::Test {
     std::fill(mock_vars.begin() + size, mock_vars.end(), false);
   }
 
-  static std::vector<int> get_vars(Minisat::vec<Minisat::Lit> const& vars) {
+  static std::vector<int> get_vars(Mini::vec<Mini::Lit> const& vars) {
     std::vector<int> set_vars;
     for (int j = 0; j < vars.size(); ++j) {
-      if (Minisat::sign(vars[j])) {
+      if (Mini::sign(vars[j])) {
         set_vars.push_back(j);
       }
     }
@@ -187,7 +187,7 @@ TEST_F(TestAssignment, random_search_range_16_16) {
 TEST_F(TestAssignment, cartesian_search) {
   int num_tests = 100;
   while (num_tests--) {
-    std::vector<std::vector<std::vector<Minisat::Lit>>> csp(5);
+    std::vector<std::vector<std::vector<Mini::Lit>>> csp(5);
     uint64_t csp_size = 1;
     for (size_t i = 0; i < 5; ++i) {
       // generate assumption set
@@ -214,7 +214,7 @@ TEST_F(TestAssignment, cartesian_search_split) {
   int num_tests = 1000;
   while (num_tests--) {
     int size = util::random::sample(1, 5);
-    std::vector<std::vector<std::vector<Minisat::Lit>>> csp(size);
+    std::vector<std::vector<std::vector<Mini::Lit>>> csp(size);
     uint64_t csp_size = 1;
     for (size_t i = 0; i < size; ++i) {
       // generate assumption set

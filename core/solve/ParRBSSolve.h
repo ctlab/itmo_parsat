@@ -31,10 +31,10 @@ class ParRBSSolve : public Solve {
   [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
  private:
-  std::vector<std::vector<std::vector<Minisat::Lit>>> _pre_solve(sat::Problem const& problem);
+  std::vector<std::vector<std::vector<Mini::Lit>>> _pre_solve(sat::Problem const& problem);
 
   domain::USearch _prepare_cartesian(
-      std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set);
+      std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian_set);
 
   void _raise_for_sbs(uint32_t algorithm_id) noexcept;
 

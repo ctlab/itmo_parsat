@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
 #include <filesystem>
 
-#include "minisat/core/Dimacs.h"
-#include "minisat/simp/SimpSolver.h"
+#include "core/sat/SimpBase.h"
 #include "core/sat/prop/SimpProp.h"
 #include "util/Random.h"
 #include "util/TimeTracer.h"
@@ -11,13 +10,13 @@
 namespace {
 
 uint64_t num_conflicts_in_subtree(
-    Minisat::SimpSolver& solver, Minisat::vec<Minisat::Lit>& vars, uint32_t index) {
+    Minisat::SimpSolver& solver, Mini::vec<Mini::Lit>& vars, uint32_t index) {
   if (index == (uint32_t) vars.size()) {
     return !solver.prop_check(vars, 0);
   }
-  vars[index] = Minisat::mkLit(var(vars[index]), false);
+  vars[index] = Mini::mkLit(var(vars[index]), false);
   uint64_t sub_false = num_conflicts_in_subtree(solver, vars, index + 1);
-  vars[index] = Minisat::mkLit(var(vars[index]), true);
+  vars[index] = Mini::mkLit(var(vars[index]), true);
   uint64_t sub_true = num_conflicts_in_subtree(solver, vars, index + 1);
   return sub_false + sub_true;
 }
@@ -36,17 +35,17 @@ TEST(unit_propagation, correctness_performance) {
   while (num_tests--) {
     std::set<int> vars;
     int size = util::random::sample<int>(0, 20);
-    Minisat::vec<Minisat::Lit> ms_assumption(size);
+    Mini::vec<Mini::Lit> ms_assumption(size);
     for (int i = 0; i < size; ++i) {
       int var = util::random::sample<int>(0, simp_prop.num_vars() - 1);
       while (vars.find(var) != vars.end()) {
         var = util::random::sample<int>(0, simp_prop.num_vars() - 1);
       }
       int sign = util::random::sample<int>(0, 1);
-      ms_assumption[i] = Minisat::mkLit(var, sign);
+      ms_assumption[i] = Mini::mkLit(var, sign);
     }
 
-    Minisat::vec<Minisat::Lit> dummy;
+    Mini::vec<Mini::Lit> dummy;
     bool a = IPS_TRACE_N_V("With-dummy-prop", sat_solver.propagate(ms_assumption, dummy));
     bool b = IPS_TRACE_N_V("Without-dummy-prop", sat_solver.propagate(ms_assumption));
     ASSERT_EQ(a, b);
@@ -63,7 +62,7 @@ TEST(subtree_propagation, correctness_performance) {
   {
     util::GzFile gz_file(cnf_path);
     solver.parsing = true;
-    Minisat::parse_DIMACS(gz_file.native_handle(), solver, true);
+    Minisat::parse_DIMACS(gz_file.native_handle(), solver);
     solver.parsing = false;
     solver.eliminate(true);
   }
@@ -73,14 +72,14 @@ TEST(subtree_propagation, correctness_performance) {
     std::set<int> vars;
     int size = util::random::sample<int>(0, 20);
     int head_size = util::random::sample<int>(0, size);
-    Minisat::vec<Minisat::Lit> ms_assumption(size);
+    Mini::vec<Mini::Lit> ms_assumption(size);
     for (int i = 0; i < size; ++i) {
       int var = util::random::sample<int>(0, solver.nVars() - 1);
       while (vars.find(var) != vars.end()) {
         var = util::random::sample<int>(0, solver.nVars() - 1);
       }
       int sign = util::random::sample<int>(0, 1);
-      ms_assumption[i] = Minisat::mkLit(var, sign);
+      ms_assumption[i] = Mini::mkLit(var, sign);
     }
 
     uint64_t fast = IPS_TRACE_N_V("Subtree", solver.prop_check_subtree(ms_assumption, head_size));

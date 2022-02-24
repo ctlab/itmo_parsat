@@ -4,9 +4,9 @@
 
 namespace {
 
-void set_random(Minisat::vec<Minisat::Lit>& vec) {
+void set_random(Mini::vec<Mini::Lit>& vec) {
   for (int i = 0; i < vec.size(); ++i) {
-    vec[i] = Minisat::mkLit(Minisat::var(vec[i]), ::util::random::sample<int>(0, 1));
+    vec[i] = Mini::mkLit(Mini::var(vec[i]), ::util::random::sample<int>(0, 1));
   }
 }
 
@@ -31,7 +31,7 @@ RandomSearch* RandomSearch::clone() const {
   return new RandomSearch(*this);
 }
 
-Minisat::vec<Minisat::Lit> const& RandomSearch::operator()() const {
+Mini::vec<Mini::Lit> const& RandomSearch::operator()() const {
   return get();
 }
 

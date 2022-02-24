@@ -6,8 +6,7 @@
 #include <memory>
 #include <atomic>
 
-#include "minisat/core/SolverTypes.h"
-#include "minisat/mtl/Vec.h"
+#include "core/sat/SimpBase.h"
 #include "util/Registry.h"
 #include "core/domain/assignment/Search.h"
 #include "core/domain/assignment/FullSearch.h"
@@ -22,6 +21,7 @@ namespace core::sat::prop {
  */
 class Prop {
  public:
+  typedef Mini::vec<Mini::Lit> vec_lit_t;
   /**
    * @details Callbacks types must be thread safe for asynchronous implementations.
    */
@@ -29,7 +29,7 @@ class Prop {
   typedef std::function<
       bool( // true iff should continue solving
         bool, // true iff there's been conflict
-        Minisat::vec<Minisat::Lit> const& // assumptions passed to propagate
+        vec_lit_t const& // assumptions passed to propagate
       )> prop_callback_t; //
   // clang-format on
 
@@ -50,14 +50,14 @@ class Prop {
    * @return true if and only if conflict occurred.
    */
   [[nodiscard]] virtual bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) = 0;
+      vec_lit_t const& assumptions, vec_lit_t& propagated) = 0;
 
   /**
    * @brief Propagates a given list of assumptions.
    * @param assumptions assumptions to include.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] virtual bool propagate(Minisat::vec<Minisat::Lit> const& assumptions);
+  [[nodiscard]] virtual bool propagate(vec_lit_t const& assumptions);
 
   /**
    * @brief Propagates all assignments by the given iterator and calls callback respectively.
@@ -67,7 +67,7 @@ class Prop {
   virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
 
   /// @todo: documentation
-  virtual uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) = 0;
+  virtual uint64_t prop_tree(vec_lit_t const& vars, uint32_t head_size) = 0;
 
   /**
    * @brief Returns the number of variables in formula.

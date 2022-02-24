@@ -5,7 +5,7 @@
 constexpr uint32_t parallel = 16;
 
 TEST_F(LaunchFixture, simp_test) {
-  infra::testing::LaunchConfig config;
+  infra::domain::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simp.json")
@@ -16,8 +16,34 @@ TEST_F(LaunchFixture, simp_test) {
   ASSERT_FALSE(test_failed);
 }
 
+TEST_F(LaunchFixture, maple_test) {
+  infra::domain::LaunchConfig config;
+  config.set_expected_result(infra::domain::UNKNOWN)
+      .set_log_config_path("log.json")
+      .set_config_path("maple.json")
+      .set_description("MapleCOMSPS solver tests")
+      .set_threads_required(1);
+  for (const auto& path : LaunchFixture::cnfs) {
+    launch(config.set_input_path(path));
+  }
+  ASSERT_FALSE(test_failed);
+}
+
+TEST_F(LaunchFixture, painless_test) {
+  infra::domain::LaunchConfig config;
+  config.set_expected_result(infra::domain::UNKNOWN)
+      .set_log_config_path("log.json")
+      .set_config_path("painless.json")
+      .set_description("Painless solver tests")
+      .set_threads_required(16);
+  for (const auto& path : LaunchFixture::cnfs) {
+    launch(config.set_input_path(path));
+  }
+  ASSERT_FALSE(test_failed);
+}
+
 TEST_F(LaunchFixture, simp_rbs_test) {
-  infra::testing::LaunchConfig config;
+  infra::domain::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simp_rbs.json")
@@ -30,7 +56,7 @@ TEST_F(LaunchFixture, simp_rbs_test) {
 }
 
 TEST_F(LaunchFixture, simp_parrbs_test) {
-  infra::testing::LaunchConfig config;
+  infra::domain::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simp_parrbs.json")
@@ -43,7 +69,7 @@ TEST_F(LaunchFixture, simp_parrbs_test) {
 }
 
 TEST_F(LaunchFixture, simppar_rbs_test) {
-  infra::testing::LaunchConfig config;
+  infra::domain::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simppar_rbs.json")
@@ -56,7 +82,7 @@ TEST_F(LaunchFixture, simppar_rbs_test) {
 }
 
 TEST_F(LaunchFixture, simppar_parrbs_test) {
-  infra::testing::LaunchConfig config;
+  infra::domain::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simppar_parrbs.json")
@@ -69,38 +95,12 @@ TEST_F(LaunchFixture, simppar_parrbs_test) {
 }
 
 TEST_F(LaunchFixture, lingpar_parrbs_test) {
-  infra::testing::LaunchConfig config;
+  infra::domain::LaunchConfig config;
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("lingpar_parrbs.json")
       .set_threads_required(parallel)
       .set_description("RBSSearch solver tests (RBS, ParSolver(LingelingSolver) solve)");
-  for (const auto& path : LaunchFixture::cnfs) {
-    launch(config.set_input_path(path));
-  }
-  ASSERT_FALSE(test_failed);
-}
-
-TEST_F(LaunchFixture, horde_rbs_test) {
-  infra::testing::LaunchConfig config;
-  config.set_expected_result(infra::domain::UNKNOWN)
-      .set_log_config_path("log.json")
-      .set_config_path("horde_rbs.json")
-      .set_threads_required(parallel)
-      .set_description("RBSSearch solver tests (ParRBS, HordeSat solve)");
-  for (const auto& path : LaunchFixture::cnfs) {
-    launch(config.set_input_path(path));
-  }
-  ASSERT_FALSE(test_failed);
-}
-
-TEST_F(LaunchFixture, horde_parrbs_test) {
-  infra::testing::LaunchConfig config;
-  config.set_expected_result(infra::domain::UNKNOWN)
-      .set_log_config_path("log.json")
-      .set_config_path("horde_parrbs.json")
-      .set_threads_required(parallel)
-      .set_description("ParRBSSearch solver tests (ParRBS, HordeSat solve)");
   for (const auto& path : LaunchFixture::cnfs) {
     launch(config.set_input_path(path));
   }

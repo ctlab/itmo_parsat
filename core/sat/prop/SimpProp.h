@@ -6,15 +6,18 @@
 #include "core/sat/prop/Prop.h"
 #include "util/Logger.h"
 #include "util/TimeTracer.h"
-#include "core/sat/SimpBase.h"
-#include "minisat/simp/SimpSolver.h"
+
+#include "core/sat/native/mini/minisat/minisat/core/Dimacs.h"
+#include "core/sat/native/mini/minisat/minisat/simp/SimpSolver.h"
 
 namespace core::sat::prop {
 
+SIMP_BASE(Minisat);
+
 /**
- * @brief Minisat:SimpSolver-based Solver implementation.
+ * @brief Mini:SimpSolver-based Solver implementation.
  */
-class SimpProp : public Prop, public SimpBase {
+class SimpProp : public Prop, public MinisatSimpBase {
  public:
   SimpProp() = default;
 
@@ -23,12 +26,11 @@ class SimpProp : public Prop, public SimpBase {
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 
   [[nodiscard]] bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions,
-      Minisat::vec<Minisat::Lit>& propagated) override;
+      Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) override;
 
-  [[nodiscard]] bool propagate(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  [[nodiscard]] bool propagate(Mini::vec<Mini::Lit> const& assumptions) override;
 
-  uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
+  uint64_t prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) override;
 };
 
 }  // namespace core::sat::prop

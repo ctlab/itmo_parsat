@@ -1,17 +1,17 @@
 #include "stream.h"
 
-std::ostream& operator<<(std::ostream& os, Minisat::vec<Minisat::Lit> const& vec) {
+std::ostream& operator<<(std::ostream& os, Mini::vec<Mini::Lit> const& vec) {
   os << "[ ";
   for (int i = 0; i < vec.size(); ++i) {
-    if (Minisat::sign(vec[i])) {
-      os << Minisat::var(vec[i]) << ' ';
+    if (Mini::sign(vec[i])) {
+      os << Mini::var(vec[i]) << ' ';
     } else {
-      os << "-" << Minisat::var(vec[i]) << ' ';
+      os << "-" << Mini::var(vec[i]) << ' ';
     }
   }
   return os << "]";
 }
 
-std::ostream& operator<<(std::ostream& os, Minisat::Lit const& lit) {
-  return os << (Minisat::sign(lit) ? "!" : "") << Minisat::var(lit);
+std::ostream& operator<<(std::ostream& os, Mini::Lit const& lit) {
+  return os << (Mini::sign(lit) ? "!" : "") << Mini::var(lit);
 }

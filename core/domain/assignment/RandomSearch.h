@@ -20,7 +20,7 @@ class RandomSearch : AssignmentModifier, public Search {
  public:
   [[nodiscard]] RandomSearch* clone() const override;
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+  [[nodiscard]] lit_vec_t const& operator()() const override;
 
  protected:
   explicit RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);

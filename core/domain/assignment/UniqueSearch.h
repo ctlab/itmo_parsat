@@ -24,7 +24,7 @@ class UniqueSearch : AssignmentModifier, public Search {
  public:
   explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+  [[nodiscard]] Mini::vec<Mini::Lit> const& operator()() const override;
 
  private:
   std::unordered_set<uint64_t> visited_;

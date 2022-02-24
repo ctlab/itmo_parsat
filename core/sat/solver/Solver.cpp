@@ -4,7 +4,7 @@ namespace core::sat::solver {
 
 State Solver::solve_limited() {
   clear_interrupt();
-  Minisat::vec<Minisat::Lit> assumptions;
+  vec_lit_t assumptions;
   return solve(assumptions);
 }
 
@@ -13,7 +13,7 @@ void Solver::solve_assignments(domain::USearch assignment_p, slv_callback_t cons
   domain::Search& assignment = *assignment_p;
   START_ASGN_TRACK(assignment_p->size());
   do {
-    Minisat::vec<Minisat::Lit> const& assumptions = assignment();
+    vec_lit_t const& assumptions = assignment();
     ASGN_TRACK(assumptions);
     bool conflict = propagate_confl(assumptions);
     State result = conflict ? UNSAT : solve(assumptions);
