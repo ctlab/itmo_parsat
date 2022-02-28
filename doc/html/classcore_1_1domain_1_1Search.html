@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -96,13 +97,19 @@ Inheritance diagram for core::domain::Search:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a586b501c80440d9cfa6e527f2a771366"><td class="memItemLeft" align="right" valign="top"><a id="a586b501c80440d9cfa6e527f2a771366"></a>
+typedef <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lit_vec_t</b></td></tr>
+<tr class="separator:a586b501c80440d9cfa6e527f2a771366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af86b664048d4b714e383fcc339988bc5"><td class="memItemLeft" align="right" valign="top"><a id="af86b664048d4b714e383fcc339988bc5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Search</b> (uint64_t total)</td></tr>
 <tr class="separator:af86b664048d4b714e383fcc339988bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a647d76e909c7ceb546d4fc23bee29ab6"><td class="memItemLeft" align="right" valign="top">virtual Minisat::vec&lt; Minisat::Lit &gt; const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1Search.html#a647d76e909c7ceb546d4fc23bee29ab6">operator()</a> () const =0</td></tr>
-<tr class="separator:a647d76e909c7ceb546d4fc23bee29ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1418d5a00cf20ddbea9ba1571d29477e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMini_1_1vec.html">lit_vec_t</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1Search.html#a1418d5a00cf20ddbea9ba1571d29477e">operator()</a> () const =0</td></tr>
+<tr class="separator:a1418d5a00cf20ddbea9ba1571d29477e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f946f62e83bd43f82993559b3fa8ae9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1Search.html#a1f946f62e83bd43f82993559b3fa8ae9">operator++</a> ()</td></tr>
 <tr class="memdesc:a1f946f62e83bd43f82993559b3fa8ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Steps to the next search.  <a href="classcore_1_1domain_1_1Search.html#a1f946f62e83bd43f82993559b3fa8ae9">More...</a><br /></td></tr>
 <tr class="separator:a1f946f62e83bd43f82993559b3fa8ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,9 +141,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_reset</b> ()
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a214d487bd43e2ccc9a0250d19e668877"><td class="memItemLeft" align="right" valign="top"><a id="a214d487bd43e2ccc9a0250d19e668877"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>_set_assignment</b> (Minisat::vec&lt; Minisat::Lit &gt; &amp;vec, uint64_t value)</td></tr>
-<tr class="separator:a214d487bd43e2ccc9a0250d19e668877"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78ab66de9fb195740ceb7f5f08455002"><td class="memItemLeft" align="right" valign="top"><a id="a78ab66de9fb195740ceb7f5f08455002"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>_set_assignment</b> (<a class="el" href="classMini_1_1vec.html">lit_vec_t</a> &amp;vec, uint64_t value)</td></tr>
+<tr class="separator:a78ab66de9fb195740ceb7f5f08455002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -212,8 +219,8 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
 
 </div>
 </div>
-<a id="a647d76e909c7ceb546d4fc23bee29ab6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a647d76e909c7ceb546d4fc23bee29ab6">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="a1418d5a00cf20ddbea9ba1571d29477e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1418d5a00cf20ddbea9ba1571d29477e">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +229,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual Minisat::vec&lt;Minisat::Lit&gt; const&amp; core::domain::Search::operator() </td>
+          <td class="memname">virtual <a class="el" href="classMini_1_1vec.html">lit_vec_t</a> const&amp; core::domain::Search::operator() </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -236,7 +243,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current assignment </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1domain_1_1SingleSearch.html#a33aa55305bf94833c85b155eb25dbf6e">core::domain::SingleSearch</a>, <a class="el" href="classcore_1_1domain_1_1UniqueSearch.html#aa751e3e4177d9bedabe217452630802a">core::domain::UniqueSearch</a>, <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#aefac5a2e44d4a8635b812f708b288316">core::domain::CartesianSearch</a>, <a class="el" href="classcore_1_1domain_1_1FullSearch.html#ac4af45116b197f56fa6f0f9f575e3c14">core::domain::FullSearch</a>, and <a class="el" href="classcore_1_1domain_1_1RandomSearch.html#aa2916ac1f881ed4de3bca045fd6393a0">core::domain::RandomSearch</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1domain_1_1SingleSearch.html#ac213af2e09a226bcd87fcdf56842ccda">core::domain::SingleSearch</a>, <a class="el" href="classcore_1_1domain_1_1UniqueSearch.html#a6054f69d00108754a4e933bdd4d0c46e">core::domain::UniqueSearch</a>, <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#aa3efb96ba89f771f4914d1a158274ecd">core::domain::CartesianSearch</a>, <a class="el" href="classcore_1_1domain_1_1FullSearch.html#a5ebbec8ba15647d14c52a45beb16bdc0">core::domain::FullSearch</a>, and <a class="el" href="classcore_1_1domain_1_1RandomSearch.html#a19050f8ef05dd2959256b1e34a96e8be">core::domain::RandomSearch</a>.</p>
 
 </div>
 </div>

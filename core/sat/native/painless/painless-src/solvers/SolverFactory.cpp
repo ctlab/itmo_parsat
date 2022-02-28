@@ -46,7 +46,7 @@ void SolverFactory::nativeDiversification(const vector<SolverInterface*>& solver
 }
 
 SolverInterface* SolverFactory::createMapleCOMSPSSolver(int lbd_limit) {
-  return new MapleCOMSPSSolver(lbd_limit, currentIdSolver.fetch_add(1));
+  return new MapleCOMSPSSolver(currentIdSolver.fetch_add(1), lbd_limit);
 }
 
 SolverInterface* SolverFactory::createReducerSolver(SolverInterface* _solver) {
@@ -71,28 +71,5 @@ SolverInterface* SolverFactory::cloneSolver(SolverInterface* other) {
   SolverInterface* solver;
   int id = currentIdSolver.fetch_add(1);
   auto&& o = (MapleCOMSPSSolver&) *other;
-
-  switch (other->type) {
-    case MAPLE:
-      solver = new MapleCOMSPSSolver(o.lbdLimit, (MapleCOMSPSSolver&) *other, id);
-      break;
-    default:
-      return NULL;
-  }
-
-  return solver;
-}
-
-void SolverFactory::printStats(const vector<SolverInterface*>& solvers) {
-  printf(
-      "c | ID | conflicts  | propagations |  restarts  | decisions  "
-      "| memPeak |\n");
-
-  for (size_t i = 0; i < solvers.size(); i++) {
-    SolvingStatistics stats = solvers[i]->getStatistics();
-
-    printf(
-        "c | %2zu | %10ld | %12ld | %10ld | %10ld | %7d |\n", solvers[i]->id, stats.conflicts,
-        stats.propagations, stats.restarts, stats.decisions, (int) stats.memPeak);
-  }
+  return new MapleCOMSPSSolver(id, o.lbdLimit, (MapleCOMSPSSolver&) *other);
 }

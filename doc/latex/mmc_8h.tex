@@ -1,0 +1,111 @@
+\hypertarget{mmc_8h}{}\doxysection{core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/mmc.h File Reference}
+\label{mmc_8h}\index{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/mmc.h@{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/mmc.h}}
+
+
+The mmc memory management functions check a cache for re-\/usable unused memory before asking the system for it.  
+
+
+{\ttfamily \#include $<$m4ri/misc.\+h$>$}\newline
+Include dependency graph for mmc.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mmc_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__mm__block}{\+\_\+mm\+\_\+block}}
+\begin{DoxyCompactList}\small\item\em Tuple of pointer to allocated memory block and it\textquotesingle{}s size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{mmc_8h_af398a4d78837f8fc09428d29630938db}\label{mmc_8h_af398a4d78837f8fc09428d29630938db}} 
+\#define \mbox{\hyperlink{mmc_8h_af398a4d78837f8fc09428d29630938db}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+M\+MC}}
+\begin{DoxyCompactList}\small\item\em Enable memory block cache (default\+: enabled). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{mmc_8h_a0961207c64c9a6fb9d1e5661c95bbb38}\label{mmc_8h_a0961207c64c9a6fb9d1e5661c95bbb38}} 
+\#define \mbox{\hyperlink{mmc_8h_a0961207c64c9a6fb9d1e5661c95bbb38}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+M\+C\+\_\+\+N\+B\+L\+O\+C\+KS}}~16
+\begin{DoxyCompactList}\small\item\em Number of blocks that are cached. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{mmc_8h_a0ff8d40a4f64463ab8a6685b5755cb59}\label{mmc_8h_a0ff8d40a4f64463ab8a6685b5755cb59}} 
+\#define \mbox{\hyperlink{mmc_8h_a0ff8d40a4f64463ab8a6685b5755cb59}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+M\+C\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}}~\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+C\+P\+U\+\_\+\+L3\+\_\+\+C\+A\+C\+HE
+\begin{DoxyCompactList}\small\item\em Maximal size of blocks stored in cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{mmc_8h_a121395ae1edb26f7b9ea151151fb91f9}\label{mmc_8h_a121395ae1edb26f7b9ea151151fb91f9}} 
+typedef struct \mbox{\hyperlink{struct__mm__block}{\+\_\+mm\+\_\+block}} \mbox{\hyperlink{mmc_8h_a121395ae1edb26f7b9ea151151fb91f9}{mmb\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Tuple of pointer to allocated memory block and it\textquotesingle{}s size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{mmc_8h_a629fbd14ae907b58e2f1bc49d58a3f7a}{m4ri\+\_\+mmc\+\_\+malloc}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Allocate size bytes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mmc_8h_adab43a479e0ab0b5473b26382a992b57}{m4ri\+\_\+mmc\+\_\+free}} (void $\ast$condemned, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Free the data pointed to by condemned of the given size. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mmc_8h_adc0408d6764ddf1d616d673ff92d7256}{m4ri\+\_\+mmc\+\_\+cleanup}} (void)
+\begin{DoxyCompactList}\small\item\em Cleans up memory block cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The mmc memory management functions check a cache for re-\/usable unused memory before asking the system for it. 
+
+\begin{DoxyAuthor}{Author}
+Gregory Bard \href{mailto:bard@fordham.edu}{\texttt{ bard@fordham.\+edu}} 
+
+Martin Albrecht \href{mailto:M.R.Albrecht@rhul.ac.uk}{\texttt{ M.\+R.\+Albrecht@rhul.\+ac.\+uk}} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mmc_8h_adc0408d6764ddf1d616d673ff92d7256}\label{mmc_8h_adc0408d6764ddf1d616d673ff92d7256}} 
+\index{mmc.h@{mmc.h}!m4ri\_mmc\_cleanup@{m4ri\_mmc\_cleanup}}
+\index{m4ri\_mmc\_cleanup@{m4ri\_mmc\_cleanup}!mmc.h@{mmc.h}}
+\doxysubsubsection{\texorpdfstring{m4ri\_mmc\_cleanup()}{m4ri\_mmc\_cleanup()}}
+{\footnotesize\ttfamily void m4ri\+\_\+mmc\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Cleans up memory block cache. 
+
+This function is called automatically when the shared library is unloaded.
+
+\begin{DoxyWarning}{Warning}
+Not thread safe. 
+\end{DoxyWarning}
+\mbox{\Hypertarget{mmc_8h_adab43a479e0ab0b5473b26382a992b57}\label{mmc_8h_adab43a479e0ab0b5473b26382a992b57}} 
+\index{mmc.h@{mmc.h}!m4ri\_mmc\_free@{m4ri\_mmc\_free}}
+\index{m4ri\_mmc\_free@{m4ri\_mmc\_free}!mmc.h@{mmc.h}}
+\doxysubsubsection{\texorpdfstring{m4ri\_mmc\_free()}{m4ri\_mmc\_free()}}
+{\footnotesize\ttfamily void m4ri\+\_\+mmc\+\_\+free (\begin{DoxyParamCaption}\item[{void $\ast$}]{condemned,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Free the data pointed to by condemned of the given size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em condemned} & Pointer to memory. \\
+\hline
+{\em size} & Number of bytes. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mmc_8h_a629fbd14ae907b58e2f1bc49d58a3f7a}\label{mmc_8h_a629fbd14ae907b58e2f1bc49d58a3f7a}} 
+\index{mmc.h@{mmc.h}!m4ri\_mmc\_malloc@{m4ri\_mmc\_malloc}}
+\index{m4ri\_mmc\_malloc@{m4ri\_mmc\_malloc}!mmc.h@{mmc.h}}
+\doxysubsubsection{\texorpdfstring{m4ri\_mmc\_malloc()}{m4ri\_mmc\_malloc()}}
+{\footnotesize\ttfamily void$\ast$ m4ri\+\_\+mmc\+\_\+malloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Allocate size bytes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Number of bytes.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to allocated memory block. 
+\end{DoxyReturn}

@@ -1,0 +1,289 @@
+\hypertarget{triangular_8h}{}\doxysection{core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/triangular.h File Reference}
+\label{triangular_8h}\index{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/triangular.h@{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/triangular.h}}
+
+
+Triangular system solving with Matrix routines.  
+
+
+{\ttfamily \#include $<$m4ri/mzd.\+h$>$}\newline
+Include dependency graph for triangular.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{triangular_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{triangular_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{triangular_8h_ab44a64e37c247b72dc9160388936097c}{mzd\+\_\+trsm\+\_\+upper\+\_\+right}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$U, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves X U = B with X and B matrices and U upper triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_a15bc07b6aea61ea10eab822bd9dbb9fe}{\+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+right}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$U, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves X U = B with X and B matrices and U upper triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_a65f2f26ac5dd007e0af6f3fcb21884de}{mzd\+\_\+trsm\+\_\+lower\+\_\+right}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$L, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves X L = B with X and B matrices and L lower triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_a7a03c14039e3910e2d91b98c4f215d40}{\+\_\+mzd\+\_\+trsm\+\_\+lower\+\_\+right}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$L, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves X L = B with X and B with matrices and L lower triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_af689bea080749071731a66c9547dabba}{mzd\+\_\+trsm\+\_\+lower\+\_\+left}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$L, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves L X = B with X and B matrices and L lower triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_ab794a76fb38f1e3acf619f95fdf53210}{\+\_\+mzd\+\_\+trsm\+\_\+lower\+\_\+left}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$L, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves L X = B with X and B matrices and L lower triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_aac387e98df6deb28c95bae12a086903a}{mzd\+\_\+trsm\+\_\+upper\+\_\+left}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$U, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves U X = B with X and B matrices and U upper triangular. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{triangular_8h_a2fef4b9ba4623d8260bb45195d9eb2d9}{\+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+left}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$U, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$B, const int cutoff)
+\begin{DoxyCompactList}\small\item\em Solves U X = B with X and B matrices and U upper triangular. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$ \mbox{\hyperlink{triangular_8h_ab60fa3c0606862537d36c0ec6322d801}{mzd\+\_\+trtri\+\_\+upper}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A)
+\begin{DoxyCompactList}\small\item\em Invert the upper triangular matrix A by reduction to matrix multiplication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Triangular system solving with Matrix routines. 
+
+\begin{DoxyAuthor}{Author}
+Clement Pernet \href{mailto:clement.pernet@gmail.com}{\texttt{ clement.\+pernet@gmail.\+com}} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{triangular_8h_ab794a76fb38f1e3acf619f95fdf53210}\label{triangular_8h_ab794a76fb38f1e3acf619f95fdf53210}} 
+\index{triangular.h@{triangular.h}!\_mzd\_trsm\_lower\_left@{\_mzd\_trsm\_lower\_left}}
+\index{\_mzd\_trsm\_lower\_left@{\_mzd\_trsm\_lower\_left}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_trsm\_lower\_left()}{\_mzd\_trsm\_lower\_left()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+trsm\+\_\+lower\+\_\+left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{L,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves L X = B with X and B matrices and L lower triangular. 
+
+X is stored inplace on B.
+
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Input lower triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{triangular_8h_a7a03c14039e3910e2d91b98c4f215d40}\label{triangular_8h_a7a03c14039e3910e2d91b98c4f215d40}} 
+\index{triangular.h@{triangular.h}!\_mzd\_trsm\_lower\_right@{\_mzd\_trsm\_lower\_right}}
+\index{\_mzd\_trsm\_lower\_right@{\_mzd\_trsm\_lower\_right}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_trsm\_lower\_right()}{\_mzd\_trsm\_lower\_right()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+trsm\+\_\+lower\+\_\+right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{L,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves X L = B with X and B with matrices and L lower triangular. 
+
+This version assumes that the matrices are at an even position on the m4ri\+\_\+radix grid and that their dimension is a multiple of m4ri\+\_\+radix. X is stored inplace on B.
+
+\begin{DoxyAttention}{Attention}
+Note, that the \textquotesingle{}right\textquotesingle{} variants of T\+R\+SM are slower than the \textquotesingle{}left\textquotesingle{} variants.
+\end{DoxyAttention}
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Input lower triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}  |\
+  | \
+  |  \
+  |L00\
+  |____\
+  |    |\
+  |    | \
+  |    |  \
+  |L10 |L11\
+  |____|____\
+   _________
+  |B0  |B1  |
+  |____|____|
+\end{DoxyVerb}
+\mbox{\Hypertarget{triangular_8h_a2fef4b9ba4623d8260bb45195d9eb2d9}\label{triangular_8h_a2fef4b9ba4623d8260bb45195d9eb2d9}} 
+\index{triangular.h@{triangular.h}!\_mzd\_trsm\_upper\_left@{\_mzd\_trsm\_upper\_left}}
+\index{\_mzd\_trsm\_upper\_left@{\_mzd\_trsm\_upper\_left}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_trsm\_upper\_left()}{\_mzd\_trsm\_upper\_left()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{U,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves U X = B with X and B matrices and U upper triangular. 
+
+X is stored inplace on B.
+
+
+\begin{DoxyParams}{Parameters}
+{\em U} & Input upper triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{triangular_8h_a15bc07b6aea61ea10eab822bd9dbb9fe}\label{triangular_8h_a15bc07b6aea61ea10eab822bd9dbb9fe}} 
+\index{triangular.h@{triangular.h}!\_mzd\_trsm\_upper\_right@{\_mzd\_trsm\_upper\_right}}
+\index{\_mzd\_trsm\_upper\_right@{\_mzd\_trsm\_upper\_right}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_trsm\_upper\_right()}{\_mzd\_trsm\_upper\_right()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{U,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves X U = B with X and B matrices and U upper triangular. 
+
+X is stored inplace on B.
+
+\begin{DoxyAttention}{Attention}
+Note, that the \textquotesingle{}right\textquotesingle{} variants of T\+R\+SM are slower than the \textquotesingle{}left\textquotesingle{} variants.
+\end{DoxyAttention}
+
+\begin{DoxyParams}{Parameters}
+{\em U} & Input upper triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}  _________
+  \U00|   |
+   \  |U01|
+    \ |   |
+     \|___|
+      \U11|
+       \  |
+        \ |
+         \|
+   _______
+  |B0 |B1 |
+  |___|___|
+\end{DoxyVerb}
+\mbox{\Hypertarget{triangular_8h_af689bea080749071731a66c9547dabba}\label{triangular_8h_af689bea080749071731a66c9547dabba}} 
+\index{triangular.h@{triangular.h}!mzd\_trsm\_lower\_left@{mzd\_trsm\_lower\_left}}
+\index{mzd\_trsm\_lower\_left@{mzd\_trsm\_lower\_left}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_trsm\_lower\_left()}{mzd\_trsm\_lower\_left()}}
+{\footnotesize\ttfamily void mzd\+\_\+trsm\+\_\+lower\+\_\+left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{L,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves L X = B with X and B matrices and L lower triangular. 
+
+X is stored inplace on B.
+
+This is the wrapper function including bounds checks. See \mbox{\hyperlink{triangular_8h_ab794a76fb38f1e3acf619f95fdf53210}{\+\_\+mzd\+\_\+trsm\+\_\+lower\+\_\+left()}} for implementation details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Input lower triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{triangular_8h_a65f2f26ac5dd007e0af6f3fcb21884de}\label{triangular_8h_a65f2f26ac5dd007e0af6f3fcb21884de}} 
+\index{triangular.h@{triangular.h}!mzd\_trsm\_lower\_right@{mzd\_trsm\_lower\_right}}
+\index{mzd\_trsm\_lower\_right@{mzd\_trsm\_lower\_right}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_trsm\_lower\_right()}{mzd\_trsm\_lower\_right()}}
+{\footnotesize\ttfamily void mzd\+\_\+trsm\+\_\+lower\+\_\+right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{L,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves X L = B with X and B matrices and L lower triangular. 
+
+X is stored inplace on B.
+
+This is the wrapper function including bounds checks. See \mbox{\hyperlink{triangular_8h_a15bc07b6aea61ea10eab822bd9dbb9fe}{\+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+right()}} for implementation details.
+
+\begin{DoxyAttention}{Attention}
+Note, that the \textquotesingle{}right\textquotesingle{} variants of T\+R\+SM are slower than the \textquotesingle{}left\textquotesingle{} variants.
+\end{DoxyAttention}
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Input upper triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{triangular_8h_aac387e98df6deb28c95bae12a086903a}\label{triangular_8h_aac387e98df6deb28c95bae12a086903a}} 
+\index{triangular.h@{triangular.h}!mzd\_trsm\_upper\_left@{mzd\_trsm\_upper\_left}}
+\index{mzd\_trsm\_upper\_left@{mzd\_trsm\_upper\_left}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_trsm\_upper\_left()}{mzd\_trsm\_upper\_left()}}
+{\footnotesize\ttfamily void mzd\+\_\+trsm\+\_\+upper\+\_\+left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{U,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves U X = B with X and B matrices and U upper triangular. 
+
+X is stored inplace on B.
+
+This is the wrapper function including bounds checks. See \mbox{\hyperlink{triangular_8h_a2fef4b9ba4623d8260bb45195d9eb2d9}{\+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+left()}} for implementation details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em U} & Input upper triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{triangular_8h_ab44a64e37c247b72dc9160388936097c}\label{triangular_8h_ab44a64e37c247b72dc9160388936097c}} 
+\index{triangular.h@{triangular.h}!mzd\_trsm\_upper\_right@{mzd\_trsm\_upper\_right}}
+\index{mzd\_trsm\_upper\_right@{mzd\_trsm\_upper\_right}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_trsm\_upper\_right()}{mzd\_trsm\_upper\_right()}}
+{\footnotesize\ttfamily void mzd\+\_\+trsm\+\_\+upper\+\_\+right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{U,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{B,  }\item[{const int}]{cutoff }\end{DoxyParamCaption})}
+
+
+
+Solves X U = B with X and B matrices and U upper triangular. 
+
+X is stored inplace on B.
+
+\begin{DoxyAttention}{Attention}
+Note, that the \textquotesingle{}right\textquotesingle{} variants of T\+R\+SM are slower than the \textquotesingle{}left\textquotesingle{} variants.
+\end{DoxyAttention}
+This is the wrapper function including bounds checks. See \mbox{\hyperlink{triangular_8h_a15bc07b6aea61ea10eab822bd9dbb9fe}{\+\_\+mzd\+\_\+trsm\+\_\+upper\+\_\+right()}} for implementation details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em U} & Input upper triangular matrix. \\
+\hline
+{\em B} & Input matrix, being overwritten by the solution matrix X \\
+\hline
+{\em cutoff} & Minimal dimension for Strassen recursion. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{triangular_8h_ab60fa3c0606862537d36c0ec6322d801}\label{triangular_8h_ab60fa3c0606862537d36c0ec6322d801}} 
+\index{triangular.h@{triangular.h}!mzd\_trtri\_upper@{mzd\_trtri\_upper}}
+\index{mzd\_trtri\_upper@{mzd\_trtri\_upper}!triangular.h@{triangular.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_trtri\_upper()}{mzd\_trtri\_upper()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}}$\ast$ mzd\+\_\+trtri\+\_\+upper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A }\end{DoxyParamCaption})}
+
+
+
+Invert the upper triangular matrix A by reduction to matrix multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix to be inverted (overwritten).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Inverse of A or throws an error 
+\end{DoxyReturn}

@@ -1,0 +1,6 @@
+<map id="Reducer" name="Reducer">
+<area shape="rect" id="node1" title="Instance of a MapleCOMSPS solver." alt="" coords="73,199,147,225"/>
+<area shape="rect" id="node2" href="$classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="5,95,127,121"/>
+<area shape="rect" id="node3" href="$classClauseBuffer.html" title="Clause buffer is a queue containning shared clauses." alt="" coords="151,95,258,121"/>
+<area shape="rect" id="node4" href="$structClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="121,5,288,32"/>
+</map>

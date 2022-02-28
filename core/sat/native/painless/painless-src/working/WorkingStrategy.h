@@ -19,27 +19,28 @@
 
 #pragma once
 
-#include "../solvers/SolverInterface.h"
+#include "core/sat/native/painless/painless-src/solvers/SolverInterface.h"
 
 #include <vector>
 #include <memory>
 
-using namespace std;
+#define IPS_PRINTF(...)         \
+  fprintf(stderr, __VA_ARGS__); \
+  fflush(stderr)
+
+namespace painless {
 
 struct WorkingResult {
-  atomic<bool> globalEnding{false};
+  std::atomic<bool> globalEnding{false};
   PSatResult finalResult = PUNKNOWN;
-  vector<int> finalModel;
+  std::vector<int> finalModel;
 };
 
 using RWorkingResult = std::shared_ptr<WorkingResult>;
 
 class WorkingStrategy {
  public:
-  WorkingStrategy() {
-    parent = NULL;
-    result = std::make_shared<WorkingResult>();
-  }
+  explicit WorkingStrategy(WorkingResult* working_result);
 
   virtual ~WorkingStrategy() = default;
 
@@ -59,16 +60,16 @@ class WorkingStrategy {
 
   virtual void waitInterrupt() = 0;
 
-  virtual void addSlave(WorkingStrategy* slave) {
-    slaves.push_back(slave);
-    slave->parent = this;
-    slave->result = result;
-  }
+  virtual void addSlave(WorkingStrategy* slave);
+
+  virtual void awaitStop() = 0;
 
  public:
-  RWorkingResult result;
+  WorkingResult* result = nullptr;
 
  protected:
-  WorkingStrategy* parent;
-  vector<WorkingStrategy*> slaves;
+  WorkingStrategy* parent = nullptr;
+  std::vector<WorkingStrategy*> slaves;
 };
+
+}  // namespace painless

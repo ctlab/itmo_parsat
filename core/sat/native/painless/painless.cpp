@@ -35,6 +35,7 @@
 #include <unistd.h>
 
 using namespace std;
+using namespace painless;
 
 // -------------------------------------------
 // Declaration of global variables
@@ -108,7 +109,9 @@ int main(int argc, char** argv) {
   vector<SolverInterface*> cons2;
   vector<SolverInterface*> consCDCL;
 
-  working = new Portfolio();
+  WorkingResult result;
+
+  working = new Portfolio(&result);
 
   prod1.insert(prod1.end(), solvers.begin(), solvers.begin() + (cpus / 2 - 1));
   prod1.push_back(solvers[solvers.size() - 2]);
@@ -120,14 +123,12 @@ int main(int argc, char** argv) {
   cons2.push_back(solvers[solvers.size() - 1]);
   nSharers = 2;
   sharers = new Sharer*[nSharers];
-  sharers[0] =
-      new Sharer(500000, 1, new HordeSatSharing(1500, 500000, working->result.get()), prod1, cons1);
-  sharers[1] =
-      new Sharer(500000, 2, new HordeSatSharing(1500, 500000, working->result.get()), prod2, cons2);
+  sharers[0] = new Sharer(500000, 1, new HordeSatSharing(1500, 500000, &result), prod1, cons1);
+  sharers[1] = new Sharer(500000, 2, new HordeSatSharing(1500, 500000, &result), prod2, cons2);
 
   // Init working
   for (size_t i = 0; i < nSolvers; i++) {
-    working->addSlave(new SequentialWorker(solvers[i]));
+    working->addSlave(new SequentialWorker(&result, solvers[i]));
   }
 
   char const* cf = Parameters::getFilename();

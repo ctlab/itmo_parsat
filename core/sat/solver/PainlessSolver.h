@@ -40,15 +40,16 @@ class PainlessSolver : public Solver {
   std::vector<SolverInterface*> _solvers_LRB;
 
  private:
-  vector<SolverInterface*> prod1;
-  vector<SolverInterface*> prod2;
-  vector<SolverInterface*> cons1;
-  vector<SolverInterface*> cons2;
-  vector<Sharer*> sharers;
+  std::vector<SolverInterface*> prod1;
+  std::vector<SolverInterface*> prod2;
+  std::vector<SolverInterface*> cons1;
+  std::vector<SolverInterface*> cons2;
+  std::vector<std::unique_ptr<painless::Sharer>> _sharers;
 
  private:
   PainlessSolverConfig _cfg;
-  std::unique_ptr<WorkingStrategy> working = nullptr;
+  painless::WorkingResult _result;
+  std::unique_ptr<painless::WorkingStrategy> working;
   int nSharers = 0;
 };
 

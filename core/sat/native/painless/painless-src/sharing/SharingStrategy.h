@@ -19,12 +19,12 @@
 
 #pragma once
 
-#include "../solvers/SolverInterface.h"
-#include "../working/WorkingStrategy.h"
+#include "core/sat/native/painless/painless-src/solvers/SolverInterface.h"
+#include "core/sat/native/painless/painless-src/working/WorkingStrategy.h"
 
 #include <vector>
 
-using namespace std;
+namespace painless {
 
 /// Sharing statistics.
 struct SharingStatistics {
@@ -60,3 +60,5 @@ class SharingStrategy {
  public:
   WorkingResult* result = nullptr;
 };
+
+}  // namespace painless

@@ -1,0 +1,76 @@
+\hypertarget{classClauseBuffer}{}\doxysection{Clause\+Buffer Class Reference}
+\label{classClauseBuffer}\index{ClauseBuffer@{ClauseBuffer}}
+
+
+Clause buffer is a queue containning shared clauses.  
+
+
+
+
+{\ttfamily \#include $<$Clause\+Buffer.\+h$>$}
+
+
+
+Collaboration diagram for Clause\+Buffer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classClauseBuffer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structClauseBuffer_1_1ListElement}{List\+Element}}
+\item 
+struct \mbox{\hyperlink{structClauseBuffer_1_1ListRoot}{List\+Root}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classClauseBuffer_a0c690e6950998e17d066e883893717c5}\label{classClauseBuffer_a0c690e6950998e17d066e883893717c5}} 
+\mbox{\hyperlink{classClauseBuffer_a0c690e6950998e17d066e883893717c5}{Clause\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClauseBuffer_a385a1c230521ae360ece3f9abe868f26}\label{classClauseBuffer_a385a1c230521ae360ece3f9abe868f26}} 
+\mbox{\hyperlink{classClauseBuffer_a385a1c230521ae360ece3f9abe868f26}{$\sim$\+Clause\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClauseBuffer_aa65e47220dfbd1302a0507ff0a7ca16e}\label{classClauseBuffer_aa65e47220dfbd1302a0507ff0a7ca16e}} 
+void \mbox{\hyperlink{classClauseBuffer_aa65e47220dfbd1302a0507ff0a7ca16e}{add\+Clause}} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$clause)
+\begin{DoxyCompactList}\small\item\em Enqueue a shared clause to the buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClauseBuffer_a95bd0d55bad930d5309f5e378df505ce}\label{classClauseBuffer_a95bd0d55bad930d5309f5e378df505ce}} 
+void \mbox{\hyperlink{classClauseBuffer_a95bd0d55bad930d5309f5e378df505ce}{add\+Clauses}} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)
+\begin{DoxyCompactList}\small\item\em Enqueue shared clauses to the buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClauseBuffer_a905c557cc9ef5096faa7513110a36254}\label{classClauseBuffer_a905c557cc9ef5096faa7513110a36254}} 
+bool \mbox{\hyperlink{classClauseBuffer_a905c557cc9ef5096faa7513110a36254}{get\+Clause}} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$$\ast$clause)
+\begin{DoxyCompactList}\small\item\em Dequeue a shared clause. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClauseBuffer_abf88e9087110e7288d9db1e40f63653d}\label{classClauseBuffer_abf88e9087110e7288d9db1e40f63653d}} 
+void \mbox{\hyperlink{classClauseBuffer_abf88e9087110e7288d9db1e40f63653d}{get\+Clauses}} (vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)
+\begin{DoxyCompactList}\small\item\em Dequeue shared clauses. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClauseBuffer_a9182edb42446d85e0af922bfdffa1ee1}\label{classClauseBuffer_a9182edb42446d85e0af922bfdffa1ee1}} 
+int \mbox{\hyperlink{classClauseBuffer_a9182edb42446d85e0af922bfdffa1ee1}{size}} ()
+\begin{DoxyCompactList}\small\item\em Return the current size of the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classClauseBuffer_ae42412102ef1f2ff5b4110b8c4cb0650}\label{classClauseBuffer_ae42412102ef1f2ff5b4110b8c4cb0650}} 
+typedef struct \mbox{\hyperlink{structClauseBuffer_1_1ListElement}{Clause\+Buffer\+::\+List\+Element}} {\bfseries List\+Element}
+\item 
+\mbox{\Hypertarget{classClauseBuffer_ad102abc0ab84792e64220a03d2a7cf12}\label{classClauseBuffer_ad102abc0ab84792e64220a03d2a7cf12}} 
+typedef struct \mbox{\hyperlink{structClauseBuffer_1_1ListRoot}{Clause\+Buffer\+::\+List\+Root}} {\bfseries List\+Root}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classClauseBuffer_ad61fed6a275429c458b7559bbdc4c97a}\label{classClauseBuffer_ad61fed6a275429c458b7559bbdc4c97a}} 
+\mbox{\hyperlink{structClauseBuffer_1_1ListRoot}{List\+Root}} \mbox{\hyperlink{classClauseBuffer_ad61fed6a275429c458b7559bbdc4c97a}{buffer}}
+\begin{DoxyCompactList}\small\item\em Root of producer/customers lists. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clause buffer is a queue containning shared clauses. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/painless/painless-\/src/clauses/Clause\+Buffer.\+h\item 
+core/sat/native/painless/painless-\/src/clauses/Clause\+Buffer.\+cpp\end{DoxyCompactItemize}

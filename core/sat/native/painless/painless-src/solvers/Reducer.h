@@ -49,9 +49,6 @@ class Reducer : public SolverInterface {
   /// Remove the SAT solving interrupt request.
   void unsetSolverInterrupt();
 
-  /// Solve the formula with a given cube.
-  PSatResult solve_(const vector<int>& cube);
-
   PSatResult solve(const vector<int>& cube);
 
   /// Add a permanent clause to the formula.
@@ -100,7 +97,7 @@ class Reducer : public SolverInterface {
   Reducer(int id, SolverInterface* solver);
 
   /// Destructor.
-  virtual ~Reducer();
+  ~Reducer() noexcept;
 
  protected:
   /// Pointer to a MapleCOMSPS solver.
@@ -111,4 +108,7 @@ class Reducer : public SolverInterface {
 
   /// Buffer used to export clauses (units included).
   ClauseBuffer clausesToExport;
+
+  bool _stop = false;
+  bool _interrupt = false;
 };

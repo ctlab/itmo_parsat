@@ -27,6 +27,7 @@
 #include <vector>
 
 using namespace std;
+using namespace painless;
 
 /// Working strategy
 extern WorkingStrategy* working;

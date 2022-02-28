@@ -19,54 +19,58 @@
 
 #pragma once
 
-#include "../solvers/SolverInterface.h"
-#include "../utils/Threading.h"
-#include "../working/WorkingStrategy.h"
+#include "core/sat/native/painless/painless-src/solvers/SolverInterface.h"
+#include "core/sat/native/painless/painless-src/utils/Threading.h"
+#include "core/sat/native/painless/painless-src/working/WorkingStrategy.h"
 
 #include <vector>
+#include <mutex>
+#include <thread>
+#include <condition_variable>
 
-using namespace std;
-
-// Main executed by worker threads
-static void* mainWorker(void* arg);
+namespace painless {
 
 class SequentialWorker : public WorkingStrategy {
  public:
-  SequentialWorker(SolverInterface* solver_);
+  SequentialWorker(WorkingResult* working_result, SolverInterface* solver_);
 
-  ~SequentialWorker();
+  ~SequentialWorker() noexcept;
 
-  void solve(const vector<int>& cube);
+  void solve(const vector<int>& cube) override;
 
-  void join(WorkingStrategy* winner, PSatResult res, const vector<int>& model);
+  void join(WorkingStrategy* winner, PSatResult res, const vector<int>& model) override;
 
-  void setInterrupt();
+  void setInterrupt() override;
 
-  void unsetInterrupt();
+  void unsetInterrupt() override;
 
-  void waitInterrupt();
+  void waitInterrupt() override;
 
-  int getDivisionVariable();
+  int getDivisionVariable() override;
 
-  void setPhase(const int var, const bool phase);
+  void setPhase(const int var, const bool phase) override;
 
-  void bumpVariableActivity(const int var, const int times);
+  void stop();
+
+  void awaitStop() override;
+
+  void bumpVariableActivity(const int var, const int times) override;
 
   SolverInterface* solver;
 
  protected:
-  friend void* mainWorker(void* arg);
+  void main_worker_thread();
 
-  Thread* worker;
+  bool _stop = false;
+  std::thread worker;
+  std::mutex interrupt_lock;
 
-  vector<int> actualCube;
+  std::vector<int> actualCube;
+  std::atomic_bool force;
+  std::atomic_bool waitJob;
 
-  atomic<bool> force;
-
-  atomic<bool> waitJob;
-
-  Mutex waitInterruptLock;
-
-  pthread_mutex_t mutexStart;
-  pthread_cond_t mutexCondStart;
+  std::mutex start_mutex;
+  std::condition_variable start_cv;
 };
+
+}  // namespace painless

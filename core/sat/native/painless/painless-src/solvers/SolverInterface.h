@@ -33,9 +33,6 @@ using namespace std;
 /// Code for SAT result
 enum PSatResult { PSAT = 10, PUNSAT = 20, PUNKNOWN = 0 };
 
-/// Code  for the type of solvers
-enum SolverType { GLUCOSE = 0, LINGELING = 1, MAPLE = 2, MINISAT = 3 };
-
 /// Structure for solver statistics
 struct SolvingStatistics {
   /// Constructor
@@ -120,35 +117,11 @@ class SolverInterface {
   virtual vector<int> getSatAssumptions() = 0;
 
   /// Constructor.
-  SolverInterface(int solverId, SolverType solverType) {
-    id = solverId;
-    type = solverType;
-    nRefs = 1;
-  }
+  SolverInterface(int id) : id(id) {}
 
   /// Destructor.
-  virtual ~SolverInterface() {}
+  virtual ~SolverInterface() noexcept = default;
 
-  /// Increase the counter of references of this solver.
-  void increase() {
-    nRefs++;
-  }
-
-  /// Decrease the counter of references of this solver, delete it if needed.
-  void release() {
-    int oldValue = nRefs.fetch_sub(1);
-
-    if (oldValue - 1 == 0) {
-      delete this;
-    }
-  }
-
-  /// Id of this solver.
+ public:
   int id;
-
-  /// Type of this solver.
-  SolverType type;
-
-  /// Number of references pointing on this solver.
-  atomic<int> nRefs;
 };

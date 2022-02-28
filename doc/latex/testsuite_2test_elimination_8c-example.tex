@@ -1,0 +1,18 @@
+\hypertarget{testsuite_2test_elimination_8c-example}{}\doxysection{testsuite/test\+\_\+elimination.\+c}
+Matrix elimination using the \textquotesingle{}Method of the Four Russians\textquotesingle{} (M4\+RI).The M4\+RI algorithm was proposed in Gregory Bard; Accelerating Cryptanalysis with the Method of Four Russians; 2006; \href{http://eprint.iacr.org/2006/251}{\texttt{ http\+://eprint.\+iacr.\+org/2006/251}}
+
+Our implementatation is discussed in in Martin Albrecht and Clément Pernet; Efficient Decomposition of Dense Matrices over G\+F(2); \href{http://arxiv.org/abs/1006.1744}{\texttt{ http\+://arxiv.\+org/abs/1006.\+1744}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & Matrix to be reduced. \\
+\hline
+{\em full} & Return the reduced row echelon form, not only upper triangular form. \\
+\hline
+{\em k} & M4\+RI parameter, may be 0 for auto-\/choose.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCodeInclude}{0}
+\end{DoxyCodeInclude}
+ 

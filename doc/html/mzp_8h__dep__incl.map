@@ -1,0 +1,9 @@
+<map id="core/sat/native/mini/mapleCOMSPS/m4ri&#45;20140914/m4ri/mzp.h" name="core/sat/native/mini/mapleCOMSPS/m4ri&#45;20140914/m4ri/mzp.h">
+<area shape="rect" id="node1" title="Permutation matrices." alt="" coords="327,5,553,61"/>
+<area shape="rect" id="node2" href="$brilliantrussian_8h.html" title="M4RI and M4RM." alt="" coords="29,109,254,165"/>
+<area shape="rect" id="node3" href="$m4ri_8h.html" title="Main include file for the M4RI library." alt="" coords="253,317,478,373"/>
+<area shape="rect" id="node5" href="$ple__russian_8h.html" title="PLE and PLUQ factorization using Gray codes." alt="" coords="327,213,553,269"/>
+<area shape="rect" id="node6" href="$ple_8h.html" title="PLE and PLUQ matrix decomposition routines." alt="" coords="577,213,802,269"/>
+<area shape="rect" id="node7" href="$solve_8h.html" title="System solving with matrix routines." alt="" coords="675,109,901,165"/>
+<area shape="rect" id="node4" href="$strassen_8h.html" title="Matrix operations using Strassen&#39;s formulas including Winograd&#39;s improvements." alt="" coords="29,213,254,269"/>
+</map>

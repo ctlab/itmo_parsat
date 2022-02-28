@@ -21,83 +21,78 @@
 
 #include <unistd.h>
 
-using namespace std;
+namespace painless {
 
-// Main executed by worker threads
-void* mainWorker(void* arg) {
-  SequentialWorker* sq = (SequentialWorker*) arg;
-
+void SequentialWorker::main_worker_thread() {
   PSatResult res = PUNKNOWN;
+  std::vector<int> model;
 
-  vector<int> model;
-
-  while (!sq->result->globalEnding && !sq->force) {
-    pthread_mutex_lock(&sq->mutexStart);
-
-    if (sq->waitJob) {
-      pthread_cond_wait(&sq->mutexCondStart, &sq->mutexStart);
+  while (!_stop) {
+    std::unique_lock<std::mutex> ul_job(start_mutex);
+    start_cv.wait(ul_job, [this] { return _stop || !waitJob; });
+    if (_stop) {
+      break;
     }
+    if (waitJob) {
+      continue;
+    }
+    ul_job.unlock();
 
-    pthread_mutex_unlock(&sq->mutexStart);
-
-    sq->waitInterruptLock.lock();
-
-    do {
-      res = sq->solver->solve(sq->actualCube);
-    } while (!sq->force && res == PUNKNOWN);
-
-    sq->waitInterruptLock.unlock();
+    {
+      std::lock_guard<std::mutex> lg_int(interrupt_lock);
+      do {
+        res = solver->solve(actualCube);
+      } while (!force && res == PUNKNOWN);
+    }
 
     if (res == PSAT) {
-      model = sq->solver->getModel();
+      model = solver->getModel();
     }
 
-    sq->join(NULL, res, model);
-
+    join(nullptr, res, model);
     model.clear();
-
-    sq->waitJob = true;
+    waitJob = true;
   }
-
-  return NULL;
 }
 
-// Constructor
-SequentialWorker::SequentialWorker(SolverInterface* solver_) {
+SequentialWorker::SequentialWorker(WorkingResult* working_result, SolverInterface* solver_)
+    : WorkingStrategy(working_result) {
   solver = solver_;
   force = false;
   waitJob = true;
-
-  pthread_mutex_init(&mutexStart, NULL);
-  pthread_cond_init(&mutexCondStart, NULL);
-
-  worker = new Thread(mainWorker, this);
+  worker = std::thread([this] { main_worker_thread(); });
 }
 
-// Destructor
-SequentialWorker::~SequentialWorker() {
+SequentialWorker::~SequentialWorker() noexcept {
+  stop();
+}
+
+void SequentialWorker::stop() {
   force = true;
   solver->setSolverInterrupt();
+  {
+    std::lock_guard<std::mutex> lg(start_mutex);
+    _stop = true;
+  }
+  start_cv.notify_all();
 
-  worker->join();
-  delete worker;
+  if (worker.joinable()) {
+    worker.join();
+  }
+}
 
-  pthread_mutex_destroy(&mutexStart);
-  pthread_cond_destroy(&mutexCondStart);
-
-  solver->release();
+void SequentialWorker::awaitStop() {
+  stop();
 }
 
 void SequentialWorker::solve(const vector<int>& cube) {
   actualCube = cube;
-
   unsetInterrupt();
-
-  waitJob = false;
-
-  pthread_mutex_lock(&mutexStart);
-  pthread_cond_signal(&mutexCondStart);
-  pthread_mutex_unlock(&mutexStart);
+  {
+    std::lock_guard<std::mutex> lg(start_mutex);
+    waitJob = false;
+  }
+  start_cv.notify_one();
 }
 
 void SequentialWorker::join(WorkingStrategy* winner, PSatResult res, const vector<int>& model) {
@@ -119,8 +114,7 @@ void SequentialWorker::join(WorkingStrategy* winner, PSatResult res, const vecto
 }
 
 void SequentialWorker::waitInterrupt() {
-  waitInterruptLock.lock();
-  waitInterruptLock.unlock();
+  std::lock_guard<std::mutex> lg(interrupt_lock);
 }
 
 void SequentialWorker::setInterrupt() {
@@ -144,3 +138,5 @@ void SequentialWorker::setPhase(const int var, const bool phase) {
 void SequentialWorker::bumpVariableActivity(const int var, const int times) {
   solver->bumpVariableActivity(var, times);
 }
+
+}  // namespace painless

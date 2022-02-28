@@ -11,8 +11,7 @@ State SimpSolver::solve(vec_lit_t const& assumptions) {
 
 #if 1
   Minisat::lbool result = IPS_TRACE_N_V(
-      "SimpSolver::solve",
-      static_cast<Minisat::SimpSolver*>(this)->solveLimited(assumptions));
+      "SimpSolver::solve", static_cast<Minisat::SimpSolver*>(this)->solveLimited(assumptions));
   if (result == Minisat::l_True) {
     return SAT;
   } else if (result == Minisat::l_False) {
@@ -21,10 +20,9 @@ State SimpSolver::solve(vec_lit_t const& assumptions) {
     return UNKNOWN;
   }
 #else
-//  verbosity = 2;
+  //  verbosity = 2;
   bool result = IPS_TRACE_N_V(
-      "SimpSolver::solve",
-      static_cast<MS_NS::SimpSolver*>(this)->solve(assumptions, true, false));
+      "SimpSolver::solve", static_cast<MS_NS::SimpSolver*>(this)->solve(assumptions, true, false));
   return result ? SAT : UNSAT;
 #endif
 }
@@ -42,7 +40,7 @@ unsigned SimpSolver::num_vars() const noexcept {
 }
 
 bool SimpSolver::propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) {
-    return IPS_TRACE_N_V("SimpSolver::propagate_confl", _propagate_confl(assumptions));
+  return IPS_TRACE_N_V("SimpSolver::propagate_confl", _propagate_confl(assumptions));
 }
 
 REGISTER_SIMPLE(Solver, SimpSolver);

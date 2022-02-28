@@ -22,20 +22,23 @@ Inheritance diagram for core\+::sat\+::prop\+::Prop\+:
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-typedef std\+::function$<$ bool(bool, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \&)$>$ \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a8b1a3b21d711913befbcaa0d2e8ad727}{prop\+\_\+callback\+\_\+t}}
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a5b7b92d63ef9b523b8f6033b4a957a26}\label{classcore_1_1sat_1_1prop_1_1Prop_a5b7b92d63ef9b523b8f6033b4a957a26}} 
+typedef \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ {\bfseries vec\+\_\+lit\+\_\+t}
+\item 
+typedef std\+::function$<$ bool(bool, \mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const  \&)$>$ \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a4ec966ffe86b6f783db306aa96a8807b}{prop\+\_\+callback\+\_\+t}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a528c2a9c9fb63e471fbd99d2f5f06d44}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem)=0
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a4c1573e7cd50ef65620855f73d13ce3f}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions, Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&propagated)=0
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a2bede5cb6bcd390e80b19c8129ff9a0e}{propagate}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions, \mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} \&propagated)=0
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ad90b01c01f8287663c0096f2b69eb440}{propagate}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&assumptions)
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a5d21508de0f225330d7cd7dc84bef398}{propagate}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions)
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a37d0fd0a07d41a5e1696c6aa15234589}{prop\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a8b1a3b21d711913befbcaa0d2e8ad727}{prop\+\_\+callback\+\_\+t}} const \&callback)
+virtual void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a37d0fd0a07d41a5e1696c6aa15234589}{prop\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a4ec966ffe86b6f783db306aa96a8807b}{prop\+\_\+callback\+\_\+t}} const \&callback)
 \begin{DoxyCompactList}\small\item\em Propagates all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
-virtual uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ab5dfb8622e69ffc873c40b665f2e939b}{prop\+\_\+tree}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&vars, uint32\+\_\+t head\+\_\+size)=0
+virtual uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_afa8ee171af44f985ddda4480cc1036e5}{prop\+\_\+tree}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&vars, uint32\+\_\+t head\+\_\+size)=0
 \item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2e4ce7be04f1ea1de3cbc385f2}\label{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2e4ce7be04f1ea1de3cbc385f2}} 
 virtual uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2e4ce7be04f1ea1de3cbc385f2}{num\+\_\+vars}} () const noexcept=0
@@ -46,11 +49,11 @@ virtual uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2
 S\+AT Propagation interface. 
 
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a8b1a3b21d711913befbcaa0d2e8ad727}\label{classcore_1_1sat_1_1prop_1_1Prop_a8b1a3b21d711913befbcaa0d2e8ad727}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a4ec966ffe86b6f783db306aa96a8807b}\label{classcore_1_1sat_1_1prop_1_1Prop_a4ec966ffe86b6f783db306aa96a8807b}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!prop\_callback\_t@{prop\_callback\_t}}
 \index{prop\_callback\_t@{prop\_callback\_t}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{prop\_callback\_t}{prop\_callback\_t}}
-{\footnotesize\ttfamily typedef std\+::function$<$ bool( bool, Minisat\+::vec$<$Minisat\+::\+Lit$>$ const\& )$>$ \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a8b1a3b21d711913befbcaa0d2e8ad727}{core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+callback\+\_\+t}}}
+{\footnotesize\ttfamily typedef std\+::function$<$ bool( bool, \mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const\& )$>$ \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a4ec966ffe86b6f783db306aa96a8807b}{core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+callback\+\_\+t}}}
 
 Callbacks types must be thread safe for asynchronous implementations. 
 
@@ -78,7 +81,7 @@ Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a2ea8aa51556
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!prop\_assignments@{prop\_assignments}}
 \index{prop\_assignments@{prop\_assignments}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}}
-{\footnotesize\ttfamily void core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a8b1a3b21d711913befbcaa0d2e8ad727}{prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a4ec966ffe86b6f783db306aa96a8807b}{prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -95,23 +98,23 @@ Propagates all assignments by the given iterator and calls callback respectively
 
 Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_ae392f2128831436a9e15e68bc274b8d4}{core\+::sat\+::prop\+::\+Par\+Prop}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_ab5dfb8622e69ffc873c40b665f2e939b}\label{classcore_1_1sat_1_1prop_1_1Prop_ab5dfb8622e69ffc873c40b665f2e939b}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_afa8ee171af44f985ddda4480cc1036e5}\label{classcore_1_1sat_1_1prop_1_1Prop_afa8ee171af44f985ddda4480cc1036e5}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!prop\_tree@{prop\_tree}}
 \index{prop\_tree@{prop\_tree}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
-{\footnotesize\ttfamily virtual uint64\+\_\+t core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual uint64\+\_\+t core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]\+: documentation \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000017}{Todo}}]\+: documentation \end{DoxyRefDesc}
 
 
-Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a6dcfa4fea83f4cd653abc8e8a63aa4df}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_aea84f6c1ec402529f4ad9f7b38e58276}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
+Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a5cdc59f2473b31ac4e6a1ebc91e62c28}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_adca96df0c797ff10ad5e931c5fc40353}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_ad90b01c01f8287663c0096f2b69eb440}\label{classcore_1_1sat_1_1prop_1_1Prop_ad90b01c01f8287663c0096f2b69eb440}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a5d21508de0f225330d7cd7dc84bef398}\label{classcore_1_1sat_1_1prop_1_1Prop_a5d21508de0f225330d7cd7dc84bef398}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -127,13 +130,13 @@ true if and only if conflict occurred.
 \end{DoxyReturn}
 
 
-Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a8d74861b9503d1a67d50821334c9fb4a}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
+Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_ad1990c55cd18c8b88a300e6e2925232f}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a4c1573e7cd50ef65620855f73d13ce3f}\label{classcore_1_1sat_1_1prop_1_1Prop_a4c1573e7cd50ef65620855f73d13ce3f}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a2bede5cb6bcd390e80b19c8129ff9a0e}\label{classcore_1_1sat_1_1prop_1_1Prop_a2bede5cb6bcd390e80b19c8129ff9a0e}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily virtual bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&}]{assumptions,  }\item[{Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions,  }\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -154,7 +157,7 @@ true if and only if conflict occurred.
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a4a054aa235cc08a8171ec9d35eb5f17b}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_af618cd983b7b89a5744bfa9d13372529}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
+Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a8190f90b8ad4952fe685e790720527df}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_ad82146313e5f0aba2c717a76a76d8b24}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
 
 
 

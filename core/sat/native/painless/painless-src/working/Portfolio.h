@@ -19,32 +19,36 @@
 
 #pragma once
 
-#include "../working/WorkingStrategy.h"
+#include "core/sat/native/painless/painless-src/working/WorkingStrategy.h"
 
-using namespace std;
+namespace painless {
 
 class Portfolio : public WorkingStrategy {
  public:
-  Portfolio();
+  Portfolio(WorkingResult* working_result);
 
-  ~Portfolio();
+  ~Portfolio() noexcept;
 
-  void solve(const vector<int>& cube);
+  void solve(const vector<int>& cube) override;
 
-  void join(WorkingStrategy* strat, PSatResult res, const vector<int>& model);
+  void join(WorkingStrategy* strat, PSatResult res, const vector<int>& model) override;
 
-  void setInterrupt();
+  void setInterrupt() override;
 
-  void unsetInterrupt();
+  void unsetInterrupt() override;
 
-  void waitInterrupt();
+  void waitInterrupt() override;
 
-  int getDivisionVariable();
+  int getDivisionVariable() override;
 
-  void setPhase(int var, bool value);
+  void setPhase(int var, bool value) override;
 
-  void bumpVariableActivity(int var, int times);
+  void awaitStop() override;
+
+  void bumpVariableActivity(int var, int times) override;
 
  protected:
-  atomic<bool> strategyEnding;
+  std::atomic<bool> strategyEnding;
 };
+
+}  // namespace painless

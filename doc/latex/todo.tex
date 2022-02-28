@@ -1,12 +1,27 @@
 
 \begin{DoxyRefList}
-\item[Member \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_ada2a15f673a1f552b52bb6138a5f11a5}{core::domain::Cartesian\+Search::Cartesian\+Search}} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ Minisat\+::\+Lit $>$$>$$>$ const \&cartesian)]\label{todo__todo000001}%
+\item[Member \mbox{\hyperlink{strassen_8h_a6ad9c4c4d3ab2ec65f610a17d66cebb0}{\+\_\+mzd\+\_\+addmul\+\_\+even}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$C, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$A, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$B, int cutoff)]\label{todo__todo000012}%
+\Hypertarget{todo__todo000012}%
+make sure not to overwrite crap after ncols and before width $\ast$ m4ri\+\_\+radix  
+\item[Member \mbox{\hyperlink{strassen_8h_a8432a43d231b2aeaf118d21b35d817ce}{\+\_\+mzd\+\_\+mul\+\_\+even}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$C, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$A, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$B, int cutoff)]\label{todo__todo000011}%
+\Hypertarget{todo__todo000011}%
+ideally we would use the same Wmk throughout the function but some called function doesn\textquotesingle{}t like that and we end up with a wrong result if we use virtual Wmk matrices. Ideally, this should be fixed not worked around. The check whether the bug has been fixed, use only one Wmk and check if mzd\+\_\+mul(4096, 3528, 4096, 2124) still returns the correct answer.  
+\item[Member \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_a40aebd1ac557c77a5b52dda0cece8dc7}{core::domain::Cartesian\+Search::Cartesian\+Search}} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ Mini\+::\+Lit $>$$>$$>$ const \&cartesian)]\label{todo__todo000001}%
 \Hypertarget{todo__todo000001}%
 \+: remove copy-\/paste  
-\item[Member \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ab5dfb8622e69ffc873c40b665f2e939b}{core::sat::prop::Prop::prop\+\_\+tree}} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const \&vars, uint32\+\_\+t head\+\_\+size)=0]\label{todo__todo000003}%
-\Hypertarget{todo__todo000003}%
+\item[Member \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_afa8ee171af44f985ddda4480cc1036e5}{core::sat::prop::Prop::prop\+\_\+tree}} (vec\+\_\+lit\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size)=0]\label{todo__todo000017}%
+\Hypertarget{todo__todo000017}%
 \+: documentation  
 \item[Member \mbox{\hyperlink{classea_1_1instance_1_1Instance_a597c6255ccc1a074c3b7e96f2382e412}{ea::instance::Instance::num\+\_\+vars}} () const noexcept]\label{todo__todo000002}%
 \Hypertarget{todo__todo000002}%
-The fact that this method is here is very bad. 
+The fact that this method is here is very bad.  
+\item[Member \mbox{\hyperlink{misc_8h_a99247474582ef8ad10ddabd2be39af61}{m4ri\+\_\+die}} (const char $\ast$errormessage,...)]\label{todo__todo000003}%
+\Hypertarget{todo__todo000003}%
+Allow user to register callback which is called on \mbox{\hyperlink{misc_8h_a99247474582ef8ad10ddabd2be39af61}{m4ri\+\_\+die()}}. 
+\item[Member \mbox{\hyperlink{misc_8h_acfff993c60874755b199fec125de613a}{m4ri\+\_\+random\+\_\+word}} ()]\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+Allow user to provide her own random() function.  
+\item[Member \mbox{\hyperlink{mzd_8h_a3167fa0d3b20f8a707e1aa98562be7fa}{mzd\+\_\+randomize}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$M)]\label{todo__todo000010}%
+\Hypertarget{todo__todo000010}%
+Allow the user to provide a R\+NG callback. 
 \end{DoxyRefList}

@@ -1,0 +1,44 @@
+\hypertarget{classSolverFactory}{}\doxysection{Solver\+Factory Class Reference}
+\label{classSolverFactory}\index{SolverFactory@{SolverFactory}}
+
+
+Factory to create solvers.  
+
+
+
+
+{\ttfamily \#include $<$Solver\+Factory.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSolverFactory_a541ff2166d34c891004bffe8d08e3bc3}\label{classSolverFactory_a541ff2166d34c891004bffe8d08e3bc3}} 
+static \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ \mbox{\hyperlink{classSolverFactory_a541ff2166d34c891004bffe8d08e3bc3}{create\+Maple\+C\+O\+M\+S\+P\+S\+Solver}} (int lbd\+\_\+limit)
+\begin{DoxyCompactList}\small\item\em Instantiate and return a Maple\+C\+O\+M\+S\+PS solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSolverFactory_a9f9b6a7a708af837bb6230334ea9fe79}\label{classSolverFactory_a9f9b6a7a708af837bb6230334ea9fe79}} 
+static void \mbox{\hyperlink{classSolverFactory_a9f9b6a7a708af837bb6230334ea9fe79}{create\+Maple\+C\+O\+M\+S\+P\+S\+Solvers}} (int lbd\+\_\+limit, int max\+\_\+memory, int group\+Size, vector$<$ \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ $>$ \&solvers)
+\begin{DoxyCompactList}\small\item\em Instantiate and return a group of Maple\+C\+O\+M\+S\+PS solvers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSolverFactory_af6b3142929c2ee9a2c5c077d691578bf}\label{classSolverFactory_af6b3142929c2ee9a2c5c077d691578bf}} 
+static \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ {\bfseries create\+Reducer\+Solver} (\mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$solver)
+\item 
+\mbox{\Hypertarget{classSolverFactory_a993622449bf04a38be797647527e7e4c}\label{classSolverFactory_a993622449bf04a38be797647527e7e4c}} 
+static \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ \mbox{\hyperlink{classSolverFactory_a993622449bf04a38be797647527e7e4c}{clone\+Solver}} (\mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$other)
+\begin{DoxyCompactList}\small\item\em Clone and return a new solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSolverFactory_aedcb6e9fa995f23de19aeb4f90cad522}\label{classSolverFactory_aedcb6e9fa995f23de19aeb4f90cad522}} 
+static void \mbox{\hyperlink{classSolverFactory_aedcb6e9fa995f23de19aeb4f90cad522}{print\+Stats}} (const vector$<$ \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ $>$ \&solvers)
+\begin{DoxyCompactList}\small\item\em Print stats of a groupe of solvers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSolverFactory_a04d70b1be17373a74effda4bb7aaacad}\label{classSolverFactory_a04d70b1be17373a74effda4bb7aaacad}} 
+static void \mbox{\hyperlink{classSolverFactory_a04d70b1be17373a74effda4bb7aaacad}{sparse\+Random\+Diversification}} (const vector$<$ \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ $>$ \&solvers)
+\begin{DoxyCompactList}\small\item\em Apply a sparse and random diversification on solvers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSolverFactory_a4942cdf6d96b58be55ad50c4f4634a96}\label{classSolverFactory_a4942cdf6d96b58be55ad50c4f4634a96}} 
+static void \mbox{\hyperlink{classSolverFactory_a4942cdf6d96b58be55ad50c4f4634a96}{native\+Diversification}} (const vector$<$ \mbox{\hyperlink{classSolverInterface}{Solver\+Interface}} $\ast$ $>$ \&solvers)
+\begin{DoxyCompactList}\small\item\em Apply a native diversification on solvers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Factory to create solvers. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/painless/painless-\/src/solvers/Solver\+Factory.\+h\item 
+core/sat/native/painless/painless-\/src/solvers/Solver\+Factory.\+cpp\end{DoxyCompactItemize}

@@ -11,8 +11,7 @@ State MapleCOMSPSSolver::solve(vec_lit_t const& assumptions) {
 
 #if 1
   MapleCOMSPS::lbool result = IPS_TRACE_N_V(
-      "MapleCOMSPS::solve",
-      static_cast<MapleCOMSPS::SimpSolver*>(this)->solveLimited(assumptions));
+      "MapleCOMSPS::solve", static_cast<MapleCOMSPS::SimpSolver*>(this)->solveLimited(assumptions));
   if (result == MapleCOMSPS::l_True) {
     return SAT;
   } else if (result == MapleCOMSPS::l_False) {
@@ -21,10 +20,9 @@ State MapleCOMSPSSolver::solve(vec_lit_t const& assumptions) {
     return UNKNOWN;
   }
 #else
-//  verbosity = 2;
+  //  verbosity = 2;
   bool result = IPS_TRACE_N_V(
-      "SimpSolver::solve",
-      static_cast<MS_NS::SimpSolver*>(this)->solve(assumptions, true, false));
+      "SimpSolver::solve", static_cast<MS_NS::SimpSolver*>(this)->solve(assumptions, true, false));
   return result ? SAT : UNSAT;
 #endif
 }
@@ -42,7 +40,7 @@ unsigned MapleCOMSPSSolver::num_vars() const noexcept {
 }
 
 bool MapleCOMSPSSolver::propagate_confl(vec_lit_t const& assumptions) {
-    return IPS_TRACE_N_V("SimpSolver::propagate_confl", _propagate_confl(assumptions));
+  return IPS_TRACE_N_V("SimpSolver::propagate_confl", _propagate_confl(assumptions));
 }
 
 REGISTER_SIMPLE(Solver, MapleCOMSPSSolver);

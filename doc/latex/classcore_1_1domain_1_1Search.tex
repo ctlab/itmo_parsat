@@ -19,13 +19,19 @@ Inheritance diagram for core\+::domain\+::Search\+:
 \includegraphics[width=350pt]{classcore_1_1domain_1_1Search__inherit__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a586b501c80440d9cfa6e527f2a771366}\label{classcore_1_1domain_1_1Search_a586b501c80440d9cfa6e527f2a771366}} 
+typedef \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ {\bfseries lit\+\_\+vec\+\_\+t}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1Search_af86b664048d4b714e383fcc339988bc5}\label{classcore_1_1domain_1_1Search_af86b664048d4b714e383fcc339988bc5}} 
 {\bfseries Search} (uint64\+\_\+t total)
 \item 
-virtual Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{operator()}} () const =0
+virtual \mbox{\hyperlink{classMini_1_1vec}{lit\+\_\+vec\+\_\+t}} const  \& \mbox{\hyperlink{classcore_1_1domain_1_1Search_a1418d5a00cf20ddbea9ba1571d29477e}{operator()}} () const =0
 \item 
 bool \mbox{\hyperlink{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3fa8ae9}{operator++}} ()
 \begin{DoxyCompactList}\small\item\em Steps to the next search. \end{DoxyCompactList}\item 
@@ -55,8 +61,8 @@ virtual void {\bfseries \+\_\+reset} ()=0
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a214d487bd43e2ccc9a0250d19e668877}\label{classcore_1_1domain_1_1Search_a214d487bd43e2ccc9a0250d19e668877}} 
-static void {\bfseries \+\_\+set\+\_\+assignment} (Minisat\+::vec$<$ Minisat\+::\+Lit $>$ \&vec, uint64\+\_\+t value)
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a78ab66de9fb195740ceb7f5f08455002}\label{classcore_1_1domain_1_1Search_a78ab66de9fb195740ceb7f5f08455002}} 
+static void {\bfseries \+\_\+set\+\_\+assignment} (\mbox{\hyperlink{classMini_1_1vec}{lit\+\_\+vec\+\_\+t}} \&vec, uint64\+\_\+t value)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -105,18 +111,18 @@ Implemented in \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_a6292070a225
 \begin{DoxyReturn}{Returns}
 equivalent to \mbox{\hyperlink{classcore_1_1domain_1_1Search_a9a862b210186e060fb96d45c4a670983}{Search\+::size()}} == 0. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}\label{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}} 
+\mbox{\Hypertarget{classcore_1_1domain_1_1Search_a1418d5a00cf20ddbea9ba1571d29477e}\label{classcore_1_1domain_1_1Search_a1418d5a00cf20ddbea9ba1571d29477e}} 
 \index{core::domain::Search@{core::domain::Search}!operator()@{operator()}}
 \index{operator()@{operator()}!core::domain::Search@{core::domain::Search}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily virtual Minisat\+::vec$<$Minisat\+::\+Lit$>$ const\& core\+::domain\+::\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classMini_1_1vec}{lit\+\_\+vec\+\_\+t}} const\& core\+::domain\+::\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 \begin{DoxyReturn}{Returns}
 the current assignment 
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_a33aa55305bf94833c85b155eb25dbf6e}{core\+::domain\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_aa751e3e4177d9bedabe217452630802a}{core\+::domain\+::\+Unique\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_aefac5a2e44d4a8635b812f708b288316}{core\+::domain\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ac4af45116b197f56fa6f0f9f575e3c14}{core\+::domain\+::\+Full\+Search}}, and \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}{core\+::domain\+::\+Random\+Search}}.
+Implemented in \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_ac213af2e09a226bcd87fcdf56842ccda}{core\+::domain\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_a6054f69d00108754a4e933bdd4d0c46e}{core\+::domain\+::\+Unique\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1CartesianSearch_aa3efb96ba89f771f4914d1a158274ecd}{core\+::domain\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_a5ebbec8ba15647d14c52a45beb16bdc0}{core\+::domain\+::\+Full\+Search}}, and \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_a19050f8ef05dd2959256b1e34a96e8be}{core\+::domain\+::\+Random\+Search}}.
 
 \mbox{\Hypertarget{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3fa8ae9}\label{classcore_1_1domain_1_1Search_a1f946f62e83bd43f82993559b3fa8ae9}} 
 \index{core::domain::Search@{core::domain::Search}!operator++@{operator++}}

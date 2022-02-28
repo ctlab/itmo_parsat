@@ -79,24 +79,28 @@ $(function() {
 <p>SAT <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface.">Solver</a> interface.  
  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="Solver_8h_source.html">Solver.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="solver_2Solver_8h_source.html">Solver.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for core::sat::solver::Solver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1solver_1_1Solver__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1solver_1_1Solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1solver_1_1Solver_inherit__map" id="core_1_1sat_1_1solver_1_1Solver_inherit__map">
-<area shape="rect" title="SAT Solver interface." alt="" coords="5,104,140,145"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1HordeSatSolver.html" title=" " alt="" coords="188,5,323,47"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html" title=" " alt="" coords="188,71,323,112"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1ParSolver.html" title="Parallel solver implementation." alt="" coords="188,136,323,177"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="188,201,323,243"/>
+<area shape="rect" title="SAT Solver interface." alt="" coords="5,136,140,177"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html" title=" " alt="" coords="200,5,335,47"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="188,71,347,112"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html" title=" " alt="" coords="200,136,335,177"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1ParSolver.html" title="Parallel solver implementation." alt="" coords="200,201,335,243"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="200,267,335,308"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac03623f555c568e06537a83b13a624a7"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">slv_callback_t</a></td></tr>
-<tr class="separator:ac03623f555c568e06537a83b13a624a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade906b7365166cad0de42a30830f51e8"><td class="memItemLeft" align="right" valign="top"><a id="ade906b7365166cad0de42a30830f51e8"></a>
+typedef <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>vec_lit_t</b></td></tr>
+<tr class="separator:ade906b7365166cad0de42a30830f51e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476624487e5c3235b618d5017786af58"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(State, bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a476624487e5c3235b618d5017786af58">slv_callback_t</a></td></tr>
+<tr class="separator:a476624487e5c3235b618d5017786af58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -104,12 +108,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa65828d34692b28456b4078dec908157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">More...</a><br /></td></tr>
 <tr class="separator:aa65828d34692b28456b4078dec908157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54bb85350ce89403b8a66bfe6d708cc7"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a54bb85350ce89403b8a66bfe6d708cc7">solve_limited</a> ()</td></tr>
-<tr class="memdesc:a54bb85350ce89403b8a66bfe6d708cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a39ee40aaa252078dfc6964ff99abf3bf" title="Runs solution with the specified assumptions.">Solver::solve</a>({}).  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#a54bb85350ce89403b8a66bfe6d708cc7">More...</a><br /></td></tr>
+<tr class="memdesc:a54bb85350ce89403b8a66bfe6d708cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ab1b37c445aba31024d59e32061f32586" title="Runs solution with the specified assumptions.">Solver::solve</a>({}).  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#a54bb85350ce89403b8a66bfe6d708cc7">More...</a><br /></td></tr>
 <tr class="separator:a54bb85350ce89403b8a66bfe6d708cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39ee40aaa252078dfc6964ff99abf3bf"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a39ee40aaa252078dfc6964ff99abf3bf">solve</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
-<tr class="memdesc:a39ee40aaa252078dfc6964ff99abf3bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#a39ee40aaa252078dfc6964ff99abf3bf">More...</a><br /></td></tr>
-<tr class="separator:a39ee40aaa252078dfc6964ff99abf3bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c5ed3425646f54ce97201aff8c883dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a0c5ed3425646f54ce97201aff8c883dd">solve_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">slv_callback_t</a> const &amp;callback)</td></tr>
+<tr class="memitem:ab1b37c445aba31024d59e32061f32586"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ab1b37c445aba31024d59e32061f32586">solve</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions)=0</td></tr>
+<tr class="memdesc:ab1b37c445aba31024d59e32061f32586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#ab1b37c445aba31024d59e32061f32586">More...</a><br /></td></tr>
+<tr class="separator:ab1b37c445aba31024d59e32061f32586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c5ed3425646f54ce97201aff8c883dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a0c5ed3425646f54ce97201aff8c883dd">solve_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a476624487e5c3235b618d5017786af58">slv_callback_t</a> const &amp;callback)</td></tr>
 <tr class="memdesc:a0c5ed3425646f54ce97201aff8c883dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves CNF on all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#a0c5ed3425646f54ce97201aff8c883dd">More...</a><br /></td></tr>
 <tr class="separator:a0c5ed3425646f54ce97201aff8c883dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f22bb52001026a96719cbcdd5dafceb"><td class="memItemLeft" align="right" valign="top"><a id="a2f22bb52001026a96719cbcdd5dafceb"></a>
@@ -128,8 +132,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">num_vars</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a27940fb676610241500f1a99529d02fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
 <tr class="separator:a27940fb676610241500f1a99529d02fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62e6dfc469ae00cc045b4233a3712f8f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a62e6dfc469ae00cc045b4233a3712f8f">propagate_confl</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)=0</td></tr>
-<tr class="separator:a62e6dfc469ae00cc045b4233a3712f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46e763dfe58cfcbd622bf46784558e18"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a46e763dfe58cfcbd622bf46784558e18">propagate_confl</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions)=0</td></tr>
+<tr class="separator:a46e763dfe58cfcbd622bf46784558e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -143,14 +147,14 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SAT <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface.">Solver</a> interface. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ac03623f555c568e06537a83b13a624a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac03623f555c568e06537a83b13a624a7">&#9670;&nbsp;</a></span>slv_callback_t</h2>
+<a id="a476624487e5c3235b618d5017786af58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476624487e5c3235b618d5017786af58">&#9670;&nbsp;</a></span>slv_callback_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::function&lt; bool( State, bool, Minisat::vec&lt;Minisat::Lit&gt; const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">core::sat::solver::Solver::slv_callback_t</a></td>
+          <td class="memname">typedef std::function&lt; bool( State, bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a476624487e5c3235b618d5017786af58">core::sat::solver::Solver::slv_callback_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -191,12 +195,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#a1f028eed2efe1f75ab8461e0aaa8b51c">core::sat::solver::ParSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1HordeSatSolver.html#af4c5b8de76defe6ad83ce48e8ae75f15">core::sat::solver::HordeSatSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html#a85cc09941c763e44d0f57d596eb2f876">core::sat::solver::LingelingSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#ae3739bae7f3b02d0d4ea62c0f160c122">core::sat::solver::SimpSolver</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#a1f028eed2efe1f75ab8461e0aaa8b51c">core::sat::solver::ParSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a45ad7cefb7a4e768951a974eb7f53a44">core::sat::solver::MapleCOMSPSSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#ae3739bae7f3b02d0d4ea62c0f160c122">core::sat::solver::SimpSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">core::sat::solver::PainlessSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html#a85cc09941c763e44d0f57d596eb2f876">core::sat::solver::LingelingSolver</a>.</p>
 
 </div>
 </div>
-<a id="a62e6dfc469ae00cc045b4233a3712f8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62e6dfc469ae00cc045b4233a3712f8f">&#9670;&nbsp;</a></span>propagate_confl()</h2>
+<a id="a46e763dfe58cfcbd622bf46784558e18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46e763dfe58cfcbd622bf46784558e18">&#9670;&nbsp;</a></span>propagate_confl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +211,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
         <tr>
           <td class="memname">virtual bool core::sat::solver::Solver::propagate_confl </td>
           <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -226,12 +230,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>whether these assumptions lead to conflict </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1HordeSatSolver.html#a3fa8bb7c442c8999423e9b1fe5e3fae7">core::sat::solver::HordeSatSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#a8df29c250fc558e3c5b07cced4add862">core::sat::solver::ParSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html#a65e0ebd2c07ffd9d2f5defecfb678eba">core::sat::solver::LingelingSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a9e9b5297e46599ba5d91ba0baec9f85d">core::sat::solver::SimpSolver</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#ab8aa31e398256a2194913d89b4c2df24">core::sat::solver::ParSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a30597815be297472aa99da7d03c34718">core::sat::solver::MapleCOMSPSSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#aad52c629c7fe00a5fdc5a02bbe80529d">core::sat::solver::SimpSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a2122008f95a50fd273f24a541f1a2d85">core::sat::solver::PainlessSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html#a90a754cbd2b5378f7d99faccb5dd2154">core::sat::solver::LingelingSolver</a>.</p>
 
 </div>
 </div>
-<a id="a39ee40aaa252078dfc6964ff99abf3bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39ee40aaa252078dfc6964ff99abf3bf">&#9670;&nbsp;</a></span>solve()</h2>
+<a id="ab1b37c445aba31024d59e32061f32586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b37c445aba31024d59e32061f32586">&#9670;&nbsp;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +246,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
         <tr>
           <td class="memname">virtual State core::sat::solver::Solver::solve </td>
           <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -263,7 +267,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the result of solving. </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#abcb4038b6723b7e81f9ff30cd5a22132">core::sat::solver::ParSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1HordeSatSolver.html#aec45dabfc6cf1750c5042adf97ed2373">core::sat::solver::HordeSatSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html#ac116362ea1eaa07c3157173c2bb6b6c4">core::sat::solver::LingelingSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#acd8656fe670652e99ba640cf67014fb5">core::sat::solver::SimpSolver</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#a1e5fd6f6e6840a30caf7dc9ef0c7e746">core::sat::solver::ParSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a5e6f2861da5257d7fd4032f000385499">core::sat::solver::MapleCOMSPSSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a142d0cb35b0c3594ac6acdc9cf812995">core::sat::solver::SimpSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#ab7b4a604b55a6a764594d915ffef3b19">core::sat::solver::PainlessSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1LingelingSolver.html#a90821f9a091e614e069b66ffb419136c">core::sat::solver::LingelingSolver</a>.</p>
 
 </div>
 </div>
@@ -285,7 +289,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7">slv_callback_t</a> const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a476624487e5c3235b618d5017786af58">slv_callback_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>
@@ -310,7 +314,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1HordeSatSolver.html#a60cb2fc8392b2b7da6e668fe4d9b6a03">core::sat::solver::HordeSatSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#ad3f7d2adb735b68058d3b07c2b493409">core::sat::solver::ParSolver</a>.</p>
+<p>Reimplemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1ParSolver.html#ad3f7d2adb735b68058d3b07c2b493409">core::sat::solver::ParSolver</a>.</p>
 
 </div>
 </div>
@@ -329,13 +333,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_do_clear_int
       </table>
 </div><div class="memdoc">
 
-<p>Equivalent to <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a39ee40aaa252078dfc6964ff99abf3bf" title="Runs solution with the specified assumptions.">Solver::solve</a>({}). </p>
+<p>Equivalent to <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#ab1b37c445aba31024d59e32061f32586" title="Runs solution with the specified assumptions.">Solver::solve</a>({}). </p>
 <dl class="section return"><dt>Returns</dt><dd>the result of solving. </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>core/sat/solver/<a class="el" href="Solver_8h_source.html">Solver.h</a></li>
+<li>core/sat/solver/<a class="el" href="solver_2Solver_8h_source.html">Solver.h</a></li>
 <li>core/sat/solver/Solver.cpp</li>
 </ul>
 </div><!-- contents -->

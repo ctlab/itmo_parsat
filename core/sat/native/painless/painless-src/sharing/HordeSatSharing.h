@@ -26,6 +26,8 @@
 #include <unordered_map>
 #include <vector>
 
+namespace painless {
+
 /// This strategy is a hordesat like sharing strategy.
 class HordeSatSharing : public SharingStrategy {
  public:
@@ -37,7 +39,7 @@ class HordeSatSharing : public SharingStrategy {
 
   /// This method shared clauses from the producers to the consumers.
   void doSharing(
-      int idSharer, const vector<SolverInterface*>& from, const vector<SolverInterface*>& to);
+      int idSharer, const std::vector<SolverInterface*>& from, const std::vector<SolverInterface*>& to);
 
   /// Return the sharing statistics of this sharng strategy.
   SharingStatistics getStatistics();
@@ -53,11 +55,13 @@ class HordeSatSharing : public SharingStrategy {
   int roundBeforeIncrease;
 
   /// Databse used to store the clauses.
-  unordered_map<int, ClauseDatabase*> databases;
+  std::unordered_map<int, ClauseDatabase*> databases;
 
   /// Sharing statistics.
   SharingStatistics stats;
 
   /// Used to manipulate clauses.
-  vector<ClauseExchange*> tmp;
+  std::vector<ClauseExchange*> tmp;
 };
+
+}  // namespace painless

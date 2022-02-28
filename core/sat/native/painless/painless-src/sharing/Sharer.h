@@ -19,10 +19,15 @@
 
 #pragma once
 
-#include "../sharing/SharingStrategy.h"
-#include "../utils/Threading.h"
+#include "core/sat/native/painless/painless-src/sharing/SharingStrategy.h"
+#include "core/sat/native/painless/painless-src/utils/Threading.h"
 
-static void* mainThrSharing(void* arg);
+#include <chrono>
+#include <mutex>
+#include <thread>
+#include <condition_variable>
+
+namespace painless {
 
 /// A sharer is a thread responsible to share clauses between solvers.
 class Sharer {
@@ -32,61 +37,44 @@ class Sharer {
       int shr_sleep_us, int id_, SharingStrategy* sharingStrategy_,
       vector<SolverInterface*> producers_, vector<SolverInterface*> consumer_);
 
-  /// Destructor.
-  ~Sharer();
+  ~Sharer() noexcept;
 
-  /// Add a solver to the producers.
   void addProducer(SolverInterface* solver);
 
-  /// Add a solver to the consumers.
   void addConsumer(SolverInterface* solver);
 
-  /// Remove a solver from the producers.
   void removeProducer(SolverInterface* solver);
 
-  /// Remove a solver from the consumers.
   void removeConsumer(SolverInterface* solver);
 
-  /// Print sharing statistics.
-  void printStats();
+ protected:
+  void do_remove();
+
+  void do_add();
+
+  void main_sharing_thread();
 
  protected:
-  friend void* mainThrSharing(void*);
-
-  /// Id of the sharer.
   int id;
-
   int shr_sleep_us;
+  bool _stop = false;
 
-  /// Strategy used to shared clauses.
   SharingStrategy* sharingStrategy;
 
-  /// Mutex used to add producers and consumers.
-  Mutex addLock;
+  std::mutex add_mutex;
+  std::mutex remove_mutex;
+  std::mutex share_mutex;
+  std::condition_variable share_cv;
+  std::thread sharer_thread;
 
-  /// Mutex used to add producers and consumers.
-  Mutex removeLock;
-
-  /// Vector of solvers to add to the producers.
-  vector<SolverInterface*> addProducers;
-
-  /// Vector of solvers to add to the consumers.
-  vector<SolverInterface*> addConsumers;
-
-  /// Vector of solvers to remove from the producers.
-  vector<SolverInterface*> removeProducers;
-
-  /// Vector of solvers to remove from the consumers.
-  vector<SolverInterface*> removeConsumers;
-
-  /// Vector of the producers.
-  vector<SolverInterface*> producers;
-
-  /// Vector of the consumers.
-  vector<SolverInterface*> consumers;
-
-  /// Pointer to the thread in chrage of sharing.
-  Thread* sharer;
+  std::vector<SolverInterface*> addProducers;
+  std::vector<SolverInterface*> addConsumers;
+  std::vector<SolverInterface*> removeProducers;
+  std::vector<SolverInterface*> removeConsumers;
+  std::vector<SolverInterface*> producers;
+  std::vector<SolverInterface*> consumers;
 
   WorkingResult* result;
 };
+
+}  // namespace painless

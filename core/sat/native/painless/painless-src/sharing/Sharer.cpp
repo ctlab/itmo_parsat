@@ -17,76 +17,59 @@
 // this program.  If not, see <http://www.gnu.org/licenses/>.
 // -----------------------------------------------------------------------------
 
-#include "../utils/Logger.h"
 #include "../sharing/Sharer.h"
 
 #include <algorithm>
 #include <unistd.h>
 
-/// Function exectuted by each sharer.
-/// This is main of sharer threads.
-/// @param  arg contains a pointeur to the associated class
-/// @return return NULL if the thread exit correctly
-static void* mainThrSharing(void* arg) {
-  Sharer* shr = (Sharer*) arg;
-  int round = 0;
-  int sleepTime = shr->shr_sleep_us;
+namespace painless {
 
-  while (true) {
-    // Sleep
-    usleep(sleepTime);
-
-    if (shr->result->globalEnding)
-      break;  // Need to stop
-
-    round++;  // New round
-
-    SharingStatistics stats = shr->sharingStrategy->getStatistics();
-    log(2, "Sharer %d enter in round  %d, received cls %ld, shared cls %ld\n", shr->id, round,
-        stats.receivedClauses, stats.sharedClauses);
-
-    // Add new solvers
-    // -------------------------
-    shr->addLock.lock();
-
-    shr->producers.insert(shr->producers.end(), shr->addProducers.begin(), shr->addProducers.end());
-    shr->addProducers.clear();
-
-    shr->consumers.insert(shr->consumers.end(), shr->addConsumers.begin(), shr->addConsumers.end());
-    shr->addConsumers.clear();
-
-    shr->addLock.unlock();
-
-    // Sharing phase
-    shr->sharingStrategy->doSharing(shr->id, shr->producers, shr->consumers);
-
-    // Remove solvers
-    // -------------------------
-    shr->removeLock.lock();
-
-    for (size_t i = 0; i < shr->removeProducers.size(); i++) {
-      shr->producers.erase(
-          remove(shr->producers.begin(), shr->producers.end(), shr->removeProducers[i]),
-          shr->producers.end());
-      shr->removeProducers[i]->release();
+void Sharer::do_remove() {
+  if (!removeConsumers.empty() || !removeProducers.empty()) {
+    std::lock_guard<std::mutex> lg(remove_mutex);
+    for (size_t i = 0; i < removeProducers.size(); i++) {
+      producers.erase(
+          remove(producers.begin(), producers.end(), removeProducers[i]), producers.end());
+      //      removeProducers[i]->release();
     }
-    shr->removeProducers.clear();
+    removeProducers.clear();
 
-    for (size_t i = 0; i < shr->removeConsumers.size(); i++) {
-      shr->consumers.erase(
-          remove(shr->consumers.begin(), shr->consumers.end(), shr->removeConsumers[i]),
-          shr->consumers.end());
-      shr->removeConsumers[i]->release();
+    for (size_t i = 0; i < removeConsumers.size(); i++) {
+      consumers.erase(
+          remove(consumers.begin(), consumers.end(), removeConsumers[i]), consumers.end());
+      //      removeConsumers[i]->release();
     }
-    shr->removeConsumers.clear();
-
-    shr->removeLock.unlock();
-
-    if (shr->result->globalEnding)
-      break;  // Need to stop
+    removeConsumers.clear();
   }
+}
 
-  return NULL;
+void Sharer::do_add() {
+  if (!addProducers.empty() || !removeConsumers.empty()) {
+    std::lock_guard<std::mutex> lg(add_mutex);
+    producers.insert(producers.end(), addProducers.begin(), addProducers.end());
+    addProducers.clear();
+    consumers.insert(consumers.end(), addConsumers.begin(), addConsumers.end());
+    addConsumers.clear();
+  }
+}
+
+void Sharer::main_sharing_thread() {
+  using namespace std::chrono_literals;
+  int round = 0;
+  std::chrono::duration sleep_dur = std::chrono::microseconds(shr_sleep_us);
+
+  for (;;) {
+    std::unique_lock<std::mutex> ul(share_mutex);
+    share_cv.wait_for(ul, sleep_dur, [this] { return _stop; });
+    if (_stop) {
+      break;
+    }
+    round++;
+
+    do_add();
+    sharingStrategy->doSharing(id, producers, consumers);
+    do_remove();
+  }
 }
 
 Sharer::Sharer(
@@ -99,66 +82,58 @@ Sharer::Sharer(
   this->consumers = consumers;
 
   for (size_t i = 0; i < producers.size(); i++) {
-    producers[i]->increase();
+    //    producers[i]->increase();
   }
-
   for (size_t i = 0; i < consumers.size(); i++) {
-    consumers[i]->increase();
+    //    consumers[i]->increase();
   }
-
-  sharer = new Thread(mainThrSharing, this);
+  sharer_thread = std::thread([this] { main_sharing_thread(); });
 }
 
-Sharer::~Sharer() {
-  sharer->join();
-  delete sharer;
-
-  removeLock.lock();
-
-  for (int i = 0; i < removeProducers.size(); i++) {
-    removeProducers[i]->release();
+Sharer::~Sharer() noexcept {
+  {
+    std::unique_lock<std::mutex> lg(share_mutex);
+    _stop = true;
+  }
+  share_cv.notify_all();
+  if (sharer_thread.joinable()) {
+    sharer_thread.join();
   }
 
-  for (size_t i = 0; i < removeConsumers.size(); i++) {
-    removeConsumers[i]->release();
+  {
+    std::lock_guard<std::mutex> lg(remove_mutex);
+    for (int i = 0; i < removeProducers.size(); i++) {
+      //      removeProducers[i]->release();
+    }
+    for (size_t i = 0; i < removeConsumers.size(); i++) {
+      //      removeConsumers[i]->release();
+    }
   }
-
-  removeLock.unlock();
 
   delete sharingStrategy;
 }
 
 void Sharer::addProducer(SolverInterface* solver) {
-  solver->increase();
-
-  addLock.lock();
+  //  solver->increase();
+  std::lock_guard<std::mutex> lg(add_mutex);
   addProducers.push_back(solver);
-  addLock.unlock();
 }
 
 void Sharer::addConsumer(SolverInterface* solver) {
-  solver->increase();
+  //  solver->increase();
 
-  addLock.lock();
+  std::lock_guard<std::mutex> lg(add_mutex);
   addConsumers.push_back(solver);
-  addLock.unlock();
 }
 
 void Sharer::removeProducer(SolverInterface* solver) {
-  removeLock.lock();
+  std::lock_guard<std::mutex> lg(remove_mutex);
   removeProducers.push_back(solver);
-  removeLock.unlock();
 }
 
 void Sharer::removeConsumer(SolverInterface* solver) {
-  removeLock.lock();
+  std::lock_guard<std::mutex> lg(remove_mutex);
   removeConsumers.push_back(solver);
-  removeLock.unlock();
 }
 
-void Sharer::printStats() {
-  SharingStatistics stats = sharingStrategy->getStatistics();
-
-  cout << "c Sharer " << id << " received cls " << stats.receivedClauses << ", shared cls "
-       << stats.sharedClauses << endl;
-}
+}  // namespace painless

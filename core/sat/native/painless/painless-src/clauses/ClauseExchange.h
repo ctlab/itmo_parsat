@@ -32,9 +32,6 @@ typedef struct ClauseExchange {
   /// LBD value of this clause.
   int lbd;
 
-  /// Id of the solver that has exported this clause.
-  int from;
-
   /// Size of this clause.
   int size;
 
@@ -42,21 +39,3 @@ typedef struct ClauseExchange {
   int lits[0];
 
 } ClauseExchange;
-
-/// Print clause.
-inline void printClauseExchange(ClauseExchange* cls) {
-  cout << "size: " << cls->size;
-  cout << " lbd: " << cls->lbd;
-  cout << " from: " << cls->from;
-  cout << " {";
-
-  if (cls->size > 0) {
-    cout << cls->lits[0];
-  }
-
-  for (int i = 1; i < cls->size; i++) {
-    cout << ", " << cls->lits[i];
-  }
-
-  cout << "}" << endl;
-}

@@ -52,9 +52,9 @@ void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
   }
 
   ncls->lbd = lbd;
-  ncls->from = mp->id;
 
   mp->clausesToExport.addClause(ncls);
+  ClauseManager::releaseClause(ncls);
 }
 
 Lit cbkMapleCOMSPSImportUnit(void* issuer) {
@@ -91,7 +91,7 @@ bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   return true;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit, int id) : SolverInterface(id, MAPLE) {
+MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit) : SolverInterface(id) {
   lbdLimit = lbd_limit;
 
   solver = new SimpSolver();
@@ -102,12 +102,10 @@ MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit, int id) : SolverInterface(id
   solver->issuer = this;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit, const MapleCOMSPSSolver& other, int id)
-    : SolverInterface(id, MAPLE) {
+MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit, const MapleCOMSPSSolver& other)
+    : SolverInterface(id) {
   lbdLimit = lbd_limit;
-
   solver = new SimpSolver(*(other.solver));
-
   solver->cbkExportClause = cbkMapleCOMSPSExportClause;
   solver->cbkImportClause = cbkMapleCOMSPSImportClause;
   solver->cbkImportUnit = cbkMapleCOMSPSImportUnit;
@@ -146,13 +144,11 @@ void MapleCOMSPSSolver::bumpVariableActivity(const int var, const int times) {}
 // Interrupt the SAT solving, so it can be started again with new assumptions
 void MapleCOMSPSSolver::setSolverInterrupt() {
   stopSolver = true;
-
   solver->interrupt();
 }
 
 void MapleCOMSPSSolver::unsetSolverInterrupt() {
   stopSolver = false;
-
   solver->clearInterrupt();
 }
 
@@ -181,43 +177,44 @@ void MapleCOMSPSSolver::diversify(int id) {
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
 PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
   unsetSolverInterrupt();
+  PSatResult result = PUNKNOWN;
 
   vector<ClauseExchange*> tmp;
-
-  tmp.clear();
   clausesToAdd.getClauses(tmp);
 
   for (size_t ind = 0; ind < tmp.size(); ind++) {
     vec<Lit> mcls;
     makeMiniVec(tmp[ind], mcls);
-
-    ClauseManager::releaseClause(tmp[ind]);
-
     if (!solver->addClause(mcls)) {
-      printf("c unsat when adding cls\n");
-      return PUNSAT;
+      result = PUNSAT;
+      break;
     }
   }
 
-  vec<Lit> miniAssumptions;
-  for (size_t ind = 0; ind < cube.size(); ind++) {
-    miniAssumptions.push(MINI_LIT(cube[ind]));
+  if (result == PUNKNOWN) {
+    vec<Lit> miniAssumptions;
+    for (size_t ind = 0; ind < cube.size(); ind++) {
+      miniAssumptions.push(MINI_LIT(cube[ind]));
+    }
+
+    lbool res = solver->solveLimited(miniAssumptions);
+    if (res == l_True)
+      result = PSAT;
+    if (res == l_False)
+      result = PUNSAT;
+    else
+      result = PUNKNOWN;
   }
 
-  lbool res = solver->solveLimited(miniAssumptions);
+  for (auto clause : tmp) {
+    ClauseManager::releaseClause(clause);
+  }
 
-  if (res == l_True)
-    return PSAT;
-
-  if (res == l_False)
-    return PUNSAT;
-
-  return PUNKNOWN;
+  return result;
 }
 
 void MapleCOMSPSSolver::addClause(ClauseExchange* clause) {
   clausesToAdd.addClause(clause);
-
   setSolverInterrupt();
 }
 
@@ -231,7 +228,6 @@ void MapleCOMSPSSolver::addLearnedClause(ClauseExchange* clause) {
 
 void MapleCOMSPSSolver::addClauses(const vector<ClauseExchange*>& clauses) {
   clausesToAdd.addClauses(clauses);
-
   setSolverInterrupt();
 }
 

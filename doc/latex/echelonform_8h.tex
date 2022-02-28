@@ -1,0 +1,130 @@
+\hypertarget{echelonform_8h}{}\doxysection{core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/echelonform.h File Reference}
+\label{echelonform_8h}\index{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/echelonform.h@{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/echelonform.h}}
+
+
+Row echelon forms.  
+
+
+{\ttfamily \#include $<$m4ri/mzd.\+h$>$}\newline
+Include dependency graph for echelonform.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{echelonform_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{echelonform_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{echelonform_8h_a1b9851c42c15e29f23464c051a116cd5}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+E\+C\+H\+E\+L\+O\+N\+F\+O\+R\+M\+\_\+\+C\+R\+O\+S\+S\+O\+V\+E\+R\+\_\+\+D\+E\+N\+S\+I\+TY}}~0.\+15
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \mbox{\hyperlink{echelonform_8h_a0101327767f8a50246487eeda1088023}{mzd\+\_\+echelonize}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A, int full)
+\begin{DoxyCompactList}\small\item\em (Reduced) row echelon form. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \mbox{\hyperlink{echelonform_8h_a779e61f88a20054fc3ef94d0786f8b20}{mzd\+\_\+echelonize\+\_\+pluq}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A, int full)
+\begin{DoxyCompactList}\small\item\em (Reduced) row echelon form using P\+L\+UQ factorisation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \mbox{\hyperlink{echelonform_8h_a1b261150883fb32d5e82f2b42eae96ab}{mzd\+\_\+echelonize\+\_\+m4ri}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A, int full, int k)
+\begin{DoxyCompactList}\small\item\em Matrix elimination using the \textquotesingle{}Method of the Four Russians\textquotesingle{} (M4\+RI). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Row echelon forms. 
+
+\begin{DoxyAuthor}{Author}
+Martin Albrecht \href{mailto:M.R.Albrecht@rhul.ac.uk}{\texttt{ M.\+R.\+Albrecht@rhul.\+ac.\+uk}} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{echelonform_8h_a1b9851c42c15e29f23464c051a116cd5}\label{echelonform_8h_a1b9851c42c15e29f23464c051a116cd5}} 
+\index{echelonform.h@{echelonform.h}!\_\_M4RI\_ECHELONFORM\_CROSSOVER\_DENSITY@{\_\_M4RI\_ECHELONFORM\_CROSSOVER\_DENSITY}}
+\index{\_\_M4RI\_ECHELONFORM\_CROSSOVER\_DENSITY@{\_\_M4RI\_ECHELONFORM\_CROSSOVER\_DENSITY}!echelonform.h@{echelonform.h}}
+\doxysubsubsection{\texorpdfstring{\_\_M4RI\_ECHELONFORM\_CROSSOVER\_DENSITY}{\_\_M4RI\_ECHELONFORM\_CROSSOVER\_DENSITY}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+M4\+R\+I\+\_\+\+E\+C\+H\+E\+L\+O\+N\+F\+O\+R\+M\+\_\+\+C\+R\+O\+S\+S\+O\+V\+E\+R\+\_\+\+D\+E\+N\+S\+I\+TY~0.\+15}
+
+Density at which we switch to P\+LE decomposition. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{echelonform_8h_a0101327767f8a50246487eeda1088023}\label{echelonform_8h_a0101327767f8a50246487eeda1088023}} 
+\index{echelonform.h@{echelonform.h}!mzd\_echelonize@{mzd\_echelonize}}
+\index{mzd\_echelonize@{mzd\_echelonize}!echelonform.h@{echelonform.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_echelonize()}{mzd\_echelonize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} mzd\+\_\+echelonize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A,  }\item[{int}]{full }\end{DoxyParamCaption})}
+
+
+
+(Reduced) row echelon form. 
+
+This function will
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix. \\
+\hline
+{\em full} & Return the reduced row echelon form, not only upper triangular form.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rank of A. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{echelonform_8h_a1b261150883fb32d5e82f2b42eae96ab}\label{echelonform_8h_a1b261150883fb32d5e82f2b42eae96ab}} 
+\index{echelonform.h@{echelonform.h}!mzd\_echelonize\_m4ri@{mzd\_echelonize\_m4ri}}
+\index{mzd\_echelonize\_m4ri@{mzd\_echelonize\_m4ri}!echelonform.h@{echelonform.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_echelonize\_m4ri()}{mzd\_echelonize\_m4ri()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} mzd\+\_\+echelonize\+\_\+m4ri (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A,  }\item[{int}]{full,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+Matrix elimination using the \textquotesingle{}Method of the Four Russians\textquotesingle{} (M4\+RI). 
+
+This is a wrapper function for \mbox{\hyperlink{brilliantrussian_8h_a317ffc5fe030481a6ee5e3c542b78c85}{\+\_\+mzd\+\_\+echelonize\+\_\+m4ri()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix to be reduced. \\
+\hline
+{\em full} & Return the reduced row echelon form, not only upper triangular form. \\
+\hline
+{\em k} & M4\+RI parameter, may be 0 for auto-\/choose.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{brilliantrussian_8h_a317ffc5fe030481a6ee5e3c542b78c85}{\+\_\+mzd\+\_\+echelonize\+\_\+m4ri()}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+Rank of A. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{echelonform_8h_a779e61f88a20054fc3ef94d0786f8b20}\label{echelonform_8h_a779e61f88a20054fc3ef94d0786f8b20}} 
+\index{echelonform.h@{echelonform.h}!mzd\_echelonize\_pluq@{mzd\_echelonize\_pluq}}
+\index{mzd\_echelonize\_pluq@{mzd\_echelonize\_pluq}!echelonform.h@{echelonform.h}}
+\doxysubsubsection{\texorpdfstring{mzd\_echelonize\_pluq()}{mzd\_echelonize\_pluq()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} mzd\+\_\+echelonize\+\_\+pluq (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A,  }\item[{int}]{full }\end{DoxyParamCaption})}
+
+
+
+(Reduced) row echelon form using P\+L\+UQ factorisation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix. \\
+\hline
+{\em full} & Return the reduced row echelon form, not only upper triangular form.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{ple_8h_aa23b9b4aa54c457cab401e2cb351cbb6}{mzd\+\_\+pluq()}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+Rank of A. 
+\end{DoxyReturn}

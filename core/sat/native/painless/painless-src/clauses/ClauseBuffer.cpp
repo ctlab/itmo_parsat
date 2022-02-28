@@ -18,6 +18,7 @@
 // -----------------------------------------------------------------------------
 
 #include "ClauseBuffer.h"
+#include "ClauseManager.h"
 
 #include <iostream>
 
@@ -32,12 +33,24 @@ ClauseBuffer::ClauseBuffer() {
   buffer.size = 0;
 }
 
-ClauseBuffer::~ClauseBuffer() {}
+ClauseBuffer::~ClauseBuffer() {
+  if (buffer.head.load() != buffer.tail.load()) {
+    ListElement *node = buffer.head.load()->next, *next;
+    while (node != nullptr) {
+      next = node->next;
+      ClauseManager::releaseClause(node->clause);
+      delete node;
+      node = next;
+    }
+  }
+  delete buffer.head;
+}
 
 //-------------------------------------------------
 //  Add clause(s)
 //-------------------------------------------------
 void ClauseBuffer::addClause(ClauseExchange* clause) {
+  ClauseManager::increaseClause(clause);
   ListElement *tail, *next;
   ListElement* node = new ListElement(clause);
 
@@ -97,6 +110,7 @@ bool ClauseBuffer::getClause(ClauseExchange** clause) {
 
   buffer.size--;
 
+  ClauseManager::releaseClause(*clause);
   return true;
 }
 

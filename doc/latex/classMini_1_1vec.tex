@@ -1,0 +1,85 @@
+\hypertarget{classMini_1_1vec}{}\doxysection{Mini\+::vec$<$ T, \+\_\+\+Size $>$ Class Template Reference}
+\label{classMini_1_1vec}\index{Mini::vec$<$ T, \_Size $>$@{Mini::vec$<$ T, \_Size $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a03ad48b088633c3fb93e16820c00c080}\label{classMini_1_1vec_a03ad48b088633c3fb93e16820c00c080}} 
+typedef \+\_\+\+Size {\bfseries Size}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_ab7df2987e8adbbe6885613380e648ece}\label{classMini_1_1vec_ab7df2987e8adbbe6885613380e648ece}} 
+{\bfseries vec} (Size size)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_ae886d7b6c44b3e6d72e38877e65c7c9c}\label{classMini_1_1vec_ae886d7b6c44b3e6d72e38877e65c7c9c}} 
+{\bfseries vec} (Size size, const T \&pad)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_ac87386ddae6102255f5b668d7cb59577}\label{classMini_1_1vec_ac87386ddae6102255f5b668d7cb59577}} 
+{\bfseries vec} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ T $>$ const \&other)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_ad298e746a2539411d9eda06cc003e694}\label{classMini_1_1vec_ad298e746a2539411d9eda06cc003e694}} 
+{\bfseries operator T$\ast$} (void)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a814de29cccf7244aa11a351bc0eff9fc}\label{classMini_1_1vec_a814de29cccf7244aa11a351bc0eff9fc}} 
+Size {\bfseries size} (void) const
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a8f6a9824aab4b697488c9e833d85330c}\label{classMini_1_1vec_a8f6a9824aab4b697488c9e833d85330c}} 
+void {\bfseries shrink} (Size nelems)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a7ccab2ba54d3c0bccf3d16119cdd8d64}\label{classMini_1_1vec_a7ccab2ba54d3c0bccf3d16119cdd8d64}} 
+void {\bfseries shrink\+\_\+} (Size nelems)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_af3466345bd453620a37768ff7032a7c2}\label{classMini_1_1vec_af3466345bd453620a37768ff7032a7c2}} 
+int {\bfseries capacity} (void) const
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a19b3eebd3c107ccd2de4af8cb19717ee}\label{classMini_1_1vec_a19b3eebd3c107ccd2de4af8cb19717ee}} 
+void {\bfseries capacity} (Size min\+\_\+cap)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a3422e2d3ae816a079fed7bdfa46db407}\label{classMini_1_1vec_a3422e2d3ae816a079fed7bdfa46db407}} 
+void {\bfseries grow\+To} (Size size)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_af3617b949e5918f70321a8412fe9a234}\label{classMini_1_1vec_af3617b949e5918f70321a8412fe9a234}} 
+void {\bfseries grow\+To} (Size size, const T \&pad)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a6ff00929ee7658522a149a98bdcef33b}\label{classMini_1_1vec_a6ff00929ee7658522a149a98bdcef33b}} 
+void {\bfseries clear} (bool dealloc=false)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a03e554f38c494affcff2aaced0ad11e7}\label{classMini_1_1vec_a03e554f38c494affcff2aaced0ad11e7}} 
+void {\bfseries push} (void)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_ae525235180e55f34090b4f6974234800}\label{classMini_1_1vec_ae525235180e55f34090b4f6974234800}} 
+void {\bfseries push} (const T \&elem)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a8de757344cf758631f040c70f7ae15db}\label{classMini_1_1vec_a8de757344cf758631f040c70f7ae15db}} 
+void {\bfseries push\+\_\+} (const T \&elem)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a5d720a09d7b0f1d14135ce5bf8b4a73e}\label{classMini_1_1vec_a5d720a09d7b0f1d14135ce5bf8b4a73e}} 
+void {\bfseries pop} (void)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a69ce4d7a56fc579e54706be6d0d497ed}\label{classMini_1_1vec_a69ce4d7a56fc579e54706be6d0d497ed}} 
+const T \& {\bfseries last} (void) const
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a8bafd15e9fab4f8e4f78192caf54b617}\label{classMini_1_1vec_a8bafd15e9fab4f8e4f78192caf54b617}} 
+T \& {\bfseries last} (void)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a89d63474450ecc7bc2901ecc79113c4c}\label{classMini_1_1vec_a89d63474450ecc7bc2901ecc79113c4c}} 
+const T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (Size index) const
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a963718634ac47c0fae7b14fa1fb0db81}\label{classMini_1_1vec_a963718634ac47c0fae7b14fa1fb0db81}} 
+T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (Size index)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a34939f8f6e8151715cd4e21fc3dd24f4}\label{classMini_1_1vec_a34939f8f6e8151715cd4e21fc3dd24f4}} 
+void {\bfseries copy\+To} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ T $>$ \&copy) const
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_abdbb41465aaed97d79ad4aadddb4b6cf}\label{classMini_1_1vec_abdbb41465aaed97d79ad4aadddb4b6cf}} 
+void {\bfseries move\+To} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ T $>$ \&dest)
+\item 
+\mbox{\Hypertarget{classMini_1_1vec_a2721be2a402f5795d69f832f0bb2f707}\label{classMini_1_1vec_a2721be2a402f5795d69f832f0bb2f707}} 
+void {\bfseries mem\+Copy\+To} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ T $>$ \&copy) const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/mini/mtl/Vec.\+h\end{DoxyCompactItemize}

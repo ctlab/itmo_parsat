@@ -32,8 +32,7 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig const& config) : _cfg(config
   SolverFactory::sparseRandomDiversification(_solvers_LRB);
   SolverFactory::sparseRandomDiversification(_solvers_VSIDS);
 
-  working = std::make_unique<Portfolio>();
-
+  working = std::make_unique<painless::Portfolio>(&_result);
   {
     prod1.insert(prod1.end(), _solvers.begin(), _solvers.begin() + (cpus / 2 - 1));
     prod1.push_back(_solvers[_solvers.size() - 2]);
@@ -44,28 +43,33 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig const& config) : _cfg(config
     cons2.push_back(_solvers[_solvers.size() - 1]);
 
     nSharers = 2;
-    sharers.resize(nSharers);
-    sharers[0] = new Sharer(
-        shr_sleep_us, 1, new HordeSatSharing(shr_lit, shr_sleep_us, working->result.get()), prod1,
+    _sharers.resize(nSharers);
+    _sharers[0] = std::make_unique<painless::Sharer>(
+        shr_sleep_us, 1, new painless::HordeSatSharing(shr_lit, shr_sleep_us, &_result), prod1,
         cons1);
-    sharers[1] = new Sharer(
-        shr_sleep_us, 2, new HordeSatSharing(shr_lit, shr_sleep_us, working->result.get()), prod2,
+    _sharers[1] = std::make_unique<painless::Sharer>(
+        shr_sleep_us, 2, new painless::HordeSatSharing(shr_lit, shr_sleep_us, &_result), prod2,
         cons2);
   }
 
   for (size_t i = 0; i < nSolvers; i++) {
-    working->addSlave(new SequentialWorker(_solvers[i]));
+    working->addSlave(new painless::SequentialWorker(&_result, _solvers[i]));
   }
 }
 
 PainlessSolver::~PainlessSolver() noexcept {
+  // Stop sharing first
+  _sharers.clear();
+
+  // Stop working
   interrupt();
-//  for (auto solver : _solvers) {
-//    delete solver;
-//  }
-//  for (auto sharer : sharers) {
-//    delete sharer;
-//  }
+  working->awaitStop();
+  working.reset();
+
+  // cleanup
+  for (auto solver : _solvers) {
+    delete solver;
+  }
 }
 
 void PainlessSolver::load_problem(Problem const& problem) {
@@ -75,16 +79,20 @@ void PainlessSolver::load_problem(Problem const& problem) {
 }
 
 State PainlessSolver::solve(vec_lit_t const& assumptions) {
+  // reset the result
+  _result.globalEnding = false;
+  _result.finalResult = PUNKNOWN;
+
   vector<int> cube;
   working->solve(cube);
 
   uint32_t slv_sleep_us = 100;
   uint32_t timeout_s = _cfg.time_limit_s();
 
-  while (!working->result->globalEnding) {
+  while (!_result.globalEnding) {
     usleep(slv_sleep_us);
     if (timeout_s > 0 && getRelativeTime() >= timeout_s) {
-      working->result->globalEnding = true;
+      _result.globalEnding = true;
       working->setInterrupt();
     }
     if (slv_sleep_us < _cfg.slv_sleep_us()) {

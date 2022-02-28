@@ -22,6 +22,8 @@
 #include "../solvers/SolverFactory.h"
 #include "../utils/Logger.h"
 
+namespace painless {
+
 HordeSatSharing::HordeSatSharing(int shr_lit, int shr_sleep, WorkingResult* result)
     : SharingStrategy(result) {
   this->literalPerRound = shr_lit;
@@ -41,8 +43,8 @@ void HordeSatSharing::doSharing(
   static unsigned int round = 1;
   for (size_t i = 0; i < from.size(); i++) {
     int used, usedPercent, selectCount;
-    int id = from[i]->id;
 
+    int id = from[i]->id;
     if (!this->databases.count(id)) {
       this->databases[id] = new ClauseDatabase();
     }
@@ -66,10 +68,8 @@ void HordeSatSharing::doSharing(
 
     if (usedPercent < 75 && !this->initPhase) {
       from[i]->increaseClauseProduction();
-      log(1, "Sharer %d production increase for solver %d.\n", idSharer, from[i]->id);
     } else if (usedPercent > 98) {
       from[i]->decreaseClauseProduction();
-      log(1, "Sharer %d production decrease for solver %d.\n", idSharer, from[i]->id);
     }
 
     if (selectCount > 0) {
@@ -100,3 +100,5 @@ void HordeSatSharing::doSharing(
 SharingStatistics HordeSatSharing::getStatistics() {
   return stats;
 }
+
+}  // namespace painless

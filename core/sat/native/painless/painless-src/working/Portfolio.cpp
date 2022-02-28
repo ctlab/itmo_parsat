@@ -22,11 +22,13 @@
 
 using namespace std;
 
-Portfolio::Portfolio() {}
+namespace painless {
+
+Portfolio::Portfolio(WorkingResult* working_result) : WorkingStrategy(working_result) {}
 
 Portfolio::~Portfolio() {
-  for (size_t i = 0; i < slaves.size(); i++) {
-    delete slaves[i];
+  for (auto slave : slaves) {
+    delete slave;
   }
 }
 
@@ -35,6 +37,12 @@ void Portfolio::solve(const vector<int>& cube) {
 
   for (size_t i = 0; i < slaves.size(); i++) {
     slaves[i]->solve(cube);
+  }
+}
+
+void Portfolio::awaitStop() {
+  for (size_t i = 0; i < slaves.size(); ++i) {
+    slaves[i]->awaitStop();
   }
 }
 
@@ -85,3 +93,5 @@ int Portfolio::getDivisionVariable() {
 void Portfolio::setPhase(int var, bool value) {}
 
 void Portfolio::bumpVariableActivity(int var, int times) {}
+
+}  // namespace painless

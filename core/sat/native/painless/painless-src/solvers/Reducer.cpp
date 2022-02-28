@@ -37,7 +37,7 @@ static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
   }
 }
 
-Reducer::Reducer(int id, SolverInterface* _solver) : SolverInterface(id, MAPLE) {
+Reducer::Reducer(int id, SolverInterface* _solver) : SolverInterface(id) {
   solver = _solver;
 }
 
@@ -71,10 +71,12 @@ void Reducer::bumpVariableActivity(const int var, const int times) {
 
 // Interrupt the SAT solving, so it can be started again with new assumptions
 void Reducer::setSolverInterrupt() {
+  _interrupt = true;
   solver->setSolverInterrupt();
 }
 
 void Reducer::unsetSolverInterrupt() {
+  _interrupt = false;
   solver->unsetSolverInterrupt();
 }
 
@@ -88,7 +90,7 @@ void Reducer::diversify(int id) {
 PSatResult Reducer::solve(const vector<int>& cube) {
   unsetSolverInterrupt();
 
-  while (true) {
+  while (!_interrupt) {
     ClauseExchange* cls = nullptr;
     ClauseExchange* strengthenedCls = nullptr;
     if (!clausesToImport.getClause(&cls)) {
@@ -123,7 +125,6 @@ bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
     for (int idLit = 0; idLit < tmpNewClause.size(); idLit++) {
       (*outCls)->lits[idLit] = tmpNewClause[idLit];
     }
-    (*outCls)->from = this->id;
     (*outCls)->lbd = cls->lbd;
     if ((*outCls)->size < (*outCls)->lbd) {
       (*outCls)->lbd = (*outCls)->size;

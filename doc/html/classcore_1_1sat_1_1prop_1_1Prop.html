@@ -86,31 +86,34 @@ Inheritance diagram for core::sat::prop::Prop:</div>
 <map name="core_1_1sat_1_1prop_1_1Prop_inherit__map" id="core_1_1sat_1_1prop_1_1Prop_inherit__map">
 <area shape="rect" title="SAT Propagation interface." alt="" coords="117,5,269,32"/>
 <area shape="rect" href="classcore_1_1sat_1_1prop_1_1ParProp.html" title="Parallel propagation implementation." alt="" coords="5,80,179,107"/>
-<area shape="rect" href="classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="203,80,389,107"/>
+<area shape="rect" href="classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="203,80,389,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a8b1a3b21d711913befbcaa0d2e8ad727"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, Minisat::vec&lt; Minisat::Lit &gt; const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a></td></tr>
-<tr class="separator:a8b1a3b21d711913befbcaa0d2e8ad727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7b92d63ef9b523b8f6033b4a957a26"><td class="memItemLeft" align="right" valign="top"><a id="a5b7b92d63ef9b523b8f6033b4a957a26"></a>
+typedef <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>vec_lit_t</b></td></tr>
+<tr class="separator:a5b7b92d63ef9b523b8f6033b4a957a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ec966ffe86b6f783db306aa96a8807b"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a></td></tr>
+<tr class="separator:a4ec966ffe86b6f783db306aa96a8807b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a528c2a9c9fb63e471fbd99d2f5f06d44"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a528c2a9c9fb63e471fbd99d2f5f06d44">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">Problem</a> const &amp;problem)=0</td></tr>
 <tr class="memdesc:a528c2a9c9fb63e471fbd99d2f5f06d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a528c2a9c9fb63e471fbd99d2f5f06d44">More...</a><br /></td></tr>
 <tr class="separator:a528c2a9c9fb63e471fbd99d2f5f06d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c1573e7cd50ef65620855f73d13ce3f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4c1573e7cd50ef65620855f73d13ce3f">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions, Minisat::vec&lt; Minisat::Lit &gt; &amp;propagated)=0</td></tr>
-<tr class="memdesc:a4c1573e7cd50ef65620855f73d13ce3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a4c1573e7cd50ef65620855f73d13ce3f">More...</a><br /></td></tr>
-<tr class="separator:a4c1573e7cd50ef65620855f73d13ce3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad90b01c01f8287663c0096f2b69eb440"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#ad90b01c01f8287663c0096f2b69eb440">propagate</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;assumptions)</td></tr>
-<tr class="memdesc:ad90b01c01f8287663c0096f2b69eb440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#ad90b01c01f8287663c0096f2b69eb440">More...</a><br /></td></tr>
-<tr class="separator:ad90b01c01f8287663c0096f2b69eb440"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37d0fd0a07d41a5e1696c6aa15234589"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">prop_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="memitem:a2bede5cb6bcd390e80b19c8129ff9a0e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a2bede5cb6bcd390e80b19c8129ff9a0e">propagate</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> &amp;propagated)=0</td></tr>
+<tr class="memdesc:a2bede5cb6bcd390e80b19c8129ff9a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a2bede5cb6bcd390e80b19c8129ff9a0e">More...</a><br /></td></tr>
+<tr class="separator:a2bede5cb6bcd390e80b19c8129ff9a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d21508de0f225330d7cd7dc84bef398"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a5d21508de0f225330d7cd7dc84bef398">propagate</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions)</td></tr>
+<tr class="memdesc:a5d21508de0f225330d7cd7dc84bef398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a5d21508de0f225330d7cd7dc84bef398">More...</a><br /></td></tr>
+<tr class="separator:a5d21508de0f225330d7cd7dc84bef398"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37d0fd0a07d41a5e1696c6aa15234589"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">prop_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="memdesc:a37d0fd0a07d41a5e1696c6aa15234589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">More...</a><br /></td></tr>
 <tr class="separator:a37d0fd0a07d41a5e1696c6aa15234589"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5dfb8622e69ffc873c40b665f2e939b"><td class="memItemLeft" align="right" valign="top">virtual uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#ab5dfb8622e69ffc873c40b665f2e939b">prop_tree</a> (Minisat::vec&lt; Minisat::Lit &gt; const &amp;vars, uint32_t head_size)=0</td></tr>
-<tr class="separator:ab5dfb8622e69ffc873c40b665f2e939b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8ee171af44f985ddda4480cc1036e5"><td class="memItemLeft" align="right" valign="top">virtual uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#afa8ee171af44f985ddda4480cc1036e5">prop_tree</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;vars, uint32_t head_size)=0</td></tr>
+<tr class="separator:afa8ee171af44f985ddda4480cc1036e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b6fbb2e4ce7be04f1ea1de3cbc385f2"><td class="memItemLeft" align="right" valign="top"><a id="a1b6fbb2e4ce7be04f1ea1de3cbc385f2"></a>
 virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1b6fbb2e4ce7be04f1ea1de3cbc385f2">num_vars</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a1b6fbb2e4ce7be04f1ea1de3cbc385f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
@@ -119,14 +122,14 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SAT Propagation interface. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a8b1a3b21d711913befbcaa0d2e8ad727"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b1a3b21d711913befbcaa0d2e8ad727">&#9670;&nbsp;</a></span>prop_callback_t</h2>
+<a id="a4ec966ffe86b6f783db306aa96a8807b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ec966ffe86b6f783db306aa96a8807b">&#9670;&nbsp;</a></span>prop_callback_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::function&lt; bool( bool, Minisat::vec&lt;Minisat::Lit&gt; const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">core::sat::prop::Prop::prop_callback_t</a></td>
+          <td class="memname">typedef std::function&lt; bool( bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">core::sat::prop::Prop::prop_callback_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -189,7 +192,7 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727">prop_callback_t</a> const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>
@@ -218,8 +221,8 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
-<a id="ab5dfb8622e69ffc873c40b665f2e939b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5dfb8622e69ffc873c40b665f2e939b">&#9670;&nbsp;</a></span>prop_tree()</h2>
+<a id="afa8ee171af44f985ddda4480cc1036e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa8ee171af44f985ddda4480cc1036e5">&#9670;&nbsp;</a></span>prop_tree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +233,7 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
         <tr>
           <td class="memname">virtual uint64_t core::sat::prop::Prop::prop_tree </td>
           <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -251,14 +254,14 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>: documentation </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>: documentation </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a6dcfa4fea83f4cd653abc8e8a63aa4df">core::sat::prop::ParProp</a>, and <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#aea84f6c1ec402529f4ad9f7b38e58276">core::sat::prop::SimpProp</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a5cdc59f2473b31ac4e6a1ebc91e62c28">core::sat::prop::ParProp</a>, and <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#adca96df0c797ff10ad5e931c5fc40353">core::sat::prop::SimpProp</a>.</p>
 
 </div>
 </div>
-<a id="ad90b01c01f8287663c0096f2b69eb440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad90b01c01f8287663c0096f2b69eb440">&#9670;&nbsp;</a></span>propagate() <span class="overload">[1/2]</span></h2>
+<a id="a5d21508de0f225330d7cd7dc84bef398"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d21508de0f225330d7cd7dc84bef398">&#9670;&nbsp;</a></span>propagate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +272,7 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
         <tr>
           <td class="memname">bool core::sat::prop::Prop::propagate </td>
           <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -290,12 +293,12 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if and only if conflict occurred. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#a8d74861b9503d1a67d50821334c9fb4a">core::sat::prop::SimpProp</a>.</p>
+<p>Reimplemented in <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#ad1990c55cd18c8b88a300e6e2925232f">core::sat::prop::SimpProp</a>.</p>
 
 </div>
 </div>
-<a id="a4c1573e7cd50ef65620855f73d13ce3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c1573e7cd50ef65620855f73d13ce3f">&#9670;&nbsp;</a></span>propagate() <span class="overload">[2/2]</span></h2>
+<a id="a2bede5cb6bcd390e80b19c8129ff9a0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bede5cb6bcd390e80b19c8129ff9a0e">&#9670;&nbsp;</a></span>propagate() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,13 +309,13 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
         <tr>
           <td class="memname">virtual bool core::sat::prop::Prop::propagate </td>
           <td>(</td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Minisat::vec&lt; Minisat::Lit &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> &amp;&#160;</td>
           <td class="paramname"><em>propagated</em>&#160;</td>
         </tr>
         <tr>
@@ -339,7 +342,7 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if and only if conflict occurred. </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a4a054aa235cc08a8171ec9d35eb5f17b">core::sat::prop::ParProp</a>, and <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#af618cd983b7b89a5744bfa9d13372529">core::sat::prop::SimpProp</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a8190f90b8ad4952fe685e790720527df">core::sat::prop::ParProp</a>, and <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#ad82146313e5f0aba2c717a76a76d8b24">core::sat::prop::SimpProp</a>.</p>
 
 </div>
 </div>

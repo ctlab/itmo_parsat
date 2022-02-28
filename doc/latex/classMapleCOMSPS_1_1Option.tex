@@ -1,0 +1,79 @@
+\hypertarget{classMapleCOMSPS_1_1Option}{}\doxysection{Maple\+C\+O\+M\+S\+PS\+::Option Class Reference}
+\label{classMapleCOMSPS_1_1Option}\index{MapleCOMSPS::Option@{MapleCOMSPS::Option}}
+
+
+Inheritance diagram for Maple\+C\+O\+M\+S\+PS\+::Option\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMapleCOMSPS_1_1Option__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMapleCOMSPS_1_1Option_1_1OptionLt}{Option\+Lt}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_a202a94de930b8d78b76e02070f4ff59c}\label{classMapleCOMSPS_1_1Option_a202a94de930b8d78b76e02070f4ff59c}} 
+virtual bool {\bfseries parse} (const char $\ast$str)=0
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_ac04e6ead1475458365eba7ae7d6257e8}\label{classMapleCOMSPS_1_1Option_ac04e6ead1475458365eba7ae7d6257e8}} 
+virtual void {\bfseries help} (bool verbose=false)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_abdc4f10217b68cb4bfcb4209b1574e05}\label{classMapleCOMSPS_1_1Option_abdc4f10217b68cb4bfcb4209b1574e05}} 
+{\bfseries Option} (const char $\ast$name\+\_\+, const char $\ast$desc\+\_\+, const char $\ast$cate\+\_\+, const char $\ast$type\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_ad0f293d59c160ae0247e7a17efc381e5}\label{classMapleCOMSPS_1_1Option_ad0f293d59c160ae0247e7a17efc381e5}} 
+static \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Option}{Option}} $\ast$ $>$ \& {\bfseries get\+Option\+List} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_ab2d773644bfaf997ee06bf13bd31ce86}\label{classMapleCOMSPS_1_1Option_ab2d773644bfaf997ee06bf13bd31ce86}} 
+static const char $\ast$\& {\bfseries get\+Usage\+String} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_a2904034dc1018e0081dd270e01f0e41e}\label{classMapleCOMSPS_1_1Option_a2904034dc1018e0081dd270e01f0e41e}} 
+static const char $\ast$\& {\bfseries get\+Help\+Prefix\+String} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_af4e333cb8c24163454d6bf9703a39c23}\label{classMapleCOMSPS_1_1Option_af4e333cb8c24163454d6bf9703a39c23}} 
+const char $\ast$ {\bfseries name}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_af674d76d3111eaa53c90306e954c08ce}\label{classMapleCOMSPS_1_1Option_af674d76d3111eaa53c90306e954c08ce}} 
+const char $\ast$ {\bfseries description}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_a15f95cfec739ba1cd3454cb008ce17e4}\label{classMapleCOMSPS_1_1Option_a15f95cfec739ba1cd3454cb008ce17e4}} 
+const char $\ast$ {\bfseries category}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_acc4a3c0496ba87e56fa9f41b60b52aac}\label{classMapleCOMSPS_1_1Option_acc4a3c0496ba87e56fa9f41b60b52aac}} 
+const char $\ast$ {\bfseries type\+\_\+name}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_aa756c3fc1923a224adf5dcd4d6862ae6}\label{classMapleCOMSPS_1_1Option_aa756c3fc1923a224adf5dcd4d6862ae6}} 
+void {\bfseries parse\+Options} (int \&argc, char $\ast$$\ast$argv, bool strict)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_a6433015450a3022382569f0cd3c762b3}\label{classMapleCOMSPS_1_1Option_a6433015450a3022382569f0cd3c762b3}} 
+void {\bfseries print\+Usage\+And\+Exit} (int argc, char $\ast$$\ast$argv, bool verbose)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_ae7ae63a221c59a6abe7b10e5c0d51fff}\label{classMapleCOMSPS_1_1Option_ae7ae63a221c59a6abe7b10e5c0d51fff}} 
+void {\bfseries set\+Usage\+Help} (const char $\ast$str)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Option_ad6d41be54ad05520f70befd92e72367d}\label{classMapleCOMSPS_1_1Option_ad6d41be54ad05520f70befd92e72367d}} 
+void {\bfseries set\+Help\+Prefix\+Str} (const char $\ast$str)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/maple\+C\+O\+M\+S\+P\+S/\+\_\+utils\+\_\+maple/Options.\+h\end{DoxyCompactItemize}

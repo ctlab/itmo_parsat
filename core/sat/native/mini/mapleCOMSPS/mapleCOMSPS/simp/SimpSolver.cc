@@ -178,8 +178,9 @@ lbool SimpSolver::solve_(bool do_simp, bool turn_off_simp) {
 
   if (result == l_True)
     result = Solver::solve_();
-//  else if (verbosity >= 1)
-//    printf("c ===============================================================================\n");
+  //  else if (verbosity >= 1)
+  //    printf("c
+  //    ===============================================================================\n");
 
   if (result == l_True)
     extendModel();
@@ -431,10 +432,10 @@ bool SimpSolver::backwardSubsumptionCheck(bool verbose) {
     if (c.mark())
       continue;
 
-//    if (verbose && verbosity >= 2 && cnt++ % 1000 == 0)
-//      printf(
-//          "c subsumption left: %10d (%10d subsumed, %10d deleted literals)\r",
-//          subsumption_queue.size(), subsumed, deleted_literals);
+    //    if (verbose && verbosity >= 2 && cnt++ % 1000 == 0)
+    //      printf(
+    //          "c subsumption left: %10d (%10d subsumed, %10d deleted literals)\r",
+    //          subsumption_queue.size(), subsumed, deleted_literals);
 
     assert(
         c.size() > 1 ||
@@ -805,8 +806,8 @@ bool SimpSolver::eliminate_() {
       if (isEliminated(elim) || value(elim) != l_Undef)
         continue;
 
-//      if (verbosity >= 2 && cnt % 100 == 0)
-//        printf("c elimination left: %10d\r", elim_heap.size());
+      //      if (verbosity >= 2 && cnt % 100 == 0)
+      //        printf("c elimination left: %10d\r", elim_heap.size());
 
       if (use_asymm) {
         // Temporarily freeze variable. Otherwise, it would immediately end up on the queue again:
@@ -844,10 +845,10 @@ cleanup:
   }
   checkGarbage();
 
-//  if (verbosity >= 1 && elimclauses.size() > 0)
-//    printf(
-//        "c |  Eliminated clauses:     %10.2f Mb                                      |\n",
-//        double(elimclauses.size() * sizeof(uint32_t)) / (1024 * 1024));
+  //  if (verbosity >= 1 && elimclauses.size() > 0)
+  //    printf(
+  //        "c |  Eliminated clauses:     %10.2f Mb                                      |\n",
+  //        double(elimclauses.size() * sizeof(uint32_t)) / (1024 * 1024));
 
   return ok;
 }
@@ -887,10 +888,10 @@ void SimpSolver::garbageCollect() {
       ca.extra_clause_field;  // NOTE: this is important to keep (or lose) the extra fields.
   relocAll(to);
   Solver::relocAll(to);
-//  if (verbosity >= 2)
-//    printf(
-//        "c |  Garbage collection:   %12d bytes => %12d bytes             |\n",
-//        ca.size() * ClauseAllocator::Unit_Size, to.size() * ClauseAllocator::Unit_Size);
+  //  if (verbosity >= 2)
+  //    printf(
+  //        "c |  Garbage collection:   %12d bytes => %12d bytes             |\n",
+  //        ca.size() * ClauseAllocator::Unit_Size, to.size() * ClauseAllocator::Unit_Size);
   to.moveTo(ca);
 }
 
@@ -980,8 +981,8 @@ bool SimpSolver::gaussElim() {
   // printf("c [GE] matrices: %d, unary xor: %d, bin xor: %d, bin added: %d (time: %.2f)\n",
   //    stat_gauss, stat_gauss_case1, stat_gauss_case2, stat_gauss_bin_added, timer.tick());
   stat_gauss_time += timer.total();
-//  if (!ok)
-//    printf("c [GE] UNSAT\n");
+  //  if (!ok)
+  //    printf("c [GE] UNSAT\n");
 
   return ok;
 }

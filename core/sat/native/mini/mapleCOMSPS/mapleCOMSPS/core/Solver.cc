@@ -483,8 +483,8 @@ void Solver::removeClause(CRef cr) {
       fprintf(drup_file, "0\n");
 #endif
     }
-//    } else
-//      printf("c Bug: removeClause(). I don't expect this to happen.\n");
+    //    } else
+    //      printf("c Bug: removeClause(). I don't expect this to happen.\n");
   }
 
   detachClause(cr);
@@ -1084,8 +1084,8 @@ void Solver::removeClauseHack(CRef cr, Lit watched0, Lit watched1) {
       fprintf(drup_file, "0\n");
 #endif
     }
-//    } else
-//      printf("c Bug: removeClauseHack(). I don't expect this to happen.\n");
+  //    } else
+  //      printf("c Bug: removeClauseHack(). I don't expect this to happen.\n");
 
   // TODO: dirty hack to exploit 'detachClause'. 'c' hasn't shrunk yet, so this will work fine.
   c[0] = watched0, c[1] = watched1;
@@ -1198,8 +1198,8 @@ void Solver::safeRemoveSatisfiedCompact(vec<CRef>& cs, unsigned valid_mark) {
 |    if the clause set is unsatisfiable. 'l_Undef' if the bound on number of conflicts is reached.
 |________________________________________________________________________________________________@*/
 lbool Solver::search(int& nof_conflicts) {
-//  static std::mutex m;
-//  static int file_tag = 0;
+  //  static std::mutex m;
+  //  static int file_tag = 0;
   assert(ok);
   int backtrack_level;
   int lbd;
@@ -1208,14 +1208,14 @@ lbool Solver::search(int& nof_conflicts) {
   starts++;
 
   // dzhiblavi@: print cnf
-//  {
-//    std::stringstream file;
-//    file << "/home/dzhiblavi/itmo-parsat/keks/" << file_tag++ << ".txt";
-//    std::lock_guard<std::mutex> lg(m);
-//    FILE* f = fopen(file.str().c_str(), "w");
-//    toDimacs(f, assumptions);
-//    fclose(f);
-//  }
+  //  {
+  //    std::stringstream file;
+  //    file << "/home/dzhiblavi/itmo-parsat/keks/" << file_tag++ << ".txt";
+  //    std::lock_guard<std::mutex> lg(m);
+  //    FILE* f = fopen(file.str().c_str(), "w");
+  //    toDimacs(f, assumptions);
+  //    fclose(f);
+  //  }
 
   for (;;) {
     if (decisionLevel() == 0) {  // We import clauses
@@ -1356,10 +1356,10 @@ lbool Solver::search(int& nof_conflicts) {
       }
 
       if (next == lit_Undef) {
-//        if (assumptions.size() > 0) {  // Hack deguelasse
-//          shrinkAssumptions();
-//          return l_True;
-//        }
+        //        if (assumptions.size() > 0) {  // Hack deguelasse
+        //          shrinkAssumptions();
+        //          return l_True;
+        //        }
 
         // New variable decision:
         decisions++;

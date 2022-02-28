@@ -88,10 +88,10 @@ class MapleCOMSPSSolver : public SolverInterface {
   void diversify(int id);
 
   /// Constructor.
-  MapleCOMSPSSolver(int lbd_limit, int id);
+  MapleCOMSPSSolver(int id, int lbd_limit);
 
   /// Copy constructor.
-  MapleCOMSPSSolver(int lbd_limit, const MapleCOMSPSSolver& other, int id);
+  MapleCOMSPSSolver(int id, int lbd_limit, const MapleCOMSPSSolver& other);
 
   /// Destructor.
   virtual ~MapleCOMSPSSolver();
