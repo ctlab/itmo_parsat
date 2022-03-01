@@ -1,7 +1,7 @@
 var searchData=
 [
   ['painlesssolver_575',['PainlessSolver',['../classcore_1_1sat_1_1solver_1_1PainlessSolver.html',1,'core::sat::solver']]],
-  ['pair_576',['Pair',['../structMapleCOMSPS_1_1Map_1_1Pair.html',1,'MapleCOMSPS::Map&lt; K, D, H, E &gt;::Pair'],['../structMini_1_1Map_1_1Pair.html',1,'Mini::Map&lt; K, D, H, E &gt;::Pair']]],
+  ['pair_576',['Pair',['../structMini_1_1Map_1_1Pair.html',1,'Mini::Map']]],
   ['parameters_577',['Parameters',['../classParameters.html',1,'']]],
   ['parprop_578',['ParProp',['../classcore_1_1sat_1_1prop_1_1ParProp.html',1,'core::sat::prop']]],
   ['parrbssolve_579',['ParRBSSolve',['../classcore_1_1ParRBSSolve.html',1,'core']]],

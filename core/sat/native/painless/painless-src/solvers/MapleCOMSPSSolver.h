@@ -25,10 +25,10 @@
 
 #include "core/sat/native/mini/mapleCOMSPS/mapleCOMSPS/simp/SimpSolver.h"
 
-using namespace std;
+namespace painless {
 
 /// Instance of a MapleCOMSPS solver
-class MapleCOMSPSSolver : public SolverInterface {
+class MapleCOMSPSSolver : public SolverInterface, public MapleCOMSPS::SimpSolver {
  public:
   /// Load formula from a given dimacs file, return false if failed.
   bool loadFormula(const char* filename);
@@ -52,25 +52,25 @@ class MapleCOMSPSSolver : public SolverInterface {
   void unsetSolverInterrupt();
 
   /// Solve the formula with a given cube.
-  PSatResult solve(const vector<int>& cube);
+  PSatResult solve(const std::vector<int>& cube);
 
   /// Add a permanent clause to the formula.
   void addClause(ClauseExchange* clause);
 
   /// Add a list of permanent clauses to the formula.
-  void addClauses(const vector<ClauseExchange*>& clauses);
+  void addClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Add a list of initial clauses to the formula.
-  void addInitialClauses(const vector<ClauseExchange*>& clauses);
+  void addInitialClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Add a learned clause to the formula.
   void addLearnedClause(ClauseExchange* clause);
 
   /// Add a list of learned clauses to the formula.
-  void addLearnedClauses(const vector<ClauseExchange*>& clauses);
+  void addLearnedClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Get a list of learned clauses.
-  void getLearnedClauses(vector<ClauseExchange*>& clauses);
+  void getLearnedClauses(std::vector<ClauseExchange*>& clauses);
 
   /// Request the solver to produce more clauses.
   void increaseClauseProduction();
@@ -94,7 +94,7 @@ class MapleCOMSPSSolver : public SolverInterface {
   MapleCOMSPSSolver(int id, int lbd_limit, const MapleCOMSPSSolver& other);
 
   /// Destructor.
-  virtual ~MapleCOMSPSSolver();
+  ~MapleCOMSPSSolver() noexcept = default;
 
   vector<int> getFinalAnalysis();
 
@@ -105,24 +105,20 @@ class MapleCOMSPSSolver : public SolverInterface {
   atomic<int> lbdLimit;
 
  protected:
-  /// Pointer to a MapleCOMSPS solver.
-  MapleCOMSPS::SimpSolver* solver;
-
-  /// Buffer used to import clauses (units included).
   ClauseBuffer clausesToImport;
   ClauseBuffer unitsToImport;
-
-  /// Buffer used to export clauses (units included).
   ClauseBuffer clausesToExport;
 
   /// Buffer used to add permanent clauses.
   ClauseBuffer clausesToAdd;
 
   /// Used to stop or continue the resolution.
-  atomic<bool> stopSolver;
+  std::atomic_bool stopSolver;
 
   /// Callback to export/import clauses.
   friend MapleCOMSPS::Lit cbkMapleCOMSPSImportUnit(void*);
   friend bool cbkMapleCOMSPSImportClause(void*, int*, MapleCOMSPS::vec<MapleCOMSPS::Lit>&);
   friend void cbkMapleCOMSPSExportClause(void*, int, MapleCOMSPS::vec<MapleCOMSPS::Lit>&);
 };
+
+}  // namespace painless

@@ -316,8 +316,8 @@ $(function() {
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="comment">//=================================================================================================</span></div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="comment">// ClauseAllocator -- a simple class for allocating memory for clauses:</span></div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">const</span> CRef CRef_Undef = <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::Ref_Undef</a>;</div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="classMapleCOMSPS_1_1ClauseAllocator.html">  248</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMapleCOMSPS_1_1ClauseAllocator.html">ClauseAllocator</a> : <span class="keyword">public</span> <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator</a>&lt;uint32_t&gt; {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">const</span> CRef CRef_Undef = <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::Ref_Undef</a>;</div>
+<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="classMapleCOMSPS_1_1ClauseAllocator.html">  248</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMapleCOMSPS_1_1ClauseAllocator.html">ClauseAllocator</a> : <span class="keyword">public</span> <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator</a>&lt;uint32_t&gt; {</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">int</span> clauseWord32Size(<span class="keywordtype">int</span> size, <span class="keywordtype">int</span> extras) {</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">return</span> (<span class="keyword">sizeof</span>(<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>) + (<span class="keyword">sizeof</span>(<a class="code" href="structMini_1_1Lit.html">Lit</a>) * (size + extras))) / <span class="keyword">sizeof</span>(uint32_t);</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  }</div>
@@ -326,12 +326,12 @@ $(function() {
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keywordtype">bool</span> extra_clause_field;</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1ClauseAllocator.html">ClauseAllocator</a>(uint32_t start_cap)</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;      : <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;</a>(start_cap), extra_clause_field(<span class="keyword">false</span>) {}</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;      : <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;</a>(start_cap), extra_clause_field(<span class="keyword">false</span>) {}</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1ClauseAllocator.html">ClauseAllocator</a>() : extra_clause_field(<span class="keyword">false</span>) {}</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keywordtype">void</span> moveTo(<a class="code" href="classMapleCOMSPS_1_1ClauseAllocator.html">ClauseAllocator</a>&amp; to) {</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    to.extra_clause_field = extra_clause_field;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::moveTo</a>(to);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::moveTo</a>(to);</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  }</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> Lits&gt;</div>
@@ -340,7 +340,7 @@ $(function() {
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    assert(<span class="keyword">sizeof</span>(<span class="keywordtype">float</span>) == <span class="keyword">sizeof</span>(uint32_t));</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordtype">int</span> extras = learnt ? 2 : (int) extra_clause_field;</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    CRef cid = <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::alloc</a>(clauseWord32Size(ps.size(), extras));</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    CRef cid = <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::alloc</a>(clauseWord32Size(ps.size(), extras));</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">new</span> (lea(cid)) <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>(ps, extra_clause_field, learnt);</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">return</span> cid;</div>
@@ -348,25 +348,25 @@ $(function() {
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  <span class="comment">// Deref, Load Effective Address (LEA), Inverse of LEA (AEL):</span></div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp; operator[](Ref r) {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp;) <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::operator[]</a>(r);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp;) <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::operator[]</a>(r);</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  }</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <span class="keyword">const</span> <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp; operator[](Ref r)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp;) <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::operator[]</a>(r);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp;) <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::operator[]</a>(r);</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  }</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>* lea(Ref r) {</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>*) <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::lea</a>(r);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>*) <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::lea</a>(r);</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  }</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  <span class="keyword">const</span> <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>* lea(Ref r)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>*) <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::lea</a>(r);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>*) <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::lea</a>(r);</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;  }</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  Ref ael(<span class="keyword">const</span> <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>* t) {</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::ael</a>((uint32_t*) t);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::ael</a>((uint32_t*) t);</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  }</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="keywordtype">void</span> free(CRef cid) {</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <a class="code" href="classMapleCOMSPS_1_1Clause.html">Clause</a>&amp; c = operator[](cid);</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordtype">int</span> extras = c.learnt() ? 2 : (int) c.has_extra();</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="classMapleCOMSPS_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::free</a>(clauseWord32Size(c.size(), extras));</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="classMini_1_1RegionAllocator.html">RegionAllocator&lt;uint32_t&gt;::free</a>(clauseWord32Size(c.size(), extras));</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  }</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  <span class="keywordtype">void</span> reloc(CRef&amp; cr, <a class="code" href="classMapleCOMSPS_1_1ClauseAllocator.html">ClauseAllocator</a>&amp; to) {</div>
@@ -398,9 +398,9 @@ $(function() {
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> Idx, <span class="keyword">class</span> Vec, <span class="keyword">class</span> Deleted&gt;</div>
 <div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="classMapleCOMSPS_1_1OccLists.html">  328</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMapleCOMSPS_1_1OccLists.html">OccLists</a> {</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1vec.html">vec&lt;Vec&gt;</a> occs;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1vec.html">vec&lt;char&gt;</a> dirty;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1vec.html">vec&lt;Idx&gt;</a> dirties;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  <a class="code" href="classMini_1_1vec.html">vec&lt;Vec&gt;</a> occs;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <a class="code" href="classMini_1_1vec.html">vec&lt;char&gt;</a> dirty;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;  <a class="code" href="classMini_1_1vec.html">vec&lt;Idx&gt;</a> dirties;</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  Deleted deleted;</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; <span class="keyword">public</span>:</div>
@@ -477,8 +477,8 @@ $(function() {
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    }</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;  };</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="classMapleCOMSPS_1_1Map.html">Map&lt;CRef, T, CRefHash&gt;</a> <a class="code" href="classMapleCOMSPS_1_1Map.html">HashTable</a>;</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  <a class="code" href="classMapleCOMSPS_1_1Map.html">HashTable</a> map;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="classMini_1_1Map.html">Map&lt;CRef, T, CRefHash&gt;</a> <a class="code" href="classMini_1_1Map.html">HashTable</a>;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  <a class="code" href="classMini_1_1Map.html">HashTable</a> map;</div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;  <span class="comment">// Size-operations:</span></div>
@@ -515,7 +515,7 @@ $(function() {
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  <span class="keywordtype">int</span> bucket_count()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keywordflow">return</span> map.bucket_count();</div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  }</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  <span class="keyword">const</span> <a class="code" href="classMapleCOMSPS_1_1vec.html">vec&lt;typename HashTable::Pair&gt;</a>&amp; bucket(<span class="keywordtype">int</span> i)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  <span class="keyword">const</span> <a class="code" href="classMini_1_1vec.html">vec&lt;typename HashTable::Pair&gt;</a>&amp; bucket(<span class="keywordtype">int</span> i)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    <span class="keywordflow">return</span> map.bucket(i);</div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  }</div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
@@ -587,16 +587,14 @@ $(function() {
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
 <div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassMapleCOMSPS_1_1RegionAllocator_html"><div class="ttname"><a href="classMapleCOMSPS_1_1RegionAllocator.html">MapleCOMSPS::RegionAllocator</a></div><div class="ttdef"><b>Definition:</b> Alloc.h:32</div></div>
 <div class="ttc" id="aclassMapleCOMSPS_1_1CMap_html"><div class="ttname"><a href="classMapleCOMSPS_1_1CMap.html">MapleCOMSPS::CMap</a></div><div class="ttdef"><b>Definition:</b> SolverTypes.h:401</div></div>
 <div class="ttc" id="aclassMapleCOMSPS_1_1Clause_html"><div class="ttname"><a href="classMapleCOMSPS_1_1Clause.html">MapleCOMSPS::Clause</a></div><div class="ttdef"><b>Definition:</b> SolverTypes.h:110</div></div>
 <div class="ttc" id="aclassMapleCOMSPS_1_1lbool_html"><div class="ttname"><a href="classMapleCOMSPS_1_1lbool.html">MapleCOMSPS::lbool</a></div><div class="ttdef"><b>Definition:</b> SolverTypes.h:58</div></div>
 <div class="ttc" id="aclassMapleCOMSPS_1_1ClauseAllocator_html"><div class="ttname"><a href="classMapleCOMSPS_1_1ClauseAllocator.html">MapleCOMSPS::ClauseAllocator</a></div><div class="ttdef"><b>Definition:</b> SolverTypes.h:248</div></div>
-<div class="ttc" id="aclassMini_1_1vec_html"><div class="ttname"><a href="classMini_1_1vec.html">Mini::vec</a></div><div class="ttdef"><b>Definition:</b> Vec.h:41</div></div>
-<div class="ttc" id="aclassMapleCOMSPS_1_1vec_html"><div class="ttname"><a href="classMapleCOMSPS_1_1vec.html">MapleCOMSPS::vec&lt; Vec &gt;</a></div></div>
+<div class="ttc" id="aclassMini_1_1vec_html"><div class="ttname"><a href="classMini_1_1vec.html">Mini::vec&lt; Vec &gt;</a></div></div>
+<div class="ttc" id="aclassMini_1_1Map_html"><div class="ttname"><a href="classMini_1_1Map.html">Mini::Map&lt; CRef, T, CRefHash &gt;</a></div></div>
 <div class="ttc" id="aclassMini_1_1RegionAllocator_html"><div class="ttname"><a href="classMini_1_1RegionAllocator.html">Mini::RegionAllocator</a></div><div class="ttdef"><b>Definition:</b> Alloc.h:32</div></div>
 <div class="ttc" id="astructMini_1_1Lit_html"><div class="ttname"><a href="structMini_1_1Lit.html">Mini::Lit</a></div><div class="ttdef"><b>Definition:</b> Lit.h:9</div></div>
-<div class="ttc" id="aclassMapleCOMSPS_1_1Map_html"><div class="ttname"><a href="classMapleCOMSPS_1_1Map.html">MapleCOMSPS::Map&lt; CRef, T, CRefHash &gt;</a></div></div>
 <div class="ttc" id="aclassMapleCOMSPS_1_1OccLists_html"><div class="ttname"><a href="classMapleCOMSPS_1_1OccLists.html">MapleCOMSPS::OccLists</a></div><div class="ttdef"><b>Definition:</b> SolverTypes.h:328</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -23,9 +23,9 @@
 
 #include <vector>
 
-using namespace std;
+namespace painless {
 
-static atomic<int> currentIdSolver(0);
+static std::atomic<int> currentIdSolver(0);
 
 /// Factory to create solvers.
 class SolverFactory {
@@ -35,19 +35,18 @@ class SolverFactory {
 
   /// Instantiate and return a group of MapleCOMSPS solvers.
   static void createMapleCOMSPSSolvers(
-      int lbd_limit, int max_memory, int groupSize, vector<SolverInterface*>& solvers);
+      int lbd_limit, int max_memory, int groupSize, std::vector<SolverInterface*>& solvers);
 
   static SolverInterface* createReducerSolver(SolverInterface* solver);
 
   /// Clone and return a new solver.
   static SolverInterface* cloneSolver(SolverInterface* other);
 
-  /// Print stats of a groupe of solvers.
-  static void printStats(const vector<SolverInterface*>& solvers);
-
   /// Apply a sparse and random diversification on solvers.
-  static void sparseRandomDiversification(const vector<SolverInterface*>& solvers);
+  static void sparseRandomDiversification(const std::vector<SolverInterface*>& solvers);
 
   /// Apply a native diversification on solvers.
-  static void nativeDiversification(const vector<SolverInterface*>& solvers);
+  static void nativeDiversification(const std::vector<SolverInterface*>& solvers);
 };
+
+}  // namespace painless

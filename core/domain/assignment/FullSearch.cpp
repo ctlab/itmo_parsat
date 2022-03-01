@@ -23,6 +23,9 @@ namespace core::domain {
 FullSearch::FullSearch(VarView const& var_view, std::vector<bool> const& vars)
     : AssignmentModifier(var_view, vars), Search(Search::total_size(vars)) {}
 
+FullSearch::FullSearch(std::vector<int> const& vars)
+    : AssignmentModifier(vars), Search(1ULL << vars.size()) {}
+
 void FullSearch::_advance() {
   next_assignment(_assignment);
 }
@@ -41,6 +44,10 @@ Mini::vec<Mini::Lit> const& FullSearch::operator()() const {
 
 UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars) {
   return std::make_unique<FullSearch>(var_view, vars);
+}
+
+UFullSearch createFullSearch(std::vector<int> const& vars) {
+  return std::make_unique<FullSearch>(vars);
 }
 
 }  // namespace core::domain

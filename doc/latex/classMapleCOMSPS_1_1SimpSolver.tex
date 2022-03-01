@@ -7,7 +7,7 @@ Inheritance diagram for Maple\+C\+O\+M\+S\+PS\+::Simp\+Solver\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{classMapleCOMSPS_1_1SimpSolver__inherit__graph}
+\includegraphics[width=245pt]{classMapleCOMSPS_1_1SimpSolver__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -37,7 +37,7 @@ struct \mbox{\hyperlink{structMapleCOMSPS_1_1SimpSolver_1_1ElimLt}{Elim\+Lt}}
 Var {\bfseries new\+Var} (bool polarity=true, bool dvar=true)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a7bb5c72dbfc7ff32c543efc79bf9fbe0}\label{classMapleCOMSPS_1_1SimpSolver_a7bb5c72dbfc7ff32c543efc79bf9fbe0}} 
-bool {\bfseries add\+Clause} (const \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&ps)
+bool {\bfseries add\+Clause} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&ps)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a323d204ffb106ca67d1b14219c696cb2}\label{classMapleCOMSPS_1_1SimpSolver_a323d204ffb106ca67d1b14219c696cb2}} 
 bool {\bfseries add\+Empty\+Clause} ()
@@ -52,7 +52,7 @@ bool {\bfseries add\+Clause} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox
 bool {\bfseries add\+Clause} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} r)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_aa11ebc4d4bb46206417e6a1fb505672a}\label{classMapleCOMSPS_1_1SimpSolver_aa11ebc4d4bb46206417e6a1fb505672a}} 
-bool {\bfseries add\+Clause\+\_\+} (\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&ps)
+bool {\bfseries add\+Clause\+\_\+} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&ps)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a29ecbb0011cbe37bd3b1d1071fd8e1ae}\label{classMapleCOMSPS_1_1SimpSolver_a29ecbb0011cbe37bd3b1d1071fd8e1ae}} 
 bool {\bfseries substitute} (Var v, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} x)
@@ -64,10 +64,10 @@ void {\bfseries set\+Frozen} (Var v, bool b)
 bool {\bfseries is\+Eliminated} (Var v) const
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_af7eb9ffc810f2d01b866a3da7303a087}\label{classMapleCOMSPS_1_1SimpSolver_af7eb9ffc810f2d01b866a3da7303a087}} 
-bool {\bfseries solve} (const \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps, bool do\+\_\+simp=true, bool turn\+\_\+off\+\_\+simp=false)
+bool {\bfseries solve} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps, bool do\+\_\+simp=true, bool turn\+\_\+off\+\_\+simp=false)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_af5f3661eda21092b39232af33d3eb3c1}\label{classMapleCOMSPS_1_1SimpSolver_af5f3661eda21092b39232af33d3eb3c1}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries solve\+Limited} (const \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps, bool do\+\_\+simp=true, bool turn\+\_\+off\+\_\+simp=false)
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries solve\+Limited} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps, bool do\+\_\+simp=true, bool turn\+\_\+off\+\_\+simp=false)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_aeeb59ec55e236419cb324b1921612107}\label{classMapleCOMSPS_1_1SimpSolver_aeeb59ec55e236419cb324b1921612107}} 
 bool {\bfseries solve} (bool do\+\_\+simp=true, bool turn\+\_\+off\+\_\+simp=false)
@@ -154,7 +154,7 @@ void {\bfseries update\+Elim\+Heap} (Var v)
 void {\bfseries gather\+Touched\+Clauses} ()
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a8579d8cf20613067f4c27651fc3e5859}\label{classMapleCOMSPS_1_1SimpSolver_a8579d8cf20613067f4c27651fc3e5859}} 
-bool {\bfseries merge} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&\+\_\+ps, const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&\+\_\+qs, Var v, \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&out\+\_\+clause)
+bool {\bfseries merge} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&\+\_\+ps, const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&\+\_\+qs, Var v, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&out\+\_\+clause)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a601f84ca6944a1474832ff37d97ce379}\label{classMapleCOMSPS_1_1SimpSolver_a601f84ca6944a1474832ff37d97ce379}} 
 bool {\bfseries merge} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&\+\_\+ps, const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&\+\_\+qs, Var v, int \&size)
@@ -175,7 +175,7 @@ void {\bfseries remove\+Clause} (C\+Ref cr)
 bool {\bfseries strengthen\+Clause} (C\+Ref cr, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} l)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a544b3bb4031dacd833bb7134af658895}\label{classMapleCOMSPS_1_1SimpSolver_a544b3bb4031dacd833bb7134af658895}} 
-bool {\bfseries implied} (const \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&c)
+bool {\bfseries implied} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&c)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_ad9be07bc1c54c20f990dbf2cf835ff7e}\label{classMapleCOMSPS_1_1SimpSolver_ad9be07bc1c54c20f990dbf2cf835ff7e}} 
 void {\bfseries reloc\+All} (\mbox{\hyperlink{classMapleCOMSPS_1_1ClauseAllocator}{Clause\+Allocator}} \&to)
@@ -184,16 +184,16 @@ void {\bfseries reloc\+All} (\mbox{\hyperlink{classMapleCOMSPS_1_1ClauseAllocato
 bool {\bfseries gauss\+Elim} ()
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a7a4d6ef0c30273eefd1d8f588e52f44a}\label{classMapleCOMSPS_1_1SimpSolver_a7a4d6ef0c30273eefd1d8f588e52f44a}} 
-bool {\bfseries search\+Xors} (\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Xor}{Xor}} $\ast$ $>$ \&xors)
+bool {\bfseries search\+Xors} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Xor}{Xor}} $\ast$ $>$ \&xors)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a12b733a2e134de9bcc86539c6cc6f5f8}\label{classMapleCOMSPS_1_1SimpSolver_a12b733a2e134de9bcc86539c6cc6f5f8}} 
-int {\bfseries compute\+Var\+Sccs} (\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ Var $>$ \&v2scc\+\_\+id, \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ Var $>$ $>$ \&var\+\_\+sccs, \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Xor}{Xor}} $\ast$ $>$ \&xors) const
+int {\bfseries compute\+Var\+Sccs} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ Var $>$ \&v2scc\+\_\+id, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ Var $>$ $>$ \&var\+\_\+sccs, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Xor}{Xor}} $\ast$ $>$ \&xors) const
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_aeb63ba7e70f36777dc6b55b7f0d3bce9}\label{classMapleCOMSPS_1_1SimpSolver_aeb63ba7e70f36777dc6b55b7f0d3bce9}} 
-void {\bfseries compute\+Xor\+Sccs} (\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1XorScc}{Xor\+Scc}} $\ast$ $>$ \&xor\+\_\+sccs, const \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Xor}{Xor}} $\ast$ $>$ \&xors, const \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ Var $>$ \&v2scc\+\_\+id, \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ Var $>$ $>$ \&var\+\_\+sccs, int upper\+\_\+limit) const
+void {\bfseries compute\+Xor\+Sccs} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1XorScc}{Xor\+Scc}} $\ast$ $>$ \&xor\+\_\+sccs, const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1Xor}{Xor}} $\ast$ $>$ \&xors, const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ Var $>$ \&v2scc\+\_\+id, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ Var $>$ $>$ \&var\+\_\+sccs, int upper\+\_\+limit) const
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a88ced0e8d7929bfe8ef4c0f0ad9286f1}\label{classMapleCOMSPS_1_1SimpSolver_a88ced0e8d7929bfe8ef4c0f0ad9286f1}} 
-bool {\bfseries perform\+Gauss\+Elim} (\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1XorScc}{Xor\+Scc}} $\ast$ $>$ \&xor\+\_\+sccs)
+bool {\bfseries perform\+Gauss\+Elim} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1XorScc}{Xor\+Scc}} $\ast$ $>$ \&xor\+\_\+sccs)
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a19575a0cee6817e409483118154d35d6}\label{classMapleCOMSPS_1_1SimpSolver_a19575a0cee6817e409483118154d35d6}} 
 int {\bfseries to\+Dup\+Marker\+Idx} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&c)
@@ -211,28 +211,28 @@ int {\bfseries elimorder}
 bool {\bfseries use\+\_\+simplification}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a5f09e369c8f7580b8678fa2c55d46423}\label{classMapleCOMSPS_1_1SimpSolver_a5f09e369c8f7580b8678fa2c55d46423}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ uint32\+\_\+t $>$ {\bfseries elimclauses}
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ uint32\+\_\+t $>$ {\bfseries elimclauses}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a2709fb4c1a138bfe2d66223e3ebd651b}\label{classMapleCOMSPS_1_1SimpSolver_a2709fb4c1a138bfe2d66223e3ebd651b}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ char $>$ {\bfseries touched}
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries touched}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a83c982e34097a7bb26d837d1adfc46b4}\label{classMapleCOMSPS_1_1SimpSolver_a83c982e34097a7bb26d837d1adfc46b4}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1OccLists}{Occ\+Lists}}$<$ Var, \mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ C\+Ref $>$, \mbox{\hyperlink{structMapleCOMSPS_1_1SimpSolver_1_1ClauseDeleted}{Clause\+Deleted}} $>$ {\bfseries occurs}
+\mbox{\hyperlink{classMapleCOMSPS_1_1OccLists}{Occ\+Lists}}$<$ Var, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$, \mbox{\hyperlink{structMapleCOMSPS_1_1SimpSolver_1_1ClauseDeleted}{Clause\+Deleted}} $>$ {\bfseries occurs}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a1e2e227e80aeedf931ddf61c75d1ead8}\label{classMapleCOMSPS_1_1SimpSolver_a1e2e227e80aeedf931ddf61c75d1ead8}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ int $>$ {\bfseries n\+\_\+occ}
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ int $>$ {\bfseries n\+\_\+occ}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a10cf5a9928c2c13d49478b5b238da0d6}\label{classMapleCOMSPS_1_1SimpSolver_a10cf5a9928c2c13d49478b5b238da0d6}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1Heap}{Heap}}$<$ int, \mbox{\hyperlink{structMapleCOMSPS_1_1SimpSolver_1_1ElimLt}{Elim\+Lt}} $>$ {\bfseries elim\+\_\+heap}
+\mbox{\hyperlink{classMini_1_1Heap}{Heap}}$<$ int, \mbox{\hyperlink{structMapleCOMSPS_1_1SimpSolver_1_1ElimLt}{Elim\+Lt}} $>$ {\bfseries elim\+\_\+heap}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a23c9583e9e72b15d5e50a83b8f2705aa}\label{classMapleCOMSPS_1_1SimpSolver_a23c9583e9e72b15d5e50a83b8f2705aa}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1Queue}{Queue}}$<$ C\+Ref $>$ {\bfseries subsumption\+\_\+queue}
+\mbox{\hyperlink{classMini_1_1Queue}{Queue}}$<$ C\+Ref $>$ {\bfseries subsumption\+\_\+queue}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a3b8d7d5ee7bd15da96ac392a6ea47ba8}\label{classMapleCOMSPS_1_1SimpSolver_a3b8d7d5ee7bd15da96ac392a6ea47ba8}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ char $>$ {\bfseries frozen}
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries frozen}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a9e4b9e53c95693ca6daa27aff306270f}\label{classMapleCOMSPS_1_1SimpSolver_a9e4b9e53c95693ca6daa27aff306270f}} 
-\mbox{\hyperlink{classMapleCOMSPS_1_1vec}{vec}}$<$ char $>$ {\bfseries eliminated}
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries eliminated}
 \item 
 \mbox{\Hypertarget{classMapleCOMSPS_1_1SimpSolver_a8284e668367c582005d794b68cc2e716}\label{classMapleCOMSPS_1_1SimpSolver_a8284e668367c582005d794b68cc2e716}} 
 int {\bfseries bwdsub\+\_\+assigns}

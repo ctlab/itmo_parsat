@@ -22,6 +22,8 @@
 #include "../solvers/Reducer.h"
 #include "../utils/System.h"
 
+namespace painless {
+
 void SolverFactory::sparseRandomDiversification(const vector<SolverInterface*>& solvers) {
   if (solvers.size() == 0)
     return;
@@ -73,3 +75,5 @@ SolverInterface* SolverFactory::cloneSolver(SolverInterface* other) {
   auto&& o = (MapleCOMSPSSolver&) *other;
   return new MapleCOMSPSSolver(id, o.lbdLimit, (MapleCOMSPSSolver&) *other);
 }
+
+}  // namespace painless

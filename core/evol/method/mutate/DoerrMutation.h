@@ -15,11 +15,11 @@ class DoerrMutation : public Mutation {
   void apply(instance::Instance& instance) override;
 
  private:
-  [[nodiscard]] double _get_alpha(uint32_t size) const;
+  [[nodiscard]] uint32_t _get_alpha(uint32_t size) const;
 
  private:
   double beta_;
-  double alpha_ = -1.;
+  uint32_t alpha_ = 0;
 };
 
 }  // namespace ea::method

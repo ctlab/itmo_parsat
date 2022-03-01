@@ -38,7 +38,7 @@ void ParProp::prop_assignments(domain::USearch search, Prop::prop_callback_t con
 }
 
 uint64_t ParProp::prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) {
-  if (vars.size() - head_size <= 16) {
+  if (vars.size() - head_size <= 8) {
     // Use single thread to process small requests.
     return _prop_worker_pool.get_workers().front()->prop_tree(vars, head_size);
   }

@@ -96,47 +96,55 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;../clauses/ClauseExchange.h&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define CLAUSE_SIZE sizeof(::painless::ClauseExchange)</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classClauseManager.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classClauseManager.html">ClauseManager</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classClauseManager.html#a9f3bcb85db39e758b5d0adacb443b3ee">   33</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classClauseManager.html#a9f3bcb85db39e758b5d0adacb443b3ee">initClauseManager</a>() {}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classClauseManager.html#a60d8fd843aa11c75377f6b5d1f38889e">   36</a></span>&#160;  <span class="keyword">static</span> <a class="code" href="structClauseExchange.html">ClauseExchange</a>* <a class="code" href="classClauseManager.html#a60d8fd843aa11c75377f6b5d1f38889e">allocClause</a>(<span class="keywordtype">int</span> size) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="structClauseExchange.html">ClauseExchange</a>* ptr;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    ptr = (<a class="code" href="structClauseExchange.html">ClauseExchange</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code" href="structClauseExchange.html">ClauseExchange</a>) + <span class="keyword">sizeof</span>(int) * size);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define BUFFER_CLAUSES</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">namespace </span>painless {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classpainless_1_1ClauseManager.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="classpainless_1_1ClauseManager.html">ClauseManager</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="classpainless_1_1ClauseManager.html">ClauseManager</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//  ~ClauseManager() noexcept;</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ptr-&gt;<a class="code" href="structClauseExchange.html#a1ee20a993ff49d329880767c783423b2">size</a> = size;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ptr-&gt;<a class="code" href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">nbRefs</a> = 1;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> ptr;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classClauseManager.html#af5325c45138bee556e6228837eafbe8f">   47</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classClauseManager.html#af5325c45138bee556e6228837eafbe8f">increaseClause</a>(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* cls, <span class="keywordtype">int</span> refs = 1) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    cls-&gt;<a class="code" href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">nbRefs</a> += refs;  <span class="comment">// atomic adition</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classpainless_1_1ClauseManager.html#a2e073713f94545c86fae44a117cf11ad">   41</a></span>&#160;  <span class="keyword">static</span> <a class="code" href="structClauseExchange.html">ClauseExchange</a>* <a class="code" href="classpainless_1_1ClauseManager.html#a2e073713f94545c86fae44a117cf11ad">allocClause</a>(<span class="keywordtype">int</span> size) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="structClauseExchange.html">ClauseExchange</a>* ptr;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    ptr = (<a class="code" href="structClauseExchange.html">ClauseExchange</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code" href="structClauseExchange.html">ClauseExchange</a>) + <span class="keyword">sizeof</span>(int) * size);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    ptr-&gt;<a class="code" href="structClauseExchange.html#a1ee20a993ff49d329880767c783423b2">size</a> = size;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    ptr-&gt;<a class="code" href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">nbRefs</a> = 1;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> ptr;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classClauseManager.html#ab1abedc835aa9f1e31ea14bd2c4b4d19">   52</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classClauseManager.html#ab1abedc835aa9f1e31ea14bd2c4b4d19">releaseClause</a>(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* cls) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">int</span> oldValue = cls-&gt;<a class="code" href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">nbRefs</a>.fetch_sub(1);  <span class="comment">// atomic decrementation</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (oldValue - 1 &lt;= 0) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="comment">// Only the last thread should execute this code</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      free(cls);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classClauseManager.html#a6e8bd21c4466cc1bfff86bef3ebd0222">   62</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classClauseManager.html#a6e8bd21c4466cc1bfff86bef3ebd0222">joinClauseManager</a>() {}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classpainless_1_1ClauseManager.html#a27ed12fc524696d654ce165a0ef8ab77">   52</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classpainless_1_1ClauseManager.html#a27ed12fc524696d654ce165a0ef8ab77">increaseClause</a>(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* cls, <span class="keywordtype">int</span> refs = 1) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    cls-&gt;<a class="code" href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">nbRefs</a> += refs;  <span class="comment">// atomic adition</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classpainless_1_1ClauseManager.html#aa17c3b3baf867e8b96c890c0a28cafb3">   57</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classpainless_1_1ClauseManager.html#aa17c3b3baf867e8b96c890c0a28cafb3">releaseClause</a>(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* cls) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">int</span> oldValue = cls-&gt;<a class="code" href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">nbRefs</a>.fetch_sub(1);  <span class="comment">// atomic decrementation</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (oldValue - 1 &lt;= 0) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="comment">// Only the last thread should execute this code</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      free(cls);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// private:</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">//  uint64_t _lb_size = 0;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">//  std::vector&lt;ClauseExchange*&gt; _buffer;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}  <span class="comment">// namespace painless</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="astructClauseExchange_html_a36cb6f1fe1dc15691f31128d299fdc14"><div class="ttname"><a href="structClauseExchange.html#a36cb6f1fe1dc15691f31128d299fdc14">ClauseExchange::nbRefs</a></div><div class="ttdeci">atomic&lt; int &gt; nbRefs</div><div class="ttdoc">Number of references on this clause.</div><div class="ttdef"><b>Definition:</b> ClauseExchange.h:30</div></div>
-<div class="ttc" id="aclassClauseManager_html_ab1abedc835aa9f1e31ea14bd2c4b4d19"><div class="ttname"><a href="classClauseManager.html#ab1abedc835aa9f1e31ea14bd2c4b4d19">ClauseManager::releaseClause</a></div><div class="ttdeci">static void releaseClause(ClauseExchange *cls)</div><div class="ttdoc">Release a shared clauses, delete it if needed.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:52</div></div>
-<div class="ttc" id="aclassClauseManager_html_af5325c45138bee556e6228837eafbe8f"><div class="ttname"><a href="classClauseManager.html#af5325c45138bee556e6228837eafbe8f">ClauseManager::increaseClause</a></div><div class="ttdeci">static void increaseClause(ClauseExchange *cls, int refs=1)</div><div class="ttdoc">Increase the number of references to a shared clause.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:47</div></div>
-<div class="ttc" id="aclassClauseManager_html_a6e8bd21c4466cc1bfff86bef3ebd0222"><div class="ttname"><a href="classClauseManager.html#a6e8bd21c4466cc1bfff86bef3ebd0222">ClauseManager::joinClauseManager</a></div><div class="ttdeci">static void joinClauseManager()</div><div class="ttdoc">Join the clause manager.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:62</div></div>
+<div class="ttc" id="aclasspainless_1_1ClauseManager_html_a2e073713f94545c86fae44a117cf11ad"><div class="ttname"><a href="classpainless_1_1ClauseManager.html#a2e073713f94545c86fae44a117cf11ad">painless::ClauseManager::allocClause</a></div><div class="ttdeci">static ClauseExchange * allocClause(int size)</div><div class="ttdoc">Alloc a new shared clause.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:41</div></div>
 <div class="ttc" id="astructClauseExchange_html_a1ee20a993ff49d329880767c783423b2"><div class="ttname"><a href="structClauseExchange.html#a1ee20a993ff49d329880767c783423b2">ClauseExchange::size</a></div><div class="ttdeci">int size</div><div class="ttdoc">Size of this clause.</div><div class="ttdef"><b>Definition:</b> ClauseExchange.h:36</div></div>
 <div class="ttc" id="astructClauseExchange_html"><div class="ttname"><a href="structClauseExchange.html">ClauseExchange</a></div><div class="ttdoc">Structure of a shared clause.</div><div class="ttdef"><b>Definition:</b> ClauseExchange.h:28</div></div>
-<div class="ttc" id="aclassClauseManager_html_a60d8fd843aa11c75377f6b5d1f38889e"><div class="ttname"><a href="classClauseManager.html#a60d8fd843aa11c75377f6b5d1f38889e">ClauseManager::allocClause</a></div><div class="ttdeci">static ClauseExchange * allocClause(int size)</div><div class="ttdoc">Alloc a new shared clause.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:36</div></div>
-<div class="ttc" id="aclassClauseManager_html_a9f3bcb85db39e758b5d0adacb443b3ee"><div class="ttname"><a href="classClauseManager.html#a9f3bcb85db39e758b5d0adacb443b3ee">ClauseManager::initClauseManager</a></div><div class="ttdeci">static void initClauseManager()</div><div class="ttdoc">Init the clause manager.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:33</div></div>
-<div class="ttc" id="aclassClauseManager_html"><div class="ttname"><a href="classClauseManager.html">ClauseManager</a></div><div class="ttdoc">Class in charge of the management of shared clauses.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:30</div></div>
+<div class="ttc" id="aclasspainless_1_1ClauseManager_html_a27ed12fc524696d654ce165a0ef8ab77"><div class="ttname"><a href="classpainless_1_1ClauseManager.html#a27ed12fc524696d654ce165a0ef8ab77">painless::ClauseManager::increaseClause</a></div><div class="ttdeci">static void increaseClause(ClauseExchange *cls, int refs=1)</div><div class="ttdoc">Increase the number of references to a shared clause.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:52</div></div>
+<div class="ttc" id="aclasspainless_1_1ClauseManager_html_aa17c3b3baf867e8b96c890c0a28cafb3"><div class="ttname"><a href="classpainless_1_1ClauseManager.html#aa17c3b3baf867e8b96c890c0a28cafb3">painless::ClauseManager::releaseClause</a></div><div class="ttdeci">static void releaseClause(ClauseExchange *cls)</div><div class="ttdoc">Release a shared clauses, delete it if needed.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:57</div></div>
+<div class="ttc" id="aclasspainless_1_1ClauseManager_html"><div class="ttname"><a href="classpainless_1_1ClauseManager.html">painless::ClauseManager</a></div><div class="ttdoc">Class in charge of the management of shared clauses.</div><div class="ttdef"><b>Definition:</b> ClauseManager.h:34</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

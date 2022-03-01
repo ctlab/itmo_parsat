@@ -35,7 +35,7 @@ class HordeSatSharing : public SharingStrategy {
   explicit HordeSatSharing(int shr_lit, int shr_sleep, WorkingResult* result);
 
   /// Destructor.
-  ~HordeSatSharing();
+  ~HordeSatSharing() = default;
 
   /// This method shared clauses from the producers to the consumers.
   void doSharing(
@@ -55,7 +55,7 @@ class HordeSatSharing : public SharingStrategy {
   int roundBeforeIncrease;
 
   /// Databse used to store the clauses.
-  std::unordered_map<int, ClauseDatabase*> databases;
+  std::unordered_map<int, std::unique_ptr<ClauseDatabase>> databases;
 
   /// Sharing statistics.
   SharingStatistics stats;

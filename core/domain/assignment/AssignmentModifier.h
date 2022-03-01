@@ -15,6 +15,8 @@ class AssignmentModifier {
  public:
   AssignmentModifier(VarView const& var_view, std::vector<bool> const& vars);
 
+  AssignmentModifier(std::vector<int> const& vars);
+
   [[nodiscard]] Mini::vec<Mini::Lit> const& get() const;
 
  protected:

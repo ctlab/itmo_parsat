@@ -23,7 +23,7 @@
 #include "../solvers/SolverInterface.h"
 #include "../utils/Threading.h"
 
-using namespace std;
+namespace painless {
 
 /// Instance of a MapleCOMSPS solver
 class Reducer : public SolverInterface {
@@ -49,25 +49,25 @@ class Reducer : public SolverInterface {
   /// Remove the SAT solving interrupt request.
   void unsetSolverInterrupt();
 
-  PSatResult solve(const vector<int>& cube);
+  PSatResult solve(const std::vector<int>& cube);
 
   /// Add a permanent clause to the formula.
   void addClause(ClauseExchange* clause);
 
   /// Add a list of permanent clauses to the formula.
-  void addClauses(const vector<ClauseExchange*>& clauses);
+  void addClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Add a list of initial clauses to the formula.
-  void addInitialClauses(const vector<ClauseExchange*>& clauses);
+  void addInitialClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Add a learned clause to the formula.
   void addLearnedClause(ClauseExchange* clause);
 
   /// Add a list of learned clauses to the formula.
-  void addLearnedClauses(const vector<ClauseExchange*>& clauses);
+  void addLearnedClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Get a list of learned clauses.
-  void getLearnedClauses(vector<ClauseExchange*>& clauses);
+  void getLearnedClauses(std::vector<ClauseExchange*>& clauses);
 
   /// Request the solver to produce more clauses.
   void increaseClauseProduction();
@@ -88,8 +88,6 @@ class Reducer : public SolverInterface {
   void diversify(int id);
 
   bool strengthed(ClauseExchange* cls, ClauseExchange** outCls);
-
-  void printStatsStrengthening();
 
   vector<int> getSatAssumptions();
 
@@ -112,3 +110,5 @@ class Reducer : public SolverInterface {
   bool _stop = false;
   bool _interrupt = false;
 };
+
+}  // namespace painless

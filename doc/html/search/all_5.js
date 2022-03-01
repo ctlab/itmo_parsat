@@ -6,6 +6,6 @@ var searchData=
   ['elimlt_133',['ElimLt',['../structMapleCOMSPS_1_1SimpSolver_1_1ElimLt.html',1,'MapleCOMSPS::SimpSolver']]],
   ['empty_134',['empty',['../classcore_1_1domain_1_1Search.html#a34f4e198a6d8660ecffb0a6b322d95ef',1,'core::domain::Search']]],
   ['end_135',['end',['../structmzd__block__t.html#a28247ab4c8ed616287ec5daaf8878f96',1,'mzd_block_t']]],
-  ['equal_136',['Equal',['../structMapleCOMSPS_1_1Equal.html',1,'MapleCOMSPS::Equal&lt; K &gt;'],['../structMini_1_1Equal.html',1,'Mini::Equal&lt; K &gt;']]],
-  ['equal_3c_20cref_20_3e_137',['Equal&lt; CRef &gt;',['../structMapleCOMSPS_1_1Equal.html',1,'MapleCOMSPS']]]
+  ['equal_136',['Equal',['../structMini_1_1Equal.html',1,'Mini']]],
+  ['equal_3c_20cref_20_3e_137',['Equal&lt; CRef &gt;',['../structMini_1_1Equal.html',1,'Mini']]]
 ];

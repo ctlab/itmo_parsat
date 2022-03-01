@@ -24,13 +24,18 @@
 
 #include "../clauses/ClauseExchange.h"
 
-using namespace std;
+#define CLAUSE_SIZE sizeof(::painless::ClauseExchange)
+
+#define BUFFER_CLAUSES
+
+namespace painless {
 
 /// Class in charge of the management of shared clauses.
 class ClauseManager {
  public:
-  /// Init the clause manager.
-  static void initClauseManager() {}
+  ClauseManager() = default;
+
+//  ~ClauseManager() noexcept;
 
   /// Alloc a new shared clause.
   static ClauseExchange* allocClause(int size) {
@@ -58,6 +63,9 @@ class ClauseManager {
     }
   }
 
-  /// Join the clause manager.
-  static void joinClauseManager() {}
+// private:
+//  uint64_t _lb_size = 0;
+//  std::vector<ClauseExchange*> _buffer;
 };
+
+}  // namespace painless

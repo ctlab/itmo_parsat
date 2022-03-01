@@ -20,11 +20,17 @@
 #include "../clauses/ClauseDatabase.h"
 #include "../clauses/ClauseManager.h"
 
-using namespace std;
+namespace painless {
 
 ClauseDatabase::ClauseDatabase() {}
 
-ClauseDatabase::~ClauseDatabase() {}
+ClauseDatabase::~ClauseDatabase() {
+  for (auto& clauses : clauses) {
+    for (auto& clause : clauses) {
+      ClauseManager::releaseClause(clause);
+    }
+  }
+}
 
 void ClauseDatabase::addClause(ClauseExchange* clause) {
   int clsSize = clause->size;
@@ -79,3 +85,5 @@ int ClauseDatabase::giveSelection(
 
   return used;
 }
+
+}  // namespace painless

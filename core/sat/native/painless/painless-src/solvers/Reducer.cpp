@@ -24,6 +24,8 @@
 #include "../clauses/ClauseManager.h"
 #include "../solvers/Reducer.h"
 
+namespace painless {
+
 using namespace MapleCOMSPS;
 using namespace Mini;
 
@@ -98,11 +100,13 @@ PSatResult Reducer::solve(const vector<int>& cube) {
     }
     if (strengthed(cls, &strengthenedCls)) {
       if (strengthenedCls->size == 0) {
+        ClauseManager::releaseClause(cls);
+        ClauseManager::releaseClause(strengthenedCls);
         return PUNSAT;
       }
-      ClauseManager::increaseClause(strengthenedCls);
       clausesToExport.addClause(strengthenedCls);
     }
+    ClauseManager::releaseClause(cls);
   }
   return PUNKNOWN;
 }
@@ -178,13 +182,6 @@ SolvingStatistics Reducer::getStatistics() {
   return solver->getStatistics();
 }
 
-void Reducer::printStatsStrengthening() {
-  // log(0, "count,min,max,average,stdDeviation,sum\n");
-  // log(0, "cls_in,%s\n", cls_in.valueString().c_str());
-  // log(0, "cls_out,%s\n", cls_out.valueString().c_str());
-  // log(0, "strengthened,%s\n", strengthened.valueString().c_str());
-}
-
 vector<int> Reducer::getModel() {
   return solver->getModel();
 }
@@ -196,3 +193,5 @@ vector<int> Reducer::getFinalAnalysis() {
 vector<int> Reducer::getSatAssumptions() {
   return solver->getSatAssumptions();
 }
+
+}  // namespace painless

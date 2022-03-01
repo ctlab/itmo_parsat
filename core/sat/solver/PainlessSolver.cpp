@@ -12,11 +12,11 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig const& config) : _cfg(config
   int max_memory = _cfg.max_memory();
   int slv_sleep_us = _cfg.slv_sleep_us();
 
-  SolverFactory::createMapleCOMSPSSolvers(lbd_limit, max_memory, cpus - 2, _solvers);
+  painless::SolverFactory::createMapleCOMSPSSolvers(lbd_limit, max_memory, cpus - 2, _solvers);
   _solvers.push_back(
-      SolverFactory::createReducerSolver(SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
+      painless::SolverFactory::createReducerSolver(painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
   _solvers.push_back(
-      SolverFactory::createReducerSolver(SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
+      painless::SolverFactory::createReducerSolver(painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
 
   int nSolvers = _solvers.size();
 
@@ -28,9 +28,9 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig const& config) : _cfg(config
     }
   }
 
-  SolverFactory::nativeDiversification(_solvers);
-  SolverFactory::sparseRandomDiversification(_solvers_LRB);
-  SolverFactory::sparseRandomDiversification(_solvers_VSIDS);
+  painless::SolverFactory::nativeDiversification(_solvers);
+  painless::SolverFactory::sparseRandomDiversification(_solvers_LRB);
+  painless::SolverFactory::sparseRandomDiversification(_solvers_VSIDS);
 
   working = std::make_unique<painless::Portfolio>(&_result);
   {

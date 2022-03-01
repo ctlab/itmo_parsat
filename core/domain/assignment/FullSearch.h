@@ -18,6 +18,8 @@ class FullSearch : AssignmentModifier, public Search {
  public:
   FullSearch(VarView const& var_view, std::vector<bool> const& vars);
 
+  FullSearch(std::vector<int> const& vars);
+
   [[nodiscard]] FullSearch* clone() const override;
 
   [[nodiscard]] lit_vec_t const& operator()() const override;
@@ -29,6 +31,8 @@ class FullSearch : AssignmentModifier, public Search {
 };
 
 UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
+
+UFullSearch createFullSearch(std::vector<int> const& vars);
 
 }  // namespace core::domain
 

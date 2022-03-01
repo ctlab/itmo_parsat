@@ -30,14 +30,12 @@ void Sharer::do_remove() {
     for (size_t i = 0; i < removeProducers.size(); i++) {
       producers.erase(
           remove(producers.begin(), producers.end(), removeProducers[i]), producers.end());
-      //      removeProducers[i]->release();
     }
     removeProducers.clear();
 
     for (size_t i = 0; i < removeConsumers.size(); i++) {
       consumers.erase(
           remove(consumers.begin(), consumers.end(), removeConsumers[i]), consumers.end());
-      //      removeConsumers[i]->release();
     }
     removeConsumers.clear();
   }
@@ -80,13 +78,6 @@ Sharer::Sharer(
   this->sharingStrategy = sharingStrategy;
   this->producers = producers;
   this->consumers = consumers;
-
-  for (size_t i = 0; i < producers.size(); i++) {
-    //    producers[i]->increase();
-  }
-  for (size_t i = 0; i < consumers.size(); i++) {
-    //    consumers[i]->increase();
-  }
   sharer_thread = std::thread([this] { main_sharing_thread(); });
 }
 
@@ -99,29 +90,15 @@ Sharer::~Sharer() noexcept {
   if (sharer_thread.joinable()) {
     sharer_thread.join();
   }
-
-  {
-    std::lock_guard<std::mutex> lg(remove_mutex);
-    for (int i = 0; i < removeProducers.size(); i++) {
-      //      removeProducers[i]->release();
-    }
-    for (size_t i = 0; i < removeConsumers.size(); i++) {
-      //      removeConsumers[i]->release();
-    }
-  }
-
   delete sharingStrategy;
 }
 
 void Sharer::addProducer(SolverInterface* solver) {
-  //  solver->increase();
   std::lock_guard<std::mutex> lg(add_mutex);
   addProducers.push_back(solver);
 }
 
 void Sharer::addConsumer(SolverInterface* solver) {
-  //  solver->increase();
-
   std::lock_guard<std::mutex> lg(add_mutex);
   addConsumers.push_back(solver);
 }

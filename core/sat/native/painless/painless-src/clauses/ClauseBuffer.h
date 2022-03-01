@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include <vector>
 
-using namespace std;
+namespace painless {
 
 /// Clause buffer is a queue containning shared clauses.
 class ClauseBuffer {
@@ -41,13 +41,13 @@ class ClauseBuffer {
   void addClause(ClauseExchange* clause);
 
   /// Enqueue shared clauses to the buffer.
-  void addClauses(const vector<ClauseExchange*>& clauses);
+  void addClauses(const std::vector<ClauseExchange*>& clauses);
 
   /// Dequeue a shared clause.
   bool getClause(ClauseExchange** clause);
 
   /// Dequeue shared clauses.
-  void getClauses(vector<ClauseExchange*>& clauses);
+  void getClauses(std::vector<ClauseExchange*>& clauses);
 
   /// Return the current size of the buffer
   int size();
@@ -56,7 +56,7 @@ class ClauseBuffer {
   typedef struct ListElement {
     ClauseExchange* clause;
 
-    atomic<ListElement*> next;
+    std::atomic<ListElement*> next;
 
     ListElement(ClauseExchange* cls) {
       next = NULL;
@@ -67,12 +67,14 @@ class ClauseBuffer {
   } ListElement;
 
   typedef struct ListRoot {
-    atomic<int> size;
+    std::atomic_int size;
 
-    atomic<ListElement*> head;
-    atomic<ListElement*> tail;
+    std::atomic<ListElement*> head;
+    std::atomic<ListElement*> tail;
   } ListRoot;
 
   /// Root of producer/customers lists
   ListRoot buffer;
 };
+
+}  // namespace painless

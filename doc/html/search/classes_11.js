@@ -15,12 +15,12 @@ var searchData=
   ['singlesearch_607',['SingleSearch',['../classcore_1_1domain_1_1SingleSearch.html',1,'core::domain']]],
   ['sizedec_608',['SizeDec',['../structSizeDec.html',1,'']]],
   ['solve_609',['Solve',['../classcore_1_1Solve.html',1,'core']]],
-  ['solver_610',['Solver',['../classcore_1_1sat_1_1solver_1_1Solver.html',1,'core::sat::solver::Solver'],['../classMapleCOMSPS_1_1Solver.html',1,'MapleCOMSPS::Solver']]],
-  ['solverfactory_611',['SolverFactory',['../classSolverFactory.html',1,'']]],
+  ['solver_610',['Solver',['../classMapleCOMSPS_1_1Solver.html',1,'MapleCOMSPS::Solver'],['../classcore_1_1sat_1_1solver_1_1Solver.html',1,'core::sat::solver::Solver']]],
+  ['solverfactory_611',['SolverFactory',['../classpainless_1_1SolverFactory.html',1,'painless']]],
   ['solverinterface_612',['SolverInterface',['../classSolverInterface.html',1,'']]],
   ['solvingstatistics_613',['SolvingStatistics',['../structSolvingStatistics.html',1,'']]],
   ['stalllimit_614',['StallLimit',['../classea_1_1limit_1_1StallLimit.html',1,'ea::limit']]],
   ['stopwatch_615',['Stopwatch',['../classStopwatch.html',1,'']]],
-  ['streambuffer_616',['StreamBuffer',['../classMapleCOMSPS_1_1StreamBuffer.html',1,'MapleCOMSPS::StreamBuffer'],['../classMini_1_1StreamBuffer.html',1,'Mini::StreamBuffer']]],
-  ['stringoption_617',['StringOption',['../classMapleCOMSPS_1_1StringOption.html',1,'MapleCOMSPS::StringOption'],['../classMini_1_1StringOption.html',1,'Mini::StringOption']]]
+  ['streambuffer_616',['StreamBuffer',['../classMini_1_1StreamBuffer.html',1,'Mini']]],
+  ['stringoption_617',['StringOption',['../classMini_1_1StringOption.html',1,'Mini']]]
 ];

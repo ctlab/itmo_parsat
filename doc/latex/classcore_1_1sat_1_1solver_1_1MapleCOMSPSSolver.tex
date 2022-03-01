@@ -32,14 +32,14 @@ Collaboration diagram for core\+::sat\+::solver\+::Maple\+C\+O\+M\+S\+P\+S\+Solv
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a45ad7cefb7a4e768951a974eb7f53a44}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa81ff4c1f08906b334a39931261045db}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a5e6f2861da5257d7fd4032f000385499}{solve}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
+State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a27e389aa68deb8aec5757546bee307fb}{solve}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_abb204d8b97a246cc85d6cead80b675d4}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_abb204d8b97a246cc85d6cead80b675d4}} 
-unsigned \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_abb204d8b97a246cc85d6cead80b675d4}{num\+\_\+vars}} () const noexcept override
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a5fd97e49504fda595a6c0fdaa10354a5}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a5fd97e49504fda595a6c0fdaa10354a5}} 
+unsigned \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a5fd97e49504fda595a6c0fdaa10354a5}{num\+\_\+vars}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a30597815be297472aa99da7d03c34718}{propagate\+\_\+confl}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
+bool \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa7244bb0d00193ac96656ea5c543f1c9}{propagate\+\_\+confl}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -48,11 +48,11 @@ bool \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a30597815b
 M\+S\+\_\+\+NS\+:Maple\+C\+O\+M\+S\+P\+S\+Solver-\/based \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver}{Solver}} implementation. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a45ad7cefb7a4e768951a974eb7f53a44}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a45ad7cefb7a4e768951a974eb7f53a44}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa81ff4c1f08906b334a39931261045db}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa81ff4c1f08906b334a39931261045db}} 
 \index{core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}!load\_problem@{load\_problem}}
 \index{load\_problem@{load\_problem}!core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}}
 \doxysubsubsection{\texorpdfstring{load\_problem()}{load\_problem()}}
-{\footnotesize\ttfamily void Maple\+C\+O\+M\+S\+P\+S\+Solver\+::load\+\_\+problem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void core\+::sat\+::solver\+::\+Maple\+C\+O\+M\+S\+P\+S\+Solver\+::load\+\_\+problem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -67,11 +67,11 @@ Parses cnf from .gz file with the specified path.
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a30597815be297472aa99da7d03c34718}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a30597815be297472aa99da7d03c34718}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa7244bb0d00193ac96656ea5c543f1c9}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa7244bb0d00193ac96656ea5c543f1c9}} 
 \index{core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}!propagate\_confl@{propagate\_confl}}
 \index{propagate\_confl@{propagate\_confl}!core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}}
 \doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
-{\footnotesize\ttfamily bool Maple\+C\+O\+M\+S\+P\+S\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool core\+::sat\+::solver\+::\+Maple\+C\+O\+M\+S\+P\+S\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 \begin{DoxyParams}{Parameters}
@@ -85,11 +85,11 @@ whether these assumptions lead to conflict
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a46e763dfe58cfcbd622bf46784558e18}{core\+::sat\+::solver\+::\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a5e6f2861da5257d7fd4032f000385499}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a5e6f2861da5257d7fd4032f000385499}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a27e389aa68deb8aec5757546bee307fb}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a27e389aa68deb8aec5757546bee307fb}} 
 \index{core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}!solve@{solve}}
 \index{solve@{solve}!core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily State Maple\+C\+O\+M\+S\+P\+S\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+Maple\+C\+O\+M\+S\+P\+S\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 

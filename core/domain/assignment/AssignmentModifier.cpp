@@ -10,6 +10,13 @@ AssignmentModifier::AssignmentModifier(VarView const& var_view, std::vector<bool
   }
 }
 
+AssignmentModifier::AssignmentModifier(std::vector<int> const& vars) {
+  _assignment.capacity(vars.size());
+  for (int var : vars) {
+    _assignment.push(Mini::mkLit(var, false));
+  }
+}
+
 Mini::vec<Mini::Lit> const& AssignmentModifier::get() const {
   return _assignment;
 }

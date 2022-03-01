@@ -21,14 +21,15 @@
 #include "ClauseManager.h"
 
 #include <iostream>
+#include <cassert>
 
-using namespace std;
+namespace painless {
 
 //-------------------------------------------------
 // Constructor & Destructor
 //-------------------------------------------------
 ClauseBuffer::ClauseBuffer() {
-  ListElement* node = new ListElement(NULL);
+  ListElement* node = new ListElement(nullptr);
   buffer.head = buffer.tail = node;
   buffer.size = 0;
 }
@@ -50,7 +51,6 @@ ClauseBuffer::~ClauseBuffer() {
 //  Add clause(s)
 //-------------------------------------------------
 void ClauseBuffer::addClause(ClauseExchange* clause) {
-  ClauseManager::increaseClause(clause);
   ListElement *tail, *next;
   ListElement* node = new ListElement(clause);
 
@@ -73,7 +73,7 @@ void ClauseBuffer::addClause(ClauseExchange* clause) {
   buffer.tail.compare_exchange_strong(tail, node);
 }
 
-void ClauseBuffer::addClauses(const vector<ClauseExchange*>& clauses) {
+void ClauseBuffer::addClauses(const std::vector<ClauseExchange*>& clauses) {
   for (int i = 0; i < clauses.size(); i++) {
     addClause(clauses[i]);
   }
@@ -107,14 +107,11 @@ bool ClauseBuffer::getClause(ClauseExchange** clause) {
   }
 
   delete head;
-
   buffer.size--;
-
-  ClauseManager::releaseClause(*clause);
   return true;
 }
 
-void ClauseBuffer::getClauses(vector<ClauseExchange*>& clauses) {
+void ClauseBuffer::getClauses(std::vector<ClauseExchange*>& clauses) {
   ClauseExchange* cls;
 
   int nClauses = size();
@@ -132,3 +129,5 @@ void ClauseBuffer::getClauses(vector<ClauseExchange*>& clauses) {
 int ClauseBuffer::size() {
   return buffer.size;
 }
+
+}  // namespace painless

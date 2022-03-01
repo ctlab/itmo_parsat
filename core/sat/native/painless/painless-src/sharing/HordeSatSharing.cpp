@@ -20,7 +20,6 @@
 #include "../clauses/ClauseManager.h"
 #include "../sharing/HordeSatSharing.h"
 #include "../solvers/SolverFactory.h"
-#include "../utils/Logger.h"
 
 namespace painless {
 
@@ -32,12 +31,6 @@ HordeSatSharing::HordeSatSharing(int shr_lit, int shr_sleep, WorkingResult* resu
   this->roundBeforeIncrease = 250000000 / shr_sleep;
 }
 
-HordeSatSharing::~HordeSatSharing() {
-  for (auto pair : this->databases) {
-    delete pair.second;
-  }
-}
-
 void HordeSatSharing::doSharing(
     int idSharer, const vector<SolverInterface*>& from, const vector<SolverInterface*>& to) {
   static unsigned int round = 1;
@@ -46,7 +39,7 @@ void HordeSatSharing::doSharing(
 
     int id = from[i]->id;
     if (!this->databases.count(id)) {
-      this->databases[id] = new ClauseDatabase();
+      this->databases[id].reset(new ClauseDatabase());
     }
 
     tmp.clear();
@@ -73,8 +66,6 @@ void HordeSatSharing::doSharing(
     }
 
     if (selectCount > 0) {
-      log(1, "Sharer %d filled %d%% of its buffer %.2f\n", idSharer, usedPercent,
-          used / (float) selectCount);
       this->initPhase = false;
     }
     if (round >= this->roundBeforeIncrease) {

@@ -15,7 +15,7 @@ class UniformMutation : public Mutation {
   void apply(instance::Instance& instance) override;
 
  private:
-  double scale_;
+  uint32_t scale_;
 };
 
 }  // namespace ea::method

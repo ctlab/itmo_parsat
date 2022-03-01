@@ -1,4 +1,5 @@
 <map id="MapleCOMSPS::Solver" name="MapleCOMSPS::Solver">
-<area shape="rect" id="node1" title=" " alt="" coords="21,5,188,32"/>
-<area shape="rect" id="node2" href="$classMapleCOMSPS_1_1SimpSolver.html" title=" " alt="" coords="5,80,204,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="32,5,199,32"/>
+<area shape="rect" id="node2" href="$classMapleCOMSPS_1_1SimpSolver.html" title=" " alt="" coords="16,80,215,107"/>
+<area shape="rect" id="node3" href="$classpainless_1_1MapleCOMSPSSolver.html" title="Instance of a MapleCOMSPS solver." alt="" coords="5,155,225,181"/>
 </map>

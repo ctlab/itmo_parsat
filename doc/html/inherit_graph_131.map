@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="5,31,127,57"/>
-<area shape="rect" id="node2" href="$classMapleCOMSPSSolver.html" title="Instance of a MapleCOMSPS solver." alt="" coords="175,5,333,32"/>
-<area shape="rect" id="node3" href="$classReducer.html" title="Instance of a MapleCOMSPS solver." alt="" coords="217,56,291,83"/>
-</map>

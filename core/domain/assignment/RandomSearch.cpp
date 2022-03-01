@@ -19,6 +19,11 @@ RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& var
   set_random(_assignment);
 }
 
+RandomSearch::RandomSearch(std::vector<int> const& vars, uint64_t total)
+    : AssignmentModifier(vars), Search(total) {
+  set_random(_assignment);
+}
+
 void RandomSearch::_advance() {
   set_random(_assignment);
 }
@@ -41,6 +46,15 @@ USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& var
     return USearch(new UniqueSearch(var_view, vars, total));
   } else {
     return USearch(new RandomSearch(var_view, vars, total));
+  }
+}
+
+USearch createRandomSearch(std::vector<int> const& vars, uint64_t total) {
+  uint32_t num_set = std::count(vars.begin(), vars.end(), true);
+  if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
+    return USearch(new UniqueSearch(vars, total));
+  } else {
+    return USearch(new RandomSearch(vars, total));
   }
 }
 

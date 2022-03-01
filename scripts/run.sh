@@ -12,7 +12,8 @@ LOG_CFG_PATH="$RESOURCES_DIR/config/log.json"
 BUILD_DIR="$ROOT/build"
 SOLVE_BIN="$BUILD_DIR/cli/solve_bin"
 INFRA_BIN="$BUILD_DIR/cli/infra_bin"
-TEST_BIN="$BUILD_DIR/core/core_unit_tests"
+TEST_BIN="$BUILD_DIR/core/tests/unit/core_unit_tests"
+BENCH_BIN="$BUILD_DIR/core/tests/bench/core_benchmark"
 
 SLV_CFG="naive.json"
 PSQL_HOST="51.250.2.131"
@@ -114,7 +115,11 @@ function do_verify() {
 }
 
 function do_unit() {
-    $RUN_CMD $TEST_BIN --verbose $VERBOSE $@
+    $RUN_CMD $TEST_BIN $@
+}
+
+function do_bench() {
+    $RUN_CMD $BENCH_BIN $@
 }
 
 function do_infra() {
@@ -163,7 +168,8 @@ add_option "-b|--build" "    Build cli binary"           do_build          0
 add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1
 add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose    1
-add_option "-u|--unit" "     Run unit tests"             do_unit           0
+add_option "--unit" "        Run unit tests"             do_unit           0
+add_option "--benchmark" "   Run benchmarks"             do_bench          0
 add_option "--pgo-gen" "     Enable PGO generation"      do_pgo_gen        0
 add_option "--pgo-use" "     Enable PGO usage"           do_pgo_use        0
 add_option "--add-opt" "     Set cmake option to ON"     do_set_cmake      1

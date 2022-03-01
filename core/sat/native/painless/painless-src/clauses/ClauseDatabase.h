@@ -24,7 +24,7 @@
 
 #include <vector>
 
-using namespace std;
+namespace painless {
 
 /// Clause database used for Hordesat
 class ClauseDatabase {
@@ -40,9 +40,11 @@ class ClauseDatabase {
 
   /// Fill the given buffer with shared clauses.
   /// @return the number of used literals.
-  int giveSelection(vector<ClauseExchange*>& selectedCls, unsigned totalSize, int* selectCount);
+  int giveSelection(std::vector<ClauseExchange*>& selectedCls, unsigned totalSize, int* selectCount);
 
  protected:
   /// Vector of vector of shared clauses, on vector per size.
-  vector<vector<ClauseExchange*> > clauses;
+  std::vector<std::vector<ClauseExchange*>> clauses;
 };
+
+}  // namespace painless

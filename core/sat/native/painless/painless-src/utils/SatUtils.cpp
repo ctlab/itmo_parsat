@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <math.h>
 
+namespace painless {
+
 static unsigned intWidth(int i) {
   if (i == 0)
     return 1;
@@ -130,3 +132,5 @@ bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename
 
   return true;
 }
+
+}  // namespace painless

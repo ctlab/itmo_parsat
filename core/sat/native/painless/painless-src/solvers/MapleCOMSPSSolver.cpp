@@ -33,6 +33,8 @@ using namespace Mini;
 
 #define INT_LIT(lit) sign(lit) ? -(var(lit) + 1) : (var(lit) + 1)
 
+namespace painless {
+
 static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
   for (size_t i = 0; i < cls->size; i++) {
     mcls.push(MINI_LIT(cls->lits[i]));
@@ -41,91 +43,70 @@ static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
 
 void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
   MapleCOMSPSSolver* mp = (MapleCOMSPSSolver*) issuer;
-
   if (lbd > mp->lbdLimit)
     return;
 
   ClauseExchange* ncls = ClauseManager::allocClause(cls.size());
-
   for (int i = 0; i < cls.size(); i++) {
     ncls->lits[i] = INT_LIT(cls[i]);
   }
-
   ncls->lbd = lbd;
 
   mp->clausesToExport.addClause(ncls);
-  ClauseManager::releaseClause(ncls);
 }
 
 Lit cbkMapleCOMSPSImportUnit(void* issuer) {
   MapleCOMSPSSolver* mp = (MapleCOMSPSSolver*) issuer;
-
   Lit l = lit_Undef;
-
-  ClauseExchange* cls = NULL;
-
+  ClauseExchange* cls = nullptr;
   if (!mp->unitsToImport.getClause(&cls))
     return l;
-
   l = MINI_LIT(cls->lits[0]);
 
   ClauseManager::releaseClause(cls);
-
   return l;
 }
 
 bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   MapleCOMSPSSolver* mp = (MapleCOMSPSSolver*) issuer;
-
   ClauseExchange* cls = NULL;
-
   if (!mp->clausesToImport.getClause(&cls))
     return false;
 
   makeMiniVec(cls, mcls);
-
   *lbd = cls->lbd;
 
   ClauseManager::releaseClause(cls);
-
   return true;
 }
 
 MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit) : SolverInterface(id) {
   lbdLimit = lbd_limit;
-
-  solver = new SimpSolver();
-
-  solver->cbkExportClause = cbkMapleCOMSPSExportClause;
-  solver->cbkImportClause = cbkMapleCOMSPSImportClause;
-  solver->cbkImportUnit = cbkMapleCOMSPSImportUnit;
-  solver->issuer = this;
+  cbkExportClause = cbkMapleCOMSPSExportClause;
+  cbkImportClause = cbkMapleCOMSPSImportClause;
+  cbkImportUnit = cbkMapleCOMSPSImportUnit;
+  issuer = this;
 }
 
 MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit, const MapleCOMSPSSolver& other)
-    : SolverInterface(id) {
+    : SolverInterface(id), MapleCOMSPS::SimpSolver(other) {
   lbdLimit = lbd_limit;
-  solver = new SimpSolver(*(other.solver));
-  solver->cbkExportClause = cbkMapleCOMSPSExportClause;
-  solver->cbkImportClause = cbkMapleCOMSPSImportClause;
-  solver->cbkImportUnit = cbkMapleCOMSPSImportUnit;
-  solver->issuer = this;
-}
-
-MapleCOMSPSSolver::~MapleCOMSPSSolver() {
-  delete solver;
+  cbkExportClause = cbkMapleCOMSPSExportClause;
+  cbkImportClause = cbkMapleCOMSPSImportClause;
+  cbkImportUnit = cbkMapleCOMSPSImportUnit;
+  issuer = this;
 }
 
 bool MapleCOMSPSSolver::loadFormula(const char* filename) {
   gzFile in = gzopen(filename, "rb");
-  parse_DIMACS(in, *solver);
+  parse_DIMACS(in, *this);
   gzclose(in);
   return true;
 }
 
 // Get the number of variables of the formula
 int MapleCOMSPSSolver::getVariablesCount() {
-  return solver->nVars();
+  return nVars();
 }
 
 // Get a variable suitable for search splitting
@@ -135,7 +116,7 @@ int MapleCOMSPSSolver::getDivisionVariable() {
 
 // Set initial phase for a given variable
 void MapleCOMSPSSolver::setPhase(const int var, const bool phase) {
-  solver->setPolarity(var - 1, phase);
+  setPolarity(var - 1, phase);
 }
 
 // Bump activity for a given variable
@@ -144,32 +125,32 @@ void MapleCOMSPSSolver::bumpVariableActivity(const int var, const int times) {}
 // Interrupt the SAT solving, so it can be started again with new assumptions
 void MapleCOMSPSSolver::setSolverInterrupt() {
   stopSolver = true;
-  solver->interrupt();
+  interrupt();
 }
 
 void MapleCOMSPSSolver::unsetSolverInterrupt() {
   stopSolver = false;
-  solver->clearInterrupt();
+  clearInterrupt();
 }
 
 // Diversify the solver
 void MapleCOMSPSSolver::diversify(int id) {
   if (id == ID_XOR) {
-    solver->GE = true;
+    GE = true;
   } else {
-    solver->GE = false;
+    GE = false;
   }
 
   if (id % 2) {
-    solver->VSIDS = false;
+    VSIDS = false;
   } else {
-    solver->VSIDS = true;
+    VSIDS = true;
   }
 
   if (id % 4 >= 2) {
-    solver->verso = false;
+    verso = false;
   } else {
-    solver->verso = true;
+    verso = true;
   }
 }
 
@@ -185,7 +166,7 @@ PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
   for (size_t ind = 0; ind < tmp.size(); ind++) {
     vec<Lit> mcls;
     makeMiniVec(tmp[ind], mcls);
-    if (!solver->addClause(mcls)) {
+    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) {
       result = PUNSAT;
       break;
     }
@@ -197,19 +178,19 @@ PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
       miniAssumptions.push(MINI_LIT(cube[ind]));
     }
 
-    lbool res = solver->solveLimited(miniAssumptions);
-    if (res == l_True)
+    lbool res = solveLimited(miniAssumptions);
+    if (res == l_True) {
       result = PSAT;
-    if (res == l_False)
+    } else if (res == l_False) {
       result = PUNSAT;
-    else
+    } else {
       result = PUNKNOWN;
+    }
   }
 
   for (auto clause : tmp) {
     ClauseManager::releaseClause(clause);
   }
-
   return result;
 }
 
@@ -239,14 +220,14 @@ void MapleCOMSPSSolver::addInitialClauses(const vector<ClauseExchange*>& clauses
       int lit = clauses[ind]->lits[i];
       int var = abs(lit);
 
-      while (solver->nVars() < var) {
-        solver->newVar();
+      while (nVars() < var) {
+        newVar();
       }
 
       mcls.push(MINI_LIT(lit));
     }
 
-    if (!solver->addClause(mcls)) {
+    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) {
       printf("c unsat when adding initial cls\n");
     }
   }
@@ -275,10 +256,10 @@ void MapleCOMSPSSolver::decreaseClauseProduction() {
 SolvingStatistics MapleCOMSPSSolver::getStatistics() {
   SolvingStatistics stats;
 
-  stats.conflicts = solver->conflicts;
-  stats.propagations = solver->propagations;
-  stats.restarts = solver->starts;
-  stats.decisions = solver->decisions;
+  stats.conflicts = conflicts;
+  stats.propagations = propagations;
+  stats.restarts = starts;
+  stats.decisions = decisions;
   stats.memPeak = memUsedPeak();
 
   return stats;
@@ -287,9 +268,9 @@ SolvingStatistics MapleCOMSPSSolver::getStatistics() {
 std::vector<int> MapleCOMSPSSolver::getModel() {
   std::vector<int> model;
 
-  for (int i = 0; i < solver->nVars(); i++) {
-    if (solver->model[i] != l_Undef) {
-      int lit = solver->model[i] == l_True ? i + 1 : -(i + 1);
+  for (int i = 0; i < nVars(); i++) {
+    if (this->model[i] != l_Undef) {
+      int lit = this->model[i] == l_True ? i + 1 : -(i + 1);
       model.push_back(lit);
     }
   }
@@ -300,8 +281,8 @@ std::vector<int> MapleCOMSPSSolver::getModel() {
 vector<int> MapleCOMSPSSolver::getFinalAnalysis() {
   vector<int> outCls;
 
-  for (int i = 0; i < solver->conflict.size(); i++) {
-    outCls.push_back(INT_LIT(solver->conflict[i]));
+  for (int i = 0; i < conflict.size(); i++) {
+    outCls.push_back(INT_LIT(conflict[i]));
   }
 
   return outCls;
@@ -310,9 +291,11 @@ vector<int> MapleCOMSPSSolver::getFinalAnalysis() {
 vector<int> MapleCOMSPSSolver::getSatAssumptions() {
   vector<int> outCls;
   vec<Lit> lits;
-  solver->getAssumptions(lits);
+  getAssumptions(lits);
   for (int i = 0; i < lits.size(); i++) {
     outCls.push_back(-(INT_LIT(lits[i])));
   }
   return outCls;
-};
+}
+
+}  // namespace painless

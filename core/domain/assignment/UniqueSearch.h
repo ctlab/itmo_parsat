@@ -17,12 +17,12 @@ MAKE_REFS(UniqueSearch);
  * @brief The class used to perform unique random search. Used for small sets of variables.
  */
 class UniqueSearch : AssignmentModifier, public Search {
-  friend std::unique_ptr<FullSearch> createFullSearch(VarView const&, std::vector<bool> const&);
-
   friend USearch createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
 
  public:
   explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+
+  explicit UniqueSearch(std::vector<int> const& vars, uint64_t total);
 
   [[nodiscard]] Mini::vec<Mini::Lit> const& operator()() const override;
 

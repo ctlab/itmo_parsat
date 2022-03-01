@@ -63,7 +63,7 @@ message LimitConfig {
 }
 
 message UniformMutationConfig {
-  double scale = 1;
+  uint32 scale = 1;
 }
 
 message DoerrMutationConfig {

@@ -106,10 +106,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#a84f04d9e8a9fc1aa15e48fe598418d17">HordeSatSharing</a> (int shr_lit, int shr_sleep, <a class="el" href="structpainless_1_1WorkingResult.html">WorkingResult</a> *result)</td></tr>
 <tr class="memdesc:a84f04d9e8a9fc1aa15e48fe598418d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
 <tr class="separator:a84f04d9e8a9fc1aa15e48fe598418d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c65c4b5c9ce606e527dcf366657ce2b"><td class="memItemLeft" align="right" valign="top"><a id="a5c65c4b5c9ce606e527dcf366657ce2b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#a5c65c4b5c9ce606e527dcf366657ce2b">~HordeSatSharing</a> ()</td></tr>
-<tr class="memdesc:a5c65c4b5c9ce606e527dcf366657ce2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a5c65c4b5c9ce606e527dcf366657ce2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c3d3cd1e1580f1b34b4d98fe5debf5"><td class="memItemLeft" align="right" valign="top"><a id="a37c3d3cd1e1580f1b34b4d98fe5debf5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#a37c3d3cd1e1580f1b34b4d98fe5debf5">~HordeSatSharing</a> ()=default</td></tr>
+<tr class="memdesc:a37c3d3cd1e1580f1b34b4d98fe5debf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a37c3d3cd1e1580f1b34b4d98fe5debf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aceff9736c7d2fc46f0ebbc5c32bc56bb"><td class="memItemLeft" align="right" valign="top"><a id="aceff9736c7d2fc46f0ebbc5c32bc56bb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#aceff9736c7d2fc46f0ebbc5c32bc56bb">doSharing</a> (int idSharer, const std::vector&lt; <a class="el" href="classSolverInterface.html">SolverInterface</a> * &gt; &amp;from, const std::vector&lt; <a class="el" href="classSolverInterface.html">SolverInterface</a> * &gt; &amp;to)</td></tr>
 <tr class="memdesc:aceff9736c7d2fc46f0ebbc5c32bc56bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method shared clauses from the producers to the consumers. <br /></td></tr>
@@ -145,10 +145,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#ab5968721f2e5bbcf388aa5c8378cc365">roundBeforeIncrease</a></td></tr>
 <tr class="memdesc:ab5968721f2e5bbcf388aa5c8378cc365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of round before forcing an increase in production. <br /></td></tr>
 <tr class="separator:ab5968721f2e5bbcf388aa5c8378cc365"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0a3001f286a272993869574107893aa"><td class="memItemLeft" align="right" valign="top"><a id="ae0a3001f286a272993869574107893aa"></a>
-std::unordered_map&lt; int, <a class="el" href="classClauseDatabase.html">ClauseDatabase</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#ae0a3001f286a272993869574107893aa">databases</a></td></tr>
-<tr class="memdesc:ae0a3001f286a272993869574107893aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Databse used to store the clauses. <br /></td></tr>
-<tr class="separator:ae0a3001f286a272993869574107893aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b39fccc889caac09a0164074f5478bb"><td class="memItemLeft" align="right" valign="top"><a id="a9b39fccc889caac09a0164074f5478bb"></a>
+std::unordered_map&lt; int, std::unique_ptr&lt; <a class="el" href="classpainless_1_1ClauseDatabase.html">ClauseDatabase</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#a9b39fccc889caac09a0164074f5478bb">databases</a></td></tr>
+<tr class="memdesc:a9b39fccc889caac09a0164074f5478bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Databse used to store the clauses. <br /></td></tr>
+<tr class="separator:a9b39fccc889caac09a0164074f5478bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a615cd9746ff880ea5887dfeb67e27221"><td class="memItemLeft" align="right" valign="top"><a id="a615cd9746ff880ea5887dfeb67e27221"></a>
 <a class="el" href="structpainless_1_1SharingStatistics.html">SharingStatistics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1HordeSatSharing.html#a615cd9746ff880ea5887dfeb67e27221">stats</a></td></tr>
 <tr class="memdesc:a615cd9746ff880ea5887dfeb67e27221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sharing statistics. <br /></td></tr>
