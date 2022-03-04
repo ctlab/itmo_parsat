@@ -9,6 +9,8 @@ class StallLimit : public Limit {
  public:
   explicit StallLimit(StallLimitConfig const& config);
 
+  void start() override;
+
  protected:
   /**
    * @return iff the stall is not happening
@@ -16,10 +18,15 @@ class StallLimit : public Limit {
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 
  private:
+  double _duration();
+
+ private:
+  core::clock_t::time_point _last_change_timestamp;
   uint32_t _steps_before_stall;
   uint32_t _steps_already = 0;
   uint32_t _last_size = 0;
   double _last_rho = 0.;
+  double _time_before_stall = 0;
 };
 
 }  // namespace ea::limit

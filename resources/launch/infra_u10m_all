@@ -1,9 +1,7 @@
 # Description: launch under-10 min tests on performance configurations.
 # Configurations included:
-#   - lingpar_parrbs: fully multithreaded minisat-only IPS algorithm (Lingeling solving).
-#   - simppar_parrbs: fully multithreaded minisat-only IPS algorithm (SimpSolver solving).
-#   - horde_rbs: single-RBS IPS algorithm, solving non-conflict via hordesat.
-#   - horde_parrbs: multi-RBS IPS algorithm, solving non-conflict via hordesat.
+#   - simppar_parrbs: fully multithreaded minisat-only IPS algorithm (SimpSolver solving) (multiple RBS)
+#   - simppar_rbs: fully multithreaded minisat-only IPS algorithm (SimpSolver solving) (single RBS)
 
 time-limit = 600
 unsat-only = true
@@ -12,4 +10,4 @@ lookup = true
 size = 3
 save = true
 test-groups = "main-21-u10m"
-gtest-opts = "--gtest_filter=*lingpar_parrbs*:*simppar_parrbs*:*horde_rbs*:*horde_parrbs*"
+gtest-opts = "--gtest_filter=*simppar_parrbs*:*simppar_rbs*

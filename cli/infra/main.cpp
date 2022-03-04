@@ -6,7 +6,7 @@
 #include "util/CliConfig.h"
 #include "infra/testing/LaunchFixture.h"
 
-core::CliConfig parse_args(int argc, char** argv) {
+util::CliConfig parse_args(int argc, char** argv) {
   namespace po = boost::program_options;
   po::options_description options("CLI testing utility");
   // clang-format off
@@ -28,7 +28,7 @@ core::CliConfig parse_args(int argc, char** argv) {
     ("gtest-opts", po::value<std::vector<std::string>>()->multitoken(), "GTest options");
   // clang-format on
 
-  core::CliConfig cli_config;
+  util::CliConfig cli_config;
   cli_config.add_options(options);
   if (!cli_config.parse(argc, argv)) {
     std::exit(0);
@@ -38,7 +38,7 @@ core::CliConfig parse_args(int argc, char** argv) {
   return cli_config;
 }
 
-void init_googletest(char const* argv0, core::CliConfig const& config) {
+void init_googletest(char const* argv0, util::CliConfig const& config) {
   if (!config.has("gtest-opts")) {
     testing::InitGoogleTest();
   } else {
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
 
   {  // Prepare LaunchFixture
-    core::CliConfig config = parse_args(argc, argv);
+    util::CliConfig config = parse_args(argc, argv);
     init_googletest(argv[0], config);
     auto& lf_config = LaunchFixture::config;
     lf_config.unsat_only = config.get<bool>("unsat-only");

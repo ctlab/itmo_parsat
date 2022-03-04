@@ -1,4 +1,5 @@
 {
+    "max_threads": 1,
     "solve_type": "NaiveSolve",
     "random_seed": 0,
     "naive_solve_config": {

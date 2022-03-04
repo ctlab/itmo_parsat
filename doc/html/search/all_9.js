@@ -6,7 +6,7 @@ var searchData=
   ['increaseclauseproduction_175',['increaseClauseProduction',['../classpainless_1_1MapleCOMSPSSolver.html#aa433e900ef9fd01f6b80b4df9e06cae5',1,'painless::MapleCOMSPSSolver::increaseClauseProduction()'],['../classpainless_1_1Reducer.html#a6ab837b8ab91dab78a973e008f25d536',1,'painless::Reducer::increaseClauseProduction()'],['../classSolverInterface.html#a846926bc368aafeefd2275e51aa59831',1,'SolverInterface::increaseClauseProduction()']]],
   ['init_176',['init',['../classParameters.html#a8a2225aaa525bbaecef863c2fc94bf8c',1,'Parameters']]],
   ['initphase_177',['initPhase',['../classpainless_1_1HordeSatSharing.html#a1f5e777946289780452b2cce0694d940',1,'painless::HordeSatSharing']]],
-  ['instance_178',['Instance',['../classea_1_1instance_1_1Instance.html',1,'ea::instance::Instance'],['../classea_1_1instance_1_1Instance.html#aefdb5d26cdb074b0a8380f475f4f58c8',1,'ea::instance::Instance::Instance()']]],
+  ['instance_178',['Instance',['../classea_1_1instance_1_1Instance.html',1,'ea::instance::Instance'],['../classea_1_1instance_1_1Instance.html#a68f8daaab30cfa36b1f8444746ea6895',1,'ea::instance::Instance::Instance()']]],
   ['int64option_179',['Int64Option',['../classMini_1_1Int64Option.html',1,'Mini']]],
   ['int64range_180',['Int64Range',['../structMini_1_1Int64Range.html',1,'Mini']]],
   ['interrupt_181',['interrupt',['../classea_1_1algorithm_1_1Algorithm.html#a066638648e9f9dfcb62c15bff5e314dd',1,'ea::algorithm::Algorithm::interrupt()'],['../classcore_1_1sat_1_1solver_1_1Solver.html#a2f22bb52001026a96719cbcdd5dafceb',1,'core::sat::solver::Solver::interrupt()']]],

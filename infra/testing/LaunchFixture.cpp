@@ -98,13 +98,6 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
     return;
   }
 
-  if (launch_config.threads_required > config.max_threads) {
-    IPS_WARNING(
-        "The test requires " << launch_config.threads_required << " threads, but only "
-                             << config.max_threads << " are available.");
-    launch_config.threads_required = config.max_threads;
-  }
-
   if (launch_config.expected_result == infra::domain::UNKNOWN) {
     launch_config.expected_result = _info->get_sat_result(launch_config);
   }
@@ -120,6 +113,22 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
   std::filesystem::path log_config_path = config.resources_dir / "config" / launch_config.log_config;
   std::filesystem::path input_path = config.resources_dir / "cnf" / launch_config.input;
   std::filesystem::copy_file(config_path, artifact_config_path);
+
+  {  // get threads required
+    SolveConfig slv_cfg;
+    std::ifstream ifs(config_path);
+    util::CliConfig::read_config(ifs, slv_cfg);
+    launch_config.threads_required = slv_cfg.max_threads();
+  }
+
+  if (launch_config.threads_required > config.max_threads) {
+    IPS_WARNING(
+        "The test requires " << launch_config.threads_required << " threads, but only "
+                             << config.max_threads << " are available.");
+    launch_config.threads_required = config.max_threads;
+  } else {
+    IPS_INFO("OK, test requires " << launch_config.threads_required << " threads");
+  }
 
   infra::domain::LaunchObject launch;
   launch.test_group = test_group;

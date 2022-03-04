@@ -35,6 +35,9 @@ std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
   std::vector<std::thread> rbs_search_threads;
   std::mutex mutex;
 
+  ea::preprocess::RPreprocess preprocess =
+      std::make_shared<ea::preprocess::Preprocess>(_cfg.preprocess_config(), problem);
+
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
     algorithms.push_back(ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
         _cfg.algorithm_configs(i % _cfg.algorithm_configs_size()))));
@@ -65,7 +68,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
           auto& algorithm = algorithms[i];
           auto& alg_prop = algorithm->get_prop();
           IPS_TRACE(alg_prop.load_problem(problem));
-          if (!IPS_TRACE_V(algorithm->prepare())) {
+          if (!IPS_TRACE_V(algorithm->prepare(preprocess))) {
             non_conflict_assignments[i].push_back({});
             return;
           }
@@ -84,8 +87,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
           std::atomic_uint32_t conflicts{0}, total{0};
           std::mutex nca_mutex;
           algorithm->get_prop().prop_assignments(
-              domain::createFullSearch(
-                  algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask()),
+              domain::createFullSearch(preprocess->var_view(), rho_backdoor.get_vars().get_mask()),
               [&](bool conflict, auto const& assumption) {
                 ++total;
                 if (!conflict) {

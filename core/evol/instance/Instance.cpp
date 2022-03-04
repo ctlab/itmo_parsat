@@ -9,13 +9,13 @@
 namespace ea::instance {
 
 uint32_t Instance::num_vars() const noexcept {
-  return _shared->var_view.size();
+  return _preprocess->var_view().size();
 }
 
-Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data)
-    : _prop(std::move(prop)), _shared(std::move(shared_data)) {
+Instance::Instance(
+    core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)
+    : _prop(std::move(prop)), _shared(std::move(shared_data)), _preprocess(preprocess) {
   _vars.resize(_var_view().size());
-
   // Initialize instance by setting one random variable
   _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
 }
@@ -147,8 +147,8 @@ uint64_t& Instance::_inaccurate_points() noexcept {
   return _shared->search_space.inaccurate_visited_points;
 }
 
-core::domain::VarView& Instance::_var_view() noexcept {
-  return _shared->var_view;
+core::domain::VarView const& Instance::_var_view() const noexcept {
+  return _preprocess->var_view();
 }
 
 bool operator<(Instance& a, Instance& b) {
@@ -158,7 +158,7 @@ bool operator<(Instance& a, Instance& b) {
 }  // namespace ea::instance
 
 std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instance) {
-  auto vars = instance.get_vars().map_to_vars(instance._shared->var_view);
+  auto vars = instance.get_vars().map_to_vars(instance._preprocess->var_view());
   std::sort(vars.begin(), vars.end());
 
   double coverage = (double) instance.fitness().samples;

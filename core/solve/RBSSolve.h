@@ -5,6 +5,7 @@
 #include <boost/timer/progress_display.hpp>
 
 #include "core/evol/algorithm/Algorithm.h"
+#include "core/evol/method/preprocess/Preprocess.h"
 #include "core/solve/Solve.h"
 #include "util/SigHandler.h"
 #include "util/TimeTracer.h"

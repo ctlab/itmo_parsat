@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['values_455',['values',['../structmzp__t.html#ac5d235af38700421f78eea8e215176b8',1,'mzp_t']]],
-  ['var_5fview_456',['var_view',['../structea_1_1instance_1_1SharedData.html#ad3fd332292f9de8ed19732f05da69f3b',1,'ea::instance::SharedData']]],
+  ['values_456',['values',['../structmzp__t.html#ac5d235af38700421f78eea8e215176b8',1,'mzp_t']]],
   ['vardata_457',['VarData',['../structMapleCOMSPS_1_1Solver_1_1VarData.html',1,'MapleCOMSPS::Solver']]],
   ['varorderlt_458',['VarOrderLt',['../structMapleCOMSPS_1_1Solver_1_1VarOrderLt.html',1,'MapleCOMSPS::Solver']]],
   ['vars_459',['Vars',['../structcore_1_1domain_1_1Vars.html',1,'core::domain']]],

@@ -1,5 +1,9 @@
 file(GLOB _DOMAIN_SRC "domain/*" "domain/assignment/*")
-file(GLOB _EVOL_SRC "evol/algorithm/*" "evol/instance/*" "evol/limit/*" "evol/method/cross/*" "evol/method/mutate/*" "evol/method/select/*")
+file(GLOB _EVOL_SRC
+        "evol/algorithm/*" "evol/instance/*"
+        "evol/limit/*" "evol/method/cross/*"
+        "evol/method/mutate/*" "evol/method/select/*" "evol/method/preprocess/*"
+)
 file(GLOB _SOLVE_SRC "solve/*")
 file(GLOB _PROP_SRC "sat/prop/*")
 file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*" "sat/Problem.*")

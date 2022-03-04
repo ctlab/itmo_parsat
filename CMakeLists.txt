@@ -7,6 +7,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Link boost statically
 set(Boost_USE_STATIC_LIBS ON)
 
+# Prioritize static libraries
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".so")
+
 # Options
 set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
 option(SANITIZE "Enable sanitizers"         OFF)

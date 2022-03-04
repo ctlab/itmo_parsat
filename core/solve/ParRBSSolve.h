@@ -7,6 +7,7 @@
 
 #include "core/solve/Solve.h"
 #include "core/evol/algorithm/Algorithm.h"
+#include "core/evol/method/preprocess/Preprocess.h"
 #include "util/SigHandler.h"
 #include "util/Logger.h"
 #include "util/Assert.h"

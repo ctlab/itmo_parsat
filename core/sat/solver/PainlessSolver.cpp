@@ -13,10 +13,10 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig const& config) : _cfg(config
   int slv_sleep_us = _cfg.slv_sleep_us();
 
   painless::SolverFactory::createMapleCOMSPSSolvers(lbd_limit, max_memory, cpus - 2, _solvers);
-  _solvers.push_back(
-      painless::SolverFactory::createReducerSolver(painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
-  _solvers.push_back(
-      painless::SolverFactory::createReducerSolver(painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
+  _solvers.push_back(painless::SolverFactory::createReducerSolver(
+      painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
+  _solvers.push_back(painless::SolverFactory::createReducerSolver(
+      painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
 
   int nSolvers = _solvers.size();
 

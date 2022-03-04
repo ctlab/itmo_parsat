@@ -1,7 +1,11 @@
 {
     "solve_type": "RBSSolve",
+    "max_threads": 16,
     "random_seed": 1337,
     "rbs_solve_config": {
+        "preprocess_config": {
+            "heuristic_size": 200
+        },
         "algorithm_config": {
             "algorithm_type": "EAAlgorithm",
             "ea_algorithm_config": {
@@ -45,7 +49,8 @@
                                 {
                                     "limit_type": "StallLimit",
                                     "stall_limit_config": {
-                                        "steps_before_stall": 10000
+                                        "steps_before_stall": 10000,
+                                        "time_before_stall_s": 30
                                     }
                                 }
                             ]
@@ -53,7 +58,6 @@
                     },
                     "instance_config": {
                         "omega_x": 20,
-                        "heuristic_size": 200,
                         "max_cache_size": 1000,
                         "sampling_config": {
                             "base_count": 262144,

@@ -21,6 +21,7 @@
 #include "infra/domain/LaunchConfig.h"
 #include "infra/testing/TestingConfiguration.h"
 #include "infra/execution/ExecutionManager.h"
+#include "core/proto/solve_config.pb.h"
 
 class LaunchFixture : public ::testing::Test {
  private:

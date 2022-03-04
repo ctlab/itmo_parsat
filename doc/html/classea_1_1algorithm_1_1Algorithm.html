@@ -95,9 +95,9 @@ Inheritance diagram for ea::algorithm::Algorithm:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a72e32a610b5357c8d7f690d11103deaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a72e32a610b5357c8d7f690d11103deaa">Algorithm</a> (BaseAlgorithmConfig const &amp;config)</td></tr>
 <tr class="separator:a72e32a610b5357c8d7f690d11103deaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8b088da1a57f023f821e885ec52a0ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#ad8b088da1a57f023f821e885ec52a0ff">prepare</a> ()</td></tr>
-<tr class="memdesc:ad8b088da1a57f023f821e885ec52a0ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs preparation step.  <a href="classea_1_1algorithm_1_1Algorithm.html#ad8b088da1a57f023f821e885ec52a0ff">More...</a><br /></td></tr>
-<tr class="separator:ad8b088da1a57f023f821e885ec52a0ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d76bf5269d8656cae5273d036b22938"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a0d76bf5269d8656cae5273d036b22938">prepare</a> (preprocess::RPreprocess const &amp;preprocess)</td></tr>
+<tr class="memdesc:a0d76bf5269d8656cae5273d036b22938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs preparation step.  <a href="classea_1_1algorithm_1_1Algorithm.html#a0d76bf5269d8656cae5273d036b22938">More...</a><br /></td></tr>
+<tr class="separator:a0d76bf5269d8656cae5273d036b22938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1eaa3689d623d4babb1811a0b3acc3d"><td class="memItemLeft" align="right" valign="top"><a id="af1eaa3689d623d4babb1811a0b3acc3d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#af1eaa3689d623d4babb1811a0b3acc3d">process</a> ()</td></tr>
 <tr class="memdesc:af1eaa3689d623d4babb1811a0b3acc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the algorithm. <br /></td></tr>
@@ -143,6 +143,9 @@ ea::instance::Population&#160;</td><td class="memItemRight" valign="bottom"><b>_
 <tr class="memitem:a72b352d0a694876302eec487cb7c1556"><td class="memItemLeft" align="right" valign="top"><a id="a72b352d0a694876302eec487cb7c1556"></a>
 ea::instance::RSharedData&#160;</td><td class="memItemRight" valign="bottom"><b>_shared_data</b></td></tr>
 <tr class="separator:a72b352d0a694876302eec487cb7c1556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f7f68d5b1007547ab89aee4baed8efc"><td class="memItemLeft" align="right" valign="top"><a id="a9f7f68d5b1007547ab89aee4baed8efc"></a>
+ea::preprocess::RPreprocess&#160;</td><td class="memItemRight" valign="bottom"><b>_preprocess</b></td></tr>
+<tr class="separator:a9f7f68d5b1007547ab89aee4baed8efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07c39a1944742109fec363dec15c13b9"><td class="memItemLeft" align="right" valign="top"><a id="a07c39a1944742109fec363dec15c13b9"></a>
 core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_prop</b></td></tr>
 <tr class="separator:a07c39a1944742109fec363dec15c13b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -313,8 +316,8 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
 
 </div>
 </div>
-<a id="ad8b088da1a57f023f821e885ec52a0ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8b088da1a57f023f821e885ec52a0ff">&#9670;&nbsp;</a></span>prepare()</h2>
+<a id="a0d76bf5269d8656cae5273d036b22938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d76bf5269d8656cae5273d036b22938">&#9670;&nbsp;</a></span>prepare()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +325,8 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
         <tr>
           <td class="memname">bool ea::algorithm::Algorithm::prepare </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">preprocess::RPreprocess const &amp;&#160;</td>
+          <td class="paramname"><em>preprocess</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

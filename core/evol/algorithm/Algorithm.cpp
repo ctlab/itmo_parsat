@@ -25,53 +25,16 @@ bool Algorithm::_init_shared_data(InstanceConfig const& config) {
   _shared_data->sampling_config.base_samples = config.sampling_config().base_count();
   _shared_data->sampling_config.scale = config.sampling_config().scale();
   _shared_data->sampling_config.max_scale_steps = config.sampling_config().max_steps();
-
-  Mini::vec<Mini::Lit> assumptions(1);
-  Mini::vec<Mini::Lit> propagated;
-  std::vector<std::pair<int, int>> stats;
-  stats.reserve(_prop->num_vars());
-
-  if (_prop->num_vars() == 0) {
-    return false;
-  }
-
-  for (unsigned i = 0; i < _prop->num_vars(); ++i) {
-    std::set<int> prop_both;
-    assumptions[0] = Mini::mkLit((int) i, true);
-    collect_stats(*_prop, assumptions, propagated, prop_both);
-    assumptions[0] = Mini::mkLit((int) i, false);
-    collect_stats(*_prop, assumptions, propagated, prop_both);
-    stats.emplace_back(prop_both.size(), i);
-  }
-
-  uint32_t max_watched_count = std::min(config.heuristic_size(), _prop->num_vars());
-  std::sort(stats.begin(), stats.end());
-  auto it = stats.crbegin();
-
-  /// @brief Check if the 'best' variable has propagated more than one literal.
-  /// otherwise, it makes no sense to use EA for this problem.
-  if (it->first <= 1) {
+  if (_prop->num_vars() == 0 || _preprocess->var_view().size() == 0) {
     IPS_WARNING("Algorithm will not proceed because best prop is 1.");
     return false;
   }
-
-  for (uint32_t i = 0; i < max_watched_count && it->first > 1; ++i, ++it) {
-    _shared_data->var_view.map_var((int) i, it->second);
-  }
-
-  _shared_data->search_space.reset(_shared_data->var_view.size());
-  if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
-    std::stringstream ss;
-    for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
-      ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
-    }
-    IPS_INFO("Heuristic init:\n" << ss.str());
-  }
+  _shared_data->search_space.reset(_preprocess->var_view().size());
   return true;
 }
 
 void Algorithm::_add_instance() {
-  _population.push_back(std::make_shared<instance::Instance>(_prop, _shared_data));
+  _population.push_back(std::make_shared<instance::Instance>(_prop, _shared_data, _preprocess));
 }
 
 Algorithm::Algorithm(BaseAlgorithmConfig const& config)
@@ -79,7 +42,8 @@ Algorithm::Algorithm(BaseAlgorithmConfig const& config)
     , _prop(core::sat::prop::PropRegistry::resolve(config.prop_config()))
     , _limit(limit::LimitRegistry::resolve(config.limit_config())) {}
 
-bool Algorithm::prepare() {
+bool Algorithm::prepare(preprocess::RPreprocess const& preprocess) {
+  _preprocess = preprocess;
   if (!_init_shared_data(_instance_config)) {
     return false;
   } else {

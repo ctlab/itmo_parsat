@@ -4,6 +4,7 @@
 #include "infra/domain/LaunchesDao.h"
 #include "infra/testing/TestingConfiguration.h"
 #include "infra/domain/LaunchConfig.h"
+#include "util/CliConfig.h"
 
 namespace infra::domain {
 

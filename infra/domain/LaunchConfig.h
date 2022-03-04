@@ -27,8 +27,6 @@ struct LaunchConfig {
   LaunchConfig& set_expected_result(infra::domain::SatResult result) noexcept;
 
   LaunchConfig& set_description(std::string const& desc);
-
-  LaunchConfig& set_threads_required(uint32_t threads);
 };
 
 }  // namespace infra::domain
