@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cache_183',['cache',['../structea_1_1instance_1_1SharedData.html#a039b57158606fd95b4a095990b613550',1,'ea::instance::SharedData']]]
+  ['allocated_907',['allocated',['../structdjb__t.html#a3e8d52a148a10973f49bb0fd23abb8c9',1,'djb_t']]]
 ];

@@ -7,6 +7,11 @@ UniqueSearch::UniqueSearch(VarView const& var_view, std::vector<bool> const& var
   _advance_us();
 }
 
+UniqueSearch::UniqueSearch(std::vector<int> const& vars, uint64_t total)
+    : AssignmentModifier(vars), Search(total) {
+  _advance_us();
+}
+
 void UniqueSearch::_advance() {
   _advance_us();
 }
@@ -29,7 +34,7 @@ void UniqueSearch::_reset() {
   _advance();
 }
 
-Minisat::vec<Minisat::Lit> const& UniqueSearch::operator()() const {
+Mini::vec<Mini::Lit> const& UniqueSearch::operator()() const {
   return get();
 }
 

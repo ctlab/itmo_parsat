@@ -1,6 +1,6 @@
 #include "CliConfig.h"
 
-namespace core {
+namespace util {
 
 namespace po = boost::program_options;
 
@@ -52,4 +52,4 @@ void CliConfig::read_config(std::istream& is, google::protobuf::Message& message
   }
 }
 
-}  // namespace core
+}  // namespace util

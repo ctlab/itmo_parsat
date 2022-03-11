@@ -1,0 +1,131 @@
+\hypertarget{parity_8h}{}\doxysection{core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/parity.h File Reference}
+\label{parity_8h}\index{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/parity.h@{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/parity.h}}
+
+
+Compute the parity of 64 words in parallel.  
+
+
+{\ttfamily \#include $<$m4ri/misc.\+h$>$}\newline
+Include dependency graph for parity.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parity_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{parity_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{parity_8h_a7fc41e67f25f48f57b783d2f72b363df}\label{parity_8h_a7fc41e67f25f48f57b783d2f72b363df}} 
+\#define \mbox{\hyperlink{parity_8h_a7fc41e67f25f48f57b783d2f72b363df}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X32}}(a,  b)~(((((a) $>$$>$ 32) $^\wedge$ (a)) $<$$<$ 32) $\vert$ ((((b) $<$$<$ 32) $^\wedge$ (b)) $>$$>$ 32))
+\begin{DoxyCompactList}\small\item\em Step for mixing two 64-\/bit words to compute their parity. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{parity_8h_a09a6b2af4e8abf0b059352c1f84f90b2}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X16}}(a,  b)
+\begin{DoxyCompactList}\small\item\em Step for mixing two 64-\/bit words to compute their parity. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{parity_8h_a8789348f8d10cef0a866966a01f080a4}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X8}}(a,  b)
+\begin{DoxyCompactList}\small\item\em Step for mixing two 64-\/bit words to compute their parity. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{parity_8h_ac1d834c3dce1bc6b07ee0add2d01a6b1}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X4}}(a,  b)
+\begin{DoxyCompactList}\small\item\em Step for mixing two 64-\/bit words to compute their parity. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{parity_8h_a48857fbe1b17ef28bf80e96262a96fd6}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X2}}(a,  b)
+\begin{DoxyCompactList}\small\item\em Step for mixing two 64-\/bit words to compute their parity. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{parity_8h_aedbb61f8a30f4444ec9ba30aed77eec2}{\+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X1}}(a,  b)
+\begin{DoxyCompactList}\small\item\em Step for mixing two 64-\/bit words to compute their parity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Compute the parity of 64 words in parallel. 
+
+\begin{DoxyAuthor}{Author}
+David Harvey 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{parity_8h_aedbb61f8a30f4444ec9ba30aed77eec2}\label{parity_8h_aedbb61f8a30f4444ec9ba30aed77eec2}} 
+\index{parity.h@{parity.h}!\_\_M4RI\_MIX1@{\_\_M4RI\_MIX1}}
+\index{\_\_M4RI\_MIX1@{\_\_M4RI\_MIX1}!parity.h@{parity.h}}
+\doxysubsubsection{\texorpdfstring{\_\_M4RI\_MIX1}{\_\_M4RI\_MIX1}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X1(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (((((a) << 1) \string^ (a)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0xAAAAAAAAAAAAAAAAull)) | \(\backslash\)}
+\DoxyCodeLine{   ((((b) >> 1) \string^ (b)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0x5555555555555555ull)));}
+
+\end{DoxyCode}
+
+
+Step for mixing two 64-\/bit words to compute their parity. 
+
+\mbox{\Hypertarget{parity_8h_a09a6b2af4e8abf0b059352c1f84f90b2}\label{parity_8h_a09a6b2af4e8abf0b059352c1f84f90b2}} 
+\index{parity.h@{parity.h}!\_\_M4RI\_MIX16@{\_\_M4RI\_MIX16}}
+\index{\_\_M4RI\_MIX16@{\_\_M4RI\_MIX16}!parity.h@{parity.h}}
+\doxysubsubsection{\texorpdfstring{\_\_M4RI\_MIX16}{\_\_M4RI\_MIX16}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X16(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (((((a) << 16) \string^ (a)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0xFFFF0000FFFF0000ull)) | \(\backslash\)}
+\DoxyCodeLine{   ((((b) >> 16) \string^ (b)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0x0000FFFF0000FFFFull)));}
+
+\end{DoxyCode}
+
+
+Step for mixing two 64-\/bit words to compute their parity. 
+
+\mbox{\Hypertarget{parity_8h_a48857fbe1b17ef28bf80e96262a96fd6}\label{parity_8h_a48857fbe1b17ef28bf80e96262a96fd6}} 
+\index{parity.h@{parity.h}!\_\_M4RI\_MIX2@{\_\_M4RI\_MIX2}}
+\index{\_\_M4RI\_MIX2@{\_\_M4RI\_MIX2}!parity.h@{parity.h}}
+\doxysubsubsection{\texorpdfstring{\_\_M4RI\_MIX2}{\_\_M4RI\_MIX2}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X2(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (((((a) << 2) \string^ (a)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0xCCCCCCCCCCCCCCCCull)) | \(\backslash\)}
+\DoxyCodeLine{   ((((b) >> 2) \string^ (b)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0x3333333333333333ull)));}
+
+\end{DoxyCode}
+
+
+Step for mixing two 64-\/bit words to compute their parity. 
+
+\mbox{\Hypertarget{parity_8h_ac1d834c3dce1bc6b07ee0add2d01a6b1}\label{parity_8h_ac1d834c3dce1bc6b07ee0add2d01a6b1}} 
+\index{parity.h@{parity.h}!\_\_M4RI\_MIX4@{\_\_M4RI\_MIX4}}
+\index{\_\_M4RI\_MIX4@{\_\_M4RI\_MIX4}!parity.h@{parity.h}}
+\doxysubsubsection{\texorpdfstring{\_\_M4RI\_MIX4}{\_\_M4RI\_MIX4}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X4(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (((((a) << 4) \string^ (a)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0xF0F0F0F0F0F0F0F0ull)) | \(\backslash\)}
+\DoxyCodeLine{   ((((b) >> 4) \string^ (b)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0x0F0F0F0F0F0F0F0Full)));}
+
+\end{DoxyCode}
+
+
+Step for mixing two 64-\/bit words to compute their parity. 
+
+\mbox{\Hypertarget{parity_8h_a8789348f8d10cef0a866966a01f080a4}\label{parity_8h_a8789348f8d10cef0a866966a01f080a4}} 
+\index{parity.h@{parity.h}!\_\_M4RI\_MIX8@{\_\_M4RI\_MIX8}}
+\index{\_\_M4RI\_MIX8@{\_\_M4RI\_MIX8}!parity.h@{parity.h}}
+\doxysubsubsection{\texorpdfstring{\_\_M4RI\_MIX8}{\_\_M4RI\_MIX8}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+M4\+R\+I\+\_\+\+M\+I\+X8(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (((((a) << 8) \string^ (a)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0xFF00FF00FF00FF00ull)) | \(\backslash\)}
+\DoxyCodeLine{   ((((b) >> 8) \string^ (b)) \& \mbox{\hyperlink{misc_8h_aa2c86a3cf3d781f88762d819ce167825}{\_\_M4RI\_CONVERT\_TO\_WORD}}(0x00FF00FF00FF00FFull)));}
+
+\end{DoxyCode}
+
+
+Step for mixing two 64-\/bit words to compute their parity. 
+

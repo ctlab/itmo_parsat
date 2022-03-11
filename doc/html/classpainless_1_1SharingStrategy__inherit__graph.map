@@ -1,0 +1,4 @@
+<map id="painless::SharingStrategy" name="painless::SharingStrategy">
+<area shape="rect" id="node1" title="Strategy to shared clauses." alt="" coords="8,5,196,32"/>
+<area shape="rect" id="node2" href="$classpainless_1_1HordeSatSharing.html" title="This strategy is a hordesat like sharing strategy." alt="" coords="5,80,199,107"/>
+</map>

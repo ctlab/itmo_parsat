@@ -1,0 +1,650 @@
+\hypertarget{classMapleCOMSPS_1_1Solver}{}\doxysection{Maple\+C\+O\+M\+S\+PS\+::Solver Class Reference}
+\label{classMapleCOMSPS_1_1Solver}\index{MapleCOMSPS::Solver@{MapleCOMSPS::Solver}}
+
+
+Inheritance diagram for Maple\+C\+O\+M\+S\+PS\+::Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{classMapleCOMSPS_1_1Solver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Maple\+C\+O\+M\+S\+PS\+::Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMapleCOMSPS_1_1Solver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1Frame}{Frame}}
+\item 
+struct \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1VarData}{Var\+Data}}
+\item 
+struct \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1VarOrderLt}{Var\+Order\+Lt}}
+\item 
+struct \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1Watcher}{Watcher}}
+\item 
+struct \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1WatcherDeleted}{Watcher\+Deleted}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ace306237f76df30fa6b8e6ac1fb5a6fb}\label{classMapleCOMSPS_1_1Solver_ace306237f76df30fa6b8e6ac1fb5a6fb}} 
+{\bfseries Solver} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Solver}{Solver}} \&s)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa67ded8da7436a7175a9eb1728264768}\label{classMapleCOMSPS_1_1Solver_aa67ded8da7436a7175a9eb1728264768}} 
+Var {\bfseries new\+Var} (bool polarity=true, bool dvar=true)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a08d7327909f7bff8bc0fd015eb0b69b0}\label{classMapleCOMSPS_1_1Solver_a08d7327909f7bff8bc0fd015eb0b69b0}} 
+bool {\bfseries add\+Clause} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&ps)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_adcda04793b599ea7988d8c95ead42b09}\label{classMapleCOMSPS_1_1Solver_adcda04793b599ea7988d8c95ead42b09}} 
+bool {\bfseries add\+Empty\+Clause} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a93728e75481bc604d80e82f282071905}\label{classMapleCOMSPS_1_1Solver_a93728e75481bc604d80e82f282071905}} 
+bool {\bfseries add\+Clause} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a6cc53313e9f50a90b3b12f336c30722f}\label{classMapleCOMSPS_1_1Solver_a6cc53313e9f50a90b3b12f336c30722f}} 
+bool {\bfseries add\+Clause} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_acf70cdee8d8241654a5644cd63f9fb1c}\label{classMapleCOMSPS_1_1Solver_acf70cdee8d8241654a5644cd63f9fb1c}} 
+bool {\bfseries add\+Clause} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} r)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0389aa56b9adc1c8b5b7d1bda7069d5c}\label{classMapleCOMSPS_1_1Solver_a0389aa56b9adc1c8b5b7d1bda7069d5c}} 
+bool {\bfseries add\+Clause\+\_\+} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&ps)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad5431f5ba24f6b4107e8efae9ef6bbbb}\label{classMapleCOMSPS_1_1Solver_ad5431f5ba24f6b4107e8efae9ef6bbbb}} 
+bool {\bfseries import\+Clauses} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aed180a115aa5c849bb14a5598bf513b4}\label{classMapleCOMSPS_1_1Solver_aed180a115aa5c849bb14a5598bf513b4}} 
+bool {\bfseries import\+Unit\+Clauses} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a6a6da6401c55acb51e8e9a3df379cec4}\label{classMapleCOMSPS_1_1Solver_a6a6da6401c55acb51e8e9a3df379cec4}} 
+bool {\bfseries prop\+\_\+check} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&prop, int psaving)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_acf1bf6ab8823d6cc6cd245064102969d}\label{classMapleCOMSPS_1_1Solver_acf1bf6ab8823d6cc6cd245064102969d}} 
+bool {\bfseries prop\+\_\+check} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps, int psaving)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a03d3c132c613b7b0dab6dc571e68d9ed}\label{classMapleCOMSPS_1_1Solver_a03d3c132c613b7b0dab6dc571e68d9ed}} 
+uint64\+\_\+t {\bfseries prop\+\_\+check\+\_\+subtree\+\_\+impl} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&vars, uint32\+\_\+t index)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aebc95a43a6832455ceec0b045203967d}\label{classMapleCOMSPS_1_1Solver_aebc95a43a6832455ceec0b045203967d}} 
+uint64\+\_\+t {\bfseries prop\+\_\+check\+\_\+subtree} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&vars, uint32\+\_\+t head\+\_\+size)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ab1b28e287e0606477756dda6708a0037}\label{classMapleCOMSPS_1_1Solver_ab1b28e287e0606477756dda6708a0037}} 
+bool {\bfseries shrink\+Assumptions} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af8acdf7c8c64874abf9ecd4ed6ac7901}\label{classMapleCOMSPS_1_1Solver_af8acdf7c8c64874abf9ecd4ed6ac7901}} 
+void {\bfseries get\+Assumptions} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&lits)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_acae1e2d59f5bf07dbd6ca359015a96f1}\label{classMapleCOMSPS_1_1Solver_acae1e2d59f5bf07dbd6ca359015a96f1}} 
+bool {\bfseries simplify} (bool do\+\_\+stamping=false)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a56ddefbcbdeb92107c1176e0bf3b477f}\label{classMapleCOMSPS_1_1Solver_a56ddefbcbdeb92107c1176e0bf3b477f}} 
+bool {\bfseries solve} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_abfb5fc2e5041a005f00e6bfb9cb87c0c}\label{classMapleCOMSPS_1_1Solver_abfb5fc2e5041a005f00e6bfb9cb87c0c}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries solve\+Limited} (const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad514a866b11d4c23edcf68c1e5b19f70}\label{classMapleCOMSPS_1_1Solver_ad514a866b11d4c23edcf68c1e5b19f70}} 
+bool {\bfseries solve} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a2382c6e1d3fc6ca944289cf4f280de42}\label{classMapleCOMSPS_1_1Solver_a2382c6e1d3fc6ca944289cf4f280de42}} 
+bool {\bfseries solve} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a36cbbb6e5d7ec7a977db6a2986571be3}\label{classMapleCOMSPS_1_1Solver_a36cbbb6e5d7ec7a977db6a2986571be3}} 
+bool {\bfseries solve} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8acec588a763f347a18e5d311b324b98}\label{classMapleCOMSPS_1_1Solver_a8acec588a763f347a18e5d311b324b98}} 
+bool {\bfseries solve} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} r)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa9bf623c657d240c2b8fbe72e65f5d99}\label{classMapleCOMSPS_1_1Solver_aa9bf623c657d240c2b8fbe72e65f5d99}} 
+bool {\bfseries okay} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8ebac92e06df2704a4eacdf3de2f39dd}\label{classMapleCOMSPS_1_1Solver_a8ebac92e06df2704a4eacdf3de2f39dd}} 
+void {\bfseries to\+Dimacs} (F\+I\+LE $\ast$f, const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3deed557b944053c32fdd0f2c536ea49}\label{classMapleCOMSPS_1_1Solver_a3deed557b944053c32fdd0f2c536ea49}} 
+void {\bfseries to\+Dimacs} (const char $\ast$file, const \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&assumps)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a62106d131815f5712264a6c6a94a5cd5}\label{classMapleCOMSPS_1_1Solver_a62106d131815f5712264a6c6a94a5cd5}} 
+void {\bfseries to\+Dimacs} (F\+I\+LE $\ast$f, \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&c, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ Var $>$ \&map, Var \&max)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ab04018d983debf4564d04df04ba8a4a4}\label{classMapleCOMSPS_1_1Solver_ab04018d983debf4564d04df04ba8a4a4}} 
+void {\bfseries to\+Dimacs} (const char $\ast$file)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aabbceb0afd6432e0e655af79b28268ac}\label{classMapleCOMSPS_1_1Solver_aabbceb0afd6432e0e655af79b28268ac}} 
+void {\bfseries to\+Dimacs} (const char $\ast$file, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} p)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8b66aa1b95f95d27b3e7d42cdd80b5e2}\label{classMapleCOMSPS_1_1Solver_a8b66aa1b95f95d27b3e7d42cdd80b5e2}} 
+void {\bfseries to\+Dimacs} (const char $\ast$file, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a24cab03a5553d6a0c4f25bf03b9d7bee}\label{classMapleCOMSPS_1_1Solver_a24cab03a5553d6a0c4f25bf03b9d7bee}} 
+void {\bfseries to\+Dimacs} (const char $\ast$file, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} q, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} r)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a03fd4cd35f4b99e0b1f5645bd4f00c24}\label{classMapleCOMSPS_1_1Solver_a03fd4cd35f4b99e0b1f5645bd4f00c24}} 
+void {\bfseries set\+Polarity} (Var v, bool b)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a1e92ef9406b2aaed8c55665c7a741aae}\label{classMapleCOMSPS_1_1Solver_a1e92ef9406b2aaed8c55665c7a741aae}} 
+void {\bfseries set\+Decision\+Var} (Var v, bool b)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a284479e89477eb61bd9afcbcb891bc39}\label{classMapleCOMSPS_1_1Solver_a284479e89477eb61bd9afcbcb891bc39}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries value} (Var x) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3a10e6b564fb54af901680d7ff143066}\label{classMapleCOMSPS_1_1Solver_a3a10e6b564fb54af901680d7ff143066}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries value} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a9d73ae38bd16c82e0843d45a21ac9c2e}\label{classMapleCOMSPS_1_1Solver_a9d73ae38bd16c82e0843d45a21ac9c2e}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries model\+Value} (Var x) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ab47eb15fda7592ee9e196d792fb43ce9}\label{classMapleCOMSPS_1_1Solver_ab47eb15fda7592ee9e196d792fb43ce9}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries model\+Value} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a4b64c00d42eff0af9c2ec9a01071e8da}\label{classMapleCOMSPS_1_1Solver_a4b64c00d42eff0af9c2ec9a01071e8da}} 
+int {\bfseries n\+Assigns} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_add16a6505cb8b658e9a54d04cab8dd09}\label{classMapleCOMSPS_1_1Solver_add16a6505cb8b658e9a54d04cab8dd09}} 
+int {\bfseries n\+Clauses} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a1b0bed69bc74077e19a9e8006696ff73}\label{classMapleCOMSPS_1_1Solver_a1b0bed69bc74077e19a9e8006696ff73}} 
+int {\bfseries n\+Learnts} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a09f819ce49dcb7d0dc9403079b8df682}\label{classMapleCOMSPS_1_1Solver_a09f819ce49dcb7d0dc9403079b8df682}} 
+int {\bfseries n\+Vars} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a20d8000c40860c127e3e62f80288494b}\label{classMapleCOMSPS_1_1Solver_a20d8000c40860c127e3e62f80288494b}} 
+int {\bfseries n\+Free\+Vars} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a72d8f5cf5402cf3070a93574ced9e66b}\label{classMapleCOMSPS_1_1Solver_a72d8f5cf5402cf3070a93574ced9e66b}} 
+void {\bfseries set\+Conf\+Budget} (int64\+\_\+t x)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a92414314139649be9968dc2d35761f99}\label{classMapleCOMSPS_1_1Solver_a92414314139649be9968dc2d35761f99}} 
+void {\bfseries set\+Prop\+Budget} (int64\+\_\+t x)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a5fcb0a761361bb6b1cd24c23a4ca3617}\label{classMapleCOMSPS_1_1Solver_a5fcb0a761361bb6b1cd24c23a4ca3617}} 
+void {\bfseries budget\+Off} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa2dd06c914feba4411bde68a0ac98709}\label{classMapleCOMSPS_1_1Solver_aa2dd06c914feba4411bde68a0ac98709}} 
+void {\bfseries interrupt} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a53d7a64663199530a4088fb68a15d906}\label{classMapleCOMSPS_1_1Solver_a53d7a64663199530a4088fb68a15d906}} 
+void {\bfseries clear\+Interrupt} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad7330b363d9aa0a22049e537f520748f}\label{classMapleCOMSPS_1_1Solver_ad7330b363d9aa0a22049e537f520748f}} 
+virtual void {\bfseries garbage\+Collect} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3c626b190c832384009dd8125c7ec9ea}\label{classMapleCOMSPS_1_1Solver_a3c626b190c832384009dd8125c7ec9ea}} 
+void {\bfseries check\+Garbage} (double gf)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_adff748d0183ee3dacd337197afe50a0a}\label{classMapleCOMSPS_1_1Solver_adff748d0183ee3dacd337197afe50a0a}} 
+void {\bfseries check\+Garbage} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a9d2dccab2bd7740b0e94649eca5f62e7}\label{classMapleCOMSPS_1_1Solver_a9d2dccab2bd7740b0e94649eca5f62e7}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries imported\+Clause}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a6cb6be9087e30279eaf2f81779d6af0d}\label{classMapleCOMSPS_1_1Solver_a6cb6be9087e30279eaf2f81779d6af0d}} 
+void $\ast$ {\bfseries issuer}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_afc45d76618901e26ab8508d7ea9ae2d2}\label{classMapleCOMSPS_1_1Solver_afc45d76618901e26ab8508d7ea9ae2d2}} 
+\mbox{\hyperlink{structMini_1_1Lit}{Lit}}($\ast$ {\bfseries cbk\+Import\+Unit} )(void $\ast$) = nullptr
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aedda678188d9dc3129a7f91230811c33}\label{classMapleCOMSPS_1_1Solver_aedda678188d9dc3129a7f91230811c33}} 
+bool($\ast$ {\bfseries cbk\+Import\+Clause} )(void $\ast$, int $\ast$, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&) = nullptr
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a32b923c9d6d1492ed01665d660bb8dd6}\label{classMapleCOMSPS_1_1Solver_a32b923c9d6d1492ed01665d660bb8dd6}} 
+void($\ast$ {\bfseries cbk\+Export\+Clause} )(void $\ast$, int, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&) = nullptr
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0940b575ac1b12a3f61bf686acef25d7}\label{classMapleCOMSPS_1_1Solver_a0940b575ac1b12a3f61bf686acef25d7}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} $>$ {\bfseries model}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af8c2eb59910d2c33f66c1dfd592b4509}\label{classMapleCOMSPS_1_1Solver_af8c2eb59910d2c33f66c1dfd592b4509}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries conflict}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0a23e6255e89b7fc5f48c59f5afa77ae}\label{classMapleCOMSPS_1_1Solver_a0a23e6255e89b7fc5f48c59f5afa77ae}} 
+F\+I\+LE $\ast$ {\bfseries drup\+\_\+file}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_acd20bec03cb00d57aac051bf0c4cd1c9}\label{classMapleCOMSPS_1_1Solver_acd20bec03cb00d57aac051bf0c4cd1c9}} 
+int {\bfseries verbosity}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a154cefc57a2be1bda6dc1527fb4d9514}\label{classMapleCOMSPS_1_1Solver_a154cefc57a2be1bda6dc1527fb4d9514}} 
+double {\bfseries step\+\_\+size}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a5c9068e693e1fe27c2e83618bc057ed9}\label{classMapleCOMSPS_1_1Solver_a5c9068e693e1fe27c2e83618bc057ed9}} 
+double {\bfseries step\+\_\+size\+\_\+dec}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a5c3167126309cda3380e270540ed83eb}\label{classMapleCOMSPS_1_1Solver_a5c3167126309cda3380e270540ed83eb}} 
+double {\bfseries min\+\_\+step\+\_\+size}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_acd8a5720d635a246908cfcc5abfc528a}\label{classMapleCOMSPS_1_1Solver_acd8a5720d635a246908cfcc5abfc528a}} 
+int {\bfseries timer}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aaa242b3787c94efd6348b7aa2eec9101}\label{classMapleCOMSPS_1_1Solver_aaa242b3787c94efd6348b7aa2eec9101}} 
+double {\bfseries var\+\_\+decay}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a2ca88a5b17614f1ba08b298dafe0100b}\label{classMapleCOMSPS_1_1Solver_a2ca88a5b17614f1ba08b298dafe0100b}} 
+double {\bfseries clause\+\_\+decay}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad768d11560a05672881dd07090613cf9}\label{classMapleCOMSPS_1_1Solver_ad768d11560a05672881dd07090613cf9}} 
+double {\bfseries random\+\_\+var\+\_\+freq}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a992d5afc9bdcc41035d17e628809f94c}\label{classMapleCOMSPS_1_1Solver_a992d5afc9bdcc41035d17e628809f94c}} 
+double {\bfseries random\+\_\+seed}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad14587658f46bbe9b1053a68d115f6b9}\label{classMapleCOMSPS_1_1Solver_ad14587658f46bbe9b1053a68d115f6b9}} 
+bool {\bfseries V\+S\+I\+DS}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a94299259005cb15e81f5a6188c36be96}\label{classMapleCOMSPS_1_1Solver_a94299259005cb15e81f5a6188c36be96}} 
+bool {\bfseries verso}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8e7c5107803f607c949f2d817ed55837}\label{classMapleCOMSPS_1_1Solver_a8e7c5107803f607c949f2d817ed55837}} 
+int {\bfseries ccmin\+\_\+mode}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ac5214a45d29dc51aaa78be81cb742379}\label{classMapleCOMSPS_1_1Solver_ac5214a45d29dc51aaa78be81cb742379}} 
+int {\bfseries phase\+\_\+saving}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af4ae07e7eea53677867ca0d38ea29b55}\label{classMapleCOMSPS_1_1Solver_af4ae07e7eea53677867ca0d38ea29b55}} 
+bool {\bfseries rnd\+\_\+pol}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a5698a8716cd469d2e7954df2b56a67e3}\label{classMapleCOMSPS_1_1Solver_a5698a8716cd469d2e7954df2b56a67e3}} 
+bool {\bfseries rnd\+\_\+init\+\_\+act}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ae685fcb166077134cdca5b0fa83d19b5}\label{classMapleCOMSPS_1_1Solver_ae685fcb166077134cdca5b0fa83d19b5}} 
+double {\bfseries garbage\+\_\+frac}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8639764ad95efe032eb49ad2e8baeba4}\label{classMapleCOMSPS_1_1Solver_a8639764ad95efe032eb49ad2e8baeba4}} 
+int {\bfseries restart\+\_\+first}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aae294b628a6e881563ae624b58b23181}\label{classMapleCOMSPS_1_1Solver_aae294b628a6e881563ae624b58b23181}} 
+double {\bfseries restart\+\_\+inc}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a819cf420bab095c5829588e3f2c36c88}\label{classMapleCOMSPS_1_1Solver_a819cf420bab095c5829588e3f2c36c88}} 
+double {\bfseries learntsize\+\_\+factor}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ae6874d8612ffe0ad95e12d27db48b568}\label{classMapleCOMSPS_1_1Solver_ae6874d8612ffe0ad95e12d27db48b568}} 
+double {\bfseries learntsize\+\_\+inc}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_adf4d9d4b6e9fca3924537204541d57b1}\label{classMapleCOMSPS_1_1Solver_adf4d9d4b6e9fca3924537204541d57b1}} 
+int {\bfseries learntsize\+\_\+adjust\+\_\+start\+\_\+confl}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a5f8aed76a597cf19e0db66f564a7e6e3}\label{classMapleCOMSPS_1_1Solver_a5f8aed76a597cf19e0db66f564a7e6e3}} 
+double {\bfseries learntsize\+\_\+adjust\+\_\+inc}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a4d0e3cc7af7c119215ed074b8a5b4a4b}\label{classMapleCOMSPS_1_1Solver_a4d0e3cc7af7c119215ed074b8a5b4a4b}} 
+uint64\+\_\+t {\bfseries solves}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa07acb2021e8432742004779e1858b39}\label{classMapleCOMSPS_1_1Solver_aa07acb2021e8432742004779e1858b39}} 
+uint64\+\_\+t {\bfseries starts}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3741f33e33e4faaa3929a13544b5a75b}\label{classMapleCOMSPS_1_1Solver_a3741f33e33e4faaa3929a13544b5a75b}} 
+uint64\+\_\+t {\bfseries decisions}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3558561c592df0b8e9709ebac5692a38}\label{classMapleCOMSPS_1_1Solver_a3558561c592df0b8e9709ebac5692a38}} 
+uint64\+\_\+t {\bfseries rnd\+\_\+decisions}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a159b62b0e323962e544b0f30b1cbccf2}\label{classMapleCOMSPS_1_1Solver_a159b62b0e323962e544b0f30b1cbccf2}} 
+uint64\+\_\+t {\bfseries propagations}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_abe767e68d12ad25591df10e84eaed723}\label{classMapleCOMSPS_1_1Solver_abe767e68d12ad25591df10e84eaed723}} 
+uint64\+\_\+t {\bfseries conflicts}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ace4b7348ed690203782c695695b15852}\label{classMapleCOMSPS_1_1Solver_ace4b7348ed690203782c695695b15852}} 
+uint64\+\_\+t {\bfseries conflicts\+\_\+\+V\+S\+I\+DS}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af49d427a6438d430b54ec8f64cac12e5}\label{classMapleCOMSPS_1_1Solver_af49d427a6438d430b54ec8f64cac12e5}} 
+uint64\+\_\+t {\bfseries dec\+\_\+vars}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aaa8718e2dc585934a2b13c1b6c4a6adc}\label{classMapleCOMSPS_1_1Solver_aaa8718e2dc585934a2b13c1b6c4a6adc}} 
+uint64\+\_\+t {\bfseries clauses\+\_\+literals}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a737250d27fd3aa6b02c4725040e04bbc}\label{classMapleCOMSPS_1_1Solver_a737250d27fd3aa6b02c4725040e04bbc}} 
+uint64\+\_\+t {\bfseries learnts\+\_\+literals}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_afd37e0116e34cd8fb86c5fc2c395ef42}\label{classMapleCOMSPS_1_1Solver_afd37e0116e34cd8fb86c5fc2c395ef42}} 
+uint64\+\_\+t {\bfseries max\+\_\+literals}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ae4b968531efe362f1827e58d5959a055}\label{classMapleCOMSPS_1_1Solver_ae4b968531efe362f1827e58d5959a055}} 
+uint64\+\_\+t {\bfseries tot\+\_\+literals}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a13726508a15b3e233f69ea4fb5c16d1a}\label{classMapleCOMSPS_1_1Solver_a13726508a15b3e233f69ea4fb5c16d1a}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ uint32\+\_\+t $>$ {\bfseries picked}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a2d8425346f48bd3179b921fe6d3aa560}\label{classMapleCOMSPS_1_1Solver_a2d8425346f48bd3179b921fe6d3aa560}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ uint32\+\_\+t $>$ {\bfseries conflicted}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a98711cc6653be4d226a779baa456c1d7}\label{classMapleCOMSPS_1_1Solver_a98711cc6653be4d226a779baa456c1d7}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ uint32\+\_\+t $>$ {\bfseries almost\+\_\+conflicted}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a20ecb977f734f2c5fd70dc47290d2af7}\label{classMapleCOMSPS_1_1Solver_a20ecb977f734f2c5fd70dc47290d2af7}} 
+void {\bfseries insert\+Var\+Order} (Var x)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a843ec0f0f3b7f0ac75c8591b7759a546}\label{classMapleCOMSPS_1_1Solver_a843ec0f0f3b7f0ac75c8591b7759a546}} 
+\mbox{\hyperlink{structMini_1_1Lit}{Lit}} {\bfseries pick\+Branch\+Lit} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a73760c9f9bf2d77b7c7e121e5293e075}\label{classMapleCOMSPS_1_1Solver_a73760c9f9bf2d77b7c7e121e5293e075}} 
+void {\bfseries new\+Decision\+Level} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a105ec0575e953ad6e343f16149d57370}\label{classMapleCOMSPS_1_1Solver_a105ec0575e953ad6e343f16149d57370}} 
+void {\bfseries unchecked\+Enqueue} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, C\+Ref from=C\+Ref\+\_\+\+Undef)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_abd9ce0096dc20cfccf9bb45bfae0d853}\label{classMapleCOMSPS_1_1Solver_abd9ce0096dc20cfccf9bb45bfae0d853}} 
+bool {\bfseries enqueue} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, C\+Ref from=C\+Ref\+\_\+\+Undef)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ab3801b1bf9db69e63903b6c536db773d}\label{classMapleCOMSPS_1_1Solver_ab3801b1bf9db69e63903b6c536db773d}} 
+C\+Ref {\bfseries propagate} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aafd0437ef4bef476adc8d4b93f772dbc}\label{classMapleCOMSPS_1_1Solver_aafd0437ef4bef476adc8d4b93f772dbc}} 
+void {\bfseries cancel\+Until} (int level)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a168c43fcfa227fb4fedf41d4e149f1b3}\label{classMapleCOMSPS_1_1Solver_a168c43fcfa227fb4fedf41d4e149f1b3}} 
+void {\bfseries analyze} (C\+Ref confl, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&out\+\_\+learnt, int \&out\+\_\+btlevel, int \&out\+\_\+lbd)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad332e42a3e4db33fb8bace86520ab840}\label{classMapleCOMSPS_1_1Solver_ad332e42a3e4db33fb8bace86520ab840}} 
+void {\bfseries analyze\+Final} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&out\+\_\+conflict)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af21f924b04abb399b0420e8475e3c984}\label{classMapleCOMSPS_1_1Solver_af21f924b04abb399b0420e8475e3c984}} 
+bool {\bfseries lit\+Redundant} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, uint32\+\_\+t abstract\+\_\+levels)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a972ae178cc8d8c3fb12e9a1331ff0115}\label{classMapleCOMSPS_1_1Solver_a972ae178cc8d8c3fb12e9a1331ff0115}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries search} (int \&nof\+\_\+conflicts)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a7bdcd33b7d6f3c64096f43747052c231}\label{classMapleCOMSPS_1_1Solver_a7bdcd33b7d6f3c64096f43747052c231}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} {\bfseries solve\+\_\+} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a868488ad85d5d93c6981c924b96602e9}\label{classMapleCOMSPS_1_1Solver_a868488ad85d5d93c6981c924b96602e9}} 
+void {\bfseries reduce\+DB} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8857504d9bdc9bbda2c5c5141ac7063e}\label{classMapleCOMSPS_1_1Solver_a8857504d9bdc9bbda2c5c5141ac7063e}} 
+void {\bfseries reduce\+D\+B\+\_\+\+Tier2} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a6bdd79ea8c2fc5d49785dab7dda020cf}\label{classMapleCOMSPS_1_1Solver_a6bdd79ea8c2fc5d49785dab7dda020cf}} 
+void {\bfseries remove\+Satisfied} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$ \&cs)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a71a0fa515b5ddbb0a5739eb9f218d6fd}\label{classMapleCOMSPS_1_1Solver_a71a0fa515b5ddbb0a5739eb9f218d6fd}} 
+void {\bfseries safe\+Remove\+Satisfied\+Compact} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$ \&cs, unsigned valid\+\_\+mark)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af100d861589c11b62251d544ab5b33b8}\label{classMapleCOMSPS_1_1Solver_af100d861589c11b62251d544ab5b33b8}} 
+void {\bfseries rebuild\+Order\+Heap} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a1d74877f078f43d8d89c33049f749401}\label{classMapleCOMSPS_1_1Solver_a1d74877f078f43d8d89c33049f749401}} 
+bool {\bfseries bin\+Res\+Minimize} (\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ \&out\+\_\+learnt)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a1ae8a012a6af21004bb4504ecd45435a}\label{classMapleCOMSPS_1_1Solver_a1ae8a012a6af21004bb4504ecd45435a}} 
+void {\bfseries var\+Decay\+Activity} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a1a32ccf52906d62c95b42748441660bc}\label{classMapleCOMSPS_1_1Solver_a1a32ccf52906d62c95b42748441660bc}} 
+void {\bfseries var\+Bump\+Activity} (Var v, double mult)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a86f35cf169a6e7d52abab3d75258d1ac}\label{classMapleCOMSPS_1_1Solver_a86f35cf169a6e7d52abab3d75258d1ac}} 
+void {\bfseries cla\+Decay\+Activity} ()
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a35553ed6528865c4ab800df6b4b95a0e}\label{classMapleCOMSPS_1_1Solver_a35553ed6528865c4ab800df6b4b95a0e}} 
+void {\bfseries cla\+Bump\+Activity} (\mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&c)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa5f52502c3602714d2bfaef6818baee2}\label{classMapleCOMSPS_1_1Solver_aa5f52502c3602714d2bfaef6818baee2}} 
+void {\bfseries attach\+Clause} (C\+Ref cr)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ae48c40b97951831e8ebe0edd0cdcb60f}\label{classMapleCOMSPS_1_1Solver_ae48c40b97951831e8ebe0edd0cdcb60f}} 
+void {\bfseries detach\+Clause} (C\+Ref cr, bool strict=false)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a152858d88431f09092b688fba5bd8139}\label{classMapleCOMSPS_1_1Solver_a152858d88431f09092b688fba5bd8139}} 
+void {\bfseries remove\+Clause} (C\+Ref cr)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a1f5b027346ca60f00159711f11062ab8}\label{classMapleCOMSPS_1_1Solver_a1f5b027346ca60f00159711f11062ab8}} 
+void {\bfseries remove\+Clause\+Hack} (C\+Ref cr, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} watched0, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} watched1)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_afc4ef9a41ce96af823f6c3073a6349fe}\label{classMapleCOMSPS_1_1Solver_afc4ef9a41ce96af823f6c3073a6349fe}} 
+bool {\bfseries locked} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&c) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a6310972e1d804c00cc5bcbc45032f408}\label{classMapleCOMSPS_1_1Solver_a6310972e1d804c00cc5bcbc45032f408}} 
+bool {\bfseries satisfied} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&c) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a35c00027f68a4320e51e138e93c2ba60}\label{classMapleCOMSPS_1_1Solver_a35c00027f68a4320e51e138e93c2ba60}} 
+void {\bfseries reloc\+All} (\mbox{\hyperlink{classMapleCOMSPS_1_1ClauseAllocator}{Clause\+Allocator}} \&to)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a63e24daf9eccb4045e63c5522cefffbd}\label{classMapleCOMSPS_1_1Solver_a63e24daf9eccb4045e63c5522cefffbd}} 
+int {\bfseries decision\+Level} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad8c772a8816697844d8bc07f107cd11d}\label{classMapleCOMSPS_1_1Solver_ad8c772a8816697844d8bc07f107cd11d}} 
+uint32\+\_\+t {\bfseries abstract\+Level} (Var x) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a7f130e16f0868377446d721bbeb31763}\label{classMapleCOMSPS_1_1Solver_a7f130e16f0868377446d721bbeb31763}} 
+C\+Ref {\bfseries reason} (Var x) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a9e111f9adcabf0805e4dd1f88ea93808}\label{classMapleCOMSPS_1_1Solver_a9e111f9adcabf0805e4dd1f88ea93808}} 
+int {\bfseries level} (Var x) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a9939717dc00726216ed050439049af56}\label{classMapleCOMSPS_1_1Solver_a9939717dc00726216ed050439049af56}} 
+double {\bfseries progress\+Estimate} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a6226260ae905aa5a802fd44f43d9eeb0}\label{classMapleCOMSPS_1_1Solver_a6226260ae905aa5a802fd44f43d9eeb0}} 
+bool {\bfseries within\+Budget} () const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a88fdb84be9e4a262f180f88ad0d9d325}\label{classMapleCOMSPS_1_1Solver_a88fdb84be9e4a262f180f88ad0d9d325}} 
+{\footnotesize template$<$class V $>$ }\\int {\bfseries compute\+L\+BD} (const V \&c)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a9f5487feeb137aa18a518102352eaa90}\label{classMapleCOMSPS_1_1Solver_a9f5487feeb137aa18a518102352eaa90}} 
+bool {\bfseries stamp\+All} (bool use\+\_\+bin\+\_\+learnts)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa2c417a91158854093dd349da0139259}\label{classMapleCOMSPS_1_1Solver_aa2c417a91158854093dd349da0139259}} 
+int {\bfseries stamp} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, int stamp\+\_\+time, bool use\+\_\+bin\+\_\+learnts)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a40bc83746dce6111544f3f024e151bec}\label{classMapleCOMSPS_1_1Solver_a40bc83746dce6111544f3f024e151bec}} 
+bool {\bfseries impl\+Exists\+By\+Bin} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, bool use\+\_\+bin\+\_\+learnts) const
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa4503689f34674c852f26113e9b52054}\label{classMapleCOMSPS_1_1Solver_aa4503689f34674c852f26113e9b52054}} 
+bool {\bfseries is\+Root} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} p, bool use\+\_\+bin\+\_\+learnts) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aded4e2dde97b92b007319f877a6f8e83}\label{classMapleCOMSPS_1_1Solver_aded4e2dde97b92b007319f877a6f8e83}} 
+static \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1VarData}{Var\+Data}} {\bfseries mk\+Var\+Data} (C\+Ref cr, int l)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ac09306506d1bd5c6d6f7958096ea8e89}\label{classMapleCOMSPS_1_1Solver_ac09306506d1bd5c6d6f7958096ea8e89}} 
+static void {\bfseries byte\+D\+R\+UP} (\mbox{\hyperlink{structMini_1_1Lit}{Lit}} l)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0891ad3666faf39c9480a97d84ebcbe5}\label{classMapleCOMSPS_1_1Solver_a0891ad3666faf39c9480a97d84ebcbe5}} 
+{\footnotesize template$<$class V $>$ }\\static void {\bfseries bin\+D\+R\+UP} (unsigned char op, const V \&c, F\+I\+LE $\ast$drup\+\_\+file)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a07b2a73a8109df92feae5a6495d2603b}\label{classMapleCOMSPS_1_1Solver_a07b2a73a8109df92feae5a6495d2603b}} 
+static void {\bfseries bin\+D\+R\+U\+P\+\_\+strengthen} (const \mbox{\hyperlink{classMapleCOMSPS_1_1Clause}{Clause}} \&c, \mbox{\hyperlink{structMini_1_1Lit}{Lit}} l, F\+I\+LE $\ast$drup\+\_\+file)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ac4d04e89646d7f5fa5c9637f0e5a1553}\label{classMapleCOMSPS_1_1Solver_ac4d04e89646d7f5fa5c9637f0e5a1553}} 
+static void {\bfseries bin\+D\+R\+U\+P\+\_\+flush} (F\+I\+LE $\ast$drup\+\_\+file)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a831dfaae50e1b0446a3141f9d5f030c4}\label{classMapleCOMSPS_1_1Solver_a831dfaae50e1b0446a3141f9d5f030c4}} 
+static double {\bfseries drand} (double \&seed)
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a81d5bda9471ddd352fd2a72d3edc7251}\label{classMapleCOMSPS_1_1Solver_a81d5bda9471ddd352fd2a72d3edc7251}} 
+static int {\bfseries irand} (double \&seed, int size)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3a6a8991d52da3ff86aa1aca0559d589}\label{classMapleCOMSPS_1_1Solver_a3a6a8991d52da3ff86aa1aca0559d589}} 
+bool {\bfseries ok}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aa1ff95402e0f31a2ffde8e524f866b2d}\label{classMapleCOMSPS_1_1Solver_aa1ff95402e0f31a2ffde8e524f866b2d}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$ {\bfseries clauses}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a176422028a377b26a29cdf611dcfd807}\label{classMapleCOMSPS_1_1Solver_a176422028a377b26a29cdf611dcfd807}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$ {\bfseries learnts\+\_\+core}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a96b8baf5e1e54d3fb624219c8b14ad52}\label{classMapleCOMSPS_1_1Solver_a96b8baf5e1e54d3fb624219c8b14ad52}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$ {\bfseries learnts\+\_\+tier2}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a19563963f8518dcb58323aade39e0a36}\label{classMapleCOMSPS_1_1Solver_a19563963f8518dcb58323aade39e0a36}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ C\+Ref $>$ {\bfseries learnts\+\_\+local}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0684c223052aec1f12cdfdacd2ce3d46}\label{classMapleCOMSPS_1_1Solver_a0684c223052aec1f12cdfdacd2ce3d46}} 
+double {\bfseries cla\+\_\+inc}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a853f8d3223c32675dd8bfdde30ae4a04}\label{classMapleCOMSPS_1_1Solver_a853f8d3223c32675dd8bfdde30ae4a04}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ double $>$ {\bfseries activity\+\_\+\+C\+HB}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a7ca504fcd95a6e5933f51799806714ec}\label{classMapleCOMSPS_1_1Solver_a7ca504fcd95a6e5933f51799806714ec}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ double $>$ {\bfseries activity\+\_\+\+V\+S\+I\+DS}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a36d72ca367c5d114220dc2eb597268a7}\label{classMapleCOMSPS_1_1Solver_a36d72ca367c5d114220dc2eb597268a7}} 
+double {\bfseries var\+\_\+inc}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3b50086b94b9e2bb4ef196af4bf57502}\label{classMapleCOMSPS_1_1Solver_a3b50086b94b9e2bb4ef196af4bf57502}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1OccLists}{Occ\+Lists}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}}, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1Watcher}{Watcher}} $>$, \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1WatcherDeleted}{Watcher\+Deleted}} $>$ {\bfseries watches\+\_\+bin}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af1fc8ade2c8121d449251827e5cab53b}\label{classMapleCOMSPS_1_1Solver_af1fc8ade2c8121d449251827e5cab53b}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1OccLists}{Occ\+Lists}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}}, \mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1Watcher}{Watcher}} $>$, \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1WatcherDeleted}{Watcher\+Deleted}} $>$ {\bfseries watches}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0ecc2ec38c7b707dae72292bd46f7d14}\label{classMapleCOMSPS_1_1Solver_a0ecc2ec38c7b707dae72292bd46f7d14}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{classMapleCOMSPS_1_1lbool}{lbool}} $>$ {\bfseries assigns}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_afda49f3d6e3e8e5dc2e3519d2130153f}\label{classMapleCOMSPS_1_1Solver_afda49f3d6e3e8e5dc2e3519d2130153f}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries polarity}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a630375b211607432cf9475f46d630e92}\label{classMapleCOMSPS_1_1Solver_a630375b211607432cf9475f46d630e92}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries decision}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad12dac9aae8d2ce1711efa5394df8a1e}\label{classMapleCOMSPS_1_1Solver_ad12dac9aae8d2ce1711efa5394df8a1e}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries trail}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a27326cc06c40bbe988c1451631f35d41}\label{classMapleCOMSPS_1_1Solver_a27326cc06c40bbe988c1451631f35d41}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ int $>$ {\bfseries trail\+\_\+lim}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_abd2185526a21fca957d4b2ef1440a1f0}\label{classMapleCOMSPS_1_1Solver_abd2185526a21fca957d4b2ef1440a1f0}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1VarData}{Var\+Data}} $>$ {\bfseries vardata}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a4999731eae3cc938b935ce47a2dedeb6}\label{classMapleCOMSPS_1_1Solver_a4999731eae3cc938b935ce47a2dedeb6}} 
+int {\bfseries qhead}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a5a2198e066d93cc1174dc73381b4a3bf}\label{classMapleCOMSPS_1_1Solver_a5a2198e066d93cc1174dc73381b4a3bf}} 
+int {\bfseries simp\+D\+B\+\_\+assigns}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aac7d217cbacad8e6153c004ef5dbc4ef}\label{classMapleCOMSPS_1_1Solver_aac7d217cbacad8e6153c004ef5dbc4ef}} 
+int64\+\_\+t {\bfseries simp\+D\+B\+\_\+props}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_addf52e4db1f099afaf3a80f3a153c8c8}\label{classMapleCOMSPS_1_1Solver_addf52e4db1f099afaf3a80f3a153c8c8}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries assumptions}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_afc74cff37c377c3a859ee202240d0f9d}\label{classMapleCOMSPS_1_1Solver_afc74cff37c377c3a859ee202240d0f9d}} 
+\mbox{\hyperlink{classMini_1_1Heap}{Heap}}$<$ int, \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1VarOrderLt}{Var\+Order\+Lt}} $>$ {\bfseries order\+\_\+heap\+\_\+\+C\+HB}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a11f33d5e6528ff878123f892dc49e017}\label{classMapleCOMSPS_1_1Solver_a11f33d5e6528ff878123f892dc49e017}} 
+\mbox{\hyperlink{classMini_1_1Heap}{Heap}}$<$ int, \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1VarOrderLt}{Var\+Order\+Lt}} $>$ {\bfseries order\+\_\+heap\+\_\+\+V\+S\+I\+DS}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a3c2d57f46732d61d0baf45af4d951ab0}\label{classMapleCOMSPS_1_1Solver_a3c2d57f46732d61d0baf45af4d951ab0}} 
+double {\bfseries progress\+\_\+estimate}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ac6bf89608186fa6f22a340da5887c562}\label{classMapleCOMSPS_1_1Solver_ac6bf89608186fa6f22a340da5887c562}} 
+bool {\bfseries remove\+\_\+satisfied}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a37448fd75ec7d8b027c96b7f6ec635e0}\label{classMapleCOMSPS_1_1Solver_a37448fd75ec7d8b027c96b7f6ec635e0}} 
+int {\bfseries core\+\_\+lbd\+\_\+cut}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a820360e89cddda6aa984973710dc6c52}\label{classMapleCOMSPS_1_1Solver_a820360e89cddda6aa984973710dc6c52}} 
+float {\bfseries global\+\_\+lbd\+\_\+sum}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_adcab15395b1da4f530bf24ba06aaeaa0}\label{classMapleCOMSPS_1_1Solver_adcab15395b1da4f530bf24ba06aaeaa0}} 
+My\+Queue$<$ int $>$ {\bfseries lbd\+\_\+queue}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_af7b00847167666cf862a83c9d40f4de3}\label{classMapleCOMSPS_1_1Solver_af7b00847167666cf862a83c9d40f4de3}} 
+uint64\+\_\+t {\bfseries next\+\_\+\+T2\+\_\+reduce}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_adc6d24fe4c72df9034cf00f1eb1b392a}\label{classMapleCOMSPS_1_1Solver_adc6d24fe4c72df9034cf00f1eb1b392a}} 
+uint64\+\_\+t {\bfseries next\+\_\+\+L\+\_\+reduce}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a2795dbded50a25d59bca774891337949}\label{classMapleCOMSPS_1_1Solver_a2795dbded50a25d59bca774891337949}} 
+\mbox{\hyperlink{classMapleCOMSPS_1_1ClauseAllocator}{Clause\+Allocator}} {\bfseries ca}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a9c0ac6206d2df01eb82acf86eb6b143e}\label{classMapleCOMSPS_1_1Solver_a9c0ac6206d2df01eb82acf86eb6b143e}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries seen}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aaa32efbf9165562dee074bbd71997a0a}\label{classMapleCOMSPS_1_1Solver_aaa32efbf9165562dee074bbd71997a0a}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries analyze\+\_\+stack}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_aad3c4ddfe006078d6f43f4eee95bf1e1}\label{classMapleCOMSPS_1_1Solver_aad3c4ddfe006078d6f43f4eee95bf1e1}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries analyze\+\_\+toclear}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a326264dd9f15e42de777ce256d2b4ac1}\label{classMapleCOMSPS_1_1Solver_a326264dd9f15e42de777ce256d2b4ac1}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries add\+\_\+tmp}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a17f2a2100d9a869c9ff51ed7119fe2fe}\label{classMapleCOMSPS_1_1Solver_a17f2a2100d9a869c9ff51ed7119fe2fe}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries add\+\_\+oc}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a39dc15637b88cf4c483b9706c9772c93}\label{classMapleCOMSPS_1_1Solver_a39dc15637b88cf4c483b9706c9772c93}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ uint64\+\_\+t $>$ {\bfseries seen2}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a8e26b139007bfef4051bf59a36b51cc3}\label{classMapleCOMSPS_1_1Solver_a8e26b139007bfef4051bf59a36b51cc3}} 
+uint64\+\_\+t {\bfseries counter}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a21e35559f0ef1e244c25827c4acca312}\label{classMapleCOMSPS_1_1Solver_a21e35559f0ef1e244c25827c4acca312}} 
+double {\bfseries max\+\_\+learnts}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a19b8d221cdcd4bcae7e509900fb35ec0}\label{classMapleCOMSPS_1_1Solver_a19b8d221cdcd4bcae7e509900fb35ec0}} 
+double {\bfseries learntsize\+\_\+adjust\+\_\+confl}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a995eebd3ed12bda0cc075902475a34d4}\label{classMapleCOMSPS_1_1Solver_a995eebd3ed12bda0cc075902475a34d4}} 
+int {\bfseries learntsize\+\_\+adjust\+\_\+cnt}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a73a42694fa529d845f377da6f091945f}\label{classMapleCOMSPS_1_1Solver_a73a42694fa529d845f377da6f091945f}} 
+int64\+\_\+t {\bfseries conflict\+\_\+budget}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad86bec12c81da2b247005464dd84321e}\label{classMapleCOMSPS_1_1Solver_ad86bec12c81da2b247005464dd84321e}} 
+int64\+\_\+t {\bfseries propagation\+\_\+budget}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a0f0860accff477524001dc8e9b150528}\label{classMapleCOMSPS_1_1Solver_a0f0860accff477524001dc8e9b150528}} 
+bool {\bfseries asynch\+\_\+interrupt}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ad0f7fbda28b487d81b4221e379e50a85}\label{classMapleCOMSPS_1_1Solver_ad0f7fbda28b487d81b4221e379e50a85}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ int32\+\_\+t $>$ {\bfseries discovered}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a09469b6936c395f1df9b20daa8a3b7f2}\label{classMapleCOMSPS_1_1Solver_a09469b6936c395f1df9b20daa8a3b7f2}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ int32\+\_\+t $>$ {\bfseries finished}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a895d7f50a64a54fc1e1023cd71ad1c4f}\label{classMapleCOMSPS_1_1Solver_a895d7f50a64a54fc1e1023cd71ad1c4f}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ int32\+\_\+t $>$ {\bfseries observed}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a720d72e48c24aa560861a088b16de20d}\label{classMapleCOMSPS_1_1Solver_a720d72e48c24aa560861a088b16de20d}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ char $>$ {\bfseries flag}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_abc7978cf5a0e6c2108183e23afa50e1c}\label{classMapleCOMSPS_1_1Solver_abc7978cf5a0e6c2108183e23afa50e1c}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries root}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a4defa159c9464de4eb04d2fed00b7d8e}\label{classMapleCOMSPS_1_1Solver_a4defa159c9464de4eb04d2fed00b7d8e}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_adfb7567e7c090a23f143f826205d20f0}\label{classMapleCOMSPS_1_1Solver_adfb7567e7c090a23f143f826205d20f0}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMapleCOMSPS_1_1Solver_1_1Frame}{Frame}} $>$ {\bfseries rec\+\_\+stack}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_ac6e074c18372a1a05e39f07e8e6f7bc9}\label{classMapleCOMSPS_1_1Solver_ac6e074c18372a1a05e39f07e8e6f7bc9}} 
+\mbox{\hyperlink{classMini_1_1vec}{vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Lit}} $>$ {\bfseries scc}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a2431487ae465e1c2e5f7bc6b4e3f3bcd}\label{classMapleCOMSPS_1_1Solver_a2431487ae465e1c2e5f7bc6b4e3f3bcd}} 
+static int {\bfseries buf\+\_\+len}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a73b373501b6df73c36ff57472a1f9e63}\label{classMapleCOMSPS_1_1Solver_a73b373501b6df73c36ff57472a1f9e63}} 
+static unsigned char {\bfseries drup\+\_\+buf} \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{classMapleCOMSPS_1_1Solver_a2e5f494e6edcf190f67f997e81698a12}\label{classMapleCOMSPS_1_1Solver_a2e5f494e6edcf190f67f997e81698a12}} 
+static unsigned char $\ast$ {\bfseries buf\+\_\+ptr}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/maple\+C\+O\+M\+S\+P\+S/core/Solver.\+h\item 
+core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/maple\+C\+O\+M\+S\+P\+S/core/Solver.\+cc\end{DoxyCompactItemize}

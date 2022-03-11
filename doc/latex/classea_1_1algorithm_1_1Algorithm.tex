@@ -24,7 +24,7 @@ Inheritance diagram for ea\+::algorithm\+::Algorithm\+:
 \item 
 \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}{Algorithm}} (Base\+Algorithm\+Config const \&config)
 \item 
-bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ad8b088da1a57f023f821e885ec52a0ff}{prepare}} ()
+bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a0d76bf5269d8656cae5273d036b22938}{prepare}} (preprocess\+::\+R\+Preprocess const \&preprocess)
 \begin{DoxyCompactList}\small\item\em Performs preparation step. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}\label{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}} 
 void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}{process}} ()
@@ -68,6 +68,9 @@ ea\+::instance\+::\+Population {\bfseries \+\_\+population}
 \item 
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}\label{classea_1_1algorithm_1_1Algorithm_a72b352d0a694876302eec487cb7c1556}} 
 ea\+::instance\+::\+R\+Shared\+Data {\bfseries \+\_\+shared\+\_\+data}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a9f7f68d5b1007547ab89aee4baed8efc}\label{classea_1_1algorithm_1_1Algorithm_a9f7f68d5b1007547ab89aee4baed8efc}} 
+ea\+::preprocess\+::\+R\+Preprocess {\bfseries \+\_\+preprocess}
 \item 
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}\label{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}} 
 core\+::sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
@@ -137,11 +140,11 @@ inaccurately checks whether there are points that are not visited.
 \begin{DoxyReturn}{Returns}
 the inaccurate number of visited points. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ad8b088da1a57f023f821e885ec52a0ff}\label{classea_1_1algorithm_1_1Algorithm_ad8b088da1a57f023f821e885ec52a0ff}} 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a0d76bf5269d8656cae5273d036b22938}\label{classea_1_1algorithm_1_1Algorithm_a0d76bf5269d8656cae5273d036b22938}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!prepare@{prepare}}
 \index{prepare@{prepare}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
 \doxysubsubsection{\texorpdfstring{prepare()}{prepare()}}
-{\footnotesize\ttfamily bool ea\+::algorithm\+::\+Algorithm\+::prepare (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool ea\+::algorithm\+::\+Algorithm\+::prepare (\begin{DoxyParamCaption}\item[{preprocess\+::\+R\+Preprocess const \&}]{preprocess }\end{DoxyParamCaption})}
 
 
 

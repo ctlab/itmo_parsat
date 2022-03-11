@@ -8,7 +8,7 @@
 
 #include "util/Assert.h"
 
-namespace core {
+namespace util {
 
 /**
  * @brief Configuration manipulation routine
@@ -62,6 +62,6 @@ class CliConfig {
   boost::program_options::options_description desc_;
 };
 
-}  // namespace core
+}  // namespace util
 
 #endif  // EVOL_CLICONFIG_H

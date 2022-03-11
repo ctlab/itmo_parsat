@@ -12,6 +12,7 @@
 #include "core/evol/instance/SharedData.h"
 #include "core/evol/limit/Limit.h"
 #include "core/evol/method/select/Selector.h"
+#include "core/evol/method/preprocess/Preprocess.h"
 #include "util/Logger.h"
 #include "util/TimeTracer.h"
 
@@ -42,7 +43,7 @@ class Algorithm {
    * @brief Performs preparation step.
    * @return if proceed can be called
    */
-  bool prepare();
+  bool prepare(preprocess::RPreprocess const& preprocess);
 
   /**
    * @brief Starts the algorithm.
@@ -88,6 +89,7 @@ class Algorithm {
   InstanceConfig _instance_config;
   ea::instance::Population _population;
   ea::instance::RSharedData _shared_data;
+  ea::preprocess::RPreprocess _preprocess;
   core::sat::prop::RProp _prop;
 
  private:

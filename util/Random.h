@@ -12,7 +12,14 @@ namespace util::random {
  */
 std::mt19937& stdgen();
 
+/// @brief coin with probability p
 bool flip_coin(double p);
+
+/// @brief coin with probability 1 / inv
+bool flip_coin(uint32_t inv);
+
+/// @brief coin with probability a / b
+bool flip_coin(uint32_t a, uint32_t b);
 
 template <typename It>
 void shuffle(It first, It last) {

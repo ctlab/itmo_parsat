@@ -5,6 +5,7 @@
 
 #include "core/sat/prop/Prop.h"
 #include "core/evol/instance/SharedData.h"
+#include "core/evol/method/preprocess/Preprocess.h"
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/VarView.h"
@@ -40,7 +41,7 @@ class Instance {
    * @param solver solver that will be used to propagate assignments.
    * @param shared_data shared data (created by algorithm)
    */
-  explicit Instance(core::sat::prop::RProp prop, RSharedData shared_data);
+  explicit Instance(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess);
 
   /**
    * @return variables which this instance represents.
@@ -101,10 +102,11 @@ class Instance {
 
   uint64_t& _inaccurate_points() noexcept;
 
-  core::domain::VarView& _var_view() noexcept;
+  core::domain::VarView const& _var_view() const noexcept;
 
  private:
   bool _cached = false;
+  preprocess::RPreprocess _preprocess;
   core::sat::prop::RProp _prop;
   std::shared_ptr<SharedData> _shared;
   core::domain::Vars _vars;

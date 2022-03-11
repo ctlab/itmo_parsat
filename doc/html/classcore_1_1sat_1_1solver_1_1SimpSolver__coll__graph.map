@@ -1,6 +1,5 @@
 <map id="core::sat::solver::SimpSolver" name="core::sat::solver::SimpSolver">
-<area shape="rect" id="node1" title="Minisat:SimpSolver&#45;based Solver implementation." alt="" coords="88,169,223,211"/>
-<area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,80,140,121"/>
-<area shape="rect" id="node3" href="$classcore_1_1sat_1_1SimpBase.html" title=" " alt="" coords="164,87,315,114"/>
-<area shape="rect" id="node4" title=" " alt="" coords="163,5,315,32"/>
+<area shape="rect" id="node1" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="84,95,219,136"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,140,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="164,13,299,39"/>
 </map>

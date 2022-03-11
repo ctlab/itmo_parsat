@@ -30,11 +30,11 @@ class ParSolver : public Solver {
 
   void load_problem(Problem const& problem) override;
 
-  State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  State solve(vec_lit_t const& assumptions) override;
 
   void solve_assignments(domain::USearch assignment, slv_callback_t const& callback) override;
 
-  [[nodiscard]] bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  [[nodiscard]] bool propagate_confl(vec_lit_t const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

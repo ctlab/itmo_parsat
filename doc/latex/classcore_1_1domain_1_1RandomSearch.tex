@@ -34,13 +34,16 @@ Collaboration diagram for core\+::domain\+::Random\+Search\+:
 \item 
 \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch}{Random\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_adce56fef59d43170281b5e253119d5e7}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\item 
-Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}{operator()}} () const override
+\mbox{\hyperlink{classMini_1_1vec}{lit\+\_\+vec\+\_\+t}} const  \& \mbox{\hyperlink{classcore_1_1domain_1_1RandomSearch_a19050f8ef05dd2959256b1e34a96e8be}{operator()}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_a2edfe27791f1e024aa7639fd0e1e4949}\label{classcore_1_1domain_1_1RandomSearch_a2edfe27791f1e024aa7639fd0e1e4949}} 
 {\bfseries Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars, uint64\+\_\+t total)
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_add863f7f3d1f371f74fc06bb454f7a4a}\label{classcore_1_1domain_1_1RandomSearch_add863f7f3d1f371f74fc06bb454f7a4a}} 
+{\bfseries Random\+Search} (std\+::vector$<$ int $>$ const \&vars, uint64\+\_\+t total)
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_ac0487b1420e46237753e69e8257eea46}\label{classcore_1_1domain_1_1RandomSearch_ac0487b1420e46237753e69e8257eea46}} 
 void {\bfseries \+\_\+advance} () override
@@ -53,6 +56,9 @@ void {\bfseries \+\_\+reset} () override
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_a916f6d0b18108b40928990b2df3f0899}\label{classcore_1_1domain_1_1RandomSearch_a916f6d0b18108b40928990b2df3f0899}} 
 U\+Search {\bfseries create\+Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&, uint64\+\_\+t)
+\item 
+\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_aabc0191b825a0b1ac884da58759b8d47}\label{classcore_1_1domain_1_1RandomSearch_aabc0191b825a0b1ac884da58759b8d47}} 
+U\+Search {\bfseries create\+Random\+Search} (std\+::vector$<$ int $>$ const \&, uint64\+\_\+t)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -78,18 +84,18 @@ the copy of this search
 
 Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d346e679fa66}{core\+::domain\+::\+Search}}.
 
-\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}\label{classcore_1_1domain_1_1RandomSearch_aa2916ac1f881ed4de3bca045fd6393a0}} 
+\mbox{\Hypertarget{classcore_1_1domain_1_1RandomSearch_a19050f8ef05dd2959256b1e34a96e8be}\label{classcore_1_1domain_1_1RandomSearch_a19050f8ef05dd2959256b1e34a96e8be}} 
 \index{core::domain::RandomSearch@{core::domain::RandomSearch}!operator()@{operator()}}
 \index{operator()@{operator()}!core::domain::RandomSearch@{core::domain::RandomSearch}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily Minisat\+::vec$<$ Minisat\+::\+Lit $>$ const  \& core\+::domain\+::\+Random\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const  \& core\+::domain\+::\+Random\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
 the current assignment 
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a647d76e909c7ceb546d4fc23bee29ab6}{core\+::domain\+::\+Search}}.
+Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a1418d5a00cf20ddbea9ba1571d29477e}{core\+::domain\+::\+Search}}.
 
 
 

@@ -1,7 +1,11 @@
 {
     "solve_type": "RBSSolve",
+    "max_threads": 16,
     "random_seed": 1337,
     "rbs_solve_config": {
+        "preprocess_config": {
+            "heuristic_size": 200
+        },
         "algorithm_config": {
             "algorithm_type": "EAAlgorithm",
             "ea_algorithm_config": {
@@ -45,7 +49,8 @@
                                 {
                                     "limit_type": "StallLimit",
                                     "stall_limit_config": {
-                                        "steps_before_stall": 10000
+                                        "steps_before_stall": 10000,
+                                        "time_before_stall_s": 30
                                     }
                                 }
                             ]
@@ -53,7 +58,6 @@
                     },
                     "instance_config": {
                         "omega_x": 20,
-                        "heuristic_size": 200,
                         "max_cache_size": 1000,
                         "sampling_config": {
                             "base_count": 262144,
@@ -69,35 +73,7 @@
             "par_solver_config": {
                 "max_threads": 16,
                 "solver_config": {
-                    "solver_type": "SimpSolver",
-                    "simp_solver_config": {
-                        "use_asymm": false,
-                        "use_rcheck": false,
-                        "use_elim": true,
-                        "grow": 0,
-                        "clause_lim": 20,
-                        "subsumption_lim": 1000,
-                        "simp_garbage_frac": 0.5,
-                        "minisat_cli_config": {
-                            "verbosity_level": 0,
-                            "preprocessing": true,
-                            "cpu_limit": 0,
-                            "mem_limit": 0
-                        },
-                        "base_solver_config": {
-                            "var_decay": 0.95,
-                            "cla_decay": 0.999,
-                            "rnd_freq": 0,
-                            "ccmin_mode": 2,
-                            "phase_saving": 2,
-                            "rnd_init": false,
-                            "luby": true,
-                            "rfirst": 100,
-                            "rinc": 2,
-                            "gc_frac": 0.20,
-                            "min_learnts": 0
-                        }
-                    }
+                    "solver_type": "SimpSolver"
                 }
             }
         }

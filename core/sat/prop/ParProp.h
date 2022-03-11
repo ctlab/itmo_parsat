@@ -29,12 +29,11 @@ class ParProp : public Prop {
   void load_problem(Problem const& problem) override;
 
   bool propagate(
-      Minisat::vec<Minisat::Lit> const& assumptions,
-      Minisat::vec<Minisat::Lit>& propagated) override;
+      Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) override;
 
   void prop_assignments(domain::USearch assignment, prop_callback_t const& callback) override;
 
-  uint64_t prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) override;
+  uint64_t prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) override;
 
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 

@@ -77,33 +77,34 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;boost/timer/progress_display.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;core/evol/algorithm/Algorithm.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/solve/Solve.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;util/SigHandler.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;util/TimeTracer.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;util/Logger.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/FullSearch.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/RandomSearch.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>core {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classcore_1_1RBSSolve.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1RBSSolve.html">RBSSolve</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1Solve.html">Solve</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1RBSSolve.html">RBSSolve</a>(RBSSolveConfig <span class="keyword">const</span>&amp; config);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  [[nodiscard]] sat::State <a class="code" href="classcore_1_1RBSSolve.html#a24e43117333bfadf2990c3de48bc7735">solve</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  RBSSolveConfig _cfg;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}  <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RBSSOLVE_H</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/evol/method/preprocess/Preprocess.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;core/solve/Solve.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;util/SigHandler.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;util/TimeTracer.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;util/Logger.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/FullSearch.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/RandomSearch.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>core {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classcore_1_1RBSSolve.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1RBSSolve.html">RBSSolve</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1Solve.html">Solve</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1RBSSolve.html">RBSSolve</a>(RBSSolveConfig <span class="keyword">const</span>&amp; config);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  [[nodiscard]] sat::State <a class="code" href="classcore_1_1RBSSolve.html#a24e43117333bfadf2990c3de48bc7735">solve</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  RBSSolveConfig _cfg;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}  <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RBSSOLVE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1RBSSolve_html"><div class="ttname"><a href="classcore_1_1RBSSolve.html">core::RBSSolve</a></div><div class="ttdoc">This class solves SAT in the following way:</div><div class="ttdef"><b>Definition:</b> RBSSolve.h:22</div></div>
+<div class="ttc" id="aclasscore_1_1RBSSolve_html"><div class="ttname"><a href="classcore_1_1RBSSolve.html">core::RBSSolve</a></div><div class="ttdoc">This class solves SAT in the following way:</div><div class="ttdef"><b>Definition:</b> RBSSolve.h:23</div></div>
 <div class="ttc" id="aclasscore_1_1RBSSolve_html_a24e43117333bfadf2990c3de48bc7735"><div class="ttname"><a href="classcore_1_1RBSSolve.html#a24e43117333bfadf2990c3de48bc7735">core::RBSSolve::solve</a></div><div class="ttdeci">sat::State solve(sat::Problem const &amp;problem) override</div><div class="ttdoc">This method solves SAT. For now, it is expected to be called only once per object lifetime.</div><div class="ttdef"><b>Definition:</b> RBSSolve.cpp:7</div></div>
 <div class="ttc" id="aclasscore_1_1Solve_html"><div class="ttname"><a href="classcore_1_1Solve.html">core::Solve</a></div><div class="ttdoc">The core class that performs all actions related to solving SAT.</div><div class="ttdef"><b>Definition:</b> Solve.h:21</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdef"><b>Definition:</b> Problem.h:19</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdef"><b>Definition:</b> Problem.h:20</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

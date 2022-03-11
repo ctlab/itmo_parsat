@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['slv_5fcallback_5ft_188',['slv_callback_t',['../classcore_1_1sat_1_1solver_1_1Solver.html#ac03623f555c568e06537a83b13a624a7',1,'core::sat::solver::Solver']]]
+  ['mmb_5ft_972',['mmb_t',['../mmc_8h.html#a121395ae1edb26f7b9ea151151fb91f9',1,'mmc.h']]],
+  ['mzd_5ft_973',['mzd_t',['../mzd_8h.html#aad30aa9b9d270d7971c020111db02a57',1,'mzd.h']]],
+  ['mzp_5ft_974',['mzp_t',['../mzp_8h.html#a0841a3e42234ca4364601dd915ffb257',1,'mzp.h']]]
 ];

@@ -18,11 +18,11 @@ MAKE_REFS(CartesianSearch);
  */
 class CartesianSearch : public Search {
  public:
-  explicit CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
+  explicit CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);
 
-  explicit CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian);
+  explicit CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
 
-  Minisat::vec<Minisat::Lit> const& operator()() const override;
+  Mini::vec<Mini::Lit> const& operator()() const override;
 
   [[nodiscard]] Search* clone() const override;
 
@@ -35,15 +35,15 @@ class CartesianSearch : public Search {
 
  private:
   std::vector<uint32_t> _indices;
-  Minisat::vec<Minisat::Lit> _assignment;
-  std::vector<std::vector<std::vector<Minisat::Lit>>> _cartesian;
+  Mini::vec<Mini::Lit> _assignment;
+  std::vector<std::vector<std::vector<Mini::Lit>>> _cartesian;
 };
 
 UCartesianSearch createCartesianSearch(
-    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian);
+    std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);
 
 UCartesianSearch createCartesianSearch(
-    std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian);
+    std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
 
 }  // namespace core::domain
 

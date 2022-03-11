@@ -3,8 +3,6 @@
 
 #include <filesystem>
 
-#include "minisat/simp/SimpSolver.h"
-#include "minisat/core/Dimacs.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/sat/Problem.h"
 #include "util/Random.h"
@@ -12,22 +10,43 @@
 #include "util/Logger.h"
 #include "util/TimeTracer.h"
 
+#include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/mini/utils/Lit.h"
+
+#define MINI_LIT(lit) lit > 0 ? Mini::mkLit(lit - 1, false) : Mini::mkLit((-lit) - 1, true)
+#define INT_LIT(lit) Mini::sign(lit) ? -(Mini::var(lit) + 1) : (Mini::var(lit) + 1)
+
 namespace core::sat {
 
-class SimpBase : public Minisat::SimpSolver {
- public:
-  SimpBase() = default;
-
-  explicit SimpBase(SimpSolverConfig const& config);
-
-  [[nodiscard]] uint32_t num_vars() const noexcept;
-
-  /// @brief returns false if the formula has been solved during initialization (UNSAT)
-  bool load_problem(Problem const& problem);
-
- protected:
-  bool _propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions);
-};
+#define SIMP_BASE(MS_NS)                                       \
+  class MS_NS##SimpBase : public MS_NS::SimpSolver {           \
+   protected:                                                  \
+    typedef Mini::vec<Mini::Lit> impl_vec_lit_t;               \
+                                                               \
+   public:                                                     \
+    MS_NS##SimpBase() = default;                               \
+                                                               \
+    [[nodiscard]] uint32_t num_vars() const noexcept {         \
+      return nVars();                                          \
+    }                                                          \
+                                                               \
+    bool load_problem(Problem const& problem) {                \
+      bool result = true;                                      \
+      IPS_TRACE_N("load_problem", {                            \
+        parsing = true;                                        \
+        util::GzFile file(problem.path());                     \
+        MS_NS::parse_DIMACS(file.native_handle(), *this);      \
+        parsing = false;                                       \
+        eliminate(true);                                       \
+      });                                                      \
+      return result;                                           \
+    }                                                          \
+                                                               \
+   protected:                                                  \
+    bool _propagate_confl(impl_vec_lit_t const& assumptions) { \
+      return !prop_check(assumptions, (int) 0);                \
+    }                                                          \
+  }
 
 }  // namespace core::sat
 

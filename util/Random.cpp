@@ -39,4 +39,12 @@ bool flip_coin(double p) {
   return p >= std::uniform_real_distribution<double>(0., 1.)(stdgen());
 }
 
+bool flip_coin(uint32_t inv) {
+  return 1 >= sample<uint32_t>(1, inv);
+}
+
+bool flip_coin(uint32_t a, uint32_t b) {
+  return a >= sample<uint32_t>(1, b);
+}
+
 }  // namespace util::random

@@ -1,0 +1,71 @@
+\hypertarget{structmzd__t__cache}{}\doxysection{mzd\+\_\+t\+\_\+cache Struct Reference}
+\label{structmzd__t__cache}\index{mzd\_t\_cache@{mzd\_t\_cache}}
+
+
+Cache of \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} containers.  
+
+
+
+
+Collaboration diagram for mzd\+\_\+t\+\_\+cache\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{structmzd__t__cache__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} \mbox{\hyperlink{structmzd__t__cache_a2ecb1f99e88c241041f5736702f7ed54}{mzd}} \mbox{[}64\mbox{]}
+\item 
+struct \mbox{\hyperlink{structmzd__t__cache}{mzd\+\_\+t\+\_\+cache}} $\ast$ \mbox{\hyperlink{structmzd__t__cache_af03b3b89df5ea816faeb98633c29ade7}{prev}}
+\item 
+struct \mbox{\hyperlink{structmzd__t__cache}{mzd\+\_\+t\+\_\+cache}} $\ast$ \mbox{\hyperlink{structmzd__t__cache_afbe21f2087b595ae7aa22e500b36e570}{next}}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{structmzd__t__cache_a06d198f654e655c6c59801676aa1bd39}{used}}
+\item 
+unsigned char \mbox{\hyperlink{structmzd__t__cache_a9e2d02408a698aa6db941bf10d923e74}{padding}} \mbox{[}sizeof(\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}}) -\/ 2 $\ast$sizeof(struct \mbox{\hyperlink{structmzd__t__cache}{mzd\+\_\+t\+\_\+cache}} $\ast$) -\/ sizeof(uint64\+\_\+t)\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Cache of \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} containers. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structmzd__t__cache_a2ecb1f99e88c241041f5736702f7ed54}\label{structmzd__t__cache_a2ecb1f99e88c241041f5736702f7ed54}} 
+\index{mzd\_t\_cache@{mzd\_t\_cache}!mzd@{mzd}}
+\index{mzd@{mzd}!mzd\_t\_cache@{mzd\_t\_cache}}
+\doxysubsubsection{\texorpdfstring{mzd}{mzd}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} mzd\+\_\+t\+\_\+cache\+::mzd\mbox{[}64\mbox{]}}
+
+cached matrices \mbox{\Hypertarget{structmzd__t__cache_afbe21f2087b595ae7aa22e500b36e570}\label{structmzd__t__cache_afbe21f2087b595ae7aa22e500b36e570}} 
+\index{mzd\_t\_cache@{mzd\_t\_cache}!next@{next}}
+\index{next@{next}!mzd\_t\_cache@{mzd\_t\_cache}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmzd__t__cache}{mzd\+\_\+t\+\_\+cache}}$\ast$ mzd\+\_\+t\+\_\+cache\+::next}
+
+next block \mbox{\Hypertarget{structmzd__t__cache_a9e2d02408a698aa6db941bf10d923e74}\label{structmzd__t__cache_a9e2d02408a698aa6db941bf10d923e74}} 
+\index{mzd\_t\_cache@{mzd\_t\_cache}!padding@{padding}}
+\index{padding@{padding}!mzd\_t\_cache@{mzd\_t\_cache}}
+\doxysubsubsection{\texorpdfstring{padding}{padding}}
+{\footnotesize\ttfamily unsigned char mzd\+\_\+t\+\_\+cache\+::padding\mbox{[}sizeof(\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}}) -\/ 2 $\ast$sizeof(struct \mbox{\hyperlink{structmzd__t__cache}{mzd\+\_\+t\+\_\+cache}} $\ast$) -\/ sizeof(uint64\+\_\+t)\mbox{]}}
+
+alignment \mbox{\Hypertarget{structmzd__t__cache_af03b3b89df5ea816faeb98633c29ade7}\label{structmzd__t__cache_af03b3b89df5ea816faeb98633c29ade7}} 
+\index{mzd\_t\_cache@{mzd\_t\_cache}!prev@{prev}}
+\index{prev@{prev}!mzd\_t\_cache@{mzd\_t\_cache}}
+\doxysubsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmzd__t__cache}{mzd\+\_\+t\+\_\+cache}}$\ast$ mzd\+\_\+t\+\_\+cache\+::prev}
+
+previous block \mbox{\Hypertarget{structmzd__t__cache_a06d198f654e655c6c59801676aa1bd39}\label{structmzd__t__cache_a06d198f654e655c6c59801676aa1bd39}} 
+\index{mzd\_t\_cache@{mzd\_t\_cache}!used@{used}}
+\index{used@{used}!mzd\_t\_cache@{mzd\_t\_cache}}
+\doxysubsubsection{\texorpdfstring{used}{used}}
+{\footnotesize\ttfamily uint64\+\_\+t mzd\+\_\+t\+\_\+cache\+::used}
+
+bitmasks which matrices in this block are used 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/mzd.\+c\end{DoxyCompactItemize}

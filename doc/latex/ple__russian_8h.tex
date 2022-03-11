@@ -1,0 +1,375 @@
+\hypertarget{ple__russian_8h}{}\doxysection{core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/ple\+\_\+russian.h File Reference}
+\label{ple__russian_8h}\index{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/ple\_russian.h@{core/sat/native/mini/mapleCOMSPS/m4ri-\/20140914/m4ri/ple\_russian.h}}
+
+
+P\+LE and P\+L\+UQ factorization using Gray codes.  
+
+
+{\ttfamily \#include $<$m4ri/mzd.\+h$>$}\newline
+{\ttfamily \#include $<$m4ri/mzp.\+h$>$}\newline
+Include dependency graph for ple\+\_\+russian.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ple__russian_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{ple__russian_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em P\+LE Elimination Tables. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$ \mbox{\hyperlink{ple__russian_8h_a7ece81188319ea56cb8987f78e7dd5de}{ple\+\_\+table\+\_\+init}} (int k, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} ncols)
+\item 
+void \mbox{\hyperlink{ple__russian_8h_af28bc4d15897c47c31781768d2cd8351}{ple\+\_\+table\+\_\+free}} (\mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$T)
+\begin{DoxyCompactList}\small\item\em Delete table T. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \mbox{\hyperlink{ple__russian_8h_a5d5bf0bf6264ae66695b3896c0ebcb32}{\+\_\+mzd\+\_\+ple\+\_\+russian}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A, \mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$P, \mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$Q, int k)
+\begin{DoxyCompactList}\small\item\em P\+LE matrix decomposition of A using Gray codes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \mbox{\hyperlink{ple__russian_8h_a878de21200603cce724bcc1591c764d6}{\+\_\+mzd\+\_\+pluq\+\_\+russian}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A, \mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$P, \mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$Q, int k)
+\begin{DoxyCompactList}\small\item\em P\+L\+UQ matrix decomposition of A using Gray codes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{ple__russian_8h_a2931dc233d3a9dde8ce254fa0284d6a7}{\+\_\+mzd\+\_\+ple\+\_\+submatrix}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$A, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} const start\+\_\+row, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} const stop\+\_\+row, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} const start\+\_\+col, int const k, \mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$P, \mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$Q, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$pivots, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$done, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$done\+\_\+row, \mbox{\hyperlink{misc_8h_ab3e1df9eeef59797b83f1a79851ead7e}{wi\+\_\+t}} const splitblock)
+\begin{DoxyCompactList}\small\item\em P\+LE matrix decomposition of a submatrix for up to k columns starting at (r,c). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$ \mbox{\hyperlink{ple__russian_8h_a00e8bbf10fe04b653669fb591b3e9d87}{\+\_\+mzd\+\_\+ple\+\_\+to\+\_\+e}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$E, \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$A, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} r, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} c, int k, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$offsets)
+\begin{DoxyCompactList}\small\item\em Extract the k x A\+::ncols echelon form submatrix of A starting at row r and column c. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ple__russian_8h_a04b810c00294af6e1f387731bcfd2bee}{\+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+2}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$M, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startrow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} stoprow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startcol, int const $\ast$k, const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$T)
+\begin{DoxyCompactList}\small\item\em add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]} to M between startrow and stoprow, starting at startcol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ple__russian_8h_a6bb3e538af63a3e690e670810115f96b}{\+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+3}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$M, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startrow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} stoprow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startcol, int const $\ast$k, const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$T)
+\begin{DoxyCompactList}\small\item\em add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]} to M between startrow and stoprow, starting at startcol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ple__russian_8h_ac3c910e85bf59dbcf1b74c0dfb9c07e8}{\+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+4}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$M, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startrow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} stoprow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startcol, int const $\ast$k, const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$T)
+\begin{DoxyCompactList}\small\item\em add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]},T\mbox{[}3\mbox{]} to M between startrow and stoprow, starting at startcol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ple__russian_8h_a301d0201ae5bb5ee05eafe16ef233bd5}{\+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+5}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$M, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startrow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} stoprow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startcol, int const $\ast$k, const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$T)
+\begin{DoxyCompactList}\small\item\em add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]},T\mbox{[}3\mbox{]},T\mbox{[}4\mbox{]} to M between startrow and stoprow, starting at startcol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ple__russian_8h_aea3e7f12dd5de4967b0bf0d73300b84d}{\+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+6}} (\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$M, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startrow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} stoprow, \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} startcol, int const $\ast$k, const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$T)
+\begin{DoxyCompactList}\small\item\em add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]},T\mbox{[}3\mbox{]},T\mbox{[}4\mbox{]},T\mbox{[}5\mbox{]} to M between startrow and stoprow, starting at startcol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+P\+LE and P\+L\+UQ factorization using Gray codes. 
+
+\begin{DoxyAuthor}{Author}
+Martin Albrecht \href{mailto:martinralbrecht@googlemail.com}{\texttt{ martinralbrecht@googlemail.\+com}} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ple__russian_8h_a5d5bf0bf6264ae66695b3896c0ebcb32}\label{ple__russian_8h_a5d5bf0bf6264ae66695b3896c0ebcb32}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_ple\_russian@{\_mzd\_ple\_russian}}
+\index{\_mzd\_ple\_russian@{\_mzd\_ple\_russian}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_ple\_russian()}{\_mzd\_ple\_russian()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \+\_\+mzd\+\_\+ple\+\_\+russian (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A,  }\item[{\mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$}]{P,  }\item[{\mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$}]{Q,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+P\+LE matrix decomposition of A using Gray codes. 
+
+Returns (P,L,E,Q) satisfying P\+LE = A where P is a permutation matrix of dimension m x m, L is m x r unit lower triangular and S is an r x n matrix which is upper triangular except that its columns are permuted, that is E = UQ for U r x n upper triangular and Q is a n x n permutation matrix. The matrix L and E are stored in place over A.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix. \\
+\hline
+{\em P} & Preallocated row permutation. \\
+\hline
+{\em Q} & Preallocated column permutation. \\
+\hline
+{\em k} & Size of Gray code tables.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rank of A. 
+\end{DoxyReturn}
+compute good k
+
+initialise permutations as identity
+
+The algorithm proceeds as follows
+
+\begin{DoxyVerb}   1. compute PLE factorisation for the knar x knar submatrix A00
+\end{DoxyVerb}
+ \begin{DoxyVerb}       m4ri_radix * splitblock
+--------------------------------------
+| A00  |  A10                        |
+|      |                             |
+-------------------------------------- knar
+| A01  |  A11                        |
+|      |                             |
+-------------------------------------- done_row
+| A02  |  A12                        |
+|      |                             |
+|      |                             |
+|      |                             |
+|      |                             |
+|      |                             |
+--------------------------------------
+\end{DoxyVerb}
+
+
+
+\begin{DoxyEnumerate}
+\item update A10
+\item extract U from A0 = (A00 $\vert$ A10)
+\item generate multiplication and inversion tables T amd E from U
+\item update A1 = (A01 $\vert$ A11)
+\item update A2 = (A02 $\vert$ A12)
+\end{DoxyEnumerate}\mbox{\Hypertarget{ple__russian_8h_a2931dc233d3a9dde8ce254fa0284d6a7}\label{ple__russian_8h_a2931dc233d3a9dde8ce254fa0284d6a7}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_ple\_submatrix@{\_mzd\_ple\_submatrix}}
+\index{\_mzd\_ple\_submatrix@{\_mzd\_ple\_submatrix}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_ple\_submatrix()}{\_mzd\_ple\_submatrix()}}
+{\footnotesize\ttfamily int \+\_\+mzd\+\_\+ple\+\_\+submatrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} const}]{start\+\_\+row,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} const}]{stop\+\_\+row,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} const}]{start\+\_\+col,  }\item[{int const}]{k,  }\item[{\mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$}]{P,  }\item[{\mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$}]{Q,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$}]{pivots,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$}]{done,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$}]{done\+\_\+row,  }\item[{\mbox{\hyperlink{misc_8h_ab3e1df9eeef59797b83f1a79851ead7e}{wi\+\_\+t}} const}]{splitblock }\end{DoxyParamCaption})}
+
+
+
+P\+LE matrix decomposition of a submatrix for up to k columns starting at (r,c). 
+
+Updates P and Q and modifies A in place. The buffer done afterwards holds how far a particular row was already eliminated.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix. \\
+\hline
+{\em start\+\_\+row} & Row Offset. \\
+\hline
+{\em stop\+\_\+row} & Up to which row the matrix should be processed (exclusive). \\
+\hline
+{\em start\+\_\+col} & Column Offset. \\
+\hline
+{\em k} & Size of Gray code tables. \\
+\hline
+{\em P} & Preallocated row permutation. \\
+\hline
+{\em Q} & Preallocated column permutation. \\
+\hline
+{\em pivots} & which column holds the i-\/th pivot \\
+\hline
+{\em done} & Preallocated temporary buffer. \\
+\hline
+{\em done\+\_\+row} & Stores the last row which is already reduced processed after function execution. \\
+\hline
+{\em splitblock} & First block which is not considered by this function.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em knar} & rank of the considered submatrix \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{ple__russian_8h_a00e8bbf10fe04b653669fb591b3e9d87}\label{ple__russian_8h_a00e8bbf10fe04b653669fb591b3e9d87}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_ple\_to\_e@{\_mzd\_ple\_to\_e}}
+\index{\_mzd\_ple\_to\_e@{\_mzd\_ple\_to\_e}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_ple\_to\_e()}{\_mzd\_ple\_to\_e()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}}$\ast$ \+\_\+mzd\+\_\+ple\+\_\+to\+\_\+e (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{E,  }\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} const $\ast$}]{A,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{r,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{c,  }\item[{int}]{k,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} $\ast$}]{offsets }\end{DoxyParamCaption})}
+
+
+
+Extract the k x A\+::ncols echelon form submatrix of A starting at row r and column c. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em E} & Storage for k x A\+::ncols matrix. \\
+\hline
+{\em A} & Source matrix. \\
+\hline
+{\em r} & Row index. \\
+\hline
+{\em c} & Column index. \\
+\hline
+{\em k} & Rank of E. \\
+\hline
+{\em k} & Map from i to column of i-\/th pivot. \\
+\hline
+{\em offsets} & Encodes which columns contain pivots \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_a878de21200603cce724bcc1591c764d6}\label{ple__russian_8h_a878de21200603cce724bcc1591c764d6}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_pluq\_russian@{\_mzd\_pluq\_russian}}
+\index{\_mzd\_pluq\_russian@{\_mzd\_pluq\_russian}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_pluq\_russian()}{\_mzd\_pluq\_russian()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}} \+\_\+mzd\+\_\+pluq\+\_\+russian (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{A,  }\item[{\mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$}]{P,  }\item[{\mbox{\hyperlink{structmzp__t}{mzp\+\_\+t}} $\ast$}]{Q,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+P\+L\+UQ matrix decomposition of A using Gray codes. 
+
+Returns (P,L,U,Q) satisfying P\+L\+UQ = A where P and Q are two permutation matrices, of dimension respectively m x m and n x n, L is m x r unit lower triangular and U is r x n upper triangular.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Matrix. \\
+\hline
+{\em P} & Preallocated row permutation. \\
+\hline
+{\em Q} & Preallocated column permutation. \\
+\hline
+{\em k} & Size of Gray code tables.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rank of A. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ple__russian_8h_a04b810c00294af6e1f387731bcfd2bee}\label{ple__russian_8h_a04b810c00294af6e1f387731bcfd2bee}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_process\_rows\_ple\_2@{\_mzd\_process\_rows\_ple\_2}}
+\index{\_mzd\_process\_rows\_ple\_2@{\_mzd\_process\_rows\_ple\_2}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_process\_rows\_ple\_2()}{\_mzd\_process\_rows\_ple\_2()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{M,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startrow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{stoprow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startcol,  }\item[{int const $\ast$}]{k,  }\item[{const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$}]{T }\end{DoxyParamCaption})}
+
+
+
+add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]} to M between startrow and stoprow, starting at startcol. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & Matrix \\
+\hline
+{\em startrow} & Start processing in this row \\
+\hline
+{\em stoprow} & Stop processing in this row \\
+\hline
+{\em startcol} & Start processing in this column \\
+\hline
+{\em k} & Number of bits to read in each table \\
+\hline
+{\em T} & P\+LE Table with 2$^\wedge$k\mbox{[}i\mbox{]} rows \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_a6bb3e538af63a3e690e670810115f96b}\label{ple__russian_8h_a6bb3e538af63a3e690e670810115f96b}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_process\_rows\_ple\_3@{\_mzd\_process\_rows\_ple\_3}}
+\index{\_mzd\_process\_rows\_ple\_3@{\_mzd\_process\_rows\_ple\_3}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_process\_rows\_ple\_3()}{\_mzd\_process\_rows\_ple\_3()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{M,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startrow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{stoprow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startcol,  }\item[{int const $\ast$}]{k,  }\item[{const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$}]{T }\end{DoxyParamCaption})}
+
+
+
+add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]} to M between startrow and stoprow, starting at startcol. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & Matrix \\
+\hline
+{\em startrow} & Start processing in this row \\
+\hline
+{\em stoprow} & Stop processing in this row \\
+\hline
+{\em startcol} & Start processing in this column \\
+\hline
+{\em k} & Number of bits to read in each table \\
+\hline
+{\em T} & P\+LE Table with 2$^\wedge$k\mbox{[}i\mbox{]} rows \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_ac3c910e85bf59dbcf1b74c0dfb9c07e8}\label{ple__russian_8h_ac3c910e85bf59dbcf1b74c0dfb9c07e8}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_process\_rows\_ple\_4@{\_mzd\_process\_rows\_ple\_4}}
+\index{\_mzd\_process\_rows\_ple\_4@{\_mzd\_process\_rows\_ple\_4}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_process\_rows\_ple\_4()}{\_mzd\_process\_rows\_ple\_4()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+4 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{M,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startrow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{stoprow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startcol,  }\item[{int const $\ast$}]{k,  }\item[{const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$}]{T }\end{DoxyParamCaption})}
+
+
+
+add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]},T\mbox{[}3\mbox{]} to M between startrow and stoprow, starting at startcol. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & Matrix \\
+\hline
+{\em startrow} & Start processing in this row \\
+\hline
+{\em stoprow} & Stop processing in this row \\
+\hline
+{\em startcol} & Start processing in this column \\
+\hline
+{\em k} & Number of bits to read in each table \\
+\hline
+{\em T} & P\+LE Table with 2$^\wedge$k\mbox{[}i\mbox{]} rows \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_a301d0201ae5bb5ee05eafe16ef233bd5}\label{ple__russian_8h_a301d0201ae5bb5ee05eafe16ef233bd5}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_process\_rows\_ple\_5@{\_mzd\_process\_rows\_ple\_5}}
+\index{\_mzd\_process\_rows\_ple\_5@{\_mzd\_process\_rows\_ple\_5}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_process\_rows\_ple\_5()}{\_mzd\_process\_rows\_ple\_5()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+5 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{M,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startrow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{stoprow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startcol,  }\item[{int const $\ast$}]{k,  }\item[{const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$}]{T }\end{DoxyParamCaption})}
+
+
+
+add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]},T\mbox{[}3\mbox{]},T\mbox{[}4\mbox{]} to M between startrow and stoprow, starting at startcol. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & Matrix \\
+\hline
+{\em startrow} & Start processing in this row \\
+\hline
+{\em stoprow} & Stop processing in this row \\
+\hline
+{\em startcol} & Start processing in this column \\
+\hline
+{\em k} & Number of bits to read in each table \\
+\hline
+{\em T} & P\+LE Table with 2$^\wedge$k\mbox{[}i\mbox{]} rows \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_aea3e7f12dd5de4967b0bf0d73300b84d}\label{ple__russian_8h_aea3e7f12dd5de4967b0bf0d73300b84d}} 
+\index{ple\_russian.h@{ple\_russian.h}!\_mzd\_process\_rows\_ple\_6@{\_mzd\_process\_rows\_ple\_6}}
+\index{\_mzd\_process\_rows\_ple\_6@{\_mzd\_process\_rows\_ple\_6}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{\_mzd\_process\_rows\_ple\_6()}{\_mzd\_process\_rows\_ple\_6()}}
+{\footnotesize\ttfamily void \+\_\+mzd\+\_\+process\+\_\+rows\+\_\+ple\+\_\+6 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmzd__t}{mzd\+\_\+t}} $\ast$}]{M,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startrow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{stoprow,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{startcol,  }\item[{int const $\ast$}]{k,  }\item[{const \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$$\ast$}]{T }\end{DoxyParamCaption})}
+
+
+
+add rows T\mbox{[}0\mbox{]},T\mbox{[}1\mbox{]},T\mbox{[}2\mbox{]},T\mbox{[}3\mbox{]},T\mbox{[}4\mbox{]},T\mbox{[}5\mbox{]} to M between startrow and stoprow, starting at startcol. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em M} & Matrix \\
+\hline
+{\em startrow} & Start processing in this row \\
+\hline
+{\em stoprow} & Stop processing in this row \\
+\hline
+{\em startcol} & Start processing in this column \\
+\hline
+{\em k} & Number of bits to read in each table \\
+\hline
+{\em T} & P\+LE Table with 2$^\wedge$k\mbox{[}i\mbox{]} rows \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_af28bc4d15897c47c31781768d2cd8351}\label{ple__russian_8h_af28bc4d15897c47c31781768d2cd8351}} 
+\index{ple\_russian.h@{ple\_russian.h}!ple\_table\_free@{ple\_table\_free}}
+\index{ple\_table\_free@{ple\_table\_free}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{ple\_table\_free()}{ple\_table\_free()}}
+{\footnotesize\ttfamily void ple\+\_\+table\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}} $\ast$}]{T }\end{DoxyParamCaption})}
+
+
+
+Delete table T. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T} & P\+LE table. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ple__russian_8h_a7ece81188319ea56cb8987f78e7dd5de}\label{ple__russian_8h_a7ece81188319ea56cb8987f78e7dd5de}} 
+\index{ple\_russian.h@{ple\_russian.h}!ple\_table\_init@{ple\_table\_init}}
+\index{ple\_table\_init@{ple\_table\_init}!ple\_russian.h@{ple\_russian.h}}
+\doxysubsubsection{\texorpdfstring{ple\_table\_init()}{ple\_table\_init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structple__table__t}{ple\+\_\+table\+\_\+t}}$\ast$ ple\+\_\+table\+\_\+init (\begin{DoxyParamCaption}\item[{int}]{k,  }\item[{\mbox{\hyperlink{misc_8h_a03971b7935a6bc6fb77e74988850a136}{rci\+\_\+t}}}]{ncols }\end{DoxyParamCaption})}
+
+Create new table with 2$^\wedge$k rows and ncols.
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & log2 of the number of rows (0 $<$ k $<$= 8). \\
+\hline
+{\em ncols} & Number of columns. \\
+\hline
+\end{DoxyParams}

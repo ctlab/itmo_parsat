@@ -15,10 +15,12 @@ class AssignmentModifier {
  public:
   AssignmentModifier(VarView const& var_view, std::vector<bool> const& vars);
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& get() const;
+  AssignmentModifier(std::vector<int> const& vars);
+
+  [[nodiscard]] Mini::vec<Mini::Lit> const& get() const;
 
  protected:
-  Minisat::vec<Minisat::Lit> _assignment;
+  Mini::vec<Mini::Lit> _assignment;
 };
 
 }  // namespace core::domain

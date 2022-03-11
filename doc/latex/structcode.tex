@@ -1,0 +1,60 @@
+\hypertarget{structcode}{}\doxysection{code Struct Reference}
+\label{structcode}\index{code@{code}}
+
+
+Gray codes.  
+
+
+
+
+{\ttfamily \#include $<$graycode.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \mbox{\hyperlink{structcode_a562c6afe7eb9a667028f7014c7406ce1}{ord}}
+\item 
+int $\ast$ \mbox{\hyperlink{structcode_a9a3e7cee03a2df54d329c362323d4c50}{inc}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gray codes. 
+
+A codestruct represents one entry in the code book, i.\+e. it represents a Gray code of a given length.
+
+For example the Gray code table of length $2^3$ is\+:
+
+\begin{DoxyVerb}-------------------
+|  i  | ord | inc |
+-------------------
+|  0  |  0  |  0  |
+|  1  |  4  |  1  |
+|  2  |  6  |  0  |
+|  3  |  2  |  2  |
+|  4  |  3  |  0  |
+|  5  |  7  |  1  |
+|  6  |  5  |  0  |
+|  7  |  1  |  2  |
+-------------------
+ * \end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structcode_a9a3e7cee03a2df54d329c362323d4c50}\label{structcode_a9a3e7cee03a2df54d329c362323d4c50}} 
+\index{code@{code}!inc@{inc}}
+\index{inc@{inc}!code@{code}}
+\doxysubsubsection{\texorpdfstring{inc}{inc}}
+{\footnotesize\ttfamily int$\ast$ code\+::inc}
+
+increment \mbox{\Hypertarget{structcode_a562c6afe7eb9a667028f7014c7406ce1}\label{structcode_a562c6afe7eb9a667028f7014c7406ce1}} 
+\index{code@{code}!ord@{ord}}
+\index{ord@{ord}!code@{code}}
+\doxysubsubsection{\texorpdfstring{ord}{ord}}
+{\footnotesize\ttfamily int$\ast$ code\+::ord}
+
+array of of Gray code entries 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/native/mini/maple\+C\+O\+M\+S\+P\+S/m4ri-\/20140914/m4ri/\mbox{\hyperlink{graycode_8h}{graycode.\+h}}\end{DoxyCompactItemize}

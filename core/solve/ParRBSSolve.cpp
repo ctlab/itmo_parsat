@@ -4,8 +4,8 @@
 
 namespace {
 
-std::vector<Minisat::Lit> to_std_assump(Minisat::vec<Minisat::Lit> const& assumption) {
-  std::vector<Minisat::Lit> result(assumption.size());
+std::vector<Mini::Lit> to_std_assump(Mini::vec<Mini::Lit> const& assumption) {
+  std::vector<Mini::Lit> result(assumption.size());
   for (int i = 0; i < assumption.size(); ++i) {
     result[i] = assumption[i];
   }
@@ -26,15 +26,17 @@ void ParRBSSolve::_raise_for_sbs(uint32_t algorithm_id) noexcept {
   }
 }
 
-std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
+std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
     sat::Problem const& problem) {
-  std::vector<std::vector<std::vector<Minisat::Lit>>> non_conflict_assignments(
-      _cfg.num_algorithms());
+  std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(_cfg.num_algorithms());
   IPS_VERIFY(_cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
   std::stringstream algorithms_info;
   std::vector<ea::algorithm::RAlgorithm> algorithms;
   std::vector<std::thread> rbs_search_threads;
   std::mutex mutex;
+
+  ea::preprocess::RPreprocess preprocess =
+      std::make_shared<ea::preprocess::Preprocess>(_cfg.preprocess_config(), problem);
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
     algorithms.push_back(ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
@@ -66,7 +68,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
           auto& algorithm = algorithms[i];
           auto& alg_prop = algorithm->get_prop();
           IPS_TRACE(alg_prop.load_problem(problem));
-          if (!IPS_TRACE_V(algorithm->prepare())) {
+          if (!IPS_TRACE_V(algorithm->prepare(preprocess))) {
             non_conflict_assignments[i].push_back({});
             return;
           }
@@ -85,8 +87,7 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
           std::atomic_uint32_t conflicts{0}, total{0};
           std::mutex nca_mutex;
           algorithm->get_prop().prop_assignments(
-              domain::createFullSearch(
-                  algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask()),
+              domain::createFullSearch(preprocess->var_view(), rho_backdoor.get_vars().get_mask()),
               [&](bool conflict, auto const& assumption) {
                 ++total;
                 if (!conflict) {
@@ -133,8 +134,8 @@ std::vector<std::vector<std::vector<Minisat::Lit>>> ParRBSSolve::_pre_solve(
 }
 
 domain::USearch ParRBSSolve::_prepare_cartesian(
-    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian_set) {
-  std::vector<std::vector<std::vector<Minisat::Lit>>> result;
+    std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian_set) {
+  std::vector<std::vector<std::vector<Mini::Lit>>> result;
   uint32_t max_non_conflict = _cfg.max_unpropagated();
   uint32_t max_cartesian_size = _cfg.max_cartesian_size();
 

@@ -1,0 +1,80 @@
+#include "infra/domain/LaunchInfo.h"
+
+namespace infra::domain {
+
+LaunchInfo::LaunchInfo(testing::TestingConfiguration const& testing_config)
+    : _t_config(testing_config) {
+  if (_t_config.save || _t_config.lookup) {
+    _dao.emplace(_t_config.pg_host);
+  }
+}
+
+std::string LaunchInfo::get_test_group(LaunchConfig const& config) {
+  return std::filesystem::path(config.input).parent_path().filename();
+}
+
+bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
+  if (_t_config.lookup) {
+    auto opt_launch_id = check_if_test_is_done(config);
+    if (opt_launch_id) {
+      IPS_INFO("Test is already done. LaunchId = " << opt_launch_id.value());
+      return false;
+    }
+  }
+  if (std::find(
+          _t_config.test_groups.begin(), _t_config.test_groups.end(), get_test_group(config)) ==
+      _t_config.test_groups.end()) {
+    return false;
+  }
+  if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) {
+    return false;
+  }
+  int test_size = get_test_size(config);
+  if (test_size == -1 && !_t_config.allow_unspecified_size) {
+    return false;
+  }
+  if (test_size > _t_config.size) {
+    return false;
+  }
+  return true;
+}
+
+int LaunchInfo::get_test_size(LaunchConfig const& config) {
+  auto const& name = config.input;
+  auto it = name.find("@");
+  if (it == std::string::npos) {
+    return -1;
+  } else {
+    return name[it + 1] - '0';
+  }
+}
+
+infra::domain::SatResult LaunchInfo::get_sat_result(LaunchConfig const& config) {
+  auto filename = std::filesystem::path(config.input).filename().string();
+  if (filename.find("unsat", 0) != std::string::npos) {
+    return infra::domain::UNSAT;
+  } else if (filename.find("sat", 0) != std::string::npos) {
+    return infra::domain::SAT;
+  } else {
+    return infra::domain::UNKNOWN;
+  }
+}
+
+std::optional<uint32_t> LaunchInfo::check_if_test_is_done(LaunchConfig const& config) {
+  LaunchObject launch;
+  launch.test_group = get_test_group(config);
+  launch.input_name = config.input;
+  launch.config_name = config.config;
+  launch.branch = _t_config.branch;
+  launch.commit_hash = _t_config.commit;
+  return _dao->get_launch_id(launch);
+}
+
+void LaunchInfo::add(const LaunchObject& object) {
+  // We do not add interrupted launches to DB.
+  if (_t_config.save && object.result != INTERRUPTED) {
+    _dao->add(object);
+  }
+}
+
+}  // namespace infra::domain

@@ -1,0 +1,6 @@
+<map id="painless::Reducer" name="painless::Reducer">
+<area shape="rect" id="node1" title="Instance of a MapleCOMSPS solver." alt="" coords="41,213,179,240"/>
+<area shape="rect" id="node2" href="$classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="5,109,127,136"/>
+<area shape="rect" id="node3" href="$classpainless_1_1ClauseBuffer.html" title="Clause buffer is a queue containning shared clauses." alt="" coords="151,109,319,136"/>
+<area shape="rect" id="node4" href="$structpainless_1_1ClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="151,5,319,47"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['prop_5fcallback_5ft_187',['prop_callback_t',['../classcore_1_1sat_1_1prop_1_1Prop.html#a8b1a3b21d711913befbcaa0d2e8ad727',1,'core::sat::prop::Prop']]]
+  ['bit_971',['BIT',['../misc_8h.html#a745cf85df1e3b576b071402f451720b5',1,'misc.h']]]
 ];

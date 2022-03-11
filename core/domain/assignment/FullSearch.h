@@ -18,9 +18,11 @@ class FullSearch : AssignmentModifier, public Search {
  public:
   FullSearch(VarView const& var_view, std::vector<bool> const& vars);
 
+  FullSearch(std::vector<int> const& vars);
+
   [[nodiscard]] FullSearch* clone() const override;
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+  [[nodiscard]] lit_vec_t const& operator()() const override;
 
  protected:
   void _advance() override;
@@ -29,6 +31,8 @@ class FullSearch : AssignmentModifier, public Search {
 };
 
 UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
+
+UFullSearch createFullSearch(std::vector<int> const& vars);
 
 }  // namespace core::domain
 

@@ -4,7 +4,7 @@
 
 namespace core::domain {
 
-CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian)
+CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian)
     // clang-format off
   : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
       return size * v.size();
@@ -19,8 +19,7 @@ CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Minisat::Li
 }
 
 /// @todo: remove copy-paste
-CartesianSearch::CartesianSearch(
-    std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian)
+CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian)
     // clang-format off
     : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
         return size * v.size();
@@ -34,7 +33,7 @@ CartesianSearch::CartesianSearch(
   _set_cur(0);
 }
 
-Minisat::vec<Minisat::Lit> const& CartesianSearch::operator()() const {
+Mini::vec<Mini::Lit> const& CartesianSearch::operator()() const {
   return _assignment;
 }
 
@@ -80,12 +79,12 @@ void CartesianSearch::_advance() {
 }
 
 UCartesianSearch createCartesianSearch(
-    std::vector<std::vector<std::vector<Minisat::Lit>>>&& cartesian) {
+    std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian) {
   return std::make_unique<CartesianSearch>(std::move(cartesian));
 }
 
 UCartesianSearch createCartesianSearch(
-    std::vector<std::vector<std::vector<Minisat::Lit>>> const& cartesian) {
+    std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian) {
   return std::make_unique<CartesianSearch>(cartesian);
 }
 

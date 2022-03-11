@@ -13,7 +13,7 @@
 #include "core/sat/solver/Solver.h"
 #include "core/solve/Solve.h"
 
-core::CliConfig add_and_read_args(int argc, char** argv) {
+util::CliConfig add_and_read_args(int argc, char** argv) {
   namespace po = boost::program_options;
   po::options_description options("SAT solver CLI tool");
   // clang-format off
@@ -24,7 +24,7 @@ core::CliConfig add_and_read_args(int argc, char** argv) {
       ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
   // clang-format on
 
-  core::CliConfig cli_config;
+  util::CliConfig cli_config;
   cli_config.add_options(options);
   if (!cli_config.parse(argc, argv)) {
     std::exit(0);
@@ -41,12 +41,12 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
   {
     IPS_INFO("Solve config: " << solve_config_path);
     std::ifstream ifs(solve_config_path);
-    core::CliConfig::read_config(ifs, solve_config);
+    util::CliConfig::read_config(ifs, solve_config);
   }
   {
     IPS_INFO("Log config: " << log_config_path);
     std::ifstream ifs(log_config_path);
-    core::CliConfig::read_config(ifs, log_config);
+    util::CliConfig::read_config(ifs, log_config);
   }
   return {solve_config, log_config};
 }
@@ -54,8 +54,8 @@ std::pair<SolveConfig, LoggingConfig> read_json_configs(
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
-  core::CliConfig config = add_and_read_args(argc, argv);
-  core::signal::SigHandler sig_handler;
+  util::CliConfig config = add_and_read_args(argc, argv);
+  //  core::signal::SigHandler sig_handler;
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }
@@ -64,6 +64,7 @@ int main(int argc, char** argv) {
   std::filesystem::path logger_cfg_path = config.get<std::filesystem::path>("log-config");
   IPS_INFO("Input file: " << input);
 
+  core::sat::State result;
   auto&& [solve_config, log_config] = read_json_configs(solver_cfg_path, logger_cfg_path);
   core::Logger::set_logger_config(log_config);
 
@@ -79,7 +80,7 @@ int main(int argc, char** argv) {
       },
       core::event::INTERRUPT);
   util::random::Generator generator(solve_config.random_seed());
-  core::sat::State result = IPS_TRACE_V(solve->solve(problem));
+  result = IPS_TRACE_V(solve->solve(problem));
   core::TimeTracer::print_summary(10);
 
   if (result == core::sat::UNSAT) {

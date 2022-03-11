@@ -1,5 +1,26 @@
 var searchData=
 [
-  ['uniformmutation_133',['UniformMutation',['../classea_1_1method_1_1UniformMutation.html',1,'ea::method']]],
-  ['uniquesearch_134',['UniqueSearch',['../classcore_1_1domain_1_1UniqueSearch.html',1,'core::domain']]]
+  ['samplingconfig_596',['SamplingConfig',['../structea_1_1instance_1_1SharedData_1_1SamplingConfig.html',1,'ea::instance::SharedData']]],
+  ['search_597',['Search',['../classcore_1_1domain_1_1Search.html',1,'core::domain']]],
+  ['searchspace_598',['SearchSpace',['../structcore_1_1domain_1_1SearchSpace.html',1,'core::domain']]],
+  ['seenmarker_599',['SeenMarker',['../classSeenMarker.html',1,'']]],
+  ['selector_600',['Selector',['../classea_1_1method_1_1Selector.html',1,'ea::method']]],
+  ['sequentialworker_601',['SequentialWorker',['../classpainless_1_1SequentialWorker.html',1,'painless']]],
+  ['shareddata_602',['SharedData',['../structea_1_1instance_1_1SharedData.html',1,'ea::instance']]],
+  ['sharer_603',['Sharer',['../classpainless_1_1Sharer.html',1,'painless']]],
+  ['sharingstatistics_604',['SharingStatistics',['../structpainless_1_1SharingStatistics.html',1,'painless']]],
+  ['sharingstrategy_605',['SharingStrategy',['../classpainless_1_1SharingStrategy.html',1,'painless']]],
+  ['simpprop_606',['SimpProp',['../classcore_1_1sat_1_1prop_1_1SimpProp.html',1,'core::sat::prop']]],
+  ['simpsolver_607',['SimpSolver',['../classMapleCOMSPS_1_1SimpSolver.html',1,'MapleCOMSPS::SimpSolver'],['../classcore_1_1sat_1_1solver_1_1SimpSolver.html',1,'core::sat::solver::SimpSolver']]],
+  ['singlesearch_608',['SingleSearch',['../classcore_1_1domain_1_1SingleSearch.html',1,'core::domain']]],
+  ['sizedec_609',['SizeDec',['../structSizeDec.html',1,'']]],
+  ['solve_610',['Solve',['../classcore_1_1Solve.html',1,'core']]],
+  ['solver_611',['Solver',['../classMapleCOMSPS_1_1Solver.html',1,'MapleCOMSPS::Solver'],['../classcore_1_1sat_1_1solver_1_1Solver.html',1,'core::sat::solver::Solver']]],
+  ['solverfactory_612',['SolverFactory',['../classpainless_1_1SolverFactory.html',1,'painless']]],
+  ['solverinterface_613',['SolverInterface',['../classSolverInterface.html',1,'']]],
+  ['solvingstatistics_614',['SolvingStatistics',['../structSolvingStatistics.html',1,'']]],
+  ['stalllimit_615',['StallLimit',['../classea_1_1limit_1_1StallLimit.html',1,'ea::limit']]],
+  ['stopwatch_616',['Stopwatch',['../classStopwatch.html',1,'']]],
+  ['streambuffer_617',['StreamBuffer',['../classMini_1_1StreamBuffer.html',1,'Mini']]],
+  ['stringoption_618',['StringOption',['../classMini_1_1StringOption.html',1,'Mini']]]
 ];

@@ -20,8 +20,7 @@ void ParProp::load_problem(Problem const& problem) {
   });
 }
 
-bool ParProp::propagate(
-    Minisat::vec<Minisat::Lit> const& assumptions, Minisat::vec<Minisat::Lit>& propagated) {
+bool ParProp::propagate(Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) {
   return _prop_worker_pool.get_workers().front()->propagate(assumptions, propagated);
 }
 
@@ -38,8 +37,8 @@ void ParProp::prop_assignments(domain::USearch search, Prop::prop_callback_t con
   PropWorkerPool::wait_for(futures);
 }
 
-uint64_t ParProp::prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t head_size) {
-  if (vars.size() - head_size <= 16) {
+uint64_t ParProp::prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) {
+  if (vars.size() - head_size <= 8) {
     // Use single thread to process small requests.
     return _prop_worker_pool.get_workers().front()->prop_tree(vars, head_size);
   }
@@ -60,15 +59,14 @@ uint64_t ParProp::prop_tree(Minisat::vec<Minisat::Lit> const& vars, uint32_t hea
   std::atomic_uint64_t result = 0;
   std::vector<std::future<void>> futures;
   for (uint32_t thread = 0; thread < threads; ++thread) {
-    futures.push_back(
-        _prop_worker_pool.submit([asgn = vars, base_head = head_size, head_size = new_head_size,
-                                  head_asgn = thread, &result](RProp& prop) mutable {
-          for (uint32_t i = 0; i < head_size; ++i) {
-            asgn[base_head + i] =
-                Minisat::mkLit(Minisat::var(asgn[base_head + i]), head_asgn & (1ULL << i));
-          }
-          result += prop->prop_tree(asgn, base_head + head_size);
-        }));
+    futures.push_back(_prop_worker_pool.submit([asgn = vars, base_head = head_size,
+                                                head_size = new_head_size, head_asgn = thread,
+                                                &result](RProp& prop) mutable {
+      for (uint32_t i = 0; i < head_size; ++i) {
+        asgn[base_head + i] = Mini::mkLit(Mini::var(asgn[base_head + i]), head_asgn & (1ULL << i));
+      }
+      result += prop->prop_tree(asgn, base_head + head_size);
+    }));
   }
   PropWorkerPool::wait_for(futures);
   return result;

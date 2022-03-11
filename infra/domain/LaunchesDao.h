@@ -29,11 +29,11 @@ enum SatResult {
 
 std::string to_string(SatResult result);
 
-struct LaunchInfo {
+struct LaunchObject {
   uint32_t launch_id{};
   std::string test_group{};
-  std::filesystem::path input_path{};
-  std::filesystem::path config_path{};
+  std::string input_name{};
+  std::string config_name{};
   std::filesystem::path log_path{};
   std::string branch{};
   std::string commit_hash{};
@@ -50,11 +50,11 @@ class LaunchesDao {
  public:
   LaunchesDao(std::string const& host);
 
-  LaunchesDao& add(LaunchInfo const& launch);
+  LaunchesDao& add(LaunchObject const& launch);
 
   LaunchesDao& remove(uint32_t launch_id);
 
-  [[nodiscard]] bool contains(LaunchInfo& launch);
+  [[nodiscard]] std::optional<uint32_t> get_launch_id(LaunchObject const& launch);
 
  private:
   std::mutex _m;

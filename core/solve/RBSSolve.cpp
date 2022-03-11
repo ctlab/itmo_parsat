@@ -7,12 +7,14 @@ RBSSolve::RBSSolve(RBSSolveConfig const& config) : _cfg(config) {}
 sat::State RBSSolve::solve(sat::Problem const& problem) {
   domain::USearch final_search;
   {
+    ea::preprocess::RPreprocess preprocess =
+        std::make_shared<ea::preprocess::Preprocess>(_cfg.preprocess_config(), problem);
     ea::algorithm::RAlgorithm algorithm(
         ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config()));
     _do_interrupt = [algorithm] { algorithm->interrupt(); };
     auto& alg_prop = algorithm->get_prop();
     IPS_TRACE(alg_prop.load_problem(problem));
-    if (!algorithm->prepare()) {
+    if (!algorithm->prepare(preprocess)) {
       final_search = domain::createSingleSearch();
     } else {
       IPS_TRACE(algorithm->process());
@@ -27,7 +29,7 @@ sat::State RBSSolve::solve(sat::Problem const& problem) {
         return sat::UNKNOWN;
       }
       final_search = core::domain::createFullSearch(
-          algorithm->get_shared_data().var_view, rho_backdoor.get_vars().get_mask());
+          preprocess->var_view(), rho_backdoor.get_vars().get_mask());
     }
     // Release algorithm and free resources.
     _do_interrupt = {};

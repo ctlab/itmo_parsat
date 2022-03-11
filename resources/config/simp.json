@@ -1,37 +1,10 @@
 {
+    "max_threads": 1,
     "solve_type": "NaiveSolve",
     "random_seed": 0,
     "naive_solve_config": {
         "solver_config": {
-            "solver_type": "SimpSolver",
-            "simp_solver_config": {
-                "use_asymm": false,
-                "use_rcheck": false,
-                "use_elim": true,
-                "grow": 0,
-                "clause_lim": 20,
-                "subsumption_lim": 1000,
-                "simp_garbage_frac": 0.5,
-                "minisat_cli_config": {
-                    "verbosity_level": 0,
-                    "preprocessing": true,
-                    "cpu_limit": 0,
-                    "mem_limit": 0
-                },
-                "base_solver_config": {
-                    "var_decay": 0.95,
-                    "cla_decay": 0.999,
-                    "rnd_freq": 0,
-                    "ccmin_mode": 2,
-                    "phase_saving": 2,
-                    "rnd_init": false,
-                    "luby": true,
-                    "rfirst": 100,
-                    "rinc": 2,
-                    "gc_frac": 0.20,
-                    "min_learnts": 0
-                }
-            }
+            "solver_type": "SimpSolver"
         }
     }
 }

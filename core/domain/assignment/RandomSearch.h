@@ -17,13 +17,17 @@ MAKE_REFS(RandomSearch);
 class RandomSearch : AssignmentModifier, public Search {
   friend USearch createRandomSearch(VarView const& var_view, std::vector<bool> const&, uint64_t);
 
+  friend USearch createRandomSearch(std::vector<int> const&, uint64_t);
+
  public:
   [[nodiscard]] RandomSearch* clone() const override;
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+  [[nodiscard]] lit_vec_t const& operator()() const override;
 
  protected:
   explicit RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+
+  explicit RandomSearch(std::vector<int> const& vars, uint64_t total);
 
  protected:
   void _advance() override;
@@ -32,6 +36,8 @@ class RandomSearch : AssignmentModifier, public Search {
 };
 
 USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+
+USearch createRandomSearch(std::vector<int> const& vars, uint64_t total);
 
 }  // namespace core::domain
 

@@ -8,22 +8,28 @@
 #include "util/TimeTracer.h"
 #include "core/sat/SimpBase.h"
 
+#include "core/sat/native/mini/minisat/minisat/simp/SimpSolver.h"
+#include "core/sat/native/mini/minisat/minisat/core/Dimacs.h"
+#include "core/sat/native/mini/utils/ParseUtils.h"
+
 namespace core::sat::solver {
 
+SIMP_BASE(Minisat);
+
 /**
- * @brief Minisat:SimpSolver-based Solver implementation.
+ * @brief MS_NS:SimpSolver-based Solver implementation.
  */
-class SimpSolver : public Solver, public SimpBase {
+class SimpSolver : public Solver, public MinisatSimpBase {
  public:
-  explicit SimpSolver(SimpSolverConfig const& config);
+  SimpSolver() = default;
 
   void load_problem(Problem const& problem) override;
 
-  State solve(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  State solve(vec_lit_t const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 
-  [[nodiscard]] bool propagate_confl(Minisat::vec<Minisat::Lit> const& assumptions) override;
+  [[nodiscard]] bool propagate_confl(vec_lit_t const& assumptions) override;
 
  private:
   void _do_interrupt() override;

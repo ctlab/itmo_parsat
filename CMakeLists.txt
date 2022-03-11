@@ -7,6 +7,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Link boost statically
 set(Boost_USE_STATIC_LIBS ON)
 
+# Prioritize static libraries
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".so")
+
 # Options
 set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
 option(SANITIZE "Enable sanitizers"         OFF)
@@ -26,15 +29,17 @@ link_libraries(tbb)
 
 if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     message(STATUS "DEBUG build mode (Og). All checks are enabled, log and tracer are enabled.")
-    add_compile_options(-Og)
+    add_compile_options(-O0 -g)
+    add_compile_definitions(DEBUG)
+    set(LTO OFF)
 elseif (CMAKE_BUILD_TYPE STREQUAL "DEV_FAST")
     message(STATUS "DEV_FAST build mode (O3). Internal checks disabled.")
     add_compile_options(-O3)
-    add_compile_definitions(IPS_DISABLE_HEAVY_CHECKS NDEBUG)
+    add_compile_definitions(NDEBUG IPS_DISABLE_HEAVY_CHECKS)
 elseif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     message(STATUS "RELEASE build mode (O3). All checks, log and tracer disabled.")
     add_compile_options(-O3)
-    add_compile_definitions(IPS_DISABLE_TRACE IPS_DISABLE_HEAVY_CHECKS IPS_DISABLE_VERIFY IPS_DISABLE_LOG NDEBUG)
+    add_compile_definitions(NDEBUG IPS_DISABLE_TRACE IPS_DISABLE_HEAVY_CHECKS IPS_DISABLE_VERIFY IPS_DISABLE_LOG)
 endif ()
 
 if (SANITIZE)

@@ -16,9 +16,9 @@ struct SearchSpace {
   uint64_t inaccurate_visited_points = 0;
 
  public:
-  SearchSpace(uint32_t num_variables) noexcept;
-
   SearchSpace() noexcept = default;
+
+  explicit SearchSpace(uint32_t num_variables) noexcept;
 
   void reset(uint32_t num_variables) noexcept;
 

@@ -8,8 +8,8 @@
 #include <optional>
 #include <algorithm>
 
-#include "core/sat/native/minisat/minisat/mtl/Vec.h"
-#include "core/sat/native/minisat/minisat/core/SolverTypes.h"
+#include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/mini/utils/Lit.h"
 #include "core/domain/VarView.h"
 #include "core/domain/SearchSpace.h"
 #include "util/Reference.h"
@@ -25,6 +25,9 @@ MAKE_REFS(Search);
  */
 class Search {
  public:
+  typedef Mini::vec<Mini::Lit> lit_vec_t;
+
+ public:
   explicit Search(uint64_t total);
 
  public:
@@ -33,7 +36,7 @@ class Search {
   /**
    * @return the current assignment
    */
-  [[nodiscard]] virtual Minisat::vec<Minisat::Lit> const& operator()() const = 0;
+  [[nodiscard]] virtual lit_vec_t const& operator()() const = 0;
 
   /**
    * @brief Steps to the next search.
@@ -74,7 +77,7 @@ class Search {
   virtual void _reset() = 0;
 
  protected:
-  static void _set_assignment(Minisat::vec<Minisat::Lit>& vec, uint64_t value);
+  static void _set_assignment(lit_vec_t& vec, uint64_t value);
 
  private:
   void _set_range();
@@ -90,7 +93,7 @@ class SingleSearch final : public Search {
  public:
   SingleSearch();
 
-  [[nodiscard]] Minisat::vec<Minisat::Lit> const& operator()() const override;
+  [[nodiscard]] lit_vec_t const& operator()() const override;
 
   [[nodiscard]] Search* clone() const override;
 

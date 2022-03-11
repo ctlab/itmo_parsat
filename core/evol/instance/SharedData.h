@@ -28,11 +28,6 @@ struct SharedData {
   core::LRUCache<std::vector<bool>, Fitness> cache{};
 
   /**
-   * @brief Variable subset mapping.
-   */
-  core::domain::VarView var_view{};
-
-  /**
    * @brief Search space info.
    */
   core::domain::SearchSpace search_space;

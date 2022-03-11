@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hordesatsolver_104',['HordeSatSolver',['../classcore_1_1sat_1_1solver_1_1HordeSatSolver.html',1,'core::sat::solver']]]
+  ['gaalgorithm_532',['GAAlgorithm',['../classea_1_1algorithm_1_1GAAlgorithm.html',1,'ea::algorithm']]]
 ];
