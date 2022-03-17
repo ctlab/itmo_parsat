@@ -53,8 +53,8 @@ void \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a708cd4b8fadeaec671adb9
 \mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_a98c651d35de523ec4901d3bd828bf439}\label{classpainless_1_1MapleCOMSPSSolver_a98c651d35de523ec4901d3bd828bf439}} 
 void \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a98c651d35de523ec4901d3bd828bf439}{unset\+Solver\+Interrupt}} ()
 \begin{DoxyCompactList}\small\item\em Remove the S\+AT solving interrupt request. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_af60ab0f3a6935328dc2f1dbf0485e2ac}\label{classpainless_1_1MapleCOMSPSSolver_af60ab0f3a6935328dc2f1dbf0485e2ac}} 
-P\+Sat\+Result \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_af60ab0f3a6935328dc2f1dbf0485e2ac}{solve}} (const std\+::vector$<$ int $>$ \&cube)
+\mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_a7d96367d5e9cdb25477e3646eb6a9771}\label{classpainless_1_1MapleCOMSPSSolver_a7d96367d5e9cdb25477e3646eb6a9771}} 
+P\+Sat\+Result \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a7d96367d5e9cdb25477e3646eb6a9771}{solve}} (\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&assumptions, const std\+::vector$<$ int $>$ \&cube)
 \begin{DoxyCompactList}\small\item\em Solve the formula with a given cube. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_a7ab6de03cb7938c68af6708187e54149}\label{classpainless_1_1MapleCOMSPSSolver_a7ab6de03cb7938c68af6708187e54149}} 
 void \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a7ab6de03cb7938c68af6708187e54149}{add\+Clause}} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$clause)
@@ -99,8 +99,8 @@ void \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a2db18f74eb0f1b6b7cadaa
 \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a8825a70bb22140d2750976a62f278110}{$\sim$\+Maple\+C\+O\+M\+S\+P\+S\+Solver}} () noexcept=default
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_aa2417ef34cd0dcfbb2f2a8a711f5c889}\label{classpainless_1_1MapleCOMSPSSolver_aa2417ef34cd0dcfbb2f2a8a711f5c889}} 
-vector$<$ int $>$ \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_aa2417ef34cd0dcfbb2f2a8a711f5c889}{get\+Final\+Analysis}} ()
-\begin{DoxyCompactList}\small\item\em Return the final analysis in case of U\+N\+S\+AT result. \end{DoxyCompactList}\item 
+vector$<$ int $>$ {\bfseries get\+Final\+Analysis} ()
+\item 
 \mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_a72e97dfc6cbf8711109e4ae552caa4b6}\label{classpainless_1_1MapleCOMSPSSolver_a72e97dfc6cbf8711109e4ae552caa4b6}} 
 vector$<$ int $>$ {\bfseries get\+Sat\+Assumptions} ()
 \end{DoxyCompactItemize}
@@ -126,7 +126,7 @@ atomic$<$ int $>$ \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a9ba058765
 \mbox{\hyperlink{classpainless_1_1ClauseBuffer}{Clause\+Buffer}} \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_ac6ad4a29d825aabb779a54ca61b98d53}{clauses\+To\+Add}}
 \begin{DoxyCompactList}\small\item\em Buffer used to add permanent clauses. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classpainless_1_1MapleCOMSPSSolver_a6df2a39f266121e6ec80cc7b0f948959}\label{classpainless_1_1MapleCOMSPSSolver_a6df2a39f266121e6ec80cc7b0f948959}} 
-std\+::atomic\+\_\+bool \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a6df2a39f266121e6ec80cc7b0f948959}{stop\+Solver}}
+std\+::atomic\+\_\+bool \mbox{\hyperlink{classpainless_1_1MapleCOMSPSSolver_a6df2a39f266121e6ec80cc7b0f948959}{stop\+Solver}} \{false\}
 \begin{DoxyCompactList}\small\item\em Used to stop or continue the resolution. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}

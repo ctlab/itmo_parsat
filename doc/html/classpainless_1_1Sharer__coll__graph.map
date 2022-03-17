@@ -1,5 +1,5 @@
 <map id="painless::Sharer" name="painless::Sharer">
-<area shape="rect" id="node1" title="A sharer is a thread responsible to share clauses between solvers." alt="" coords="61,184,187,211"/>
-<area shape="rect" id="node2" href="$classpainless_1_1SharingStrategy.html" title="Strategy to shared clauses." alt="" coords="139,95,327,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="61,184,187,211"/>
+<area shape="rect" id="node2" href="$classpainless_1_1SharingStrategy.html" title=" " alt="" coords="139,95,327,121"/>
 <area shape="rect" id="node3" href="$structpainless_1_1WorkingResult.html" title=" " alt="" coords="5,5,184,32"/>
 </map>

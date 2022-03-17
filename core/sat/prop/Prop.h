@@ -23,7 +23,8 @@ class Prop {
  public:
   typedef Mini::vec<Mini::Lit> vec_lit_t;
   /**
-   * @details Callbacks types must be thread safe for asynchronous implementations.
+   * @details Callbacks types must be thread safe for asynchronous
+   * implementations.
    */
   // clang-format off
   typedef std::function<
@@ -49,30 +50,62 @@ class Prop {
    * @param propagated the propagated literals.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] virtual bool propagate(
-      vec_lit_t const& assumptions, vec_lit_t& propagated) = 0;
+  [[nodiscard]] bool propagate(
+      vec_lit_t const& assumptions, vec_lit_t& propagated);
 
   /**
    * @brief Propagates a given list of assumptions.
    * @param assumptions assumptions to include.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] virtual bool propagate(vec_lit_t const& assumptions);
+  [[nodiscard]] bool propagate(vec_lit_t const& assumptions);
 
   /**
-   * @brief Propagates all assignments by the given iterator and calls callback respectively.
+   * @brief Propagates all assignments by the given iterator and calls callback
+   * respectively.
    * @param search search engine.
    * @param callback callback to be called on each solve.
    */
-  virtual void prop_assignments(domain::USearch search, prop_callback_t const& callback);
+  void prop_assignments(
+      domain::USearch search, prop_callback_t const& callback);
+
+  void prop_assignments(
+      Mini::vec<Mini::Lit> const& base_assumption, domain::USearch search,
+      prop_callback_t const& callback);
 
   /// @todo: documentation
-  virtual uint64_t prop_tree(vec_lit_t const& vars, uint32_t head_size) = 0;
+  uint64_t prop_tree(vec_lit_t const& vars, uint32_t head_size);
 
   /**
    * @brief Returns the number of variables in formula.
    */
   [[nodiscard]] virtual uint32_t num_vars() const noexcept = 0;
+
+  static void sequential_propagate(
+      Prop& prop, domain::USearch search, prop_callback_t const& callback);
+
+  static void sequential_propagate(
+      Mini::vec<Mini::Lit> const& base_assumption, Prop& prop,
+      domain::USearch search, prop_callback_t const& callback);
+
+ protected:
+  [[nodiscard]] virtual uint64_t _prop_tree(
+      vec_lit_t const& vars, uint32_t head_size) = 0;
+
+  [[nodiscard]] virtual bool _propagate(
+      vec_lit_t const& assumptions, vec_lit_t& propagated) = 0;
+
+  [[nodiscard]] virtual bool _propagate(vec_lit_t const& assumptions);
+
+  virtual void _prop_assignments(
+      domain::USearch search, prop_callback_t const& callback);
+
+  virtual void _prop_assignments(
+      vec_lit_t const& base_assumption, domain::USearch search,
+      prop_callback_t const& callback);
+
+ private:
+  std::mutex _m;
 };
 
 using RProp = std::shared_ptr<Prop>;

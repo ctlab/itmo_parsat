@@ -1,0 +1,74 @@
+\hypertarget{classcore_1_1solve_1_1NaiveSolve}{}\doxysection{core\+::solve\+::Naive\+Solve Class Reference}
+\label{classcore_1_1solve_1_1NaiveSolve}\index{core::solve::NaiveSolve@{core::solve::NaiveSolve}}
+
+
+Naively solves S\+AT using the specified solver.  
+
+
+
+
+{\ttfamily \#include $<$Naive\+Solve.\+h$>$}
+
+
+
+Inheritance diagram for core\+::solve\+::Naive\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classcore_1_1solve_1_1NaiveSolve__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::solve\+::Naive\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classcore_1_1solve_1_1NaiveSolve__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1NaiveSolve_a8fa154b1569b77e98156a8bc0e2b0809}\label{classcore_1_1solve_1_1NaiveSolve_a8fa154b1569b77e98156a8bc0e2b0809}} 
+{\bfseries Naive\+Solve} (Naive\+Solve\+Config config)
+\item 
+sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) override
+\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Naively solves S\+AT using the specified solver. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}\label{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}} 
+\index{core::solve::NaiveSolve@{core::solve::NaiveSolve}!solve@{solve}}
+\index{solve@{solve}!core::solve::NaiveSolve@{core::solve::NaiveSolve}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily sat\+::\+State core\+::solve\+::\+Naive\+Solve\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method solves S\+AT. For now, it is expected to be called only once per object lifetime. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & path to gz archive with task description \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of the solution 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1Solve_aaa0c64ccf2aae8d9edb555ee603abda8}{core\+::solve\+::\+Solve}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/Naive\+Solve.\+h\item 
+core/solve/Naive\+Solve.\+cpp\end{DoxyCompactItemize}

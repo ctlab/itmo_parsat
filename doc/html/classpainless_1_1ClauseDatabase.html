@@ -74,25 +74,11 @@ $(function() {
 <div class="title">painless::ClauseDatabase Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Clause database used for Hordesat.  
- <a href="classpainless_1_1ClauseDatabase.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="ClauseDatabase_8h_source.html">ClauseDatabase.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6668cc433af853726727bcee4fb8b44b"><td class="memItemLeft" align="right" valign="top"><a id="a6668cc433af853726727bcee4fb8b44b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseDatabase.html#a6668cc433af853726727bcee4fb8b44b">ClauseDatabase</a> ()</td></tr>
-<tr class="memdesc:a6668cc433af853726727bcee4fb8b44b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a6668cc433af853726727bcee4fb8b44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfaf10713928152ee7be3bb8c8695ee9"><td class="memItemLeft" align="right" valign="top"><a id="acfaf10713928152ee7be3bb8c8695ee9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseDatabase.html#acfaf10713928152ee7be3bb8c8695ee9">~ClauseDatabase</a> ()</td></tr>
-<tr class="memdesc:acfaf10713928152ee7be3bb8c8695ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acfaf10713928152ee7be3bb8c8695ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47a80d822efe6096ef16e470cfa3cf56"><td class="memItemLeft" align="right" valign="top"><a id="a47a80d822efe6096ef16e470cfa3cf56"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseDatabase.html#a47a80d822efe6096ef16e470cfa3cf56">addClause</a> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> *clause)</td></tr>
-<tr class="memdesc:a47a80d822efe6096ef16e470cfa3cf56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a shared clause to the database. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addClause</b> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> *clause)</td></tr>
 <tr class="separator:a47a80d822efe6096ef16e470cfa3cf56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41886536bb7f6b54be4b0c42159d81a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseDatabase.html#a41886536bb7f6b54be4b0c42159d81a3">giveSelection</a> (std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;selectedCls, unsigned totalSize, int *selectCount)</td></tr>
 <tr class="separator:a41886536bb7f6b54be4b0c42159d81a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,13 +86,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a673bd4e218e56026cb9b66e67624efe6"><td class="memItemLeft" align="right" valign="top"><a id="a673bd4e218e56026cb9b66e67624efe6"></a>
-std::vector&lt; std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseDatabase.html#a673bd4e218e56026cb9b66e67624efe6">clauses</a></td></tr>
-<tr class="memdesc:a673bd4e218e56026cb9b66e67624efe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of vector of shared clauses, on vector per size. <br /></td></tr>
+std::vector&lt; std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clauses</b></td></tr>
 <tr class="separator:a673bd4e218e56026cb9b66e67624efe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Clause database used for Hordesat. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a41886536bb7f6b54be4b0c42159d81a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41886536bb7f6b54be4b0c42159d81a3">&#9670;&nbsp;</a></span>giveSelection()</h2>
 
@@ -138,7 +121,7 @@ std::vector&lt; std::vector&lt; <a class="el" href="structClauseExchange.html">C
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fill the given buffer with shared clauses. </p><dl class="section return"><dt>Returns</dt><dd>the number of used literals. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of used literals. </dd></dl>
 
 </div>
 </div>

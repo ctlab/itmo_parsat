@@ -28,28 +28,20 @@
 
 namespace painless {
 
-/// Clause buffer is a queue containning shared clauses.
 class ClauseBuffer {
  public:
-  /// Constructor.
   ClauseBuffer();
 
-  /// Destructor.
   ~ClauseBuffer();
 
-  /// Enqueue a shared clause to the buffer.
   void addClause(ClauseExchange* clause);
 
-  /// Enqueue shared clauses to the buffer.
   void addClauses(const std::vector<ClauseExchange*>& clauses);
 
-  /// Dequeue a shared clause.
   bool getClause(ClauseExchange** clause);
 
-  /// Dequeue shared clauses.
   void getClauses(std::vector<ClauseExchange*>& clauses);
 
-  /// Return the current size of the buffer
   int size();
 
  protected:
@@ -73,7 +65,6 @@ class ClauseBuffer {
     std::atomic<ListElement*> tail;
   } ListRoot;
 
-  /// Root of producer/customers lists
   ListRoot buffer;
 };
 

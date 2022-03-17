@@ -26,35 +26,21 @@
 
 namespace painless {
 
-/// Sharing statistics.
 struct SharingStatistics {
-  /// Constructor.
-  SharingStatistics() {
-    sharedClauses = 0;
-    receivedClauses = 0;
-  }
-
-  /// Number of shared clauses that have been shared.
-  unsigned long sharedClauses;
-
-  /// Number of shared clauses produced.
-  unsigned long receivedClauses;
+  unsigned long sharedClauses = 0;
+  unsigned long receivedClauses = 0;
 };
 
-/// Strategy to shared clauses.
 class SharingStrategy {
  public:
   explicit SharingStrategy(WorkingResult* result) : result(result) {}
 
-  /// Destructor.
-  virtual ~SharingStrategy(){};
+  virtual ~SharingStrategy() = default;
 
-  /// This method shared clauses from the producers to the consumers.
   virtual void doSharing(
       int idSharer, const vector<SolverInterface*>& producers,
       const vector<SolverInterface*>& consumers) = 0;
 
-  /// Return the sharing statistics of this sharng strategy.
   virtual SharingStatistics getStatistics() = 0;
 
  public:

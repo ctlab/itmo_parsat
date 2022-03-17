@@ -156,8 +156,8 @@ void MapleCOMSPSSolver::diversify(int id) {
 
 // Solve the formula with a given set of assumptions
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
-PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
-  unsetSolverInterrupt();
+PSatResult MapleCOMSPSSolver::solve(Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) {
+//  unsetSolverInterrupt();
   PSatResult result = PUNKNOWN;
 
   vector<ClauseExchange*> tmp;
@@ -173,7 +173,7 @@ PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
   }
 
   if (result == PUNKNOWN) {
-    vec<Lit> miniAssumptions;
+    vec<Lit> miniAssumptions = assumptions;
     for (size_t ind = 0; ind < cube.size(); ind++) {
       miniAssumptions.push(MINI_LIT(cube[ind]));
     }

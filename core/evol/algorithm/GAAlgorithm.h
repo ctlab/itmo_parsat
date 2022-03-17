@@ -14,7 +14,7 @@ namespace ea::algorithm {
  */
 class GAAlgorithm : public Algorithm {
  public:
-  explicit GAAlgorithm(GAAlgorithmConfig const& config);
+  explicit GAAlgorithm(GAAlgorithmConfig const& config, core::sat::prop::RProp prop);
 
   void step() override;
 

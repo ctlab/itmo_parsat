@@ -62,22 +62,17 @@ int ClauseDatabase::giveSelection(
     if (left >= clsSize * clauses[i].size()) {
       // If all the clauses of size clsSize (i+1) can be added
       used = used + clsSize * clauses[i].size();
-
       selectedCls.insert(selectedCls.end(), clauses[i].begin(), clauses[i].end());
-
       *selectCount += clauses[i].size();
-
       clauses[i].clear();
     } else {
       // Else how many clauses can be added
       // Add them one by one
       unsigned nCls = left / clsSize;
       used = used + clsSize * nCls;
-
       for (unsigned k = 0; k < nCls; k++) {
         selectedCls.push_back(clauses[i].back());
         clauses[i].pop_back();
-
         *selectCount += 1;
       }
     }

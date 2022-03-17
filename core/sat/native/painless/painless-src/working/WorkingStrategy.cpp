@@ -2,12 +2,15 @@
 
 namespace painless {
 
-WorkingStrategy::WorkingStrategy(WorkingResult* working_result) : result(working_result) {}
+WorkingStrategy::WorkingStrategy(WorkingResult* working_result)
+    : result(working_result) {}
 
 void WorkingStrategy::addSlave(WorkingStrategy* slave) {
-  slaves.push_back(slave);
   slave->parent = this;
   slave->result = result;
+  slaves.push_back(slave);
 }
+
+std::mutex m_pf;
 
 }  // namespace painless

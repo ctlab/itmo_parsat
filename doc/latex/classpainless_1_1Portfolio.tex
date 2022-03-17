@@ -26,11 +26,11 @@ Collaboration diagram for painless\+::Portfolio\+:
 \mbox{\Hypertarget{classpainless_1_1Portfolio_aa1fa81f0505284a3cc5ae9c6e5f2486a}\label{classpainless_1_1Portfolio_aa1fa81f0505284a3cc5ae9c6e5f2486a}} 
 {\bfseries Portfolio} (\mbox{\hyperlink{structpainless_1_1WorkingResult}{Working\+Result}} $\ast$working\+\_\+result)
 \item 
-\mbox{\Hypertarget{classpainless_1_1Portfolio_a38442455c9f1fa0a0cf3340c5fd780d5}\label{classpainless_1_1Portfolio_a38442455c9f1fa0a0cf3340c5fd780d5}} 
-void {\bfseries solve} (const vector$<$ int $>$ \&cube) override
+\mbox{\Hypertarget{classpainless_1_1Portfolio_ad80cb2189629b8bdaec99600ed98dc70}\label{classpainless_1_1Portfolio_ad80cb2189629b8bdaec99600ed98dc70}} 
+void {\bfseries solve} (int64\+\_\+t index, \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&assumptions, const vector$<$ int $>$ \&cube) override
 \item 
-\mbox{\Hypertarget{classpainless_1_1Portfolio_abea07374be1c2411a2941de0b92a447e}\label{classpainless_1_1Portfolio_abea07374be1c2411a2941de0b92a447e}} 
-void {\bfseries join} (\mbox{\hyperlink{classpainless_1_1WorkingStrategy}{Working\+Strategy}} $\ast$strat, P\+Sat\+Result res, const vector$<$ int $>$ \&model) override
+\mbox{\Hypertarget{classpainless_1_1Portfolio_a8090a232d0935e6c78c6124bc6c45edf}\label{classpainless_1_1Portfolio_a8090a232d0935e6c78c6124bc6c45edf}} 
+void {\bfseries join} (int64\+\_\+t index, \mbox{\hyperlink{classpainless_1_1WorkingStrategy}{Working\+Strategy}} $\ast$strat, P\+Sat\+Result res, const vector$<$ int $>$ \&model) override
 \item 
 \mbox{\Hypertarget{classpainless_1_1Portfolio_ad72d8b4155f3084e764a43e1262786b3}\label{classpainless_1_1Portfolio_ad72d8b4155f3084e764a43e1262786b3}} 
 void {\bfseries set\+Interrupt} () override
@@ -57,7 +57,13 @@ void {\bfseries bump\+Variable\+Activity} (int var, int times) override
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classpainless_1_1Portfolio_a6b51953d20c4df81415c733f0779cb7e}\label{classpainless_1_1Portfolio_a6b51953d20c4df81415c733f0779cb7e}} 
-std\+::atomic$<$ bool $>$ {\bfseries strategy\+Ending}
+std\+::atomic$<$ bool $>$ {\bfseries strategy\+Ending} \{false\}
+\item 
+\mbox{\Hypertarget{classpainless_1_1Portfolio_aa508d7bb407d9ca477b3e4780d3d4e97}\label{classpainless_1_1Portfolio_aa508d7bb407d9ca477b3e4780d3d4e97}} 
+int64\+\_\+t {\bfseries current\+\_\+index} = 0
+\item 
+\mbox{\Hypertarget{classpainless_1_1Portfolio_a7bd729d58ef936a2b10eceb7c77daed1}\label{classpainless_1_1Portfolio_a7bd729d58ef936a2b10eceb7c77daed1}} 
+std\+::mutex {\bfseries join\+\_\+mutex}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 

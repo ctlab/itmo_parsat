@@ -7,10 +7,10 @@
 #include "core/proto/solve_config.pb.h"
 #include "util/stream.h"
 #include "util/Logger.h"
-#include "util/TimeTracer.h"
 #include "util/Random.h"
+#include "util/TimeTracer.h"
 #include "util/SigHandler.h"
-#include "core/sat/solver/Solver.h"
+#include "core/sat/solver/sequential/Solver.h"
 #include "core/solve/Solve.h"
 
 util::CliConfig add_and_read_args(int argc, char** argv) {
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   util::CliConfig config = add_and_read_args(argc, argv);
-  //  core::signal::SigHandler sig_handler;
+//  core::signal::SigHandler sig_handler;
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }
@@ -71,7 +71,8 @@ int main(int argc, char** argv) {
   // Load problem
   core::sat::Problem problem(input);
   // Initialize solve algorithm
-  core::RSolve solve(core::SolveRegistry::resolve(solve_config));
+  util::random::Generator generator(solve_config.random_seed());
+  core::solve::RSolve solve(core::solve::SolveRegistry::resolve(solve_config));
   core::event::EventCallbackHandle solve_interrupt_handler = core::event::attach(
       [&] {
         IPS_INFO("Solve has been interrupted.");
@@ -79,7 +80,6 @@ int main(int argc, char** argv) {
         solve_interrupt_handler->detach();
       },
       core::event::INTERRUPT);
-  util::random::Generator generator(solve_config.random_seed());
   result = IPS_TRACE_V(solve->solve(problem));
   core::TimeTracer::print_summary(10);
 

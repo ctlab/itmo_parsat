@@ -17,42 +17,50 @@
 // this program.  If not, see <http://www.gnu.org/licenses/>.
 // -----------------------------------------------------------------------------
 
+#include <algorithm>
+
 #include "../working/Portfolio.h"
 #include "../working/SequentialWorker.h"
+
+#include "util/options.h"
 
 using namespace std;
 
 namespace painless {
 
-Portfolio::Portfolio(WorkingResult* working_result) : WorkingStrategy(working_result) {}
+Portfolio::Portfolio(WorkingResult* working_result)
+    : WorkingStrategy(working_result) {}
 
 Portfolio::~Portfolio() {
-  for (auto slave : slaves) {
-    delete slave;
-  }
+  std::for_each(
+      IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [&](auto* slave) {
+        slave->setInterrupt();
+        delete slave;
+      });
 }
 
-void Portfolio::solve(const vector<int>& cube) {
+void Portfolio::solve(
+    int64_t index, Mini::vec<Mini::Lit> const& assumptions,
+    vector<int> const& cube) {
+  current_index = index;
   strategyEnding = false;
-
-  for (size_t i = 0; i < slaves.size(); i++) {
-    slaves[i]->solve(cube);
-  }
+  std::for_each(
+      IPS_EXEC_POLICY, slaves.begin(), slaves.end(),
+      [&](auto& slave) { slave->solve(index, assumptions, cube); });
 }
 
-void Portfolio::awaitStop() {
-  for (size_t i = 0; i < slaves.size(); ++i) {
-    slaves[i]->awaitStop();
-  }
-}
-
-void Portfolio::join(WorkingStrategy* strat, PSatResult res, const vector<int>& model) {
-  if (res == PUNKNOWN || strategyEnding || result->globalEnding)
+void Portfolio::join(
+    int64_t index, WorkingStrategy* strat, PSatResult res,
+    const vector<int>& model) {
+  std::lock_guard<std::mutex> lg(join_mutex);
+  if (res == PUNKNOWN || strategyEnding || result->globalEnding ||
+      index != current_index) {
     return;
+  }
 
   strategyEnding = true;
-
   setInterrupt();
+//  waitInterrupt();
 
   if (parent == NULL) {  // If it is the top strategy
     result->globalEnding = true;
@@ -62,28 +70,33 @@ void Portfolio::join(WorkingStrategy* strat, PSatResult res, const vector<int>& 
       result->finalModel = model;
     }
     SequentialWorker* winner = (SequentialWorker*) strat;
-    // log(0, "The winner is thread %d \\o/ !!!\n", winner->solver->id);
   } else {  // Else forward the information to the parent strategy
-    parent->join(this, res, model);
+    parent->join(index, this, res, model);
   }
 }
 
 void Portfolio::setInterrupt() {
-  for (size_t i = 0; i < slaves.size(); i++) {
-    slaves[i]->setInterrupt();
-  }
-}
-
-void Portfolio::unsetInterrupt() {
-  for (size_t i = 0; i < slaves.size(); i++) {
-    slaves[i]->unsetInterrupt();
-  }
+  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
+    slave->setInterrupt();
+  });
 }
 
 void Portfolio::waitInterrupt() {
-  for (size_t i = 0; i < slaves.size(); i++) {
-    slaves[i]->waitInterrupt();
-  }
+  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
+    slave->waitInterrupt();
+  });
+}
+
+void Portfolio::unsetInterrupt() {
+  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
+    slave->unsetInterrupt();
+  });
+}
+
+void Portfolio::awaitStop() {
+  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
+    slave->awaitStop();
+  });
 }
 
 int Portfolio::getDivisionVariable() {

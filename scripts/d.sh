@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source scripts/base.sh
 
 IPS_NAME="itmo-parsat"

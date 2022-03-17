@@ -22,6 +22,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #define Mini_Vec_h
 
 #include <assert.h>
+#include <algorithm>
 
 #include <limits>
 #include <cstring>
@@ -43,12 +44,9 @@ class vec {
   typedef _Size Size;
 
  private:
-  T* data;
-  Size sz;
-  Size cap;
-
-  // Don't allow copying (error prone):
-  vec<T> operator=(vec<T> const& other);
+  T* data = nullptr;
+  Size sz = 0;
+  Size cap = 0;
 
   static inline Size max(Size x, Size y) {
     return (x > y) ? x : y;
@@ -56,31 +54,52 @@ class vec {
 
  public:
   // Constructors:
-  vec() : data(NULL), sz(0), cap(0) {}
+  vec() = default;
+
   explicit vec(Size size) : data(NULL), sz(0), cap(0) {
     growTo(size);
   }
+
   vec(Size size, const T& pad) : data(NULL), sz(0), cap(0) {
     growTo(size, pad);
   }
+
   ~vec() {
     clear(true);
   }
 
+  vec<T>& operator=(vec<T> const& other) {
+    capacity(other.size());
+    sz = other.sz;
+    std::copy(other.data, other.data + other.sz, data);
+//    for (int i = 0; i < other.size(); ++i) {
+//      (*this)[i] = other[i];
+//    }
+    return *this;
+  }
+
   vec(vec<T> const& other) : vec(other.sz) {
-    for (int i = 0; i < other.size(); ++i)
-      (*this)[i] = other[i];
+    std::copy(other.data, other.data + other.sz, data);
+//    for (int i = 0; i < other.size(); ++i)
+//      (*this)[i] = other[i];
+  }
+
+  vec(vec<T>&& other) {
+    std::swap(data, other.data);
+    std::swap(sz, other.sz);
+    std::swap(cap, other.cap);
   }
 
   // Pointer to first element:
-  operator T*(void) {
+  operator T*() noexcept {
     return data;
   }
 
   // Size operations:
-  Size size(void) const {
+  Size size() const noexcept {
     return sz;
   }
+
   void shrink(Size nelems) {
     assert(nelems <= sz);
     for (Size i = 0; i < nelems; i++)
@@ -90,32 +109,36 @@ class vec {
     assert(nelems <= sz);
     sz -= nelems;
   }
-  int capacity(void) const {
+
+  int capacity() const {
     return cap;
   }
+
   void capacity(Size min_cap);
   void growTo(Size size);
   void growTo(Size size, const T& pad);
   void clear(bool dealloc = false);
 
   // Stack interface:
-  void push(void) {
+  void push() {
     if (sz == cap)
       capacity(sz + 1);
     new (&data[sz]) T();
     sz++;
   }
-  // void     push  (const T& elem)     { if (sz == cap) capacity(sz+1); data[sz++] = elem; }
+
   void push(const T& elem) {
     if (sz == cap)
       capacity(sz + 1);
     new (&data[sz++]) T(elem);
   }
+
   void push_(const T& elem) {
     assert(sz < cap);
     data[sz++] = elem;
   }
-  void pop(void) {
+
+  void pop() noexcept {
     assert(sz > 0);
     sz--, data[sz].~T();
   }
@@ -124,28 +147,31 @@ class vec {
   // happen given the way capacities are calculated (below). Essentially, all capacities are
   // even, but INT_MAX is odd.
 
-  const T& last(void) const {
+  const T& last() const noexcept {
     return data[sz - 1];
   }
-  T& last(void) {
+
+  T& last() noexcept {
     return data[sz - 1];
   }
 
   // Vector interface:
-  const T& operator[](Size index) const {
+  const T& operator[](Size index) const noexcept {
     return data[index];
   }
-  T& operator[](Size index) {
+
+  T& operator[](Size index) noexcept {
     return data[index];
   }
 
   // Duplicatation (preferred instead):
-  void copyTo(vec<T>& copy) const {
+  void copyTo(vec<T>& copy) const noexcept {
     copy.clear();
     copy.growTo(sz);
     for (Size i = 0; i < sz; i++)
       copy[i] = data[i];
   }
+
   void moveTo(vec<T>& dest) {
     dest.clear(true);
     dest.data = data;
@@ -155,6 +181,7 @@ class vec {
     sz = 0;
     cap = 0;
   }
+
   void memCopyTo(vec<T>& copy) const {
     copy.capacity(cap);
     copy.sz = sz;
@@ -169,9 +196,10 @@ void vec<T, _Size>::capacity(Size min_cap) {
   Size add =
       max((min_cap - cap + 1) & ~1, ((cap >> 1) + 2) & ~1);  // NOTE: grow by approximately 3/2
   const Size size_max = std::numeric_limits<Size>::max();
-  if (((size_max <= std::numeric_limits<int>::max()) && (add > size_max - cap)) ||
-      (((data = (T*) ::realloc(data, (cap += add) * sizeof(T))) == NULL) && errno == ENOMEM))
-    throw OutOfMemoryException();
+  data = (T*) ::realloc(data, (cap += add) * sizeof(T));
+//  if (((size_max <= std::numeric_limits<int>::max()) && (add > size_max - cap)) ||
+//      (((data = (T*) ::realloc(data, (cap += add) * sizeof(T))) == NULL) && errno == ENOMEM))
+//    throw OutOfMemoryException();
 }
 
 template <class T, class _Size>

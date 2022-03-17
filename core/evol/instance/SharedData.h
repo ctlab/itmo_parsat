@@ -36,6 +36,9 @@ struct SharedData {
    * @brief Inner configuration parameter.
    */
   uint32_t omega_x{};
+
+  /// @todo: documentation
+  Mini::vec<Mini::Lit> base_assumption{};
 };
 
 using RSharedData = std::shared_ptr<SharedData>;

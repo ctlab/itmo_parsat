@@ -17,6 +17,7 @@ util::CliConfig parse_args(int argc, char** argv) {
     ("commit", po::value<std::string>()->default_value("")->required(), "The current commit")
     ("pg-host", po::value<std::string>()->default_value("localhost"), "The host running DB")
     ("unsat-only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
+    ("repeat-each", po::value<int>()->default_value(1), "Repeat each test")
     ("allow-unspecified-size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
     ("lookup", po::bool_switch()->default_value(false), "Skip tests that are already done")
     ("size", po::value<int>()->default_value(0), "Tests size (from 0 to 2)")
@@ -66,6 +67,7 @@ int main(int argc, char** argv) {
     lf_config.pg_host = config.get<std::string>("pg-host");
     lf_config.test_groups = config.get<std::vector<std::string>>("test-groups");
     lf_config.allow_unspecified_size = config.get<bool>("allow-unspecified-size");
+    lf_config.repeat = config.get<int>("repeat-each");
     lf_config.lookup = config.get<bool>("lookup");
     lf_config.save = config.get<bool>("save");
     lf_config.size = config.get<int>("size");

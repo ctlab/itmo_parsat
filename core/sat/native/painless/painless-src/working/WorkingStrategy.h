@@ -23,6 +23,7 @@
 
 #include <vector>
 #include <memory>
+#include <mutex>
 
 #define IPS_PRINTF(...)         \
   fprintf(stderr, __VA_ARGS__); \
@@ -36,7 +37,7 @@ struct WorkingResult {
   std::vector<int> finalModel;
 };
 
-using RWorkingResult = std::shared_ptr<WorkingResult>;
+extern std::mutex m_pf;
 
 class WorkingStrategy {
  public:
@@ -44,9 +45,9 @@ class WorkingStrategy {
 
   virtual ~WorkingStrategy() = default;
 
-  virtual void solve(const vector<int>& cube) = 0;
+  virtual void solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) = 0;
 
-  virtual void join(WorkingStrategy* winner, PSatResult res, const vector<int>& model) = 0;
+  virtual void join(int64_t index, WorkingStrategy* winner, PSatResult res, const vector<int>& model) = 0;
 
   virtual int getDivisionVariable() = 0;
 

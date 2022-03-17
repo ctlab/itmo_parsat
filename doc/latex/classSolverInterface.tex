@@ -2,15 +2,6 @@
 \label{classSolverInterface}\index{SolverInterface@{SolverInterface}}
 
 
-Interface of a solver that provides standard features.  
-
-
-
-
-{\ttfamily \#include $<$Solver\+Interface.\+h$>$}
-
-
-
 Inheritance diagram for Solver\+Interface\+:
 \nopagebreak
 \begin{figure}[H]
@@ -23,74 +14,71 @@ Inheritance diagram for Solver\+Interface\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classSolverInterface_aa335a3b74bd038ebe2d5571c0e6c4e17}\label{classSolverInterface_aa335a3b74bd038ebe2d5571c0e6c4e17}} 
-virtual bool \mbox{\hyperlink{classSolverInterface_aa335a3b74bd038ebe2d5571c0e6c4e17}{load\+Formula}} (const char $\ast$filename)=0
-\begin{DoxyCompactList}\small\item\em Load formula from a given dimacs file, return false if failed. \end{DoxyCompactList}\item 
+virtual bool {\bfseries load\+Formula} (const char $\ast$filename)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_ad40fb29c69bdc4c5dc66c7ffc9d8487a}\label{classSolverInterface_ad40fb29c69bdc4c5dc66c7ffc9d8487a}} 
-virtual int \mbox{\hyperlink{classSolverInterface_ad40fb29c69bdc4c5dc66c7ffc9d8487a}{get\+Variables\+Count}} ()=0
-\begin{DoxyCompactList}\small\item\em Get the number of variables of the current resolution. \end{DoxyCompactList}\item 
+virtual int {\bfseries get\+Variables\+Count} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a591a2f20649ca7708dcf5e17c5eff931}\label{classSolverInterface_a591a2f20649ca7708dcf5e17c5eff931}} 
-virtual int \mbox{\hyperlink{classSolverInterface_a591a2f20649ca7708dcf5e17c5eff931}{get\+Division\+Variable}} ()=0
-\begin{DoxyCompactList}\small\item\em Get a variable suitable for search splitting. \end{DoxyCompactList}\item 
+virtual int {\bfseries get\+Division\+Variable} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_ad64df18383779641d921579f8892e5b8}\label{classSolverInterface_ad64df18383779641d921579f8892e5b8}} 
-virtual void \mbox{\hyperlink{classSolverInterface_ad64df18383779641d921579f8892e5b8}{set\+Phase}} (const int var, const bool phase)=0
-\begin{DoxyCompactList}\small\item\em Set initial phase for a given variable. \end{DoxyCompactList}\item 
+virtual void {\bfseries set\+Phase} (const int var, const bool phase)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a7c6678eb8602e83a7319a5018ae57b90}\label{classSolverInterface_a7c6678eb8602e83a7319a5018ae57b90}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a7c6678eb8602e83a7319a5018ae57b90}{bump\+Variable\+Activity}} (const int var, const int times)=0
-\begin{DoxyCompactList}\small\item\em Bump activity of a given variable. \end{DoxyCompactList}\item 
+virtual void {\bfseries bump\+Variable\+Activity} (const int var, const int times)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a56c3c9301dfa892a3d4e40ee10071bb1}\label{classSolverInterface_a56c3c9301dfa892a3d4e40ee10071bb1}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a56c3c9301dfa892a3d4e40ee10071bb1}{set\+Solver\+Interrupt}} ()=0
-\begin{DoxyCompactList}\small\item\em Interrupt resolution, solving cannot continue until interrupt is unset. \end{DoxyCompactList}\item 
+virtual void {\bfseries set\+Solver\+Interrupt} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_af8f0e994ceffa0201352b6b7f5677ecd}\label{classSolverInterface_af8f0e994ceffa0201352b6b7f5677ecd}} 
-virtual void \mbox{\hyperlink{classSolverInterface_af8f0e994ceffa0201352b6b7f5677ecd}{unset\+Solver\+Interrupt}} ()=0
-\begin{DoxyCompactList}\small\item\em Remove the S\+AT solving interrupt request. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classSolverInterface_afed368542792a40efadbc5a627657d79}\label{classSolverInterface_afed368542792a40efadbc5a627657d79}} 
-virtual P\+Sat\+Result \mbox{\hyperlink{classSolverInterface_afed368542792a40efadbc5a627657d79}{solve}} (const vector$<$ int $>$ \&cube)=0
-\begin{DoxyCompactList}\small\item\em Solve the formula with a given cube. \end{DoxyCompactList}\item 
+virtual void {\bfseries unset\+Solver\+Interrupt} ()=0
+\item 
+\mbox{\Hypertarget{classSolverInterface_a36dd5cd4af6c671778ffe0c063c2c4f6}\label{classSolverInterface_a36dd5cd4af6c671778ffe0c063c2c4f6}} 
+virtual P\+Sat\+Result {\bfseries solve} (\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&assumptions, const vector$<$ int $>$ \&cube)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a0aeeea9f8235f7938c79cdea7da9b7b2}\label{classSolverInterface_a0aeeea9f8235f7938c79cdea7da9b7b2}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a0aeeea9f8235f7938c79cdea7da9b7b2}{add\+Clause}} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$clause)=0
-\begin{DoxyCompactList}\small\item\em Add a permanent clause to the formula. \end{DoxyCompactList}\item 
+virtual void {\bfseries add\+Clause} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$clause)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a0239f76bc4f1f62232b63f76e0994f7f}\label{classSolverInterface_a0239f76bc4f1f62232b63f76e0994f7f}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a0239f76bc4f1f62232b63f76e0994f7f}{add\+Clauses}} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
-\begin{DoxyCompactList}\small\item\em Add a list of permanent clauses to the formula. \end{DoxyCompactList}\item 
+virtual void {\bfseries add\+Clauses} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_abdf86e4cc09fab8752cb5cb43cd3810b}\label{classSolverInterface_abdf86e4cc09fab8752cb5cb43cd3810b}} 
-virtual void \mbox{\hyperlink{classSolverInterface_abdf86e4cc09fab8752cb5cb43cd3810b}{add\+Initial\+Clauses}} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
-\begin{DoxyCompactList}\small\item\em Add a list of initial clauses to the formula. \end{DoxyCompactList}\item 
+virtual void {\bfseries add\+Initial\+Clauses} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_acbc0bd5f6cd9b9df24c09f80032935db}\label{classSolverInterface_acbc0bd5f6cd9b9df24c09f80032935db}} 
-virtual void \mbox{\hyperlink{classSolverInterface_acbc0bd5f6cd9b9df24c09f80032935db}{add\+Learned\+Clause}} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$clauses)=0
-\begin{DoxyCompactList}\small\item\em Add a learned clause to the formula. \end{DoxyCompactList}\item 
+virtual void {\bfseries add\+Learned\+Clause} (\mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$clauses)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a328b1d2cf4e6e93e6d3b84f13c5c9f78}\label{classSolverInterface_a328b1d2cf4e6e93e6d3b84f13c5c9f78}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a328b1d2cf4e6e93e6d3b84f13c5c9f78}{add\+Learned\+Clauses}} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
-\begin{DoxyCompactList}\small\item\em Add a list of learned clauses to the formula. \end{DoxyCompactList}\item 
+virtual void {\bfseries add\+Learned\+Clauses} (const vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a912a0443860aaa1bf79fbf696913cba8}\label{classSolverInterface_a912a0443860aaa1bf79fbf696913cba8}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a912a0443860aaa1bf79fbf696913cba8}{get\+Learned\+Clauses}} (vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
-\begin{DoxyCompactList}\small\item\em Get a list of learned clauses. \end{DoxyCompactList}\item 
+virtual void {\bfseries get\+Learned\+Clauses} (vector$<$ \mbox{\hyperlink{structClauseExchange}{Clause\+Exchange}} $\ast$ $>$ \&clauses)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a846926bc368aafeefd2275e51aa59831}\label{classSolverInterface_a846926bc368aafeefd2275e51aa59831}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a846926bc368aafeefd2275e51aa59831}{increase\+Clause\+Production}} ()=0
-\begin{DoxyCompactList}\small\item\em Request the solver to produce more clauses. \end{DoxyCompactList}\item 
+virtual void {\bfseries increase\+Clause\+Production} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a50ad5586ff68067092ca97cb6a58ba83}\label{classSolverInterface_a50ad5586ff68067092ca97cb6a58ba83}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a50ad5586ff68067092ca97cb6a58ba83}{decrease\+Clause\+Production}} ()=0
-\begin{DoxyCompactList}\small\item\em Request the solver to produce less clauses. \end{DoxyCompactList}\item 
+virtual void {\bfseries decrease\+Clause\+Production} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a9056421b877bd5ef6a35c9c2c82e7cd8}\label{classSolverInterface_a9056421b877bd5ef6a35c9c2c82e7cd8}} 
-virtual \mbox{\hyperlink{structSolvingStatistics}{Solving\+Statistics}} \mbox{\hyperlink{classSolverInterface_a9056421b877bd5ef6a35c9c2c82e7cd8}{get\+Statistics}} ()=0
-\begin{DoxyCompactList}\small\item\em Get solver statistics. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{structSolvingStatistics}{Solving\+Statistics}} {\bfseries get\+Statistics} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a921cc1533da18a71c59d69b748f679d7}\label{classSolverInterface_a921cc1533da18a71c59d69b748f679d7}} 
-virtual vector$<$ int $>$ \mbox{\hyperlink{classSolverInterface_a921cc1533da18a71c59d69b748f679d7}{get\+Model}} ()=0
-\begin{DoxyCompactList}\small\item\em Return the model in case of S\+AT result. \end{DoxyCompactList}\item 
+virtual vector$<$ int $>$ {\bfseries get\+Model} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_a0d8b5df0b9917591a9b14c1172ba06d0}\label{classSolverInterface_a0d8b5df0b9917591a9b14c1172ba06d0}} 
-virtual void \mbox{\hyperlink{classSolverInterface_a0d8b5df0b9917591a9b14c1172ba06d0}{diversify}} (int id)=0
-\begin{DoxyCompactList}\small\item\em Native diversification. \end{DoxyCompactList}\item 
+virtual void {\bfseries diversify} (int id)=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_ad0f10a2a8164d5cbad037da6d6f8014f}\label{classSolverInterface_ad0f10a2a8164d5cbad037da6d6f8014f}} 
-virtual vector$<$ int $>$ \mbox{\hyperlink{classSolverInterface_ad0f10a2a8164d5cbad037da6d6f8014f}{get\+Final\+Analysis}} ()=0
-\begin{DoxyCompactList}\small\item\em Return the final analysis in case of U\+N\+S\+AT result. \end{DoxyCompactList}\item 
+virtual vector$<$ int $>$ {\bfseries get\+Final\+Analysis} ()=0
+\item 
 \mbox{\Hypertarget{classSolverInterface_ace11ec40ff020376a87c0875d69eacdd}\label{classSolverInterface_ace11ec40ff020376a87c0875d69eacdd}} 
 virtual vector$<$ int $>$ {\bfseries get\+Sat\+Assumptions} ()=0
 \item 
 \mbox{\Hypertarget{classSolverInterface_aaef3325041439492cf1dbd93cc1e95da}\label{classSolverInterface_aaef3325041439492cf1dbd93cc1e95da}} 
-\mbox{\hyperlink{classSolverInterface_aaef3325041439492cf1dbd93cc1e95da}{Solver\+Interface}} (int id)
-\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classSolverInterface_a706f5f5a069c155818c205281d86d7d9}\label{classSolverInterface_a706f5f5a069c155818c205281d86d7d9}} 
-virtual \mbox{\hyperlink{classSolverInterface_a706f5f5a069c155818c205281d86d7d9}{$\sim$\+Solver\+Interface}} () noexcept=default
-\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\bfseries Solver\+Interface} (int id)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -98,9 +86,6 @@ virtual \mbox{\hyperlink{classSolverInterface_a706f5f5a069c155818c205281d86d7d9}
 int {\bfseries id}
 \end{DoxyCompactItemize}
 
-
-\doxysubsection{Detailed Description}
-Interface of a solver that provides standard features. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

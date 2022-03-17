@@ -1,13 +1,12 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" title=" " alt="" coords="5,13,188,39"/>
 <area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="249,5,408,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="29,307,164,334"/>
-<area shape="rect" id="node4" href="$classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="236,333,421,359"/>
-<area shape="rect" id="node5" href="$classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="261,267,396,308"/>
-<area shape="rect" id="node6" href="$classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="21,358,173,385"/>
-<area shape="rect" id="node7" href="$classcore_1_1sat_1_1prop_1_1ParProp.html" title="Parallel propagation implementation." alt="" coords="242,383,415,410"/>
-<area shape="rect" id="node8" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="29,136,164,177"/>
+<area shape="rect" id="node3" title=" " alt="" coords="29,242,164,269"/>
+<area shape="rect" id="node4" href="$classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="236,267,421,294"/>
+<area shape="rect" id="node5" href="$classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="261,201,396,243"/>
+<area shape="rect" id="node6" href="$classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="21,293,173,319"/>
+<area shape="rect" id="node7" href="$classcore_1_1sat_1_1prop_1_1ParProp.html" title="Parallel propagation implementation." alt="" coords="242,318,415,345"/>
+<area shape="rect" id="node8" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="29,104,164,145"/>
 <area shape="rect" id="node9" href="$classcore_1_1sat_1_1solver_1_1LingelingSolver.html" title=" " alt="" coords="261,71,396,112"/>
 <area shape="rect" id="node10" href="$classcore_1_1sat_1_1solver_1_1PainlessSolver.html" title=" " alt="" coords="261,136,396,177"/>
-<area shape="rect" id="node11" href="$classcore_1_1sat_1_1solver_1_1ParSolver.html" title="Parallel solver implementation." alt="" coords="261,201,396,243"/>
 </map>

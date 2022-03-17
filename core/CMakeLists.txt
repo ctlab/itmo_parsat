@@ -6,7 +6,7 @@ file(GLOB _EVOL_SRC
 )
 file(GLOB _SOLVE_SRC "solve/*")
 file(GLOB _PROP_SRC "sat/prop/*")
-file(GLOB _SOLVER_SRC "sat/solver/*" "sat/SimpBase.*" "sat/Problem.*")
+file(GLOB _SOLVER_SRC "sat/solver/*" "sat/solver/sequential/*" "sat/solver/service/*" "sat/SimpBase.*" "sat/Problem.*")
 
 include_directories(${CMAKE_BINARY_DIR})
 

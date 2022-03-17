@@ -26,11 +26,11 @@ Collaboration diagram for painless\+::Working\+Strategy\+:
 \mbox{\Hypertarget{classpainless_1_1WorkingStrategy_addbebe49c7d06ba226f6bffdea737545}\label{classpainless_1_1WorkingStrategy_addbebe49c7d06ba226f6bffdea737545}} 
 {\bfseries Working\+Strategy} (\mbox{\hyperlink{structpainless_1_1WorkingResult}{Working\+Result}} $\ast$working\+\_\+result)
 \item 
-\mbox{\Hypertarget{classpainless_1_1WorkingStrategy_ad0239f80852339020ab882d257c804d7}\label{classpainless_1_1WorkingStrategy_ad0239f80852339020ab882d257c804d7}} 
-virtual void {\bfseries solve} (const vector$<$ int $>$ \&cube)=0
+\mbox{\Hypertarget{classpainless_1_1WorkingStrategy_a05e7937df11c10bf0abc45bed9b08dc0}\label{classpainless_1_1WorkingStrategy_a05e7937df11c10bf0abc45bed9b08dc0}} 
+virtual void {\bfseries solve} (int64\+\_\+t index, \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&assumptions, const vector$<$ int $>$ \&cube)=0
 \item 
-\mbox{\Hypertarget{classpainless_1_1WorkingStrategy_a7ee5356e58b86d2adc394c03c5b43b2e}\label{classpainless_1_1WorkingStrategy_a7ee5356e58b86d2adc394c03c5b43b2e}} 
-virtual void {\bfseries join} (\mbox{\hyperlink{classpainless_1_1WorkingStrategy}{Working\+Strategy}} $\ast$winner, P\+Sat\+Result res, const vector$<$ int $>$ \&model)=0
+\mbox{\Hypertarget{classpainless_1_1WorkingStrategy_ab34591c22c0384b258b96f28415e28f4}\label{classpainless_1_1WorkingStrategy_ab34591c22c0384b258b96f28415e28f4}} 
+virtual void {\bfseries join} (int64\+\_\+t index, \mbox{\hyperlink{classpainless_1_1WorkingStrategy}{Working\+Strategy}} $\ast$winner, P\+Sat\+Result res, const vector$<$ int $>$ \&model)=0
 \item 
 \mbox{\Hypertarget{classpainless_1_1WorkingStrategy_a9c04ee214f81c00e8ff40ca2cb857368}\label{classpainless_1_1WorkingStrategy_a9c04ee214f81c00e8ff40ca2cb857368}} 
 virtual int {\bfseries get\+Division\+Variable} ()=0

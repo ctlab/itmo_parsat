@@ -5,3 +5,4 @@
 time-limit = 5
 size = 0
 test-groups = common
+repeat-each = 3

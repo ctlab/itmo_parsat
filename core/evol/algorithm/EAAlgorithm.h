@@ -13,7 +13,7 @@ namespace ea::algorithm {
  */
 class EAAlgorithm : public Algorithm {
  public:
-  explicit EAAlgorithm(EAAlgorithmConfig const& config);
+  explicit EAAlgorithm(EAAlgorithmConfig const& config, core::sat::prop::RProp prop);
 
   void step() override;
 

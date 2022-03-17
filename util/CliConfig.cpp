@@ -41,15 +41,24 @@ bool CliConfig::has(const std::string& name) const {
   return vm_.count(name) > 0;
 }
 
-void CliConfig::read_config(std::istream& is, google::protobuf::Message& message) {
-  std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
+void CliConfig::read_config(
+    std::istream& is, google::protobuf::Message& message) {
+  std::string message_str(
+      (std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
   google::protobuf::util::Status status =
       google::protobuf::util::JsonStringToMessage(message_str, &message);
   if (!status.ok()) {
     IPS_VERIFY_S(
-        status.ok(), "Failed to read  configuration from '" << message_str << "':\n"
-                                                            << status.error_message());
+        status.ok(), "Failed to read  configuration from '"
+                         << message_str << "':\n"
+                         << status.error_message());
   }
+}
+
+void CliConfig::read_config(
+    std::filesystem::path const& path, google::protobuf::Message& message) {
+  std::ifstream ifs(path);
+  read_config(ifs, message);
 }
 
 }  // namespace util

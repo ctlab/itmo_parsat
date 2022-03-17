@@ -49,7 +49,7 @@ class Reducer : public SolverInterface {
   /// Remove the SAT solving interrupt request.
   void unsetSolverInterrupt();
 
-  PSatResult solve(const std::vector<int>& cube);
+  PSatResult solve(Mini::vec<Mini::Lit> const& assumptions, const std::vector<int>& cube);
 
   /// Add a permanent clause to the formula.
   void addClause(ClauseExchange* clause);
@@ -106,6 +106,8 @@ class Reducer : public SolverInterface {
 
   /// Buffer used to export clauses (units included).
   ClauseBuffer clausesToExport;
+
+  Mini::vec<Mini::Lit> assumptions;
 
   bool _stop = false;
   bool _interrupt = false;

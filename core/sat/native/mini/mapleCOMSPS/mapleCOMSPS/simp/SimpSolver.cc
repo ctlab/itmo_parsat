@@ -714,7 +714,7 @@ bool SimpSolver::eliminate(bool turn_off_elim) {
   }
 
   grow = grow ? grow * 2 : 8;
-  for (; grow < 10000; grow *= 2) {
+  for (; grow < 10000 && !asynch_interrupt; grow *= 2) {
     // Rebuild elimination variable heap.
     for (int i = 0; i < clauses.size(); i++) {
       const Clause& c = ca[clauses[i]];

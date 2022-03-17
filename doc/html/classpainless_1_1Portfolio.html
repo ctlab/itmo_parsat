@@ -99,12 +99,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa1fa81f0505284a3cc5ae9c6e5f2486a"><td class="memItemLeft" align="right" valign="top"><a id="aa1fa81f0505284a3cc5ae9c6e5f2486a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Portfolio</b> (<a class="el" href="structpainless_1_1WorkingResult.html">WorkingResult</a> *working_result)</td></tr>
 <tr class="separator:aa1fa81f0505284a3cc5ae9c6e5f2486a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38442455c9f1fa0a0cf3340c5fd780d5"><td class="memItemLeft" align="right" valign="top"><a id="a38442455c9f1fa0a0cf3340c5fd780d5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (const vector&lt; int &gt; &amp;cube) override</td></tr>
-<tr class="separator:a38442455c9f1fa0a0cf3340c5fd780d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abea07374be1c2411a2941de0b92a447e"><td class="memItemLeft" align="right" valign="top"><a id="abea07374be1c2411a2941de0b92a447e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>join</b> (<a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *strat, PSatResult res, const vector&lt; int &gt; &amp;model) override</td></tr>
-<tr class="separator:abea07374be1c2411a2941de0b92a447e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80cb2189629b8bdaec99600ed98dc70"><td class="memItemLeft" align="right" valign="top"><a id="ad80cb2189629b8bdaec99600ed98dc70"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (int64_t index, <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumptions, const vector&lt; int &gt; &amp;cube) override</td></tr>
+<tr class="separator:ad80cb2189629b8bdaec99600ed98dc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8090a232d0935e6c78c6124bc6c45edf"><td class="memItemLeft" align="right" valign="top"><a id="a8090a232d0935e6c78c6124bc6c45edf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>join</b> (int64_t index, <a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *strat, PSatResult res, const vector&lt; int &gt; &amp;model) override</td></tr>
+<tr class="separator:a8090a232d0935e6c78c6124bc6c45edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad72d8b4155f3084e764a43e1262786b3"><td class="memItemLeft" align="right" valign="top"><a id="ad72d8b4155f3084e764a43e1262786b3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setInterrupt</b> () override</td></tr>
 <tr class="separator:ad72d8b4155f3084e764a43e1262786b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,8 +137,14 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addSlave</b> 
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a6b51953d20c4df81415c733f0779cb7e"><td class="memItemLeft" align="right" valign="top"><a id="a6b51953d20c4df81415c733f0779cb7e"></a>
-std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>strategyEnding</b></td></tr>
+std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>strategyEnding</b> {false}</td></tr>
 <tr class="separator:a6b51953d20c4df81415c733f0779cb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa508d7bb407d9ca477b3e4780d3d4e97"><td class="memItemLeft" align="right" valign="top"><a id="aa508d7bb407d9ca477b3e4780d3d4e97"></a>
+int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>current_index</b> = 0</td></tr>
+<tr class="separator:aa508d7bb407d9ca477b3e4780d3d4e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd729d58ef936a2b10eceb7c77daed1"><td class="memItemLeft" align="right" valign="top"><a id="a7bd729d58ef936a2b10eceb7c77daed1"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>join_mutex</b></td></tr>
+<tr class="separator:a7bd729d58ef936a2b10eceb7c77daed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classpainless_1_1WorkingStrategy"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classpainless_1_1WorkingStrategy')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classpainless_1_1WorkingStrategy.html">painless::WorkingStrategy</a></td></tr>
 <tr class="memitem:ae47fd318165ed1f9ce7dec15b72fafc9 inherit pro_attribs_classpainless_1_1WorkingStrategy"><td class="memItemLeft" align="right" valign="top"><a id="ae47fd318165ed1f9ce7dec15b72fafc9"></a>
 <a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b> = nullptr</td></tr>

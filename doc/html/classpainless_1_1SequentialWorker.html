@@ -68,9 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classpainless_1_1SequentialWorker-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">painless::SequentialWorker Class Reference</div>  </div>
@@ -90,10 +88,9 @@ Collaboration diagram for painless::SequentialWorker:</div>
 <div class="dyncontent">
 <div class="center"><img src="classpainless_1_1SequentialWorker__coll__graph.png" border="0" usemap="#painless_1_1SequentialWorker_coll__map" alt="Collaboration graph"/></div>
 <map name="painless_1_1SequentialWorker_coll__map" id="painless_1_1SequentialWorker_coll__map">
-<area shape="rect" title=" " alt="" coords="191,184,389,211"/>
-<area shape="rect" href="classpainless_1_1WorkingStrategy.html" title=" " alt="" coords="5,95,199,121"/>
-<area shape="rect" href="structpainless_1_1WorkingResult.html" title=" " alt="" coords="13,5,191,32"/>
-<area shape="rect" href="classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="293,95,415,121"/>
+<area shape="rect" title=" " alt="" coords="5,171,204,197"/>
+<area shape="rect" href="classpainless_1_1WorkingStrategy.html" title=" " alt="" coords="8,95,201,121"/>
+<area shape="rect" href="structpainless_1_1WorkingResult.html" title=" " alt="" coords="15,5,194,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -102,21 +99,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a636bbabb07959c9a0ecf97aa53d88752"><td class="memItemLeft" align="right" valign="top"><a id="a636bbabb07959c9a0ecf97aa53d88752"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SequentialWorker</b> (<a class="el" href="structpainless_1_1WorkingResult.html">WorkingResult</a> *working_result, <a class="el" href="classSolverInterface.html">SolverInterface</a> *solver_)</td></tr>
 <tr class="separator:a636bbabb07959c9a0ecf97aa53d88752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe14d521555fca68fc667c1865243401"><td class="memItemLeft" align="right" valign="top"><a id="afe14d521555fca68fc667c1865243401"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (const vector&lt; int &gt; &amp;cube) override</td></tr>
-<tr class="separator:afe14d521555fca68fc667c1865243401"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c79a301e72c4ead310afe7d942b1711"><td class="memItemLeft" align="right" valign="top"><a id="a6c79a301e72c4ead310afe7d942b1711"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>join</b> (<a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *winner, PSatResult res, const vector&lt; int &gt; &amp;model) override</td></tr>
-<tr class="separator:a6c79a301e72c4ead310afe7d942b1711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce22b8df74a0463d851bb5046d695fd"><td class="memItemLeft" align="right" valign="top"><a id="adce22b8df74a0463d851bb5046d695fd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (int64_t index, <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumptions, const vector&lt; int &gt; &amp;cube) override</td></tr>
+<tr class="separator:adce22b8df74a0463d851bb5046d695fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4ef4935596d82395fcfe0f333bc3c1"><td class="memItemLeft" align="right" valign="top"><a id="a7e4ef4935596d82395fcfe0f333bc3c1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>join</b> (int64_t index, <a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *winner, PSatResult res, const vector&lt; int &gt; &amp;model) override</td></tr>
+<tr class="separator:a7e4ef4935596d82395fcfe0f333bc3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56e53e276bb1b6b2ab55716a62bdf327"><td class="memItemLeft" align="right" valign="top"><a id="a56e53e276bb1b6b2ab55716a62bdf327"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setInterrupt</b> () override</td></tr>
 <tr class="separator:a56e53e276bb1b6b2ab55716a62bdf327"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a116c44216e106d941f645767b163031a"><td class="memItemLeft" align="right" valign="top"><a id="a116c44216e106d941f645767b163031a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>unsetInterrupt</b> () override</td></tr>
-<tr class="separator:a116c44216e106d941f645767b163031a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55a21c2521507528d567d6d5fbb23657"><td class="memItemLeft" align="right" valign="top"><a id="a55a21c2521507528d567d6d5fbb23657"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>waitInterrupt</b> () override</td></tr>
 <tr class="separator:a55a21c2521507528d567d6d5fbb23657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a116c44216e106d941f645767b163031a"><td class="memItemLeft" align="right" valign="top"><a id="a116c44216e106d941f645767b163031a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>unsetInterrupt</b> () override</td></tr>
+<tr class="separator:a116c44216e106d941f645767b163031a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e4c063ae659e843140c10def4a53215"><td class="memItemLeft" align="right" valign="top"><a id="a5e4c063ae659e843140c10def4a53215"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getDivisionVariable</b> () override</td></tr>
 <tr class="separator:a5e4c063ae659e843140c10def4a53215"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,48 +137,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>bumpVariableActivity<
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addSlave</b> (<a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *slave)</td></tr>
 <tr class="separator:a11df7fc6777859d8f8e4cb5a52293bd5 inherit pub_methods_classpainless_1_1WorkingStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a89ad7241479be5891699bcc3387850f6"><td class="memItemLeft" align="right" valign="top"><a id="a89ad7241479be5891699bcc3387850f6"></a>
-<a class="el" href="classSolverInterface.html">SolverInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>solver</b></td></tr>
-<tr class="separator:a89ad7241479be5891699bcc3387850f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_attribs_classpainless_1_1WorkingStrategy"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classpainless_1_1WorkingStrategy')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classpainless_1_1WorkingStrategy.html">painless::WorkingStrategy</a></td></tr>
-<tr class="memitem:a52b0a0b202b7d3cbda2f070e571bc2c8 inherit pub_attribs_classpainless_1_1WorkingStrategy"><td class="memItemLeft" align="right" valign="top"><a id="a52b0a0b202b7d3cbda2f070e571bc2c8"></a>
-<a class="el" href="structpainless_1_1WorkingResult.html">WorkingResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>result</b> = nullptr</td></tr>
-<tr class="separator:a52b0a0b202b7d3cbda2f070e571bc2c8 inherit pub_attribs_classpainless_1_1WorkingStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a0417133cbbf108564bf31b7e4b63716a"><td class="memItemLeft" align="right" valign="top"><a id="a0417133cbbf108564bf31b7e4b63716a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>main_worker_thread</b> ()</td></tr>
 <tr class="separator:a0417133cbbf108564bf31b7e4b63716a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ae8fb896b7c0ae93d77bdae552eb56c19"><td class="memItemLeft" align="right" valign="top"><a id="ae8fb896b7c0ae93d77bdae552eb56c19"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>_stop</b> = false</td></tr>
-<tr class="separator:ae8fb896b7c0ae93d77bdae552eb56c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91ce94905ded56f4d8bee0958b5fde75"><td class="memItemLeft" align="right" valign="top"><a id="a91ce94905ded56f4d8bee0958b5fde75"></a>
-std::thread&#160;</td><td class="memItemRight" valign="bottom"><b>worker</b></td></tr>
-<tr class="separator:a91ce94905ded56f4d8bee0958b5fde75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04f43b923c907c8715242d01d8c0f4cc"><td class="memItemLeft" align="right" valign="top"><a id="a04f43b923c907c8715242d01d8c0f4cc"></a>
-std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>interrupt_lock</b></td></tr>
-<tr class="separator:a04f43b923c907c8715242d01d8c0f4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5292e350b678614522d9b7444af7fe7"><td class="memItemLeft" align="right" valign="top"><a id="ae5292e350b678614522d9b7444af7fe7"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actualCube</b></td></tr>
-<tr class="separator:ae5292e350b678614522d9b7444af7fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d778eb38f7b1f7bb9c7951795048257"><td class="memItemLeft" align="right" valign="top"><a id="a3d778eb38f7b1f7bb9c7951795048257"></a>
-std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>force</b></td></tr>
-<tr class="separator:a3d778eb38f7b1f7bb9c7951795048257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada559f5757c030f425927dda630f02f0"><td class="memItemLeft" align="right" valign="top"><a id="ada559f5757c030f425927dda630f02f0"></a>
-std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>waitJob</b></td></tr>
-<tr class="separator:ada559f5757c030f425927dda630f02f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae88f6f3f237606b0823138e00b5cd31e"><td class="memItemLeft" align="right" valign="top"><a id="ae88f6f3f237606b0823138e00b5cd31e"></a>
-std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>start_mutex</b></td></tr>
-<tr class="separator:ae88f6f3f237606b0823138e00b5cd31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecb2ca8b89724fbfdfb77f5e3ed75c2c"><td class="memItemLeft" align="right" valign="top"><a id="aecb2ca8b89724fbfdfb77f5e3ed75c2c"></a>
-std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><b>start_cv</b></td></tr>
-<tr class="separator:aecb2ca8b89724fbfdfb77f5e3ed75c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_attribs_classpainless_1_1WorkingStrategy"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classpainless_1_1WorkingStrategy')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classpainless_1_1WorkingStrategy.html">painless::WorkingStrategy</a></td></tr>
+<tr class="memitem:a52b0a0b202b7d3cbda2f070e571bc2c8 inherit pub_attribs_classpainless_1_1WorkingStrategy"><td class="memItemLeft" align="right" valign="top"><a id="a52b0a0b202b7d3cbda2f070e571bc2c8"></a>
+<a class="el" href="structpainless_1_1WorkingResult.html">WorkingResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>result</b> = nullptr</td></tr>
+<tr class="separator:a52b0a0b202b7d3cbda2f070e571bc2c8 inherit pub_attribs_classpainless_1_1WorkingStrategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classpainless_1_1WorkingStrategy"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classpainless_1_1WorkingStrategy')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classpainless_1_1WorkingStrategy.html">painless::WorkingStrategy</a></td></tr>
 <tr class="memitem:ae47fd318165ed1f9ce7dec15b72fafc9 inherit pro_attribs_classpainless_1_1WorkingStrategy"><td class="memItemLeft" align="right" valign="top"><a id="ae47fd318165ed1f9ce7dec15b72fafc9"></a>
 <a class="el" href="classpainless_1_1WorkingStrategy.html">WorkingStrategy</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b> = nullptr</td></tr>

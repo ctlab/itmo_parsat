@@ -13,8 +13,11 @@ uint32_t Instance::num_vars() const noexcept {
 }
 
 Instance::Instance(
-    core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)
-    : _prop(std::move(prop)), _shared(std::move(shared_data)), _preprocess(preprocess) {
+    core::sat::prop::RProp prop, RSharedData shared_data,
+    preprocess::RPreprocess preprocess)
+    : _prop(std::move(prop))
+    , _shared(std::move(shared_data))
+    , _preprocess(preprocess) {
   _vars.resize(_var_view().size());
   // Initialize instance by setting one random variable
   _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
@@ -55,13 +58,15 @@ Fitness const& Instance::fitness() {
 }
 
 Fitness const& Instance::fitness() const noexcept {
-  IPS_VERIFY(is_cached() && bool("Const-fitness called on non-cached Instance"));
+  IPS_VERIFY(
+      is_cached() && bool("Const-fitness called on non-cached Instance"));
   return _cached ? fit_ : fit_ = _shared->cache.get(_vars.get_mask()).value();
 }
 
 void Instance::_calc_fitness() {
   // We start from base samples count
-  _calc_fitness(_sampling_config().base_samples, _sampling_config().max_scale_steps);
+  _calc_fitness(
+      _sampling_config().base_samples, _sampling_config().max_scale_steps);
 }
 
 void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
@@ -74,32 +79,37 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   if (std::log2(samples) >= (double) size) {
     full_search = true;
     samples = 1ULL << size;
-    core::domain::UFullSearch search = core::domain::createFullSearch(_var_view(), mask);
-    // clang-format off
+    core::domain::UFullSearch search =
+        core::domain::createFullSearch(_var_view(), mask);
 
 #if 1
-    conflicts = _prop->prop_tree((*search)(), 0);
+    Mini::vec<Mini::Lit> assumption = _shared->base_assumption;
+    {
+      auto const& cur_assumption = (*search)();
+      assumption.capacity(assumption.size() + cur_assumption.size());
+      for (int i = 0; i < cur_assumption.size(); ++i) {
+        assumption.push(cur_assumption[i]);
+      }
+    }
+    conflicts = _prop->prop_tree(assumption, assumption.size() - (*search)().size());
 #else
     Mini::vec<Mini::Lit> vars = (*search)();
-    _prop->prop_assignments(std::move(search),
-      [&conflicts](bool conflict, auto&&) {
-        conflicts += conflict;
-        return true;
-    });
+    _prop->prop_assignments(
+        std::move(search), [&conflicts](bool conflict, auto&&) {
+          conflicts += conflict;
+          return true;
+        });
     uint64_t tree_conflicts = _prop->prop_tree(vars, 0);
     IPS_VERIFY(tree_conflicts == conflicts);
 #endif
-
-    // clang-format on
   } else {
-    core::domain::USearch search = core::domain::createRandomSearch(_var_view(), mask, samples);
-    // clang-format off
-    _prop->prop_assignments(std::move(search),
-      [&conflicts](bool conflict, auto const& asgn) {
-        conflicts += conflict;
-        return true;
-    });
-    // clang-format on
+    core::domain::USearch search =
+        core::domain::createRandomSearch(_var_view(), mask, samples);
+    _prop->prop_assignments({},
+        std::move(search), [&conflicts](bool conflict, auto const&) {
+          conflicts += conflict;
+          return true;
+        });
   }
 
   fit_.rho = (double) conflicts / (double) samples;
@@ -112,8 +122,8 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
     uint32_t scaled_samples = samples * _sampling_config().scale;
     IPS_INFO_T(
         FITNESS_SCALE, "Fitness reached 1 for sampling size "
-                           << samples << ", scaling sampling size to " << scaled_samples
-                           << " instance:\n"
+                           << samples << ", scaling sampling size to "
+                           << scaled_samples << " instance:\n"
                            << *this);
     _cached = false;
     _calc_fitness(scaled_samples, steps_left - 1);
@@ -127,8 +137,8 @@ bool Instance::is_cached() const noexcept {
 }
 
 bool Instance::is_sbs() const noexcept {
-  return fit_.size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH && fit_.rho == 1.0 &&
-         fit_.samples == (1ULL << fit_.size);
+  return fit_.size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH &&
+         fit_.rho == 1.0 && fit_.samples == (1ULL << fit_.size);
 }
 
 uint32_t Instance::size() const noexcept {
@@ -157,7 +167,8 @@ bool operator<(Instance& a, Instance& b) {
 
 }  // namespace ea::instance
 
-std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instance) {
+std::ostream& operator<<(
+    std::ostream& os, ea::instance::Instance const& instance) {
   auto vars = instance.get_vars().map_to_vars(instance._preprocess->var_view());
   std::sort(vars.begin(), vars.end());
 
@@ -169,8 +180,9 @@ std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instanc
     coverage = std::pow(2., std::log2(coverage) - num_vars);
   }
 
-  return os << "Confl. ratio: " << instance.fitness().rho << " Size: " << instance.fitness().size
-            << " and fitness: " << (double) instance.fitness() << " Vars: " << vars
-            << " samples: " << instance.fitness().samples << " coverage: " << 100. * coverage
-            << "%";
+  return os << "Confl. ratio: " << instance.fitness().rho
+            << " Size: " << instance.fitness().size
+            << " and fitness: " << (double) instance.fitness()
+            << " Vars: " << vars << " samples: " << instance.fitness().samples
+            << " coverage: " << 100. * coverage << "%";
 }

@@ -29,8 +29,8 @@ std::vector<uint32_t> choose(std::vector<double> const& distrib, uint32_t count)
 
 namespace ea::algorithm {
 
-GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config)
-    : Algorithm(config.base_algorithm_config())
+GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config, core::sat::prop::RProp prop)
+    : Algorithm(config.base_algorithm_config(), std::move(prop))
     , mutator_(method::MutationRegistry::resolve(config.mutation_config()))
     , cross_(method::CrossoverRegistry::resolve(config.crossover_config()))
     , selector_(method::SelectorRegistry::resolve(config.selector_config()))

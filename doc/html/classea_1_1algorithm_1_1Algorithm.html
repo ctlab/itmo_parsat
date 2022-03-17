@@ -93,11 +93,12 @@ Inheritance diagram for ea::algorithm::Algorithm:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a72e32a610b5357c8d7f690d11103deaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a72e32a610b5357c8d7f690d11103deaa">Algorithm</a> (BaseAlgorithmConfig const &amp;config)</td></tr>
-<tr class="separator:a72e32a610b5357c8d7f690d11103deaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d76bf5269d8656cae5273d036b22938"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a0d76bf5269d8656cae5273d036b22938">prepare</a> (preprocess::RPreprocess const &amp;preprocess)</td></tr>
-<tr class="memdesc:a0d76bf5269d8656cae5273d036b22938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs preparation step.  <a href="classea_1_1algorithm_1_1Algorithm.html#a0d76bf5269d8656cae5273d036b22938">More...</a><br /></td></tr>
-<tr class="separator:a0d76bf5269d8656cae5273d036b22938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add80ba72152713415919b5dd44aedd18"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#add80ba72152713415919b5dd44aedd18">Algorithm</a> (BaseAlgorithmConfig const &amp;config, core::sat::prop::RProp prop)</td></tr>
+<tr class="separator:add80ba72152713415919b5dd44aedd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691feb56bf4c0eddcae6cb4a7d5195f7"><td class="memItemLeft" align="right" valign="top"><a id="a691feb56bf4c0eddcae6cb4a7d5195f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a691feb56bf4c0eddcae6cb4a7d5195f7">prepare</a> (preprocess::RPreprocess const &amp;preprocess)</td></tr>
+<tr class="memdesc:a691feb56bf4c0eddcae6cb4a7d5195f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs preparation step. <br /></td></tr>
+<tr class="separator:a691feb56bf4c0eddcae6cb4a7d5195f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1eaa3689d623d4babb1811a0b3acc3d"><td class="memItemLeft" align="right" valign="top"><a id="af1eaa3689d623d4babb1811a0b3acc3d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#af1eaa3689d623d4babb1811a0b3acc3d">process</a> ()</td></tr>
 <tr class="memdesc:af1eaa3689d623d4babb1811a0b3acc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the algorithm. <br /></td></tr>
@@ -116,6 +117,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a7b26993257ee6883c26dc6e618cc7b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a8c40052d4b6a2500267a71035ee4c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a1a8c40052d4b6a2500267a71035ee4c5">has_unvisited_points</a> () const noexcept</td></tr>
 <tr class="separator:a1a8c40052d4b6a2500267a71035ee4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7fae6205d60292f1ef80879b717c2fd"><td class="memItemLeft" align="right" valign="top"><a id="af7fae6205d60292f1ef80879b717c2fd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_base_assumption</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumption) noexcept</td></tr>
+<tr class="separator:af7fae6205d60292f1ef80879b717c2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -153,28 +157,30 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The base class of (E|G)A search algorithms. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a72e32a610b5357c8d7f690d11103deaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72e32a610b5357c8d7f690d11103deaa">&#9670;&nbsp;</a></span>Algorithm()</h2>
+<a id="add80ba72152713415919b5dd44aedd18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add80ba72152713415919b5dd44aedd18">&#9670;&nbsp;</a></span>Algorithm()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">ea::algorithm::Algorithm::Algorithm </td>
           <td>(</td>
           <td class="paramtype">BaseAlgorithmConfig const &amp;&#160;</td>
-          <td class="paramname"><em>config</em></td><td>)</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">core::sat::prop::RProp&#160;</td>
+          <td class="paramname"><em>prop</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -313,27 +319,6 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the inaccurate number of visited points. </dd></dl>
-
-</div>
-</div>
-<a id="a0d76bf5269d8656cae5273d036b22938"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d76bf5269d8656cae5273d036b22938">&#9670;&nbsp;</a></span>prepare()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ea::algorithm::Algorithm::prepare </td>
-          <td>(</td>
-          <td class="paramtype">preprocess::RPreprocess const &amp;&#160;</td>
-          <td class="paramname"><em>preprocess</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Performs preparation step. </p>
-<dl class="section return"><dt>Returns</dt><dd>if proceed can be called </dd></dl>
 
 </div>
 </div>

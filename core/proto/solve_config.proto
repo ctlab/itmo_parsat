@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+/// Solvers configuration
+
 message PainlessSolverConfig {
   uint32 max_threads = 1;
   uint32 max_memory = 2;
@@ -10,16 +12,27 @@ message PainlessSolverConfig {
   uint32 slv_sleep_us = 7;
 }
 
-message ParSolverConfig {
-  uint32 max_threads = 1;
-  SolverConfig solver_config = 3;
-}
-
 message SolverConfig {
   string solver_type = 1;
   PainlessSolverConfig painless_solver_config = 5;
-  ParSolverConfig par_solver_config = 6;
 }
+
+message SequentialSolverServiceConfig {
+  uint32 num_solvers = 1;
+  SolverConfig solver_config = 2;
+}
+
+message SharingSolverServiceConfig {
+  uint32 num_solvers = 1;
+}
+
+message SolverServiceConfig {
+  string solver_service_type = 1;
+  SequentialSolverServiceConfig sequential_solver_service_config = 2;
+  SharingSolverServiceConfig sharing_solver_service_config = 3;
+}
+
+/// Propagators configuration
 
 message PropConfig {
   string prop_type = 1;
@@ -30,6 +43,8 @@ message ParPropConfig {
   uint32 max_threads = 1;
   PropConfig prop_config = 2;
 }
+
+/// Algorithms' resource limits configuration
 
 message ResourceLimitConfig {
   uint32 memory_limit_kb = 1;
@@ -61,6 +76,12 @@ message LimitConfig {
   ConjLimitConfig conj_limit_config = 4;
   PointsLimitConfig points_limit_config = 5;
   StallLimitConfig stall_limit_config = 6;
+}
+
+/// Methods configuration
+
+message PreprocessConfig {
+  uint32 heuristic_size = 2;
 }
 
 message UniformMutationConfig {
@@ -97,10 +118,11 @@ message InstanceConfig {
   SamplingSizeConfig sampling_config = 4;
 }
 
+/// Algorithm's configuration
+
 message BaseAlgorithmConfig {
-  PropConfig prop_config = 1;
-  LimitConfig limit_config = 2;
-  InstanceConfig instance_config = 3;
+  LimitConfig limit_config = 1;
+  InstanceConfig instance_config = 2;
 }
 
 message EAAlgorithmConfig {
@@ -124,35 +146,43 @@ message AlgorithmConfig {
   GAAlgorithmConfig ga_algorithm_config = 4;
 }
 
-message PreprocessConfig {
-  uint32 heuristic_size = 2;
-}
+/// Solve configuration
 
 message NaiveSolveConfig {
   SolverConfig solver_config = 1;
 }
 
 message RBSSolveConfig {
-  PreprocessConfig preprocess_config = 7;
-  AlgorithmConfig algorithm_config = 1;
-  SolverConfig solver_config = 2;
+  PreprocessConfig preprocess_config = 1;
+  AlgorithmConfig algorithm_config = 2;
+  PropConfig prop_config = 3;
+  SolverServiceConfig solver_service_config = 4;
 }
 
 message ParRBSSolveConfig {
-  PreprocessConfig preprocess_config = 7;
-  repeated AlgorithmConfig algorithm_configs = 1;
-  SolverConfig solver_config = 2;
-  uint32 num_algorithms = 4;
-  uint32 max_unpropagated = 5;
-  uint32 max_cartesian_size = 6;
+  PreprocessConfig preprocess_config = 1;
+  repeated AlgorithmConfig algorithm_configs = 2;
+  uint32 num_algorithms = 3;
+  uint32 max_unpropagated = 4;
+  uint32 max_cartesian_size = 5;
+  PropConfig prop_config = 6;
+  SolverServiceConfig solver_service_config = 7;
+}
+
+message RecurringRBSSolveConfig {
+  PreprocessConfig preprocess_config = 1;
+  AlgorithmConfig algorithm_config = 2;
+  uint32 max_solve_time_ms = 3;
+  PropConfig prop_config = 4;
+  SolverServiceConfig solver_service_config = 5;
 }
 
 message SolveConfig {
   string solve_type = 1;
   uint32 cpu_limit = 2;
   uint32 random_seed = 3;
-  uint32 max_threads = 7;
   NaiveSolveConfig naive_solve_config = 4;
   RBSSolveConfig rbs_solve_config = 5;
   ParRBSSolveConfig par_rbs_solve_config = 6;
+  RecurringRBSSolveConfig recurring_rbs_solve_config = 7;
 }

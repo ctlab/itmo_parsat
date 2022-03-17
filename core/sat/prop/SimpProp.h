@@ -25,12 +25,13 @@ class SimpProp : public Prop, public MinisatSimpBase {
 
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 
-  [[nodiscard]] bool propagate(
+ protected:
+  [[nodiscard]] bool _propagate(Mini::vec<Mini::Lit> const& assumptions) override;
+
+  [[nodiscard]] bool _propagate(
       Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) override;
 
-  [[nodiscard]] bool propagate(Mini::vec<Mini::Lit> const& assumptions) override;
-
-  uint64_t prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) override;
+  uint64_t _prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) override;
 };
 
 }  // namespace core::sat::prop

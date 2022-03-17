@@ -43,6 +43,8 @@ class LaunchFixture : public ::testing::Test {
   void launch(infra::domain::LaunchConfig launch_config);
 
  private:
+  void launch_one(infra::domain::LaunchConfig& launch_config);
+
   static std::string _generate_uniq_string();
 
   static void _prepare_resources();

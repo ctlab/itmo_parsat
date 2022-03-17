@@ -18,6 +18,7 @@
 // -----------------------------------------------------------------------------
 
 #include "../working/SequentialWorker.h"
+#include "util/stream.h"
 
 #include <unistd.h>
 
@@ -36,40 +37,40 @@ void SequentialWorker::main_worker_thread() {
     if (waitJob) {
       continue;
     }
+    auto local_assumptions = actualAssumptions;
+    auto local_cube = actualCube;
+    auto local_index = actual_index;
     ul_job.unlock();
 
     {
-      std::lock_guard<std::mutex> lg_int(interrupt_lock);
-      do {
-        res = solver->solve(actualCube);
-      } while (!force && res == PUNKNOWN);
+      std::lock_guard<std::mutex> lg_int(interrupt_mutex);
+      res = solver->solve(local_assumptions, local_cube);
     }
 
-    if (res == PSAT) {
-      model = solver->getModel();
+    if (current_index == local_index) {
+      if (res == PSAT) {
+        model = solver->getModel();
+      }
+      join(local_index, nullptr, res, model);
+      model.clear();
     }
 
-    join(nullptr, res, model);
-    model.clear();
     waitJob = true;
   }
 }
 
-SequentialWorker::SequentialWorker(WorkingResult* working_result, SolverInterface* solver_)
-    : WorkingStrategy(working_result) {
-  solver = solver_;
-  force = false;
-  waitJob = true;
-  worker = std::thread([this] { main_worker_thread(); });
-}
+SequentialWorker::SequentialWorker(
+    WorkingResult* working_result, SolverInterface* solver_)
+    : WorkingStrategy(working_result)
+    , solver(solver_)
+    , worker([this] { main_worker_thread(); }) {}
 
 SequentialWorker::~SequentialWorker() noexcept {
   stop();
 }
 
 void SequentialWorker::stop() {
-  force = true;
-  solver->setSolverInterrupt();
+  setInterrupt();
   {
     std::lock_guard<std::mutex> lg(start_mutex);
     _stop = true;
@@ -85,21 +86,27 @@ void SequentialWorker::awaitStop() {
   stop();
 }
 
-void SequentialWorker::solve(const vector<int>& cube) {
-  actualCube = cube;
-  unsetInterrupt();
+void SequentialWorker::solve(
+    int64_t index, Mini::vec<Mini::Lit> const& assumptions,
+    vector<int> const& cube) {
   {
     std::lock_guard<std::mutex> lg(start_mutex);
+    actual_index = current_index = index;
+    actualCube = cube;
+    actualAssumptions = assumptions;
     waitJob = false;
   }
   start_cv.notify_one();
 }
 
-void SequentialWorker::join(WorkingStrategy* winner, PSatResult res, const vector<int>& model) {
-  force = true;
+void SequentialWorker::join(
+    int64_t index, WorkingStrategy* winner, PSatResult res,
+    const vector<int>& model) {
+  setInterrupt();
 
-  if (result->globalEnding)
+  if (result->globalEnding || current_index != index) {
     return;
+  }
 
   if (parent == NULL) {
     result->globalEnding = true;
@@ -109,17 +116,17 @@ void SequentialWorker::join(WorkingStrategy* winner, PSatResult res, const vecto
       result->finalModel = model;
     }
   } else {
-    parent->join(this, res, model);
+    parent->join(index, this, res, model);
   }
-}
-
-void SequentialWorker::waitInterrupt() {
-  std::lock_guard<std::mutex> lg(interrupt_lock);
 }
 
 void SequentialWorker::setInterrupt() {
   force = true;
   solver->setSolverInterrupt();
+}
+
+void SequentialWorker::waitInterrupt() {
+  std::lock_guard<std::mutex> lg(interrupt_mutex);
 }
 
 void SequentialWorker::unsetInterrupt() {

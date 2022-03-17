@@ -137,7 +137,7 @@ int main(int argc, char** argv) {
   }
 
   vector<int> cube;
-  working->solve(cube);
+  working->solve(0, {}, cube);
 
   int timeout = Parameters::getIntParam("t", -1);
 

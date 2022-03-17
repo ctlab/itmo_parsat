@@ -5,7 +5,7 @@
 #include <mutex>
 #include <vector>
 
-#include "core/solve/Solve.h"
+#include "core/solve/RBSSolveBase.h"
 #include "core/evol/algorithm/Algorithm.h"
 #include "core/evol/method/preprocess/Preprocess.h"
 #include "util/SigHandler.h"
@@ -14,7 +14,7 @@
 #include "util/Random.h"
 #include "core/domain/assignment/CartesianSearch.h"
 
-namespace core {
+namespace core::solve {
 
 /**
  * @brief This class solves SAT in the following way:
@@ -25,14 +25,16 @@ namespace core {
  * - Builds cartesian product G = x { G_i };
  * - Runs solver's solve for all assignments from G.
  */
-class ParRBSSolve : public Solve {
+class ParRBSSolve : public RBSSolveBase {
  public:
   explicit ParRBSSolve(ParRBSSolveConfig config);
 
-  [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
-
  private:
-  std::vector<std::vector<std::vector<Mini::Lit>>> _pre_solve(sat::Problem const& problem);
+  [[nodiscard]] sat::State _solve_impl(
+      sat::Problem const& problem, ea::preprocess::RPreprocess const& preprocess) override;
+
+  std::vector<std::vector<std::vector<Mini::Lit>>> _pre_solve(
+      sat::Problem const& problem, ea::preprocess::RPreprocess const& preprocess);
 
   domain::USearch _prepare_cartesian(
       std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian_set);
@@ -44,6 +46,6 @@ class ParRBSSolve : public Solve {
   std::atomic_bool _sbs_found{false};
 };
 
-}  // namespace core
+}  // namespace core::solve
 
 #endif  // ITMO_PARSAT_PARRBSSOLVE_H

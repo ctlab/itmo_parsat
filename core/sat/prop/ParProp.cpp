@@ -15,34 +15,57 @@ ParProp::ParProp(ParPropConfig const& config)
 
 void ParProp::load_problem(Problem const& problem) {
   auto& workers = _prop_worker_pool.get_workers();
-  std::for_each(IPS_EXEC_POLICY, workers.begin(), workers.end(), [&problem](auto& prop) {
-    prop->load_problem(problem);
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, workers.begin(), workers.end(),
+      [&problem](auto& prop) { prop->load_problem(problem); });
 }
 
-bool ParProp::propagate(Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) {
-  return _prop_worker_pool.get_workers().front()->propagate(assumptions, propagated);
+bool ParProp::_propagate(
+    Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) {
+  return _prop_worker_pool.get_workers().front()->propagate(
+      assumptions, propagated);
 }
 
-void ParProp::prop_assignments(domain::USearch search, Prop::prop_callback_t const& callback) {
+void ParProp::_prop_assignments(
+    domain::USearch search, Prop::prop_callback_t const& callback) {
   uint32_t num_threads = _prop_worker_pool.max_threads();
   std::vector<std::future<void>> futures;
   futures.reserve(num_threads);
   for (uint32_t index = 0; index < num_threads; ++index) {
-    futures.push_back(
-        _prop_worker_pool.submit([this, index, num_threads, &search, &callback](RProp& prop) {
-          _propagate(*prop, search->split_search(num_threads, index), callback);
+    futures.push_back(_prop_worker_pool.submit(
+        [index, num_threads, &search, &callback](RProp& prop) {
+          sequential_propagate(
+              *prop, search->split_search(num_threads, index), callback);
         }));
   }
   PropWorkerPool::wait_for(futures);
 }
 
-uint64_t ParProp::prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) {
+void ParProp::_prop_assignments(
+    Mini::vec<Mini::Lit> const& base_assumption, domain::USearch search,
+    prop_callback_t const& callback) {
+  uint32_t num_threads = _prop_worker_pool.max_threads();
+  std::vector<std::future<void>> futures;
+  futures.reserve(num_threads);
+  for (uint32_t index = 0; index < num_threads; ++index) {
+    futures.push_back(_prop_worker_pool.submit(
+        [base_assumption, index, num_threads, &search, &callback](RProp& prop) {
+          sequential_propagate(
+              base_assumption, *prop, search->split_search(num_threads, index),
+              callback);
+        }));
+  }
+  PropWorkerPool::wait_for(futures);
+}
+
+uint64_t ParProp::_prop_tree(
+    Mini::vec<Mini::Lit> const& vars, uint32_t head_size) {
   if (vars.size() - head_size <= 8) {
     // Use single thread to process small requests.
     return _prop_worker_pool.get_workers().front()->prop_tree(vars, head_size);
   }
-  // We use the number of threads as the highest power of 2, lower than pool size.
+  // We use the number of threads as the highest power of 2, lower than pool
+  // size.
   uint32_t max_threads = 1;
   while (max_threads * 2 < _prop_worker_pool.max_threads()) {
     max_threads <<= 1;
@@ -59,34 +82,18 @@ uint64_t ParProp::prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size
   std::atomic_uint64_t result = 0;
   std::vector<std::future<void>> futures;
   for (uint32_t thread = 0; thread < threads; ++thread) {
-    futures.push_back(_prop_worker_pool.submit([asgn = vars, base_head = head_size,
-                                                head_size = new_head_size, head_asgn = thread,
-                                                &result](RProp& prop) mutable {
-      for (uint32_t i = 0; i < head_size; ++i) {
-        asgn[base_head + i] = Mini::mkLit(Mini::var(asgn[base_head + i]), head_asgn & (1ULL << i));
-      }
-      result += prop->prop_tree(asgn, base_head + head_size);
-    }));
+    futures.push_back(_prop_worker_pool.submit(
+        [asgn = vars, base_head = head_size, head_size = new_head_size,
+         head_asgn = thread, &result](RProp& prop) mutable {
+          for (uint32_t i = 0; i < head_size; ++i) {
+            asgn[base_head + i] = Mini::mkLit(
+                Mini::var(asgn[base_head + i]), head_asgn & (1ULL << i));
+          }
+          result += prop->prop_tree(asgn, base_head + head_size);
+        }));
   }
   PropWorkerPool::wait_for(futures);
   return result;
-}
-
-void ParProp::_propagate(
-    sat::prop::Prop& solver, domain::USearch search, prop_callback_t const& callback) {
-  START_ASGN_TRACK(search->size());
-  if (!search->empty()) {
-    auto& assignment = *search;
-    do {
-      ASGN_TRACK(assignment());
-      bool result = solver.propagate(assignment());
-      if (!callback(result, assignment())) {
-        BREAK_ASGN_TRACK;
-        break;
-      }
-    } while (++assignment);
-  }
-  END_ASGN_TRACK(false);
 }
 
 unsigned ParProp::num_vars() const noexcept {

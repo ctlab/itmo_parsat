@@ -57,6 +57,13 @@ class CliConfig {
    */
   static void read_config(std::istream& ifs, google::protobuf::Message& message);
 
+  /**
+   * @brief Reads protobuf configuration from a file.
+   * @param ifs input stream with the configuration.
+   * @param message the message to be filled.
+   */
+  static void read_config(std::filesystem::path const& path, google::protobuf::Message& message);
+
  private:
   boost::program_options::variables_map vm_;
   boost::program_options::options_description desc_;

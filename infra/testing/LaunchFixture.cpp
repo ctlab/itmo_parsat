@@ -55,6 +55,7 @@ void LaunchFixture::SetUpTestSuite() {
 }
 
 void LaunchFixture::SetUp() {
+  ASSERT_TRUE(!test_failed && !is_interrupted);
   _info = std::make_unique<infra::domain::LaunchInfo>(config);
   _exec_manager = std::make_unique<infra::execution::ExecutionManager>(config.max_threads);
 
@@ -92,16 +93,7 @@ std::string LaunchFixture::_generate_uniq_string() {
          std::to_string(std::uniform_int_distribution<int>(INT_MIN, INT_MAX)(gen));
 }
 
-void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
-  if (!_info->should_be_launched(launch_config)) {
-    IPS_INFO("Test skipped: " << launch_config.config << ' ' << launch_config.input);
-    return;
-  }
-
-  if (launch_config.expected_result == infra::domain::UNKNOWN) {
-    launch_config.expected_result = _info->get_sat_result(launch_config);
-  }
-
+void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
   /* Setup files */
   std::string salt = _generate_uniq_string();
   std::filesystem::path const& artifact_logs_path = _logs_root / (salt + ".txt");
@@ -113,22 +105,6 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
   std::filesystem::path log_config_path = config.resources_dir / "config" / launch_config.log_config;
   std::filesystem::path input_path = config.resources_dir / "cnf" / launch_config.input;
   std::filesystem::copy_file(config_path, artifact_config_path);
-
-  {  // get threads required
-    SolveConfig slv_cfg;
-    std::ifstream ifs(config_path);
-    util::CliConfig::read_config(ifs, slv_cfg);
-    launch_config.threads_required = slv_cfg.max_threads();
-  }
-
-  if (launch_config.threads_required > config.max_threads) {
-    IPS_WARNING(
-        "The test requires " << launch_config.threads_required << " threads, but only "
-                             << config.max_threads << " are available.");
-    launch_config.threads_required = config.max_threads;
-  } else {
-    IPS_INFO("OK, test requires " << launch_config.threads_required << " threads");
-  }
 
   infra::domain::LaunchObject launch;
   launch.test_group = test_group;
@@ -142,7 +118,7 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
                        int exit_code, bool interrupted, bool tle) mutable {
     infra::domain::SatResult sat_result = exit_code_to_sat_result(exit_code);
     infra::domain::LaunchResult launch_result
-      = _get_launch_result(interrupted, tle, sat_result, launch_config.expected_result);
+        = _get_launch_result(interrupted, tle, sat_result, launch_config.expected_result);
     LOG(INFO) << "\n\tFinished [" + launch_config.description + "]:"
               << "\n\t\tInput file: " << input_path
               << "\n\t\tConfiguration: " << config_path
@@ -160,12 +136,12 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
   };
 
   _exec_manager->execute(launch_config.threads_required, callback,
-    artifact_logs_path, artifact_logs_path, config.time_limit_s,
-    config.executable.string(),
-    "--verbose", "6",
-    "--input", input_path.string(),
-    "--log-config", log_config_path.string(),
-    "--solve-config", config_path.string()
+                         artifact_logs_path, artifact_logs_path, config.time_limit_s,
+                         config.executable.string(),
+                         "--verbose", "6",
+                         "--input", input_path.string(),
+                         "--log-config", log_config_path.string(),
+                         "--solve-config", config_path.string()
   );
   // clang-format on
 
@@ -173,6 +149,39 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
             << "\n\t\tInput file: " << input_path << "\n\t\tConfiguration: " << config_path
             << " -> " << artifact_config_path << "\n\t\tLogs at: " << artifact_logs_path
             << "\n\t\tExpected result: " << infra::domain::to_string(launch_config.expected_result);
+}
+
+void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
+  if (!_info->should_be_launched(launch_config)) {
+    IPS_INFO("Test skipped: " << launch_config.config << ' ' << launch_config.input);
+    return;
+  }
+
+  if (launch_config.expected_result == infra::domain::UNKNOWN) {
+    launch_config.expected_result = _info->get_sat_result(launch_config);
+  }
+
+  std::filesystem::path config_path = config.resources_dir / "config" / launch_config.config;
+
+  {  // get threads required
+    SolveConfig slv_cfg;
+    std::ifstream ifs(config_path);
+    util::CliConfig::read_config(ifs, slv_cfg);
+    launch_config.threads_required = slv_cfg.cpu_limit();
+  }
+
+  if (launch_config.threads_required > config.max_threads) {
+    IPS_WARNING(
+        "The test requires " << launch_config.threads_required << " threads, but only "
+                             << config.max_threads << " are available.");
+    launch_config.threads_required = config.max_threads;
+  } else {
+    IPS_INFO("OK, test requires " << launch_config.threads_required << " threads");
+  }
+
+  for (int i = 0; i < config.repeat; ++i) {
+    launch_one(launch_config);
+  }
 }
 
 infra::domain::LaunchResult LaunchFixture::_get_launch_result(

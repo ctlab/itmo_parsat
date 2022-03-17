@@ -1,6 +1,6 @@
 <map id="painless::MapleCOMSPSSolver" name="painless::MapleCOMSPSSolver">
 <area shape="rect" id="node1" title="Instance of a MapleCOMSPS solver." alt="" coords="1375,653,1595,679"/>
-<area shape="rect" id="node2" href="$classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="1060,602,1181,629"/>
+<area shape="rect" id="node2" href="$classSolverInterface.html" title=" " alt="" coords="1060,602,1181,629"/>
 <area shape="rect" id="node3" href="$classMapleCOMSPS_1_1SimpSolver.html" title=" " alt="" coords="1021,653,1220,679"/>
 <area shape="rect" id="node4" href="$classMapleCOMSPS_1_1Solver.html" title=" " alt="" coords="641,653,807,679"/>
 <area shape="rect" id="node5" href="$classMini_1_1vec.html" title=" " alt="" coords="234,556,425,597"/>
@@ -23,6 +23,6 @@
 <area shape="rect" id="node22" href="$classMini_1_1Queue.html" title=" " alt="" coords="643,71,805,98"/>
 <area shape="rect" id="node23" href="$classMapleCOMSPS_1_1OccLists.html" title=" " alt="" coords="613,123,835,193"/>
 <area shape="rect" id="node24" href="$classMini_1_1Heap.html" title=" " alt="" coords="611,217,837,259"/>
-<area shape="rect" id="node25" href="$classpainless_1_1ClauseBuffer.html" title="Clause buffer is a queue containning shared clauses." alt="" coords="1037,1107,1205,1134"/>
+<area shape="rect" id="node25" href="$classpainless_1_1ClauseBuffer.html" title=" " alt="" coords="1037,1107,1205,1134"/>
 <area shape="rect" id="node26" href="$structpainless_1_1ClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="640,1255,808,1296"/>
 </map>

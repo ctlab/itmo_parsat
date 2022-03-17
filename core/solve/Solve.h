@@ -5,15 +5,13 @@
 #include <memory>
 #include <atomic>
 
-#include <boost/timer/progress_display.hpp>
-
-#include "core/sat/solver/Solver.h"
+#include "core/sat/solver/sequential/Solver.h"
 #include "util/EventHandler.h"
 #include "util/SigHandler.h"
 #include "util/TimeTracer.h"
 #include "core/proto/solve_config.pb.h"
 
-namespace core {
+namespace core::solve {
 
 /**
  * @brief The core class that performs all actions related to solving SAT.
@@ -37,15 +35,11 @@ class Solve {
  protected:
   [[nodiscard]] static sat::solver::RSolver _resolve_solver(SolverConfig const& config);
 
-  [[nodiscard]] sat::State _final_solve(sat::solver::Solver& solver, domain::USearch assignment);
-
  protected:
   [[nodiscard]] bool _is_interrupted() const noexcept;
 
  protected:
   std::function<void()> _do_interrupt;
-
- private:
   std::atomic_bool _interrupted{false};
 };
 
@@ -53,6 +47,6 @@ using RSolve = std::shared_ptr<Solve>;
 
 DEFINE_REGISTRY(Solve, SolveConfig, solve);
 
-}  // namespace core
+}  // namespace core::solve
 
 #endif  // ITMO_PARSAT_SOLVE_H

@@ -85,7 +85,7 @@ Inheritance diagram for painless::Reducer:</div>
 <div class="center"><img src="classpainless_1_1Reducer__inherit__graph.png" border="0" usemap="#painless_1_1Reducer_inherit__map" alt="Inheritance graph"/></div>
 <map name="painless_1_1Reducer_inherit__map" id="painless_1_1Reducer_inherit__map">
 <area shape="rect" title="Instance of a MapleCOMSPS solver." alt="" coords="5,80,143,107"/>
-<area shape="rect" href="classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="13,5,135,32"/>
+<area shape="rect" href="classSolverInterface.html" title=" " alt="" coords="13,5,135,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -93,10 +93,11 @@ Collaboration diagram for painless::Reducer:</div>
 <div class="dyncontent">
 <div class="center"><img src="classpainless_1_1Reducer__coll__graph.png" border="0" usemap="#painless_1_1Reducer_coll__map" alt="Collaboration graph"/></div>
 <map name="painless_1_1Reducer_coll__map" id="painless_1_1Reducer_coll__map">
-<area shape="rect" title="Instance of a MapleCOMSPS solver." alt="" coords="41,213,179,240"/>
-<area shape="rect" href="classSolverInterface.html" title="Interface of a solver that provides standard features." alt="" coords="5,109,127,136"/>
-<area shape="rect" href="classpainless_1_1ClauseBuffer.html" title="Clause buffer is a queue containning shared clauses." alt="" coords="151,109,319,136"/>
-<area shape="rect" href="structpainless_1_1ClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="151,5,319,47"/>
+<area shape="rect" title="Instance of a MapleCOMSPS solver." alt="" coords="120,213,257,240"/>
+<area shape="rect" href="classSolverInterface.html" title=" " alt="" coords="5,109,127,136"/>
+<area shape="rect" href="classMini_1_1vec.html" title=" " alt="" coords="151,109,314,136"/>
+<area shape="rect" href="classpainless_1_1ClauseBuffer.html" title=" " alt="" coords="338,109,506,136"/>
+<area shape="rect" href="structpainless_1_1ClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="338,5,506,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -130,9 +131,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1Reducer.html#a4c84f2494573762f9dffb189287afd1e">unsetSolverInterrupt</a> ()</td></tr>
 <tr class="memdesc:a4c84f2494573762f9dffb189287afd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the SAT solving interrupt request. <br /></td></tr>
 <tr class="separator:a4c84f2494573762f9dffb189287afd1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf6589054f38a35542ea7eae5b6ea526"><td class="memItemLeft" align="right" valign="top"><a id="acf6589054f38a35542ea7eae5b6ea526"></a>
-PSatResult&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (const std::vector&lt; int &gt; &amp;cube)</td></tr>
-<tr class="separator:acf6589054f38a35542ea7eae5b6ea526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bce81e56c97db3cb6de9a6c5373faa1"><td class="memItemLeft" align="right" valign="top"><a id="a3bce81e56c97db3cb6de9a6c5373faa1"></a>
+PSatResult&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumptions, const std::vector&lt; int &gt; &amp;cube)</td></tr>
+<tr class="separator:a3bce81e56c97db3cb6de9a6c5373faa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82d000d9fed4480e11142cf4d454e423"><td class="memItemLeft" align="right" valign="top"><a id="a82d000d9fed4480e11142cf4d454e423"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1Reducer.html#a82d000d9fed4480e11142cf4d454e423">addClause</a> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> *clause)</td></tr>
 <tr class="memdesc:a82d000d9fed4480e11142cf4d454e423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a permanent clause to the formula. <br /></td></tr>
@@ -196,34 +197,24 @@ vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getSat
 <tr class="memdesc:a6fd1ae9fa26416ad60f8e1657c518cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a6fd1ae9fa26416ad60f8e1657c518cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classSolverInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classSolverInterface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classSolverInterface.html">SolverInterface</a></td></tr>
-<tr class="memitem:afed368542792a40efadbc5a627657d79 inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="afed368542792a40efadbc5a627657d79"></a>
-virtual PSatResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#afed368542792a40efadbc5a627657d79">solve</a> (const vector&lt; int &gt; &amp;cube)=0</td></tr>
-<tr class="memdesc:afed368542792a40efadbc5a627657d79 inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the formula with a given cube. <br /></td></tr>
-<tr class="separator:afed368542792a40efadbc5a627657d79 inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36dd5cd4af6c671778ffe0c063c2c4f6 inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="a36dd5cd4af6c671778ffe0c063c2c4f6"></a>
+virtual PSatResult&#160;</td><td class="memItemRight" valign="bottom"><b>solve</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumptions, const vector&lt; int &gt; &amp;cube)=0</td></tr>
+<tr class="separator:a36dd5cd4af6c671778ffe0c063c2c4f6 inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0239f76bc4f1f62232b63f76e0994f7f inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="a0239f76bc4f1f62232b63f76e0994f7f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#a0239f76bc4f1f62232b63f76e0994f7f">addClauses</a> (const vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
-<tr class="memdesc:a0239f76bc4f1f62232b63f76e0994f7f inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a list of permanent clauses to the formula. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addClauses</b> (const vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
 <tr class="separator:a0239f76bc4f1f62232b63f76e0994f7f inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdf86e4cc09fab8752cb5cb43cd3810b inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="abdf86e4cc09fab8752cb5cb43cd3810b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#abdf86e4cc09fab8752cb5cb43cd3810b">addInitialClauses</a> (const vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
-<tr class="memdesc:abdf86e4cc09fab8752cb5cb43cd3810b inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a list of initial clauses to the formula. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addInitialClauses</b> (const vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
 <tr class="separator:abdf86e4cc09fab8752cb5cb43cd3810b inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a328b1d2cf4e6e93e6d3b84f13c5c9f78 inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="a328b1d2cf4e6e93e6d3b84f13c5c9f78"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#a328b1d2cf4e6e93e6d3b84f13c5c9f78">addLearnedClauses</a> (const vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
-<tr class="memdesc:a328b1d2cf4e6e93e6d3b84f13c5c9f78 inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a list of learned clauses to the formula. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addLearnedClauses</b> (const vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
 <tr class="separator:a328b1d2cf4e6e93e6d3b84f13c5c9f78 inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a912a0443860aaa1bf79fbf696913cba8 inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="a912a0443860aaa1bf79fbf696913cba8"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#a912a0443860aaa1bf79fbf696913cba8">getLearnedClauses</a> (vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
-<tr class="memdesc:a912a0443860aaa1bf79fbf696913cba8 inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of learned clauses. <br /></td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>getLearnedClauses</b> (vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)=0</td></tr>
 <tr class="separator:a912a0443860aaa1bf79fbf696913cba8 inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaef3325041439492cf1dbd93cc1e95da inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="aaef3325041439492cf1dbd93cc1e95da"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#aaef3325041439492cf1dbd93cc1e95da">SolverInterface</a> (int id)</td></tr>
-<tr class="memdesc:aaef3325041439492cf1dbd93cc1e95da inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SolverInterface</b> (int id)</td></tr>
 <tr class="separator:aaef3325041439492cf1dbd93cc1e95da inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a706f5f5a069c155818c205281d86d7d9 inherit pub_methods_classSolverInterface"><td class="memItemLeft" align="right" valign="top"><a id="a706f5f5a069c155818c205281d86d7d9"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSolverInterface.html#a706f5f5a069c155818c205281d86d7d9">~SolverInterface</a> () noexcept=default</td></tr>
-<tr class="memdesc:a706f5f5a069c155818c205281d86d7d9 inherit pub_methods_classSolverInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a706f5f5a069c155818c205281d86d7d9 inherit pub_methods_classSolverInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -239,6 +230,9 @@ Protected Attributes</h2></td></tr>
 <a class="el" href="classpainless_1_1ClauseBuffer.html">ClauseBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1Reducer.html#ab28c5ef82ce626bb702a32d0e213da55">clausesToExport</a></td></tr>
 <tr class="memdesc:ab28c5ef82ce626bb702a32d0e213da55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer used to export clauses (units included). <br /></td></tr>
 <tr class="separator:ab28c5ef82ce626bb702a32d0e213da55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ce947410431afce212819327a85e48"><td class="memItemLeft" align="right" valign="top"><a id="a63ce947410431afce212819327a85e48"></a>
+<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>assumptions</b></td></tr>
+<tr class="separator:a63ce947410431afce212819327a85e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac966813d0484339f510b65e2312a880d"><td class="memItemLeft" align="right" valign="top"><a id="ac966813d0484339f510b65e2312a880d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>_stop</b> = false</td></tr>
 <tr class="separator:ac966813d0484339f510b65e2312a880d"><td class="memSeparator" colspan="2">&#160;</td></tr>

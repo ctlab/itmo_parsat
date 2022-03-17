@@ -76,17 +76,12 @@ $(function() {
 <div class="title">painless::ClauseBuffer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Clause buffer is a queue containning shared clauses.  
- <a href="classpainless_1_1ClauseBuffer.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="ClauseBuffer_8h_source.html">ClauseBuffer.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for painless::ClauseBuffer:</div>
 <div class="dyncontent">
 <div class="center"><img src="classpainless_1_1ClauseBuffer__coll__graph.png" border="0" usemap="#painless_1_1ClauseBuffer_coll__map" alt="Collaboration graph"/></div>
 <map name="painless_1_1ClauseBuffer_coll__map" id="painless_1_1ClauseBuffer_coll__map">
-<area shape="rect" title="Clause buffer is a queue containning shared clauses." alt="" coords="5,109,173,136"/>
+<area shape="rect" title=" " alt="" coords="5,109,173,136"/>
 <area shape="rect" href="structpainless_1_1ClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="5,5,173,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -100,33 +95,20 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aec7a8f1122aa93c0c47763b192a45fbf"><td class="memItemLeft" align="right" valign="top"><a id="aec7a8f1122aa93c0c47763b192a45fbf"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#aec7a8f1122aa93c0c47763b192a45fbf">ClauseBuffer</a> ()</td></tr>
-<tr class="memdesc:aec7a8f1122aa93c0c47763b192a45fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:aec7a8f1122aa93c0c47763b192a45fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab56e88b179a5c9f62cc9dbd0be2f59c"><td class="memItemLeft" align="right" valign="top"><a id="aab56e88b179a5c9f62cc9dbd0be2f59c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#aab56e88b179a5c9f62cc9dbd0be2f59c">~ClauseBuffer</a> ()</td></tr>
-<tr class="memdesc:aab56e88b179a5c9f62cc9dbd0be2f59c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aab56e88b179a5c9f62cc9dbd0be2f59c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a347ca4973de50d5a783b4453b9a9380f"><td class="memItemLeft" align="right" valign="top"><a id="a347ca4973de50d5a783b4453b9a9380f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#a347ca4973de50d5a783b4453b9a9380f">addClause</a> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> *clause)</td></tr>
-<tr class="memdesc:a347ca4973de50d5a783b4453b9a9380f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue a shared clause to the buffer. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addClause</b> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> *clause)</td></tr>
 <tr class="separator:a347ca4973de50d5a783b4453b9a9380f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10cd1c66836b7a1bd345822570bfa5bc"><td class="memItemLeft" align="right" valign="top"><a id="a10cd1c66836b7a1bd345822570bfa5bc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#a10cd1c66836b7a1bd345822570bfa5bc">addClauses</a> (const std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)</td></tr>
-<tr class="memdesc:a10cd1c66836b7a1bd345822570bfa5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue shared clauses to the buffer. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addClauses</b> (const std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)</td></tr>
 <tr class="separator:a10cd1c66836b7a1bd345822570bfa5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad25484d44498b42df8e3d9210e8b895c"><td class="memItemLeft" align="right" valign="top"><a id="ad25484d44498b42df8e3d9210e8b895c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#ad25484d44498b42df8e3d9210e8b895c">getClause</a> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> **clause)</td></tr>
-<tr class="memdesc:ad25484d44498b42df8e3d9210e8b895c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dequeue a shared clause. <br /></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getClause</b> (<a class="el" href="structClauseExchange.html">ClauseExchange</a> **clause)</td></tr>
 <tr class="separator:ad25484d44498b42df8e3d9210e8b895c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb3fbdcc0693f97cfd670cff0f6c364d"><td class="memItemLeft" align="right" valign="top"><a id="abb3fbdcc0693f97cfd670cff0f6c364d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#abb3fbdcc0693f97cfd670cff0f6c364d">getClauses</a> (std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)</td></tr>
-<tr class="memdesc:abb3fbdcc0693f97cfd670cff0f6c364d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dequeue shared clauses. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>getClauses</b> (std::vector&lt; <a class="el" href="structClauseExchange.html">ClauseExchange</a> * &gt; &amp;clauses)</td></tr>
 <tr class="separator:abb3fbdcc0693f97cfd670cff0f6c364d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d8486b61a151347dfb2ec4a475e1c09"><td class="memItemLeft" align="right" valign="top"><a id="a3d8486b61a151347dfb2ec4a475e1c09"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#a3d8486b61a151347dfb2ec4a475e1c09">size</a> ()</td></tr>
-<tr class="memdesc:a3d8486b61a151347dfb2ec4a475e1c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current size of the buffer. <br /></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> ()</td></tr>
 <tr class="separator:a3d8486b61a151347dfb2ec4a475e1c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
@@ -141,13 +123,10 @@ typedef struct <a class="el" href="structpainless_1_1ClauseBuffer_1_1ListRoot.ht
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a9c9be246cbd6995a0f5567600860c1f8"><td class="memItemLeft" align="right" valign="top"><a id="a9c9be246cbd6995a0f5567600860c1f8"></a>
-<a class="el" href="structpainless_1_1ClauseBuffer_1_1ListRoot.html">ListRoot</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpainless_1_1ClauseBuffer.html#a9c9be246cbd6995a0f5567600860c1f8">buffer</a></td></tr>
-<tr class="memdesc:a9c9be246cbd6995a0f5567600860c1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root of producer/customers lists. <br /></td></tr>
+<a class="el" href="structpainless_1_1ClauseBuffer_1_1ListRoot.html">ListRoot</a>&#160;</td><td class="memItemRight" valign="bottom"><b>buffer</b></td></tr>
 <tr class="separator:a9c9be246cbd6995a0f5567600860c1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Clause buffer is a queue containning shared clauses. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>core/sat/native/painless/painless-src/clauses/<a class="el" href="ClauseBuffer_8h_source.html">ClauseBuffer.h</a></li>
 <li>core/sat/native/painless/painless-src/clauses/ClauseBuffer.cpp</li>
 </ul>

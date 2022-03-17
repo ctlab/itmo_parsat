@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['slv_5fcallback_5ft_977',['slv_callback_t',['../classcore_1_1sat_1_1solver_1_1Solver.html#a476624487e5c3235b618d5017786af58',1,'core::sat::solver::Solver']]]
+  ['wi_5ft_917',['wi_t',['../misc_8h.html#ab3e1df9eeef59797b83f1a79851ead7e',1,'misc.h']]],
+  ['word_918',['word',['../misc_8h.html#a72cb83d6a60a376288211cb43b8eeb54',1,'misc.h']]]
 ];

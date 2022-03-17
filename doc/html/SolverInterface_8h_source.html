@@ -97,91 +97,81 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define ID_SYM 0</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define ID_XOR 1</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/mini/mtl/Vec.h&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/mini/utils/Lit.h&quot;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">using namespace </span>std;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">enum</span> PSatResult { PSAT = 10, PUNSAT = 20, PUNKNOWN = 0 };</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define ID_SYM 0</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define ID_XOR 1</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html">   37</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structSolvingStatistics.html">SolvingStatistics</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html#ab9923bb988427feb458a3052882b8068">   39</a></span>&#160;  <a class="code" href="structSolvingStatistics.html#ab9923bb988427feb458a3052882b8068">SolvingStatistics</a>() {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    propagations = 0;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    decisions = 0;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    conflicts = 0;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    restarts = 0;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    memPeak = 0;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html#ad9b8fa836d26f9b0a370885154d9e51c">   47</a></span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="structSolvingStatistics.html#ad9b8fa836d26f9b0a370885154d9e51c">propagations</a>;  </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html#abad94d6c6df8a2e65f7887490cfe0139">   48</a></span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="structSolvingStatistics.html#abad94d6c6df8a2e65f7887490cfe0139">decisions</a>;     </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html#a222cdaf9edcf313fd5135e8e94cd03cb">   49</a></span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="structSolvingStatistics.html#a222cdaf9edcf313fd5135e8e94cd03cb">conflicts</a>;     </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html#a2240957f50fc6af1cf862a5e6a00164a">   50</a></span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="structSolvingStatistics.html#a2240957f50fc6af1cf862a5e6a00164a">restarts</a>;      </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html#a18d10762c2f30d3f5f44445b68eb8750">   51</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="structSolvingStatistics.html#a18d10762c2f30d3f5f44445b68eb8750">memPeak</a>;              </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">enum</span> PSatResult { PSAT = 10, PUNSAT = 20, PUNKNOWN = 0 };</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structSolvingStatistics.html">   38</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structSolvingStatistics.html">SolvingStatistics</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> propagations = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> decisions = 0;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> conflicts = 0;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> restarts = 0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">double</span> memPeak = 0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classSolverInterface.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSolverInterface.html">SolverInterface</a> {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> loadFormula(<span class="keyword">const</span> <span class="keywordtype">char</span>* filename) = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> getVariablesCount() = 0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> getDivisionVariable() = 0;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classSolverInterface.html">   55</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSolverInterface.html">SolverInterface</a> {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> loadFormula(<span class="keyword">const</span> <span class="keywordtype">char</span>* filename) = 0;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> setPhase(<span class="keyword">const</span> <span class="keywordtype">int</span> var, <span class="keyword">const</span> <span class="keywordtype">bool</span> phase) = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> bumpVariableActivity(<span class="keyword">const</span> <span class="keywordtype">int</span> var, <span class="keyword">const</span> <span class="keywordtype">int</span> times) = 0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> setSolverInterrupt() = 0;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> getVariablesCount() = 0;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> getDivisionVariable() = 0;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> setPhase(<span class="keyword">const</span> <span class="keywordtype">int</span> var, <span class="keyword">const</span> <span class="keywordtype">bool</span> phase) = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> unsetSolverInterrupt() = 0;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">virtual</span> PSatResult solve(</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <a class="code" href="classMini_1_1vec.html">Mini::vec&lt;Mini::Lit&gt;</a> <span class="keyword">const</span>&amp; assumptions, <span class="keyword">const</span> vector&lt;int&gt;&amp; cube) = 0;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addClause(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* clause) = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addClauses(<span class="keyword">const</span> vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> bumpVariableActivity(<span class="keyword">const</span> <span class="keywordtype">int</span> var, <span class="keyword">const</span> <span class="keywordtype">int</span> times) = 0;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> setSolverInterrupt() = 0;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addInitialClauses(<span class="keyword">const</span> vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addLearnedClause(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* clauses) = 0;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addLearnedClauses(<span class="keyword">const</span> vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> unsetSolverInterrupt() = 0;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">virtual</span> PSatResult solve(<span class="keyword">const</span> vector&lt;int&gt;&amp; cube) = 0;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> getLearnedClauses(vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> increaseClauseProduction() = 0;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> decreaseClauseProduction() = 0;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addClause(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* clause) = 0;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addClauses(<span class="keyword">const</span> vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="structSolvingStatistics.html">SolvingStatistics</a> getStatistics() = 0;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">virtual</span> vector&lt;int&gt; getModel() = 0;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> diversify(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) = 0;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addInitialClauses(<span class="keyword">const</span> vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addLearnedClause(<a class="code" href="structClauseExchange.html">ClauseExchange</a>* clauses) = 0;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">virtual</span> vector&lt;int&gt; getFinalAnalysis() = 0;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keyword">virtual</span> vector&lt;int&gt; getSatAssumptions() = 0;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classSolverInterface.html">SolverInterface</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) : id(<span class="keywordtype">id</span>) {}</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> addLearnedClauses(<span class="keyword">const</span> vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> getLearnedClauses(vector&lt;ClauseExchange*&gt;&amp; clauses) = 0;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> increaseClauseProduction() = 0;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> decreaseClauseProduction() = 0;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="structSolvingStatistics.html">SolvingStatistics</a> getStatistics() = 0;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">virtual</span> vector&lt;int&gt; getModel() = 0;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> diversify(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) = 0;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keyword">virtual</span> vector&lt;int&gt; getFinalAnalysis() = 0;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keyword">virtual</span> vector&lt;int&gt; getSatAssumptions() = 0;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classSolverInterface.html#aaef3325041439492cf1dbd93cc1e95da">  120</a></span>&#160;  <a class="code" href="classSolverInterface.html#aaef3325041439492cf1dbd93cc1e95da">SolverInterface</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) : id(id) {}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classSolverInterface.html">SolverInterface</a>() noexcept = default;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; public:</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordtype">int</span> <span class="keywordtype">id</span>;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classSolverInterface.html">SolverInterface</a>() noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordtype">int</span> id;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassSolverInterface_html"><div class="ttname"><a href="classSolverInterface.html">SolverInterface</a></div><div class="ttdoc">Interface of a solver that provides standard features.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:55</div></div>
-<div class="ttc" id="astructSolvingStatistics_html_a18d10762c2f30d3f5f44445b68eb8750"><div class="ttname"><a href="structSolvingStatistics.html#a18d10762c2f30d3f5f44445b68eb8750">SolvingStatistics::memPeak</a></div><div class="ttdeci">double memPeak</div><div class="ttdoc">Maximum memory used in Ko.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:51</div></div>
-<div class="ttc" id="aclassSolverInterface_html_aaef3325041439492cf1dbd93cc1e95da"><div class="ttname"><a href="classSolverInterface.html#aaef3325041439492cf1dbd93cc1e95da">SolverInterface::SolverInterface</a></div><div class="ttdeci">SolverInterface(int id)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:120</div></div>
-<div class="ttc" id="astructSolvingStatistics_html_abad94d6c6df8a2e65f7887490cfe0139"><div class="ttname"><a href="structSolvingStatistics.html#abad94d6c6df8a2e65f7887490cfe0139">SolvingStatistics::decisions</a></div><div class="ttdeci">unsigned long decisions</div><div class="ttdoc">Number of decisions taken.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:48</div></div>
-<div class="ttc" id="astructSolvingStatistics_html"><div class="ttname"><a href="structSolvingStatistics.html">SolvingStatistics</a></div><div class="ttdoc">Structure for solver statistics.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:37</div></div>
-<div class="ttc" id="astructSolvingStatistics_html_a2240957f50fc6af1cf862a5e6a00164a"><div class="ttname"><a href="structSolvingStatistics.html#a2240957f50fc6af1cf862a5e6a00164a">SolvingStatistics::restarts</a></div><div class="ttdeci">unsigned long restarts</div><div class="ttdoc">Number of restarts.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:50</div></div>
-<div class="ttc" id="astructSolvingStatistics_html_a222cdaf9edcf313fd5135e8e94cd03cb"><div class="ttname"><a href="structSolvingStatistics.html#a222cdaf9edcf313fd5135e8e94cd03cb">SolvingStatistics::conflicts</a></div><div class="ttdeci">unsigned long conflicts</div><div class="ttdoc">Number of reached conflicts.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:49</div></div>
+<div class="ttc" id="aclassSolverInterface_html"><div class="ttname"><a href="classSolverInterface.html">SolverInterface</a></div><div class="ttdef"><b>Definition:</b> SolverInterface.h:46</div></div>
+<div class="ttc" id="aclassMini_1_1vec_html"><div class="ttname"><a href="classMini_1_1vec.html">Mini::vec&lt; Mini::Lit &gt;</a></div></div>
+<div class="ttc" id="astructSolvingStatistics_html"><div class="ttname"><a href="structSolvingStatistics.html">SolvingStatistics</a></div><div class="ttdef"><b>Definition:</b> SolverInterface.h:38</div></div>
 <div class="ttc" id="astructClauseExchange_html"><div class="ttname"><a href="structClauseExchange.html">ClauseExchange</a></div><div class="ttdoc">Structure of a shared clause.</div><div class="ttdef"><b>Definition:</b> ClauseExchange.h:28</div></div>
-<div class="ttc" id="astructSolvingStatistics_html_ab9923bb988427feb458a3052882b8068"><div class="ttname"><a href="structSolvingStatistics.html#ab9923bb988427feb458a3052882b8068">SolvingStatistics::SolvingStatistics</a></div><div class="ttdeci">SolvingStatistics()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:39</div></div>
-<div class="ttc" id="astructSolvingStatistics_html_ad9b8fa836d26f9b0a370885154d9e51c"><div class="ttname"><a href="structSolvingStatistics.html#ad9b8fa836d26f9b0a370885154d9e51c">SolvingStatistics::propagations</a></div><div class="ttdeci">unsigned long propagations</div><div class="ttdoc">Number of propagations.</div><div class="ttdef"><b>Definition:</b> SolverInterface.h:47</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

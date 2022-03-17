@@ -114,7 +114,7 @@ This is the actual implementation. Any matrix where either the number of rows or
 This implementation is heavily inspired by the function strassen\+\_\+window\+\_\+multiply\+\_\+c in Sage 3.\+0; For reference see \href{http://www.sagemath.org}{\texttt{ http\+://www.\+sagemath.\+org}} 
 \end{DoxyNote}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000012}{Todo}}]make sure not to overwrite crap after ncols and before width $\ast$ m4ri\+\_\+radix \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000013}{Todo}}]make sure not to overwrite crap after ncols and before width $\ast$ m4ri\+\_\+radix \end{DoxyRefDesc}
 
 
 \begin{DoxyNote}{Note}
@@ -152,7 +152,7 @@ See Marco Bodrato; \char`\"{}\+A Strassen-\/like Matrix Multiplication
 \+Suited for Squaring and Highest Power Computation\char`\"{}; \href{http://bodrato.it/papres/\#CIVV2008}{\texttt{ http\+://bodrato.\+it/papres/\#\+C\+I\+V\+V2008}} for reference on the used sequence of operations.
 \end{DoxyNote}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]ideally we would use the same Wmk throughout the function but some called function doesn\textquotesingle{}t like that and we end up with a wrong result if we use virtual Wmk matrices. Ideally, this should be fixed not worked around. The check whether the bug has been fixed, use only one Wmk and check if mzd\+\_\+mul(4096, 3528, 4096, 2124) still returns the correct answer. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000012}{Todo}}]ideally we would use the same Wmk throughout the function but some called function doesn\textquotesingle{}t like that and we end up with a wrong result if we use virtual Wmk matrices. Ideally, this should be fixed not worked around. The check whether the bug has been fixed, use only one Wmk and check if mzd\+\_\+mul(4096, 3528, 4096, 2124) still returns the correct answer. \end{DoxyRefDesc}
 \mbox{\Hypertarget{strassen_8h_a2dd6c4982d73d9d27c01d3b0f9249304}\label{strassen_8h_a2dd6c4982d73d9d27c01d3b0f9249304}} 
 \index{strassen.h@{strassen.h}!mzd\_addmul@{mzd\_addmul}}
 \index{mzd\_addmul@{mzd\_addmul}!strassen.h@{strassen.h}}

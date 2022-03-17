@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structea_1_1instance_1_1Fitness.html" title="This structure represents Instances&#39; fitnesses. Mathematically, it is calculated as rho * 2^{size} + ..." alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node1" href="$classea_1_1algorithm_1_1Algorithm.html" title="The base class of (E|G)A search algorithms." alt="" coords="5,31,187,57"/>
+<area shape="rect" id="node2" href="$classea_1_1algorithm_1_1EAAlgorithm.html" title="Evolutionary (1+1) algorithm." alt="" coords="235,5,434,32"/>
+<area shape="rect" id="node3" href="$classea_1_1algorithm_1_1GAAlgorithm.html" title="Genetic algorithm." alt="" coords="235,56,435,83"/>
 </map>
