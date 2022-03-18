@@ -13,7 +13,8 @@ void TwoPointCrossover::apply(instance::Instance& a, instance::Instance& b) {
   }
   auto& a_mask = a.get_vars().get_mask();
   auto& b_mask = b.get_vars().get_mask();
-  std::swap_ranges(a_mask.begin() + pos_1, a_mask.begin() + pos_2, b_mask.begin() + pos_1);
+  std::swap_ranges(
+      a_mask.begin() + pos_1, a_mask.begin() + pos_2, b_mask.begin() + pos_1);
 }
 
 REGISTER_SIMPLE(Crossover, TwoPointCrossover);

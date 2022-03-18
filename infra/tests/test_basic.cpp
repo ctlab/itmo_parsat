@@ -31,7 +31,8 @@ TEST_F(LaunchFixture, simppar_rbs_test) {
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simppar_rbs.json")
-      .set_description("RBSSearch solver tests (RBS, ParSolver(SimpSolver) solve)");
+      .set_description(
+          "RBSSearch solver tests (RBS, ParSolver(SimpSolver) solve)");
   for (const auto& path : LaunchFixture::cnfs) {
     launch(config.set_input_path(path));
   }
@@ -55,7 +56,8 @@ TEST_F(LaunchFixture, simppar_parrbs_test) {
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simppar_parrbs.json")
-      .set_description("ParRBSSearch solver tests (ParRBS, ParSolver(SimpSolver) solve)");
+      .set_description(
+          "ParRBSSearch solver tests (ParRBS, ParSolver(SimpSolver) solve)");
   for (const auto& path : LaunchFixture::cnfs) {
     launch(config.set_input_path(path));
   }
@@ -79,7 +81,8 @@ TEST_F(LaunchFixture, simppar_recurring_test) {
   config.set_expected_result(infra::domain::UNKNOWN)
       .set_log_config_path("log.json")
       .set_config_path("simppar_recurring.json")
-      .set_description("RecurringRBSSearch solver tests (ParSolver(SimpSolver) solve)");
+      .set_description(
+          "RecurringRBSSearch solver tests (ParSolver(SimpSolver) solve)");
   for (const auto& path : LaunchFixture::cnfs) {
     launch(config.set_input_path(path));
   }

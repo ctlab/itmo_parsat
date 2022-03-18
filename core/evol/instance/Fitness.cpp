@@ -9,7 +9,8 @@ bool Fitness::can_calc() const {
 }
 
 Fitness::operator double() const {
-  return std::log2(rho * std::pow(2., size) + (1. - rho) * std::pow(2., pow_nr));
+  return std::log2(
+      rho * std::pow(2., size) + (1. - rho) * std::pow(2., pow_nr));
 }
 
 bool operator<(Fitness const& a, Fitness const& b) {

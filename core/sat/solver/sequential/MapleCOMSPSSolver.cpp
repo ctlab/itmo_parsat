@@ -10,7 +10,8 @@ State MapleCOMSPSSolver::solve(vec_lit_t const& assumptions) {
   clearInterrupt();
 
   MapleCOMSPS::lbool result = IPS_TRACE_N_V(
-      "MapleCOMSPS::solve", static_cast<MapleCOMSPS::SimpSolver*>(this)->solveLimited(assumptions));
+      "MapleCOMSPS::solve",
+      static_cast<MapleCOMSPS::SimpSolver*>(this)->solveLimited(assumptions));
   if (result == MapleCOMSPS::l_True) {
     return SAT;
   } else if (result == MapleCOMSPS::l_False) {

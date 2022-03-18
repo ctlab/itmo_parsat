@@ -24,7 +24,8 @@ bool StallLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   auto size = fitness.size;
 
   if (rho_value == _last_rho && size == _last_size) {
-    if (++_steps_already == _steps_before_stall || _duration() > _time_before_stall) {
+    if (++_steps_already == _steps_before_stall ||
+        _duration() > _time_before_stall) {
       IPS_INFO("StallLimit: enough similar instances.");
       return false;
     } else {

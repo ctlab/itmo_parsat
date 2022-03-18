@@ -22,7 +22,8 @@ void EventCallbackHandle::detach() {
 
 }  // namespace _details
 
-EventHandler::EventHandler() : _event_thread([this] { _event_handling_thread(); }) {}
+EventHandler::EventHandler()
+    : _event_thread([this] { _event_handling_thread(); }) {}
 
 EventHandler::~EventHandler() {
   _shutdown = true;
@@ -38,7 +39,8 @@ void EventHandler::raise(Event event) {
   _event_cv.notify_one();
 }
 
-EventCallbackHandle EventHandler::attach(event_callback_t event_callback, Event event) {
+EventCallbackHandle EventHandler::attach(
+    event_callback_t event_callback, Event event) {
   auto& event_entry = _cb_map[event];
   auto handle_ptr = std::make_shared<_details::EventCallbackHandle>(
       &event_entry.first, std::move(event_callback));
@@ -53,7 +55,9 @@ EventCallbackHandle EventHandler::attach(event_callback_t event_callback, Event 
 void EventHandler::_event_handling_thread() {
   for (;;) {
     std::unique_lock<std::mutex> ul(_event_queue_mutex);
-    _event_cv.wait(ul, [this] { return !_event_queue.empty() || static_cast<bool>(_shutdown); });
+    _event_cv.wait(ul, [this] {
+      return !_event_queue.empty() || static_cast<bool>(_shutdown);
+    });
     if (_shutdown) {
       break;
     }

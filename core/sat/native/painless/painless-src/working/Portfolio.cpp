@@ -60,7 +60,7 @@ void Portfolio::join(
 
   strategyEnding = true;
   setInterrupt();
-//  waitInterrupt();
+  //  waitInterrupt();
 
   if (parent == NULL) {  // If it is the top strategy
     result->globalEnding = true;

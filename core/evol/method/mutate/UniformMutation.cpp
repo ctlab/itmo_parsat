@@ -4,7 +4,8 @@
 
 namespace ea::method {
 
-UniformMutation::UniformMutation(UniformMutationConfig const& config) : scale_(config.scale()) {}
+UniformMutation::UniformMutation(UniformMutationConfig const& config)
+    : scale_(config.scale()) {}
 
 void UniformMutation::apply(instance::Instance& instance) {
   uint32_t num_vars = instance.num_vars();

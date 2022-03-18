@@ -9,7 +9,8 @@ void SimpSolver::load_problem(Problem const& problem) {
 State SimpSolver::solve(vec_lit_t const& assumptions) {
   clearInterrupt();
   Minisat::lbool result = IPS_TRACE_N_V(
-      "SimpSolver::solve", static_cast<Minisat::SimpSolver*>(this)->solveLimited(assumptions));
+      "SimpSolver::solve",
+      static_cast<Minisat::SimpSolver*>(this)->solveLimited(assumptions));
   if (result == Minisat::l_True) {
     return SAT;
   } else if (result == Minisat::l_False) {

@@ -2,12 +2,14 @@
 
 namespace infra::domain {
 
-LaunchConfig& LaunchConfig::set_input_path(std::filesystem::path const& new_input) noexcept {
+LaunchConfig& LaunchConfig::set_input_path(
+    std::filesystem::path const& new_input) noexcept {
   input = new_input;
   return *this;
 }
 
-LaunchConfig& LaunchConfig::set_config_path(std::filesystem::path const& new_config) noexcept {
+LaunchConfig& LaunchConfig::set_config_path(
+    std::filesystem::path const& new_config) noexcept {
   config = new_config;
   return *this;
 }
@@ -18,7 +20,8 @@ LaunchConfig& LaunchConfig::set_log_config_path(
   return *this;
 }
 
-LaunchConfig& LaunchConfig::set_expected_result(infra::domain::SatResult result) noexcept {
+LaunchConfig& LaunchConfig::set_expected_result(
+    infra::domain::SatResult result) noexcept {
   expected_result = result;
   return *this;
 }

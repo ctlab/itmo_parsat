@@ -14,7 +14,8 @@ void set_random(Mini::vec<Mini::Lit>& vec) {
 
 namespace core::domain {
 
-RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+RandomSearch::RandomSearch(
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
     : AssignmentModifier(var_view, vars), Search(total) {
   set_random(_assignment);
 }
@@ -40,7 +41,8 @@ Mini::vec<Mini::Lit> const& RandomSearch::operator()() const {
   return get();
 }
 
-USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
+USearch createRandomSearch(
+    VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
   uint32_t num_set = std::count(vars.begin(), vars.end(), true);
   if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
     return USearch(new UniqueSearch(var_view, vars, total));

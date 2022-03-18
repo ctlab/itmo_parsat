@@ -17,7 +17,9 @@ std::vector<Mini::Lit> to_std_assump(Mini::vec<Mini::Lit> const& assumption) {
 namespace core::solve {
 
 ParRBSSolve::ParRBSSolve(ParRBSSolveConfig config)
-    : RBSSolveBase(config.preprocess_config(), config.prop_config(), config.solver_service_config())
+    : RBSSolveBase(
+          config.preprocess_config(), config.prop_config(),
+          config.solver_service_config())
     , _cfg(std::move(config)) {}
 
 void ParRBSSolve::_raise_for_sbs(uint32_t algorithm_id) noexcept {
@@ -29,17 +31,21 @@ void ParRBSSolve::_raise_for_sbs(uint32_t algorithm_id) noexcept {
 }
 
 std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
-    sat::Problem const& problem, ea::preprocess::RPreprocess const& preprocess) {
-  std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(_cfg.num_algorithms());
-  IPS_VERIFY(_cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
+    sat::Problem const& problem,
+    ea::preprocess::RPreprocess const& preprocess) {
+  std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(
+      _cfg.num_algorithms());
+  IPS_VERIFY(
+      _cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
   std::stringstream algorithms_info;
   std::vector<ea::algorithm::RAlgorithm> algorithms;
   std::vector<std::thread> rbs_search_threads;
   std::mutex mutex;
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
-    algorithms.push_back(ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
-        _cfg.algorithm_configs(i % _cfg.algorithm_configs_size()), _prop)));
+    algorithms.push_back(
+        ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
+            _cfg.algorithm_configs(i % _cfg.algorithm_configs_size()), _prop)));
   }
 
   _do_interrupt = [&] {
@@ -61,59 +67,62 @@ std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
 
   for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
     uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
-    rbs_search_threads.emplace_back(
-        [&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
-          util::random::Generator generator(seed);
-          auto& algorithm = algorithms[i];
-          algorithm->prepare(preprocess);
-          //          auto& alg_prop = algorithm->get_prop();
-          //          IPS_TRACE(alg_prop.load_problem(problem));
-          IPS_TRACE(algorithm->process());
+    rbs_search_threads.emplace_back([&, i, seed,
+                                     config = _cfg.algorithm_configs(
+                                         i % _cfg.algorithm_configs_size())] {
+      util::random::Generator generator(seed);
+      auto& algorithm = algorithms[i];
+      algorithm->prepare(preprocess);
+      //          auto& alg_prop = algorithm->get_prop();
+      //          IPS_TRACE(alg_prop.load_problem(problem));
+      IPS_TRACE(algorithm->process());
 
-          auto const& rho_backdoor = algorithm->get_best();
-          if (_is_interrupted() || _sbs_found) {
-            return;
-          }
-          if (rho_backdoor.is_sbs()) {
-            _raise_for_sbs(i);
-            return;
-          }
+      auto const& rho_backdoor = algorithm->get_best();
+      if (_is_interrupted() || _sbs_found) {
+        return;
+      }
+      if (rho_backdoor.is_sbs()) {
+        _raise_for_sbs(i);
+        return;
+      }
 
-          std::atomic_uint32_t conflicts{0}, total{0};
-          std::mutex nca_mutex;
-          algorithm->get_prop().prop_assignments(
-              domain::createFullSearch(preprocess->var_view(), rho_backdoor.get_vars().get_mask()),
-              [&](bool conflict, auto const& assumption) {
-                ++total;
-                if (!conflict) {
-                  std::lock_guard<std::mutex> lg(nca_mutex);
-                  non_conflict_assignments[i].push_back(to_std_assump(assumption));
-                } else {
-                  ++conflicts;
-                }
-                return !_sbs_found && !_is_interrupted();
-              });
-
-          if (non_conflict_assignments[i].empty()) {
-            _raise_for_sbs(i);
-          }
-
-          {
-            std::lock_guard<std::mutex> lg(mutex);
-            algorithms_info << "\n[Thread " << i << "]\n";
-            algorithms_info << "\tNumber of points visited: " << algorithm->inaccurate_points()
-                            << '\n';
-            algorithms_info << "\tThe best backdoor is: " << rho_backdoor << '\n';
-            algorithms_info << "\tConflicts: " << conflicts << ", total: " << total << '\n';
-            algorithms_info << "\tActual rho value: " << (double) conflicts / (double) total
-                            << '\n';
-            if (_sbs_found) {
-              algorithms_info << "\tMay be stopped because SBS has been found.\n";
+      std::atomic_uint32_t conflicts{0}, total{0};
+      std::mutex nca_mutex;
+      algorithm->get_prop().prop_assignments(
+          domain::createFullSearch(
+              preprocess->var_view(), rho_backdoor.get_vars().get_mask()),
+          [&](bool conflict, auto const& assumption) {
+            ++total;
+            if (!conflict) {
+              std::lock_guard<std::mutex> lg(nca_mutex);
+              non_conflict_assignments[i].push_back(to_std_assump(assumption));
+            } else {
+              ++conflicts;
             }
+            return !_sbs_found && !_is_interrupted();
+          });
 
-            algorithms[i].reset();
-          }
-        });
+      if (non_conflict_assignments[i].empty()) {
+        _raise_for_sbs(i);
+      }
+
+      {
+        std::lock_guard<std::mutex> lg(mutex);
+        algorithms_info << "\n[Thread " << i << "]\n";
+        algorithms_info << "\tNumber of points visited: "
+                        << algorithm->inaccurate_points() << '\n';
+        algorithms_info << "\tThe best backdoor is: " << rho_backdoor << '\n';
+        algorithms_info << "\tConflicts: " << conflicts << ", total: " << total
+                        << '\n';
+        algorithms_info << "\tActual rho value: "
+                        << (double) conflicts / (double) total << '\n';
+        if (_sbs_found) {
+          algorithms_info << "\tMay be stopped because SBS has been found.\n";
+        }
+
+        algorithms[i].reset();
+      }
+    });
   }
 
   for (auto& thread : rbs_search_threads) {
@@ -161,7 +170,8 @@ domain::USearch ParRBSSolve::_prepare_cartesian(
 }
 
 sat::State ParRBSSolve::_solve_impl(
-    sat::Problem const& problem, ea::preprocess::RPreprocess const& preprocess) {
+    sat::Problem const& problem,
+    ea::preprocess::RPreprocess const& preprocess) {
   auto cartesian_set = IPS_TRACE_V(_pre_solve(problem, preprocess));
   if (_sbs_found) {
     IPS_INFO("SBS has been found during propagation, thus result is UNSAT");
@@ -170,7 +180,8 @@ sat::State ParRBSSolve::_solve_impl(
   if (_is_interrupted()) {
     return sat::UNKNOWN;
   }
-  return _solve_final(_filter_conflict(_prepare_cartesian(std::move(cartesian_set))));
+  return _solve_final(
+      _filter_conflict(_prepare_cartesian(std::move(cartesian_set))));
 }
 
 REGISTER_PROTO(Solve, ParRBSSolve, par_rbs_solve_config);

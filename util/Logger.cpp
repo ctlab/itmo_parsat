@@ -18,10 +18,12 @@ void Logger::_set_logger_config(LoggingConfig const& config) noexcept {
 }
 
 bool Logger::_should_log(LogType log_type) noexcept {
-  /* This will not work absolutely correctly in terms of parallel algorithms, but it's ok */
+  /* This will not work absolutely correctly in terms of parallel algorithms,
+   * but it's ok */
   auto& entry = entries_[log_type];
   bool should;
-  if (fLI::FLAGS_v >= (int32_t) entry.config.verbose_level() && entry.cur_counter == 0) {
+  if (fLI::FLAGS_v >= (int32_t) entry.config.verbose_level() &&
+      entry.cur_counter == 0) {
     should = true;
   } else {
     should = false;

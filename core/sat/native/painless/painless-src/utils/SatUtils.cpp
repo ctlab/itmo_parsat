@@ -54,7 +54,8 @@ void printModel(vector<int>& model) {
   printf("\n");
 }
 
-bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename) {
+bool loadFormulaToSolvers(
+    vector<SolverInterface*> solvers, const char* filename) {
   FILE* f = fopen(filename, "r");
 
   if (f == NULL)

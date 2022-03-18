@@ -2,20 +2,22 @@
 Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
 Copyright (c) 2007-2010, Niklas Sorensson
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
-NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
-OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************/
 
 // It seems that we trigger a compiler bug in MinGW in the code below, so
@@ -41,34 +43,44 @@ namespace Minisat {
 static const char* _cat = "CORE";
 
 static DoubleOption opt_var_decay(
-    _cat, "var-decay", "The variable activity decay factor", 0.95, DoubleRange(0, false, 1, false));
+    _cat, "var-decay", "The variable activity decay factor", 0.95,
+    DoubleRange(0, false, 1, false));
 static DoubleOption opt_clause_decay(
-    _cat, "cla-decay", "The clause activity decay factor", 0.999, DoubleRange(0, false, 1, false));
+    _cat, "cla-decay", "The clause activity decay factor", 0.999,
+    DoubleRange(0, false, 1, false));
 static DoubleOption opt_random_var_freq(
     _cat, "rnd-freq",
-    "The frequency with which the decision heuristic tries to choose a random variable", 0,
-    DoubleRange(0, true, 1, true));
+    "The frequency with which the decision heuristic tries to choose a random "
+    "variable",
+    0, DoubleRange(0, true, 1, true));
 static DoubleOption opt_random_seed(
     _cat, "rnd-seed", "Used by the random variable selection", 91648253,
     DoubleRange(0, false, HUGE_VAL, false));
 static IntOption opt_ccmin_mode(
-    _cat, "ccmin-mode", "Controls conflict clause minimization (0=none, 1=basic, 2=deep)", 2,
+    _cat, "ccmin-mode",
+    "Controls conflict clause minimization (0=none, 1=basic, 2=deep)", 2,
     IntRange(0, 2));
 static IntOption opt_phase_saving(
-    _cat, "phase-saving", "Controls the level of phase saving (0=none, 1=limited, 2=full)", 2,
+    _cat, "phase-saving",
+    "Controls the level of phase saving (0=none, 1=limited, 2=full)", 2,
     IntRange(0, 2));
-static BoolOption opt_rnd_init_act(_cat, "rnd-init", "Randomize the initial activity", false);
-static BoolOption opt_luby_restart(_cat, "luby", "Use the Luby restart sequence", true);
+static BoolOption opt_rnd_init_act(
+    _cat, "rnd-init", "Randomize the initial activity", false);
+static BoolOption opt_luby_restart(
+    _cat, "luby", "Use the Luby restart sequence", true);
 static IntOption opt_restart_first(
     _cat, "rfirst", "The base restart interval", 100, IntRange(1, INT32_MAX));
 static DoubleOption opt_restart_inc(
-    _cat, "rinc", "Restart interval increase factor", 2, DoubleRange(1, false, HUGE_VAL, false));
+    _cat, "rinc", "Restart interval increase factor", 2,
+    DoubleRange(1, false, HUGE_VAL, false));
 static DoubleOption opt_garbage_frac(
     _cat, "gc-frac",
-    "The fraction of wasted memory allowed before a garbage collection is triggered", 0.20,
-    DoubleRange(0, false, HUGE_VAL, false));
+    "The fraction of wasted memory allowed before a garbage collection is "
+    "triggered",
+    0.20, DoubleRange(0, false, HUGE_VAL, false));
 static IntOption opt_min_learnts_lim(
-    _cat, "min-learnts", "Minimum learnt clause limit", 0, IntRange(0, INT32_MAX));
+    _cat, "min-learnts", "Minimum learnt clause limit", 0,
+    IntRange(0, INT32_MAX));
 
 //=================================================================================================
 // Constructor/Destructor:
@@ -141,9 +153,10 @@ Solver::Solver()
 
 // > dzhiblavi: constructor with passed parameters
 Solver::Solver(
-    int verbosity, double var_decay, double clause_decay, double random_var_freq,
-    double random_seed, bool luby_restart, int ccmin_mode, int phase_saving, bool rnd_init_act,
-    double garbage_frac, int min_learnts_lim, int restart_first, double restart_inc)
+    int verbosity, double var_decay, double clause_decay,
+    double random_var_freq, double random_seed, bool luby_restart,
+    int ccmin_mode, int phase_saving, bool rnd_init_act, double garbage_frac,
+    int min_learnts_lim, int restart_first, double restart_inc)
     :  // Parameters (user settable):
        //
     verbosity(verbosity)
@@ -213,8 +226,9 @@ Solver::~Solver() {}
 //=================================================================================================
 // Minor methods:
 
-// Creates a new SAT variable in the solver. If 'decision' is cleared, variable will not be
-// used as a decision variable (NOTE! This has effects on the meaning of a SATISFIABLE result).
+// Creates a new SAT variable in the solver. If 'decision' is cleared, variable
+// will not be used as a decision variable (NOTE! This has effects on the
+// meaning of a SATISFIABLE result).
 //
 Var Solver::newVar(lbool upol, bool dvar) {
   Var v;
@@ -252,8 +266,8 @@ void Solver::reserveVars(Var v) {
   trail.capacity(v + 1);
 }
 
-// Note: at the moment, only unassigned variable will be released (this is to avoid duplicate
-// releases of the same variable).
+// Note: at the moment, only unassigned variable will be released (this is to
+// avoid duplicate releases of the same variable).
 void Solver::releaseVar(Lit l) {
   if (value(l) == l_Undef) {
     addClause(l);
@@ -276,7 +290,8 @@ bool Solver::addClause_(vec<Lit>& ps) {
     proofTmp.clear();
     for (i = j = 0, p = lit_Undef; i < ps.size(); i++) {
       proofTmp.push(ps[i]);
-      if (value(ps[i]) == l_True || ps[i] == ~ps[i - 1 < 0 ? 0 : i - 1] || value(ps[i]) == l_False)
+      if (value(ps[i]) == l_True || ps[i] == ~ps[i - 1 < 0 ? 0 : i - 1] ||
+          value(ps[i]) == l_False)
         modifiedClause = 1;
     }
   }
@@ -359,7 +374,8 @@ bool Solver::satisfied(const Clause& c) const {
   return false;
 }
 
-// Revert to the state at given level (keeping all assignment at 'level' but not beyond).
+// Revert to the state at given level (keeping all assignment at 'level' but not
+// beyond).
 //
 void Solver::cancelUntil(int level) {
   if (decisionLevel() > level) {
@@ -410,7 +426,8 @@ Lit Solver::pickBranchLit() {
 
 /*_________________________________________________________________________________________________
 |
-|  analyze : (confl : Clause*) (out_learnt : vec<Lit>&) (out_btlevel : int&)  ->  [void]
+|  analyze : (confl : Clause*) (out_learnt : vec<Lit>&) (out_btlevel : int&)  ->
+[void]
 |
 |  Description:
 |    Analyze conflict and produce a reason clause.
@@ -421,8 +438,9 @@ Lit Solver::pickBranchLit() {
 |
 |    Post-conditions:
 |      * 'out_learnt[0]' is the asserting literal at level 'out_btlevel'.
-|      * If out_learnt.size() > 1 then 'out_learnt[1]' has the greatest decision level of the
-|        rest of literals. There may be others from the same level though.
+|      * If out_learnt.size() > 1 then 'out_learnt[1]' has the greatest decision
+level of the |        rest of literals. There may be others from the same level
+though.
 |
 |________________________________________________________________________________________________@*/
 void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel) {
@@ -471,7 +489,8 @@ void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel) {
   out_learnt.copyTo(analyze_toclear);
   if (ccmin_mode == 2) {
     for (i = j = 1; i < out_learnt.size(); i++)
-      if (reason(var(out_learnt[i])) == CRef_Undef || !litRedundant(out_learnt[i]))
+      if (reason(var(out_learnt[i])) == CRef_Undef ||
+          !litRedundant(out_learnt[i]))
         out_learnt[j++] = out_learnt[i];
 
   } else if (ccmin_mode == 1) {
@@ -533,7 +552,8 @@ bool Solver::litRedundant(Lit p) {
       Lit l = (*c)[i];
 
       // Variable at level 0 or previously removable:
-      if (level(var(l)) == 0 || seen[var(l)] == seen_source || seen[var(l)] == seen_removable) {
+      if (level(var(l)) == 0 || seen[var(l)] == seen_source ||
+          seen[var(l)] == seen_removable) {
         continue;
       }
 
@@ -582,9 +602,9 @@ bool Solver::litRedundant(Lit p) {
 |  analyzeFinal : (p : Lit)  ->  [void]
 |
 |  Description:
-|    Specialized analysis procedure to express the final conflict in terms of assumptions.
-|    Calculates the (possibly empty) set of assumptions that led to the assignment of 'p', and
-|    stores the result in 'out_conflict'.
+|    Specialized analysis procedure to express the final conflict in terms of
+assumptions. |    Calculates the (possibly empty) set of assumptions that led to
+the assignment of 'p', and |    stores the result in 'out_conflict'.
 |________________________________________________________________________________________________@*/
 void Solver::analyzeFinal(Lit p, LSet& out_conflict) {
   out_conflict.clear();
@@ -626,8 +646,8 @@ void Solver::uncheckedEnqueue(Lit p, CRef from) {
 |  propagate : [void]  ->  [Clause*]
 |
 |  Description:
-|    Propagates all enqueued facts. If a conflict arises, the conflicting clause is returned,
-|    otherwise CRef_Undef.
+|    Propagates all enqueued facts. If a conflict arises, the conflicting clause
+is returned, |    otherwise CRef_Undef.
 |
 |    Post-conditions:
 |      * the propagation queue is empty, even if there was a conflict.
@@ -712,7 +732,8 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
       // Positive literal is conflicting, thus the whole subtree is conflicting.
       result += half_subtree_size;
     } else if (val == l_Undef) {
-      // Positive literal does not lead to conflict, but is not set, thus assign it.
+      // Positive literal does not lead to conflict, but is not set, thus assign
+      // it.
       int base_level = decisionLevel();
       newDecisionLevel();
       uncheckedEnqueue(positive_literal);
@@ -720,7 +741,8 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
         // Positive literal leads to conflict. Add the whole subtree.
         result += half_subtree_size;
       } else {
-        // Positive literal is assigned and did not lead to conflict. Process the next one.
+        // Positive literal is assigned and did not lead to conflict. Process
+        // the next one.
         result += prop_check_subtree_impl(vars, index + 1);
       }
       // Retract.
@@ -739,7 +761,8 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
       // Positive literal is conflicting, thus the whole subtree is conflicting.
       result += half_subtree_size;
     } else if (val == l_Undef) {
-      // Positive literal does not lead to conflict, but is not set, thus assign it.
+      // Positive literal does not lead to conflict, but is not set, thus assign
+      // it.
       int base_level = decisionLevel();
       newDecisionLevel();
       uncheckedEnqueue(negative_literal);
@@ -747,7 +770,8 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
         // Positive literal leads to conflict. Add the whole subtree.
         result += half_subtree_size;
       } else {
-        // Positive literal is assigned and did not lead to conflict. Process the next one.
+        // Positive literal is assigned and did not lead to conflict. Process
+        // the next one.
         result += prop_check_subtree_impl(vars, index + 1);
       }
       // Retract.
@@ -761,11 +785,14 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
   return result;
 }
 
-// returns the number of conflicting assignments in the subtree, which path to root is head
-// vars: first head_size are literals, other are just variables that will be assigned.
+// returns the number of conflicting assignments in the subtree, which path to
+// root is head vars: first head_size are literals, other are just variables
+// that will be assigned.
 uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
   uint32_t assign_size = vars.size();
-  assert(assign_size <= 63 && bool("Assignment is too large to be processed as a full tree."));
+  assert(
+      assign_size <= 63 &&
+      bool("Assignment is too large to be processed as a full tree."));
   assert(head_size <= assign_size);
   uint64_t subtree_size = 1ULL << (assign_size - head_size);
 
@@ -911,26 +938,30 @@ bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
 |  reduceDB : ()  ->  [void]
 |
 |  Description:
-|    Remove half of the learnt clauses, minus the clauses locked by the current assignment. Locked
-|    clauses are clauses that are reason to some assignment. Binary clauses are never removed.
+|    Remove half of the learnt clauses, minus the clauses locked by the current
+assignment. Locked |    clauses are clauses that are reason to some assignment.
+Binary clauses are never removed.
 |________________________________________________________________________________________________@*/
 struct reduceDB_lt {
   ClauseAllocator& ca;
   reduceDB_lt(ClauseAllocator& ca_) : ca(ca_) {}
   bool operator()(CRef x, CRef y) {
-    return ca[x].size() > 2 && (ca[y].size() == 2 || ca[x].activity() < ca[y].activity());
+    return ca[x].size() > 2 &&
+           (ca[y].size() == 2 || ca[x].activity() < ca[y].activity());
   }
 };
 void Solver::reduceDB() {
   int i, j;
-  double extra_lim = cla_inc / learnts.size();  // Remove any clause below this activity
+  double extra_lim =
+      cla_inc / learnts.size();  // Remove any clause below this activity
 
   sort(learnts, reduceDB_lt(ca));
-  // Don't delete binary or locked clauses. From the rest, delete clauses from the first half
-  // and clauses with activity smaller than 'extra_lim':
+  // Don't delete binary or locked clauses. From the rest, delete clauses from
+  // the first half and clauses with activity smaller than 'extra_lim':
   for (i = j = 0; i < learnts.size(); i++) {
     Clause& c = ca[learnts[i]];
-    if (c.size() > 2 && !locked(c) && (i < learnts.size() / 2 || c.activity() < extra_lim))
+    if (c.size() > 2 && !locked(c) &&
+        (i < learnts.size() / 2 || c.activity() < extra_lim))
       removeClause(learnts[i]);
     else
       learnts[j++] = learnts[i];
@@ -972,8 +1003,9 @@ void Solver::rebuildOrderHeap() {
 |  simplify : [void]  ->  [bool]
 |
 |  Description:
-|    Simplify the clause database according to the current top-level assigment. Currently, the only
-|    thing done here is the removal of satisfied clauses, but more things can be put here.
+|    Simplify the clause database according to the current top-level assigment.
+Currently, the only |    thing done here is the removal of satisfied clauses,
+but more things can be put here.
 |________________________________________________________________________________________________@*/
 bool Solver::simplify() {
   assert(decisionLevel() == 0);
@@ -1016,8 +1048,9 @@ bool Solver::simplify() {
   rebuildOrderHeap();
 
   simpDB_assigns = nAssigns();
-  simpDB_props = clauses_literals +
-                 learnts_literals;  // (shouldn't depend on stats really, but it will do for now)
+  simpDB_props =
+      clauses_literals + learnts_literals;  // (shouldn't depend on stats
+                                            // really, but it will do for now)
 
   return true;
 }
@@ -1031,9 +1064,10 @@ bool Solver::simplify() {
 |    NOTE! Use negative value for 'nof_conflicts' indicate infinity.
 |
 |  Output:
-|    'l_True' if a partial assigment that is consistent with respect to the clauseset is found. If
-|    all variables are decision variables, this means that the clause set is satisfiable. 'l_False'
-|    if the clause set is unsatisfiable. 'l_Undef' if the bound on number of conflicts is reached.
+|    'l_True' if a partial assigment that is consistent with respect to the
+clauseset is found. If |    all variables are decision variables, this means
+that the clause set is satisfiable. 'l_False' |    if the clause set is
+unsatisfiable. 'l_Undef' if the bound on number of conflicts is reached.
 |________________________________________________________________________________________________@*/
 lbool Solver::search(int nof_conflicts) {
   assert(ok);
@@ -1077,15 +1111,18 @@ lbool Solver::search(int nof_conflicts) {
 
         if (verbosity >= 1)
           printf(
-              "c | %9d | %7d %8d %8d | %8d %8d %6.0f | %6.3f %% |\n", (int) conflicts,
-              (int) dec_vars - (trail_lim.size() == 0 ? trail.size() : trail_lim[0]), nClauses(),
-              (int) clauses_literals, (int) max_learnts, nLearnts(),
+              "c | %9d | %7d %8d %8d | %8d %8d %6.0f | %6.3f %% |\n",
+              (int) conflicts,
+              (int) dec_vars -
+                  (trail_lim.size() == 0 ? trail.size() : trail_lim[0]),
+              nClauses(), (int) clauses_literals, (int) max_learnts, nLearnts(),
               (double) learnts_literals / nLearnts(), progressEstimate() * 100);
       }
 
     } else {
       // NO CONFLICT
-      if ((nof_conflicts >= 0 && conflictC >= nof_conflicts) || !withinBudget()) {
+      if ((nof_conflicts >= 0 && conflictC >= nof_conflicts) ||
+          !withinBudget()) {
         // Reached bound on number of conflicts:
         progress_estimate = progressEstimate();
         cancelUntil(0);
@@ -1192,17 +1229,26 @@ lbool Solver::solve_() {
   lbool status = l_Undef;
 
   if (verbosity >= 1) {
-    printf("c ============================[ Search Statistics ]==============================\n");
-    printf("c | Conflicts |          ORIGINAL         |          LEARNT          | Progress |\n");
-    printf("c |           |    Vars  Clauses Literals |    Limit  Clauses Lit/Cl |          |\n");
-    printf("c ===============================================================================\n");
+    printf(
+        "c ============================[ Search Statistics "
+        "]==============================\n");
+    printf(
+        "c | Conflicts |          ORIGINAL         |          LEARNT          "
+        "| Progress |\n");
+    printf(
+        "c |           |    Vars  Clauses Literals |    Limit  Clauses Lit/Cl "
+        "|          |\n");
+    printf(
+        "c "
+        "======================================================================"
+        "=========\n");
   }
 
   // Search:
   int curr_restarts = 0;
   while (status == l_Undef) {
-    double rest_base =
-        luby_restart ? luby(restart_inc, curr_restarts) : pow(restart_inc, curr_restarts);
+    double rest_base = luby_restart ? luby(restart_inc, curr_restarts)
+                                    : pow(restart_inc, curr_restarts);
     status = search(rest_base * restart_first);
     if (!withinBudget())
       break;
@@ -1210,7 +1256,10 @@ lbool Solver::solve_() {
   }
 
   if (verbosity >= 1)
-    printf("c ===============================================================================\n");
+    printf(
+        "c "
+        "======================================================================"
+        "=========\n");
 
   if (status == l_True) {
     // Extend & copy model:
@@ -1268,7 +1317,8 @@ void Solver::toDimacs(FILE* f, Clause& c, vec<Var>& map, Var& max) {
 
   for (int i = 0; i < c.size(); i++)
     if (value(c[i]) != l_False)
-      fprintf(f, "%s%d ", sign(c[i]) ? "-" : "", mapVar(var(c[i]), map, max) + 1);
+      fprintf(
+          f, "%s%d ", sign(c[i]) ? "-" : "", mapVar(var(c[i]), map, max) + 1);
   fprintf(f, "0\n");
 }
 
@@ -1312,7 +1362,9 @@ void Solver::toDimacs(FILE* f, const vec<Lit>& assumps) {
 
   for (int i = 0; i < assumps.size(); i++) {
     assert(value(assumps[i]) != l_False);
-    fprintf(f, "%s%d 0\n", sign(assumps[i]) ? "-" : "", mapVar(var(assumps[i]), map, max) + 1);
+    fprintf(
+        f, "%s%d 0\n", sign(assumps[i]) ? "-" : "",
+        mapVar(var(assumps[i]), map, max) + 1);
   }
 
   for (int i = 0; i < clauses.size(); i++)
@@ -1327,15 +1379,19 @@ void Solver::printStats() const {
   double mem_used = memUsedPeak();
   printf("c restarts              : %" PRIu64 "\n", starts);
   printf(
-      "c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", conflicts, conflicts / cpu_time);
+      "c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", conflicts,
+      conflicts / cpu_time);
   printf(
-      "c decisions             : %-12" PRIu64 "   (%4.2f %% random) (%.0f /sec)\n", decisions,
-      (float) rnd_decisions * 100 / (float) decisions, decisions / cpu_time);
+      "c decisions             : %-12" PRIu64
+      "   (%4.2f %% random) (%.0f /sec)\n",
+      decisions, (float) rnd_decisions * 100 / (float) decisions,
+      decisions / cpu_time);
   printf(
       "c propagations          : %-12" PRIu64 "   (%.0f /sec)\n", propagations,
       propagations / cpu_time);
   printf(
-      "c conflict literals     : %-12" PRIu64 "   (%4.2f %% deleted)\n", tot_literals,
+      "c conflict literals     : %-12" PRIu64 "   (%4.2f %% deleted)\n",
+      tot_literals,
       (max_literals - tot_literals) * 100 / (double) max_literals);
   if (mem_used != 0)
     printf("c Memory used           : %.2f MB\n", mem_used);
@@ -1362,9 +1418,10 @@ void Solver::relocAll(ClauseAllocator& to) {
   for (int i = 0; i < trail.size(); i++) {
     Var v = var(trail[i]);
 
-    // Note: it is not safe to call 'locked()' on a relocated clause. This is why we keep
-    // 'dangling' reasons here. It is safe and does not hurt.
-    if (reason(v) != CRef_Undef && (ca[reason(v)].reloced() || locked(ca[reason(v)]))) {
+    // Note: it is not safe to call 'locked()' on a relocated clause. This is
+    // why we keep 'dangling' reasons here. It is safe and does not hurt.
+    if (reason(v) != CRef_Undef &&
+        (ca[reason(v)].reloced() || locked(ca[reason(v)]))) {
       assert(!isRemoved(reason(v)));
       ca.reloc(vardata[v].reason, to);
     }
@@ -1392,15 +1449,17 @@ void Solver::relocAll(ClauseAllocator& to) {
 
 void Solver::garbageCollect() {
   //  std::cerr << "collect" << std::endl;
-  // Initialize the next region to a size corresponding to the estimated utilization degree. This
-  // is not precise but should avoid some unnecessary reallocations for the new region:
+  // Initialize the next region to a size corresponding to the estimated
+  // utilization degree. This is not precise but should avoid some unnecessary
+  // reallocations for the new region:
   ClauseAllocator to(ca.size() - ca.wasted());
 
   relocAll(to);
   if (verbosity >= 2)
     printf(
         "c |  Garbage collection:   %12d bytes => %12d bytes             |\n",
-        ca.size() * ClauseAllocator::Unit_Size, to.size() * ClauseAllocator::Unit_Size);
+        ca.size() * ClauseAllocator::Unit_Size,
+        to.size() * ClauseAllocator::Unit_Size);
   to.moveTo(ca);
 }
 

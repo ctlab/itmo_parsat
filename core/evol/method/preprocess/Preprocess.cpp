@@ -17,8 +17,7 @@ void collect_stats(
 
 namespace ea::preprocess {
 
-Preprocess::Preprocess(PreprocessConfig config)
-  : _config(std::move(config)) {}
+Preprocess::Preprocess(PreprocessConfig config) : _config(std::move(config)) {}
 
 bool Preprocess::preprocess(core::sat::Problem const& problem) {
   core::sat::prop::SimpProp prop;
@@ -42,7 +41,8 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
     stats.emplace_back(prop_both.size(), i);
   }
 
-  uint32_t max_watched_count = std::min(_config.heuristic_size(), prop.num_vars());
+  uint32_t max_watched_count =
+      std::min(_config.heuristic_size(), prop.num_vars());
   std::sort(stats.begin(), stats.end());
   auto it = stats.crbegin();
 
@@ -58,7 +58,8 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
 
   if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
-    for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
+    for (auto iter = stats.crbegin();
+         iter != stats.crbegin() + (int) max_watched_count; ++iter) {
       ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
     }
     IPS_INFO("Heuristic init:\n" << ss.str());

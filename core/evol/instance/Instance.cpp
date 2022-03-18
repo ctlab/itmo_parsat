@@ -91,7 +91,8 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
         assumption.push(cur_assumption[i]);
       }
     }
-    conflicts = _prop->prop_tree(assumption, assumption.size() - (*search)().size());
+    conflicts =
+        _prop->prop_tree(assumption, assumption.size() - (*search)().size());
 #else
     Mini::vec<Mini::Lit> vars = (*search)();
     _prop->prop_assignments(
@@ -105,8 +106,8 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   } else {
     core::domain::USearch search =
         core::domain::createRandomSearch(_var_view(), mask, samples);
-    _prop->prop_assignments({},
-        std::move(search), [&conflicts](bool conflict, auto const&) {
+    _prop->prop_assignments(
+        {}, std::move(search), [&conflicts](bool conflict, auto const&) {
           conflicts += conflict;
           return true;
         });

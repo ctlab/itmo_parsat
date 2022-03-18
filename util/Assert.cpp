@@ -17,7 +17,8 @@ void print_(char const* format, va_list args) {
       ::vsnprintf(&print_buf_[0], print_buf_.size(), format, args),
       static_cast<int>(print_buf_.size()));
   for (size_t offset = 0; offset < size;) {
-    size_t bytes_written = ::write(STDERR_FILENO, &print_buf_[offset], size - offset);
+    size_t bytes_written =
+        ::write(STDERR_FILENO, &print_buf_[offset], size - offset);
     if (bytes_written <= 0) {
       break;
     }
@@ -157,14 +158,16 @@ void panic(
 
 bool set_sigabrt_handler() {
   std::signal(SIGABRT, [](int signal) noexcept {
-    core::assert::_details::panic(__FILE__, __LINE__, "SIGABRT handler", nullptr, true, nullptr);
+    core::assert::_details::panic(
+        __FILE__, __LINE__, "SIGABRT handler", nullptr, true, nullptr);
   });
   return true;
 }
 
 bool set_sigbus_handler() {
   std::signal(SIGBUS, [](int signal) noexcept {
-    core::assert::_details::panic(__FILE__, __LINE__, "SIGBUS handler", nullptr, true, nullptr);
+    core::assert::_details::panic(
+        __FILE__, __LINE__, "SIGBUS handler", nullptr, true, nullptr);
   });
   return true;
 }
@@ -189,11 +192,13 @@ bool set_sigsegv_handler() {
         __FILE__, __LINE__, "SIGSEGV handler", nullptr, false,
         "segmentation fault accessing address 0x%zx; "
         "Instruction at 0x%zx; Access type: %s",
-        reinterpret_cast<std::uintptr_t>(info->si_addr), ip, (is_write ? "write" : "read"));
+        reinterpret_cast<std::uintptr_t>(info->si_addr), ip,
+        (is_write ? "write" : "read"));
     std::signal(SIGSEGV, SIG_DFL);
 #else
     core::assert::_details::panic(
-        __FILE__, __LINE__, "SIGSEGV handler", nullptr, false, "segmentation fault");
+        __FILE__, __LINE__, "SIGSEGV handler", nullptr, false,
+        "segmentation fault");
     std::signal(SIGSEGV, SIG_DFL);
 #endif
   };

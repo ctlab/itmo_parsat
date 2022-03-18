@@ -22,8 +22,8 @@ bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
     }
   }
   if (std::find(
-          _t_config.test_groups.begin(), _t_config.test_groups.end(), get_test_group(config)) ==
-      _t_config.test_groups.end()) {
+          _t_config.test_groups.begin(), _t_config.test_groups.end(),
+          get_test_group(config)) == _t_config.test_groups.end()) {
     return false;
   }
   if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) {
@@ -49,7 +49,8 @@ int LaunchInfo::get_test_size(LaunchConfig const& config) {
   }
 }
 
-infra::domain::SatResult LaunchInfo::get_sat_result(LaunchConfig const& config) {
+infra::domain::SatResult LaunchInfo::get_sat_result(
+    LaunchConfig const& config) {
   auto filename = std::filesystem::path(config.input).filename().string();
   if (filename.find("unsat", 0) != std::string::npos) {
     return infra::domain::UNSAT;
@@ -60,7 +61,8 @@ infra::domain::SatResult LaunchInfo::get_sat_result(LaunchConfig const& config) 
   }
 }
 
-std::optional<uint32_t> LaunchInfo::check_if_test_is_done(LaunchConfig const& config) {
+std::optional<uint32_t> LaunchInfo::check_if_test_is_done(
+    LaunchConfig const& config) {
   LaunchObject launch;
   launch.test_group = get_test_group(config);
   launch.input_name = config.input;

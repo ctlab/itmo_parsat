@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG user
+ARG user=dzhiblavi
 ARG DEBIAN_FRONTEND=nointeractive
 
 WORKDIR /tmp

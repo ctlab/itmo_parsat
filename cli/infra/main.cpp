@@ -43,7 +43,8 @@ void init_googletest(char const* argv0, util::CliConfig const& config) {
   if (!config.has("gtest-opts")) {
     testing::InitGoogleTest();
   } else {
-    auto const& gtest_options = config.get<std::vector<std::string>>("gtest-opts");
+    auto const& gtest_options =
+        config.get<std::vector<std::string>>("gtest-opts");
     int argc = (int) gtest_options.size() + 1;
     std::vector<char const*> argv;
     argv.push_back(argv0);
@@ -66,7 +67,8 @@ int main(int argc, char** argv) {
     lf_config.time_limit_s = config.get<uint64_t>("time-limit");
     lf_config.pg_host = config.get<std::string>("pg-host");
     lf_config.test_groups = config.get<std::vector<std::string>>("test-groups");
-    lf_config.allow_unspecified_size = config.get<bool>("allow-unspecified-size");
+    lf_config.allow_unspecified_size =
+        config.get<bool>("allow-unspecified-size");
     lf_config.repeat = config.get<int>("repeat-each");
     lf_config.lookup = config.get<bool>("lookup");
     lf_config.save = config.get<bool>("save");
@@ -74,7 +76,8 @@ int main(int argc, char** argv) {
     lf_config.executable = config.get<std::filesystem::path>("exec");
     lf_config.branch = config.get<std::string>("branch");
     lf_config.commit = config.get<std::string>("commit");
-    lf_config.resources_dir = config.get<std::filesystem::path>("resources-dir");
+    lf_config.resources_dir =
+        config.get<std::filesystem::path>("resources-dir");
     lf_config.working_dir = config.get<std::filesystem::path>("working-dir");
   }
   return RUN_ALL_TESTS();

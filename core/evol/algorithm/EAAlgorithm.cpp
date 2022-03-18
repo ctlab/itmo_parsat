@@ -2,7 +2,8 @@
 
 namespace ea::algorithm {
 
-EAAlgorithm::EAAlgorithm(EAAlgorithmConfig const& config, core::sat::prop::RProp prop)
+EAAlgorithm::EAAlgorithm(
+    EAAlgorithmConfig const& config, core::sat::prop::RProp prop)
     : Algorithm(config.base_algorithm_config(), std::move(prop))
     , mutator_(method::MutationRegistry::resolve(config.mutation_config()))
     , selector_(method::SelectorRegistry::resolve(config.selector_config())) {}

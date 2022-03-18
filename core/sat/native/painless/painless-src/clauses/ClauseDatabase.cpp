@@ -48,7 +48,8 @@ void ClauseDatabase::addClause(ClauseExchange* clause) {
 }
 
 int ClauseDatabase::giveSelection(
-    vector<ClauseExchange*>& selectedCls, unsigned totalSize, int* selectCount) {
+    vector<ClauseExchange*>& selectedCls, unsigned totalSize,
+    int* selectCount) {
   int used = 0;
   *selectCount = 0;
 
@@ -62,7 +63,8 @@ int ClauseDatabase::giveSelection(
     if (left >= clsSize * clauses[i].size()) {
       // If all the clauses of size clsSize (i+1) can be added
       used = used + clsSize * clauses[i].size();
-      selectedCls.insert(selectedCls.end(), clauses[i].begin(), clauses[i].end());
+      selectedCls.insert(
+          selectedCls.end(), clauses[i].begin(), clauses[i].end());
       *selectCount += clauses[i].size();
       clauses[i].clear();
     } else {

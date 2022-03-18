@@ -24,7 +24,8 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 }  // namespace
 
 LaunchFixture::LaunchFixture() {
-  _sig_cb = core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
+  _sig_cb =
+      core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
 }
 
 infra::testing::TestingConfiguration LaunchFixture::config{};
@@ -57,7 +58,8 @@ void LaunchFixture::SetUpTestSuite() {
 void LaunchFixture::SetUp() {
   ASSERT_TRUE(!test_failed && !is_interrupted);
   _info = std::make_unique<infra::domain::LaunchInfo>(config);
-  _exec_manager = std::make_unique<infra::execution::ExecutionManager>(config.max_threads);
+  _exec_manager =
+      std::make_unique<infra::execution::ExecutionManager>(config.max_threads);
 
   /* Setup directories */
   _logs_root = config.working_dir / "logs";
@@ -79,7 +81,8 @@ void LaunchFixture::_prepare_resources() {
   std::vector<std::filesystem::path> result;
   auto cnf_path = config.resources_dir / "cnf";
   for (auto const& entry : std::filesystem::recursive_directory_iterator(
-           cnf_path, std::filesystem::directory_options::follow_directory_symlink)) {
+           cnf_path,
+           std::filesystem::directory_options::follow_directory_symlink)) {
     if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
       cnfs.insert(std::filesystem::relative(entry.path(), cnf_path));
     }
@@ -90,14 +93,17 @@ std::string LaunchFixture::_generate_uniq_string() {
   static std::random_device rnd_dev;
   static std::mt19937 gen(rnd_dev());
   return std::to_string(std::time(nullptr)) +
-         std::to_string(std::uniform_int_distribution<int>(INT_MIN, INT_MAX)(gen));
+         std::to_string(
+             std::uniform_int_distribution<int>(INT_MIN, INT_MAX)(gen));
 }
 
 void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
   /* Setup files */
   std::string salt = _generate_uniq_string();
-  std::filesystem::path const& artifact_logs_path = _logs_root / (salt + ".txt");
-  std::filesystem::path const& artifact_config_path = _configs_root / (salt + ".json");
+  std::filesystem::path const& artifact_logs_path =
+      _logs_root / (salt + ".txt");
+  std::filesystem::path const& artifact_config_path =
+      _configs_root / (salt + ".json");
   std::string test_group = _info->get_test_group(launch_config);
 
   // clang-format off
@@ -146,14 +152,17 @@ void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
   // clang-format on
 
   LOG(INFO) << "\n\tLaunched [" + launch_config.description + "]:"
-            << "\n\t\tInput file: " << input_path << "\n\t\tConfiguration: " << config_path
-            << " -> " << artifact_config_path << "\n\t\tLogs at: " << artifact_logs_path
-            << "\n\t\tExpected result: " << infra::domain::to_string(launch_config.expected_result);
+            << "\n\t\tInput file: " << input_path
+            << "\n\t\tConfiguration: " << config_path << " -> "
+            << artifact_config_path << "\n\t\tLogs at: " << artifact_logs_path
+            << "\n\t\tExpected result: "
+            << infra::domain::to_string(launch_config.expected_result);
 }
 
 void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
   if (!_info->should_be_launched(launch_config)) {
-    IPS_INFO("Test skipped: " << launch_config.config << ' ' << launch_config.input);
+    IPS_INFO(
+        "Test skipped: " << launch_config.config << ' ' << launch_config.input);
     return;
   }
 
@@ -161,7 +170,8 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
     launch_config.expected_result = _info->get_sat_result(launch_config);
   }
 
-  std::filesystem::path config_path = config.resources_dir / "config" / launch_config.config;
+  std::filesystem::path config_path =
+      config.resources_dir / "config" / launch_config.config;
 
   {  // get threads required
     SolveConfig slv_cfg;
@@ -172,11 +182,13 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
 
   if (launch_config.threads_required > config.max_threads) {
     IPS_WARNING(
-        "The test requires " << launch_config.threads_required << " threads, but only "
-                             << config.max_threads << " are available.");
+        "The test requires " << launch_config.threads_required
+                             << " threads, but only " << config.max_threads
+                             << " are available.");
     launch_config.threads_required = config.max_threads;
   } else {
-    IPS_INFO("OK, test requires " << launch_config.threads_required << " threads");
+    IPS_INFO(
+        "OK, test requires " << launch_config.threads_required << " threads");
   }
 
   for (int i = 0; i < config.repeat; ++i) {

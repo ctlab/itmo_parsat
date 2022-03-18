@@ -6,7 +6,8 @@ namespace {
 
 using namespace std;
 
-void read_clauses_to(std::filesystem::path const& path, std::vector<std::vector<int>>& clauses) {
+void read_clauses_to(
+    std::filesystem::path const& path, std::vector<std::vector<int>>& clauses) {
   FILE* f = fopen(path.c_str(), "r");
   IPS_VERIFY_S(f != nullptr, "Failed to read CNF from " << path);
   int c = 0;

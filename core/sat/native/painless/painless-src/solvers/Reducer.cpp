@@ -89,7 +89,8 @@ void Reducer::diversify(int id) {
 
 // Solve the formula with a given set of assumptions
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
-PSatResult Reducer::solve(Mini::vec<Mini::Lit> const& assumptions, const vector<int>&) {
+PSatResult Reducer::solve(
+    Mini::vec<Mini::Lit> const& assumptions, const vector<int>&) {
   this->assumptions = assumptions;
 
   while (!_interrupt) {

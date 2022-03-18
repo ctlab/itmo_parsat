@@ -11,5 +11,6 @@ if [[ -d ".git" ]]; then
 fi
 
 ln -sf "$root/scripts/docker/ips.Dockerfile" Dockerfile
+ln -sf "$root/scripts/docker/Singularity.def" Singularity.def
 ln -sf "$root/scripts/run.sh" ips
 ln -sf "$root/scripts/d.sh" d

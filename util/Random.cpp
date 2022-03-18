@@ -19,19 +19,22 @@ Generator::Generator(Generator const& other) : Generator(other._seed) {}
 
 Generator::~Generator() noexcept {
   IPS_VERIFY(
-      _this_thread_generator != nullptr && bool("This thread did not initialize Generator."));
+      _this_thread_generator != nullptr &&
+      bool("This thread did not initialize Generator."));
   _this_thread_generator = nullptr;
 }
 
 Generator& Generator::current_thread_generator() {
   IPS_VERIFY(
-      _this_thread_generator != nullptr && bool("This thread did not initialize Generator."));
+      _this_thread_generator != nullptr &&
+      bool("This thread did not initialize Generator."));
   return *_this_thread_generator;
 }
 
 std::mt19937& stdgen() {
   IPS_VERIFY(
-      _this_thread_generator != nullptr && bool("This thread did not initialize Generator."));
+      _this_thread_generator != nullptr &&
+      bool("This thread did not initialize Generator."));
   return _this_thread_generator->_mt;
 }
 

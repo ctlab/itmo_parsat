@@ -4,7 +4,8 @@
 
 namespace core::domain {
 
-CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian)
+CartesianSearch::CartesianSearch(
+    std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian)
     // clang-format off
   : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
       return size * v.size();
@@ -19,7 +20,8 @@ CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>
 }
 
 /// @todo: remove copy-paste
-CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian)
+CartesianSearch::CartesianSearch(
+    std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian)
     // clang-format off
     : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
         return size * v.size();

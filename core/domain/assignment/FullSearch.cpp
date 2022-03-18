@@ -42,7 +42,8 @@ Mini::vec<Mini::Lit> const& FullSearch::operator()() const {
   return get();
 }
 
-UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars) {
+UFullSearch createFullSearch(
+    VarView const& var_view, std::vector<bool> const& vars) {
   return std::make_unique<FullSearch>(var_view, vars);
 }
 

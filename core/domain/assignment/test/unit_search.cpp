@@ -53,12 +53,14 @@ class TestSearch : public ::testing::Test {
       uniques.insert(get_vars((*assignment_p)()));
     } while (++(*assignment_p));
     int delta = std::abs((int) uniques.size() - (int) target_count);
-    IPS_INFO("Uniques: " << uniques.size() << ", when expected: " << target_count);
+    IPS_INFO(
+        "Uniques: " << uniques.size() << ", when expected: " << target_count);
     ASSERT_LE(delta, max_delta);
   }
 
   static void test_assignment_split_search(
-      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta, uint32_t ranges) {
+      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta,
+      uint32_t ranges) {
     std::set<std::vector<int>> uniques;
     uint32_t total = 0;
     for (uint32_t index = 0; index < ranges; ++index) {
@@ -80,28 +82,33 @@ class TestSearch : public ::testing::Test {
 
   void test_full_search_range(long size, uint32_t ranges) {
     set_size(size);
-    domain::USearch assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
+    domain::USearch assignment_p(
+        domain::createFullSearch(mock_var_map, mock_vars));
     test_assignment_split_search(
         std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0, ranges);
   }
 
   void test_random_search_range(long size, uint32_t total, uint32_t ranges) {
     set_size(size);
-    domain::USearch assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, total));
+    domain::USearch assignment_p(
+        domain::createRandomSearch(mock_var_map, mock_vars, total));
     test_assignment_split_search(std::move(assignment_p), total, 0, ranges);
   }
 
   void test_full_search(long size) {
     set_size(size);
-    domain::USearch assignment_p(domain::createFullSearch(mock_var_map, mock_vars));
-    test_assignment_full(std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0);
+    domain::USearch assignment_p(
+        domain::createFullSearch(mock_var_map, mock_vars));
+    test_assignment_full(
+        std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0);
   }
 
   void test_random_search(long size, long target) {
     set_size(size);
     bool unique = size <= 63;
     uint32_t max_delta = unique ? 0 : std::max(1L, target / 100);
-    domain::USearch assignment_p(domain::createRandomSearch(mock_var_map, mock_vars, target));
+    domain::USearch assignment_p(
+        domain::createRandomSearch(mock_var_map, mock_vars, target));
     test_assignment_full(std::move(assignment_p), target, max_delta);
   }
 
@@ -192,7 +199,8 @@ TEST_F(TestSearch, cartesian_search) {
     for (size_t i = 0; i < 5; ++i) {
       // generate assumption set
       int assump_size = util::random::sample<int>(0, 10);
-      int set_size = std::min(1 << assump_size, util::random::sample<int>(1, 10));
+      int set_size =
+          std::min(1 << assump_size, util::random::sample<int>(1, 10));
       csp_size *= set_size;
       for (int j = 0; j < set_size; ++j) {
         csp[i].push_back(gen_mv(assump_size, i, j));
@@ -219,7 +227,8 @@ TEST_F(TestSearch, cartesian_search_split) {
     for (size_t i = 0; i < size; ++i) {
       // generate assumption set
       int assump_size = util::random::sample<int>(0, 10);
-      int set_size = std::min(1 << assump_size, util::random::sample<int>(1, 10));
+      int set_size =
+          std::min(1 << assump_size, util::random::sample<int>(1, 10));
       csp_size *= set_size;
       for (int j = 0; j < set_size; ++j) {
         csp[i].push_back(gen_mv(assump_size, i, j));
