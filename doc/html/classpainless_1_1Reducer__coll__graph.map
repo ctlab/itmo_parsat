@@ -1,7 +1,0 @@
-<map id="painless::Reducer" name="painless::Reducer">
-<area shape="rect" id="node1" title="Instance of a MapleCOMSPS solver." alt="" coords="120,213,257,240"/>
-<area shape="rect" id="node2" href="$classSolverInterface.html" title=" " alt="" coords="5,109,127,136"/>
-<area shape="rect" id="node3" href="$classMini_1_1vec.html" title=" " alt="" coords="151,109,314,136"/>
-<area shape="rect" id="node4" href="$classpainless_1_1ClauseBuffer.html" title=" " alt="" coords="338,109,506,136"/>
-<area shape="rect" id="node5" href="$structpainless_1_1ClauseBuffer_1_1ListRoot.html" title=" " alt="" coords="338,5,506,47"/>
-</map>

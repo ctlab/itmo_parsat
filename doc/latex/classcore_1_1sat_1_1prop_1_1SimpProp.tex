@@ -2,7 +2,7 @@
 \label{classcore_1_1sat_1_1prop_1_1SimpProp}\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
 
 
-Mini\+:Simp\+Solver-\/based Solver implementation.  
+minisat-\/based propagation engine implementation  
 
 
 
@@ -40,20 +40,20 @@ uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9ad
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a10f421e6b5c4937a01b29ca5ca267a6d}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a10f421e6b5c4937a01b29ca5ca267a6d}} 
-bool {\bfseries \+\_\+propagate} (\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&assumptions) override
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a0199c5d1153bc77f87965bb072d4a973}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a0199c5d1153bc77f87965bb072d4a973}} 
+bool {\bfseries \+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&assumptions) override
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_ac6955605b6027cf800bf7e63e09bfc6f}\label{classcore_1_1sat_1_1prop_1_1SimpProp_ac6955605b6027cf800bf7e63e09bfc6f}} 
-bool {\bfseries \+\_\+propagate} (\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&assumptions, \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ \&propagated) override
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_aa0827e4c009de6001baf1bca9b1f92d6}\label{classcore_1_1sat_1_1prop_1_1SimpProp_aa0827e4c009de6001baf1bca9b1f92d6}} 
+bool {\bfseries \+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&assumptions, lit\+\_\+vec\+\_\+t \&propagated) override
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a6c262e3fd789527618c20c864fbd75df}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a6c262e3fd789527618c20c864fbd75df}} 
-uint64\+\_\+t {\bfseries \+\_\+prop\+\_\+tree} (\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const \&vars, uint32\+\_\+t head\+\_\+size) override
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_aa527d5976eac011f74601637ab455972}\label{classcore_1_1sat_1_1prop_1_1SimpProp_aa527d5976eac011f74601637ab455972}} 
+uint64\+\_\+t {\bfseries \+\_\+prop\+\_\+tree} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size) override
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
-Mini\+:Simp\+Solver-\/based Solver implementation. 
+minisat-\/based propagation engine implementation 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}} 

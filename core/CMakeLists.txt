@@ -1,4 +1,4 @@
-file(GLOB _DOMAIN_SRC "domain/*" "domain/assignment/*")
+file(GLOB _DOMAIN_SRC "types.h" "domain/*" "domain/assignment/*")
 file(GLOB _EVOL_SRC
         "evol/algorithm/*" "evol/instance/*"
         "evol/limit/*" "evol/method/cross/*"

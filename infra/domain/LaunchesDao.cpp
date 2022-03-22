@@ -102,7 +102,7 @@ std::optional<uint32_t> LaunchesDao::get_launch_id(LaunchObject const& launch) {
   pqxx::work work(_conn);
   // clang-format off
   auto result = work.exec(std::string() +
-    "SELECT launch_id, result FROM Launches WHERE "
+    "SELECT launch_id FROM launches WHERE "
     "test_group = '" + launch.test_group + "' AND " +
     "input_name = '" + launch.input_name + "' AND " +
     "config_name = '" + launch.config_name + "' AND " +

@@ -23,7 +23,6 @@ namespace ea::algorithm {
  */
 class Algorithm {
  private:
-  /// @brief returns true if algorithm should proceed.
   void _init_shared_data(InstanceConfig const& config);
 
  protected:
@@ -98,7 +97,7 @@ class Algorithm {
   bool _interrupted = false;
 };
 
-using RAlgorithm = std::shared_ptr<Algorithm>;
+MAKE_REFS(Algorithm);
 
 DEFINE_REGISTRY(Algorithm, AlgorithmConfig, algorithm, core::sat::prop::RProp);
 

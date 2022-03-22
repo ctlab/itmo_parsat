@@ -21,7 +21,7 @@ class Mutation {
   virtual void apply(instance::Instance& instance) = 0;
 };
 
-using RMutation = std::shared_ptr<Mutation>;
+MAKE_REFS(Mutation);
 
 DEFINE_REGISTRY(Mutation, MutationConfig, mutation);
 

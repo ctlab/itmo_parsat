@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Mini:SimpSolver-based Solver implementation.  
+<p>minisat-based propagation engine implementation  
  <a href="classcore_1_1sat_1_1prop_1_1SimpProp.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="SimpProp_8h_source.html">SimpProp.h</a>&gt;</code></p>
@@ -84,7 +84,7 @@ Inheritance diagram for core::sat::prop::SimpProp:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1prop_1_1SimpProp__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1prop_1_1SimpProp_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1prop_1_1SimpProp_inherit__map" id="core_1_1sat_1_1prop_1_1SimpProp_inherit__map">
-<area shape="rect" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="73,80,258,107"/>
+<area shape="rect" title="minisat&#45;based propagation engine implementation" alt="" coords="73,80,258,107"/>
 <area shape="rect" href="classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="5,5,157,32"/>
 <area shape="rect" title=" " alt="" coords="182,5,317,32"/>
 </map>
@@ -94,7 +94,7 @@ Collaboration diagram for core::sat::prop::SimpProp:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1prop_1_1SimpProp__coll__graph.png" border="0" usemap="#core_1_1sat_1_1prop_1_1SimpProp_coll__map" alt="Collaboration graph"/></div>
 <map name="core_1_1sat_1_1prop_1_1SimpProp_coll__map" id="core_1_1sat_1_1prop_1_1SimpProp_coll__map">
-<area shape="rect" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="73,80,258,107"/>
+<area shape="rect" title="minisat&#45;based propagation engine implementation" alt="" coords="73,80,258,107"/>
 <area shape="rect" href="classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="5,5,157,32"/>
 <area shape="rect" title=" " alt="" coords="182,5,317,32"/>
 </map>
@@ -110,58 +110,55 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memdesc:a9a3a76ea9adff36f6611a670e6a8e85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
 <tr class="separator:a9a3a76ea9adff36f6611a670e6a8e85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1sat_1_1prop_1_1Prop')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a></td></tr>
-<tr class="memitem:af10af2e266e485e48390adaa779b4801 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#af10af2e266e485e48390adaa779b4801">propagate</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> &amp;propagated)</td></tr>
-<tr class="memdesc:af10af2e266e485e48390adaa779b4801 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#af10af2e266e485e48390adaa779b4801">More...</a><br /></td></tr>
-<tr class="separator:af10af2e266e485e48390adaa779b4801 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d21508de0f225330d7cd7dc84bef398 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a5d21508de0f225330d7cd7dc84bef398">propagate</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions)</td></tr>
-<tr class="memdesc:a5d21508de0f225330d7cd7dc84bef398 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a5d21508de0f225330d7cd7dc84bef398">More...</a><br /></td></tr>
-<tr class="separator:a5d21508de0f225330d7cd7dc84bef398 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37d0fd0a07d41a5e1696c6aa15234589 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">prop_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="memitem:a8985b6dbfd89600a710b6e363d7208a4 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8985b6dbfd89600a710b6e363d7208a4">propagate</a> (lit_vec_t const &amp;assumptions, lit_vec_t &amp;propagated)</td></tr>
+<tr class="memdesc:a8985b6dbfd89600a710b6e363d7208a4 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a8985b6dbfd89600a710b6e363d7208a4">More...</a><br /></td></tr>
+<tr class="separator:a8985b6dbfd89600a710b6e363d7208a4 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c">propagate</a> (lit_vec_t const &amp;assumptions)</td></tr>
+<tr class="memdesc:a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c">More...</a><br /></td></tr>
+<tr class="separator:a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37d0fd0a07d41a5e1696c6aa15234589 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">prop_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="memdesc:a37d0fd0a07d41a5e1696c6aa15234589 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">More...</a><br /></td></tr>
 <tr class="separator:a37d0fd0a07d41a5e1696c6aa15234589 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33078cf5cae72d3655e639a4934cd311 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a33078cf5cae72d3655e639a4934cd311"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>prop_assignments</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
-<tr class="separator:a33078cf5cae72d3655e639a4934cd311 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9c1cd482357671052b7e31030d8728 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#aab9c1cd482357671052b7e31030d8728">prop_tree</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;vars, uint32_t head_size)</td></tr>
-<tr class="separator:aab9c1cd482357671052b7e31030d8728 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e1592811889cb28b1f83be08dce00f inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a23e1592811889cb28b1f83be08dce00f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>prop_assignments</b> (lit_vec_t const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="separator:a23e1592811889cb28b1f83be08dce00f inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7fc476e97f558f8f306912e5e42fe7 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a0b7fc476e97f558f8f306912e5e42fe7">prop_tree</a> (lit_vec_t const &amp;vars, uint32_t head_size)</td></tr>
+<tr class="separator:a0b7fc476e97f558f8f306912e5e42fe7 inherit pub_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a10f421e6b5c4937a01b29ca5ca267a6d"><td class="memItemLeft" align="right" valign="top"><a id="a10f421e6b5c4937a01b29ca5ca267a6d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumptions) override</td></tr>
-<tr class="separator:a10f421e6b5c4937a01b29ca5ca267a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6955605b6027cf800bf7e63e09bfc6f"><td class="memItemLeft" align="right" valign="top"><a id="ac6955605b6027cf800bf7e63e09bfc6f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;assumptions, <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; &amp;propagated) override</td></tr>
-<tr class="separator:ac6955605b6027cf800bf7e63e09bfc6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c262e3fd789527618c20c864fbd75df"><td class="memItemLeft" align="right" valign="top"><a id="a6c262e3fd789527618c20c864fbd75df"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_tree</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;vars, uint32_t head_size) override</td></tr>
-<tr class="separator:a6c262e3fd789527618c20c864fbd75df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0199c5d1153bc77f87965bb072d4a973"><td class="memItemLeft" align="right" valign="top"><a id="a0199c5d1153bc77f87965bb072d4a973"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (lit_vec_t const &amp;assumptions) override</td></tr>
+<tr class="separator:a0199c5d1153bc77f87965bb072d4a973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0827e4c009de6001baf1bca9b1f92d6"><td class="memItemLeft" align="right" valign="top"><a id="aa0827e4c009de6001baf1bca9b1f92d6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (lit_vec_t const &amp;assumptions, lit_vec_t &amp;propagated) override</td></tr>
+<tr class="separator:aa0827e4c009de6001baf1bca9b1f92d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa527d5976eac011f74601637ab455972"><td class="memItemLeft" align="right" valign="top"><a id="aa527d5976eac011f74601637ab455972"></a>
+uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_tree</b> (lit_vec_t const &amp;vars, uint32_t head_size) override</td></tr>
+<tr class="separator:aa527d5976eac011f74601637ab455972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcore_1_1sat_1_1prop_1_1Prop')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a></td></tr>
 <tr class="memitem:a54bde87432256946eb151acca7c51222 inherit pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a54bde87432256946eb151acca7c51222"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="separator:a54bde87432256946eb151acca7c51222 inherit pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b2a6b59dce92dea1d8776d95ba06467 inherit pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a1b2a6b59dce92dea1d8776d95ba06467"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
-<tr class="separator:a1b2a6b59dce92dea1d8776d95ba06467 inherit pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac415730610b474edb3c8ac3c4f4ec351 inherit pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="ac415730610b474edb3c8ac3c4f4ec351"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (lit_vec_t const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="separator:ac415730610b474edb3c8ac3c4f4ec351 inherit pro_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classcore_1_1sat_1_1prop_1_1Prop')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a></td></tr>
-<tr class="memitem:a5b7b92d63ef9b523b8f6033b4a957a26 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a5b7b92d63ef9b523b8f6033b4a957a26"></a>
-typedef <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>vec_lit_t</b></td></tr>
-<tr class="separator:a5b7b92d63ef9b523b8f6033b4a957a26 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec966ffe86b6f783db306aa96a8807b inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a></td></tr>
-<tr class="separator:a4ec966ffe86b6f783db306aa96a8807b inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1453b16ad3f9c3c8b1d578dd02a45879 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, lit_vec_t const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a></td></tr>
+<tr class="separator:a1453b16ad3f9c3c8b1d578dd02a45879 inherit pub_types_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a></td></tr>
 <tr class="memitem:af0c3dfb58972438ba7ddebbdff9c15d2 inherit pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="af0c3dfb58972438ba7ddebbdff9c15d2"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (<a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (<a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="separator:af0c3dfb58972438ba7ddebbdff9c15d2 inherit pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76bc13f48b0d35da9a1f1ed4ccce3337 inherit pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a76bc13f48b0d35da9a1f1ed4ccce3337"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;base_assumption, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
-<tr class="separator:a76bc13f48b0d35da9a1f1ed4ccce3337 inherit pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bec081dea78fd8b46e4733b45f0c5cd inherit pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memItemLeft" align="right" valign="top"><a id="a2bec081dea78fd8b46e4733b45f0c5cd"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (lit_vec_t const &amp;base_assumption, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="separator:a2bec081dea78fd8b46e4733b45f0c5cd inherit pub_static_methods_classcore_1_1sat_1_1prop_1_1Prop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Mini:SimpSolver-based Solver implementation. </p>
+<div class="textblock"><p>minisat-based propagation engine implementation </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4f785b4221cf7cae704f9fa54f49b0f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f785b4221cf7cae704f9fa54f49b0f3">&#9670;&nbsp;</a></span>load_problem()</h2>

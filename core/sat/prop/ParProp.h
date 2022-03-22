@@ -29,18 +29,15 @@ class ParProp : public Prop {
 
  protected:
   void _prop_assignments(
-      domain::USearch assignment, prop_callback_t const& callback) override;
+      domain::USearch search_p, prop_callback_t const& callback) override;
 
   void _prop_assignments(
-      Mini::vec<Mini::Lit> const& base_assumption, domain::USearch assignment,
+      lit_vec_t const& base_assumption, domain::USearch search_p,
       prop_callback_t const& callback) override;
 
-  bool _propagate(
-      Mini::vec<Mini::Lit> const& assumptions,
-      Mini::vec<Mini::Lit>& propagated) override;
+  bool _propagate(lit_vec_t const& assumptions, lit_vec_t& propagated) override;
 
-  uint64_t _prop_tree(
-      Mini::vec<Mini::Lit> const& vars, uint32_t head_size) override;
+  uint64_t _prop_tree(lit_vec_t const& vars, uint32_t head_size) override;
 
  private:
   using PropWorkerPool = util::WorkerPool<RProp>;

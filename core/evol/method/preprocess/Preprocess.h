@@ -7,6 +7,9 @@
 
 namespace ea::preprocess {
 
+/**
+ * @brief The class managing sat formula preprocessing and (E|G)A heuristics.
+ */
 struct Preprocess {
  public:
   explicit Preprocess(PreprocessConfig config);

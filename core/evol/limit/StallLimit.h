@@ -5,6 +5,10 @@
 
 namespace ea::limit {
 
+/**
+ * @brief This limit controls execution by limiting the number of same instances
+ * (by count or by time).
+ */
 class StallLimit : public Limit {
  public:
   explicit StallLimit(StallLimitConfig const& config);

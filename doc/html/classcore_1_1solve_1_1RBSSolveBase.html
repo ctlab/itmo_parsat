@@ -68,7 +68,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classcore_1_1solve_1_1RBSSolveBase-members.html">List of all members</a>  </div>
@@ -76,15 +75,20 @@ $(function() {
 <div class="title">core::solve::RBSSolveBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base for all classes using RBS strategy in one way or another.  
+ <a href="classcore_1_1solve_1_1RBSSolveBase.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="RBSSolveBase_8h_source.html">RBSSolveBase.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for core::solve::RBSSolveBase:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1solve_1_1RBSSolveBase__inherit__graph.png" border="0" usemap="#core_1_1solve_1_1RBSSolveBase_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1solve_1_1RBSSolveBase_inherit__map" id="core_1_1solve_1_1RBSSolveBase_inherit__map">
-<area shape="rect" title=" " alt="" coords="197,80,392,107"/>
+<area shape="rect" title="Base for all classes using RBS strategy in one way or another." alt="" coords="197,80,392,107"/>
 <area shape="rect" href="classcore_1_1solve_1_1ParRBSSolve.html" title="This class solves SAT in the following way:" alt="" coords="5,155,189,181"/>
 <area shape="rect" href="classcore_1_1solve_1_1RBSSolve.html" title="This class solves SAT in the following way:" alt="" coords="213,155,376,181"/>
-<area shape="rect" href="classcore_1_1solve_1_1RecurringRBSSolve.html" title=" " alt="" coords="401,155,626,181"/>
+<area shape="rect" href="classcore_1_1solve_1_1RecurringRBSSolve.html" title="This class solves SAT in the following way:" alt="" coords="401,155,626,181"/>
 <area shape="rect" href="classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="226,5,363,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -93,7 +97,7 @@ Collaboration diagram for core::solve::RBSSolveBase:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1solve_1_1RBSSolveBase__coll__graph.png" border="0" usemap="#core_1_1solve_1_1RBSSolveBase_coll__map" alt="Collaboration graph"/></div>
 <map name="core_1_1solve_1_1RBSSolveBase_coll__map" id="core_1_1solve_1_1RBSSolveBase_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,200,107"/>
+<area shape="rect" title="Base for all classes using RBS strategy in one way or another." alt="" coords="5,80,200,107"/>
 <area shape="rect" href="classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="34,5,171,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -104,7 +108,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RBSSolveBase</b> (PreprocessConfig const &amp;preprocess_config, PropConfig const &amp;prop_config, SolverServiceConfig const &amp;solver_service_config)</td></tr>
 <tr class="separator:a4b281909299e4c9221d71143ef1745e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af33145c85e9dd2f6a6dceacf8c37daf9"><td class="memItemLeft" align="right" valign="top"><a id="af33145c85e9dd2f6a6dceacf8c37daf9"></a>
-std::vector&lt; <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_filter_conflict</b> (domain::USearch assignment)</td></tr>
+std::vector&lt; Mini::vec&lt; Mini::Lit &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_filter_conflict</b> (domain::USearch assignment)</td></tr>
 <tr class="separator:af33145c85e9dd2f6a6dceacf8c37daf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e10d1929af288bf48cd35692ed66bbe"><td class="memItemLeft" align="right" valign="top">sat::State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1solve_1_1RBSSolveBase.html#a0e10d1929af288bf48cd35692ed66bbe">solve</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem) final</td></tr>
 <tr class="memdesc:a0e10d1929af288bf48cd35692ed66bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method solves SAT. For now, it is expected to be called only once per object lifetime.  <a href="classcore_1_1solve_1_1RBSSolveBase.html#a0e10d1929af288bf48cd35692ed66bbe">More...</a><br /></td></tr>
@@ -114,17 +118,11 @@ std::vector&lt; <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>interrupt</b> ()</td></tr>
 <tr class="separator:a751145f967af1ce7ec44c559da008c9b inherit pub_methods_classcore_1_1solve_1_1Solve"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a510670f0f17fb3b27a7cccd6421da021"><td class="memItemLeft" align="right" valign="top"><a id="a510670f0f17fb3b27a7cccd6421da021"></a>
-static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_TIME_LIMIT</b> = 24h</td></tr>
-<tr class="separator:a510670f0f17fb3b27a7cccd6421da021"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a227e6d851fce6822de5d8edb50c75ed8"><td class="memItemLeft" align="right" valign="top"><a id="a227e6d851fce6822de5d8edb50c75ed8"></a>
-sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_solve_final</b> (std::vector&lt; <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&gt; const &amp;assumptions_v, core::clock_t::duration time_limit_each=MAX_TIME_LIMIT)</td></tr>
-<tr class="separator:a227e6d851fce6822de5d8edb50c75ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25d167efa438d8260c61e46b7dd0d824"><td class="memItemLeft" align="right" valign="top"><a id="a25d167efa438d8260c61e46b7dd0d824"></a>
+sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_solve_final</b> (std::vector&lt; Mini::vec&lt; Mini::Lit &gt;&gt; const &amp;assumptions_v)</td></tr>
+<tr class="separator:a25d167efa438d8260c61e46b7dd0d824"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5a68e7c1839ab9ec3398f7af6221ee8"><td class="memItemLeft" align="right" valign="top"><a id="aa5a68e7c1839ab9ec3398f7af6221ee8"></a>
 virtual sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_solve_impl</b> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem, ea::preprocess::RPreprocess const &amp;preprocess)=0</td></tr>
 <tr class="separator:aa5a68e7c1839ab9ec3398f7af6221ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,7 +157,9 @@ Additional Inherited Members</h2></td></tr>
 static sat::solver::RSolver&#160;</td><td class="memItemRight" valign="bottom"><b>_resolve_solver</b> (SolverConfig const &amp;config)</td></tr>
 <tr class="separator:a7d7849b7fde1714c7ed1f2b7836cdf7d inherit pro_static_methods_classcore_1_1solve_1_1Solve"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base for all classes using RBS strategy in one way or another. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0e10d1929af288bf48cd35692ed66bbe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e10d1929af288bf48cd35692ed66bbe">&#9670;&nbsp;</a></span>solve()</h2>
 

@@ -16,12 +16,10 @@
 
 namespace core::solve {
 
-using namespace std::chrono_literals;
-
+/**
+ * @brief Base for all classes using RBS strategy in one way or another
+ */
 class RBSSolveBase : public Solve {
- public:
-  static constexpr clock_t::duration MAX_TIME_LIMIT = 24h;
-
  public:
   RBSSolveBase(
       PreprocessConfig const& preprocess_config, PropConfig const& prop_config,
@@ -34,8 +32,7 @@ class RBSSolveBase : public Solve {
 
  protected:
   sat::State _solve_final(
-      std::vector<Mini::vec<Mini::Lit>> const& assumptions_v,
-      core::clock_t::duration time_limit_each = MAX_TIME_LIMIT);
+      std::vector<Mini::vec<Mini::Lit>> const& assumptions_v);
 
   virtual sat::State _solve_impl(
       sat::Problem const& problem,

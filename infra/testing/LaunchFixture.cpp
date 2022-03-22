@@ -56,7 +56,6 @@ void LaunchFixture::SetUpTestSuite() {
 }
 
 void LaunchFixture::SetUp() {
-  ASSERT_TRUE(!test_failed && !is_interrupted);
   _info = std::make_unique<infra::domain::LaunchInfo>(config);
   _exec_manager =
       std::make_unique<infra::execution::ExecutionManager>(config.max_threads);
@@ -114,10 +113,11 @@ void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
 
   infra::domain::LaunchObject launch;
   launch.test_group = test_group;
+  launch.input_name = _info->get_input_name(launch_config);
   launch.config_name = launch_config.config;
   launch.log_path = artifact_logs_path;
-  launch.commit_hash = config.commit;
   launch.branch = config.branch;
+  launch.commit_hash = config.commit;
   launch.description = launch_config.description;
 
   auto callback = [=] (uint64_t started_at, uint64_t finished_at,
@@ -161,8 +161,6 @@ void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
 
 void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
   if (!_info->should_be_launched(launch_config)) {
-    IPS_INFO(
-        "Test skipped: " << launch_config.config << ' ' << launch_config.input);
     return;
   }
 
@@ -175,8 +173,7 @@ void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
 
   {  // get threads required
     SolveConfig slv_cfg;
-    std::ifstream ifs(config_path);
-    util::CliConfig::read_config(ifs, slv_cfg);
+    util::CliConfig::read_config(config_path, slv_cfg);
     launch_config.threads_required = slv_cfg.cpu_limit();
   }
 

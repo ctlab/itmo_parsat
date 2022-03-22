@@ -32,13 +32,13 @@ Collaboration diagram for core\+::domain\+::Unique\+Search\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a703c4a918e5e14e84a7a3356584ffe0d}\label{classcore_1_1domain_1_1UniqueSearch_a703c4a918e5e14e84a7a3356584ffe0d}} 
-{\bfseries Unique\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars, uint64\+\_\+t total)
+\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a4ea6cdde432be3e46ef399769bdb8df1}\label{classcore_1_1domain_1_1UniqueSearch_a4ea6cdde432be3e46ef399769bdb8df1}} 
+{\bfseries Unique\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&vars, uint64\+\_\+t total)
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a20840c4c1859e3b7f8af0db4e767cfb4}\label{classcore_1_1domain_1_1UniqueSearch_a20840c4c1859e3b7f8af0db4e767cfb4}} 
 {\bfseries Unique\+Search} (std\+::vector$<$ int $>$ const \&vars, uint64\+\_\+t total)
 \item 
-\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const  \& \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_a6054f69d00108754a4e933bdd4d0c46e}{operator()}} () const override
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1domain_1_1UniqueSearch_ac8ae16de0b6a00018be25565d9c55ad1}{operator()}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -53,12 +53,6 @@ void {\bfseries \+\_\+reset} () override
 \begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_aed154199c5fa207678578a46adeef687}\label{classcore_1_1domain_1_1UniqueSearch_aed154199c5fa207678578a46adeef687}} 
 void {\bfseries \+\_\+advance\+\_\+us} ()
-\end{DoxyCompactItemize}
-\doxysubsection*{Friends}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a92ef461872bdf5de495cf202d85aaa08}\label{classcore_1_1domain_1_1UniqueSearch_a92ef461872bdf5de495cf202d85aaa08}} 
-U\+Search {\bfseries create\+Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&, uint64\+\_\+t)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -84,11 +78,11 @@ the copy of this search
 
 Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d346e679fa66}{core\+::domain\+::\+Search}}.
 
-\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_a6054f69d00108754a4e933bdd4d0c46e}\label{classcore_1_1domain_1_1UniqueSearch_a6054f69d00108754a4e933bdd4d0c46e}} 
+\mbox{\Hypertarget{classcore_1_1domain_1_1UniqueSearch_ac8ae16de0b6a00018be25565d9c55ad1}\label{classcore_1_1domain_1_1UniqueSearch_ac8ae16de0b6a00018be25565d9c55ad1}} 
 \index{core::domain::UniqueSearch@{core::domain::UniqueSearch}!operator()@{operator()}}
 \index{operator()@{operator()}!core::domain::UniqueSearch@{core::domain::UniqueSearch}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const  \& core\+::domain\+::\+Unique\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::domain\+::\+Unique\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
 the current assignment 

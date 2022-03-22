@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['painlesssolver_548',['PainlessSolver',['../classcore_1_1sat_1_1solver_1_1PainlessSolver.html',1,'core::sat::solver']]],
-  ['pair_549',['Pair',['../structMini_1_1Map_1_1Pair.html',1,'Mini::Map']]],
-  ['parameters_550',['Parameters',['../classParameters.html',1,'']]],
-  ['parprop_551',['ParProp',['../classcore_1_1sat_1_1prop_1_1ParProp.html',1,'core::sat::prop']]],
-  ['parrbssolve_552',['ParRBSSolve',['../classcore_1_1solve_1_1ParRBSSolve.html',1,'core::solve']]],
-  ['ple_5ftable_5ft_553',['ple_table_t',['../structple__table__t.html',1,'']]],
-  ['pointslimit_554',['PointsLimit',['../classea_1_1limit_1_1PointsLimit.html',1,'ea::limit']]],
-  ['portfolio_555',['Portfolio',['../classpainless_1_1Portfolio.html',1,'painless']]],
-  ['preprocess_556',['Preprocess',['../structea_1_1preprocess_1_1Preprocess.html',1,'ea::preprocess']]],
-  ['problem_557',['Problem',['../classcore_1_1sat_1_1Problem.html',1,'core::sat']]],
-  ['prop_558',['Prop',['../classcore_1_1sat_1_1prop_1_1Prop.html',1,'core::sat::prop']]]
+  ['samplingconfig_128',['SamplingConfig',['../structea_1_1instance_1_1SharedData_1_1SamplingConfig.html',1,'ea::instance::SharedData']]],
+  ['search_129',['Search',['../classcore_1_1domain_1_1Search.html',1,'core::domain']]],
+  ['searchspace_130',['SearchSpace',['../structcore_1_1domain_1_1SearchSpace.html',1,'core::domain']]],
+  ['selector_131',['Selector',['../classea_1_1method_1_1Selector.html',1,'ea::method']]],
+  ['sequentialsolverservice_132',['SequentialSolverService',['../classcore_1_1sat_1_1solver_1_1SequentialSolverService.html',1,'core::sat::solver']]],
+  ['shareddata_133',['SharedData',['../structea_1_1instance_1_1SharedData.html',1,'ea::instance']]],
+  ['simpprop_134',['SimpProp',['../classcore_1_1sat_1_1prop_1_1SimpProp.html',1,'core::sat::prop']]],
+  ['simpsolver_135',['SimpSolver',['../classcore_1_1sat_1_1solver_1_1SimpSolver.html',1,'core::sat::solver']]],
+  ['singlesearch_136',['SingleSearch',['../classcore_1_1domain_1_1SingleSearch.html',1,'core::domain']]],
+  ['solve_137',['Solve',['../classcore_1_1solve_1_1Solve.html',1,'core::solve']]],
+  ['solver_138',['Solver',['../classcore_1_1sat_1_1solver_1_1Solver.html',1,'core::sat::solver']]],
+  ['solverservice_139',['SolverService',['../classcore_1_1sat_1_1solver_1_1SolverService.html',1,'core::sat::solver']]],
+  ['stalllimit_140',['StallLimit',['../classea_1_1limit_1_1StallLimit.html',1,'ea::limit']]]
 ];

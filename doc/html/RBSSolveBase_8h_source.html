@@ -88,48 +88,42 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>core::solve {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using namespace </span>std::chrono_literals;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classcore_1_1solve_1_1RBSSolveBase.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1solve_1_1RBSSolveBase.html">RBSSolveBase</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1solve_1_1Solve.html">Solve</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">static</span> constexpr clock_t::duration MAX_TIME_LIMIT = 24h;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="classcore_1_1solve_1_1RBSSolveBase.html">RBSSolveBase</a>(</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      PreprocessConfig <span class="keyword">const</span>&amp; preprocess_config, PropConfig <span class="keyword">const</span>&amp; prop_config,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      SolverServiceConfig <span class="keyword">const</span>&amp; solver_service_config);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  [[nodiscard]] std::vector&lt;Mini::vec&lt;Mini::Lit&gt;&gt; _filter_conflict(</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      domain::USearch assignment);</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classcore_1_1solve_1_1RBSSolveBase.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1solve_1_1RBSSolveBase.html">RBSSolveBase</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1solve_1_1Solve.html">Solve</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classcore_1_1solve_1_1RBSSolveBase.html">RBSSolveBase</a>(</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      PreprocessConfig <span class="keyword">const</span>&amp; preprocess_config, PropConfig <span class="keyword">const</span>&amp; prop_config,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      SolverServiceConfig <span class="keyword">const</span>&amp; solver_service_config);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  [[nodiscard]] std::vector&lt;Mini::vec&lt;Mini::Lit&gt;&gt; _filter_conflict(</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      domain::USearch assignment);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  [[nodiscard]] sat::State <a class="code" href="classcore_1_1solve_1_1RBSSolveBase.html#a0e10d1929af288bf48cd35692ed66bbe">solve</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">final</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  [[nodiscard]] sat::State solve(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  sat::State _solve_final(</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      std::vector&lt;<a class="code" href="classMini_1_1vec.html">Mini::vec&lt;Mini::Lit&gt;</a>&gt; <span class="keyword">const</span>&amp; assumptions_v,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      core::clock_t::duration time_limit_each = MAX_TIME_LIMIT);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> sat::State _solve_impl(</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      ea::preprocess::RPreprocess <span class="keyword">const</span>&amp; preprocess) = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  sat::State _solve_final(</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      std::vector&lt;Mini::vec&lt;Mini::Lit&gt;&gt; <span class="keyword">const</span>&amp; assumptions_v);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">virtual</span> sat::State _solve_impl(</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      ea::preprocess::RPreprocess <span class="keyword">const</span>&amp; preprocess) = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> _load_problem(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> _load_problem(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  ea::preprocess::RPreprocess _preprocess;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  core::sat::prop::RProp _prop;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  core::sat::solver::RSolverService _solver_service;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}  <span class="comment">// namespace core::solve</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RBSSOLVEBASE_H</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  ea::preprocess::RPreprocess _preprocess;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  core::sat::prop::RProp _prop;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  core::sat::solver::RSolverService _solver_service;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}  <span class="comment">// namespace core::solve</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RBSSOLVEBASE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassMini_1_1vec_html"><div class="ttname"><a href="classMini_1_1vec.html">Mini::vec&lt; Mini::Lit &gt;</a></div></div>
-<div class="ttc" id="aclasscore_1_1solve_1_1RBSSolveBase_html"><div class="ttname"><a href="classcore_1_1solve_1_1RBSSolveBase.html">core::solve::RBSSolveBase</a></div><div class="ttdef"><b>Definition:</b> RBSSolveBase.h:21</div></div>
+<div class="ttc" id="aclasscore_1_1solve_1_1RBSSolveBase_html_a0e10d1929af288bf48cd35692ed66bbe"><div class="ttname"><a href="classcore_1_1solve_1_1RBSSolveBase.html#a0e10d1929af288bf48cd35692ed66bbe">core::solve::RBSSolveBase::solve</a></div><div class="ttdeci">sat::State solve(sat::Problem const &amp;problem) final</div><div class="ttdoc">This method solves SAT. For now, it is expected to be called only once per object lifetime.</div><div class="ttdef"><b>Definition:</b> RBSSolveBase.cpp:93</div></div>
+<div class="ttc" id="aclasscore_1_1solve_1_1RBSSolveBase_html"><div class="ttname"><a href="classcore_1_1solve_1_1RBSSolveBase.html">core::solve::RBSSolveBase</a></div><div class="ttdoc">Base for all classes using RBS strategy in one way or another.</div><div class="ttdef"><b>Definition:</b> RBSSolveBase.h:22</div></div>
 <div class="ttc" id="aclasscore_1_1solve_1_1Solve_html"><div class="ttname"><a href="classcore_1_1solve_1_1Solve.html">core::solve::Solve</a></div><div class="ttdoc">The core class that performs all actions related to solving SAT.</div><div class="ttdef"><b>Definition:</b> Solve.h:19</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdef"><b>Definition:</b> Problem.h:20</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:23</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

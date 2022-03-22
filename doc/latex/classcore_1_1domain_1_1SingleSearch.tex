@@ -2,6 +2,15 @@
 \label{classcore_1_1domain_1_1SingleSearch}\index{core::domain::SingleSearch@{core::domain::SingleSearch}}
 
 
+The search implementation consisting of only one (empty) assignment.  
+
+
+
+
+{\ttfamily \#include $<$Search.\+h$>$}
+
+
+
 Inheritance diagram for core\+::domain\+::Single\+Search\+:
 \nopagebreak
 \begin{figure}[H]
@@ -23,12 +32,15 @@ Collaboration diagram for core\+::domain\+::Single\+Search\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classMini_1_1vec}{lit\+\_\+vec\+\_\+t}} const  \& \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_ac213af2e09a226bcd87fcdf56842ccda}{operator()}} () const override
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_ac213af2e09a226bcd87fcdf56842ccda}{operator()}} () const override
 \item 
 \mbox{\hyperlink{classcore_1_1domain_1_1Search}{Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1SingleSearch_a6292070a225c5b714ae943ba514bd694}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
+
+\doxysubsection{Detailed Description}
+The search implementation consisting of only one (empty) assignment. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1domain_1_1SingleSearch_a6292070a225c5b714ae943ba514bd694}\label{classcore_1_1domain_1_1SingleSearch_a6292070a225c5b714ae943ba514bd694}} 
@@ -52,7 +64,7 @@ Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d
 \index{core::domain::SingleSearch@{core::domain::SingleSearch}!operator()@{operator()}}
 \index{operator()@{operator()}!core::domain::SingleSearch@{core::domain::SingleSearch}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const  \& core\+::domain\+::\+Single\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily Mini\+::vec$<$ Mini\+::\+Lit $>$ const  \& core\+::domain\+::\+Single\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
 the current assignment 

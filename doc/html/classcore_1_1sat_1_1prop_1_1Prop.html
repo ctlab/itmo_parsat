@@ -88,37 +88,34 @@ Inheritance diagram for core::sat::prop::Prop:</div>
 <map name="core_1_1sat_1_1prop_1_1Prop_inherit__map" id="core_1_1sat_1_1prop_1_1Prop_inherit__map">
 <area shape="rect" title="SAT Propagation interface." alt="" coords="117,5,269,32"/>
 <area shape="rect" href="classcore_1_1sat_1_1prop_1_1ParProp.html" title="Parallel propagation implementation." alt="" coords="5,80,179,107"/>
-<area shape="rect" href="classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="203,80,389,107"/>
+<area shape="rect" href="classcore_1_1sat_1_1prop_1_1SimpProp.html" title="minisat&#45;based propagation engine implementation" alt="" coords="203,80,389,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a5b7b92d63ef9b523b8f6033b4a957a26"><td class="memItemLeft" align="right" valign="top"><a id="a5b7b92d63ef9b523b8f6033b4a957a26"></a>
-typedef <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>vec_lit_t</b></td></tr>
-<tr class="separator:a5b7b92d63ef9b523b8f6033b4a957a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec966ffe86b6f783db306aa96a8807b"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a></td></tr>
-<tr class="separator:a4ec966ffe86b6f783db306aa96a8807b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1453b16ad3f9c3c8b1d578dd02a45879"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool(bool, lit_vec_t const  &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a></td></tr>
+<tr class="separator:a1453b16ad3f9c3c8b1d578dd02a45879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a528c2a9c9fb63e471fbd99d2f5f06d44"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a528c2a9c9fb63e471fbd99d2f5f06d44">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">Problem</a> const &amp;problem)=0</td></tr>
 <tr class="memdesc:a528c2a9c9fb63e471fbd99d2f5f06d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a528c2a9c9fb63e471fbd99d2f5f06d44">More...</a><br /></td></tr>
 <tr class="separator:a528c2a9c9fb63e471fbd99d2f5f06d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af10af2e266e485e48390adaa779b4801"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#af10af2e266e485e48390adaa779b4801">propagate</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> &amp;propagated)</td></tr>
-<tr class="memdesc:af10af2e266e485e48390adaa779b4801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#af10af2e266e485e48390adaa779b4801">More...</a><br /></td></tr>
-<tr class="separator:af10af2e266e485e48390adaa779b4801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d21508de0f225330d7cd7dc84bef398"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a5d21508de0f225330d7cd7dc84bef398">propagate</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions)</td></tr>
-<tr class="memdesc:a5d21508de0f225330d7cd7dc84bef398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a5d21508de0f225330d7cd7dc84bef398">More...</a><br /></td></tr>
-<tr class="separator:a5d21508de0f225330d7cd7dc84bef398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37d0fd0a07d41a5e1696c6aa15234589"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">prop_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="memitem:a8985b6dbfd89600a710b6e363d7208a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a8985b6dbfd89600a710b6e363d7208a4">propagate</a> (lit_vec_t const &amp;assumptions, lit_vec_t &amp;propagated)</td></tr>
+<tr class="memdesc:a8985b6dbfd89600a710b6e363d7208a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a8985b6dbfd89600a710b6e363d7208a4">More...</a><br /></td></tr>
+<tr class="separator:a8985b6dbfd89600a710b6e363d7208a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c">propagate</a> (lit_vec_t const &amp;assumptions)</td></tr>
+<tr class="memdesc:a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates a given list of assumptions.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c">More...</a><br /></td></tr>
+<tr class="separator:a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37d0fd0a07d41a5e1696c6aa15234589"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">prop_assignments</a> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="memdesc:a37d0fd0a07d41a5e1696c6aa15234589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propagates all assignments by the given iterator and calls callback respectively.  <a href="classcore_1_1sat_1_1prop_1_1Prop.html#a37d0fd0a07d41a5e1696c6aa15234589">More...</a><br /></td></tr>
 <tr class="separator:a37d0fd0a07d41a5e1696c6aa15234589"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33078cf5cae72d3655e639a4934cd311"><td class="memItemLeft" align="right" valign="top"><a id="a33078cf5cae72d3655e639a4934cd311"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>prop_assignments</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
-<tr class="separator:a33078cf5cae72d3655e639a4934cd311"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9c1cd482357671052b7e31030d8728"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#aab9c1cd482357671052b7e31030d8728">prop_tree</a> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;vars, uint32_t head_size)</td></tr>
-<tr class="separator:aab9c1cd482357671052b7e31030d8728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e1592811889cb28b1f83be08dce00f"><td class="memItemLeft" align="right" valign="top"><a id="a23e1592811889cb28b1f83be08dce00f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>prop_assignments</b> (lit_vec_t const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="separator:a23e1592811889cb28b1f83be08dce00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7fc476e97f558f8f306912e5e42fe7"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a0b7fc476e97f558f8f306912e5e42fe7">prop_tree</a> (lit_vec_t const &amp;vars, uint32_t head_size)</td></tr>
+<tr class="separator:a0b7fc476e97f558f8f306912e5e42fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b6fbb2e4ce7be04f1ea1de3cbc385f2"><td class="memItemLeft" align="right" valign="top"><a id="a1b6fbb2e4ce7be04f1ea1de3cbc385f2"></a>
 virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1b6fbb2e4ce7be04f1ea1de3cbc385f2">num_vars</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a1b6fbb2e4ce7be04f1ea1de3cbc385f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
@@ -127,41 +124,41 @@ virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:af0c3dfb58972438ba7ddebbdff9c15d2"><td class="memItemLeft" align="right" valign="top"><a id="af0c3dfb58972438ba7ddebbdff9c15d2"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (<a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (<a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="separator:af0c3dfb58972438ba7ddebbdff9c15d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76bc13f48b0d35da9a1f1ed4ccce3337"><td class="memItemLeft" align="right" valign="top"><a id="a76bc13f48b0d35da9a1f1ed4ccce3337"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const &amp;base_assumption, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
-<tr class="separator:a76bc13f48b0d35da9a1f1ed4ccce3337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bec081dea78fd8b46e4733b45f0c5cd"><td class="memItemLeft" align="right" valign="top"><a id="a2bec081dea78fd8b46e4733b45f0c5cd"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>sequential_propagate</b> (lit_vec_t const &amp;base_assumption, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">Prop</a> &amp;prop, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="separator:a2bec081dea78fd8b46e4733b45f0c5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a1e46f26e40203d9d138a6425d3e1d4e6"><td class="memItemLeft" align="right" valign="top"><a id="a1e46f26e40203d9d138a6425d3e1d4e6"></a>
-virtual uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_tree</b> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;vars, uint32_t head_size)=0</td></tr>
-<tr class="separator:a1e46f26e40203d9d138a6425d3e1d4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac91f178f4e74f3eba06dbb81af949a6f"><td class="memItemLeft" align="right" valign="top"><a id="ac91f178f4e74f3eba06dbb81af949a6f"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> &amp;propagated)=0</td></tr>
-<tr class="separator:ac91f178f4e74f3eba06dbb81af949a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4856a4137fa2c7d0df939100af9fe63d"><td class="memItemLeft" align="right" valign="top"><a id="a4856a4137fa2c7d0df939100af9fe63d"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;assumptions)</td></tr>
-<tr class="separator:a4856a4137fa2c7d0df939100af9fe63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08667b3b23fe81e320dc3d17c37386bb"><td class="memItemLeft" align="right" valign="top"><a id="a08667b3b23fe81e320dc3d17c37386bb"></a>
+virtual uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_tree</b> (lit_vec_t const &amp;vars, uint32_t head_size)=0</td></tr>
+<tr class="separator:a08667b3b23fe81e320dc3d17c37386bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dc71d2756998b7ab7f3cbc8a947f306"><td class="memItemLeft" align="right" valign="top"><a id="a7dc71d2756998b7ab7f3cbc8a947f306"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (lit_vec_t const &amp;assumptions, lit_vec_t &amp;propagated)=0</td></tr>
+<tr class="separator:a7dc71d2756998b7ab7f3cbc8a947f306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7920533d72f0f98dee4d51008953e14"><td class="memItemLeft" align="right" valign="top"><a id="ae7920533d72f0f98dee4d51008953e14"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>_propagate</b> (lit_vec_t const &amp;assumptions)</td></tr>
+<tr class="separator:ae7920533d72f0f98dee4d51008953e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54bde87432256946eb151acca7c51222"><td class="memItemLeft" align="right" valign="top"><a id="a54bde87432256946eb151acca7c51222"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
 <tr class="separator:a54bde87432256946eb151acca7c51222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b2a6b59dce92dea1d8776d95ba06467"><td class="memItemLeft" align="right" valign="top"><a id="a1b2a6b59dce92dea1d8776d95ba06467"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (<a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;callback)</td></tr>
-<tr class="separator:a1b2a6b59dce92dea1d8776d95ba06467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac415730610b474edb3c8ac3c4f4ec351"><td class="memItemLeft" align="right" valign="top"><a id="ac415730610b474edb3c8ac3c4f4ec351"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignments</b> (lit_vec_t const &amp;base_assumption, domain::USearch search, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;callback)</td></tr>
+<tr class="separator:ac415730610b474edb3c8ac3c4f4ec351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SAT Propagation interface. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a4ec966ffe86b6f783db306aa96a8807b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ec966ffe86b6f783db306aa96a8807b">&#9670;&nbsp;</a></span>prop_callback_t</h2>
+<a id="a1453b16ad3f9c3c8b1d578dd02a45879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1453b16ad3f9c3c8b1d578dd02a45879">&#9670;&nbsp;</a></span>prop_callback_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::function&lt; bool( bool, <a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">core::sat::prop::Prop::prop_callback_t</a></td>
+          <td class="memname">typedef std::function&lt; bool( bool, lit_vec_t const&amp; )&gt; <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">core::sat::prop::Prop::prop_callback_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -221,7 +218,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a4ec966ffe86b6f783db306aa96a8807b">prop_callback_t</a> const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1453b16ad3f9c3c8b1d578dd02a45879">prop_callback_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>
@@ -243,8 +240,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
 
 </div>
 </div>
-<a id="aab9c1cd482357671052b7e31030d8728"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab9c1cd482357671052b7e31030d8728">&#9670;&nbsp;</a></span>prop_tree()</h2>
+<a id="a0b7fc476e97f558f8f306912e5e42fe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b7fc476e97f558f8f306912e5e42fe7">&#9670;&nbsp;</a></span>prop_tree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +249,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
         <tr>
           <td class="memname">uint64_t core::sat::prop::Prop::prop_tree </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
+          <td class="paramtype">lit_vec_t const &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -268,12 +265,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>: documentation </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>: documentation </dd></dl>
 
 </div>
 </div>
-<a id="a5d21508de0f225330d7cd7dc84bef398"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d21508de0f225330d7cd7dc84bef398">&#9670;&nbsp;</a></span>propagate() <span class="overload">[1/2]</span></h2>
+<a id="a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c">&#9670;&nbsp;</a></span>propagate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +278,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
         <tr>
           <td class="memname">bool core::sat::prop::Prop::propagate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
+          <td class="paramtype">lit_vec_t const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -299,8 +296,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
 
 </div>
 </div>
-<a id="af10af2e266e485e48390adaa779b4801"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af10af2e266e485e48390adaa779b4801">&#9670;&nbsp;</a></span>propagate() <span class="overload">[2/2]</span></h2>
+<a id="a8985b6dbfd89600a710b6e363d7208a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8985b6dbfd89600a710b6e363d7208a4">&#9670;&nbsp;</a></span>propagate() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,13 +305,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prop_assignm
         <tr>
           <td class="memname">bool core::sat::prop::Prop::propagate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> const &amp;&#160;</td>
+          <td class="paramtype">lit_vec_t const &amp;&#160;</td>
           <td class="paramname"><em>assumptions</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMini_1_1vec.html">vec_lit_t</a> &amp;&#160;</td>
+          <td class="paramtype">lit_vec_t &amp;&#160;</td>
           <td class="paramname"><em>propagated</em>&#160;</td>
         </tr>
         <tr>

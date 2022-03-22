@@ -2,6 +2,15 @@
 \label{classcore_1_1sat_1_1solver_1_1PainlessSolver}\index{core::sat::solver::PainlessSolver@{core::sat::solver::PainlessSolver}}
 
 
+Painless-\/based \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver}{Solver}} implementation.  
+
+
+
+
+{\ttfamily \#include $<$Painless\+Solver.\+h$>$}
+
+
+
 Inheritance diagram for core\+::sat\+::solver\+::Painless\+Solver\+:
 \nopagebreak
 \begin{figure}[H]
@@ -28,7 +37,7 @@ Collaboration diagram for core\+::sat\+::solver\+::Painless\+Solver\+:
 \item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_a6dc7770f1714ba76e2f3a2be3affe569}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_ab7b4a604b55a6a764594d915ffef3b19}{solve}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
+State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_aecb7e99e36483993de1be0b272466a73}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions) override
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_a535beda7bf938e88c41dced89ff2b161}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_a535beda7bf938e88c41dced89ff2b161}} 
 unsigned \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_a535beda7bf938e88c41dced89ff2b161}{num\+\_\+vars}} () const noexcept override
@@ -39,8 +48,10 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_afdb4ab2d9ddb
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_aa94d98f0e4c73586da5259f47f8ff201}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_aa94d98f0e4c73586da5259f47f8ff201}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_aa94d98f0e4c73586da5259f47f8ff201}{clear\+\_\+interrupt}} () override
 \begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Additional Inherited Members}
 
+
+\doxysubsection{Detailed Description}
+Painless-\/based \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver}{Solver}} implementation. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_a6dc7770f1714ba76e2f3a2be3affe569}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_a6dc7770f1714ba76e2f3a2be3affe569}} 
@@ -62,11 +73,11 @@ Parses cnf from .gz file with the specified path.
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_ab7b4a604b55a6a764594d915ffef3b19}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_ab7b4a604b55a6a764594d915ffef3b19}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_aecb7e99e36483993de1be0b272466a73}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_aecb7e99e36483993de1be0b272466a73}} 
 \index{core::sat::solver::PainlessSolver@{core::sat::solver::PainlessSolver}!solve@{solve}}
 \index{solve@{solve}!core::sat::solver::PainlessSolver@{core::sat::solver::PainlessSolver}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+Painless\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+Painless\+Solver\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -82,7 +93,7 @@ the result of solving.
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_ab1b37c445aba31024d59e32061f32586}{core\+::sat\+::solver\+::\+Solver}}.
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a16fe040877511f1925d40091c7e632df}{core\+::sat\+::solver\+::\+Solver}}.
 
 
 

@@ -6,7 +6,7 @@ void MapleCOMSPSSolver::load_problem(Problem const& problem) {
   static_cast<MapleCOMSPSSimpBase*>(this)->load_problem(problem);
 }
 
-State MapleCOMSPSSolver::solve(vec_lit_t const& assumptions) {
+State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   clearInterrupt();
 
   MapleCOMSPS::lbool result = IPS_TRACE_N_V(

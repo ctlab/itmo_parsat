@@ -17,8 +17,15 @@ enum State {
   UNKNOWN,
 };
 
+/**
+ * @brief The problem descriptor class.
+ */
 class Problem {
  public:
+  /**
+   * @brief Constructs the problem by the cnf path.
+   * @param path the path to cnf formula
+   */
   explicit Problem(std::filesystem::path const& path);
 
   [[nodiscard]] std::filesystem::path const& path() const noexcept;

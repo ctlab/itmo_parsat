@@ -22,7 +22,7 @@ class Crossover {
   virtual void apply(instance::Instance& a, instance::Instance& b) = 0;
 };
 
-using RCrossover = std::shared_ptr<Crossover>;
+MAKE_REFS(Crossover);
 
 DEFINE_REGISTRY(Crossover, CrossoverConfig, crossover);
 

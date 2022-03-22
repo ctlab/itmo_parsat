@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <utility>
 
+#include "util/stream.h"
 #include "util/Logger.h"
 #include "util/Random.h"
 
@@ -17,7 +18,7 @@ Instance::Instance(
     preprocess::RPreprocess preprocess)
     : _prop(std::move(prop))
     , _shared(std::move(shared_data))
-    , _preprocess(preprocess) {
+    , _preprocess(std::move(preprocess)) {
   _vars.resize(_var_view().size());
   // Initialize instance by setting one random variable
   _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
@@ -81,33 +82,15 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
     samples = 1ULL << size;
     core::domain::UFullSearch search =
         core::domain::createFullSearch(_var_view(), mask);
-
-#if 1
-    Mini::vec<Mini::Lit> assumption = _shared->base_assumption;
-    {
-      auto const& cur_assumption = (*search)();
-      assumption.capacity(assumption.size() + cur_assumption.size());
-      for (int i = 0; i < cur_assumption.size(); ++i) {
-        assumption.push(cur_assumption[i]);
-      }
-    }
-    conflicts =
-        _prop->prop_tree(assumption, assumption.size() - (*search)().size());
-#else
-    Mini::vec<Mini::Lit> vars = (*search)();
-    _prop->prop_assignments(
-        std::move(search), [&conflicts](bool conflict, auto&&) {
-          conflicts += conflict;
-          return true;
-        });
-    uint64_t tree_conflicts = _prop->prop_tree(vars, 0);
-    IPS_VERIFY(tree_conflicts == conflicts);
-#endif
+    conflicts = _prop->prop_tree(
+        util::concat(_shared->base_assumption, (*search)()),
+        _shared->base_assumption.size());
   } else {
     core::domain::USearch search =
         core::domain::createRandomSearch(_var_view(), mask, samples);
     _prop->prop_assignments(
-        {}, std::move(search), [&conflicts](bool conflict, auto const&) {
+        _shared->base_assumption, std::move(search),
+        [&conflicts](bool conflict, auto const&) {
           conflicts += conflict;
           return true;
         });
@@ -120,7 +103,7 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   _cached = true;
 
   if (!full_search && fit_.rho == 1.0 && steps_left > 0) {
-    uint32_t scaled_samples = samples * _sampling_config().scale;
+    auto scaled_samples = uint32_t(samples * _sampling_config().scale);
     IPS_INFO_T(
         FITNESS_SCALE, "Fitness reached 1 for sampling size "
                            << samples << ", scaling sampling size to "
@@ -173,10 +156,10 @@ std::ostream& operator<<(
   auto vars = instance.get_vars().map_to_vars(instance._preprocess->var_view());
   std::sort(vars.begin(), vars.end());
 
-  double coverage = (double) instance.fitness().samples;
+  auto coverage = (double) instance.fitness().samples;
   uint32_t num_vars = instance.fitness().size;
   if (num_vars <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
-    coverage /= (1ULL << num_vars);
+    coverage /= (double) (1ULL << num_vars);
   } else {
     coverage = std::pow(2., std::log2(coverage) - num_vars);
   }

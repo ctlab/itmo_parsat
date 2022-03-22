@@ -14,8 +14,9 @@
 
 namespace core::sat::solver {
 
-using namespace std::chrono_literals;
-
+/**
+ * @brief The solver service managing multiple sequential solvers.
+ */
 class SequentialSolverService : public SolverService {
  public:
   explicit SequentialSolverService(SequentialSolverServiceConfig const& config);
@@ -24,7 +25,7 @@ class SequentialSolverService : public SolverService {
 
   std::future<core::sat::State> solve(
       Mini::vec<Mini::Lit> const& assumptions,
-      core::clock_t::duration time_limit = 24h) override;
+      core::clock_t::duration time_limit) override;
 
   void interrupt() override;
 

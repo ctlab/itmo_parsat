@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['flags_876',['flags',['../structmzd__t.html#aab601f847f84b9b5700ce11c4a8f9339',1,'mzd_t']]]
+  ['search_5fspace_199',['search_space',['../structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8',1,'ea::instance::SharedData']]],
+  ['search_5fspace_5fsize_200',['search_space_size',['../structcore_1_1domain_1_1SearchSpace.html#a79c314397705e32ad239de82f1f61322',1,'core::domain::SearchSpace']]]
 ];

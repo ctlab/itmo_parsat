@@ -6,7 +6,7 @@ void SimpSolver::load_problem(Problem const& problem) {
   static_cast<MinisatSimpBase*>(this)->load_problem(problem);
 }
 
-State SimpSolver::solve(vec_lit_t const& assumptions) {
+State SimpSolver::solve(lit_vec_t const& assumptions) {
   clearInterrupt();
   Minisat::lbool result = IPS_TRACE_N_V(
       "SimpSolver::solve",

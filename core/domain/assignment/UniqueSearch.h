@@ -9,22 +9,18 @@
 
 namespace core::domain {
 
-class FullSearch;
-class UniqueSearch;
-MAKE_REFS(UniqueSearch);
-
 /**
- * @brief The class used to perform unique random search. Used for small sets of variables.
+ * @brief The class used to perform unique random search. Used for small sets of
+ * variables.
  */
 class UniqueSearch : AssignmentModifier, public Search {
-  friend USearch createRandomSearch(VarView const&, std::vector<bool> const&, uint64_t);
-
  public:
-  explicit UniqueSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+  explicit UniqueSearch(
+      VarView const& var_view, bit_mask_t const& vars, uint64_t total);
 
   explicit UniqueSearch(std::vector<int> const& vars, uint64_t total);
 
-  [[nodiscard]] Mini::vec<Mini::Lit> const& operator()() const override;
+  [[nodiscard]] lit_vec_t const& operator()() const override;
 
  private:
   std::unordered_set<uint64_t> visited_;
@@ -38,6 +34,8 @@ class UniqueSearch : AssignmentModifier, public Search {
 
   void _advance_us();
 };
+
+MAKE_REFS(UniqueSearch);
 
 }  // namespace core::domain
 

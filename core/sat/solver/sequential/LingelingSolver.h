@@ -13,15 +13,18 @@ extern "C" {
 
 namespace core::sat::solver {
 
+/**
+ * @brief Lingeling-based Solver implementation
+ */
 class LingelingSolver : public Solver {
  public:
-  explicit LingelingSolver(/* LingelingSolverConfig */);
+  explicit LingelingSolver();
 
   ~LingelingSolver() noexcept override;
 
   void load_problem(Problem const& problem) override;
 
-  State solve(vec_lit_t const& assumptions) override;
+  State solve(lit_vec_t const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

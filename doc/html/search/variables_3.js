@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['data_872',['data',['../structheap.html#ac53504d81ca1846cd10f13d121ddef23',1,'heap::data()'],['../struct__mm__block.html#ac5d5b177f442d01feb94d84fc7fc9b92',1,'_mm_block::data()']]],
-  ['dummy_873',['dummy',['../structmzd__t.html#a1fde82d199c0fdca8add011e8dade87c',1,'mzd_t']]]
+  ['max_5fvars_5ffor_5ffull_5fsearch_197',['MAX_VARS_FOR_FULL_SEARCH',['../structcore_1_1domain_1_1SearchSpace.html#a6f17cd414617dc8533e9653b8b23b98f',1,'core::domain::SearchSpace']]]
 ];

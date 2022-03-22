@@ -30,8 +30,8 @@ struct \mbox{\hyperlink{structea_1_1instance_1_1SharedData_1_1SamplingConfig}{Sa
 \mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a8b77edcac91ce86eec73d3e13338dcf0}\label{structea_1_1instance_1_1SharedData_a8b77edcac91ce86eec73d3e13338dcf0}} 
 struct \mbox{\hyperlink{structea_1_1instance_1_1SharedData_1_1SamplingConfig}{ea\+::instance\+::\+Shared\+Data\+::\+Sampling\+Config}} {\bfseries sampling\+\_\+config}
 \item 
-\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a039b57158606fd95b4a095990b613550}\label{structea_1_1instance_1_1SharedData_a039b57158606fd95b4a095990b613550}} 
-core\+::\+L\+R\+U\+Cache$<$ std\+::vector$<$ bool $>$, \mbox{\hyperlink{structea_1_1instance_1_1Fitness}{Fitness}} $>$ \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a039b57158606fd95b4a095990b613550}{cache}} \{\}
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a396c133e03fb36483b03ee5f76c05449}\label{structea_1_1instance_1_1SharedData_a396c133e03fb36483b03ee5f76c05449}} 
+core\+::\+L\+R\+U\+Cache$<$ core\+::bit\+\_\+mask\+\_\+t, \mbox{\hyperlink{structea_1_1instance_1_1Fitness}{Fitness}} $>$ \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a396c133e03fb36483b03ee5f76c05449}{cache}} \{\}
 \begin{DoxyCompactList}\small\item\em Instances cache. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structea_1_1instance_1_1SharedData_aca4f00b9ff36daf549d69bd255a47ba8}\label{structea_1_1instance_1_1SharedData_aca4f00b9ff36daf549d69bd255a47ba8}} 
 \mbox{\hyperlink{structcore_1_1domain_1_1SearchSpace}{core\+::domain\+::\+Search\+Space}} \mbox{\hyperlink{structea_1_1instance_1_1SharedData_aca4f00b9ff36daf549d69bd255a47ba8}{search\+\_\+space}}
@@ -39,23 +39,13 @@ core\+::\+L\+R\+U\+Cache$<$ std\+::vector$<$ bool $>$, \mbox{\hyperlink{structea
 \mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a4f87b9a4c998717264f985d3a9f20bd6}\label{structea_1_1instance_1_1SharedData_a4f87b9a4c998717264f985d3a9f20bd6}} 
 uint32\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a4f87b9a4c998717264f985d3a9f20bd6}{omega\+\_\+x}} \{\}
 \begin{DoxyCompactList}\small\item\em Inner configuration parameter. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a8dd49d06ea133389631da15b60576ae9}{base\+\_\+assumption}} \{\}
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a846cc77f6ba6b3524330d3f29db86e59}\label{structea_1_1instance_1_1SharedData_a846cc77f6ba6b3524330d3f29db86e59}} 
+core\+::lit\+\_\+vec\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1SharedData_a846cc77f6ba6b3524330d3f29db86e59}{base\+\_\+assumption}} \{\}
+\begin{DoxyCompactList}\small\item\em The base assumption, i.\+e. the assumption applied separately to all operations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 This struct is shared between all instances under the same algorithm. 
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structea_1_1instance_1_1SharedData_a8dd49d06ea133389631da15b60576ae9}\label{structea_1_1instance_1_1SharedData_a8dd49d06ea133389631da15b60576ae9}} 
-\index{ea::instance::SharedData@{ea::instance::SharedData}!base\_assumption@{base\_assumption}}
-\index{base\_assumption@{base\_assumption}!ea::instance::SharedData@{ea::instance::SharedData}}
-\doxysubsubsection{\texorpdfstring{base\_assumption}{base\_assumption}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$\mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}}$>$ ea\+::instance\+::\+Shared\+Data\+::base\+\_\+assumption \{\}}
-
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]\+: documentation \end{DoxyRefDesc}
-
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

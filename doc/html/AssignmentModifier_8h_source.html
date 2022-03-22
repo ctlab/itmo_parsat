@@ -76,28 +76,30 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/Search.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>core::domain {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classcore_1_1domain_1_1AssignmentModifier.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html">AssignmentModifier</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html">AssignmentModifier</a>(<a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> <span class="keyword">const</span>&amp; var_view, std::vector&lt;bool&gt; <span class="keyword">const</span>&amp; vars);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html">AssignmentModifier</a>(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  [[nodiscard]] <a class="code" href="classMini_1_1vec.html">Mini::vec&lt;Mini::Lit&gt;</a> <span class="keyword">const</span>&amp; get() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="classMini_1_1vec.html">Mini::vec&lt;Mini::Lit&gt;</a> _assignment;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;core/types.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/Search.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>core::domain {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classcore_1_1domain_1_1AssignmentModifier.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html">AssignmentModifier</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html#a699b88634d0eb4e5745e115c736cda5b">AssignmentModifier</a>(<a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; bit_mask);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html#a699b88634d0eb4e5745e115c736cda5b">AssignmentModifier</a>(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_ASSIGNMENTMODIFIER_H</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  [[nodiscard]] lit_vec_t <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html#acfe23d59b1f63570e5523b4cabac25e1">get</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  lit_vec_t _assignment;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_ASSIGNMENTMODIFIER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassMini_1_1vec_html"><div class="ttname"><a href="classMini_1_1vec.html">Mini::vec&lt; Mini::Lit &gt;</a></div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1AssignmentModifier_html"><div class="ttname"><a href="classcore_1_1domain_1_1AssignmentModifier.html">core::domain::AssignmentModifier</a></div><div class="ttdoc">The base class for searches that step by modifying assignment.</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.h:14</div></div>
+<div class="ttc" id="aclasscore_1_1domain_1_1AssignmentModifier_html_acfe23d59b1f63570e5523b4cabac25e1"><div class="ttname"><a href="classcore_1_1domain_1_1AssignmentModifier.html#acfe23d59b1f63570e5523b4cabac25e1">core::domain::AssignmentModifier::get</a></div><div class="ttdeci">lit_vec_t const  &amp; get() const</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.cpp:21</div></div>
+<div class="ttc" id="aclasscore_1_1domain_1_1AssignmentModifier_html"><div class="ttname"><a href="classcore_1_1domain_1_1AssignmentModifier.html">core::domain::AssignmentModifier</a></div><div class="ttdoc">The base class for searches that step by modifying assignment.</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.h:15</div></div>
+<div class="ttc" id="aclasscore_1_1domain_1_1AssignmentModifier_html_a699b88634d0eb4e5745e115c736cda5b"><div class="ttname"><a href="classcore_1_1domain_1_1AssignmentModifier.html#a699b88634d0eb4e5745e115c736cda5b">core::domain::AssignmentModifier::AssignmentModifier</a></div><div class="ttdeci">AssignmentModifier(VarView const &amp;var_view, bit_mask_t const &amp;bit_mask)</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.cpp:5</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a></div><div class="ttdoc">The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...</div><div class="ttdef"><b>Definition:</b> VarView.h:13</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -15,6 +15,9 @@
 
 namespace core::sat::solver {
 
+/**
+ * @brief Painless-based Solver implementation
+ */
 class PainlessSolver : public Solver {
  public:
   explicit PainlessSolver(PainlessSolverConfig config);
@@ -23,7 +26,7 @@ class PainlessSolver : public Solver {
 
   void load_problem(Problem const& problem) override;
 
-  State solve(vec_lit_t const& assumptions) override;
+  State solve(lit_vec_t const& assumptions) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

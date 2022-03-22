@@ -6,13 +6,14 @@
 #include <memory>
 #include <atomic>
 
+#include "core/types.h"
 #include "core/sat/SimpBase.h"
-#include "util/Registry.h"
 #include "core/domain/assignment/Search.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/domain/assignment/TrackAssignments.h"
 #include "core/sat/Problem.h"
+#include "util/Registry.h"
+#include "util/mini.h"
 
 namespace core::sat::prop {
 
@@ -21,7 +22,6 @@ namespace core::sat::prop {
  */
 class Prop {
  public:
-  typedef Mini::vec<Mini::Lit> vec_lit_t;
   /**
    * @details Callbacks types must be thread safe for asynchronous
    * implementations.
@@ -30,7 +30,7 @@ class Prop {
   typedef std::function<
       bool( // true iff should continue solving
         bool, // true iff there's been conflict
-        vec_lit_t const& // assumptions passed to propagate
+        lit_vec_t const& // assumptions passed to propagate
       )> prop_callback_t; //
   // clang-format on
 
@@ -51,14 +51,14 @@ class Prop {
    * @return true if and only if conflict occurred.
    */
   [[nodiscard]] bool propagate(
-      vec_lit_t const& assumptions, vec_lit_t& propagated);
+      lit_vec_t const& assumptions, lit_vec_t& propagated);
 
   /**
    * @brief Propagates a given list of assumptions.
    * @param assumptions assumptions to include.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] bool propagate(vec_lit_t const& assumptions);
+  [[nodiscard]] bool propagate(lit_vec_t const& assumptions);
 
   /**
    * @brief Propagates all assignments by the given iterator and calls callback
@@ -70,11 +70,11 @@ class Prop {
       domain::USearch search, prop_callback_t const& callback);
 
   void prop_assignments(
-      Mini::vec<Mini::Lit> const& base_assumption, domain::USearch search,
+      lit_vec_t const& base_assumption, domain::USearch search,
       prop_callback_t const& callback);
 
   /// @todo: documentation
-  uint64_t prop_tree(vec_lit_t const& vars, uint32_t head_size);
+  uint64_t prop_tree(lit_vec_t const& vars, uint32_t head_size);
 
   /**
    * @brief Returns the number of variables in formula.
@@ -85,32 +85,30 @@ class Prop {
       Prop& prop, domain::USearch search, prop_callback_t const& callback);
 
   static void sequential_propagate(
-      Mini::vec<Mini::Lit> const& base_assumption, Prop& prop,
-      domain::USearch search, prop_callback_t const& callback);
+      lit_vec_t const& base_assumption, Prop& prop, domain::USearch search,
+      prop_callback_t const& callback);
 
  protected:
   [[nodiscard]] virtual uint64_t _prop_tree(
-      vec_lit_t const& vars, uint32_t head_size) = 0;
+      lit_vec_t const& vars, uint32_t head_size) = 0;
 
   [[nodiscard]] virtual bool _propagate(
-      vec_lit_t const& assumptions, vec_lit_t& propagated) = 0;
+      lit_vec_t const& assumptions, lit_vec_t& propagated) = 0;
 
-  [[nodiscard]] virtual bool _propagate(vec_lit_t const& assumptions);
+  [[nodiscard]] virtual bool _propagate(lit_vec_t const& assumptions);
 
   virtual void _prop_assignments(
       domain::USearch search, prop_callback_t const& callback);
 
   virtual void _prop_assignments(
-      vec_lit_t const& base_assumption, domain::USearch search,
+      lit_vec_t const& base_assumption, domain::USearch search,
       prop_callback_t const& callback);
 
  private:
   std::mutex _m;
 };
 
-using RProp = std::shared_ptr<Prop>;
-
-using UProp = std::unique_ptr<Prop>;
+MAKE_REFS(Prop);
 
 DEFINE_REGISTRY(Prop, PropConfig, prop);
 

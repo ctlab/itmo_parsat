@@ -2,6 +2,15 @@
 \label{classcore_1_1solve_1_1RecurringRBSSolve}\index{core::solve::RecurringRBSSolve@{core::solve::RecurringRBSSolve}}
 
 
+This class solves S\+AT in the following way\+:  
+
+
+
+
+{\ttfamily \#include $<$Recurring\+R\+B\+S\+Solve.\+h$>$}
+
+
+
 Inheritance diagram for core\+::solve\+::Recurring\+R\+B\+S\+Solve\+:
 \nopagebreak
 \begin{figure}[H]
@@ -34,6 +43,16 @@ sat\+::\+State {\bfseries \+\_\+solve\+\_\+impl} (\mbox{\hyperlink{classcore_1_1
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
+
+\doxysubsection{Detailed Description}
+This class solves S\+AT in the following way\+: 
+
+
+\begin{DoxyItemize}
+\item Uses the specified (E$\vert$G)A to find rho-\/backdoor B;
+\item Filters the assignments, forgetting ones that solve fast;
+\item For slow assignments, repeats the first step. 
+\end{DoxyItemize}
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

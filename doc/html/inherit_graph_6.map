@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structcore_1_1domain_1_1Vars.html" title="The class representing variables set. Variables are meant as keys in variable mapping core::domain::V..." alt="" coords="5,5,149,32"/>
+<area shape="rect" id="node1" href="$classcore_1_1sat_1_1solver_1_1SolverService.html" title="SAT solver service used to asynchronously execute sequential solvers with specified time limits." alt="" coords="5,5,140,47"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1SequentialSolverService.html" title="The solver service managing multiple sequential solvers." alt="" coords="188,5,368,47"/>
 </map>

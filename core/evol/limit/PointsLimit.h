@@ -15,7 +15,7 @@ class PointsLimit : public Limit {
 
  protected:
   /**
-   * @return true iff the nubmer of (inaccurate) visited points is less than the specified limit
+   * @return true iff the number of (inaccurate) visited points is less than the specified limit
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 

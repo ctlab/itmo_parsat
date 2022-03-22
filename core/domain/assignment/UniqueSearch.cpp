@@ -3,7 +3,7 @@
 namespace core::domain {
 
 UniqueSearch::UniqueSearch(
-    VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
+    VarView const& var_view, bit_mask_t const& vars, uint64_t total)
     : AssignmentModifier(var_view, vars), Search(total) {
   _advance_us();
 }
@@ -35,7 +35,7 @@ void UniqueSearch::_reset() {
   _advance();
 }
 
-Mini::vec<Mini::Lit> const& UniqueSearch::operator()() const {
+lit_vec_t const& UniqueSearch::operator()() const {
   return get();
 }
 

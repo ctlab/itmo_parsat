@@ -58,7 +58,7 @@ void Algorithm::process() {
     IPS_INFO_T(
         BEST_INSTANCE,
         "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) %
-                          100
+                          128
                    << "] [Iter " << iteration << "]"
                    << "[Points " << inaccurate_points() << "]"
                    << " Best instance: " << get_best());

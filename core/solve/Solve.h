@@ -43,7 +43,7 @@ class Solve {
   std::atomic_bool _interrupted{false};
 };
 
-using RSolve = std::shared_ptr<Solve>;
+MAKE_REFS(Solve);
 
 DEFINE_REGISTRY(Solve, SolveConfig, solve);
 

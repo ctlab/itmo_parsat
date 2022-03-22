@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "core/types.h"
 #include "core/evol/instance/Fitness.h"
 #include "core/domain/VarView.h"
 #include "core/domain/SearchSpace.h"
@@ -25,7 +26,7 @@ struct SharedData {
   /**
    * @brief Instances cache.
    */
-  core::LRUCache<std::vector<bool>, Fitness> cache{};
+  core::LRUCache<core::bit_mask_t, Fitness> cache{};
 
   /**
    * @brief Search space info.
@@ -37,11 +38,14 @@ struct SharedData {
    */
   uint32_t omega_x{};
 
-  /// @todo: documentation
-  Mini::vec<Mini::Lit> base_assumption{};
+  /**
+   * @brief The base assumption, i.e. the assumption applied
+   * separately to all operations.
+   */
+  core::lit_vec_t base_assumption{};
 };
 
-using RSharedData = std::shared_ptr<SharedData>;
+MAKE_REFS(SharedData);
 
 }  // namespace ea::instance
 

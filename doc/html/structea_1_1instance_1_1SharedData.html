@@ -84,10 +84,9 @@ Collaboration diagram for ea::instance::SharedData:</div>
 <div class="dyncontent">
 <div class="center"><img src="structea_1_1instance_1_1SharedData__coll__graph.png" border="0" usemap="#ea_1_1instance_1_1SharedData_coll__map" alt="Collaboration graph"/></div>
 <map name="ea_1_1instance_1_1SharedData_coll__map" id="ea_1_1instance_1_1SharedData_coll__map">
-<area shape="rect" title="This struct is shared between all instances under the same algorithm." alt="" coords="371,64,556,91"/>
-<area shape="rect" href="structcore_1_1domain_1_1SearchSpace.html" title=" " alt="" coords="5,5,204,32"/>
-<area shape="rect" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html" title="Sampling configuration." alt="" coords="12,57,197,98"/>
-<area shape="rect" href="classMini_1_1vec.html" title=" " alt="" coords="23,123,186,149"/>
+<area shape="rect" title="This struct is shared between all instances under the same algorithm." alt="" coords="120,109,305,136"/>
+<area shape="rect" href="structcore_1_1domain_1_1SearchSpace.html" title="The class representing the search space." alt="" coords="5,13,204,39"/>
+<area shape="rect" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html" title="Sampling configuration." alt="" coords="228,5,413,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -102,10 +101,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8b77edcac91ce86eec73d3e13338dcf0"><td class="memItemLeft" align="right" valign="top"><a id="a8b77edcac91ce86eec73d3e13338dcf0"></a>
 struct <a class="el" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">ea::instance::SharedData::SamplingConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sampling_config</b></td></tr>
 <tr class="separator:a8b77edcac91ce86eec73d3e13338dcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a039b57158606fd95b4a095990b613550"><td class="memItemLeft" align="right" valign="top"><a id="a039b57158606fd95b4a095990b613550"></a>
-core::LRUCache&lt; std::vector&lt; bool &gt;, <a class="el" href="structea_1_1instance_1_1Fitness.html">Fitness</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a039b57158606fd95b4a095990b613550">cache</a> {}</td></tr>
-<tr class="memdesc:a039b57158606fd95b4a095990b613550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instances cache. <br /></td></tr>
-<tr class="separator:a039b57158606fd95b4a095990b613550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396c133e03fb36483b03ee5f76c05449"><td class="memItemLeft" align="right" valign="top"><a id="a396c133e03fb36483b03ee5f76c05449"></a>
+core::LRUCache&lt; core::bit_mask_t, <a class="el" href="structea_1_1instance_1_1Fitness.html">Fitness</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">cache</a> {}</td></tr>
+<tr class="memdesc:a396c133e03fb36483b03ee5f76c05449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instances cache. <br /></td></tr>
+<tr class="separator:a396c133e03fb36483b03ee5f76c05449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca4f00b9ff36daf549d69bd255a47ba8"><td class="memItemLeft" align="right" valign="top"><a id="aca4f00b9ff36daf549d69bd255a47ba8"></a>
 <a class="el" href="structcore_1_1domain_1_1SearchSpace.html">core::domain::SearchSpace</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">search_space</a></td></tr>
 <tr class="memdesc:aca4f00b9ff36daf549d69bd255a47ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search space info. <br /></td></tr>
@@ -114,28 +113,14 @@ core::LRUCache&lt; std::vector&lt; bool &gt;, <a class="el" href="structea_1_1in
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">omega_x</a> {}</td></tr>
 <tr class="memdesc:a4f87b9a4c998717264f985d3a9f20bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner configuration parameter. <br /></td></tr>
 <tr class="separator:a4f87b9a4c998717264f985d3a9f20bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dd49d06ea133389631da15b60576ae9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a8dd49d06ea133389631da15b60576ae9">base_assumption</a> {}</td></tr>
-<tr class="separator:a8dd49d06ea133389631da15b60576ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846cc77f6ba6b3524330d3f29db86e59"><td class="memItemLeft" align="right" valign="top"><a id="a846cc77f6ba6b3524330d3f29db86e59"></a>
+core::lit_vec_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">base_assumption</a> {}</td></tr>
+<tr class="memdesc:a846cc77f6ba6b3524330d3f29db86e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base assumption, i.e. the assumption applied separately to all operations. <br /></td></tr>
+<tr class="separator:a846cc77f6ba6b3524330d3f29db86e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This struct is shared between all instances under the same algorithm. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8dd49d06ea133389631da15b60576ae9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dd49d06ea133389631da15b60576ae9">&#9670;&nbsp;</a></span>base_assumption</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt;<a class="el" href="structMini_1_1Lit.html">Mini::Lit</a>&gt; ea::instance::SharedData::base_assumption {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>: documentation </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>core/evol/instance/<a class="el" href="SharedData_8h_source.html">SharedData.h</a></li>
 </ul>
 </div><!-- contents -->

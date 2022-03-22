@@ -49,20 +49,18 @@ std::vector<Mini::vec<Mini::Lit>> RBSSolveBase::_filter_conflict(
 }
 
 sat::State RBSSolveBase::_solve_final(
-    std::vector<Mini::vec<Mini::Lit>> const& assumptions_v,
-    core::clock_t::duration time_limit_each) {
+    std::vector<Mini::vec<Mini::Lit>> const& assumptions_v) {
   IPS_INFO(
       "Solving non-conflict assignments (" << assumptions_v.size() << ").");
-  std::atomic_bool unknown{false}, satisfied{false};
+  std::atomic_bool unknown{false};
   boost::timer::progress_display progress(assumptions_v.size(), std::cerr);
-
   _do_interrupt = [this] { _solver_service->interrupt(); };
 
-  using namespace std::chrono_literals;
   IPS_TRACE_N("RBSSolveBase::solve_final", {
     std::vector<std::future<sat::State>> results;
     for (auto& assumption : assumptions_v) {
-      results.push_back(_solver_service->solve(assumption));
+      results.push_back(_solver_service->solve(
+          assumption, sat::solver::SolverService::DUR_INDEF));
     }
     for (auto& result : results) {
       if (_interrupted) {
@@ -96,7 +94,8 @@ sat::State RBSSolveBase::solve(sat::Problem const& problem) {
   IPS_TRACE_N("RBSSolveBase::load_problem", _load_problem(problem));
   if (!IPS_TRACE_N_V(
           "RBSSolveBase::preprocess", _preprocess->preprocess(problem))) {
-    return _solver_service->solve({}).get();
+    return _solver_service->solve({}, sat::solver::SolverService::DUR_INDEF)
+        .get();
   } else {
     return _solve_impl(problem, _preprocess);
   }

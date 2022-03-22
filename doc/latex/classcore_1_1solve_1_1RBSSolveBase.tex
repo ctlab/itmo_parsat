@@ -2,6 +2,15 @@
 \label{classcore_1_1solve_1_1RBSSolveBase}\index{core::solve::RBSSolveBase@{core::solve::RBSSolveBase}}
 
 
+Base for all classes using R\+BS strategy in one way or another.  
+
+
+
+
+{\ttfamily \#include $<$R\+B\+S\+Solve\+Base.\+h$>$}
+
+
+
 Inheritance diagram for core\+::solve\+::R\+B\+S\+Solve\+Base\+:
 \nopagebreak
 \begin{figure}[H]
@@ -27,21 +36,15 @@ Collaboration diagram for core\+::solve\+::R\+B\+S\+Solve\+Base\+:
 {\bfseries R\+B\+S\+Solve\+Base} (Preprocess\+Config const \&preprocess\+\_\+config, Prop\+Config const \&prop\+\_\+config, Solver\+Service\+Config const \&solver\+\_\+service\+\_\+config)
 \item 
 \mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_af33145c85e9dd2f6a6dceacf8c37daf9}\label{classcore_1_1solve_1_1RBSSolveBase_af33145c85e9dd2f6a6dceacf8c37daf9}} 
-std\+::vector$<$ \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ $>$ {\bfseries \+\_\+filter\+\_\+conflict} (domain\+::\+U\+Search assignment)
+std\+::vector$<$ Mini\+::vec$<$ Mini\+::\+Lit $>$ $>$ {\bfseries \+\_\+filter\+\_\+conflict} (domain\+::\+U\+Search assignment)
 \item 
 sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1RBSSolveBase_a0e10d1929af288bf48cd35692ed66bbe}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) final
 \begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a510670f0f17fb3b27a7cccd6421da021}\label{classcore_1_1solve_1_1RBSSolveBase_a510670f0f17fb3b27a7cccd6421da021}} 
-static constexpr clock\+\_\+t\+::duration {\bfseries M\+A\+X\+\_\+\+T\+I\+M\+E\+\_\+\+L\+I\+M\+IT} = 24h
-\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a227e6d851fce6822de5d8edb50c75ed8}\label{classcore_1_1solve_1_1RBSSolveBase_a227e6d851fce6822de5d8edb50c75ed8}} 
-sat\+::\+State {\bfseries \+\_\+solve\+\_\+final} (std\+::vector$<$ \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$$>$ const \&assumptions\+\_\+v, core\+::clock\+\_\+t\+::duration time\+\_\+limit\+\_\+each=M\+A\+X\+\_\+\+T\+I\+M\+E\+\_\+\+L\+I\+M\+IT)
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a25d167efa438d8260c61e46b7dd0d824}\label{classcore_1_1solve_1_1RBSSolveBase_a25d167efa438d8260c61e46b7dd0d824}} 
+sat\+::\+State {\bfseries \+\_\+solve\+\_\+final} (std\+::vector$<$ Mini\+::vec$<$ Mini\+::\+Lit $>$$>$ const \&assumptions\+\_\+v)
 \item 
 \mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_aa5a68e7c1839ab9ec3398f7af6221ee8}\label{classcore_1_1solve_1_1RBSSolveBase_aa5a68e7c1839ab9ec3398f7af6221ee8}} 
 virtual sat\+::\+State {\bfseries \+\_\+solve\+\_\+impl} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem, ea\+::preprocess\+::\+R\+Preprocess const \&preprocess)=0
@@ -60,6 +63,9 @@ core\+::sat\+::solver\+::\+R\+Solver\+Service {\bfseries \+\_\+solver\+\_\+servi
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
+
+\doxysubsection{Detailed Description}
+Base for all classes using R\+BS strategy in one way or another. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a0e10d1929af288bf48cd35692ed66bbe}\label{classcore_1_1solve_1_1RBSSolveBase_a0e10d1929af288bf48cd35692ed66bbe}} 

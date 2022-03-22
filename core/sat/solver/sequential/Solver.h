@@ -25,9 +25,6 @@ namespace core::sat::solver {
  */
 class Solver {
  public:
-  typedef Mini::vec<Mini::Lit> vec_lit_t;
-
- public:
   virtual ~Solver() = default;
 
   /**
@@ -41,7 +38,7 @@ class Solver {
    * @param assumptions assumptions to include.
    * @return the result of solving.
    */
-  virtual State solve(vec_lit_t const& assumptions) = 0;
+  virtual State solve(lit_vec_t const& assumptions) = 0;
 
   /**
    * @brief Interrupts solver. Intended to be used from signal handlers.

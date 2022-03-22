@@ -10,19 +10,19 @@
 
 namespace core::domain {
 
-class CartesianSearch;
-MAKE_REFS(CartesianSearch);
-
 /**
- * @brief The class used to search through the cartesian product of custom searches.
+ * @brief The class used to search through the cartesian product of custom
+ * searches.
  */
 class CartesianSearch : public Search {
  public:
-  explicit CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);
+  explicit CartesianSearch(
+      std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);
 
-  explicit CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
+  explicit CartesianSearch(
+      std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
 
-  Mini::vec<Mini::Lit> const& operator()() const override;
+  lit_vec_t const& operator()() const override;
 
   [[nodiscard]] Search* clone() const override;
 
@@ -35,9 +35,11 @@ class CartesianSearch : public Search {
 
  private:
   std::vector<uint32_t> _indices;
-  Mini::vec<Mini::Lit> _assignment;
+  lit_vec_t _assignment;
   std::vector<std::vector<std::vector<Mini::Lit>>> _cartesian;
 };
+
+MAKE_REFS(CartesianSearch);
 
 UCartesianSearch createCartesianSearch(
     std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);

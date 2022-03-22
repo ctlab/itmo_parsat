@@ -10,26 +10,15 @@
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/VarView.h"
 #include "core/domain/Vars.h"
-#include "util/stream.h"
-#include "util/Logger.h"
 #include "util/LRUCache.h"
-#include "util/Random.h"
 
 namespace ea::instance {
-
 class Instance;
-
 }  // namespace ea::instance
 
 std::ostream& operator<<(std::ostream&, ea::instance::Instance const& instance);
 
 namespace ea::instance {
-
-class Instance;
-
-using RInstance = std::shared_ptr<Instance>;
-
-using Population = std::vector<RInstance>;
 
 /**
  * @brief This class represents (E|G)A instance used in this project.
@@ -38,10 +27,13 @@ class Instance {
  public:
  public:
   /**
-   * @param solver solver that will be used to propagate assignments.
-   * @param shared_data shared data (created by algorithm)
+   * @param prop the propagate engine used for fitness estimation
+   * @param shared_data the data shared between all instances
+   * @param preprocess the preprocess data
    */
-  explicit Instance(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess);
+  explicit Instance(
+      core::sat::prop::RProp prop, RSharedData shared_data,
+      preprocess::RPreprocess preprocess);
 
   /**
    * @return variables which this instance represents.
@@ -54,7 +46,8 @@ class Instance {
   core::domain::Vars const& get_vars() const noexcept;
 
   /**
-   * @brief Clones the instance (used to create new instances through mutation or crossover).
+   * @brief Clones the instance (used to create new instances through mutation
+   * or crossover).
    */
   [[nodiscard]] Instance* clone();
 
@@ -98,7 +91,7 @@ class Instance {
 
   SharedData::SamplingConfig& _sampling_config() noexcept;
 
-  core::LRUCache<std::vector<bool>, Fitness>& _cache() noexcept;
+  core::LRUCache<core::bit_mask_t, Fitness>& _cache() noexcept;
 
   uint64_t& _inaccurate_points() noexcept;
 
@@ -108,18 +101,22 @@ class Instance {
   bool _cached = false;
   preprocess::RPreprocess _preprocess;
   core::sat::prop::RProp _prop;
-  std::shared_ptr<SharedData> _shared;
+  RSharedData _shared;
   core::domain::Vars _vars;
-
-  // Mutability here is actually a design flaw, which will probably be fixed in the future.
-  // It is needed to update fitness from cache when `fitness() const` is called.
   mutable Fitness fit_{};
 
  public:
-  friend std::ostream& ::operator<<(std::ostream&, ea::instance::Instance const& instance);
+  friend std::ostream& ::operator<<(
+      std::ostream&, ea::instance::Instance const& instance);
 };
 
 bool operator<(Instance& a, Instance& b);
+
+MAKE_REFS(Instance);
+
+using Population = std::vector<RInstance>;
+
+MAKE_REFS(Population);
 
 }  // namespace ea::instance
 

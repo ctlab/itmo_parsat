@@ -3,7 +3,6 @@
 namespace core::solve {
 
 void Solve::interrupt() {
-  IPS_INFO("Interrupting solve.");
   _interrupted = true;
   if (_do_interrupt) {
     _do_interrupt();

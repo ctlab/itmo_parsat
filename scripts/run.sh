@@ -1,10 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source scripts/base.sh
 
 ROOT="$PWD"
 VERBOSE="6"
 
-RESOURCES_DIR="$ROOT/resources"
+HOSTNAME="$(hostname -s)"
+if [[ "$HOSTNAME" == "sphinx" ]] || [[ "$HOSTNAME" == "orthrus-1" ]] || [[ "$HOSTNAME" == "orthrus-2" ]]; then
+  RESOURCES_DIR="/mnt/tank/scratch/ibdzhiblavi/ips"
+else
+  RESOURCES_DIR="$ROOT/resources"
+fi
+
 CNF_PATH="$RESOURCES_DIR/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$RESOURCES_DIR/config"
 LOG_CFG_PATH="$RESOURCES_DIR/config/log.json"
@@ -156,6 +162,26 @@ function do_run_pgo() {
     done < "$inputs_file"
 }
 
+function do_sync() {
+    HOST="$1"
+    rsync --recursive --whole-file \
+        --exclude 'doc/' \
+        --exclude '**/*.undodir' \
+        --exclude '.idea/' \
+        --exclude '.git/' \
+        --exclude '*build*/' \
+        --exclude '**/*.cnf' \
+        ~/itmo-parsat/ $HOST/itmo-parsat
+}
+
+function do_singular() {
+    if ! [[ -f "ips.sif" ]]; then
+        echo "Building singularity container"
+        singularity build --fakeroot ips.sif Singularity.def
+    fi
+    singularity exec ips.sif ./ips -g DEV_FAST -b
+}
+
 function do_desc() {
     echo "Running and/or building IPS."
     echo "Usage: ./run.sh option* -- native-option*"
@@ -185,6 +211,8 @@ add_option "--build-doc" "   Build documentation"        do_doc            0
 add_option "--clean" "       Clean build directory"      do_clean          0
 add_option "--psql-host" "   Set DB host"                do_set_pg_host    1
 add_option "--psql" "        Connect to DB"              do_psql           0
+add_option "--sync" "        Sync project to remote"     do_sync           1
+add_option "--build-sing" "  Build singularity"          do_singular       1
 
 function main() {
     parse_options "$@"

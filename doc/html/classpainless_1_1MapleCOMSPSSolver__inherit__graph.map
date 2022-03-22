@@ -1,6 +1,0 @@
-<map id="painless::MapleCOMSPSSolver" name="painless::MapleCOMSPSSolver">
-<area shape="rect" id="node1" title="Instance of a MapleCOMSPS solver." alt="" coords="48,155,268,181"/>
-<area shape="rect" id="node2" href="$classSolverInterface.html" title=" " alt="" coords="5,80,127,107"/>
-<area shape="rect" id="node3" href="$classMapleCOMSPS_1_1SimpSolver.html" title=" " alt="" coords="151,80,349,107"/>
-<area shape="rect" id="node4" href="$classMapleCOMSPS_1_1Solver.html" title=" " alt="" coords="167,5,333,32"/>
-</map>

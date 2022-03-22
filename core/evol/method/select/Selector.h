@@ -22,7 +22,7 @@ class Selector {
   virtual void select(instance::Population& population, uint32_t size) = 0;
 };
 
-using RSelector = std::shared_ptr<Selector>;
+MAKE_REFS(Selector);
 
 DEFINE_REGISTRY(Selector, SelectorConfig, selector);
 

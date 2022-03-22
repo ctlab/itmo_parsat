@@ -73,8 +73,6 @@ std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
       util::random::Generator generator(seed);
       auto& algorithm = algorithms[i];
       algorithm->prepare(preprocess);
-      //          auto& alg_prop = algorithm->get_prop();
-      //          IPS_TRACE(alg_prop.load_problem(problem));
       IPS_TRACE(algorithm->process());
 
       auto const& rho_backdoor = algorithm->get_best();
@@ -108,18 +106,16 @@ std::vector<std::vector<std::vector<Mini::Lit>>> ParRBSSolve::_pre_solve(
 
       {
         std::lock_guard<std::mutex> lg(mutex);
-        algorithms_info << "\n[Thread " << i << "]\n";
-        algorithms_info << "\tNumber of points visited: "
-                        << algorithm->inaccurate_points() << '\n';
-        algorithms_info << "\tThe best backdoor is: " << rho_backdoor << '\n';
-        algorithms_info << "\tConflicts: " << conflicts << ", total: " << total
-                        << '\n';
-        algorithms_info << "\tActual rho value: "
+        algorithms_info << "\n[Thread " << i << "]\n"
+                        << "\tNumber of points visited: "
+                        << algorithm->inaccurate_points() << '\n'
+                        << "\tThe best backdoor is: " << rho_backdoor << '\n'
+                        << "\tConflicts: " << conflicts << ", total: " << total
+                        << "\n\tActual rho value: "
                         << (double) conflicts / (double) total << '\n';
         if (_sbs_found) {
           algorithms_info << "\tMay be stopped because SBS has been found.\n";
         }
-
         algorithms[i].reset();
       }
     });

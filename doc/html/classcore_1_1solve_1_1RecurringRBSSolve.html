@@ -74,13 +74,18 @@ $(function() {
 <div class="title">core::solve::RecurringRBSSolve Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class solves SAT in the following way:  
+ <a href="classcore_1_1solve_1_1RecurringRBSSolve.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="RecurringRBSSolve_8h_source.html">RecurringRBSSolve.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for core::solve::RecurringRBSSolve:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1solve_1_1RecurringRBSSolve__inherit__graph.png" border="0" usemap="#core_1_1solve_1_1RecurringRBSSolve_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1solve_1_1RecurringRBSSolve_inherit__map" id="core_1_1solve_1_1RecurringRBSSolve_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,155,231,181"/>
-<area shape="rect" href="classcore_1_1solve_1_1RBSSolveBase.html" title=" " alt="" coords="21,80,215,107"/>
+<area shape="rect" title="This class solves SAT in the following way:" alt="" coords="5,155,231,181"/>
+<area shape="rect" href="classcore_1_1solve_1_1RBSSolveBase.html" title="Base for all classes using RBS strategy in one way or another." alt="" coords="21,80,215,107"/>
 <area shape="rect" href="classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="49,5,187,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -89,8 +94,8 @@ Collaboration diagram for core::solve::RecurringRBSSolve:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1solve_1_1RecurringRBSSolve__coll__graph.png" border="0" usemap="#core_1_1solve_1_1RecurringRBSSolve_coll__map" alt="Collaboration graph"/></div>
 <map name="core_1_1solve_1_1RecurringRBSSolve_coll__map" id="core_1_1solve_1_1RecurringRBSSolve_coll__map">
-<area shape="rect" title=" " alt="" coords="5,155,231,181"/>
-<area shape="rect" href="classcore_1_1solve_1_1RBSSolveBase.html" title=" " alt="" coords="21,80,215,107"/>
+<area shape="rect" title="This class solves SAT in the following way:" alt="" coords="5,155,231,181"/>
+<area shape="rect" href="classcore_1_1solve_1_1RBSSolveBase.html" title="Base for all classes using RBS strategy in one way or another." alt="" coords="21,80,215,107"/>
 <area shape="rect" href="classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="49,5,187,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -105,7 +110,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RBSSolveBase</b> (PreprocessConfig const &amp;preprocess_config, PropConfig const &amp;prop_config, SolverServiceConfig const &amp;solver_service_config)</td></tr>
 <tr class="separator:a4b281909299e4c9221d71143ef1745e4 inherit pub_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af33145c85e9dd2f6a6dceacf8c37daf9 inherit pub_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memItemLeft" align="right" valign="top"><a id="af33145c85e9dd2f6a6dceacf8c37daf9"></a>
-std::vector&lt; <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_filter_conflict</b> (domain::USearch assignment)</td></tr>
+std::vector&lt; Mini::vec&lt; Mini::Lit &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_filter_conflict</b> (domain::USearch assignment)</td></tr>
 <tr class="separator:af33145c85e9dd2f6a6dceacf8c37daf9 inherit pub_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e10d1929af288bf48cd35692ed66bbe inherit pub_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memItemLeft" align="right" valign="top">sat::State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1solve_1_1RBSSolveBase.html#a0e10d1929af288bf48cd35692ed66bbe">solve</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem) final</td></tr>
 <tr class="memdesc:a0e10d1929af288bf48cd35692ed66bbe inherit pub_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method solves SAT. For now, it is expected to be called only once per object lifetime.  <a href="classcore_1_1solve_1_1RBSSolveBase.html#a0e10d1929af288bf48cd35692ed66bbe">More...</a><br /></td></tr>
@@ -121,9 +126,9 @@ Protected Member Functions</h2></td></tr>
 sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_solve_impl</b> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem, ea::preprocess::RPreprocess const &amp;preprocess) override</td></tr>
 <tr class="separator:aec17673b0d7f1bddf59a198145fc88ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcore_1_1solve_1_1RBSSolveBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcore_1_1solve_1_1RBSSolveBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcore_1_1solve_1_1RBSSolveBase.html">core::solve::RBSSolveBase</a></td></tr>
-<tr class="memitem:a227e6d851fce6822de5d8edb50c75ed8 inherit pro_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memItemLeft" align="right" valign="top"><a id="a227e6d851fce6822de5d8edb50c75ed8"></a>
-sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_solve_final</b> (std::vector&lt; <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&gt; const &amp;assumptions_v, core::clock_t::duration time_limit_each=MAX_TIME_LIMIT)</td></tr>
-<tr class="separator:a227e6d851fce6822de5d8edb50c75ed8 inherit pro_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25d167efa438d8260c61e46b7dd0d824 inherit pro_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memItemLeft" align="right" valign="top"><a id="a25d167efa438d8260c61e46b7dd0d824"></a>
+sat::State&#160;</td><td class="memItemRight" valign="bottom"><b>_solve_final</b> (std::vector&lt; Mini::vec&lt; Mini::Lit &gt;&gt; const &amp;assumptions_v)</td></tr>
+<tr class="separator:a25d167efa438d8260c61e46b7dd0d824 inherit pro_methods_classcore_1_1solve_1_1RBSSolveBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcore_1_1solve_1_1Solve"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcore_1_1solve_1_1Solve')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcore_1_1solve_1_1Solve.html">core::solve::Solve</a></td></tr>
 <tr class="memitem:a788a3e4938aed594abfd43e14830de9c inherit pro_methods_classcore_1_1solve_1_1Solve"><td class="memItemLeft" align="right" valign="top"><a id="a788a3e4938aed594abfd43e14830de9c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>_is_interrupted</b> () const noexcept</td></tr>
@@ -131,10 +136,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>_is_interrupted</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_static_attribs_classcore_1_1solve_1_1RBSSolveBase"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classcore_1_1solve_1_1RBSSolveBase')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classcore_1_1solve_1_1RBSSolveBase.html">core::solve::RBSSolveBase</a></td></tr>
-<tr class="memitem:a510670f0f17fb3b27a7cccd6421da021 inherit pub_static_attribs_classcore_1_1solve_1_1RBSSolveBase"><td class="memItemLeft" align="right" valign="top"><a id="a510670f0f17fb3b27a7cccd6421da021"></a>
-static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_TIME_LIMIT</b> = 24h</td></tr>
-<tr class="separator:a510670f0f17fb3b27a7cccd6421da021 inherit pub_static_attribs_classcore_1_1solve_1_1RBSSolveBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_methods_classcore_1_1solve_1_1Solve"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classcore_1_1solve_1_1Solve')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classcore_1_1solve_1_1Solve.html">core::solve::Solve</a></td></tr>
 <tr class="memitem:a7d7849b7fde1714c7ed1f2b7836cdf7d inherit pro_static_methods_classcore_1_1solve_1_1Solve"><td class="memItemLeft" align="right" valign="top"><a id="a7d7849b7fde1714c7ed1f2b7836cdf7d"></a>
 static sat::solver::RSolver&#160;</td><td class="memItemRight" valign="bottom"><b>_resolve_solver</b> (SolverConfig const &amp;config)</td></tr>
@@ -157,7 +158,14 @@ std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom">
 std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>_interrupted</b> {false}</td></tr>
 <tr class="separator:a6df99151acdeb03d32efee99ebf4b546 inherit pro_attribs_classcore_1_1solve_1_1Solve"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class solves SAT in the following way: </p>
+<ul>
+<li>Uses the specified (E|G)A to find rho-backdoor B;</li>
+<li>Filters the assignments, forgetting ones that solve fast;</li>
+<li>For slow assignments, repeats the first step. </li>
+</ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>core/solve/<a class="el" href="RecurringRBSSolve_8h_source.html">RecurringRBSSolve.h</a></li>
 <li>core/solve/RecurringRBSSolve.cpp</li>
 </ul>

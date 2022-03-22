@@ -82,8 +82,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a68f8daaab30cfa36b1f8444746ea6895"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#a68f8daaab30cfa36b1f8444746ea6895">Instance</a> (core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess)</td></tr>
-<tr class="separator:a68f8daaab30cfa36b1f8444746ea6895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816a58827fa37521892ea68437869a19"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#a816a58827fa37521892ea68437869a19">Instance</a> (core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)</td></tr>
+<tr class="separator:a816a58827fa37521892ea68437869a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a598567d6409fa4cc84a13cd2d97939e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a> () noexcept</td></tr>
 <tr class="separator:a598567d6409fa4cc84a13cd2d97939e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15f8e2ead7e81da6a3a9eea5da6f6eb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1instance_1_1Instance.html#a15f8e2ead7e81da6a3a9eea5da6f6eb0">get_vars</a> () const noexcept</td></tr>
@@ -119,8 +119,8 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class represents (E|G)A instance used in this project. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a68f8daaab30cfa36b1f8444746ea6895"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68f8daaab30cfa36b1f8444746ea6895">&#9670;&nbsp;</a></span>Instance()</h2>
+<a id="a816a58827fa37521892ea68437869a19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816a58827fa37521892ea68437869a19">&#9670;&nbsp;</a></span>Instance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,8 +160,9 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">solver</td><td>solver that will be used to propagate assignments. </td></tr>
-    <tr><td class="paramname">shared_data</td><td>shared data (created by algorithm) </td></tr>
+    <tr><td class="paramname">prop</td><td>the propagate engine used for fitness estimation </td></tr>
+    <tr><td class="paramname">shared_data</td><td>the data shared between all instances </td></tr>
+    <tr><td class="paramname">preprocess</td><td>the preprocess data </td></tr>
   </table>
   </dd>
 </dl>

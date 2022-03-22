@@ -18,6 +18,12 @@
 
 namespace core::solve {
 
+/**
+ * @brief This class solves SAT in the following way:
+ * - Uses the specified (E|G)A to find rho-backdoor B;
+ * - Filters the assignments, forgetting ones that solve fast;
+ * - For slow assignments, repeats the first step.
+ */
 class RecurringRBSSolve : public RBSSolveBase {
  private:
   using filter_r = std::variant<sat::State, std::vector<Mini::vec<Mini::Lit>>>;

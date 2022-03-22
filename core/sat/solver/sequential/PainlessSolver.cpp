@@ -87,7 +87,7 @@ void PainlessSolver::load_problem(Problem const& problem) {
       });
 }
 
-State PainlessSolver::solve(vec_lit_t const& assumptions) {
+State PainlessSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
   ++solve_index;
 

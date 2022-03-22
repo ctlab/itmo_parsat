@@ -20,10 +20,9 @@ void LingelingSolver::load_problem(Problem const& problem) {
   }
 }
 
-State LingelingSolver::solve(vec_lit_t const& assumptions) {
-  // clang-format off
-  IPS_TRACE_N(
-    "LingelingSolver::solve", for (int i = 0; i < assumptions.size(); ++i) {
+State LingelingSolver::solve(lit_vec_t const& assumptions) {
+  IPS_TRACE_N("LingelingSolver::solve", {
+    for (int i = 0; i < assumptions.size(); ++i) {
       lglassume(_solver, INT_LIT(assumptions[i]));
     }
     switch (lglsat(_solver)) {
@@ -33,8 +32,7 @@ State LingelingSolver::solve(vec_lit_t const& assumptions) {
         return UNSAT;
     }
     return UNKNOWN;
-  );
-  // clang-format on
+  });
 }
 
 unsigned LingelingSolver::num_vars() const noexcept {

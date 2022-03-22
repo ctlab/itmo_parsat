@@ -23,8 +23,9 @@ sat::State RecurringRBSSolve::_solve_impl(
         "Starting iteration on depth "
         << depth << " with base assumption: " << _cur_base_assumption);
 
+    using namespace std::chrono_literals;
     auto time_limit =
-        depth < 2 ? std::chrono::milliseconds(_cfg.max_solve_time_ms()) : 3600s;
+        depth < 2 ? std::chrono::milliseconds(_cfg.max_solve_time_ms()) : 1h;
 
     // TODO(dzhiblavi@): maybe create algorithm once.
     ea::algorithm::RAlgorithm algorithm(

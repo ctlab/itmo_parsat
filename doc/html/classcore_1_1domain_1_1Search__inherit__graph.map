@@ -3,6 +3,6 @@
 <area shape="rect" id="node2" href="$classcore_1_1domain_1_1CartesianSearch.html" title="The class used to search through the cartesian product of custom searches." alt="" coords="212,5,433,32"/>
 <area shape="rect" id="node3" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="231,56,414,83"/>
 <area shape="rect" id="node4" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="216,107,429,133"/>
-<area shape="rect" id="node5" href="$classcore_1_1domain_1_1SingleSearch.html" title=" " alt="" coords="223,157,422,184"/>
+<area shape="rect" id="node5" href="$classcore_1_1domain_1_1SingleSearch.html" title="The search implementation consisting of only one (empty) assignment." alt="" coords="223,157,422,184"/>
 <area shape="rect" id="node6" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="220,208,425,235"/>
 </map>
