@@ -14,6 +14,7 @@ struct TestingConfiguration {
   bool lookup{};
   bool save{};
   int size{};
+  int repeat{};
   uint64_t time_limit_s = UINT64_MAX;
   uint32_t max_threads = 0;
   std::filesystem::path executable{};

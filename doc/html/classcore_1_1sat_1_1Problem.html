@@ -73,11 +73,16 @@ $(function() {
 <div class="title">core::sat::Problem Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The problem descriptor class.  
+ <a href="classcore_1_1sat_1_1Problem.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Problem_8h_source.html">Problem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acab357ec7f76f41efc777945065cd8da"><td class="memItemLeft" align="right" valign="top"><a id="acab357ec7f76f41efc777945065cd8da"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Problem</b> (std::filesystem::path const &amp;path)</td></tr>
+<tr class="memitem:acab357ec7f76f41efc777945065cd8da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Problem.html#acab357ec7f76f41efc777945065cd8da">Problem</a> (std::filesystem::path const &amp;path)</td></tr>
+<tr class="memdesc:acab357ec7f76f41efc777945065cd8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the problem by the cnf path.  <a href="classcore_1_1sat_1_1Problem.html#acab357ec7f76f41efc777945065cd8da">More...</a><br /></td></tr>
 <tr class="separator:acab357ec7f76f41efc777945065cd8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18ae05912c95095026322f496fb97517"><td class="memItemLeft" align="right" valign="top"><a id="a18ae05912c95095026322f496fb97517"></a>
 std::filesystem::path const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>path</b> () const noexcept</td></tr>
@@ -86,6 +91,43 @@ std::filesystem::path const  &amp;&#160;</td><td class="memItemRight" valign="bo
 std::vector&lt; std::vector&lt; int &gt; &gt; const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>clauses</b> () const noexcept</td></tr>
 <tr class="separator:a8a3bff4f70b2abf4c342484e4b677e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The problem descriptor class. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acab357ec7f76f41efc777945065cd8da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acab357ec7f76f41efc777945065cd8da">&#9670;&nbsp;</a></span>Problem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::sat::Problem::Problem </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path const &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs the problem by the cnf path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the path to cnf formula </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>core/sat/<a class="el" href="Problem_8h_source.html">Problem.h</a></li>
 <li>core/sat/Problem.cpp</li>

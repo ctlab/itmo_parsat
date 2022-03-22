@@ -1,0 +1,9 @@
+{
+  "prop_type": "ParProp",
+  "par_prop_config": {
+    "max_threads": 16,
+    "prop_config": {
+      "prop_type": "SimpProp"
+    }
+  }
+}

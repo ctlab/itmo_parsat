@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['bestselector_503',['BestSelector',['../classea_1_1method_1_1BestSelector.html',1,'ea::method']]],
-  ['booloption_504',['BoolOption',['../classMini_1_1BoolOption.html',1,'Mini']]]
+  ['cartesiansearch_100',['CartesianSearch',['../classcore_1_1domain_1_1CartesianSearch.html',1,'core::domain']]],
+  ['conjlimit_101',['ConjLimit',['../classea_1_1limit_1_1ConjLimit.html',1,'ea::limit']]],
+  ['crossover_102',['Crossover',['../classea_1_1method_1_1Crossover.html',1,'ea::method']]]
 ];

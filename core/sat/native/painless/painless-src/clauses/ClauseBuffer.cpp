@@ -21,13 +21,9 @@
 #include "ClauseManager.h"
 
 #include <iostream>
-#include <cassert>
 
 namespace painless {
 
-//-------------------------------------------------
-// Constructor & Destructor
-//-------------------------------------------------
 ClauseBuffer::ClauseBuffer() {
   ListElement* node = new ListElement(nullptr);
   buffer.head = buffer.tail = node;
@@ -47,9 +43,6 @@ ClauseBuffer::~ClauseBuffer() {
   delete buffer.head;
 }
 
-//-------------------------------------------------
-//  Add clause(s)
-//-------------------------------------------------
 void ClauseBuffer::addClause(ClauseExchange* clause) {
   ListElement *tail, *next;
   ListElement* node = new ListElement(clause);
@@ -79,9 +72,6 @@ void ClauseBuffer::addClauses(const std::vector<ClauseExchange*>& clauses) {
   }
 }
 
-//-------------------------------------------------
-//  Get clause(s)
-//-------------------------------------------------
 bool ClauseBuffer::getClause(ClauseExchange** clause) {
   ListElement *head, *tail, *next;
 
@@ -123,9 +113,6 @@ void ClauseBuffer::getClauses(std::vector<ClauseExchange*>& clauses) {
   }
 }
 
-//-------------------------------------------------
-//  Get size of the buffer.
-//-------------------------------------------------
 int ClauseBuffer::size() {
   return buffer.size;
 }

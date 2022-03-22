@@ -24,13 +24,15 @@
 
 namespace painless {
 
-void SolverFactory::sparseRandomDiversification(const vector<SolverInterface*>& solvers) {
+void SolverFactory::sparseRandomDiversification(
+    const vector<SolverInterface*>& solvers) {
   if (solvers.size() == 0)
     return;
 
   int vars = solvers[0]->getVariablesCount();
 
-  // The first solver of the group (1 LRB/1 VSIDS) keeps polarity = false for all vars
+  // The first solver of the group (1 LRB/1 VSIDS) keeps polarity = false for
+  // all vars
   for (int sid = 1; sid < solvers.size(); sid++) {
     srand(sid);
     for (int var = 1; var <= vars; var++) {
@@ -41,7 +43,8 @@ void SolverFactory::sparseRandomDiversification(const vector<SolverInterface*>& 
   }
 }
 
-void SolverFactory::nativeDiversification(const vector<SolverInterface*>& solvers) {
+void SolverFactory::nativeDiversification(
+    const vector<SolverInterface*>& solvers) {
   for (int sid = 0; sid < solvers.size(); sid++) {
     solvers[sid]->diversify(sid);
   }
@@ -56,7 +59,8 @@ SolverInterface* SolverFactory::createReducerSolver(SolverInterface* _solver) {
 }
 
 void SolverFactory::createMapleCOMSPSSolvers(
-    int lbd_limit, int max_memory, int maxSolvers, vector<SolverInterface*>& solvers) {
+    int lbd_limit, int max_memory, int maxSolvers,
+    vector<SolverInterface*>& solvers) {
   solvers.push_back(createMapleCOMSPSSolver(lbd_limit));
   double memoryUsed = getMemoryUsed();
 

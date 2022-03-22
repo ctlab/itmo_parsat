@@ -82,8 +82,10 @@ int main(int argc, char** argv) {
   vector<SolverInterface*> solvers_LRB;
 
   SolverFactory::createMapleCOMSPSSolvers(2, 0, cpus - 2, solvers);
-  solvers.push_back(SolverFactory::createReducerSolver(SolverFactory::createMapleCOMSPSSolver(2)));
-  solvers.push_back(SolverFactory::createReducerSolver(SolverFactory::createMapleCOMSPSSolver(2)));
+  solvers.push_back(SolverFactory::createReducerSolver(
+      SolverFactory::createMapleCOMSPSSolver(2)));
+  solvers.push_back(SolverFactory::createReducerSolver(
+      SolverFactory::createMapleCOMSPSSolver(2)));
   int nSolvers = solvers.size();
 
   SolverFactory::nativeDiversification(solvers);
@@ -115,7 +117,8 @@ int main(int argc, char** argv) {
 
   prod1.insert(prod1.end(), solvers.begin(), solvers.begin() + (cpus / 2 - 1));
   prod1.push_back(solvers[solvers.size() - 2]);
-  prod2.insert(prod2.end(), solvers.begin() + (cpus / 2 - 1), solvers.end() - 2);
+  prod2.insert(
+      prod2.end(), solvers.begin() + (cpus / 2 - 1), solvers.end() - 2);
   prod2.push_back(solvers[solvers.size() - 1]);
   // 30 CDCL, 1 Reducer consumers by Sharer
   cons1.insert(cons1.end(), solvers.begin(), solvers.end() - 1);
@@ -123,8 +126,10 @@ int main(int argc, char** argv) {
   cons2.push_back(solvers[solvers.size() - 1]);
   nSharers = 2;
   sharers = new Sharer*[nSharers];
-  sharers[0] = new Sharer(500000, 1, new HordeSatSharing(1500, 500000, &result), prod1, cons1);
-  sharers[1] = new Sharer(500000, 2, new HordeSatSharing(1500, 500000, &result), prod2, cons2);
+  sharers[0] = new Sharer(
+      500000, 1, new HordeSatSharing(1500, 500000, &result), prod1, cons1);
+  sharers[1] = new Sharer(
+      500000, 2, new HordeSatSharing(1500, 500000, &result), prod2, cons2);
 
   // Init working
   for (size_t i = 0; i < nSolvers; i++) {
@@ -137,7 +142,7 @@ int main(int argc, char** argv) {
   }
 
   vector<int> cube;
-  working->solve(cube);
+  working->solve(0, {}, cube);
 
   int timeout = Parameters::getIntParam("t", -1);
 

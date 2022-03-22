@@ -89,8 +89,9 @@ void Reducer::diversify(int id) {
 
 // Solve the formula with a given set of assumptions
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
-PSatResult Reducer::solve(const vector<int>& cube) {
-  unsetSolverInterrupt();
+PSatResult Reducer::solve(
+    Mini::vec<Mini::Lit> const& assumptions, const vector<int>&) {
+  this->assumptions = assumptions;
 
   while (!_interrupt) {
     ClauseExchange* cls = nullptr;
@@ -117,7 +118,7 @@ bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
   for (size_t ind = 0; ind < cls->size; ind++) {
     assumps.push_back(-cls->lits[ind]);
   }
-  PSatResult res = solver->solve(assumps);
+  PSatResult res = solver->solve(assumptions, assumps);
   if (res == PUNSAT) {
     tmpNewClause = solver->getFinalAnalysis();
   } else if (res == PSAT) {

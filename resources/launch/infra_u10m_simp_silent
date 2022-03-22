@@ -1,0 +1,15 @@
+# Description: launch under-10 min (partition 1) tests on performance configurations.
+# Configurations included:
+#   - simppar_parrbs
+#   - simppar_rbs
+#   - simppar_recurring
+
+concurrency = 32
+time-limit = 600
+unsat-only = true
+allow-unspecified-size = true
+size = 3
+lookup = false
+save = false
+test-groups = main-21-u10m-p1
+gtest-opts = --gtest_filter=*simppar_rbs*

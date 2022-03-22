@@ -12,24 +12,27 @@
 #include "util/Logger.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/assignment/RandomSearch.h"
+#include "core/solve/RBSSolveBase.h"
 
-namespace core {
+namespace core::solve {
 
 /**
  * @brief This class solves SAT in the following way:
  * - Uses the specified (E|G)A to find rho-backdoor B;
  * - Solves SAT formula for each assignment of variables from B.
  */
-class RBSSolve : public Solve {
+class RBSSolve : public RBSSolveBase {
  public:
   explicit RBSSolve(RBSSolveConfig const& config);
 
-  [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
+ private:
+  [[nodiscard]] sat::State _solve_impl(
+      sat::Problem const& problem, ea::preprocess::RPreprocess const& preprocess) override;
 
  private:
   RBSSolveConfig _cfg;
 };
 
-}  // namespace core
+}  // namespace core::solve
 
 #endif  // ITMO_PARSAT_RBSSOLVE_H

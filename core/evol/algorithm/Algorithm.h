@@ -23,8 +23,7 @@ namespace ea::algorithm {
  */
 class Algorithm {
  private:
-  /// @brief returns true if algorithm should proceed.
-  bool _init_shared_data(InstanceConfig const& config);
+  void _init_shared_data(InstanceConfig const& config);
 
  protected:
   void _add_instance();
@@ -37,13 +36,12 @@ class Algorithm {
   /**
    * @param config algorithm configuration.
    */
-  explicit Algorithm(BaseAlgorithmConfig const& config);
+  Algorithm(BaseAlgorithmConfig const& config, core::sat::prop::RProp prop);
 
   /**
    * @brief Performs preparation step.
-   * @return if proceed can be called
    */
-  bool prepare(preprocess::RPreprocess const& preprocess);
+  void prepare(preprocess::RPreprocess const& preprocess);
 
   /**
    * @brief Starts the algorithm.
@@ -80,6 +78,8 @@ class Algorithm {
    */
   [[nodiscard]] bool has_unvisited_points() const noexcept;
 
+  void set_base_assumption(Mini::vec<Mini::Lit> const& assumption) noexcept;
+
  protected:
   virtual void step() = 0;
 
@@ -97,9 +97,9 @@ class Algorithm {
   bool _interrupted = false;
 };
 
-using RAlgorithm = std::shared_ptr<Algorithm>;
+MAKE_REFS(Algorithm);
 
-DEFINE_REGISTRY(Algorithm, AlgorithmConfig, algorithm);
+DEFINE_REGISTRY(Algorithm, AlgorithmConfig, algorithm, core::sat::prop::RProp);
 
 }  // namespace ea::algorithm
 

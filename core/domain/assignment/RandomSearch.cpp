@@ -4,7 +4,7 @@
 
 namespace {
 
-void set_random(Mini::vec<Mini::Lit>& vec) {
+void set_random(core::lit_vec_t& vec) {
   for (int i = 0; i < vec.size(); ++i) {
     vec[i] = Mini::mkLit(Mini::var(vec[i]), ::util::random::sample<int>(0, 1));
   }
@@ -14,8 +14,9 @@ void set_random(Mini::vec<Mini::Lit>& vec) {
 
 namespace core::domain {
 
-RandomSearch::RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total)
-    : AssignmentModifier(var_view, vars), Search(total) {
+RandomSearch::RandomSearch(
+    VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total)
+    : AssignmentModifier(var_view, bit_mask), Search(total) {
   set_random(_assignment);
 }
 
@@ -36,16 +37,17 @@ RandomSearch* RandomSearch::clone() const {
   return new RandomSearch(*this);
 }
 
-Mini::vec<Mini::Lit> const& RandomSearch::operator()() const {
+lit_vec_t const& RandomSearch::operator()() const {
   return get();
 }
 
-USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total) {
-  uint32_t num_set = std::count(vars.begin(), vars.end(), true);
+USearch createRandomSearch(
+    VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total) {
+  uint32_t num_set = std::count(bit_mask.begin(), bit_mask.end(), true);
   if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
-    return USearch(new UniqueSearch(var_view, vars, total));
+    return USearch(new UniqueSearch(var_view, bit_mask, total));
   } else {
-    return USearch(new RandomSearch(var_view, vars, total));
+    return USearch(new RandomSearch(var_view, bit_mask, total));
   }
 }
 

@@ -7,13 +7,19 @@
 
 namespace ea::preprocess {
 
+/**
+ * @brief The class managing sat formula preprocessing and (E|G)A heuristics.
+ */
 struct Preprocess {
  public:
-  explicit Preprocess(PreprocessConfig const& config, core::sat::Problem const& problem);
+  explicit Preprocess(PreprocessConfig config);
 
   core::domain::VarView const& var_view() const noexcept;
 
+  [[nodiscard]] bool preprocess(core::sat::Problem const& problem);
+
  private:
+  PreprocessConfig _config;
   core::domain::VarView _var_view;
 };
 

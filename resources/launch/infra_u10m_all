@@ -1,13 +1,19 @@
-# Description: launch under-10 min tests on performance configurations.
+# Description: launch under-10 min (partition 1) tests on performance configurations.
 # Configurations included:
-#   - simppar_parrbs: fully multithreaded minisat-only IPS algorithm (SimpSolver solving) (multiple RBS)
-#   - simppar_rbs: fully multithreaded minisat-only IPS algorithm (SimpSolver solving) (single RBS)
+#   - simppar_parrbs
+#   - simppar_rbs
+#   - painless
+#   - painless_rbs
+#   - painless_parrbs
+#   - simppar_recurring
+#   - painless_recurring
 
+concurrency = 32
 time-limit = 600
 unsat-only = true
 allow-unspecified-size = true
 lookup = true
 size = 3
 save = true
-test-groups = "main-21-u10m"
-gtest-opts = "--gtest_filter=*simppar_parrbs*:*simppar_rbs*
+test-groups = main-21-u10m-p1
+gtest-opts = --gtest_filter=*simppar_parrbs*:*simppar_rbs*:*simppar_recurring*:*painless*

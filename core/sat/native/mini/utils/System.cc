@@ -2,20 +2,22 @@
 Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
 Copyright (c) 2007-2010, Niklas Sorensson
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
-NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
-OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************/
 
 #include "core/sat/native/mini/utils/System.h"
@@ -41,7 +43,8 @@ static inline int memReadStat(int field) {
 
   for (; field >= 0; field--)
     if (fscanf(in, "%d", &value) != 1)
-      printf("c ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
+      printf("c ERROR! Failed to parse memory statistics from \"/proc\".\n"),
+          exit(1);
   fclose(in);
   return value;
 }
@@ -73,7 +76,8 @@ double Mini::memUsedPeak(bool strictlyPeak) {
   return peak == 0 && !strictlyPeak ? memUsed() : peak;
 }
 
-#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__gnu_hurd__)
+#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || \
+    defined(__gnu_hurd__)
 
 double Mini::memUsed() {
   struct rusage ru;
@@ -106,8 +110,10 @@ double Mini::memUsedPeak(bool) {
 #endif
 
 void Mini::setX86FPUPrecision() {
-#if defined(__linux__) && defined(_FPU_EXTENDED) && defined(_FPU_DOUBLE) && defined(_FPU_GETCW)
-  // Only correct FPU precision on Linux architectures that needs and supports it:
+#if defined(__linux__) && defined(_FPU_EXTENDED) && defined(_FPU_DOUBLE) && \
+    defined(_FPU_GETCW)
+  // Only correct FPU precision on Linux architectures that needs and supports
+  // it:
   fpu_control_t oldcw, newcw;
   _FPU_GETCW(oldcw);
   newcw = (oldcw & ~_FPU_EXTENDED) | _FPU_DOUBLE;
@@ -118,7 +124,8 @@ void Mini::setX86FPUPrecision() {
 
 #if !defined(_MSC_VER) && !defined(__MINGW32__)
 void Mini::limitMemory(uint64_t max_mem_mb) {
-// FIXME: OpenBSD does not support RLIMIT_AS. Not sure how well RLIMIT_DATA works instead.
+// FIXME: OpenBSD does not support RLIMIT_AS. Not sure how well RLIMIT_DATA
+// works instead.
 #if defined(__OpenBSD__)
 #define RLIMIT_AS RLIMIT_DATA
 #endif

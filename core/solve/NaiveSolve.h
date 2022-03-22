@@ -6,14 +6,14 @@
 #include "util/TimeTracer.h"
 #include "util/Logger.h"
 
-namespace core {
+namespace core::solve {
 
 /**
  * @brief Naively solves SAT using the specified solver.
  */
 class NaiveSolve : public Solve {
  public:
-  NaiveSolve(NaiveSolveConfig config);
+  explicit NaiveSolve(NaiveSolveConfig config);
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
@@ -21,6 +21,6 @@ class NaiveSolve : public Solve {
   NaiveSolveConfig _cfg;
 };
 
-}  // namespace core
+}  // namespace core::solve
 
 #endif  // ITMO_PARSAT_NAIVESOLVE_H

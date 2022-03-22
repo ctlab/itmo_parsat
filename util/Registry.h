@@ -16,10 +16,10 @@ namespace core {
 /**
  * @brief Utility macro used to register and resolve dynamically-chosen implementations.
  */
-#define DEFINE_REGISTRY(INTERFACE, CONFIG_TYPE, NAME)                                   \
+#define DEFINE_REGISTRY(INTERFACE, CONFIG_TYPE, NAME, ...)                              \
   class INTERFACE##Registry {                                                           \
    public:                                                                              \
-    using builder_t = std::function<INTERFACE*(CONFIG_TYPE const&)>;                    \
+    using builder_t = std::function<INTERFACE*(CONFIG_TYPE const&, ##__VA_ARGS__)>;     \
                                                                                         \
    public:                                                                              \
     struct INTERFACE##RegistryEntry {                                                   \
@@ -32,13 +32,14 @@ namespace core {
     INTERFACE##Registry() = default;                                                    \
                                                                                         \
    private:                                                                             \
-    INTERFACE* _resolve(CONFIG_TYPE const& config) {                                    \
+    template <typename... Args>                                                         \
+    INTERFACE* _resolve(CONFIG_TYPE const& config, Args&&... args) {                    \
       std::string name = config.NAME##_type();                                          \
       IPS_EVENT("Resolve_" + name)                                                      \
       IPS_VERIFY_S(                                                                     \
           map_.count(name) > 0,                                                         \
           "Trying to resolve non-existing implementation of " #NAME << ": " << name);   \
-      return map_[name](config);                                                        \
+      return map_[name](config, std::forward<Args>(args)...);                           \
     }                                                                                   \
                                                                                         \
    public:                                                                              \
@@ -50,8 +51,9 @@ namespace core {
     }                                                                                   \
                                                                                         \
    public:                                                                              \
-    static INTERFACE* resolve(CONFIG_TYPE const& config) {                              \
-      return instance()._resolve(config);                                               \
+    template <typename... Args>                                                         \
+    static INTERFACE* resolve(CONFIG_TYPE const& config, Args&&... args) {              \
+      return instance()._resolve(config, std::forward<Args>(args)...);                  \
     }                                                                                   \
                                                                                         \
     static void read_config(std::istream& is, google::protobuf::Message& message) {}    \
@@ -69,12 +71,15 @@ namespace core {
 
 #define CONFIG_TYPE(INTERFACE) INTERFACE##Config
 
-#define REGISTER_PROTO(INTERFACE, IMPL, GET_CONFIG)                \
-  INTERFACE* create_##IMPL(CONFIG_TYPE(INTERFACE) const& config) { \
-    return new IMPL(config.GET_CONFIG());                          \
-  }                                                                \
-  INTERFACE##Registry::INTERFACE##RegistryEntry reg_entry_##IMPL(  \
-      #IMPL, [](CONFIG_TYPE(INTERFACE) const& config) { return create_##IMPL(config); })
+#define REGISTER_PROTO(INTERFACE, IMPL, GET_CONFIG, ...)                           \
+  template <typename... Args>                                                      \
+  INTERFACE* create_##IMPL(CONFIG_TYPE(INTERFACE) const& config, Args&&... args) { \
+    return new IMPL(config.GET_CONFIG(), std::forward<Args>(args)...);             \
+  }                                                                                \
+  INTERFACE##Registry::INTERFACE##RegistryEntry reg_entry_##IMPL(                  \
+      #IMPL, [](CONFIG_TYPE(INTERFACE) const& config, auto&&... args) {            \
+        return create_##IMPL(config, std::forward<decltype(args)>(args)...);       \
+      })
 
 #define REGISTER_SIMPLE(INTERFACE, IMPL)                          \
   INTERFACE* create_##IMPL(CONFIG_TYPE(INTERFACE) const&) {       \

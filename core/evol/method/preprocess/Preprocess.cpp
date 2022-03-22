@@ -1,5 +1,7 @@
 #include "core/evol/method/preprocess/Preprocess.h"
 
+#include <utility>
+
 namespace {
 
 void collect_stats(
@@ -15,7 +17,9 @@ void collect_stats(
 
 namespace ea::preprocess {
 
-Preprocess::Preprocess(PreprocessConfig const& config, core::sat::Problem const& problem) {
+Preprocess::Preprocess(PreprocessConfig config) : _config(std::move(config)) {}
+
+bool Preprocess::preprocess(core::sat::Problem const& problem) {
   core::sat::prop::SimpProp prop;
   prop.load_problem(problem);
 
@@ -25,7 +29,7 @@ Preprocess::Preprocess(PreprocessConfig const& config, core::sat::Problem const&
   stats.reserve(prop.num_vars());
 
   if (prop.num_vars() == 0) {
-    return;
+    return false;
   }
 
   for (unsigned i = 0; i < prop.num_vars(); ++i) {
@@ -37,14 +41,15 @@ Preprocess::Preprocess(PreprocessConfig const& config, core::sat::Problem const&
     stats.emplace_back(prop_both.size(), i);
   }
 
-  uint32_t max_watched_count = std::min(config.heuristic_size(), prop.num_vars());
+  uint32_t max_watched_count =
+      std::min(_config.heuristic_size(), prop.num_vars());
   std::sort(stats.begin(), stats.end());
   auto it = stats.crbegin();
 
   /// @brief Check if the 'best' variable has propagated more than one literal.
   /// otherwise, it makes no sense to use EA for this problem.
   if (it->first <= 1) {
-    return;
+    return false;
   }
 
   for (uint32_t i = 0; i < max_watched_count && it->first > 1; ++i, ++it) {
@@ -53,11 +58,13 @@ Preprocess::Preprocess(PreprocessConfig const& config, core::sat::Problem const&
 
   if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
-    for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
+    for (auto iter = stats.crbegin();
+         iter != stats.crbegin() + (int) max_watched_count; ++iter) {
       ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
     }
     IPS_INFO("Heuristic init:\n" << ss.str());
   }
+  return true;
 }
 
 core::domain::VarView const& Preprocess::var_view() const noexcept {

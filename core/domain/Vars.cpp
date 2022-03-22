@@ -10,11 +10,11 @@ void Vars::resize(uint32_t size) {
   _bit_mask.resize(size, false);
 }
 
-std::vector<bool> const& Vars::get_mask() const noexcept {
+core::bit_mask_t const& Vars::get_mask() const noexcept {
   return _bit_mask;
 }
 
-std::vector<bool>& Vars::get_mask() noexcept {
+core::bit_mask_t& Vars::get_mask() noexcept {
   return _bit_mask;
 }
 

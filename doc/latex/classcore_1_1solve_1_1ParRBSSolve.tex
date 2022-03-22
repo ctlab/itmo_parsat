@@ -1,0 +1,55 @@
+\hypertarget{classcore_1_1solve_1_1ParRBSSolve}{}\doxysection{core\+::solve\+::Par\+R\+B\+S\+Solve Class Reference}
+\label{classcore_1_1solve_1_1ParRBSSolve}\index{core::solve::ParRBSSolve@{core::solve::ParRBSSolve}}
+
+
+This class solves S\+AT in the following way\+:  
+
+
+
+
+{\ttfamily \#include $<$Par\+R\+B\+S\+Solve.\+h$>$}
+
+
+
+Inheritance diagram for core\+::solve\+::Par\+R\+B\+S\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classcore_1_1solve_1_1ParRBSSolve__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::solve\+::Par\+R\+B\+S\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classcore_1_1solve_1_1ParRBSSolve__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ParRBSSolve_a373da59049de87350d1948d6e06f5cb2}\label{classcore_1_1solve_1_1ParRBSSolve_a373da59049de87350d1948d6e06f5cb2}} 
+{\bfseries Par\+R\+B\+S\+Solve} (Par\+R\+B\+S\+Solve\+Config config)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This class solves S\+AT in the following way\+: 
+
+
+\begin{DoxyItemize}
+\item Launches\+Dao multiple \mbox{\hyperlink{classcore_1_1solve_1_1RBSSolve}{R\+B\+S\+Solve}} tasks with the specified configurations, collecting rho-\/backdoors set \{ B\+\_\+1, ..., B\+\_\+s \};
+\item For each backdoor set B\+\_\+i it collects the set G\+\_\+i of all assignments for which propagate finds no conflicts;
+\item Builds cartesian product G = x \{ G\+\_\+i \};
+\item Runs solver\textquotesingle{}s solve for all assignments from G. 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/Par\+R\+B\+S\+Solve.\+h\item 
+core/solve/Par\+R\+B\+S\+Solve.\+cpp\end{DoxyCompactItemize}

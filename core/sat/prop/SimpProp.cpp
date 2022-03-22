@@ -2,20 +2,22 @@
 
 namespace core::sat::prop {
 
-bool SimpProp::propagate(
-    Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) {
+bool SimpProp::_propagate(lit_vec_t const& assumptions, lit_vec_t& propagated) {
   clearInterrupt();
-  return IPS_TRACE_N_V("SimpProp::propagate_prop", !prop_check(assumptions, propagated, 0));
+  return IPS_TRACE_N_V(
+      "SimpProp::propagate_prop", !prop_check(assumptions, propagated, 0));
 }
 
-bool SimpProp::propagate(Mini::vec<Mini::Lit> const& assumptions) {
+uint64_t SimpProp::_prop_tree(lit_vec_t const& vars, uint32_t head_size) {
   clearInterrupt();
-  return IPS_TRACE_N_V("SimpProp::propagate_confl", !prop_check(assumptions, 0));
+  return IPS_TRACE_N_V(
+      "SimpProp::prop_tree", prop_check_subtree(vars, head_size));
 }
 
-uint64_t SimpProp::prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) {
+bool SimpProp::_propagate(lit_vec_t const& assumptions) {
   clearInterrupt();
-  return IPS_TRACE_N_V("SimpProp::prop_tree", prop_check_subtree(vars, head_size));
+  return IPS_TRACE_N_V(
+      "SimpProp::propagate_confl", !prop_check(assumptions, 0));
 }
 
 void SimpProp::load_problem(Problem const& problem) {

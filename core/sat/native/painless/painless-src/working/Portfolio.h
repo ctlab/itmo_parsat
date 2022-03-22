@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include <mutex>
+
 #include "core/sat/native/painless/painless-src/working/WorkingStrategy.h"
 
 namespace painless {
@@ -29,9 +31,13 @@ class Portfolio : public WorkingStrategy {
 
   ~Portfolio() noexcept;
 
-  void solve(const vector<int>& cube) override;
+  void solve(
+      int64_t index, Mini::vec<Mini::Lit> const& assumptions,
+      const vector<int>& cube) override;
 
-  void join(WorkingStrategy* strat, PSatResult res, const vector<int>& model) override;
+  void join(
+      int64_t index, WorkingStrategy* strat, PSatResult res,
+      const vector<int>& model) override;
 
   void setInterrupt() override;
 
@@ -48,7 +54,9 @@ class Portfolio : public WorkingStrategy {
   void bumpVariableActivity(int var, int times) override;
 
  protected:
-  std::atomic<bool> strategyEnding;
+  std::atomic<bool> strategyEnding{false};
+  int64_t current_index = 0;
+  std::mutex join_mutex;
 };
 
 }  // namespace painless

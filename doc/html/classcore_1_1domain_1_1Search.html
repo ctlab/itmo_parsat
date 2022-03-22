@@ -67,7 +67,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -92,23 +91,17 @@ Inheritance diagram for core::domain::Search:</div>
 <area shape="rect" href="classcore_1_1domain_1_1CartesianSearch.html" title="The class used to search through the cartesian product of custom searches." alt="" coords="212,5,433,32"/>
 <area shape="rect" href="classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="231,56,414,83"/>
 <area shape="rect" href="classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="216,107,429,133"/>
-<area shape="rect" href="classcore_1_1domain_1_1SingleSearch.html" title=" " alt="" coords="223,157,422,184"/>
+<area shape="rect" href="classcore_1_1domain_1_1SingleSearch.html" title="The search implementation consisting of only one (empty) assignment." alt="" coords="223,157,422,184"/>
 <area shape="rect" href="classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="220,208,425,235"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a586b501c80440d9cfa6e527f2a771366"><td class="memItemLeft" align="right" valign="top"><a id="a586b501c80440d9cfa6e527f2a771366"></a>
-typedef <a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lit_vec_t</b></td></tr>
-<tr class="separator:a586b501c80440d9cfa6e527f2a771366"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af86b664048d4b714e383fcc339988bc5"><td class="memItemLeft" align="right" valign="top"><a id="af86b664048d4b714e383fcc339988bc5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Search</b> (uint64_t total)</td></tr>
 <tr class="separator:af86b664048d4b714e383fcc339988bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1418d5a00cf20ddbea9ba1571d29477e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMini_1_1vec.html">lit_vec_t</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1Search.html#a1418d5a00cf20ddbea9ba1571d29477e">operator()</a> () const =0</td></tr>
+<tr class="memitem:a1418d5a00cf20ddbea9ba1571d29477e"><td class="memItemLeft" align="right" valign="top">virtual lit_vec_t const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1Search.html#a1418d5a00cf20ddbea9ba1571d29477e">operator()</a> () const =0</td></tr>
 <tr class="separator:a1418d5a00cf20ddbea9ba1571d29477e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f946f62e83bd43f82993559b3fa8ae9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1Search.html#a1f946f62e83bd43f82993559b3fa8ae9">operator++</a> ()</td></tr>
 <tr class="memdesc:a1f946f62e83bd43f82993559b3fa8ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Steps to the next search.  <a href="classcore_1_1domain_1_1Search.html#a1f946f62e83bd43f82993559b3fa8ae9">More...</a><br /></td></tr>
@@ -126,9 +119,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a804160bb22d395b11eb48109012ce59f"><td class="memItemLeft" align="right" valign="top"><a id="a804160bb22d395b11eb48109012ce59f"></a>
-static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>total_size</b> (std::vector&lt; bool &gt; const &amp;vars)</td></tr>
-<tr class="separator:a804160bb22d395b11eb48109012ce59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e3cc66e3f5bd623ab1464f74a5231e"><td class="memItemLeft" align="right" valign="top"><a id="a27e3cc66e3f5bd623ab1464f74a5231e"></a>
+static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>total_size</b> (bit_mask_t const &amp;vars)</td></tr>
+<tr class="separator:a27e3cc66e3f5bd623ab1464f74a5231e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -142,7 +135,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_reset</b> ()
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:a78ab66de9fb195740ceb7f5f08455002"><td class="memItemLeft" align="right" valign="top"><a id="a78ab66de9fb195740ceb7f5f08455002"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>_set_assignment</b> (<a class="el" href="classMini_1_1vec.html">lit_vec_t</a> &amp;vec, uint64_t value)</td></tr>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>_set_assignment</b> (lit_vec_t &amp;vec, uint64_t value)</td></tr>
 <tr class="separator:a78ab66de9fb195740ceb7f5f08455002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -189,7 +182,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
 <p>Clones the current search. </p>
 <dl class="section return"><dt>Returns</dt><dd>the copy of this search </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1domain_1_1SingleSearch.html#a6292070a225c5b714ae943ba514bd694">core::domain::SingleSearch</a>, <a class="el" href="classcore_1_1domain_1_1UniqueSearch.html#a69512d46fec4e98dbefb3812125602b4">core::domain::UniqueSearch</a>, <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#a21102a433cf729b84afeda9f254c6ee9">core::domain::CartesianSearch</a>, <a class="el" href="classcore_1_1domain_1_1FullSearch.html#ad7a9b6f9b017198bc2a5ef623fbcf43d">core::domain::FullSearch</a>, and <a class="el" href="classcore_1_1domain_1_1RandomSearch.html#adce56fef59d43170281b5e253119d5e7">core::domain::RandomSearch</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1domain_1_1SingleSearch.html#a6292070a225c5b714ae943ba514bd694">core::domain::SingleSearch</a>, <a class="el" href="classcore_1_1domain_1_1UniqueSearch.html#a69512d46fec4e98dbefb3812125602b4">core::domain::UniqueSearch</a>, <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#a21102a433cf729b84afeda9f254c6ee9">core::domain::CartesianSearch</a>, <a class="el" href="classcore_1_1domain_1_1RandomSearch.html#adce56fef59d43170281b5e253119d5e7">core::domain::RandomSearch</a>, and <a class="el" href="classcore_1_1domain_1_1FullSearch.html#ad7a9b6f9b017198bc2a5ef623fbcf43d">core::domain::FullSearch</a>.</p>
 
 </div>
 </div>
@@ -229,7 +222,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classMini_1_1vec.html">lit_vec_t</a> const&amp; core::domain::Search::operator() </td>
+          <td class="memname">virtual lit_vec_t const&amp; core::domain::Search::operator() </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -243,7 +236,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current assignment </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1domain_1_1SingleSearch.html#ac213af2e09a226bcd87fcdf56842ccda">core::domain::SingleSearch</a>, <a class="el" href="classcore_1_1domain_1_1UniqueSearch.html#a6054f69d00108754a4e933bdd4d0c46e">core::domain::UniqueSearch</a>, <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#aa3efb96ba89f771f4914d1a158274ecd">core::domain::CartesianSearch</a>, <a class="el" href="classcore_1_1domain_1_1FullSearch.html#a5ebbec8ba15647d14c52a45beb16bdc0">core::domain::FullSearch</a>, and <a class="el" href="classcore_1_1domain_1_1RandomSearch.html#a19050f8ef05dd2959256b1e34a96e8be">core::domain::RandomSearch</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1domain_1_1SingleSearch.html#ac213af2e09a226bcd87fcdf56842ccda">core::domain::SingleSearch</a>, <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#aa3efb96ba89f771f4914d1a158274ecd">core::domain::CartesianSearch</a>, <a class="el" href="classcore_1_1domain_1_1RandomSearch.html#a5152d2ff60d7452c03c894baf9feb9a1">core::domain::RandomSearch</a>, <a class="el" href="classcore_1_1domain_1_1UniqueSearch.html#ac8ae16de0b6a00018be25565d9c55ad1">core::domain::UniqueSearch</a>, and <a class="el" href="classcore_1_1domain_1_1FullSearch.html#a648d457bab63be4df8864aa207ca3a37">core::domain::FullSearch</a>.</p>
 
 </div>
 </div>

@@ -23,16 +23,15 @@
 
 namespace painless {
 
-HordeSatSharing::HordeSatSharing(int shr_lit, int shr_sleep, WorkingResult* result)
-    : SharingStrategy(result) {
-  this->literalPerRound = shr_lit;
-  this->initPhase = true;
-  // number of round corresponding to 5% of the 5000s timeout
-  this->roundBeforeIncrease = 250000000 / shr_sleep;
-}
+HordeSatSharing::HordeSatSharing(
+    int shr_lit, int shr_sleep, WorkingResult* result)
+    : SharingStrategy(result)
+    , literalPerRound(shr_lit)
+    , roundBeforeIncrease(250000000 / shr_sleep) {}
 
 void HordeSatSharing::doSharing(
-    int idSharer, const vector<SolverInterface*>& from, const vector<SolverInterface*>& to) {
+    int idSharer, const vector<SolverInterface*>& from,
+    const vector<SolverInterface*>& to) {
   static unsigned int round = 1;
   for (size_t i = 0; i < from.size(); i++) {
     int used, usedPercent, selectCount;
@@ -54,7 +53,8 @@ void HordeSatSharing::doSharing(
 
     tmp.clear();
 
-    used = this->databases[id]->giveSelection(tmp, literalPerRound, &selectCount);
+    used =
+        this->databases[id]->giveSelection(tmp, literalPerRound, &selectCount);
     usedPercent = (100 * used) / literalPerRound;
 
     stats.sharedClauses += tmp.size();

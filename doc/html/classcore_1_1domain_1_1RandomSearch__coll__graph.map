@@ -1,6 +1,5 @@
 <map id="core::domain::RandomSearch" name="core::domain::RandomSearch">
-<area shape="rect" id="node1" title="The class used to perform random search." alt="" coords="95,185,308,212"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1AssignmentModifier.html" title="The base class for searches that step by modifying assignment." alt="" coords="5,95,197,136"/>
-<area shape="rect" id="node3" href="$classMini_1_1vec.html" title=" " alt="" coords="20,5,183,32"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="222,102,381,129"/>
+<area shape="rect" id="node1" title="The class used to perform random search." alt="" coords="95,95,308,121"/>
+<area shape="rect" id="node2" href="$classcore_1_1domain_1_1AssignmentModifier.html" title="The base class for searches that step by modifying assignment." alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node3" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="222,13,381,39"/>
 </map>

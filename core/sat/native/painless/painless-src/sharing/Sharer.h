@@ -29,10 +29,8 @@
 
 namespace painless {
 
-/// A sharer is a thread responsible to share clauses between solvers.
 class Sharer {
  public:
-  /// Constructor.
   Sharer(
       int shr_sleep_us, int id_, SharingStrategy* sharingStrategy_,
       vector<SolverInterface*> producers_, vector<SolverInterface*> consumer_);

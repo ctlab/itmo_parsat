@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdint>
 
+#include "core/types.h"
 #include "core/domain/VarView.h"
 
 namespace core::domain {
@@ -30,16 +31,16 @@ struct Vars {
   /**
    * @return The const reference to internal representation.
    */
-  [[nodiscard]] std::vector<bool> const& get_mask() const noexcept;
+  [[nodiscard]] core::bit_mask_t const& get_mask() const noexcept;
 
   /**
    * @return The reference to internal representation.
    */
-  std::vector<bool>& get_mask() noexcept;
+  core::bit_mask_t& get_mask() noexcept;
 
   /**
    * @param var_view the variable mapping.
-   * @return the std::vector containing all indexes for which variable is set to true.
+   * @return all variables included in this variables set.
    */
   [[nodiscard]] std::vector<int> map_to_vars(VarView const& var_view) const;
 
@@ -49,7 +50,7 @@ struct Vars {
   [[nodiscard]] uint32_t size() const noexcept;
 
  private:
-  std::vector<bool> _bit_mask;
+  core::bit_mask_t _bit_mask;
 };
 
 }  // namespace core::domain

@@ -4,7 +4,8 @@
 
 namespace ea::method {
 
-DoerrMutation::DoerrMutation(DoerrMutationConfig const& config) : beta_(config.beta()) {}
+DoerrMutation::DoerrMutation(DoerrMutationConfig const& config)
+    : beta_(config.beta()) {}
 
 uint32_t DoerrMutation::_get_alpha(uint32_t size) const {
   uint32_t bound = size / 2 + 1;

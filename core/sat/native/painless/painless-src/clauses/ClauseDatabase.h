@@ -26,24 +26,20 @@
 
 namespace painless {
 
-/// Clause database used for Hordesat
 class ClauseDatabase {
  public:
-  /// Constructor.
   ClauseDatabase();
 
-  /// Destructor
   ~ClauseDatabase();
 
-  /// Add a shared clause to the database.
   void addClause(ClauseExchange* clause);
 
-  /// Fill the given buffer with shared clauses.
   /// @return the number of used literals.
-  int giveSelection(std::vector<ClauseExchange*>& selectedCls, unsigned totalSize, int* selectCount);
+  int giveSelection(
+      std::vector<ClauseExchange*>& selectedCls, unsigned totalSize,
+      int* selectCount);
 
  protected:
-  /// Vector of vector of shared clauses, on vector per size.
   std::vector<std::vector<ClauseExchange*>> clauses;
 };
 

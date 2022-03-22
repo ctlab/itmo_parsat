@@ -6,13 +6,30 @@
 
 namespace core::domain {
 
+/**
+ * @brief The class representing the search space.
+ */
 struct SearchSpace {
  public:
+  /**
+   * @brief Maximal number of variables allowed to be fully covered.
+   */
   static constexpr uint32_t MAX_VARS_FOR_FULL_SEARCH = 63;
 
  public:
+  /**
+   * @brief If the search space can be fully covered.
+   */
   bool countable_search_space = false;
+
+  /**
+   * @brief The size of search space.
+   */
   uint64_t search_space_size = 0;
+
+  /**
+   * @brief The approximation of number of visited points.
+   */
   uint64_t inaccurate_visited_points = 0;
 
  public:
@@ -20,8 +37,15 @@ struct SearchSpace {
 
   explicit SearchSpace(uint32_t num_variables) noexcept;
 
+  /**
+   * Re-initializes this entity.
+   * @param num_variables the number of variables
+   */
   void reset(uint32_t num_variables) noexcept;
 
+  /**
+   * @return whether there (probably) are non-visited points
+   */
   [[nodiscard]] bool has_unvisited_points() const noexcept;
 };
 

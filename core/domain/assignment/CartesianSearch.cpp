@@ -4,31 +4,29 @@
 
 namespace core::domain {
 
-CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian)
-    // clang-format off
-  : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
-      return size * v.size();
-    }))
-  , _assignment((int) std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(0), [] (uint32_t size, auto const& v) {
-      return size + v.front().size();
-    }))
-  , _cartesian(std::move(cartesian)) {
-  // clang-format on
+CartesianSearch::CartesianSearch(
+    std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian)
+    : Search(std::accumulate(
+          cartesian.begin(), cartesian.end(), uint32_t(1),
+          [](uint32_t size, auto const& v) { return size * v.size(); }))
+    , _assignment((int) std::accumulate(
+          cartesian.begin(), cartesian.end(), uint32_t(0),
+          [](uint32_t size, auto const& v) { return size + v.front().size(); }))
+    , _cartesian(std::move(cartesian)) {
   _indices.resize(_cartesian.size(), 0);
   _set_cur(0);
 }
 
 /// @todo: remove copy-paste
-CartesianSearch::CartesianSearch(std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian)
-    // clang-format off
-    : Search(std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(1), [] (uint32_t size, auto const& v) {
-        return size * v.size();
-      }))
-    , _assignment((int) std::accumulate(cartesian.begin(), cartesian.end(), uint32_t(0), [] (uint32_t size, auto const& v) {
-        return size + v.front().size();
-      }))
+CartesianSearch::CartesianSearch(
+    std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian)
+    : Search(std::accumulate(
+          cartesian.begin(), cartesian.end(), uint32_t(1),
+          [](uint32_t size, auto const& v) { return size * v.size(); }))
+    , _assignment((int) std::accumulate(
+          cartesian.begin(), cartesian.end(), uint32_t(0),
+          [](uint32_t size, auto const& v) { return size + v.front().size(); }))
     , _cartesian(cartesian) {
-  // clang-format on
   _indices.resize(_cartesian.size(), 0);
   _set_cur(0);
 }

@@ -1,5 +1,5 @@
 <map id="core::sat::prop::SimpProp" name="core::sat::prop::SimpProp">
-<area shape="rect" id="node1" title="Mini:SimpSolver&#45;based Solver implementation." alt="" coords="73,80,258,107"/>
+<area shape="rect" id="node1" title="minisat&#45;based propagation engine implementation" alt="" coords="73,80,258,107"/>
 <area shape="rect" id="node2" href="$classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="5,5,157,32"/>
 <area shape="rect" id="node3" title=" " alt="" coords="182,5,317,32"/>
 </map>

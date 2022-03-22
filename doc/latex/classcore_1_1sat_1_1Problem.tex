@@ -1,17 +1,46 @@
 \hypertarget{classcore_1_1sat_1_1Problem}{}\doxysection{core\+::sat\+::Problem Class Reference}
 \label{classcore_1_1sat_1_1Problem}\index{core::sat::Problem@{core::sat::Problem}}
+
+
+The problem descriptor class.  
+
+
+
+
+{\ttfamily \#include $<$Problem.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}\label{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}} 
-{\bfseries Problem} (std\+::filesystem\+::path const \&path)
-\item 
+\mbox{\hyperlink{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}{Problem}} (std\+::filesystem\+::path const \&path)
+\begin{DoxyCompactList}\small\item\em Constructs the problem by the cnf path. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}\label{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}} 
 std\+::filesystem\+::path const  \& {\bfseries path} () const noexcept
 \item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a8a3bff4f70b2abf4c342484e4b677e9e}\label{classcore_1_1sat_1_1Problem_a8a3bff4f70b2abf4c342484e4b677e9e}} 
 std\+::vector$<$ std\+::vector$<$ int $>$ $>$ const  \& {\bfseries clauses} () const noexcept
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The problem descriptor class. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}\label{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}} 
+\index{core::sat::Problem@{core::sat::Problem}!Problem@{Problem}}
+\index{Problem@{Problem}!core::sat::Problem@{core::sat::Problem}}
+\doxysubsubsection{\texorpdfstring{Problem()}{Problem()}}
+{\footnotesize\ttfamily core\+::sat\+::\+Problem\+::\+Problem (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs the problem by the cnf path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & the path to cnf formula \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -22,6 +22,8 @@
 #include "core/sat/native/painless/painless-src/solvers/SolverInterface.h"
 #include "core/sat/native/painless/painless-src/utils/Threading.h"
 #include "core/sat/native/painless/painless-src/working/WorkingStrategy.h"
+#include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/mini/utils/Lit.h"
 
 #include <vector>
 #include <mutex>
@@ -34,17 +36,19 @@ class SequentialWorker : public WorkingStrategy {
  public:
   SequentialWorker(WorkingResult* working_result, SolverInterface* solver_);
 
-  ~SequentialWorker() noexcept;
+  ~SequentialWorker() noexcept override;
 
-  void solve(const vector<int>& cube) override;
+  void solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube)
+      override;
 
-  void join(WorkingStrategy* winner, PSatResult res, const vector<int>& model) override;
+  void join(int64_t index, WorkingStrategy* winner, PSatResult res, const vector<int>& model)
+      override;
 
   void setInterrupt() override;
 
-  void unsetInterrupt() override;
-
   void waitInterrupt() override;
+
+  void unsetInterrupt() override;
 
   int getDivisionVariable() override;
 
@@ -56,21 +60,25 @@ class SequentialWorker : public WorkingStrategy {
 
   void bumpVariableActivity(const int var, const int times) override;
 
-  SolverInterface* solver;
-
  protected:
   void main_worker_thread();
 
+ private:
+  SolverInterface* solver = nullptr;
   bool _stop = false;
-  std::thread worker;
-  std::mutex interrupt_lock;
+  std::atomic_bool force{false};
+  std::atomic_bool waitJob{true};
+  int64_t current_index = 0;
 
-  std::vector<int> actualCube;
-  std::atomic_bool force;
-  std::atomic_bool waitJob;
-
-  std::mutex start_mutex;
+  std::mutex interrupt_mutex;
   std::condition_variable start_cv;
+  std::mutex start_mutex;
+
+  int64_t actual_index;
+  std::vector<int> actualCube;
+  Mini::vec<Mini::Lit> actualAssumptions;
+
+  std::thread worker;
 };
 
 }  // namespace painless

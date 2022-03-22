@@ -15,7 +15,8 @@ void SearchSpace::reset(uint32_t num_variables) noexcept {
 }
 
 bool SearchSpace::has_unvisited_points() const noexcept {
-  return !countable_search_space || inaccurate_visited_points < search_space_size;
+  return !countable_search_space ||
+         inaccurate_visited_points < search_space_size;
 }
 
 }  // namespace core::domain

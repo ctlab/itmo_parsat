@@ -90,37 +90,81 @@ Inheritance diagram for core::domain::AssignmentModifier:</div>
 <area shape="rect" href="classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="450,95,655,121"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for core::domain::AssignmentModifier:</div>
-<div class="dyncontent">
-<div class="center"><img src="classcore_1_1domain_1_1AssignmentModifier__coll__graph.png" border="0" usemap="#core_1_1domain_1_1AssignmentModifier_coll__map" alt="Collaboration graph"/></div>
-<map name="core_1_1domain_1_1AssignmentModifier_coll__map" id="core_1_1domain_1_1AssignmentModifier_coll__map">
-<area shape="rect" title="The base class for searches that step by modifying assignment." alt="" coords="5,95,197,136"/>
-<area shape="rect" href="classMini_1_1vec.html" title=" " alt="" coords="20,5,183,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a71a8e3bd0adeaedd8ab9a20a926f0570"><td class="memItemLeft" align="right" valign="top"><a id="a71a8e3bd0adeaedd8ab9a20a926f0570"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AssignmentModifier</b> (<a class="el" href="classcore_1_1domain_1_1VarView.html">VarView</a> const &amp;var_view, std::vector&lt; bool &gt; const &amp;vars)</td></tr>
-<tr class="separator:a71a8e3bd0adeaedd8ab9a20a926f0570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699b88634d0eb4e5745e115c736cda5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1AssignmentModifier.html#a699b88634d0eb4e5745e115c736cda5b">AssignmentModifier</a> (<a class="el" href="classcore_1_1domain_1_1VarView.html">VarView</a> const &amp;var_view, bit_mask_t const &amp;bit_mask)</td></tr>
+<tr class="separator:a699b88634d0eb4e5745e115c736cda5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77cb7e60e9c78ce9fda944e0849ee0b4"><td class="memItemLeft" align="right" valign="top"><a id="a77cb7e60e9c78ce9fda944e0849ee0b4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AssignmentModifier</b> (std::vector&lt; int &gt; const &amp;vars)</td></tr>
 <tr class="separator:a77cb7e60e9c78ce9fda944e0849ee0b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca336b5b2e43b54a537ce5c0bfe7e527"><td class="memItemLeft" align="right" valign="top"><a id="aca336b5b2e43b54a537ce5c0bfe7e527"></a>
-<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt; const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get</b> () const</td></tr>
-<tr class="separator:aca336b5b2e43b54a537ce5c0bfe7e527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfe23d59b1f63570e5523b4cabac25e1"><td class="memItemLeft" align="right" valign="top">lit_vec_t const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1domain_1_1AssignmentModifier.html#acfe23d59b1f63570e5523b4cabac25e1">get</a> () const</td></tr>
+<tr class="separator:acfe23d59b1f63570e5523b4cabac25e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a5fb410d72428ab1e9eb27755a9925bcf"><td class="memItemLeft" align="right" valign="top"><a id="a5fb410d72428ab1e9eb27755a9925bcf"></a>
-<a class="el" href="classMini_1_1vec.html">Mini::vec</a>&lt; <a class="el" href="structMini_1_1Lit.html">Mini::Lit</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_assignment</b></td></tr>
-<tr class="separator:a5fb410d72428ab1e9eb27755a9925bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c5f80dadbb6955813898b9bd5d70faf"><td class="memItemLeft" align="right" valign="top"><a id="a9c5f80dadbb6955813898b9bd5d70faf"></a>
+lit_vec_t&#160;</td><td class="memItemRight" valign="bottom"><b>_assignment</b></td></tr>
+<tr class="separator:a9c5f80dadbb6955813898b9bd5d70faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The base class for searches that step by modifying assignment. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a699b88634d0eb4e5745e115c736cda5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a699b88634d0eb4e5745e115c736cda5b">&#9670;&nbsp;</a></span>AssignmentModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::domain::AssignmentModifier::AssignmentModifier </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1domain_1_1VarView.html">VarView</a> const &amp;&#160;</td>
+          <td class="paramname"><em>var_view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bit_mask_t const &amp;&#160;</td>
+          <td class="paramname"><em>bit_mask</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initializes the assignment with given set of vars, all set to false. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">var_view</td><td>the mapping from indices to vars </td></tr>
+    <tr><td class="paramname">vars</td><td>the bit set representing variables set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acfe23d59b1f63570e5523b4cabac25e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfe23d59b1f63570e5523b4cabac25e1">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">lit_vec_t const  &amp; core::domain::AssignmentModifier::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the current state of assignment </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>core/domain/assignment/<a class="el" href="AssignmentModifier_8h_source.html">AssignmentModifier.h</a></li>
 <li>core/domain/assignment/AssignmentModifier.cpp</li>
 </ul>

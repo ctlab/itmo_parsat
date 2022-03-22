@@ -29,13 +29,15 @@ void Sharer::do_remove() {
     std::lock_guard<std::mutex> lg(remove_mutex);
     for (size_t i = 0; i < removeProducers.size(); i++) {
       producers.erase(
-          remove(producers.begin(), producers.end(), removeProducers[i]), producers.end());
+          remove(producers.begin(), producers.end(), removeProducers[i]),
+          producers.end());
     }
     removeProducers.clear();
 
     for (size_t i = 0; i < removeConsumers.size(); i++) {
       consumers.erase(
-          remove(consumers.begin(), consumers.end(), removeConsumers[i]), consumers.end());
+          remove(consumers.begin(), consumers.end(), removeConsumers[i]),
+          consumers.end());
     }
     removeConsumers.clear();
   }
@@ -71,8 +73,8 @@ void Sharer::main_sharing_thread() {
 }
 
 Sharer::Sharer(
-    int shr_sleep_us, int id, SharingStrategy* sharingStrategy, vector<SolverInterface*> producers,
-    vector<SolverInterface*> consumers)
+    int shr_sleep_us, int id, SharingStrategy* sharingStrategy,
+    vector<SolverInterface*> producers, vector<SolverInterface*> consumers)
     : result(sharingStrategy->result), shr_sleep_us(shr_sleep_us) {
   this->id = id;
   this->sharingStrategy = sharingStrategy;

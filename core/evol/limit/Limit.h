@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "util/Registry.h"
+#include "util/Reference.h"
 #include "core/proto/solve_config.pb.h"
 
 namespace ea::algorithm {
@@ -40,7 +41,7 @@ class Limit {
   virtual bool _proceed(ea::algorithm::Algorithm& algorithm) = 0;
 };
 
-using RLimit = std::shared_ptr<Limit>;
+MAKE_REFS(Limit);
 
 DEFINE_REGISTRY(Limit, LimitConfig, limit);
 

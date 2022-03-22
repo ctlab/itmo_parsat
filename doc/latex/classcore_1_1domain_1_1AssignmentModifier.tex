@@ -19,38 +19,54 @@ Inheritance diagram for core\+::domain\+::Assignment\+Modifier\+:
 \includegraphics[width=350pt]{classcore_1_1domain_1_1AssignmentModifier__inherit__graph}
 \end{center}
 \end{figure}
-
-
-Collaboration diagram for core\+::domain\+::Assignment\+Modifier\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=224pt]{classcore_1_1domain_1_1AssignmentModifier__coll__graph}
-\end{center}
-\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_a71a8e3bd0adeaedd8ab9a20a926f0570}\label{classcore_1_1domain_1_1AssignmentModifier_a71a8e3bd0adeaedd8ab9a20a926f0570}} 
-{\bfseries Assignment\+Modifier} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars)
+\mbox{\hyperlink{classcore_1_1domain_1_1AssignmentModifier_a699b88634d0eb4e5745e115c736cda5b}{Assignment\+Modifier}} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&bit\+\_\+mask)
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_a77cb7e60e9c78ce9fda944e0849ee0b4}\label{classcore_1_1domain_1_1AssignmentModifier_a77cb7e60e9c78ce9fda944e0849ee0b4}} 
 {\bfseries Assignment\+Modifier} (std\+::vector$<$ int $>$ const \&vars)
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_aca336b5b2e43b54a537ce5c0bfe7e527}\label{classcore_1_1domain_1_1AssignmentModifier_aca336b5b2e43b54a537ce5c0bfe7e527}} 
-\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const  \& {\bfseries get} () const
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1domain_1_1AssignmentModifier_acfe23d59b1f63570e5523b4cabac25e1}{get}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_a5fb410d72428ab1e9eb27755a9925bcf}\label{classcore_1_1domain_1_1AssignmentModifier_a5fb410d72428ab1e9eb27755a9925bcf}} 
-\mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ {\bfseries \+\_\+assignment}
+\mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_a9c5f80dadbb6955813898b9bd5d70faf}\label{classcore_1_1domain_1_1AssignmentModifier_a9c5f80dadbb6955813898b9bd5d70faf}} 
+lit\+\_\+vec\+\_\+t {\bfseries \+\_\+assignment}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 The base class for searches that step by modifying assignment. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_a699b88634d0eb4e5745e115c736cda5b}\label{classcore_1_1domain_1_1AssignmentModifier_a699b88634d0eb4e5745e115c736cda5b}} 
+\index{core::domain::AssignmentModifier@{core::domain::AssignmentModifier}!AssignmentModifier@{AssignmentModifier}}
+\index{AssignmentModifier@{AssignmentModifier}!core::domain::AssignmentModifier@{core::domain::AssignmentModifier}}
+\doxysubsubsection{\texorpdfstring{AssignmentModifier()}{AssignmentModifier()}}
+{\footnotesize\ttfamily core\+::domain\+::\+Assignment\+Modifier\+::\+Assignment\+Modifier (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&}]{var\+\_\+view,  }\item[{bit\+\_\+mask\+\_\+t const \&}]{bit\+\_\+mask }\end{DoxyParamCaption})}
+
+Initializes the assignment with given set of vars, all set to false. 
+\begin{DoxyParams}{Parameters}
+{\em var\+\_\+view} & the mapping from indices to vars \\
+\hline
+{\em vars} & the bit set representing variables set \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1domain_1_1AssignmentModifier_acfe23d59b1f63570e5523b4cabac25e1}\label{classcore_1_1domain_1_1AssignmentModifier_acfe23d59b1f63570e5523b4cabac25e1}} 
+\index{core::domain::AssignmentModifier@{core::domain::AssignmentModifier}!get@{get}}
+\index{get@{get}!core::domain::AssignmentModifier@{core::domain::AssignmentModifier}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::domain\+::\+Assignment\+Modifier\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+the current state of assignment 
+\end{DoxyReturn}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

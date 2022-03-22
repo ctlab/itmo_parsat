@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5fmm_5fblock_500',['_mm_block',['../struct__mm__block.html',1,'']]]
+  ['algorithm_97',['Algorithm',['../classea_1_1algorithm_1_1Algorithm.html',1,'ea::algorithm']]],
+  ['assignmentmodifier_98',['AssignmentModifier',['../classcore_1_1domain_1_1AssignmentModifier.html',1,'core::domain']]]
 ];

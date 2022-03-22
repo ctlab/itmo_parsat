@@ -19,7 +19,8 @@ core::signal::SigHandler* _sig_handler = nullptr;
 namespace core::signal {
 
 SigHandler::SigHandler() {
-  IPS_VERIFY_S(_sig_handler == nullptr, "SigHandler registered more than once.");
+  IPS_VERIFY_S(
+      _sig_handler == nullptr, "SigHandler registered more than once.");
   _sig_handler = this;
   sigset_t ss;
   IPS_SYSCALL(sigemptyset(&ss));

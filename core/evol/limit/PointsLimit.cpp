@@ -9,7 +9,8 @@ PointsLimit::PointsLimit(PointsLimitConfig const& config)
 
 bool PointsLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   bool stop = algorithm.inaccurate_points() >= _max_visited;
-  IPS_INFO_IF(stop, "The number of visited points reached the specified maximum");
+  IPS_INFO_IF(
+      stop, "The number of visited points reached the specified maximum");
   return !stop;
 }
 

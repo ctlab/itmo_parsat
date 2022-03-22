@@ -15,7 +15,7 @@ namespace core::sat::prop {
 SIMP_BASE(Minisat);
 
 /**
- * @brief Mini:SimpSolver-based Solver implementation.
+ * @brief minisat-based propagation engine implementation
  */
 class SimpProp : public Prop, public MinisatSimpBase {
  public:
@@ -25,12 +25,13 @@ class SimpProp : public Prop, public MinisatSimpBase {
 
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 
-  [[nodiscard]] bool propagate(
-      Mini::vec<Mini::Lit> const& assumptions, Mini::vec<Mini::Lit>& propagated) override;
+ protected:
+  [[nodiscard]] bool _propagate(lit_vec_t const& assumptions) override;
 
-  [[nodiscard]] bool propagate(Mini::vec<Mini::Lit> const& assumptions) override;
+  [[nodiscard]] bool _propagate(
+      lit_vec_t const& assumptions, lit_vec_t& propagated) override;
 
-  uint64_t prop_tree(Mini::vec<Mini::Lit> const& vars, uint32_t head_size) override;
+  uint64_t _prop_tree(lit_vec_t const& vars, uint32_t head_size) override;
 };
 
 }  // namespace core::sat::prop

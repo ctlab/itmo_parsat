@@ -6,19 +6,14 @@
 
 namespace core::domain {
 
-class FullSearch;
-MAKE_REFS(FullSearch);
-
 /**
  * @brief The class used to perform full search.
  */
 class FullSearch : AssignmentModifier, public Search {
-  friend UFullSearch createFullSearch(VarView const&, std::vector<bool> const&);
-
  public:
-  FullSearch(VarView const& var_view, std::vector<bool> const& vars);
+  FullSearch(VarView const& var_view, bit_mask_t const& bit_mask);
 
-  FullSearch(std::vector<int> const& vars);
+  explicit FullSearch(std::vector<int> const& vars);
 
   [[nodiscard]] FullSearch* clone() const override;
 
@@ -30,7 +25,9 @@ class FullSearch : AssignmentModifier, public Search {
   void _reset() override;
 };
 
-UFullSearch createFullSearch(VarView const& var_view, std::vector<bool> const& vars);
+MAKE_REFS(FullSearch);
+
+UFullSearch createFullSearch(VarView const& var_view, bit_mask_t const& bit_mask);
 
 UFullSearch createFullSearch(std::vector<int> const& vars);
 

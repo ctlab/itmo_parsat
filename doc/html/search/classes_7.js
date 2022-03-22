@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gaalgorithm_532',['GAAlgorithm',['../classea_1_1algorithm_1_1GAAlgorithm.html',1,'ea::algorithm']]]
+  ['instance_109',['Instance',['../classea_1_1instance_1_1Instance.html',1,'ea::instance']]]
 ];

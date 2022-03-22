@@ -67,22 +67,12 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
-<dt>Member <a class="el" href="strassen_8h.html#a6ad9c4c4d3ab2ec65f610a17d66cebb0">_mzd_addmul_even</a>  (<a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> *C, <a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> const *A, <a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> const *B, int cutoff)</dt>
-<dd><a class="anchor" id="_todo000012"></a>make sure not to overwrite crap after ncols and before width * m4ri_radix  </dd>
-<dt>Member <a class="el" href="strassen_8h.html#a8432a43d231b2aeaf118d21b35d817ce">_mzd_mul_even</a>  (<a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> *C, <a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> const *A, <a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> const *B, int cutoff)</dt>
-<dd><a class="anchor" id="_todo000011"></a>ideally we would use the same Wmk throughout the function but some called function doesn't like that and we end up with a wrong result if we use virtual Wmk matrices. Ideally, this should be fixed not worked around. The check whether the bug has been fixed, use only one Wmk and check if mzd_mul(4096, 3528, 4096, 2124) still returns the correct answer.  </dd>
 <dt>Member <a class="el" href="classcore_1_1domain_1_1CartesianSearch.html#a40aebd1ac557c77a5b52dda0cece8dc7">core::domain::CartesianSearch::CartesianSearch</a>  (std::vector&lt; std::vector&lt; std::vector&lt; Mini::Lit &gt;&gt;&gt; const &amp;cartesian)</dt>
 <dd><a class="anchor" id="_todo000001"></a>: remove copy-paste  </dd>
-<dt>Member <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#afa8ee171af44f985ddda4480cc1036e5">core::sat::prop::Prop::prop_tree</a>  (vec_lit_t const &amp;vars, uint32_t head_size)=0</dt>
-<dd><a class="anchor" id="_todo000017"></a>: documentation  </dd>
+<dt>Member <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a0b7fc476e97f558f8f306912e5e42fe7">core::sat::prop::Prop::prop_tree</a>  (lit_vec_t const &amp;vars, uint32_t head_size)</dt>
+<dd><a class="anchor" id="_todo000003"></a>: documentation  </dd>
 <dt>Member <a class="el" href="classea_1_1instance_1_1Instance.html#a597c6255ccc1a074c3b7e96f2382e412">ea::instance::Instance::num_vars</a>  () const noexcept</dt>
-<dd><a class="anchor" id="_todo000002"></a>The fact that this method is here is very bad.  </dd>
-<dt>Member <a class="el" href="misc_8h.html#a99247474582ef8ad10ddabd2be39af61">m4ri_die</a>  (const char *errormessage,...)</dt>
-<dd><a class="anchor" id="_todo000003"></a>Allow user to register callback which is called on <a class="el" href="misc_8h.html#a99247474582ef8ad10ddabd2be39af61" title="Print error message and abort().">m4ri_die()</a>. </dd>
-<dt>Member <a class="el" href="misc_8h.html#acfff993c60874755b199fec125de613a">m4ri_random_word</a>  ()</dt>
-<dd><a class="anchor" id="_todo000005"></a>Allow user to provide her own random() function.  </dd>
-<dt>Member <a class="el" href="mzd_8h.html#a3167fa0d3b20f8a707e1aa98562be7fa">mzd_randomize</a>  (<a class="el" href="structmzd__t.html" title="Dense matrices over GF(2).">mzd_t</a> *M)</dt>
-<dd><a class="anchor" id="_todo000010"></a>Allow the user to provide a RNG callback. </dd>
+<dd><a class="anchor" id="_todo000002"></a>The fact that this method is here is very bad. </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

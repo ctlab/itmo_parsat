@@ -12,7 +12,7 @@ This class represents (E$\vert$G)A instance used in this project.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classea_1_1instance_1_1Instance_a68f8daaab30cfa36b1f8444746ea6895}{Instance}} (core\+::sat\+::prop\+::\+R\+Prop prop, R\+Shared\+Data shared\+\_\+data, preprocess\+::\+R\+Preprocess)
+\mbox{\hyperlink{classea_1_1instance_1_1Instance_a816a58827fa37521892ea68437869a19}{Instance}} (core\+::sat\+::prop\+::\+R\+Prop prop, R\+Shared\+Data shared\+\_\+data, preprocess\+::\+R\+Preprocess preprocess)
 \item 
 \mbox{\hyperlink{structcore_1_1domain_1_1Vars}{core\+::domain\+::\+Vars}} \& \mbox{\hyperlink{classea_1_1instance_1_1Instance_a598567d6409fa4cc84a13cd2d97939e7}{get\+\_\+vars}} () noexcept
 \item 
@@ -47,7 +47,7 @@ std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&, \mbox{\hyperlin
 This class represents (E$\vert$G)A instance used in this project. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a68f8daaab30cfa36b1f8444746ea6895}\label{classea_1_1instance_1_1Instance_a68f8daaab30cfa36b1f8444746ea6895}} 
+\mbox{\Hypertarget{classea_1_1instance_1_1Instance_a816a58827fa37521892ea68437869a19}\label{classea_1_1instance_1_1Instance_a816a58827fa37521892ea68437869a19}} 
 \index{ea::instance::Instance@{ea::instance::Instance}!Instance@{Instance}}
 \index{Instance@{Instance}!ea::instance::Instance@{ea::instance::Instance}}
 \doxysubsubsection{\texorpdfstring{Instance()}{Instance()}}
@@ -55,9 +55,11 @@ This class represents (E$\vert$G)A instance used in this project.
 
 
 \begin{DoxyParams}{Parameters}
-{\em solver} & solver that will be used to propagate assignments. \\
+{\em prop} & the propagate engine used for fitness estimation \\
 \hline
-{\em shared\+\_\+data} & shared data (created by algorithm) \\
+{\em shared\+\_\+data} & the data shared between all instances \\
+\hline
+{\em preprocess} & the preprocess data \\
 \hline
 \end{DoxyParams}
 

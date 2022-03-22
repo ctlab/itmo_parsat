@@ -80,7 +80,8 @@ bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   return true;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit) : SolverInterface(id) {
+MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit)
+    : SolverInterface(id) {
   lbdLimit = lbd_limit;
   cbkExportClause = cbkMapleCOMSPSExportClause;
   cbkImportClause = cbkMapleCOMSPSImportClause;
@@ -88,7 +89,8 @@ MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit) : SolverInterface(id
   issuer = this;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit, const MapleCOMSPSSolver& other)
+MapleCOMSPSSolver::MapleCOMSPSSolver(
+    int id, int lbd_limit, const MapleCOMSPSSolver& other)
     : SolverInterface(id), MapleCOMSPS::SimpSolver(other) {
   lbdLimit = lbd_limit;
   cbkExportClause = cbkMapleCOMSPSExportClause;
@@ -156,8 +158,9 @@ void MapleCOMSPSSolver::diversify(int id) {
 
 // Solve the formula with a given set of assumptions
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
-PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
-  unsetSolverInterrupt();
+PSatResult MapleCOMSPSSolver::solve(
+    Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) {
+  //  unsetSolverInterrupt();
   PSatResult result = PUNKNOWN;
 
   vector<ClauseExchange*> tmp;
@@ -173,7 +176,7 @@ PSatResult MapleCOMSPSSolver::solve(const vector<int>& cube) {
   }
 
   if (result == PUNKNOWN) {
-    vec<Lit> miniAssumptions;
+    vec<Lit> miniAssumptions = assumptions;
     for (size_t ind = 0; ind < cube.size(); ind++) {
       miniAssumptions.push(MINI_LIT(cube[ind]));
     }
@@ -212,7 +215,8 @@ void MapleCOMSPSSolver::addClauses(const vector<ClauseExchange*>& clauses) {
   setSolverInterrupt();
 }
 
-void MapleCOMSPSSolver::addInitialClauses(const vector<ClauseExchange*>& clauses) {
+void MapleCOMSPSSolver::addInitialClauses(
+    const vector<ClauseExchange*>& clauses) {
   for (size_t ind = 0; ind < clauses.size(); ind++) {
     vec<Lit> mcls;
 
@@ -233,7 +237,8 @@ void MapleCOMSPSSolver::addInitialClauses(const vector<ClauseExchange*>& clauses
   }
 }
 
-void MapleCOMSPSSolver::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
+void MapleCOMSPSSolver::addLearnedClauses(
+    const vector<ClauseExchange*>& clauses) {
   for (size_t i = 0; i < clauses.size(); i++) {
     addLearnedClause(clauses[i]);
   }

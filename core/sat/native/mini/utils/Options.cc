@@ -1,20 +1,22 @@
 /**************************************************************************************[Options.cc]
 Copyright (c) 2008-2010, Niklas Sorensson
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
-NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
-OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************/
 
 #include "core/sat/native/mini/utils/Options.h"
@@ -27,7 +29,8 @@ void Mini::parseOptions(int& argc, char** argv, bool strict) {
   int i, j;
   for (i = j = 1; i < argc; i++) {
     const char* str = argv[i];
-    if (match(str, "--") && match(str, Option::getHelpPrefixString()) && match(str, "help")) {
+    if (match(str, "--") && match(str, Option::getHelpPrefixString()) &&
+        match(str, "help")) {
       if (*str == '\0')
         printUsageAndExit(argc, argv);
       else if (match(str, "-verb"))
@@ -38,15 +41,16 @@ void Mini::parseOptions(int& argc, char** argv, bool strict) {
       for (int k = 0; !parsed_ok && k < Option::getOptionList().size(); k++) {
         parsed_ok = Option::getOptionList()[k]->parse(argv[i]);
 
-        // fprintf(stderr, "checking %d: %s against flag <%s> (%s)\n", i, argv[i],
-        // Option::getOptionList()[k]->name, parsed_ok ? "ok" : "skip");
+        // fprintf(stderr, "checking %d: %s against flag <%s> (%s)\n", i,
+        // argv[i], Option::getOptionList()[k]->name, parsed_ok ? "ok" :
+        // "skip");
       }
 
       if (!parsed_ok) {
         if (strict && match(argv[i], "-"))
           fprintf(
-              stderr, "ERROR! Unknown flag \"%s\". Use '--%shelp' for help.\n", argv[i],
-              Option::getHelpPrefixString()),
+              stderr, "ERROR! Unknown flag \"%s\". Use '--%shelp' for help.\n",
+              argv[i], Option::getHelpPrefixString()),
               exit(1);
         else
           argv[j++] = argv[i];
@@ -89,8 +93,12 @@ void Mini::printUsageAndExit(int /*argc*/, char** argv, bool verbose) {
   }
 
   fprintf(stderr, "\nHELP OPTIONS:\n\n");
-  fprintf(stderr, "  --%shelp        Print help message.\n", Option::getHelpPrefixString());
-  fprintf(stderr, "  --%shelp-verb   Print verbose help message.\n", Option::getHelpPrefixString());
+  fprintf(
+      stderr, "  --%shelp        Print help message.\n",
+      Option::getHelpPrefixString());
+  fprintf(
+      stderr, "  --%shelp-verb   Print verbose help message.\n",
+      Option::getHelpPrefixString());
   fprintf(stderr, "\n");
   exit(0);
 }

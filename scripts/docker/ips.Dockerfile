@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG user
+ARG user=dzhiblavi
 ARG DEBIAN_FRONTEND=nointeractive
 
 WORKDIR /tmp
@@ -31,5 +31,13 @@ RUN git clone https://github.com/google/glog.git && \
 RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protobuf-all-3.14.0.tar.gz && \
     tar xvf protobuf-all-3.14.0.tar.gz --no-same-owner && cd protobuf-3.14.0 && \
     ./configure && make -j $(nproc) && make install && ldconfig
+
+# Google benchmark
+RUN git clone https://github.com/google/benchmark.git && \
+    cd benchmark && \
+    cmake -E make_directory "build" && \
+    cmake -E chdir "build" cmake -DBENCHMARK_DOWNLOAD_DEPENDENCIES=on -DCMAKE_BUILD_TYPE=Release ../ && \
+    cmake --build "build" --config Release && \
+    cmake --build "build" --config Release --target install
 
 WORKDIR /home/${user}

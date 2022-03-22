@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['data_920',['data',['../structheap.html#ac53504d81ca1846cd10f13d121ddef23',1,'heap::data()'],['../struct__mm__block.html#ac5d5b177f442d01feb94d84fc7fc9b92',1,'_mm_block::data()']]],
-  ['databases_921',['databases',['../classpainless_1_1HordeSatSharing.html#a9b39fccc889caac09a0164074f5478bb',1,'painless::HordeSatSharing']]],
-  ['decisions_922',['decisions',['../structSolvingStatistics.html#abad94d6c6df8a2e65f7887490cfe0139',1,'SolvingStatistics']]],
-  ['dummy_923',['dummy',['../structmzd__t.html#a1fde82d199c0fdca8add011e8dade87c',1,'mzd_t']]]
+  ['max_5fvars_5ffor_5ffull_5fsearch_197',['MAX_VARS_FOR_FULL_SEARCH',['../structcore_1_1domain_1_1SearchSpace.html#a6f17cd414617dc8533e9653b8b23b98f',1,'core::domain::SearchSpace']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>itmo-parsat: core/sat/solver/PainlessSolver.h Source File</title>
+<title>itmo-parsat: core/sat/solver/sequential/PainlessSolver.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li><li class="navelem"><a class="el" href="dir_aba3297fe15cade2de47061869976065.html">sat</a></li><li class="navelem"><a class="el" href="dir_f4d956f0f810f49ad486f6b5dfd05dd4.html">solver</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li><li class="navelem"><a class="el" href="dir_aba3297fe15cade2de47061869976065.html">sat</a></li><li class="navelem"><a class="el" href="dir_f4d956f0f810f49ad486f6b5dfd05dd4.html">solver</a></li><li class="navelem"><a class="el" href="dir_0998b58a739009058b5fb7684abd43f7.html">sequential</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,7 +75,7 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;core/sat/solver/Solver.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;Solver.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/painless/painless-src/solvers/SolverInterface.h&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/painless/painless-src/working/Portfolio.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/painless/painless-src/sharing/Sharer.h&quot;</span></div>
@@ -87,24 +87,21 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>core::sat::solver {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">PainlessSolver</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">PainlessSolver</a>(PainlessSolverConfig <span class="keyword">const</span>&amp; config);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  ~<a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">PainlessSolver</a>() noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  State <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#ab7b4a604b55a6a764594d915ffef3b19">solve</a>(<a class="code" href="classMini_1_1vec.html">vec_lit_t</a> <span class="keyword">const</span>&amp; assumptions) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  [[nodiscard]] <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a535beda7bf938e88c41dced89ff2b161">num_vars</a>() <span class="keyword">const</span> noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a2122008f95a50fd273f24a541f1a2d85">propagate_confl</a>(<a class="code" href="classMini_1_1vec.html">vec_lit_t</a> <span class="keyword">const</span>&amp; assumptions) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">void</span> _do_interrupt() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">PainlessSolver</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">PainlessSolver</a>(PainlessSolverConfig config);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  ~<a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">PainlessSolver</a>() noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  State <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aecb7e99e36483993de1be0b272466a73">solve</a>(lit_vec_t <span class="keyword">const</span>&amp; assumptions) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  [[nodiscard]] <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a535beda7bf938e88c41dced89ff2b161">num_vars</a>() <span class="keyword">const</span> noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#afdb4ab2d9ddb8733576cf74965d6c248">interrupt</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> _do_clear_interrupt() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aa94d98f0e4c73586da5259f47f8ff201">clear_interrupt</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  std::vector&lt;SolverInterface*&gt; _solvers;</div>
@@ -120,24 +117,25 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  PainlessSolverConfig _cfg;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="structpainless_1_1WorkingResult.html">painless::WorkingResult</a> _result;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  painless::WorkingResult _result;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::unique_ptr&lt;painless::WorkingStrategy&gt; working;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">int</span> nSharers = 0;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  int64_t solve_index = 0;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">int</span> nSharers = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">bool</span> _interrupted = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PAINLESSSOLVER_H</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PAINLESSSOLVER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassMini_1_1vec_html"><div class="ttname"><a href="classMini_1_1vec.html">Mini::vec&lt; Mini::Lit &gt;</a></div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_ab7b4a604b55a6a764594d915ffef3b19"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#ab7b4a604b55a6a764594d915ffef3b19">core::sat::solver::PainlessSolver::solve</a></div><div class="ttdeci">State solve(vec_lit_t const &amp;assumptions) override</div><div class="ttdoc">Runs solution with the specified assumptions.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:81</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_a2122008f95a50fd273f24a541f1a2d85"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a2122008f95a50fd273f24a541f1a2d85">core::sat::solver::PainlessSolver::propagate_confl</a></div><div class="ttdeci">bool propagate_confl(vec_lit_t const &amp;assumptions) override</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:118</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_a535beda7bf938e88c41dced89ff2b161"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a535beda7bf938e88c41dced89ff2b161">core::sat::solver::PainlessSolver::num_vars</a></div><div class="ttdeci">unsigned num_vars() const noexcept override</div><div class="ttdoc">Returns the number of variables in formula.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:114</div></div>
-<div class="ttc" id="astructpainless_1_1WorkingResult_html"><div class="ttname"><a href="structpainless_1_1WorkingResult.html">painless::WorkingResult</a></div><div class="ttdef"><b>Definition:</b> WorkingStrategy.h:33</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">core::sat::solver::PainlessSolver</a></div><div class="ttdef"><b>Definition:</b> PainlessSolver.h:18</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:25</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_a6dc7770f1714ba76e2f3a2be3affe569"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">core::sat::solver::PainlessSolver::load_problem</a></div><div class="ttdeci">void load_problem(Problem const &amp;problem) override</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:75</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdef"><b>Definition:</b> Problem.h:20</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_afdb4ab2d9ddb8733576cf74965d6c248"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#afdb4ab2d9ddb8733576cf74965d6c248">core::sat::solver::PainlessSolver::interrupt</a></div><div class="ttdeci">void interrupt() override</div><div class="ttdoc">Interrupts solver. Intended to be used from signal handlers.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:132</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_aa94d98f0e4c73586da5259f47f8ff201"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aa94d98f0e4c73586da5259f47f8ff201">core::sat::solver::PainlessSolver::clear_interrupt</a></div><div class="ttdeci">void clear_interrupt() override</div><div class="ttdoc">Clears interrupt flag.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:137</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_a535beda7bf938e88c41dced89ff2b161"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a535beda7bf938e88c41dced89ff2b161">core::sat::solver::PainlessSolver::num_vars</a></div><div class="ttdeci">unsigned num_vars() const noexcept override</div><div class="ttdoc">Returns the number of variables in formula.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:128</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html">core::sat::solver::PainlessSolver</a></div><div class="ttdoc">Painless-based Solver implementation.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.h:21</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_aecb7e99e36483993de1be0b272466a73"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aecb7e99e36483993de1be0b272466a73">core::sat::solver::PainlessSolver::solve</a></div><div class="ttdeci">State solve(lit_vec_t const &amp;assumptions) override</div><div class="ttdoc">Runs solution with the specified assumptions.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:90</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:26</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_a6dc7770f1714ba76e2f3a2be3affe569"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">core::sat::solver::PainlessSolver::load_problem</a></div><div class="ttdeci">void load_problem(Problem const &amp;problem) override</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:82</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:23</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

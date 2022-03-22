@@ -8,26 +8,19 @@
 
 namespace core::domain {
 
-class RandomSearch;
-MAKE_REFS(RandomSearch);
-
 /**
  * @brief The class used to perform random search.
  */
 class RandomSearch : AssignmentModifier, public Search {
-  friend USearch createRandomSearch(VarView const& var_view, std::vector<bool> const&, uint64_t);
-
-  friend USearch createRandomSearch(std::vector<int> const&, uint64_t);
-
  public:
+  explicit RandomSearch(
+      VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total);
+
+  explicit RandomSearch(std::vector<int> const& vars, uint64_t total);
+
   [[nodiscard]] RandomSearch* clone() const override;
 
   [[nodiscard]] lit_vec_t const& operator()() const override;
-
- protected:
-  explicit RandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
-
-  explicit RandomSearch(std::vector<int> const& vars, uint64_t total);
 
  protected:
   void _advance() override;
@@ -35,7 +28,10 @@ class RandomSearch : AssignmentModifier, public Search {
   void _reset() override;
 };
 
-USearch createRandomSearch(VarView const& var_view, std::vector<bool> const& vars, uint64_t total);
+MAKE_REFS(RandomSearch);
+
+USearch createRandomSearch(
+    VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total);
 
 USearch createRandomSearch(std::vector<int> const& vars, uint64_t total);
 

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['algorithm_501',['Algorithm',['../classea_1_1algorithm_1_1Algorithm.html',1,'ea::algorithm']]],
-  ['assignmentmodifier_502',['AssignmentModifier',['../classcore_1_1domain_1_1AssignmentModifier.html',1,'core::domain']]]
+  ['bestselector_99',['BestSelector',['../classea_1_1method_1_1BestSelector.html',1,'ea::method']]]
 ];

@@ -32,15 +32,15 @@ Collaboration diagram for core\+::domain\+::Full\+Search\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a494d3519fe2688520d0376996e535d52}\label{classcore_1_1domain_1_1FullSearch_a494d3519fe2688520d0376996e535d52}} 
-{\bfseries Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, std\+::vector$<$ bool $>$ const \&vars)
+\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a6fc0bd1044ee8e7348c3e0abeaa21385}\label{classcore_1_1domain_1_1FullSearch_a6fc0bd1044ee8e7348c3e0abeaa21385}} 
+{\bfseries Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&bit\+\_\+mask)
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_ab3c6559fb4ea30eadde61a524e473a0a}\label{classcore_1_1domain_1_1FullSearch_ab3c6559fb4ea30eadde61a524e473a0a}} 
 {\bfseries Full\+Search} (std\+::vector$<$ int $>$ const \&vars)
 \item 
 \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch}{Full\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_ad7a9b6f9b017198bc2a5ef623fbcf43d}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clones the current search. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classMini_1_1vec}{lit\+\_\+vec\+\_\+t}} const  \& \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_a5ebbec8ba15647d14c52a45beb16bdc0}{operator()}} () const override
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1domain_1_1FullSearch_a648d457bab63be4df8864aa207ca3a37}{operator()}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -50,12 +50,6 @@ void {\bfseries \+\_\+advance} () override
 \item 
 \mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a1aee4a4e7876032a6410f8a83d64d504}\label{classcore_1_1domain_1_1FullSearch_a1aee4a4e7876032a6410f8a83d64d504}} 
 void {\bfseries \+\_\+reset} () override
-\end{DoxyCompactItemize}
-\doxysubsection*{Friends}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a4dfe2fd07d3f55b52c273007f6215324}\label{classcore_1_1domain_1_1FullSearch_a4dfe2fd07d3f55b52c273007f6215324}} 
-U\+Full\+Search {\bfseries create\+Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{Var\+View}} const \&, std\+::vector$<$ bool $>$ const \&)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -81,11 +75,11 @@ the copy of this search
 
 Implements \mbox{\hyperlink{classcore_1_1domain_1_1Search_a92a359dc65b5b8458184d346e679fa66}{core\+::domain\+::\+Search}}.
 
-\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a5ebbec8ba15647d14c52a45beb16bdc0}\label{classcore_1_1domain_1_1FullSearch_a5ebbec8ba15647d14c52a45beb16bdc0}} 
+\mbox{\Hypertarget{classcore_1_1domain_1_1FullSearch_a648d457bab63be4df8864aa207ca3a37}\label{classcore_1_1domain_1_1FullSearch_a648d457bab63be4df8864aa207ca3a37}} 
 \index{core::domain::FullSearch@{core::domain::FullSearch}!operator()@{operator()}}
 \index{operator()@{operator()}!core::domain::FullSearch@{core::domain::FullSearch}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classMini_1_1vec}{Mini\+::vec}}$<$ \mbox{\hyperlink{structMini_1_1Lit}{Mini\+::\+Lit}} $>$ const  \& core\+::domain\+::\+Full\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::domain\+::\+Full\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
 the current assignment 

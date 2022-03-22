@@ -25,101 +25,71 @@
 #include <stdio.h>
 #include <vector>
 
+#include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/mini/utils/Lit.h"
+
 #define ID_SYM 0
 #define ID_XOR 1
 
 using namespace std;
 
-/// Code for SAT result
 enum PSatResult { PSAT = 10, PUNSAT = 20, PUNKNOWN = 0 };
 
-/// Structure for solver statistics
 struct SolvingStatistics {
-  /// Constructor
-  SolvingStatistics() {
-    propagations = 0;
-    decisions = 0;
-    conflicts = 0;
-    restarts = 0;
-    memPeak = 0;
-  }
-
-  unsigned long propagations;  ///< Number of propagations.
-  unsigned long decisions;     ///< Number of decisions taken.
-  unsigned long conflicts;     ///< Number of reached conflicts.
-  unsigned long restarts;      ///< Number of restarts.
-  double memPeak;              ///< Maximum memory used in Ko.
+  unsigned long propagations = 0;
+  unsigned long decisions = 0;
+  unsigned long conflicts = 0;
+  unsigned long restarts = 0;
+  double memPeak = 0;
 };
 
-/// Interface of a solver that provides standard features.
 class SolverInterface {
  public:
-  /// Load formula from a given dimacs file, return false if failed.
   virtual bool loadFormula(const char* filename) = 0;
 
-  /// Get the number of variables of the current resolution.
   virtual int getVariablesCount() = 0;
 
-  /// Get a variable suitable for search splitting.
   virtual int getDivisionVariable() = 0;
 
-  /// Set initial phase for a given variable.
   virtual void setPhase(const int var, const bool phase) = 0;
 
-  /// Bump activity of a given variable.
   virtual void bumpVariableActivity(const int var, const int times) = 0;
 
-  /// Interrupt resolution, solving cannot continue until interrupt is unset.
   virtual void setSolverInterrupt() = 0;
 
-  /// Remove the SAT solving interrupt request.
   virtual void unsetSolverInterrupt() = 0;
 
-  /// Solve the formula with a given cube.
-  virtual PSatResult solve(const vector<int>& cube) = 0;
+  virtual PSatResult solve(
+      Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) = 0;
 
-  /// Add a permanent clause to the formula.
   virtual void addClause(ClauseExchange* clause) = 0;
 
-  /// Add a list of permanent clauses to the formula.
   virtual void addClauses(const vector<ClauseExchange*>& clauses) = 0;
 
-  /// Add a list of initial clauses to the formula.
   virtual void addInitialClauses(const vector<ClauseExchange*>& clauses) = 0;
 
-  /// Add a learned clause to the formula.
   virtual void addLearnedClause(ClauseExchange* clauses) = 0;
 
-  /// Add a list of learned clauses to the formula.
   virtual void addLearnedClauses(const vector<ClauseExchange*>& clauses) = 0;
 
-  /// Get a list of learned clauses.
   virtual void getLearnedClauses(vector<ClauseExchange*>& clauses) = 0;
 
-  /// Request the solver to produce more clauses.
   virtual void increaseClauseProduction() = 0;
 
-  /// Request the solver to produce less clauses.
   virtual void decreaseClauseProduction() = 0;
 
-  /// Get solver statistics.
   virtual SolvingStatistics getStatistics() = 0;
 
-  /// Return the model in case of SAT result.
   virtual vector<int> getModel() = 0;
 
-  /// Native diversification.
   virtual void diversify(int id) = 0;
 
-  /// Return the final analysis in case of UNSAT result.
   virtual vector<int> getFinalAnalysis() = 0;
 
   virtual vector<int> getSatAssumptions() = 0;
 
-  /// Constructor.
-  SolverInterface(int id) : id(id) {}
+  explicit SolverInterface(int id) : id(id) {}
 
-  /// Destructor.
   virtual ~SolverInterface() noexcept = default;
 
  public:

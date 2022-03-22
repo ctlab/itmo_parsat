@@ -10,17 +10,19 @@ namespace infra::domain {
 
 class LaunchInfo {
  public:
-  explicit LaunchInfo(testing::TestingConfiguration const& testing_config);
+  explicit LaunchInfo(testing::TestingConfiguration testing_config);
 
   bool should_be_launched(LaunchConfig const& config);
 
   std::optional<uint32_t> check_if_test_is_done(LaunchConfig const& config);
 
-  int get_test_size(LaunchConfig const& config);
+  static int get_test_size(LaunchConfig const& config);
 
-  std::string get_test_group(LaunchConfig const& config);
+  static std::string get_test_group(LaunchConfig const& config);
 
-  infra::domain::SatResult get_sat_result(LaunchConfig const& config);
+  static std::string get_input_name(LaunchConfig const& config);
+
+  static infra::domain::SatResult get_sat_result(LaunchConfig const& config);
 
   void add(LaunchObject const& object);
 

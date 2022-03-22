@@ -1,0 +1,4 @@
+<map id="core::solve::RBSSolveBase" name="core::solve::RBSSolveBase">
+<area shape="rect" id="node1" title="Base for all classes using RBS strategy in one way or another." alt="" coords="5,80,200,107"/>
+<area shape="rect" id="node2" href="$classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="34,5,171,32"/>
+</map>

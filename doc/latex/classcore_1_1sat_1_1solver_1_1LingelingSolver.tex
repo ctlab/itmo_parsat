@@ -2,6 +2,15 @@
 \label{classcore_1_1sat_1_1solver_1_1LingelingSolver}\index{core::sat::solver::LingelingSolver@{core::sat::solver::LingelingSolver}}
 
 
+Lingeling-\/based \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver}{Solver}} implementation.  
+
+
+
+
+{\ttfamily \#include $<$Lingeling\+Solver.\+h$>$}
+
+
+
 Inheritance diagram for core\+::sat\+::solver\+::Lingeling\+Solver\+:
 \nopagebreak
 \begin{figure}[H]
@@ -25,15 +34,21 @@ Collaboration diagram for core\+::sat\+::solver\+::Lingeling\+Solver\+:
 \item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_a85cc09941c763e44d0f57d596eb2f876}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_a90821f9a091e614e069b66ffb419136c}{solve}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
+State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_a4eb4e48573c055f5cc5a24b57fb47e03}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions) override
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_a82d53aa233a9e932d006ce9298972991}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_a82d53aa233a9e932d006ce9298972991}} 
 unsigned \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_a82d53aa233a9e932d006ce9298972991}{num\+\_\+vars}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_a90a754cbd2b5378f7d99faccb5dd2154}{propagate\+\_\+confl}} (\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&assumptions) override
-\end{DoxyCompactItemize}
-\doxysubsection*{Additional Inherited Members}
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_a0ef0f46b46722f71d486cf9244829dd6}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_a0ef0f46b46722f71d486cf9244829dd6}} 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_a0ef0f46b46722f71d486cf9244829dd6}{interrupt}} () override
+\begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_aad882329ff74738b3c349af59a938a00}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_aad882329ff74738b3c349af59a938a00}} 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LingelingSolver_aad882329ff74738b3c349af59a938a00}{clear\+\_\+interrupt}} () override
+\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Lingeling-\/based \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver}{Solver}} implementation. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_a85cc09941c763e44d0f57d596eb2f876}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_a85cc09941c763e44d0f57d596eb2f876}} 
@@ -55,32 +70,11 @@ Parses cnf from .gz file with the specified path.
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_a90a754cbd2b5378f7d99faccb5dd2154}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_a90a754cbd2b5378f7d99faccb5dd2154}} 
-\index{core::sat::solver::LingelingSolver@{core::sat::solver::LingelingSolver}!propagate\_confl@{propagate\_confl}}
-\index{propagate\_confl@{propagate\_confl}!core::sat::solver::LingelingSolver@{core::sat::solver::LingelingSolver}}
-\doxysubsubsection{\texorpdfstring{propagate\_confl()}{propagate\_confl()}}
-{\footnotesize\ttfamily bool core\+::sat\+::solver\+::\+Lingeling\+Solver\+::propagate\+\_\+confl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-\begin{DoxyParams}{Parameters}
-{\em assumptions} & assumptions to be passed to solver \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-whether these assumptions lead to conflict 
-\end{DoxyReturn}
-\begin{DoxyNote}{Note}
-It\textquotesingle{}s actually faster to ignore propagation for Lingeling.
-\end{DoxyNote}
-
-
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a46e763dfe58cfcbd622bf46784558e18}{core\+::sat\+::solver\+::\+Solver}}.
-
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_a90821f9a091e614e069b66ffb419136c}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_a90821f9a091e614e069b66ffb419136c}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LingelingSolver_a4eb4e48573c055f5cc5a24b57fb47e03}\label{classcore_1_1sat_1_1solver_1_1LingelingSolver_a4eb4e48573c055f5cc5a24b57fb47e03}} 
 \index{core::sat::solver::LingelingSolver@{core::sat::solver::LingelingSolver}!solve@{solve}}
 \index{solve@{solve}!core::sat::solver::LingelingSolver@{core::sat::solver::LingelingSolver}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+Lingeling\+Solver\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMini_1_1vec}{vec\+\_\+lit\+\_\+t}} const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+Lingeling\+Solver\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -96,11 +90,11 @@ the result of solving.
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_ab1b37c445aba31024d59e32061f32586}{core\+::sat\+::solver\+::\+Solver}}.
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a16fe040877511f1925d40091c7e632df}{core\+::sat\+::solver\+::\+Solver}}.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-core/sat/solver/Lingeling\+Solver.\+h\item 
-core/sat/solver/Lingeling\+Solver.\+cpp\end{DoxyCompactItemize}
+core/sat/solver/sequential/Lingeling\+Solver.\+h\item 
+core/sat/solver/sequential/Lingeling\+Solver.\+cpp\end{DoxyCompactItemize}

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['hash_533',['Hash',['../structMini_1_1Hash.html',1,'Mini']]],
-  ['heap_534',['Heap',['../classMini_1_1Heap.html',1,'Mini::Heap&lt; K, Comp, MkIndex &gt;'],['../structheap.html',1,'heap']]],
-  ['heap_3c_20int_2c_20maplecomsps_3a_3asimpsolver_3a_3aelimlt_20_3e_535',['Heap&lt; int, MapleCOMSPS::SimpSolver::ElimLt &gt;',['../classMini_1_1Heap.html',1,'Mini']]],
-  ['heap_3c_20int_2c_20maplecomsps_3a_3asolver_3a_3avarorderlt_20_3e_536',['Heap&lt; int, MapleCOMSPS::Solver::VarOrderLt &gt;',['../classMini_1_1Heap.html',1,'Mini']]],
-  ['hordesatsharing_537',['HordeSatSharing',['../classpainless_1_1HordeSatSharing.html',1,'painless']]]
+  ['limit_110',['Limit',['../classea_1_1limit_1_1Limit.html',1,'ea::limit']]],
+  ['lingelingsolver_111',['LingelingSolver',['../classcore_1_1sat_1_1solver_1_1LingelingSolver.html',1,'core::sat::solver']]]
 ];

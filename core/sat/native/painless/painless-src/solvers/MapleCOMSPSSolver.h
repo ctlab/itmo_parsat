@@ -52,7 +52,7 @@ class MapleCOMSPSSolver : public SolverInterface, public MapleCOMSPS::SimpSolver
   void unsetSolverInterrupt();
 
   /// Solve the formula with a given cube.
-  PSatResult solve(const std::vector<int>& cube);
+  PSatResult solve(Mini::vec<Mini::Lit> const& assumptions, const std::vector<int>& cube);
 
   /// Add a permanent clause to the formula.
   void addClause(ClauseExchange* clause);
@@ -113,7 +113,7 @@ class MapleCOMSPSSolver : public SolverInterface, public MapleCOMSPS::SimpSolver
   ClauseBuffer clausesToAdd;
 
   /// Used to stop or continue the resolution.
-  std::atomic_bool stopSolver;
+  std::atomic_bool stopSolver{false};
 
   /// Callback to export/import clauses.
   friend MapleCOMSPS::Lit cbkMapleCOMSPSImportUnit(void*);

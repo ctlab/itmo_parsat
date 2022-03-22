@@ -28,39 +28,25 @@
 
 namespace painless {
 
-/// This strategy is a hordesat like sharing strategy.
 class HordeSatSharing : public SharingStrategy {
  public:
-  /// Constructor.
   explicit HordeSatSharing(int shr_lit, int shr_sleep, WorkingResult* result);
 
-  /// Destructor.
   ~HordeSatSharing() = default;
 
-  /// This method shared clauses from the producers to the consumers.
   void doSharing(
-      int idSharer, const std::vector<SolverInterface*>& from, const std::vector<SolverInterface*>& to);
+      int idSharer, const std::vector<SolverInterface*>& from,
+      const std::vector<SolverInterface*>& to);
 
-  /// Return the sharing statistics of this sharng strategy.
   SharingStatistics getStatistics();
 
  protected:
-  /// Number of shared literals per round.
   int literalPerRound;
-
-  /// Are we in init phase.
-  bool initPhase;
-
-  /// Number of round before forcing an increase in production
+  bool initPhase = true;
   int roundBeforeIncrease;
 
-  /// Databse used to store the clauses.
   std::unordered_map<int, std::unique_ptr<ClauseDatabase>> databases;
-
-  /// Sharing statistics.
   SharingStatistics stats;
-
-  /// Used to manipulate clauses.
   std::vector<ClauseExchange*> tmp;
 };
 

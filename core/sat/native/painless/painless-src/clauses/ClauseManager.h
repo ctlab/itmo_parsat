@@ -24,48 +24,31 @@
 
 #include "../clauses/ClauseExchange.h"
 
-#define CLAUSE_SIZE sizeof(::painless::ClauseExchange)
-
-#define BUFFER_CLAUSES
-
 namespace painless {
 
-/// Class in charge of the management of shared clauses.
 class ClauseManager {
  public:
   ClauseManager() = default;
 
-//  ~ClauseManager() noexcept;
-
-  /// Alloc a new shared clause.
   static ClauseExchange* allocClause(int size) {
     ClauseExchange* ptr;
     ptr = (ClauseExchange*) malloc(sizeof(ClauseExchange) + sizeof(int) * size);
-
     ptr->size = size;
     ptr->nbRefs = 1;
-
     return ptr;
   }
 
-  /// Increase the number of references to a shared clause.
   static void increaseClause(ClauseExchange* cls, int refs = 1) {
-    cls->nbRefs += refs;  // atomic adition
+    cls->nbRefs += refs;
   }
 
-  /// Release a shared clauses, delete it if needed.
   static void releaseClause(ClauseExchange* cls) {
-    int oldValue = cls->nbRefs.fetch_sub(1);  // atomic decrementation
+    int oldValue = cls->nbRefs.fetch_sub(1);
 
     if (oldValue - 1 <= 0) {
-      // Only the last thread should execute this code
       free(cls);
     }
   }
-
-// private:
-//  uint64_t _lb_size = 0;
-//  std::vector<ClauseExchange*> _buffer;
 };
 
 }  // namespace painless

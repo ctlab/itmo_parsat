@@ -1,6 +1,6 @@
 {
     "solve_type": "RBSSolve",
-    "max_threads": 16,
+    "cpu_limit": 16,
     "random_seed": 1337,
     "rbs_solve_config": {
         "preprocess_config": {
@@ -19,15 +19,6 @@
                     "selector_type": "BestSelector"
                 },
                 "base_algorithm_config": {
-                    "prop_config": {
-                        "prop_type": "ParProp",
-                        "par_prop_config": {
-                            "max_threads": 16,
-                            "prop_config": {
-                                "prop_type": "SimpProp"
-                            }
-                        }
-                    },
                     "limit_config": {
                         "limit_type": "ConjLimit",
                         "conj_limit_config": {
@@ -68,10 +59,19 @@
                 }
             }
         },
-        "solver_config": {
-            "solver_type": "ParSolver",
-            "par_solver_config": {
+        "prop_config": {
+            "prop_type": "ParProp",
+            "par_prop_config": {
                 "max_threads": 16,
+                "prop_config": {
+                    "prop_type": "SimpProp"
+                }
+            }
+        },
+        "solver_service_config": {
+            "solver_service_type": "SequentialSolverService",
+            "sequential_solver_service_config" : {
+                "num_solvers": 16,
                 "solver_config": {
                     "solver_type": "SimpSolver"
                 }

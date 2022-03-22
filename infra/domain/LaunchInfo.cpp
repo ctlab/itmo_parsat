@@ -1,9 +1,11 @@
 #include "infra/domain/LaunchInfo.h"
 
+#include <utility>
+
 namespace infra::domain {
 
-LaunchInfo::LaunchInfo(testing::TestingConfiguration const& testing_config)
-    : _t_config(testing_config) {
+LaunchInfo::LaunchInfo(testing::TestingConfiguration testing_config)
+    : _t_config(std::move(testing_config)) {
   if (_t_config.save || _t_config.lookup) {
     _dao.emplace(_t_config.pg_host);
   }
@@ -13,17 +15,14 @@ std::string LaunchInfo::get_test_group(LaunchConfig const& config) {
   return std::filesystem::path(config.input).parent_path().filename();
 }
 
+std::string LaunchInfo::get_input_name(LaunchConfig const& config) {
+  return std::filesystem::path(config.input).filename();
+}
+
 bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
-  if (_t_config.lookup) {
-    auto opt_launch_id = check_if_test_is_done(config);
-    if (opt_launch_id) {
-      IPS_INFO("Test is already done. LaunchId = " << opt_launch_id.value());
-      return false;
-    }
-  }
   if (std::find(
-          _t_config.test_groups.begin(), _t_config.test_groups.end(), get_test_group(config)) ==
-      _t_config.test_groups.end()) {
+          _t_config.test_groups.begin(), _t_config.test_groups.end(),
+          get_test_group(config)) == _t_config.test_groups.end()) {
     return false;
   }
   if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) {
@@ -36,12 +35,19 @@ bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
   if (test_size > _t_config.size) {
     return false;
   }
+  if (_t_config.lookup) {
+    auto opt_launch_id = check_if_test_is_done(config);
+    if (opt_launch_id) {
+      IPS_INFO("Test is already done. LaunchId = " << opt_launch_id.value());
+      return false;
+    }
+  }
   return true;
 }
 
 int LaunchInfo::get_test_size(LaunchConfig const& config) {
   auto const& name = config.input;
-  auto it = name.find("@");
+  auto it = name.find('@');
   if (it == std::string::npos) {
     return -1;
   } else {
@@ -49,7 +55,8 @@ int LaunchInfo::get_test_size(LaunchConfig const& config) {
   }
 }
 
-infra::domain::SatResult LaunchInfo::get_sat_result(LaunchConfig const& config) {
+infra::domain::SatResult LaunchInfo::get_sat_result(
+    LaunchConfig const& config) {
   auto filename = std::filesystem::path(config.input).filename().string();
   if (filename.find("unsat", 0) != std::string::npos) {
     return infra::domain::UNSAT;
@@ -60,7 +67,8 @@ infra::domain::SatResult LaunchInfo::get_sat_result(LaunchConfig const& config) 
   }
 }
 
-std::optional<uint32_t> LaunchInfo::check_if_test_is_done(LaunchConfig const& config) {
+std::optional<uint32_t> LaunchInfo::check_if_test_is_done(
+    LaunchConfig const& config) {
   LaunchObject launch;
   launch.test_group = get_test_group(config);
   launch.input_name = config.input;

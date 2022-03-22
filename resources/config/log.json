@@ -28,17 +28,17 @@
         {
             "log_type": "CURRENT_INSTANCE",
             "verbose_level": 8,
-            "every_n": 10
+            "every_n": 10000
         },
         {
             "log_type": "BEST_INSTANCE",
             "verbose_level": 6,
-            "every_n": 100
+            "every_n": 10000
         },
         {
             "log_type": "FITNESS_SCALE",
-            "verbose_level": 6,
-            "every_n": 100
+            "verbose_level": 8,
+            "every_n": 10000
         },
         {
             "log_type": "TRACER",

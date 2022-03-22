@@ -8,8 +8,7 @@
 #include <optional>
 #include <algorithm>
 
-#include "core/sat/native/mini/mtl/Vec.h"
-#include "core/sat/native/mini/utils/Lit.h"
+#include "core/types.h"
 #include "core/domain/VarView.h"
 #include "core/domain/SearchSpace.h"
 #include "util/Reference.h"
@@ -18,15 +17,13 @@
 namespace core::domain {
 
 class Search;
+
 MAKE_REFS(Search);
 
 /**
  * @brief The class representing the sequential search in assignments space.
  */
 class Search {
- public:
-  typedef Mini::vec<Mini::Lit> lit_vec_t;
-
  public:
   explicit Search(uint64_t total);
 
@@ -69,7 +66,7 @@ class Search {
   [[nodiscard]] virtual Search* clone() const = 0;
 
  public:
-  static uint64_t total_size(std::vector<bool> const& vars);
+  static uint64_t total_size(bit_mask_t const& vars);
 
  protected:
   virtual void _advance() = 0;
@@ -89,6 +86,9 @@ class Search {
   uint64_t _last = 0;
 };
 
+/**
+ * @brief The search implementation consisting of only one (empty) assignment.
+ */
 class SingleSearch final : public Search {
  public:
   SingleSearch();

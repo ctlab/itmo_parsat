@@ -1,5 +1,0 @@
-<map id="SolverInterface" name="SolverInterface">
-<area shape="rect" id="node1" title="Interface of a solver that provides standard features." alt="" coords="156,5,277,32"/>
-<area shape="rect" id="node2" href="$classpainless_1_1MapleCOMSPSSolver.html" title="Instance of a MapleCOMSPS solver." alt="" coords="5,80,225,107"/>
-<area shape="rect" id="node3" href="$classpainless_1_1Reducer.html" title="Instance of a MapleCOMSPS solver." alt="" coords="249,80,387,107"/>
-</map>

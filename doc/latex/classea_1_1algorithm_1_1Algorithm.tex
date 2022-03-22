@@ -22,9 +22,10 @@ Inheritance diagram for ea\+::algorithm\+::Algorithm\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}{Algorithm}} (Base\+Algorithm\+Config const \&config)
+\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_add80ba72152713415919b5dd44aedd18}{Algorithm}} (Base\+Algorithm\+Config const \&config, core\+::sat\+::prop\+::\+R\+Prop prop)
 \item 
-bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a0d76bf5269d8656cae5273d036b22938}{prepare}} (preprocess\+::\+R\+Preprocess const \&preprocess)
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a691feb56bf4c0eddcae6cb4a7d5195f7}\label{classea_1_1algorithm_1_1Algorithm_a691feb56bf4c0eddcae6cb4a7d5195f7}} 
+void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a691feb56bf4c0eddcae6cb4a7d5195f7}{prepare}} (preprocess\+::\+R\+Preprocess const \&preprocess)
 \begin{DoxyCompactList}\small\item\em Performs preparation step. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}\label{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}} 
 void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}{process}} ()
@@ -41,6 +42,9 @@ void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15b
 uint64\+\_\+t \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a7b26993257ee6883c26dc6e618cc7b02}{inaccurate\+\_\+points}} () const noexcept
 \item 
 bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}{has\+\_\+unvisited\+\_\+points}} () const noexcept
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af7fae6205d60292f1ef80879b717c2fd}\label{classea_1_1algorithm_1_1Algorithm_af7fae6205d60292f1ef80879b717c2fd}} 
+void {\bfseries set\+\_\+base\+\_\+assumption} (Mini\+::vec$<$ Mini\+::\+Lit $>$ const \&assumption) noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -81,11 +85,11 @@ core\+::sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
 The base class of (E$\vert$G)A search algorithms. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}\label{classea_1_1algorithm_1_1Algorithm_a72e32a610b5357c8d7f690d11103deaa}} 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_add80ba72152713415919b5dd44aedd18}\label{classea_1_1algorithm_1_1Algorithm_add80ba72152713415919b5dd44aedd18}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!Algorithm@{Algorithm}}
 \index{Algorithm@{Algorithm}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
 \doxysubsubsection{\texorpdfstring{Algorithm()}{Algorithm()}}
-{\footnotesize\ttfamily ea\+::algorithm\+::\+Algorithm\+::\+Algorithm (\begin{DoxyParamCaption}\item[{Base\+Algorithm\+Config const \&}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily ea\+::algorithm\+::\+Algorithm\+::\+Algorithm (\begin{DoxyParamCaption}\item[{Base\+Algorithm\+Config const \&}]{config,  }\item[{core\+::sat\+::prop\+::\+R\+Prop}]{prop }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
@@ -139,19 +143,6 @@ inaccurately checks whether there are points that are not visited.
 
 \begin{DoxyReturn}{Returns}
 the inaccurate number of visited points. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a0d76bf5269d8656cae5273d036b22938}\label{classea_1_1algorithm_1_1Algorithm_a0d76bf5269d8656cae5273d036b22938}} 
-\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!prepare@{prepare}}
-\index{prepare@{prepare}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
-\doxysubsubsection{\texorpdfstring{prepare()}{prepare()}}
-{\footnotesize\ttfamily bool ea\+::algorithm\+::\+Algorithm\+::prepare (\begin{DoxyParamCaption}\item[{preprocess\+::\+R\+Preprocess const \&}]{preprocess }\end{DoxyParamCaption})}
-
-
-
-Performs preparation step. 
-
-\begin{DoxyReturn}{Returns}
-if proceed can be called 
 \end{DoxyReturn}
 
 

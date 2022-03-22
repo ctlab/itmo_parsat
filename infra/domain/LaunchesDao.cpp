@@ -5,7 +5,8 @@ namespace {
 std::string read_file(std::filesystem::path const& path) {
   std::ifstream ifs(path);
   ifs.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-  return std::string(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
+  return std::string(
+      std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 }
 
 }  // namespace
@@ -90,7 +91,9 @@ LaunchesDao& LaunchesDao::add(LaunchObject const& launch) {
 
 LaunchesDao& LaunchesDao::remove(uint32_t launch_id) {
   std::lock_guard<std::mutex> lg(_m);
-  _exec0(std::string() + "DELETE FROM Launches WHERE launch_id=" + std::to_string(launch_id) + ";");
+  _exec0(
+      std::string() + "DELETE FROM Launches WHERE launch_id=" +
+      std::to_string(launch_id) + ";");
   return *this;
 }
 
@@ -99,7 +102,7 @@ std::optional<uint32_t> LaunchesDao::get_launch_id(LaunchObject const& launch) {
   pqxx::work work(_conn);
   // clang-format off
   auto result = work.exec(std::string() +
-    "SELECT launch_id, result FROM Launches WHERE "
+    "SELECT launch_id FROM launches WHERE "
     "test_group = '" + launch.test_group + "' AND " +
     "input_name = '" + launch.input_name + "' AND " +
     "config_name = '" + launch.config_name + "' AND " +
