@@ -15,7 +15,7 @@ Timer::Timer()
         }
 
         _cv.wait_for(ul, _dur, [this] { return _stop || _abort; });
-        if (!_abort && _callback) {
+        if (IPS_LIKELY(!_stop) && !_abort && _callback) {
           _callback();
         }
         _do = false;

@@ -12,8 +12,8 @@ concurrency = 32
 time-limit = 600
 unsat-only = true
 allow-unspecified-size = true
-lookup = true
 size = 3
+lookup = true
 save = true
 test-groups = main-21-u10m-p1
-gtest-opts = --gtest_filter=*simppar_parrbs*:*simppar_rbs*:*simppar_recurring*:*painless*
+gtest-opts = --gtest_filter=*simppar_rbs_test*:*simppar_parrbs_test*:*painless_test*:*painless_rbs_test*:*painless_parrbs_test*
