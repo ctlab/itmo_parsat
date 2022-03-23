@@ -10,7 +10,6 @@
 #include "core/domain/assignment/Search.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
-#include "core/domain/assignment/TrackAssignments.h"
 #include "util/Registry.h"
 #include "util/Reference.h"
 #include "core/sat/SimpBase.h"

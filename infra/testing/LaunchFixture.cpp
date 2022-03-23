@@ -200,6 +200,8 @@ infra::domain::LaunchResult LaunchFixture::_get_launch_result(
     return infra::domain::INTERRUPTED;
   } else if (tle) {
     return infra::domain::TLE;
+  } else if (result == infra::domain::SAT_ERROR) {
+    return infra::domain::ERROR;
   } else if (result != expected && expected != infra::domain::UNKNOWN) {
     return infra::domain::FAILED;
   } else {
