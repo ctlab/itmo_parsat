@@ -19,6 +19,8 @@
 
 #include "../clauses/ClauseManager.h"
 #include "../sharing/HordeSatSharing.h"
+
+#include <memory>
 #include "../solvers/SolverFactory.h"
 
 namespace painless {
@@ -38,7 +40,7 @@ void HordeSatSharing::doSharing(
 
     int id = from[i]->id;
     if (!this->databases.count(id)) {
-      this->databases[id].reset(new ClauseDatabase());
+      this->databases[id] = std::make_unique<ClauseDatabase>();
     }
 
     tmp.clear();

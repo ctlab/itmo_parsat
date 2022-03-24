@@ -2,20 +2,22 @@
 Copyright (c) 2006,      Niklas Een, Niklas Sorensson
 Copyright (c) 2007-2010, Niklas Sorensson
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
-NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
-OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************/
 
 #ifndef Minisat_SimpSolver_h
@@ -37,12 +39,13 @@ class SimpSolver : public Solver {
 
   // > dzhiblavi: constructor with passed parameters
   SimpSolver(
-      int grow, int clause_lim, int subsumption_lim, double simp_garbage_frac, bool use_asymm,
-      bool use_rcheck, bool use_elim,
+      int grow, int clause_lim, int subsumption_lim, double simp_garbage_frac,
+      bool use_asymm, bool use_rcheck, bool use_elim,
       // Solver-base parameters
-      int verbosity, double var_decay, double clause_decay, double random_var_freq,
-      double random_seed, bool luby_restart, int ccmin_mode, int phase_saving, bool rnd_init_act,
-      double garbage_frac, int min_learnts_lim, int restart_first, double restart_inc);
+      int verbosity, double var_decay, double clause_decay,
+      double random_var_freq, double random_seed, bool luby_restart,
+      int ccmin_mode, int phase_saving, bool rnd_init_act, double garbage_frac,
+      int min_learnts_lim, int restart_first, double restart_inc);
   // > dzhiblavi: constructor with passed parameters
 
   // Problem specification:
@@ -50,17 +53,26 @@ class SimpSolver : public Solver {
   Var newVar(lbool upol = l_Undef, bool dvar = true);
   void releaseVar(Lit l);
   bool addClause(const vec<Lit>& ps);
-  bool addEmptyClause();                       // Add the empty clause to the solver.
-  bool addClause(Lit p);                       // Add a unit clause to the solver.
-  bool addClause(Lit p, Lit q);                // Add a binary clause to the solver.
-  bool addClause(Lit p, Lit q, Lit r);         // Add a ternary clause to the solver.
-  bool addClause(Lit p, Lit q, Lit r, Lit s);  // Add a quaternary clause to the solver.
+  bool addEmptyClause();                // Add the empty clause to the solver.
+  bool addClause(Lit p);                // Add a unit clause to the solver.
+  bool addClause(Lit p, Lit q);         // Add a binary clause to the solver.
+  bool addClause(Lit p, Lit q, Lit r);  // Add a ternary clause to the solver.
+  bool addClause(
+      Lit p, Lit q, Lit r, Lit s);  // Add a quaternary clause to the solver.
   bool addClause_(vec<Lit>& ps);
-  bool substitute(Var v, Lit x);  // Replace all occurences of v with x (may cause a contradiction).
+  bool substitute(Var v, Lit x);  // Replace all occurences of v with x (may
+                                  // cause a contradiction).
+
+  /// dzhiblavi@: dump clauses
+  void toDimacs(std::vector<Mini::vec<Mini::Lit>>& out_cls);
+  bool toDimacs(Mini::vec<Mini::Lit>& lits, Clause& c, vec<Var>& map, Var& max);
+  /// dzhiblavi@: load clauses from vector
+  void loadClauses(std::vector<Mini::vec<Mini::Lit>> const& clauses);
 
   // Variable mode:
   //
-  void setFrozen(Var v, bool b);  // If a variable is frozen it will not be eliminated.
+  void setFrozen(
+      Var v, bool b);  // If a variable is frozen it will not be eliminated.
   bool isEliminated(Var v) const;
 
   // Alternative freeze interface (may replace 'setFrozen()'):
@@ -69,13 +81,17 @@ class SimpSolver : public Solver {
 
   // Solving:
   //
-  bool solve(const vec<Lit>& assumps, bool do_simp = true, bool turn_off_simp = false);
-  lbool solveLimited(const vec<Lit>& assumps, bool do_simp = true, bool turn_off_simp = false);
+  bool solve(
+      const vec<Lit>& assumps, bool do_simp = true, bool turn_off_simp = false);
+  lbool solveLimited(
+      const vec<Lit>& assumps, bool do_simp = true, bool turn_off_simp = false);
   bool solve(bool do_simp = true, bool turn_off_simp = false);
   bool solve(Lit p, bool do_simp = true, bool turn_off_simp = false);
   bool solve(Lit p, Lit q, bool do_simp = true, bool turn_off_simp = false);
-  bool solve(Lit p, Lit q, Lit r, bool do_simp = true, bool turn_off_simp = false);
-  bool eliminate(bool turn_off_elim = false);  // Perform variable elimination based simplification.
+  bool solve(
+      Lit p, Lit q, Lit r, bool do_simp = true, bool turn_off_simp = false);
+  bool eliminate(bool turn_off_elim = false);  // Perform variable elimination
+                                               // based simplification.
 
   // Memory managment:
   //
@@ -94,19 +110,22 @@ class SimpSolver : public Solver {
   // Mode of operation:
   //
   int parsing;  // Indicate that the solver is currently parsing
-  int grow;  // Allow a variable elimination step to grow by a number of clauses (default to zero).
-  int clause_lim;  // Variables are not eliminated if it produces a resolvent with a length above
-                   // this limit. -1 means no limit.
-  int subsumption_lim;  // Do not check if subsumption against a clause larger than this. -1 means
-                        // no limit.
-  double simp_garbage_frac;  // A different limit for when to issue a GC during simplification (Also
-                             // see 'garbage_frac').
+  int grow;  // Allow a variable elimination step to grow by a number of clauses
+             // (default to zero).
+  int clause_lim;  // Variables are not eliminated if it produces a resolvent
+                   // with a length above this limit. -1 means no limit.
+  int subsumption_lim;  // Do not check if subsumption against a clause larger
+                        // than this. -1 means no limit.
+  double simp_garbage_frac;  // A different limit for when to issue a GC during
+                             // simplification (Also see 'garbage_frac').
 
-  bool use_asymm;   // Shrink clauses by asymmetric branching.
-  bool use_rcheck;  // Check if a clause is already implied. Prett costly, and subsumes subsumptions
-                    // :)
-  bool use_elim;    // Perform variable elimination.
-  bool extend_model;  // Flag to indicate whether the user needs to look at the full model.
+  bool use_asymm;     // Shrink clauses by asymmetric branching.
+  bool use_rcheck;    // Check if a clause is already implied. Prett costly, and
+                      // subsumes subsumptions
+                      // :)
+  bool use_elim;      // Perform variable elimination.
+  bool extend_model;  // Flag to indicate whether the user needs to look at the
+                      // full model.
 
   // Statistics:
   //
@@ -121,8 +140,9 @@ class SimpSolver : public Solver {
     const LMap<int>& n_occ;
     explicit ElimLt(const LMap<int>& no) : n_occ(no) {}
 
-    // TODO: are 64-bit operations here noticably bad on 32-bit platforms? Could use a saturating
-    // 32-bit implementation instead then, but this will have to do for now.
+    // TODO: are 64-bit operations here noticably bad on 32-bit platforms? Could
+    // use a saturating 32-bit implementation instead then, but this will have
+    // to do for now.
     uint64_t cost(Var x) const {
       return (uint64_t) n_occ[mkLit(x)] * (uint64_t) n_occ[~mkLit(x)];
     }
@@ -194,7 +214,8 @@ inline bool SimpSolver::isEliminated(Var v) const {
 inline void SimpSolver::updateElimHeap(Var v) {
   assert(use_simplification);
   // if (!frozen[v] && !isEliminated(v) && value(v) == l_Undef)
-  if (elim_heap.inHeap(v) || (!frozen[v] && !isEliminated(v) && value(v) == l_Undef))
+  if (elim_heap.inHeap(v) ||
+      (!frozen[v] && !isEliminated(v) && value(v) == l_Undef))
     elim_heap.update(v);
 }
 
@@ -274,7 +295,8 @@ inline bool SimpSolver::solve(Lit p, Lit q, bool do_simp, bool turn_off_simp) {
   assumptions.push(q);
   return solve_(do_simp, turn_off_simp) == l_True;
 }
-inline bool SimpSolver::solve(Lit p, Lit q, Lit r, bool do_simp, bool turn_off_simp) {
+inline bool SimpSolver::solve(
+    Lit p, Lit q, Lit r, bool do_simp, bool turn_off_simp) {
   budgetOff();
   assumptions.clear();
   assumptions.push(p);
@@ -282,13 +304,15 @@ inline bool SimpSolver::solve(Lit p, Lit q, Lit r, bool do_simp, bool turn_off_s
   assumptions.push(r);
   return solve_(do_simp, turn_off_simp) == l_True;
 }
-inline bool SimpSolver::solve(const vec<Lit>& assumps, bool do_simp, bool turn_off_simp) {
+inline bool SimpSolver::solve(
+    const vec<Lit>& assumps, bool do_simp, bool turn_off_simp) {
   budgetOff();
   assumps.copyTo(assumptions);
   return solve_(do_simp, turn_off_simp) == l_True;
 }
 
-inline lbool SimpSolver::solveLimited(const vec<Lit>& assumps, bool do_simp, bool turn_off_simp) {
+inline lbool SimpSolver::solveLimited(
+    const vec<Lit>& assumps, bool do_simp, bool turn_off_simp) {
   assumps.copyTo(assumptions);
   return solve_(do_simp, turn_off_simp);
 }

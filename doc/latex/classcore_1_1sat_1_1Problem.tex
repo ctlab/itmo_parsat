@@ -12,13 +12,16 @@ The problem descriptor class.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}{Problem}} (std\+::filesystem\+::path const \&path)
+\mbox{\hyperlink{classcore_1_1sat_1_1Problem_a672c9517b143ab4a56d5a8344228ec36}{Problem}} (std\+::filesystem\+::path path, bool eliminate=true)
 \begin{DoxyCompactList}\small\item\em Constructs the problem by the cnf path. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}\label{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}} 
 std\+::filesystem\+::path const  \& {\bfseries path} () const noexcept
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a8a3bff4f70b2abf4c342484e4b677e9e}\label{classcore_1_1sat_1_1Problem_a8a3bff4f70b2abf4c342484e4b677e9e}} 
-std\+::vector$<$ std\+::vector$<$ int $>$ $>$ const  \& {\bfseries clauses} () const noexcept
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_afdf75b27ae53db8a7498e9ce18fe88ff}\label{classcore_1_1sat_1_1Problem_afdf75b27ae53db8a7498e9ce18fe88ff}} 
+std\+::vector$<$ Mini\+::vec$<$ Mini\+::\+Lit $>$ $>$ const  \& {\bfseries clauses} () const noexcept
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}\label{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}} 
+State {\bfseries get\+\_\+result} () const noexcept
 \end{DoxyCompactItemize}
 
 
@@ -26,11 +29,11 @@ std\+::vector$<$ std\+::vector$<$ int $>$ $>$ const  \& {\bfseries clauses} () c
 The problem descriptor class. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}\label{classcore_1_1sat_1_1Problem_acab357ec7f76f41efc777945065cd8da}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a672c9517b143ab4a56d5a8344228ec36}\label{classcore_1_1sat_1_1Problem_a672c9517b143ab4a56d5a8344228ec36}} 
 \index{core::sat::Problem@{core::sat::Problem}!Problem@{Problem}}
 \index{Problem@{Problem}!core::sat::Problem@{core::sat::Problem}}
 \doxysubsubsection{\texorpdfstring{Problem()}{Problem()}}
-{\footnotesize\ttfamily core\+::sat\+::\+Problem\+::\+Problem (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path const \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily core\+::sat\+::\+Problem\+::\+Problem (\begin{DoxyParamCaption}\item[{std\+::filesystem\+::path}]{path,  }\item[{bool}]{eliminate = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
 

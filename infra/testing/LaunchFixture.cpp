@@ -36,6 +36,7 @@ void LaunchFixture::interrupt() {
 }
 
 void LaunchFixture::SetUpTestSuite() {
+  ASSERT_TRUE(!is_interrupted);
   /* Reset failed flag */
   test_failed = false;
 
@@ -56,6 +57,7 @@ void LaunchFixture::SetUpTestSuite() {
 }
 
 void LaunchFixture::SetUp() {
+  ASSERT_TRUE(!is_interrupted);
   _info = std::make_unique<infra::domain::LaunchInfo>(config);
   _exec_manager =
       std::make_unique<infra::execution::ExecutionManager>(config.max_threads);
@@ -135,7 +137,7 @@ void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
     launch.started_at = started_at;
     launch.finished_at = finished_at;
     launch.result = launch_result;
-    if (launch.result == infra::domain::FAILED) {
+    if (launch.result == infra::domain::FAILED || launch.result == infra::domain::ERROR) {
       test_failed = true;
     }
     _info->add(launch);

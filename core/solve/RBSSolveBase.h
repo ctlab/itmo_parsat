@@ -25,14 +25,13 @@ class RBSSolveBase : public Solve {
       PreprocessConfig const& preprocess_config, PropConfig const& prop_config,
       SolverServiceConfig const& solver_service_config);
 
-  [[nodiscard]] std::vector<Mini::vec<Mini::Lit>> _filter_conflict(
+  [[nodiscard]] std::vector<lit_vec_t> _filter_conflict(
       domain::USearch assignment);
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) final;
 
  protected:
-  sat::State _solve_final(
-      std::vector<Mini::vec<Mini::Lit>> const& assumptions_v);
+  sat::State _solve_final(std::vector<lit_vec_t> const& assumptions_v);
 
   virtual sat::State _solve_impl(
       sat::Problem const& problem,

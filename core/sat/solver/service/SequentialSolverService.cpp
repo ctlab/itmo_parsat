@@ -3,7 +3,7 @@
 namespace core::sat::solver {
 
 void SequentialSolverService::_solver_working_thread(
-    core::sat::solver::Solver& solver, util::Timer& timer) {
+    Solver& solver, util::Timer& timer) {
   while (!_stop) {
     std::unique_lock<std::mutex> ul(_queue_m);
     _queue_cv.wait(ul, [this] { return _stop || !_task_queue.empty(); });
@@ -24,25 +24,24 @@ SequentialSolverService::SequentialSolverService(
     SequentialSolverServiceConfig const& config)
     : _timers(config.num_solvers()) {
   for (int i = 0; i < config.num_solvers(); ++i) {
-    _solvers.emplace_back(USolver(
-        core::sat::solver::SolverRegistry::resolve(config.solver_config())));
+    _solvers.emplace_back(
+        USolver(SolverRegistry::resolve(config.solver_config())));
     _threads.emplace_back(
         [this, i] { _solver_working_thread(*_solvers[i], _timers[i]); });
   }
 }
 
-std::future<core::sat::State> SequentialSolverService::solve(
-    Mini::vec<Mini::Lit> const& assumptions,
-    core::clock_t::duration time_limit) {
-  auto p_task =
-      std::packaged_task<core::sat::State(sat::solver::Solver&, util::Timer&)>(
-          [assumptions, time_limit](auto& solver, auto& timer) {
-            return IPS_TRACE_N_V(
-                "SequentialSolverService::solve",
-                timer.template launch<State>(
-                    [&] { return solver.solve(assumptions); },
-                    [&] { solver.interrupt(); }, time_limit));
-          });
+std::future<State> SequentialSolverService::solve(
+    lit_vec_t const& assumptions, clock_t::duration time_limit) {
+  auto p_task = std::packaged_task<State(Solver&, util::Timer&)>(
+      [assumptions, time_limit](auto& solver, auto& timer) {
+        return solver.solve(assumptions);
+        //        return IPS_TRACE_N_V(
+        //            "SequentialSolverService::solve",
+        //            timer.template launch<State>(
+        //                [&] { return solver.solve(assumptions); },
+        //                [&] { solver.interrupt(); }, time_limit));
+      });
   auto future = p_task.get_future();
   {
     std::lock_guard<std::mutex> lg(_queue_m);
@@ -58,9 +57,9 @@ SequentialSolverService::~SequentialSolverService() noexcept {
     _stop = true;
     _task_queue = {};
   }
-  for (auto& solver : _solvers) {
-    solver->interrupt();
-  }
+  std::for_each(
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
+      [](auto& solver) { solver->interrupt(); });
   _queue_cv.notify_all();
   for (auto& thread : _threads) {
     if (thread.joinable()) {
@@ -69,26 +68,26 @@ SequentialSolverService::~SequentialSolverService() noexcept {
   }
 }
 
+void SequentialSolverService::load_problem(Problem const& problem) {
+  std::for_each(
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
+      [&problem](auto& solver) { solver->load_problem(problem); });
+}
+
 void SequentialSolverService::interrupt() {
   {
     std::lock_guard<std::mutex> lg(_queue_m);
     _task_queue = {};
   }
-  for (auto& solver : _solvers) {
-    solver->interrupt();
-  }
+  std::for_each(
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
+      [](auto& solver) { solver->interrupt(); });
 }
 
 void SequentialSolverService::clear_interrupt() {
-  for (auto& solver : _solvers) {
-    solver->clear_interrupt();
-  }
-}
-
-void SequentialSolverService::load_problem(const Problem& problem) {
-  for (auto& solver : _solvers) {
-    solver->load_problem(problem);
-  }
+  std::for_each(
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
+      [](auto& solver) { solver->clear_interrupt(); });
 }
 
 REGISTER_PROTO(

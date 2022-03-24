@@ -1,73 +1,52 @@
 #include "core/sat/Problem.h"
 
-#include "core/sat/native/mini/mapleCOMSPS/mapleCOMSPS/core/Dimacs.h"
+#include <utility>
 
 namespace {
 
 using namespace std;
 
-void read_clauses_to(
-    std::filesystem::path const& path, std::vector<std::vector<int>>& clauses) {
-  FILE* f = fopen(path.c_str(), "r");
-  IPS_VERIFY_S(f != nullptr, "Failed to read CNF from " << path);
-  int c = 0;
-  bool neg = false;
-  vector<int> cls;
-  while (c != EOF) {
-    c = fgetc(f);
-    if (c == 'c' || c == 'p') {
-      while (c != '\n') {
-        c = fgetc(f);
-      }
-      continue;
-    }
-    if (isspace(c)) {
-      continue;
-    }
-    if (c == '-') {
-      neg = true;
-      continue;
-    }
-    if (isdigit(c)) {
-      int num = c - '0';
-      c = fgetc(f);
-      while (isdigit(c)) {
-        num = num * 10 + (c - '0');
-        c = fgetc(f);
-      }
-      if (neg) {
-        num *= -1;
-      }
-      neg = false;
-      if (num != 0) {
-        cls.push_back(num);
-      } else {
-        clauses.push_back(vector<int>(cls));
-        cls.clear();
-      }
-    }
+core::sat::State read_clauses_to(
+    std::filesystem::path const& path,
+    std::vector<Mini::vec<Mini::Lit>>& clauses, bool eliminate) {
+  clauses.clear();
+  Minisat::SimpSolver solver;
+  util::GzFile gz_file(path);
+  solver.parsing = true;
+  Minisat::parse_DIMACS(gz_file.native_handle(), solver);
+  solver.parsing = false;
+  bool ok = true;
+  if (eliminate) {
+    ok = solver.eliminate(true);
   }
-  fclose(f);
+  solver.toDimacs(clauses);
+
+  if (clauses.empty()) {
+    return ok ? core::sat::SAT : core::sat::UNSAT;
+  } else {
+    return core::sat::UNKNOWN;
+  }
 }
 
 }  // namespace
 
 namespace core::sat {
 
-Problem::Problem(std::filesystem::path const& path) : _path(path) {}
+Problem::Problem(std::filesystem::path path, bool eliminate)
+    : _path(std::move(path)), _eliminate(eliminate) {
+  _result = read_clauses_to(_path, _clauses, _eliminate);
+}
 
 std::filesystem::path const& Problem::path() const noexcept {
   return _path;
 }
 
-std::vector<std::vector<int>> const& Problem::clauses() const noexcept {
-  if (_clauses.empty()) {
-    std::lock_guard<std::mutex> lg(_load_mutex);
-    if (_clauses.empty()) {
-      read_clauses_to(path(), _clauses);
-    }
-  }
+std::vector<Mini::vec<Mini::Lit>> const& Problem::clauses() const noexcept {
   return _clauses;
+}
+
+State Problem::get_result() const noexcept {
+  return _result;
 }
 
 }  // namespace core::sat

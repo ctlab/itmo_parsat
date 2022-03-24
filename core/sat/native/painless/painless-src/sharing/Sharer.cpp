@@ -58,7 +58,7 @@ void Sharer::main_sharing_thread() {
   int round = 0;
   std::chrono::duration sleep_dur = std::chrono::microseconds(shr_sleep_us);
 
-  for (;;) {
+  while (!_stop) {
     std::unique_lock<std::mutex> ul(share_mutex);
     share_cv.wait_for(ul, sleep_dur, [this] { return _stop; });
     if (_stop) {

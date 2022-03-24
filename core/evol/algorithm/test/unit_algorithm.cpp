@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
 #include <filesystem>
 
-#include "core/evol/algorithm/Algorithm.h"
 #include "core/tests/common/paths.h"
+#include "core/tests/common/get.h"
+#include "core/tests/common/generate.h"
+
+#include "core/evol/algorithm/Algorithm.h"
 #include "util/Random.h"
 #include "util/mini.h"
 #include "util/stream.h"

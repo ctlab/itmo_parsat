@@ -47,6 +47,8 @@ class SolverInterface {
  public:
   virtual bool loadFormula(const char* filename) = 0;
 
+  virtual bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) = 0;
+
   virtual int getVariablesCount() = 0;
 
   virtual int getDivisionVariable() = 0;

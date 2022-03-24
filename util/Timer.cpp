@@ -13,9 +13,11 @@ Timer::Timer()
         if (IPS_UNLIKELY(!_do)) {
           continue;
         }
-
         _cv.wait_for(ul, _dur, [this] { return _stop || _abort; });
-        if (IPS_LIKELY(!_stop) && !_abort && _callback) {
+        if (IPS_UNLIKELY(_stop)) {
+          break;
+        }
+        if (!_abort && _callback) {
           _callback();
         }
         _do = false;
@@ -27,6 +29,7 @@ Timer::Timer()
 Timer::~Timer() noexcept {
   {
     std::lock_guard<std::mutex> lg(_m);
+    _do = false;
     _abort = true;
     _stop = true;
   }
@@ -40,6 +43,7 @@ void Timer::abort() {
   {
     std::lock_guard<std::mutex> lg(_m);
     _abort = true;
+    _do = false;
     _callback = {};
   }
   _cv.notify_one();

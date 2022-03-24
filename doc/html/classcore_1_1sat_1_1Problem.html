@@ -81,21 +81,24 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acab357ec7f76f41efc777945065cd8da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Problem.html#acab357ec7f76f41efc777945065cd8da">Problem</a> (std::filesystem::path const &amp;path)</td></tr>
-<tr class="memdesc:acab357ec7f76f41efc777945065cd8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the problem by the cnf path.  <a href="classcore_1_1sat_1_1Problem.html#acab357ec7f76f41efc777945065cd8da">More...</a><br /></td></tr>
-<tr class="separator:acab357ec7f76f41efc777945065cd8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672c9517b143ab4a56d5a8344228ec36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">Problem</a> (std::filesystem::path path, bool eliminate=true)</td></tr>
+<tr class="memdesc:a672c9517b143ab4a56d5a8344228ec36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the problem by the cnf path.  <a href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">More...</a><br /></td></tr>
+<tr class="separator:a672c9517b143ab4a56d5a8344228ec36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18ae05912c95095026322f496fb97517"><td class="memItemLeft" align="right" valign="top"><a id="a18ae05912c95095026322f496fb97517"></a>
 std::filesystem::path const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>path</b> () const noexcept</td></tr>
 <tr class="separator:a18ae05912c95095026322f496fb97517"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a3bff4f70b2abf4c342484e4b677e9e"><td class="memItemLeft" align="right" valign="top"><a id="a8a3bff4f70b2abf4c342484e4b677e9e"></a>
-std::vector&lt; std::vector&lt; int &gt; &gt; const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>clauses</b> () const noexcept</td></tr>
-<tr class="separator:a8a3bff4f70b2abf4c342484e4b677e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdf75b27ae53db8a7498e9ce18fe88ff"><td class="memItemLeft" align="right" valign="top"><a id="afdf75b27ae53db8a7498e9ce18fe88ff"></a>
+std::vector&lt; Mini::vec&lt; Mini::Lit &gt; &gt; const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>clauses</b> () const noexcept</td></tr>
+<tr class="separator:afdf75b27ae53db8a7498e9ce18fe88ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9604a9c794d1eba52395c004290c2285"><td class="memItemLeft" align="right" valign="top"><a id="a9604a9c794d1eba52395c004290c2285"></a>
+State&#160;</td><td class="memItemRight" valign="bottom"><b>get_result</b> () const noexcept</td></tr>
+<tr class="separator:a9604a9c794d1eba52395c004290c2285"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The problem descriptor class. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acab357ec7f76f41efc777945065cd8da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acab357ec7f76f41efc777945065cd8da">&#9670;&nbsp;</a></span>Problem()</h2>
+<a id="a672c9517b143ab4a56d5a8344228ec36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a672c9517b143ab4a56d5a8344228ec36">&#9670;&nbsp;</a></span>Problem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -106,9 +109,19 @@ std::vector&lt; std::vector&lt; int &gt; &gt; const  &amp;&#160;</td><td class="
         <tr>
           <td class="memname">core::sat::Problem::Problem </td>
           <td>(</td>
-          <td class="paramtype">std::filesystem::path const &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype">std::filesystem::path&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>eliminate</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

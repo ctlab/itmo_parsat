@@ -2,6 +2,8 @@ set(UNIT_SOURCES
         ${CMAKE_SOURCE_DIR}/core/evol/algorithm/test/unit_algorithm.cpp
         ${CMAKE_SOURCE_DIR}/core/sat/prop/test/unit_propagation.cpp
         ${CMAKE_SOURCE_DIR}/util/test/unit_random.cpp
+        ${CMAKE_SOURCE_DIR}/core/sat/solver/sequential/test/unit_sequential_solver.cpp
+        ${CMAKE_SOURCE_DIR}/core/sat/solver/service/test/unit_seq_solver_service.cpp
         ${CMAKE_SOURCE_DIR}/core/domain/assignment/test/unit_search.cpp)
 message(STATUS "Found unit sources: " ${UNIT_SOURCES})
 

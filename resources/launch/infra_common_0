@@ -2,7 +2,7 @@
 # Size: small
 # Purpose: integration testing
 
-time-limit = 5
-size = 0
+time-limit = 15
+size = 1
 test-groups = common
 repeat-each = 3

@@ -73,6 +73,9 @@ class SimpSolver : public Solver {
   bool addClause_(vec<Lit>& ps);
   bool substitute(Var v, Lit x);  // Replace all occurences of v with x (may cause a contradiction).
 
+  /// dzhiblavi@: load clauses from vector
+  void loadClauses(std::vector<Mini::vec<Mini::Lit>> const& clauses);
+
   // Parallel support:
   //
   bool GE;

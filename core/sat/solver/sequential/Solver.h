@@ -55,9 +55,9 @@ class Solver {
   [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;
 };
 
-DEFINE_REGISTRY(Solver, SolverConfig, solver);
-
 MAKE_REFS(Solver);
+
+DEFINE_REGISTRY(Solver, SolverConfig, solver);
 
 }  // namespace core::sat::solver
 

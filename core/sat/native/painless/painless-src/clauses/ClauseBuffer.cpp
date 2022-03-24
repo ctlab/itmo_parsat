@@ -82,7 +82,7 @@ bool ClauseBuffer::getClause(ClauseExchange** clause) {
 
     if (head == buffer.head) {
       if (head == tail) {
-        if (next == NULL)
+        if (next == nullptr)
           return false;
 
         buffer.tail.compare_exchange_strong(tail, next);

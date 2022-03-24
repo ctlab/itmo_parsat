@@ -925,7 +925,7 @@ void SimpSolver::garbageCollect() {
 #ifndef NDEBUG
 static bool sanityCheck(
     const vec<XorScc*>& xor_sccs, const vec<Var>& v2scc_id,
-    const vec<vec<Var> >& var_sccs, int nVars) {
+    const vec<vec<Var>>& var_sccs, int nVars) {
   int n_sccs = 0;
   vec<char> seen_id(var_sccs.size(), 0), seen_v(nVars, 0), seen_v2(nVars, 0);
   assert(v2scc_id.size() == nVars);
@@ -985,10 +985,10 @@ bool SimpSolver::gaussElim() {
   if (drup_file)
     return true;
 
-  vec<Xor*> xors;           // XORs found by "searchXors()".
-  vec<vec<Var> > var_sccs;  // SCCs in terms of vars
-  vec<Var> v2scc_id;        // var --> SCC ID map
-  vec<XorScc*> xor_sccs;    // SCCs in terms of XORs
+  vec<Xor*> xors;          // XORs found by "searchXors()".
+  vec<vec<Var>> var_sccs;  // SCCs in terms of vars
+  vec<Var> v2scc_id;       // var --> SCC ID map
+  vec<XorScc*> xor_sccs;   // SCCs in terms of XORs
   Stopwatch timer;
 
   xors_found = searchXors(xors);
@@ -1271,7 +1271,7 @@ struct SizeDec {
 };
 
 int SimpSolver::computeVarSccs(
-    vec<Var>& /*out*/ scc_id, vec<vec<Var> >& /*out*/ sccs,
+    vec<Var>& /*out*/ scc_id, vec<vec<Var>>& /*out*/ sccs,
     vec<Xor*>& xors) const {
   assert(scc_id.size() == 0);
   assert(sccs.size() == 0);
@@ -1370,7 +1370,7 @@ int SimpSolver::computeVarSccs(
 
 void SimpSolver::computeXorSccs(
     vec<XorScc*>& /*out*/ xor_sccs, const vec<Xor*>& xors,
-    const vec<Var>& v2scc_id, vec<vec<Var> >& var_sccs, int upper_limit) const {
+    const vec<Var>& v2scc_id, vec<vec<Var>>& var_sccs, int upper_limit) const {
   assert(xor_sccs.size() == 0);
   xor_sccs.growTo(upper_limit, NULL);
 
@@ -1402,4 +1402,19 @@ void SimpSolver::computeXorSccs(
     }
   xor_sccs.shrink(i - j);
   assert(sanityCheck(xor_sccs, v2scc_id, var_sccs, nVars()));
+}
+
+void SimpSolver::loadClauses(std::vector<Mini::vec<Mini::Lit>> const& in_cls) {
+  for (auto const& clause : in_cls) {
+    Mini::vec<Mini::Lit> lits;
+    for (int i = 0; i < clause.size(); ++i) {
+      Mini::Lit lit = clause[i];
+      int var = Mini::var(lit);
+      while (var >= nVars()) {
+        newVar();
+      }
+      lits.push(lit);
+    }
+    addClause_(lits);
+  }
 }

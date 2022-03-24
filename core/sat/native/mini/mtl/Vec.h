@@ -71,17 +71,15 @@ class vec {
   vec<T>& operator=(vec<T> const& other) {
     capacity(other.size());
     sz = other.sz;
-    std::copy(other.data, other.data + other.sz, data);
-//    for (int i = 0; i < other.size(); ++i) {
-//      (*this)[i] = other[i];
-//    }
+    for (int i = 0; i < other.size(); ++i) {
+      (*this)[i] = other[i];
+    }
     return *this;
   }
 
   vec(vec<T> const& other) : vec(other.sz) {
-    std::copy(other.data, other.data + other.sz, data);
-//    for (int i = 0; i < other.size(); ++i)
-//      (*this)[i] = other[i];
+    for (int i = 0; i < other.size(); ++i)
+      (*this)[i] = other[i];
   }
 
   vec(vec<T>&& other) {

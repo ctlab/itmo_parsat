@@ -1,4 +1,0 @@
-<map id="core::sat::solver::LingelingSolver" name="core::sat::solver::LingelingSolver">
-<area shape="rect" id="node1" title="Lingeling&#45;based Solver implementation." alt="" coords="5,95,140,136"/>
-<area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,140,47"/>
-</map>

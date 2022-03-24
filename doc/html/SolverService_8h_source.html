@@ -87,30 +87,29 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">virtual</span> std::future&lt;core::sat::State&gt; <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a5a94e8e4899997ed9cf72f07f53e4e9b">solve</a>(</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      lit_vec_t <span class="keyword">const</span>&amp; assumption,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      clock_t::duration time_limit) = 0;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#ac48afda7db4d01b8f3a762040c0ca3cd">interrupt</a>() = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      lit_vec_t <span class="keyword">const</span>&amp; assumption, clock_t::duration time_limit) = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) = 0;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a05cffada888eb31e841fd277fa0f7186">clear_interrupt</a>() = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#ac48afda7db4d01b8f3a762040c0ca3cd">interrupt</a>() = 0;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) = 0;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;DEFINE_REGISTRY(<a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a>, SolverServiceConfig, solver_service);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SOLVERSERVICE_H</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a05cffada888eb31e841fd277fa0f7186">clear_interrupt</a>() = 0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;DEFINE_REGISTRY(<a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a>, SolverServiceConfig, solver_service);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SOLVERSERVICE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html">core::sat::solver::SolverService</a></div><div class="ttdoc">SAT solver service used to asynchronously execute sequential solvers with specified time limits.</div><div class="ttdef"><b>Definition:</b> SolverService.h:14</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html_a05cffada888eb31e841fd277fa0f7186"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html#a05cffada888eb31e841fd277fa0f7186">core::sat::solver::SolverService::clear_interrupt</a></div><div class="ttdeci">virtual void clear_interrupt()=0</div><div class="ttdoc">Clear interrupt for all solvers.</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html_a5a94e8e4899997ed9cf72f07f53e4e9b"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html#a5a94e8e4899997ed9cf72f07f53e4e9b">core::sat::solver::SolverService::solve</a></div><div class="ttdeci">virtual std::future&lt; core::sat::State &gt; solve(lit_vec_t const &amp;assumption, clock_t::duration time_limit)=0</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html_ac48afda7db4d01b8f3a762040c0ca3cd"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html#ac48afda7db4d01b8f3a762040c0ca3cd">core::sat::solver::SolverService::interrupt</a></div><div class="ttdeci">virtual void interrupt()=0</div><div class="ttdoc">Interrupt all solvers in the service.</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html_abbaba997a1627610d9d1b6c83966de50"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">core::sat::solver::SolverService::load_problem</a></div><div class="ttdeci">virtual void load_problem(sat::Problem const &amp;problem)=0</div><div class="ttdoc">Load problem to all solvers.</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:23</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:26</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

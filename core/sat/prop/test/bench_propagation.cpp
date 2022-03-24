@@ -3,6 +3,9 @@
 #include <filesystem>
 
 #include "core/tests/common/paths.h"
+#include "core/tests/common/get.h"
+#include "core/tests/common/generate.h"
+
 #include "core/sat/prop/SimpProp.h"
 #include "core/sat/prop/ParProp.h"
 #include "util/Random.h"
@@ -40,7 +43,7 @@ void test_search(
     benchmark::State& state, TestType type, VarsF const& vars_f,
     Args&&... args) {
   util::random::Generator generator(239);
-  FS_PATH_INPUT(input);
+  FS_PATH_INPUT(input, common::inputs[state.range(1)]);
   T prop(std::forward<Args>(args)...);
   core::sat::Problem problem(input);
   prop.load_problem(problem);

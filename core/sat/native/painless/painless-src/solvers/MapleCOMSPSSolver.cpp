@@ -25,6 +25,8 @@
 #include "../clauses/ClauseManager.h"
 #include "../solvers/MapleCOMSPSSolver.h"
 
+#include <set>
+
 using namespace MapleCOMSPS;
 using namespace Mini;
 
@@ -42,7 +44,7 @@ static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
 }
 
 void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
-  MapleCOMSPSSolver* mp = (MapleCOMSPSSolver*) issuer;
+  auto* mp = (MapleCOMSPSSolver*) issuer;
   if (lbd > mp->lbdLimit)
     return;
 
@@ -56,7 +58,7 @@ void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
 }
 
 Lit cbkMapleCOMSPSImportUnit(void* issuer) {
-  MapleCOMSPSSolver* mp = (MapleCOMSPSSolver*) issuer;
+  auto* mp = (MapleCOMSPSSolver*) issuer;
   Lit l = lit_Undef;
   ClauseExchange* cls = nullptr;
   if (!mp->unitsToImport.getClause(&cls))
@@ -68,8 +70,8 @@ Lit cbkMapleCOMSPSImportUnit(void* issuer) {
 }
 
 bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
-  MapleCOMSPSSolver* mp = (MapleCOMSPSSolver*) issuer;
-  ClauseExchange* cls = NULL;
+  auto* mp = (MapleCOMSPSSolver*) issuer;
+  ClauseExchange* cls = nullptr;
   if (!mp->clausesToImport.getClause(&cls))
     return false;
 
@@ -103,6 +105,14 @@ bool MapleCOMSPSSolver::loadFormula(const char* filename) {
   gzFile in = gzopen(filename, "rb");
   parse_DIMACS(in, *this);
   gzclose(in);
+  return true;
+}
+
+bool MapleCOMSPSSolver::loadFormula(
+    std::vector<Mini::vec<Mini::Lit>> const& clauses) {
+  parsing = true;
+  MapleCOMSPS::SimpSolver::loadClauses(clauses);
+  parsing = false;
   return true;
 }
 
@@ -176,12 +186,19 @@ PSatResult MapleCOMSPSSolver::solve(
   }
 
   if (result == PUNKNOWN) {
-    vec<Lit> miniAssumptions = assumptions;
-    for (size_t ind = 0; ind < cube.size(); ind++) {
-      miniAssumptions.push(MINI_LIT(cube[ind]));
+    std::set<int> present;
+    vec<Lit> miniAssumptions;
+    for (int i = 0; i < assumptions.size(); ++i) {
+      if (present.count(assumptions[i].x) == 0) {
+        miniAssumptions.push(assumptions[i]);
+        present.insert(assumptions[i].x);
+      }
+    }
+    for (int ind : cube) {
+      miniAssumptions.push(MINI_LIT(ind));
     }
 
-    lbool res = solveLimited(miniAssumptions);
+    lbool res = solveLimited(miniAssumptions, false, true);
     if (res == l_True) {
       result = PSAT;
     } else if (res == l_False) {

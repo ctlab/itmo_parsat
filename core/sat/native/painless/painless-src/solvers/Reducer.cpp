@@ -51,6 +51,10 @@ bool Reducer::loadFormula(const char* filename) {
   return solver->loadFormula(filename);
 }
 
+bool Reducer::loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) {
+  return solver->loadFormula(clauses);
+}
+
 // Get the number of variables of the formula
 int Reducer::getVariablesCount() {
   return solver->getVariablesCount();

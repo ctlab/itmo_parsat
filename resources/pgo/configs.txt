@@ -1,3 +1,8 @@
-horde_parrbs
+painless
+painless_rbs
+painless_parrbs
+painless_recurring
+simp
+simppar_rbs
 simppar_parrbs
-lingpar_parrbs
+simppar_recurring

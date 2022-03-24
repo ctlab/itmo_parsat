@@ -799,4 +799,71 @@ void SimpSolver::garbageCollect() {
   to.moveTo(ca);
 }
 
+/// dzhiblavi@
+void SimpSolver::loadClauses(std::vector<Mini::vec<Mini::Lit>> const& in_cls) {
+  for (auto const& clause : in_cls) {
+    Mini::vec<Mini::Lit> lits;
+    for (int i = 0; i < clause.size(); ++i) {
+      Mini::Lit lit = clause[i];
+      int var = Mini::var(lit);
+      while (var >= nVars()) {
+        newVar();
+      }
+      lits.push(lit);
+    }
+    addClause_(lits);
+  }
+}
+
+static Var mapVar(Var x, vec<Var>& map, Var& max) {
+  if (map.size() <= x || map[x] == -1) {
+    map.growTo(x + 1, -1);
+    map[x] = max++;
+  }
+  return map[x];
+}
+
+/// dzhiblavi@
+void SimpSolver::toDimacs(std::vector<Mini::vec<Mini::Lit>>& out_cls) {
+  out_cls.clear();
+  vec<Var> map;
+  Var max = 0;
+
+  int cnt = 0;
+  for (int i = 0; i < clauses.size(); i++)
+    if (!satisfied(ca[clauses[i]]))
+      cnt++;
+
+  for (int i = 0; i < clauses.size(); i++) {
+    if (!satisfied(ca[clauses[i]])) {
+      Clause& c = ca[clauses[i]];
+      for (int j = 0; j < c.size(); j++)
+        if (value(c[j]) != l_False)
+          mapVar(var(c[j]), map, max);
+    }
+  }
+
+  for (int i = 0; i < clauses.size(); i++) {
+    Mini::vec<Mini::Lit> lits;
+    if (toDimacs(lits, ca[clauses[i]], map, max)) {
+      if (lits.size() > 0) {
+        out_cls.push_back(std::move(lits));
+      }
+    }
+  }
+}
+
+/// dzhiblavi@
+bool SimpSolver::toDimacs(
+    Mini::vec<Mini::Lit>& lits, Clause& c, vec<Var>& map, Var& max) {
+  lits.clear();
+  if (satisfied(c))
+    return false;
+
+  for (int i = 0; i < c.size(); i++)
+    if (value(c[i]) != l_False)
+      lits.push(mkLit(mapVar(var(c[i]), map, max), sign(c[i])));
+  return true;
+}
+
 }  // namespace Minisat

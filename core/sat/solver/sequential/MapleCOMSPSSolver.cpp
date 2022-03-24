@@ -2,16 +2,12 @@
 
 namespace core::sat::solver {
 
-void MapleCOMSPSSolver::load_problem(Problem const& problem) {
-  static_cast<MapleCOMSPSSimpBase*>(this)->load_problem(problem);
-}
-
 State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
-  clearInterrupt();
-
+  clear_interrupt();
   MapleCOMSPS::lbool result = IPS_TRACE_N_V(
       "MapleCOMSPS::solve",
-      static_cast<MapleCOMSPS::SimpSolver*>(this)->solveLimited(assumptions));
+      static_cast<MapleCOMSPS::SimpSolver*>(this)->solveLimited(
+          assumptions, false, true));
   if (result == MapleCOMSPS::l_True) {
     return SAT;
   } else if (result == MapleCOMSPS::l_False) {
@@ -21,16 +17,20 @@ State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   }
 }
 
+void MapleCOMSPSSolver::load_problem(Problem const& problem) {
+  MapleCOMSPSSimpBase::load_problem(problem);
+}
+
 void MapleCOMSPSSolver::interrupt() {
-  static_cast<MapleCOMSPS::SimpSolver*>(this)->interrupt();
+  MapleCOMSPS::SimpSolver::interrupt();
 }
 
 void MapleCOMSPSSolver::clear_interrupt() {
-  static_cast<MapleCOMSPS::SimpSolver*>(this)->clearInterrupt();
+  MapleCOMSPS::SimpSolver::clearInterrupt();
 }
 
 unsigned MapleCOMSPSSolver::num_vars() const noexcept {
-  return nVars();
+  return MapleCOMSPSSimpBase::num_vars();
 }
 
 REGISTER_SIMPLE(Solver, MapleCOMSPSSolver);

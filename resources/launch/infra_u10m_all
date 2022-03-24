@@ -16,4 +16,5 @@ size = 3
 lookup = true
 save = true
 test-groups = main-21-u10m-p1
+test-groups = main-21-u10m-p2
 gtest-opts = --gtest_filter=*simppar_rbs_test*:*simppar_parrbs_test*:*painless_test*:*painless_rbs_test*:*painless_parrbs_test*

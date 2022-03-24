@@ -1392,10 +1392,10 @@ lbool Solver::search(int& nof_conflicts) {
       }
 
       if (next == lit_Undef) {
-        //                if (assumptions.size() > 0) {  // Hack deguelasse
-        //                  shrinkAssumptions();
-        //                  return l_True;
-        //                }
+        //        if (assumptions.size() > 0) {  // Hack deguelasse
+        //          shrinkAssumptions();
+        //          return l_True;
+        //        }
 
         // New variable decision:
         decisions++;

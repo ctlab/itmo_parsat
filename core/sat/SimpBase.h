@@ -25,15 +25,10 @@ namespace core::sat {
     }                                                     \
                                                           \
     bool load_problem(Problem const& problem) {           \
-      bool result = true;                                 \
-      IPS_TRACE_N("load_problem", {                       \
-        parsing = true;                                   \
-        util::GzFile file(problem.path());                \
-        MS_NS::parse_DIMACS(file.native_handle(), *this); \
-        parsing = false;                                  \
-        eliminate(true);                                  \
-      });                                                 \
-      return result;                                      \
+      parsing = true;                                     \
+      MS_NS::SimpSolver::loadClauses(problem.clauses());  \
+      parsing = false;                                    \
+      return true;                                        \
     }                                                     \
                                                           \
    protected:                                             \

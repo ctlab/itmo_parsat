@@ -11,6 +11,7 @@
 #include "core/sat/Problem.h"
 #include "core/sat/solver/service/SolverService.h"
 #include "util/Timer.h"
+#include "util/options.h"
 
 namespace core::sat::solver {
 
@@ -23,27 +24,24 @@ class SequentialSolverService : public SolverService {
 
   ~SequentialSolverService() noexcept override;
 
-  std::future<core::sat::State> solve(
-      Mini::vec<Mini::Lit> const& assumptions,
-      core::clock_t::duration time_limit) override;
+  std::future<State> solve(
+      lit_vec_t const& assumptions, clock_t::duration time_limit) override;
+
+  void load_problem(sat::Problem const& problem) override;
 
   void interrupt() override;
 
   void clear_interrupt() override;
 
-  void load_problem(sat::Problem const& problem) override;
-
  private:
-  void _solver_working_thread(
-      core::sat::solver::Solver& solver, util::Timer& timer);
+  void _solver_working_thread(Solver& solver, util::Timer& timer);
 
  private:
   std::mutex _queue_m;
   std::condition_variable _queue_cv;
-  std::queue<std::packaged_task<void(sat::solver::Solver&, util::Timer&)>>
-      _task_queue;
+  std::queue<std::packaged_task<void(Solver&, util::Timer&)>> _task_queue;
 
-  std::vector<core::sat::solver::USolver> _solvers;
+  std::vector<USolver> _solvers;
   std::vector<util::Timer> _timers;
   std::vector<std::thread> _threads;
   bool _stop = false;

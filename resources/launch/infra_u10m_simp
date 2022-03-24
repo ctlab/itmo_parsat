@@ -12,4 +12,4 @@ lookup = true
 size = 3
 save = true
 test-groups = main-21-u10m-p1
-gtest-opts = --gtest_filter=*simppar_parrbs*:*simppar_rbs*:*simppar_recurring*
+gtest-opts = --gtest_filter=*simppar*

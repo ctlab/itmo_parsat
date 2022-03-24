@@ -14,19 +14,18 @@ class ExecutionManager {
 
   template <typename... Args, typename Stderr, typename Stdout>
   void execute(
-      uint32_t cpu_limit, Execution::callback_t const& callback, Stderr d_stderr, Stdout d_stdout,
-      uint64_t time_limit_s, Args const&... args) {
-    IPS_INFO("EXECUTE");
-    // clang-format off
+      uint32_t cpu_limit, Execution::callback_t const& callback,
+      Stderr d_stderr, Stdout d_stdout, uint64_t time_limit_s,
+      Args const&... args) {
     _semaphore.acquire(cpu_limit);
     _execs.push_back(std::make_shared<Execution>(
-      [callback, this, cpu_limit](
-        uint64_t started_at, uint64_t finished_at, int exit, bool interrupt, bool tle
-      ) {
-        _semaphore.release(cpu_limit);
-        callback(started_at, finished_at, exit, interrupt, tle);
-    }, d_stderr, d_stdout, time_limit_s, args...));
-    // clang-format on
+        [callback, this, cpu_limit](
+            uint64_t started_at, uint64_t finished_at, int exit, bool interrupt,
+            bool tle) {
+          _semaphore.release(cpu_limit);
+          callback(started_at, finished_at, exit, interrupt, tle);
+        },
+        d_stderr, d_stdout, time_limit_s, args...));
   }
 
   void interrupt();

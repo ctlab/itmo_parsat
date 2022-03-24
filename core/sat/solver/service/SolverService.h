@@ -24,8 +24,13 @@ class SolverService {
    * @return the future of the sat solver result
    */
   virtual std::future<core::sat::State> solve(
-      lit_vec_t const& assumption,
-      clock_t::duration time_limit) = 0;
+      lit_vec_t const& assumption, clock_t::duration time_limit) = 0;
+
+  /**
+   * @brief Load problem to all solvers.
+   * @param problem the problem to be loaded
+   */
+  virtual void load_problem(sat::Problem const& problem) = 0;
 
   /**
    * @brief Interrupt all solvers in the service.
@@ -36,12 +41,6 @@ class SolverService {
    * @brief Clear interrupt for all solvers.
    */
   virtual void clear_interrupt() = 0;
-
-  /**
-   * @brief Load problem to all solvers.
-   * @param problem the problem to be loaded
-   */
-  virtual void load_problem(sat::Problem const& problem) = 0;
 };
 
 DEFINE_REGISTRY(SolverService, SolverServiceConfig, solver_service);

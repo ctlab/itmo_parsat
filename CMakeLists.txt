@@ -32,7 +32,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     add_compile_options(-O0 -g)
     add_compile_definitions(DEBUG)
     set(LTO OFF)
-    set(SANITIZE ON)
 elseif (CMAKE_BUILD_TYPE STREQUAL "DEV_FAST")
     message(STATUS "DEV_FAST build mode (O3). Internal checks disabled.")
     add_compile_options(-O3)
@@ -89,6 +88,9 @@ find_package(ZLIB)
 
 # Root-level include statements are default in this project
 include_directories(.)
+
+# Project root
+add_compile_definitions(IPS_PROJECT_ROOT="${PROJECT_SOURCE_DIR}")
 
 add_subdirectory(util)
 add_subdirectory(core)

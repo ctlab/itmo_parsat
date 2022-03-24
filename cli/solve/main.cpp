@@ -67,37 +67,35 @@ int main(int argc, char** argv) {
       config.get<std::filesystem::path>("log-config");
   IPS_INFO("Input file: " << input);
 
-  core::sat::State result;
-  auto&& [solve_config, log_config] =
-      read_json_configs(solver_cfg_path, logger_cfg_path);
-  core::Logger::set_logger_config(log_config);
-
-  // Load problem
   core::sat::Problem problem(input);
-  // Initialize solve algorithm
-  util::random::Generator generator(solve_config.random_seed());
-  core::solve::RSolve solve(core::solve::SolveRegistry::resolve(solve_config));
-  core::event::EventCallbackHandle solve_interrupt_handler =
-      core::event::attach(
-          [&] {
-            IPS_INFO("Solve has been interrupted.");
-            solve->interrupt();
-            solve_interrupt_handler->detach();
-          },
-          core::event::INTERRUPT);
-  result = IPS_TRACE_V(solve->solve(problem));
+  core::sat::State result = problem.get_result();
+  if (result == core::sat::UNKNOWN) {
+    auto&& [solve_config, log_config] =
+        read_json_configs(solver_cfg_path, logger_cfg_path);
+    core::Logger::set_logger_config(log_config);
+
+    util::random::Generator generator(solve_config.random_seed());
+    core::solve::RSolve solve(
+        core::solve::SolveRegistry::resolve(solve_config));
+    core::event::EventCallbackHandle solve_interrupt_handler =
+        core::event::attach(
+            [&] {
+              IPS_INFO("Solve has been interrupted.");
+              solve->interrupt();
+              solve_interrupt_handler->detach();
+            },
+            core::event::INTERRUPT);
+    result = IPS_TRACE_V(solve->solve(problem));
+  }
   core::TimeTracer::print_summary(10);
 
   if (result == core::sat::UNSAT) {
-    IPS_INFO("UNSAT");
     std::cout << "UNSAT" << std::endl;
     return 0;
   } else if (result == core::sat::SAT) {
-    IPS_INFO("SAT");
     std::cout << "SAT" << std::endl;
     return 1;
   } else {
-    IPS_INFO("UNKNOWN");
     std::cout << "UNKNOWN" << std::endl;
     return 2;
   }

@@ -23,9 +23,9 @@ class SimpSolver : public Solver, public MinisatSimpBase {
  public:
   SimpSolver() = default;
 
-  void load_problem(Problem const& problem) override;
-
   State solve(lit_vec_t const& assumptions) override;
+
+  void load_problem(Problem const& problem) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

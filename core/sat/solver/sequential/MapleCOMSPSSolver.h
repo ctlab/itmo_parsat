@@ -23,9 +23,9 @@ class MapleCOMSPSSolver : public Solver, public MapleCOMSPSSimpBase {
  public:
   MapleCOMSPSSolver() = default;
 
-  void load_problem(Problem const& problem) override;
-
   State solve(lit_vec_t const& assumptions) override;
+
+  void load_problem(Problem const& problem) override;
 
   [[nodiscard]] unsigned num_vars() const noexcept override;
 

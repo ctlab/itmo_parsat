@@ -33,6 +33,8 @@ class MapleCOMSPSSolver : public SolverInterface, public MapleCOMSPS::SimpSolver
   /// Load formula from a given dimacs file, return false if failed.
   bool loadFormula(const char* filename);
 
+  bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses);
+
   /// Get the number of variables of the current resolution.
   int getVariablesCount();
 

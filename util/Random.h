@@ -52,7 +52,7 @@ class Generator {
    * NOTE: each thread that wants to use Generator *must* initialize
    * an instance of this class and keep it alive while it needs its methods.
    */
-  Generator(uint32_t seed);
+  explicit Generator(uint32_t seed);
 
   /**
    * @brief Initializes generator using the seed other generator.

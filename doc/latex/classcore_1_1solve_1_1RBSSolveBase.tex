@@ -35,16 +35,16 @@ Collaboration diagram for core\+::solve\+::R\+B\+S\+Solve\+Base\+:
 \mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a4b281909299e4c9221d71143ef1745e4}\label{classcore_1_1solve_1_1RBSSolveBase_a4b281909299e4c9221d71143ef1745e4}} 
 {\bfseries R\+B\+S\+Solve\+Base} (Preprocess\+Config const \&preprocess\+\_\+config, Prop\+Config const \&prop\+\_\+config, Solver\+Service\+Config const \&solver\+\_\+service\+\_\+config)
 \item 
-\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_af33145c85e9dd2f6a6dceacf8c37daf9}\label{classcore_1_1solve_1_1RBSSolveBase_af33145c85e9dd2f6a6dceacf8c37daf9}} 
-std\+::vector$<$ Mini\+::vec$<$ Mini\+::\+Lit $>$ $>$ {\bfseries \+\_\+filter\+\_\+conflict} (domain\+::\+U\+Search assignment)
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a577995372bde1cc7a49ae4d9b2ca9490}\label{classcore_1_1solve_1_1RBSSolveBase_a577995372bde1cc7a49ae4d9b2ca9490}} 
+std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ {\bfseries \+\_\+filter\+\_\+conflict} (domain\+::\+U\+Search assignment)
 \item 
 sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1RBSSolveBase_a0e10d1929af288bf48cd35692ed66bbe}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) final
 \begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a25d167efa438d8260c61e46b7dd0d824}\label{classcore_1_1solve_1_1RBSSolveBase_a25d167efa438d8260c61e46b7dd0d824}} 
-sat\+::\+State {\bfseries \+\_\+solve\+\_\+final} (std\+::vector$<$ Mini\+::vec$<$ Mini\+::\+Lit $>$$>$ const \&assumptions\+\_\+v)
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_a3ddbc940d644d87d6d1825e90960f22e}\label{classcore_1_1solve_1_1RBSSolveBase_a3ddbc940d644d87d6d1825e90960f22e}} 
+sat\+::\+State {\bfseries \+\_\+solve\+\_\+final} (std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ const \&assumptions\+\_\+v)
 \item 
 \mbox{\Hypertarget{classcore_1_1solve_1_1RBSSolveBase_aa5a68e7c1839ab9ec3398f7af6221ee8}\label{classcore_1_1solve_1_1RBSSolveBase_aa5a68e7c1839ab9ec3398f7af6221ee8}} 
 virtual sat\+::\+State {\bfseries \+\_\+solve\+\_\+impl} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem, ea\+::preprocess\+::\+R\+Preprocess const \&preprocess)=0

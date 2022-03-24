@@ -93,6 +93,9 @@ Inheritance diagram for core::sat::solver::SolverService:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a94e8e4899997ed9cf72f07f53e4e9b"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; core::sat::State &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a5a94e8e4899997ed9cf72f07f53e4e9b">solve</a> (lit_vec_t const &amp;assumption, clock_t::duration time_limit)=0</td></tr>
 <tr class="separator:a5a94e8e4899997ed9cf72f07f53e4e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbaba997a1627610d9d1b6c83966de50"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem)=0</td></tr>
+<tr class="memdesc:abbaba997a1627610d9d1b6c83966de50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load problem to all solvers.  <a href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">More...</a><br /></td></tr>
+<tr class="separator:abbaba997a1627610d9d1b6c83966de50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac48afda7db4d01b8f3a762040c0ca3cd"><td class="memItemLeft" align="right" valign="top"><a id="ac48afda7db4d01b8f3a762040c0ca3cd"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#ac48afda7db4d01b8f3a762040c0ca3cd">interrupt</a> ()=0</td></tr>
 <tr class="memdesc:ac48afda7db4d01b8f3a762040c0ca3cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt all solvers in the service. <br /></td></tr>
@@ -101,9 +104,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a05cffada888eb31e841fd277fa0f7186">clear_interrupt</a> ()=0</td></tr>
 <tr class="memdesc:a05cffada888eb31e841fd277fa0f7186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear interrupt for all solvers. <br /></td></tr>
 <tr class="separator:a05cffada888eb31e841fd277fa0f7186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbaba997a1627610d9d1b6c83966de50"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem)=0</td></tr>
-<tr class="memdesc:abbaba997a1627610d9d1b6c83966de50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load problem to all solvers.  <a href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">More...</a><br /></td></tr>
-<tr class="separator:abbaba997a1627610d9d1b6c83966de50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -191,6 +191,8 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the future of the sat solver result </dd></dl>
+
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a4ab33aaa06c8736938270c8b76d889dc">core::sat::solver::SequentialSolverService</a>.</p>
 
 </div>
 </div>

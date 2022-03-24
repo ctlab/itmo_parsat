@@ -50,6 +50,7 @@ WorkingStrategy* working = NULL;
 // Main of the framework
 // -------------------------------------------
 int main(int argc, char** argv) {
+  srand(0);
   Parameters::init(argc, argv);
 
   if (Parameters::getFilename() == NULL || Parameters::getBoolParam("h")) {
@@ -141,8 +142,7 @@ int main(int argc, char** argv) {
     solver->loadFormula(cf);
   }
 
-  vector<int> cube;
-  working->solve(0, {}, cube);
+  working->solve(0, {}, {});
 
   int timeout = Parameters::getIntParam("t", -1);
 

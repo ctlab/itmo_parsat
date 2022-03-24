@@ -39,7 +39,7 @@ class Timer {
 
 template <typename R, typename F>
 R Timer::launch(
-    F&& runnable, const std::function<void()>& interrupt,
+    F&& runnable, std::function<void()> const& interrupt,
     core::clock_t::duration dur) {
   start(interrupt, dur);
   R val = runnable();

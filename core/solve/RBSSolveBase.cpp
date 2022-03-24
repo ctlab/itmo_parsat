@@ -12,7 +12,7 @@ RBSSolveBase::RBSSolveBase(
     , _solver_service(core::sat::solver::SolverServiceRegistry::resolve(
           solver_service_config)) {}
 
-std::vector<Mini::vec<Mini::Lit>> RBSSolveBase::_filter_conflict(
+std::vector<lit_vec_t> RBSSolveBase::_filter_conflict(
     domain::USearch assignment) {
   IPS_INFO("Filtering conflict assignments");
   std::mutex progress_lock;
@@ -49,7 +49,7 @@ std::vector<Mini::vec<Mini::Lit>> RBSSolveBase::_filter_conflict(
 }
 
 sat::State RBSSolveBase::_solve_final(
-    std::vector<Mini::vec<Mini::Lit>> const& assumptions_v) {
+    std::vector<lit_vec_t> const& assumptions_v) {
   IPS_INFO(
       "Solving non-conflict assignments (" << assumptions_v.size() << ").");
   std::atomic_bool unknown{false};
@@ -58,6 +58,7 @@ sat::State RBSSolveBase::_solve_final(
 
   IPS_TRACE_N("RBSSolveBase::solve_final", {
     std::vector<std::future<sat::State>> results;
+    results.reserve(assumptions_v.size());
     for (auto& assumption : assumptions_v) {
       results.push_back(_solver_service->solve(
           assumption, sat::solver::SolverService::DUR_INDEF));

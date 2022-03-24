@@ -82,9 +82,7 @@ PainlessSolver::~PainlessSolver() noexcept {
 void PainlessSolver::load_problem(Problem const& problem) {
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [&problem](auto& solver) {
-        solver->loadFormula(problem.path().c_str());
-      });
+      [&problem](auto& solver) { solver->loadFormula(problem.clauses()); });
 }
 
 State PainlessSolver::solve(lit_vec_t const& assumptions) {
