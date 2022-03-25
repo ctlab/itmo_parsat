@@ -15,6 +15,7 @@
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/solve/RBSSolveBase.h"
 #include "util/mini.h"
+#include "util/stream.h"
 
 namespace core::solve {
 

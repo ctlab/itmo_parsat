@@ -2,8 +2,7 @@
 
 namespace core::sat::solver {
 
-void SequentialSolverService::_solver_working_thread(
-    Solver& solver, util::Timer& timer) {
+void SequentialSolverService::_solver_working_thread(Solver& solver) {
   while (!_stop) {
     std::unique_lock<std::mutex> ul(_queue_m);
     _queue_cv.wait(ul, [this] { return _stop || !_task_queue.empty(); });
@@ -16,31 +15,34 @@ void SequentialSolverService::_solver_working_thread(
     auto task = std::move(_task_queue.front());
     _task_queue.pop();
     ul.unlock();
-    task(solver, timer);
+    task(solver);
   }
 }
 
 SequentialSolverService::SequentialSolverService(
-    SequentialSolverServiceConfig const& config)
-    : _timers(config.num_solvers()) {
+    SequentialSolverServiceConfig const& config) {
   for (int i = 0; i < config.num_solvers(); ++i) {
     _solvers.emplace_back(
         USolver(SolverRegistry::resolve(config.solver_config())));
-    _threads.emplace_back(
-        [this, i] { _solver_working_thread(*_solvers[i], _timers[i]); });
+  }
+  for (int i = 0; i < config.num_solvers(); ++i) {
+    _threads.emplace_back([this, i] { _solver_working_thread(*_solvers[i]); });
   }
 }
 
 std::future<State> SequentialSolverService::solve(
     lit_vec_t const& assumptions, clock_t::duration time_limit) {
-  auto p_task = std::packaged_task<State(Solver&, util::Timer&)>(
-      [assumptions, time_limit](auto& solver, auto& timer) {
-        //        return solver.solve(assumptions);
-        return IPS_TRACE_N_V(
-            "SequentialSolverService::solve",
-            timer.template launch<State>(
-                [&] { return solver.solve(assumptions); },
-                [&] { solver.interrupt(); }, time_limit));
+  auto p_task = std::packaged_task<State(Solver&)>(
+      [this, assumptions, time_limit](auto& solver) {
+        if (time_limit == DUR_INDEF) {
+          return IPS_TRACE_N_V(
+              "SequentialSolverService::solve", solver.solve(assumptions));
+        } else {
+          return IPS_TRACE_N_V("SequentialSolverService::solve_time_limit",
+                               _timer.launch(
+                                   [&] { return solver.solve(assumptions); },
+                                   [&] { solver.interrupt(); }, time_limit););
+        }
       });
   auto future = p_task.get_future();
   {

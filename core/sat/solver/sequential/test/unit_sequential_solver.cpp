@@ -41,10 +41,10 @@ TEST(SequentialSolver, simp_solver) {
   test_solver("simp_solver.json");
 }
 
-TEST(SequentialSolver, painless_solver) {
-  test_solver("painless_solver.json");
-}
-
 TEST(SequentialSolver, maplecomsps_solver) {
   test_solver("maple_solver.json");
+}
+
+TEST(SequentialSolver, painless_solver) {
+  test_solver("painless_solver.json");
 }

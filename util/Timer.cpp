@@ -2,62 +2,59 @@
 
 namespace util {
 
+void TimerHandleType::abort() noexcept {
+  aborted = true;
+}
+
+bool operator<(TimerEvent const& a, TimerEvent const& b) noexcept {
+  return a.when < b.when;
+}
+
 Timer::Timer()
-    : _t([this] {
+    : _thread([this] {
       while (!_stop) {
         std::unique_lock<std::mutex> ul(_m);
-        _cv.wait(ul, [this] { return _do || _stop; });
+        _cv.wait_for(ul, _events.begin()->when - core::clock_t::now(), [this] {
+          return _stop;
+        });
         if (IPS_UNLIKELY(_stop)) {
           break;
         }
-        if (IPS_UNLIKELY(!_do)) {
-          continue;
+        for (auto it = _events.begin();
+             it != _events.end() && it->when <= core::clock_t::now();) {
+          if (!it->handle->aborted && it->callback) {
+            try {
+              it->callback();
+            } catch (...) {
+              // ignore
+            }
+          }
+          it = _events.erase(it);
         }
-        _cv.wait_for(ul, _dur, [this] { return _stop || _abort; });
-        if (IPS_UNLIKELY(_stop)) {
-          break;
-        }
-        if (!_abort && _callback) {
-          _callback();
-        }
-        _do = false;
-        _abort = false;
-        _callback = {};
       }
     }) {}
 
-Timer::~Timer() noexcept {
+Timer::~Timer() {
   {
     std::lock_guard<std::mutex> lg(_m);
-    _do = false;
-    _abort = true;
     _stop = true;
   }
   _cv.notify_one();
-  if (_t.joinable()) {
-    _t.join();
+  if (_thread.joinable()) {
+    _thread.join();
   }
 }
 
-void Timer::abort() {
+TimerHandle Timer::add(
+    std::function<void()> const& callback, core::clock_t::duration dur) {
+  core::clock_t::time_point when = core::clock_t::now() + dur;
+  auto handle = std::make_shared<TimerHandleType>();
   {
     std::lock_guard<std::mutex> lg(_m);
-    _abort = true;
-    _do = false;
-    _callback = {};
+    _events.insert({when, callback, handle});
   }
   _cv.notify_one();
-}
-
-void Timer::start(std::function<void()> const& f, core::clock_t::duration dur) {
-  {
-    std::lock_guard<std::mutex> lg(_m);
-    _callback = f;
-    _dur = dur;
-    _do = true;
-    _abort = false;
-  }
-  _cv.notify_one();
+  return handle;
 }
 
 }  // namespace util

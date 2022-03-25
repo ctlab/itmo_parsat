@@ -60,17 +60,14 @@ void Portfolio::join(
 
   strategyEnding = true;
   setInterrupt();
-  //  waitInterrupt();
 
-  if (parent == NULL) {  // If it is the top strategy
-    result->globalEnding = true;
+  if (parent == nullptr) {
     result->finalResult = res;
-
     if (res == PSAT) {
       result->finalModel = model;
     }
-    SequentialWorker* winner = (SequentialWorker*) strat;
-  } else {  // Else forward the information to the parent strategy
+    result->globalEnding.store(true, std::memory_order_release);
+  } else {
     parent->join(index, this, res, model);
   }
 }

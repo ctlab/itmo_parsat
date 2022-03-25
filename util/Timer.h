@@ -5,47 +5,53 @@
 #include <chrono>
 #include <thread>
 #include <mutex>
+#include <set>
 #include <condition_variable>
 
 #include "util/TimeTracer.h"
 
 namespace util {
 
+struct TimerHandleType {
+  std::atomic_bool aborted{false};
+  void abort() noexcept;
+};
+
+using TimerHandle = std::shared_ptr<TimerHandleType>;
+
+struct TimerEvent {
+  core::clock_t::time_point when;
+  std::function<void()> callback;
+  TimerHandle handle;
+};
+
+bool operator<(TimerEvent const& a, TimerEvent const& b) noexcept;
+
 class Timer {
  public:
   Timer();
 
-  ~Timer() noexcept;
+  ~Timer();
 
-  void start(std::function<void()> const& f, core::clock_t::duration dur);
+  TimerHandle add(
+      std::function<void()> const& callback, core::clock_t::duration dur);
 
-  void abort();
-
-  template <typename R, typename F>
-  R launch(
-      F&& runnable, std::function<void()> const& interrupt,
-      core::clock_t::duration dur);
+  template <typename F>
+  auto launch(
+      F&& f, std::function<void()> const& abort, core::clock_t::duration dur) {
+    auto handle = add(abort, dur);
+    auto result = f();
+    handle->abort();
+    return result;
+  }
 
  private:
   bool _stop = false;
-  bool _do = false;
-  bool _abort = false;
-  std::function<void()> _callback;
-  core::clock_t::duration _dur{};
-  std::mutex _m;
+  std::set<TimerEvent> _events;
   std::condition_variable _cv;
-  std::thread _t;
+  std::mutex _m;
+  std::thread _thread;
 };
-
-template <typename R, typename F>
-R Timer::launch(
-    F&& runnable, std::function<void()> const& interrupt,
-    core::clock_t::duration dur) {
-  start(interrupt, dur);
-  R val = runnable();
-  abort();
-  return val;
-}
 
 }  // namespace util
 

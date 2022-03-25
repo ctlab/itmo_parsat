@@ -18,10 +18,13 @@ void working_thread(
       [&](auto const& assumption) {
         auto expected = common::to_state(
             base_simp_solver.solveLimited(assumption, false, true));
-        auto actual = service.solve(assumption, std::chrono::hours(24)).get();
+        auto actual =
+            service
+                .solve(assumption, core::sat::solver::SolverService::DUR_INDEF)
+                .get();
         ASSERT_EQ(expected, actual);
       },
-      0, 20, base_simp_solver.nVars() - 1, 1000);
+      0, 20, base_simp_solver.nVars() - 1, 200);
 }
 
 void test_solver_service(

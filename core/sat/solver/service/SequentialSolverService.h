@@ -34,17 +34,16 @@ class SequentialSolverService : public SolverService {
   void clear_interrupt() override;
 
  private:
-  void _solver_working_thread(Solver& solver, util::Timer& timer);
+  void _solver_working_thread(Solver& solver);
 
  private:
+  bool _stop = false;
+  util::Timer _timer;
   std::mutex _queue_m;
   std::condition_variable _queue_cv;
-  std::queue<std::packaged_task<void(Solver&, util::Timer&)>> _task_queue;
-
+  std::queue<std::packaged_task<void(Solver&)>> _task_queue;
   std::vector<USolver> _solvers;
-  std::vector<util::Timer> _timers;
   std::vector<std::thread> _threads;
-  bool _stop = false;
 };
 
 }  // namespace core::sat::solver

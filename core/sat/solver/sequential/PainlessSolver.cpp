@@ -95,22 +95,16 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
   working->solve(solve_index, assumptions, {});
 
   uint32_t slv_sleep_us = 100;
-  uint32_t timeout_s = _cfg.time_limit_s();
-
-  while (!_result.globalEnding && !_interrupted) {
+  while (!_result.globalEnding.load(std::memory_order_acquire) &&
+         !_interrupted) {
     usleep(slv_sleep_us);
-    if (timeout_s > 0 && getRelativeTime() >= timeout_s) {
-      _result.globalEnding = true;
-      interrupt();
-      break;
-    }
     if (slv_sleep_us < _cfg.slv_sleep_us()) {
       slv_sleep_us *= 2;
     }
   }
 
   working->setInterrupt();
-  IPS_TRACE_N("WaitInterrupt", working->waitInterrupt());
+  working->waitInterrupt();
 
   switch (_result.finalResult) {
     case PSAT:

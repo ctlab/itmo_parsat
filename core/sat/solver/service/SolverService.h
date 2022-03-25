@@ -13,7 +13,7 @@ namespace core::sat::solver {
  */
 class SolverService {
  public:
-  static constexpr clock_t::duration DUR_INDEF = std::chrono::hours(24);
+  static constexpr clock_t::duration DUR_INDEF = std::chrono::milliseconds(0);
 
  public:
   virtual ~SolverService() = default;

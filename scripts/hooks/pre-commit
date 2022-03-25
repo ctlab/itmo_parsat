@@ -59,7 +59,7 @@ RUN="./scripts/run.sh"
 hooks=(
     "$RUN --clean"
     "$RUN --check-format"
-    "$RUN --sanitize -g DEV_FAST --build"
+    "$RUN -g DEV_FAST --build"
     "$RUN --unit"
     "$RUN -v 6 -- --run-infra --config ./resources/launch/infra_common_0"
     "$RUN --build-doc"
