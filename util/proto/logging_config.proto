@@ -10,6 +10,7 @@ enum LogType {
   BEST_INSTANCE = 6;
   FITNESS_SCALE = 7;
   TRACER = 8;
+  LIMIT = 9;
 }
 
 message LoggingConfig {

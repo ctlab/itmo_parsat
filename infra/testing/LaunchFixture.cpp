@@ -162,6 +162,10 @@ void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
 }
 
 void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
+  if (is_interrupted || test_failed) {
+    return;
+  }
+
   if (!_info->should_be_launched(launch_config)) {
     return;
   }

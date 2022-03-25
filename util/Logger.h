@@ -20,8 +20,6 @@ class Logger {
 
    public:
     LogEntry() = default;
-
-    explicit LogEntry(LoggingConfig_Entry config);
   };
 
  public:
@@ -76,20 +74,28 @@ class Logger {
 
 #ifndef IPS_DISABLE_LOG
 
-#define IPS_LOG(LOG_TYPE, STREAM) LOG(LOG_TYPE) << STREAM
-#define IPS_LOG_T(G_LOG_TYPE, LOG_TYPE, STREAM) \
-  LOG_IF(G_LOG_TYPE, ::core::Logger::should_log(::LogType::LOG_TYPE)) << STREAM
-#define IPS_LOG_IF(LOG_TYPE, COND, STREAM) LOG_IF(LOG_TYPE, COND) << STREAM
+#define IPS_LOG(GLOG_TYPE, STREAM) LOG(GLOG_TYPE) << STREAM
+
+#define IPS_LOG_IF(GLOG_TYPE, COND, STREAM) LOG_IF(GLOG_TYPE, COND) << STREAM
+
+#define IPS_LOG_T(GLOG_TYPE, IPS_LOG_TYPE, STREAM)                       \
+  LOG_IF(GLOG_TYPE, ::core::Logger::should_log(::LogType::IPS_LOG_TYPE)) \
+      << STREAM
+
+#define IPS_LOG_IF_T(GLOG_TYPE, IPS_LOG_TYPE, COND, STREAM)          \
+  LOG_IF(                                                            \
+      GLOG_TYPE,                                                     \
+      (COND) && ::core::Logger::should_log(::LogType::IPS_LOG_TYPE)) \
+      << STREAM
 
 #else
 
 #define IPS_LOG(...)
-#define IPS_LOG_T(...)
 #define IPS_LOG_IF(...)
+#define IPS_LOG_T(...)
+#define IPS_LOG_IF_T(...)
 
 #endif
-
-#define IPS_INFO_T(LOG_TYPE, STREAM) IPS_LOG_T(INFO, LOG_TYPE, STREAM)
 
 #define IPS_INFO(STREAM) IPS_LOG(INFO, STREAM)
 #define IPS_WARNING(STREAM) IPS_LOG(WARNING, STREAM)
@@ -98,5 +104,10 @@ class Logger {
 #define IPS_INFO_IF(COND, STREAM) IPS_LOG_IF(INFO, COND, STREAM)
 #define IPS_WARNING_IF(COND, STREAM) IPS_LOG_IF(WARNING, COND, STREAM)
 #define IPS_ERROR_IF(COND, STREAM) IPS_LOG_IF(ERROR, COND, STREAM)
+
+#define IPS_INFO_T(IPS_LOG_TYPE, STREAM) IPS_LOG_T(INFO, IPS_LOG_TYPE, STREAM)
+
+#define IPS_INFO_IF_T(IPS_LOG_TYPE, COND, STREAM) \
+  IPS_LOG_IF_T(INFO, IPS_LOG_TYPE, COND, STREAM)
 
 #endif  // ITMO_PARSAT_LOGGER_H

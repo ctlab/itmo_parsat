@@ -3,6 +3,7 @@
 
 #include "core/evol/algorithm/Algorithm.h"
 #include "core/sat/solver/sequential/Solver.h"
+#include "core/sat/solver/service/SolverService.h"
 #include "util/CliConfig.h"
 #include "core/tests/common/paths.h"
 
@@ -13,6 +14,9 @@ void set_logger_config();
 core::sat::prop::RProp get_prop(std::filesystem::path const& config_path);
 
 core::sat::solver::RSolver get_solver(std::filesystem::path const& config_path);
+
+core::sat::solver::RSolverService get_solver_service(
+    std::filesystem::path const& config_path);
 
 ea::preprocess::RPreprocess get_preprocess();
 

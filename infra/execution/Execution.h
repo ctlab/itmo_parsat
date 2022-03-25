@@ -37,8 +37,8 @@ class Execution {
  public:
   template <typename... Args, typename Stderr, typename Stdout>
   explicit Execution(
-      callback_t const& callback, Stderr d_stderr, Stdout d_stdout, uint64_t time_limit_s,
-      Args const&... args) {
+      callback_t const& callback, Stderr d_stderr, Stdout d_stdout,
+      uint64_t time_limit_s, Args const&... args) {
     std::stringstream launch;
     ((launch << ' ' << args), ...);
     IPS_INFO("Started execution:" << launch.str());
@@ -49,16 +49,17 @@ class Execution {
       boost::process::child proc_ = std::apply(
           [d_stdout, d_stderr](auto const&... args) {
             return boost::process::child(
-                args..., boost::process::std_out > d_stdout, boost::process::std_err > d_stderr);
+                args..., boost::process::std_out > d_stdout,
+                boost::process::std_err > d_stderr);
           },
           args);
 
-      using namespace std::chrono_literals;
       std::unique_lock<std::mutex> lg(_cv_m);
-
       bool time_limit_exceeded = false;
       while (!_interrupted && proc_.running() && !time_limit_exceeded) {
-        _cv.wait_for(lg, 100ms, [this, &proc_]() { return _interrupted || !proc_.running(); });
+        _cv.wait_for(lg, std::chrono::milliseconds(100), [this, &proc_]() {
+          return _interrupted || !proc_.running();
+        });
         time_limit_exceeded = (_timestamp() - started_at) > time_limit_s;
       }
 
@@ -69,7 +70,9 @@ class Execution {
         proc_.wait();
       }
 
-      callback(started_at, _timestamp(), proc_.exit_code(), _interrupted, time_limit_exceeded);
+      callback(
+          started_at, _timestamp(), proc_.exit_code(), _interrupted,
+          time_limit_exceeded);
     });
   }
 

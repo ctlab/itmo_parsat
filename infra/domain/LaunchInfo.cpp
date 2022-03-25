@@ -37,7 +37,7 @@ bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
   }
   if (_t_config.lookup) {
     auto opt_launch_id = check_if_test_is_done(config);
-    if (opt_launch_id) {
+    if (opt_launch_id.has_value()) {
       IPS_INFO("Test is already done. LaunchId = " << opt_launch_id.value());
       return false;
     }
@@ -71,7 +71,7 @@ std::optional<uint32_t> LaunchInfo::check_if_test_is_done(
     LaunchConfig const& config) {
   LaunchObject launch;
   launch.test_group = get_test_group(config);
-  launch.input_name = config.input;
+  launch.input_name = get_input_name(config);
   launch.config_name = config.config;
   launch.branch = _t_config.branch;
   launch.commit_hash = _t_config.commit;

@@ -5,8 +5,9 @@ namespace {
 std::string read_file(std::filesystem::path const& path) {
   std::ifstream ifs(path);
   ifs.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-  return std::string(
-      std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
+  return {
+      std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()  //
+  };
 }
 
 }  // namespace
@@ -114,7 +115,6 @@ std::optional<uint32_t> LaunchesDao::get_launch_id(LaunchObject const& launch) {
     work.commit();
     return std::nullopt;
   } else {
-    IPS_VERIFY(result.size() == 1 && bool("Multiple rows for equal launches"));
     work.commit();
     return result.front().at("launch_id").as<uint32_t>();
   }

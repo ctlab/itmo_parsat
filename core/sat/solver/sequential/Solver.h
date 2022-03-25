@@ -42,12 +42,12 @@ class Solver {
   /**
    * @brief Interrupts solver. Intended to be used from signal handlers.
    */
-  virtual void interrupt();
+  virtual void interrupt() = 0;
 
   /**
    * @brief Clears interrupt flag.
    */
-  virtual void clear_interrupt();
+  virtual void clear_interrupt() = 0;
 
   /**
    * @brief Returns the number of variables in formula.

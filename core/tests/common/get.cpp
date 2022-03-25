@@ -23,6 +23,14 @@ core::sat::solver::RSolver get_solver(
       core::sat::solver::SolverRegistry::resolve(solver_config));
 }
 
+core::sat::solver::RSolverService get_solver_service(
+    std::filesystem::path const& config_path) {
+  SolverServiceConfig solver_service_config;
+  util::CliConfig::read_config(config_path, solver_service_config);
+  return core::sat::solver::RSolverService(
+      core::sat::solver::SolverServiceRegistry::resolve(solver_service_config));
+}
+
 ea::preprocess::RPreprocess get_preprocess() {
   PreprocessConfig preprocess_config;
   util::CliConfig::read_config(

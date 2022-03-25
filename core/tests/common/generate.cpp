@@ -13,6 +13,17 @@ core::lit_vec_t gen_assumption(int min_size, int max_size, int max_var) {
   return assumption;
 }
 
+core::lit_vec_t gen_assumption(
+    core::domain::VarView const& var_view, int min_size, int max_size) {
+  int max_var = (int) var_view.size() - 1;
+  auto assumption = gen_assumption(min_size, max_size, max_var);
+  for (int i = 0; i < assumption.size(); ++i) {
+    assumption[i] = Mini::mkLit(
+        var_view[Mini::var(assumption[i])], Mini::sign(assumption[i]));
+  }
+  return assumption;
+}
+
 std::vector<int> gen_vars(size_t size, int num_vars) {
   std::vector<int> vars(size);
   for (int& x : vars) {
@@ -29,12 +40,38 @@ core::lit_vec_t to_mini(std::vector<int> const& vars) {
   return v;
 }
 
-void pass_assumptions(
+void iter_assumptions(
     std::function<void(core::lit_vec_t&)> const& f, int min_size, int max_size,
     int max_var, int num_tests) {
   while (num_tests--) {
     auto assumption = gen_assumption(min_size, max_size, max_var);
     f(assumption);
+  }
+}
+
+void iter_assumptions(
+    std::function<void(core::lit_vec_t&)> const& f,
+    core::domain::VarView const& var_view, int min_size, int max_size,
+    int num_tests) {
+  while (num_tests--) {
+    auto assumption = gen_assumption(var_view, min_size, max_size);
+    f(assumption);
+  }
+}
+
+void iter_inputs(
+    std::function<void(core::sat::Problem const&)> const& f,
+    ElimSetting elim_setting) {
+  std::filesystem::path path = IPS_PROJECT_ROOT "/resources/cnf/common";
+  for (char const* input_name : common::inputs) {
+    if (elim_setting == DO_ELIM || elim_setting == BOTH) {
+      core::sat::Problem problem(path / input_name, true);
+      f(problem);
+    }
+    if (elim_setting == NO_ELIM || elim_setting == BOTH) {
+      core::sat::Problem problem(path / input_name, false);
+      f(problem);
+    }
   }
 }
 

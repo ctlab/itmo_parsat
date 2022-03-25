@@ -1,0 +1,10 @@
+{
+  "solve_type": "NaiveSolve",
+  "cpu_limit": 1,
+  "random_seed": 0,
+  "naive_solve_config": {
+    "solver_config": {
+      "solver_type": "MapleCOMSPSSolver"
+    }
+  }
+}

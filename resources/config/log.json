@@ -1,49 +1,54 @@
 {
-    "entries": [
-        {
-            "log_type": "ALWAYS",
-            "verbose_level": 0,
-            "every_n": 1
-        },
-        {
-            "log_type": "NEVER",
-            "verbose_level": 239,
-            "every_n": 1
-        },
-        {
-            "log_type": "SOLVER_STATS_PREPROCESS",
-            "verbose_level": 6,
-            "every_n": 10000
-        },
-        {
-            "log_type": "RESOLVE_INSTANCE",
-            "verbose_level": 4,
-            "every_n": 1
-        },
-        {
-            "log_type": "HEURISTIC_RESULT",
-            "verbose_level": 6,
-            "every_n": 10000
-        },
-        {
-            "log_type": "CURRENT_INSTANCE",
-            "verbose_level": 8,
-            "every_n": 10000
-        },
-        {
-            "log_type": "BEST_INSTANCE",
-            "verbose_level": 6,
-            "every_n": 10000
-        },
-        {
-            "log_type": "FITNESS_SCALE",
-            "verbose_level": 8,
-            "every_n": 10000
-        },
-        {
-            "log_type": "TRACER",
-            "verbose_level": 8,
-            "every_n": 1
-        }
-    ]
+  "entries": [
+    {
+      "log_type": "ALWAYS",
+      "verbose_level": 0,
+      "every_n": 1
+    },
+    {
+      "log_type": "NEVER",
+      "verbose_level": 239,
+      "every_n": 1
+    },
+    {
+      "log_type": "LIMIT",
+      "verbose_level": 6,
+      "every_n": 1
+    },
+    {
+      "log_type": "SOLVER_STATS_PREPROCESS",
+      "verbose_level": 6,
+      "every_n": 10000
+    },
+    {
+      "log_type": "RESOLVE_INSTANCE",
+      "verbose_level": 4,
+      "every_n": 1
+    },
+    {
+      "log_type": "HEURISTIC_RESULT",
+      "verbose_level": 6,
+      "every_n": 10000
+    },
+    {
+      "log_type": "CURRENT_INSTANCE",
+      "verbose_level": 8,
+      "every_n": 10000
+    },
+    {
+      "log_type": "BEST_INSTANCE",
+      "verbose_level": 6,
+      "every_n": 10000
+    },
+    {
+      "log_type": "FITNESS_SCALE",
+      "verbose_level": 8,
+      "every_n": 10000
+    },
+    {
+      "log_type": "TRACER",
+      "verbose_level": 8,
+      "every_n": 1
+    }
+  ]
 }

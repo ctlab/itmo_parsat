@@ -53,8 +53,6 @@ class TestSearch : public ::testing::Test {
       uniques.insert(get_vars((*assignment_p)()));
     } while (++(*assignment_p));
     int delta = std::abs((int) uniques.size() - (int) target_count);
-    IPS_INFO(
-        "Uniques: " << uniques.size() << ", when expected: " << target_count);
     ASSERT_LE(delta, max_delta);
   }
 
@@ -74,9 +72,6 @@ class TestSearch : public ::testing::Test {
       } while (++(*split));
     }
     int delta = std::abs((int) uniques.size() - (int) target_count);
-    IPS_INFO(
-        "Uniques: " << uniques.size() << ", when expected: " << target_count
-                    << ", total steps: " << total);
     ASSERT_LE(delta, max_delta);
   }
 

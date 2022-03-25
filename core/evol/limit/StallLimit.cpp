@@ -13,7 +13,7 @@ void StallLimit::start() {
 }
 
 double StallLimit::_duration() {
-  return std::chrono::duration_cast<std::chrono::seconds>(
+  return (double) std::chrono::duration_cast<std::chrono::seconds>(
              core::clock_t::now() - _last_change_timestamp)
       .count();
 }
@@ -26,7 +26,7 @@ bool StallLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   if (rho_value == _last_rho && size == _last_size) {
     if (++_steps_already == _steps_before_stall ||
         _duration() > _time_before_stall) {
-      IPS_INFO("StallLimit: enough similar instances.");
+      IPS_INFO_T(LIMIT, "StallLimit: enough similar instances.");
       return false;
     } else {
       return true;
@@ -35,6 +35,7 @@ bool StallLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
     _steps_already = 0;
     _last_size = size;
     _last_rho = rho_value;
+    _last_change_timestamp = core::clock_t::now();
     return true;
   }
 }

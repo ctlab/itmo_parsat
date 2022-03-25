@@ -15,11 +15,11 @@ bool ResourceLimit::_proceed(ea::algorithm::Algorithm&) {
     time_ok =
         std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() <
         _time_limit_sec;
-    IPS_INFO_IF(!time_ok, "Time limit exceeded.");
+    IPS_INFO_IF_T(LIMIT, !time_ok, "Time limit exceeded.");
   }
   if (_memory_limit_kb) {
     mem_ok = getCurrentRSS() < _memory_limit_kb * 1024;
-    IPS_INFO_IF(!mem_ok, "Memory limit exceeded.");
+    IPS_INFO_IF_T(LIMIT, !mem_ok, "Memory limit exceeded.");
   }
   return time_ok && mem_ok;
 }

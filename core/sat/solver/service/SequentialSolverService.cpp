@@ -35,12 +35,12 @@ std::future<State> SequentialSolverService::solve(
     lit_vec_t const& assumptions, clock_t::duration time_limit) {
   auto p_task = std::packaged_task<State(Solver&, util::Timer&)>(
       [assumptions, time_limit](auto& solver, auto& timer) {
-        return solver.solve(assumptions);
-        //        return IPS_TRACE_N_V(
-        //            "SequentialSolverService::solve",
-        //            timer.template launch<State>(
-        //                [&] { return solver.solve(assumptions); },
-        //                [&] { solver.interrupt(); }, time_limit));
+        //        return solver.solve(assumptions);
+        return IPS_TRACE_N_V(
+            "SequentialSolverService::solve",
+            timer.template launch<State>(
+                [&] { return solver.solve(assumptions); },
+                [&] { solver.interrupt(); }, time_limit));
       });
   auto future = p_task.get_future();
   {

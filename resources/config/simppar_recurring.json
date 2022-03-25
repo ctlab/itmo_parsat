@@ -59,7 +59,7 @@
                 }
             }
         },
-        "max_solve_time_ms": 2500,
+        "max_solve_time_ms": 5000,
         "prop_config": {
             "prop_type": "ParProp",
             "par_prop_config": {

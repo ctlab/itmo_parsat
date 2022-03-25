@@ -164,7 +164,7 @@ function do_run_pgo() {
 
 function do_sync() {
     HOST="$1"
-    rsync --recursive --whole-file \
+    rsync --recursive --delete --whole-file \
         --exclude 'doc/' \
         --exclude '**/*.undodir' \
         --exclude '.idea/' \
