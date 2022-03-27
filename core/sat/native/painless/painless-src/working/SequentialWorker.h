@@ -25,6 +25,7 @@
 #include "core/sat/native/mini/mtl/Vec.h"
 #include "core/sat/native/mini/utils/Lit.h"
 
+#include <optional>
 #include <vector>
 #include <mutex>
 #include <thread>
@@ -38,11 +39,13 @@ class SequentialWorker : public WorkingStrategy {
 
   ~SequentialWorker() noexcept override;
 
-  void solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube)
-      override;
+  void solve(
+      int64_t index, Mini::vec<Mini::Lit> const& assumptions,
+      const vector<int>& cube) override;
 
-  void join(int64_t index, WorkingStrategy* winner, PSatResult res, const vector<int>& model)
-      override;
+  void join(
+      int64_t index, WorkingStrategy* winner, PSatResult res,
+      const vector<int>& model) override;
 
   void setInterrupt() override;
 
@@ -64,20 +67,16 @@ class SequentialWorker : public WorkingStrategy {
   void main_worker_thread();
 
  private:
-  SolverInterface* solver = nullptr;
   bool _stop = false;
-  std::atomic_bool force{false};
-  std::atomic_bool waitJob{true};
   int64_t current_index = 0;
+  SolverInterface* solver = nullptr;
 
   std::mutex interrupt_mutex;
   std::condition_variable start_cv;
   std::mutex start_mutex;
 
-  int64_t actual_index;
-  std::vector<int> actualCube;
-  Mini::vec<Mini::Lit> actualAssumptions;
-
+  std::optional<std::tuple<int64_t, std::vector<int>, Mini::vec<Mini::Lit>>>
+      _task;
   std::thread worker;
 };
 

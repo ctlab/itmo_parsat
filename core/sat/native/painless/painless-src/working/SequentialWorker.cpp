@@ -20,8 +20,6 @@
 #include "../working/SequentialWorker.h"
 #include "util/stream.h"
 
-#include <unistd.h>
-
 namespace painless {
 
 void SequentialWorker::main_worker_thread() {
@@ -30,32 +28,27 @@ void SequentialWorker::main_worker_thread() {
 
   while (!_stop) {
     std::unique_lock<std::mutex> ul_job(start_mutex);
-    start_cv.wait(ul_job, [this] { return _stop || !waitJob; });
+    start_cv.wait(ul_job, [this] { return _stop || _task.has_value(); });
     if (_stop) {
       break;
     }
-    if (waitJob) {
+    if (!_task.has_value()) {
       continue;
     }
-    auto local_assumptions = actualAssumptions;
-    auto local_cube = actualCube;
-    auto local_index = actual_index;
+    auto [index, cube, assumption] = std::move(_task.value());
+    _task.reset();
     ul_job.unlock();
 
     {
       std::lock_guard<std::mutex> lg_int(interrupt_mutex);
-      res = solver->solve(local_assumptions, local_cube);
+      res = solver->solve(assumption, cube);
     }
 
-    if (current_index == local_index) {
-      if (res == PSAT) {
-        model = solver->getModel();
-      }
-      join(local_index, nullptr, res, model);
-      model.clear();
+    if (res == PSAT) {
+      model = solver->getModel();
     }
-
-    waitJob = true;
+    join(index, nullptr, res, model);
+    model.clear();
   }
 }
 
@@ -91,10 +84,8 @@ void SequentialWorker::solve(
     vector<int> const& cube) {
   {
     std::lock_guard<std::mutex> lg(start_mutex);
-    actual_index = current_index = index;
-    actualCube = cube;
-    actualAssumptions = assumptions;
-    waitJob = false;
+    current_index = index;
+    _task.emplace(index, cube, assumptions);
   }
   start_cv.notify_one();
 }
@@ -108,7 +99,7 @@ void SequentialWorker::join(
     return;
   }
 
-  if (parent == NULL) {
+  if (parent == nullptr) {
     result->globalEnding = true;
     result->finalResult = res;
 
@@ -121,7 +112,6 @@ void SequentialWorker::join(
 }
 
 void SequentialWorker::setInterrupt() {
-  force = true;
   solver->setSolverInterrupt();
 }
 
@@ -130,7 +120,6 @@ void SequentialWorker::waitInterrupt() {
 }
 
 void SequentialWorker::unsetInterrupt() {
-  force = false;
   solver->unsetSolverInterrupt();
 }
 

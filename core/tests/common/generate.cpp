@@ -32,6 +32,20 @@ std::vector<int> gen_vars(size_t size, int num_vars) {
   return vars;
 }
 
+std::vector<int> gen_unique_vars(size_t size, int num_vars) {
+  assert(num_vars >= size);
+  std::set<int> used_vars;
+  std::vector<int> vars(size);
+  for (int& x : vars) {
+    x = util::random::sample<int>(0, num_vars - 1);
+    while (used_vars.count(x)) {
+      x = util::random::sample<int>(0, num_vars - 1);
+    }
+    used_vars.insert(x);
+  }
+  return vars;
+}
+
 core::lit_vec_t to_mini(std::vector<int> const& vars) {
   Mini::vec<Mini::Lit> v((int) vars.size());
   for (size_t i = 0; i < vars.size(); ++i) {
@@ -56,22 +70,6 @@ void iter_assumptions(
   while (num_tests--) {
     auto assumption = gen_assumption(var_view, min_size, max_size);
     f(assumption);
-  }
-}
-
-void iter_inputs(
-    std::function<void(core::sat::Problem const&)> const& f,
-    ElimSetting elim_setting) {
-  std::filesystem::path path = IPS_PROJECT_ROOT "/resources/cnf/common";
-  for (char const* input_name : common::inputs) {
-    if (elim_setting == DO_ELIM || elim_setting == BOTH) {
-      core::sat::Problem problem(path / input_name, true);
-      f(problem);
-    }
-    if (elim_setting == NO_ELIM || elim_setting == BOTH) {
-      core::sat::Problem problem(path / input_name, false);
-      f(problem);
-    }
   }
 }
 

@@ -43,7 +43,7 @@ void test_search(
     benchmark::State& state, TestType type, VarsF const& vars_f,
     Args&&... args) {
   util::random::Generator generator(239);
-  FS_PATH_INPUT(input, common::inputs[state.range(1)]);
+  FS_PATH_INPUT(input, common::large_inputs[state.range(1)]);
   T prop(std::forward<Args>(args)...);
   core::sat::Problem problem(input);
   prop.load_problem(problem);

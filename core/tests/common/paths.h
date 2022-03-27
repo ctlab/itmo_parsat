@@ -2,6 +2,7 @@
 #define ITMO_PARSAT_PATHS_H
 
 #include <string>
+#include <vector>
 #include <filesystem>
 
 namespace common {
@@ -13,12 +14,14 @@ static const std::string preprocess_config_path =
 static const std::string log_config_path = configs_path + "log.json";
 
 #define MAX_INPUT_LEN 128
-#define N_INPUTS (sizeof(common::inputs) / MAX_INPUT_LEN)
+#define N_INPUTS (sizeof(common::large_inputs) / MAX_INPUT_LEN)
 #define FS_PATH_INPUT(INPUT, NAME) \
   std::filesystem::path INPUT(     \
       std::string(IPS_PROJECT_ROOT "/resources/cnf/common/") + (NAME))
 
-extern char const inputs[7][MAX_INPUT_LEN];
+extern std::vector<std::string> small_inputs;
+
+extern std::vector<std::string> large_inputs;
 
 }  // namespace common
 

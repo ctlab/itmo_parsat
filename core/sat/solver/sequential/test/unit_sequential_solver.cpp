@@ -11,6 +11,7 @@
 
 void test_solver(
     std::string const& solver_config, core::sat::Problem const& problem) {
+  util::random::Generator gen(239);
   if (problem.get_result() != core::sat::UNKNOWN) {
     return;
   }
@@ -19,7 +20,6 @@ void test_solver(
   Minisat::SimpSolver base_simp_solver;
   solver->load_problem(problem);
   common::load_problem(base_simp_solver, problem);
-
   common::iter_assumptions(
       [&](auto const& assumption) {
         auto expected = common::to_state(
@@ -30,21 +30,23 @@ void test_solver(
       0, 20, base_simp_solver.nVars() - 1, 1000);
 }
 
-void test_solver(std::string const& solver_config) {
-  util::random::Generator gen(239);
-  common::iter_inputs(
-      [&](auto const& problem) { test_solver(solver_config, problem); },
-      common::BOTH);
+DEFINE_PARAMETRIZED_TEST(
+    TestSequentialSolver, std::string, std::string, bool /* eliminate */);
+
+static std::vector<std::string> solver_configs{
+    "simp_solver.json",
+    "maple_solver.json",
+    "painless_solver.json",
+};
+
+TEST_P(TestSequentialSolver, correctness) {
+  auto [solver_config, input_name, eliminate] = GetParam();
+  test_solver(solver_config, common::get_problem(input_name, eliminate));
 }
 
-TEST(SequentialSolver, simp_solver) {
-  test_solver("simp_solver.json");
-}
-
-TEST(SequentialSolver, maplecomsps_solver) {
-  test_solver("maple_solver.json");
-}
-
-TEST(SequentialSolver, painless_solver) {
-  test_solver("painless_solver.json");
-}
+INSTANTIATE_TEST_CASE_P(
+    TestSequentialSolver, TestSequentialSolver,
+    ::testing::ValuesIn(common::extend(common::cross(
+        common::to_tuple(solver_configs),
+        common::to_tuple(common::small_inputs),
+        common::to_tuple<bool>({false, true})))));

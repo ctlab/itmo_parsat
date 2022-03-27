@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <filesystem>
 
+#include "core/tests/common/util.h"
 #include "core/tests/common/paths.h"
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
@@ -41,27 +42,35 @@ void run_test(
   check_rho_value(rprop, preprocess, algorithm->get_best(), base_assumption);
 }
 
-void run_tests(std::string const& config) {
+void run_test(std::string const& config, core::sat::Problem const& problem) {
   common::set_logger_config();
   util::random::Generator gen(239);
-  common::iter_inputs([&config](auto const& problem) {
-    auto preprocess = common::get_preprocess();
-    if (!preprocess->preprocess(problem)) {
-      return;
-    }
-    run_test(preprocess, config, problem, {});
-    common::iter_assumptions(
-        [&](auto& base_assumption) {
-          run_test(preprocess, config, problem, base_assumption);
-        },
-        preprocess->var_view(), 0, 20, 100);
-  });
+  auto preprocess = common::get_preprocess();
+  if (!preprocess->preprocess(problem)) {
+    return;
+  }
+  run_test(preprocess, config, problem, {});
+  common::iter_assumptions(
+      [&](auto& base_assumption) {
+        run_test(preprocess, config, problem, base_assumption);
+      },
+      preprocess->var_view(), 0, 20, 100);
 }
 
-TEST(Algorithm, ea) {
-  run_tests("ea.json");
+DEFINE_PARAMETRIZED_TEST(TestAlgorithm, std::string, std::string);
+
+static std::vector<std::string> algorithm_configs{
+    "ea.json",
+    "ga.json",
+};
+
+TEST_P(TestAlgorithm, correctness) {
+  auto [algorithm_config, input_name] = GetParam();
+  run_test(algorithm_config, common::get_problem(input_name, true));
 }
 
-TEST(Algorithm, ga) {
-  run_tests("ga.json");
-}
+INSTANTIATE_TEST_CASE_P(
+    TestAlgorithmSmall, TestAlgorithm,
+    ::testing::ValuesIn(common::extend(common::cross(
+        common::to_tuple(algorithm_configs),
+        common::to_tuple(common::small_inputs)))));

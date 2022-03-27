@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <functional>
 
+#include "core/tests/common/util.h"
 #include "core/tests/common/paths.h"
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
@@ -56,7 +57,7 @@ void test_propagation_bool(
               bool actual = prop(prop_engine, assumption);
               ASSERT_EQ(expected, actual);
             },
-            0, 20, base_simp_solver.nVars() - 1, 100000);
+            0, 20, base_simp_solver.nVars() - 1, 1000);
       });
 }
 
@@ -79,40 +80,42 @@ void test_propagation_tree(
       });
 }
 
-TEST(Prop, simp_no_dummy) {
-  common::iter_inputs([](auto const& problem) {
-    test_propagation_bool(
-        problem, "simp_prop.json", [](auto& solver, auto const& assumption) {
-          return solver.propagate(assumption);
-        });
-  });
+DEFINE_PARAMETRIZED_TEST(
+    TestPropagation, std::string, std::string, bool /* eliminate */);
+
+static std::vector<std::string> prop_configs{
+    "simp_prop.json",
+    "par_prop.json",
+};
+
+TEST_P(TestPropagation, no_dummy_test) {
+  auto [prop_config, input_name, eliminate] = GetParam();
+  test_propagation_bool(
+      common::get_problem(input_name, eliminate), prop_config,
+      [](auto& solver, auto const& assumption) {
+        return solver.propagate(assumption);
+      });
 }
 
-TEST(Prop, par_no_dummy) {
-  common::iter_inputs([](auto const& problem) {
-    test_propagation_bool(
-        problem, "par_prop.json", [](auto& solver, auto const& assumption) {
-          return solver.propagate(assumption);
-        });
-  });
+TEST_P(TestPropagation, tree_test) {
+  auto [prop_config, input_name, eliminate] = GetParam();
+  test_propagation_tree(
+      common::get_problem(input_name, eliminate), prop_config,
+      [](auto& solver, auto const& assumption, uint32_t head_size) {
+        return solver.prop_tree(assumption, head_size);
+      });
 }
 
-TEST(Prop, simp_subtree) {
-  common::iter_inputs([](auto const& problem) {
-    test_propagation_tree(
-        problem, "simp_prop.json",
-        [](auto& solver, auto const& assumption, uint32_t head_size) {
-          return solver.prop_tree(assumption, head_size);
-        });
-  });
-}
+INSTANTIATE_TEST_CASE_P(
+    TestPropagationSmall, TestPropagation,
+    ::testing::ValuesIn(common::extend(common::cross(
+        common::to_tuple(prop_configs),
+        common::to_tuple(common::small_inputs),  //
+        common::to_tuple<bool>({false, true})))));
 
-TEST(Prop, par_subtree) {
-  common::iter_inputs([](auto const& problem) {
-    test_propagation_tree(
-        problem, "par_prop.json",
-        [](auto& solver, auto const& assumption, uint32_t head_size) {
-          return solver.prop_tree(assumption, head_size);
-        });
-  });
-}
+INSTANTIATE_TEST_CASE_P(
+    TestPropagationLarge, TestPropagation,
+    ::testing::ValuesIn(common::extend(common::cross(
+        common::to_tuple(prop_configs),
+        common::to_tuple(common::large_inputs),  //
+        common::to_tuple<bool>({false})))));

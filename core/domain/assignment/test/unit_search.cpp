@@ -1,11 +1,13 @@
 #include <gtest/gtest.h>
 #include <cmath>
 
+#include "core/tests/common/util.h"
+#include "core/tests/common/generate.h"
+
 #include "core/domain/assignment/RandomSearch.h"
 #include "core/domain/assignment/FullSearch.h"
 #include "core/domain/assignment/CartesianSearch.h"
 #include "util/stream.h"
-#include "util/Logger.h"
 #include "util/Random.h"
 
 namespace {
@@ -18,233 +20,200 @@ std::vector<Mini::Lit> gen_mv(size_t size, int s1, int s2) {
   return v;
 }
 
+std::tuple<uint64_t, std::vector<std::vector<std::vector<Mini::Lit>>>>
+gen_cartesian(int prod_size, int max_num_assumptions, int max_assumption_size) {
+  std::vector<std::vector<std::vector<Mini::Lit>>> csp(prod_size);
+  uint64_t csp_size = 1;
+  for (size_t i = 0; i < prod_size; ++i) {
+    int assumption_size = util::random::sample<int>(0, max_assumption_size);
+    int num_assumptions = std::min(
+        1 << assumption_size,
+        util::random::sample<int>(1, max_num_assumptions));
+    csp_size *= num_assumptions;
+    for (int j = 0; j < num_assumptions; ++j) {
+      csp[i].push_back(gen_mv(assumption_size, i, j));
+    }
+  }
+  return {csp_size, csp};
+}
+
 }  // namespace
 
 using namespace core;
 
-class TestSearch : public ::testing::Test {
- protected:
-  void SetUp() override {
-    mock_vars.resize(NUM_VARS_MAX);
-    for (int i = 0; i < NUM_VARS_MAX; ++i) {
-      mock_var_map.map_var(i, i);
-    }
-  }
+static constexpr size_t MAX_VAR = 128;
 
-  void set_size(long size) {
-    std::fill(mock_vars.begin(), mock_vars.begin() + size, true);
-    std::fill(mock_vars.begin() + size, mock_vars.end(), false);
+static std::vector<int> to_std_vec(core::lit_vec_t const& vars) {
+  std::vector<int> result;
+  for (int j = 0; j < vars.size(); ++j) {
+    result.push_back(vars[j].x);
   }
+  return result;
+}
 
-  static std::vector<int> get_vars(Mini::vec<Mini::Lit> const& vars) {
-    std::vector<int> set_vars;
-    for (int j = 0; j < vars.size(); ++j) {
-      if (Mini::sign(vars[j])) {
-        set_vars.push_back(j);
-      }
-    }
-    return set_vars;
-  }
+static void test_assignment_full(
+    domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta) {
+  std::set<std::vector<int>> uniques;
+  do {
+    uniques.insert(to_std_vec((*assignment_p)()));
+  } while (++(*assignment_p));
+  int delta = std::abs((int) uniques.size() - (int) target_count);
+  ASSERT_LE(delta, max_delta) << "Number of unique items mismatched.";
+}
 
-  static void test_assignment_full(
-      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta) {
-    std::set<std::vector<int>> uniques;
+static void test_assignment_split_search(
+    domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta,
+    uint32_t ranges) {
+  std::set<std::vector<int>> uniques;
+  uint32_t total = 0;
+  for (uint32_t index = 0; index < ranges; ++index) {
+    auto split = assignment_p->split_search(ranges, index);
     do {
-      uniques.insert(get_vars((*assignment_p)()));
-    } while (++(*assignment_p));
-    int delta = std::abs((int) uniques.size() - (int) target_count);
-    ASSERT_LE(delta, max_delta);
-  }
-
-  static void test_assignment_split_search(
-      domain::USearch assignment_p, uint32_t target_count, uint32_t max_delta,
-      uint32_t ranges) {
-    std::set<std::vector<int>> uniques;
-    uint32_t total = 0;
-    for (uint32_t index = 0; index < ranges; ++index) {
-      auto split = assignment_p->split_search(ranges, index);
-      do {
-        if (split->empty()) {
-          break;
-        }
-        ++total;
-        uniques.insert(get_vars((*split)()));
-      } while (++(*split));
-    }
-    int delta = std::abs((int) uniques.size() - (int) target_count);
-    ASSERT_LE(delta, max_delta);
-  }
-
-  void test_full_search_range(long size, uint32_t ranges) {
-    set_size(size);
-    domain::USearch assignment_p(
-        domain::createFullSearch(mock_var_map, mock_vars));
-    test_assignment_split_search(
-        std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0, ranges);
-  }
-
-  void test_random_search_range(long size, uint32_t total, uint32_t ranges) {
-    set_size(size);
-    domain::USearch assignment_p(
-        domain::createRandomSearch(mock_var_map, mock_vars, total));
-    test_assignment_split_search(std::move(assignment_p), total, 0, ranges);
-  }
-
-  void test_full_search(long size) {
-    set_size(size);
-    domain::USearch assignment_p(
-        domain::createFullSearch(mock_var_map, mock_vars));
-    test_assignment_full(
-        std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0);
-  }
-
-  void test_random_search(long size, long target) {
-    set_size(size);
-    bool unique = size <= 63;
-    uint32_t max_delta = unique ? 0 : std::max(1L, target / 100);
-    domain::USearch assignment_p(
-        domain::createRandomSearch(mock_var_map, mock_vars, target));
-    test_assignment_full(std::move(assignment_p), target, max_delta);
-  }
-
- public:
-  static constexpr long NUM_VARS_MAX = 128;
-  util::random::Generator gen{1337};
-  core::domain::VarView mock_var_map;
-  std::vector<bool> mock_vars;
-};
-
-TEST_F(TestSearch, full_search_1) {
-  test_full_search(1);
-}
-
-TEST_F(TestSearch, full_search_2) {
-  test_full_search(2);
-}
-
-TEST_F(TestSearch, full_search_16) {
-  test_full_search(16);
-}
-
-TEST_F(TestSearch, random_search_64_soft) {
-  test_random_search(64, 10000);
-}
-
-TEST_F(TestSearch, random_search_80_soft) {
-  test_random_search(80, 5000);
-}
-
-TEST_F(TestSearch, random_search_128_soft) {
-  test_random_search(128, 65536);
-}
-
-TEST_F(TestSearch, random_search_1_hard) {
-  test_random_search(1, 2);
-}
-
-TEST_F(TestSearch, random_search_2_hard) {
-  test_random_search(2, 4);
-}
-
-TEST_F(TestSearch, random_search_16_hard) {
-  test_random_search(16, 65536);
-}
-
-TEST_F(TestSearch, full_search_range_1_2) {
-  test_full_search_range(1, 2);
-}
-
-TEST_F(TestSearch, full_search_range_1_16) {
-  test_full_search_range(1, 16);
-}
-
-TEST_F(TestSearch, full_search_range_4_2) {
-  test_full_search_range(4, 2);
-}
-
-TEST_F(TestSearch, full_search_range_16_2) {
-  test_full_search_range(16, 2);
-}
-
-TEST_F(TestSearch, full_search_range_16_8) {
-  test_full_search_range(16, 8);
-}
-
-TEST_F(TestSearch, full_search_range_16_16) {
-  test_full_search_range(16, 16);
-}
-
-TEST_F(TestSearch, random_search_range_16_2) {
-  test_random_search_range(16, 5000, 2);
-}
-
-TEST_F(TestSearch, random_search_range_16_8) {
-  test_random_search_range(16, 5000, 8);
-}
-
-TEST_F(TestSearch, random_search_range_16_16) {
-  test_random_search_range(16, 5000, 16);
-}
-
-TEST_F(TestSearch, cartesian_search) {
-  int num_tests = 100;
-  while (num_tests--) {
-    std::vector<std::vector<std::vector<Mini::Lit>>> csp(5);
-    uint64_t csp_size = 1;
-    for (size_t i = 0; i < 5; ++i) {
-      // generate assumption set
-      int assump_size = util::random::sample<int>(0, 10);
-      int set_size =
-          std::min(1 << assump_size, util::random::sample<int>(1, 10));
-      csp_size *= set_size;
-      for (int j = 0; j < set_size; ++j) {
-        csp[i].push_back(gen_mv(assump_size, i, j));
-      }
-    }
-    auto search = domain::createCartesianSearch(csp);
-    std::set<std::vector<int>> assumptions;
-    auto& search_ref = *search;
-    do {
-      auto vars = get_vars(search_ref());
-      ASSERT_EQ(0, assumptions.count(vars));
-      assumptions.insert(vars);
-    } while (++search_ref);
-    CHECK_EQ(assumptions.size(), csp_size);
-  }
-}
-
-TEST_F(TestSearch, cartesian_search_split) {
-  int num_tests = 1000;
-  while (num_tests--) {
-    int size = util::random::sample(1, 5);
-    std::vector<std::vector<std::vector<Mini::Lit>>> csp(size);
-    uint64_t csp_size = 1;
-    for (size_t i = 0; i < size; ++i) {
-      // generate assumption set
-      int assump_size = util::random::sample<int>(0, 10);
-      int set_size =
-          std::min(1 << assump_size, util::random::sample<int>(1, 10));
-      csp_size *= set_size;
-      for (int j = 0; j < set_size; ++j) {
-        csp[i].push_back(gen_mv(assump_size, i, j));
-      }
-    }
-    auto search = domain::createCartesianSearch(csp);
-    std::set<std::vector<int>> assumptions;
-
-    for (int ns = 0; ns < 16; ++ns) {
-      auto split = search->split_search(16, ns);
-      auto& split_ref = *split;
-      if (split_ref.empty()) {
+      if (split->empty()) {
         break;
       }
-      do {
-        auto vars = get_vars(split_ref());
-        ASSERT_EQ(0, assumptions.count(vars));
-        assumptions.insert(vars);
-      } while (++split_ref);
-    }
+      ++total;
+      uniques.insert(to_std_vec((*split)()));
+    } while (++(*split));
+  }
+  int delta = std::abs((int) uniques.size() - (int) target_count);
+  ASSERT_LE(delta, max_delta);
+}
 
-    CHECK_EQ(assumptions.size(), csp_size);
+void test_full_search(int size) {
+  util::random::Generator gen(239);
+  domain::USearch assignment_p(
+      domain::createFullSearch(common::gen_unique_vars(size, MAX_VAR)));
+  test_assignment_full(
+      std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0);
+}
+
+void test_random_search(int size, int total) {
+  util::random::Generator gen(239);
+  bool unique = size <= 63;
+  uint32_t max_delta = unique ? 0 : std::max(1, total / 100);
+  domain::USearch assignment_p(domain::createRandomSearch(
+      common::gen_unique_vars(size, MAX_VAR), total));
+  test_assignment_full(std::move(assignment_p), total, max_delta);
+}
+
+void test_full_search_split(int size, int num_split) {
+  util::random::Generator gen(239);
+  domain::USearch assignment_p(
+      domain::createFullSearch(common::gen_unique_vars(size, MAX_VAR)));
+  test_assignment_split_search(
+      std::move(assignment_p), (uint32_t) std::pow(2UL, size), 0, num_split);
+}
+
+void test_random_search_split(long size, int total, int num_split) {
+  util::random::Generator gen(239);
+  bool unique = size <= 63;
+  uint32_t max_delta = unique ? 0 : std::max(1, total / 100);
+  domain::USearch assignment_p(domain::createRandomSearch(
+      common::gen_unique_vars(size, MAX_VAR), total));
+  test_assignment_split_search(
+      std::move(assignment_p), total, max_delta, num_split);
+}
+
+void test_cartesian_search(int num_prod) {
+  util::random::Generator gen(239);
+  int num_tests = 100;
+  while (num_tests--) {
+    auto [csp_size, csp] = gen_cartesian(num_prod, 10, 10);
+    auto search = domain::createCartesianSearch(csp);
+    test_assignment_full(std::move(search), csp_size, 0);
   }
 }
+
+void test_cartesian_search_split(int num_prod, int num_split) {
+  util::random::Generator gen(239);
+  int num_tests = 100;
+  while (num_tests--) {
+    auto [csp_size, csp] = gen_cartesian(num_prod, 10, 10);
+    auto search = domain::createCartesianSearch(csp);
+    test_assignment_split_search(
+        domain::createCartesianSearch(csp), csp_size, 0, num_split);
+  }
+}
+
+DEFINE_PARAMETRIZED_TEST(TestFullSearch, int);
+
+TEST_P(TestFullSearch, correctness) {
+  auto [size] = GetParam();
+  test_full_search(size);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    FullSearch, TestFullSearch,
+    ::testing::ValuesIn(common::to_tuple<int>({1, 2, 8, 16})));
+
+DEFINE_PARAMETRIZED_TEST(TestFullSearchSplit, int, int /* num split */);
+
+TEST_P(TestFullSearchSplit, correctness) {
+  auto [size, num_split] = GetParam();
+  test_full_search_split(size, num_split);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    FullSearchSplit, TestFullSearchSplit,
+    ::testing::ValuesIn(common::cross(
+        common::to_tuple<int>({1, 2, 8, 16}),
+        common::to_tuple<int>({1, 2, 8, 16}))));
+
+DEFINE_PARAMETRIZED_TEST(TestRandomSearch, int, int /* total */);
+
+TEST_P(TestRandomSearch, correctness) {
+  auto [size, total] = GetParam();
+  test_random_search(size, total);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    RandomSearch, TestRandomSearch,
+    ::testing::ValuesIn(std::vector<std::tuple<int, int>>{
+        {1, 2},
+        {2, 4},
+        {64, 10000},
+        {80, 5000},
+        {128, 65536},
+    }));
+
+DEFINE_PARAMETRIZED_TEST(
+    TestRandomSearchSplit, int, int /* total */, int /* num split*/);
+
+TEST_P(TestRandomSearchSplit, correctness) {
+  auto [size, total, num_split] = GetParam();
+  test_random_search_split(size, total, num_split);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    RandomSearchSplit, TestRandomSearchSplit,
+    ::testing::ValuesIn(std::vector<std::tuple<int, int, int>>{
+        {16, 5000, 2},
+        {16, 5000, 8},
+        {16, 5000, 16},
+    }));
+
+DEFINE_PARAMETRIZED_TEST(TestCartesianSearch, int /* num_prod */);
+
+TEST_P(TestCartesianSearch, correctness) {
+  auto [num_prod] = GetParam();
+  test_cartesian_search(num_prod);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    CartesianSearch, TestCartesianSearch,
+    ::testing::ValuesIn(common::to_tuple<int>({1, 3, 5})));
+
+DEFINE_PARAMETRIZED_TEST(
+    TestCartesianSearchSplit, int /* num_prod */, int /* num_split */);
+
+TEST_P(TestCartesianSearchSplit, correctness) {
+  auto [num_prod, num_split] = GetParam();
+  test_cartesian_search_split(num_prod, num_split);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    CartesianSearchSplit, TestCartesianSearchSplit,
+    ::testing::ValuesIn(common::cross(
+        common::to_tuple<int>({1, 3, 5}),
+        common::to_tuple<int>({1, 2, 8, 16}))));
