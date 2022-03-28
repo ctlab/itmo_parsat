@@ -1,0 +1,23 @@
+{
+  "solve_type": "RecurringReduceSolve",
+  "cpu_limit": @CL,
+  "random_seed": 1337,
+  "recurring_reduce_solve_config": {
+    "preprocess_config": {
+      "heuristic_size": 200
+    },
+    "max_solve_time_ms": 5000,
+    "max_recursion_depth": 2,
+    "prop_config": {
+      "prop_type": "ParProp",
+      "par_prop_config": {
+        "max_threads": @CL,
+        "prop_config": {
+          "prop_type": "SimpProp"
+        }
+      }
+    },
+    "solver_service_config": @SSC,
+    "rb_search_config": @RSC
+  }
+}

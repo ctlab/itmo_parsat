@@ -1,0 +1,84 @@
+\hypertarget{classcore_1_1solve_1_1RBSearch}{}\doxysection{core\+::solve\+::R\+B\+Search Class Reference}
+\label{classcore_1_1solve_1_1RBSearch}\index{core::solve::RBSearch@{core::solve::RBSearch}}
+
+
+Class used to reduce S\+AT problems to a set of independent tasks.  
+
+
+
+
+{\ttfamily \#include $<$R\+B\+Search.\+h$>$}
+
+
+
+Inheritance diagram for core\+::solve\+::R\+B\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1solve_1_1RBSearch__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_a3a226123351dce239838315886bdb3da}\label{classcore_1_1solve_1_1RBSearch_a3a226123351dce239838315886bdb3da}} 
+{\bfseries R\+B\+Search} (sat\+::prop\+::\+R\+Prop prop, ea\+::preprocess\+::\+R\+Preprocess preprocess)
+\item 
+virtual rbs\+\_\+result\+\_\+t \mbox{\hyperlink{classcore_1_1solve_1_1RBSearch_a4d4f5a36d7e0490afc7625f7d72b136d}{find\+\_\+rb}} ()=0
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_a205078ad68da38fdde26ce3ebe226e43}\label{classcore_1_1solve_1_1RBSearch_a205078ad68da38fdde26ce3ebe226e43}} 
+void \mbox{\hyperlink{classcore_1_1solve_1_1RBSearch_a205078ad68da38fdde26ce3ebe226e43}{interrupt}} ()
+\begin{DoxyCompactList}\small\item\em Interrupts the search. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_ab64043299212feda7630cc7c91166156}\label{classcore_1_1solve_1_1RBSearch_ab64043299212feda7630cc7c91166156}} 
+bool {\bfseries \+\_\+is\+\_\+interrupted} () const noexcept
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_a7d79b0b9a148b11640d042b883efff91}\label{classcore_1_1solve_1_1RBSearch_a7d79b0b9a148b11640d042b883efff91}} 
+virtual void {\bfseries \+\_\+interrupt\+\_\+impl} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_afcb6254c8ee3b9c3c0e6ec23f0d4a32b}\label{classcore_1_1solve_1_1RBSearch_afcb6254c8ee3b9c3c0e6ec23f0d4a32b}} 
+{\footnotesize template$<$typename T $>$ }\\static void {\bfseries \+\_\+interrupt} (std\+::shared\+\_\+ptr$<$ T $>$ shp)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_ab711664388d90492c6e6a33256c2581d}\label{classcore_1_1solve_1_1RBSearch_ab711664388d90492c6e6a33256c2581d}} 
+bool {\bfseries \+\_\+interrupted} = false
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_aca78d515fd0b10b07fee4797d51367fa}\label{classcore_1_1solve_1_1RBSearch_aca78d515fd0b10b07fee4797d51367fa}} 
+sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_aa1200cfdcd4f5412c6f8db4fa56fe2cf}\label{classcore_1_1solve_1_1RBSearch_aa1200cfdcd4f5412c6f8db4fa56fe2cf}} 
+ea\+::preprocess\+::\+R\+Preprocess {\bfseries \+\_\+preprocess}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class used to reduce S\+AT problems to a set of independent tasks. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1RBSearch_a4d4f5a36d7e0490afc7625f7d72b136d}\label{classcore_1_1solve_1_1RBSearch_a4d4f5a36d7e0490afc7625f7d72b136d}} 
+\index{core::solve::RBSearch@{core::solve::RBSearch}!find\_rb@{find\_rb}}
+\index{find\_rb@{find\_rb}!core::solve::RBSearch@{core::solve::RBSearch}}
+\doxysubsubsection{\texorpdfstring{find\_rb()}{find\_rb()}}
+{\footnotesize\ttfamily virtual rbs\+\_\+result\+\_\+t core\+::solve\+::\+R\+B\+Search\+::find\+\_\+rb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\begin{DoxyReturn}{Returns}
+either the reason of abortion or the search space. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1solve_1_1CartesianRBSearch_a319d8b5cc51cc0ea64803463b4043f01}{core\+::solve\+::\+Cartesian\+R\+B\+Search}}, and \mbox{\hyperlink{classcore_1_1solve_1_1OneRBSearch_a13a6f89ecfb98983bd6eebe04db8cd58}{core\+::solve\+::\+One\+R\+B\+Search}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/rbs/R\+B\+Search.\+h\item 
+core/solve/rbs/R\+B\+Search.\+cpp\end{DoxyCompactItemize}

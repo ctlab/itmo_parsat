@@ -2,7 +2,7 @@
 #define ITMO_PARSAT_LAUNCHINFO_H
 
 #include "infra/domain/LaunchesDao.h"
-#include "infra/testing/TestingConfiguration.h"
+#include "infra/fixture/TestingConfiguration.h"
 #include "infra/domain/LaunchConfig.h"
 #include "util/CliConfig.h"
 
@@ -10,7 +10,7 @@ namespace infra::domain {
 
 class LaunchInfo {
  public:
-  explicit LaunchInfo(testing::TestingConfiguration testing_config);
+  explicit LaunchInfo(fixture::TestingConfiguration testing_config);
 
   bool should_be_launched(LaunchConfig const& config);
 
@@ -24,10 +24,12 @@ class LaunchInfo {
 
   static infra::domain::SatResult get_sat_result(LaunchConfig const& config);
 
+  static uint32_t get_threads_required(std::filesystem::path const& solve_config);
+
   void add(LaunchObject const& object);
 
  private:
-  testing::TestingConfiguration _t_config;
+  fixture::TestingConfiguration _t_config;
   std::optional<LaunchesDao> _dao;
 };
 

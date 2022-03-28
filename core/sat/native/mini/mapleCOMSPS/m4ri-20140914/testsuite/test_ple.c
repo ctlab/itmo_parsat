@@ -52,7 +52,7 @@ int check_pluq(mzd_t *A, rci_t *r) {
 }
 
 int test_pluq_full_rank (rci_t m, rci_t n){
-  printf("pluq: testing full rank m: %5d, n: %5d", m, n);
+  printf("pluq: fixture full rank m: %5d, n: %5d", m, n);
 
   mzd_t* U  = mzd_init(m,n);
   mzd_t* L  = mzd_init(m,m);
@@ -115,7 +115,7 @@ int test_pluq_full_rank (rci_t m, rci_t n){
 }
 
 int test_pluq_half_rank(rci_t m, rci_t n) {
-  printf("pluq: testing half rank m: %5d, n: %5d", m, n);
+  printf("pluq: fixture half rank m: %5d, n: %5d", m, n);
 
   mzd_t* U = mzd_init(m, n);
   mzd_t* L = mzd_init(m, m);
@@ -191,7 +191,7 @@ int test_pluq_half_rank(rci_t m, rci_t n) {
 
 int test_pluq_structured(rci_t m, rci_t n) {
 
-  printf("pluq: testing structured m: %5d, n: %5d", m, n);
+  printf("pluq: fixture structured m: %5d, n: %5d", m, n);
 
   mzd_t* A = mzd_init(m, n);
   mzd_t* L = mzd_init(m, m);
@@ -214,7 +214,7 @@ int test_pluq_structured(rci_t m, rci_t n) {
 }
 
 int test_pluq_random(rci_t m, rci_t n) {
-  printf("pluq: testing random m: %5d, n: %5d", m, n);
+  printf("pluq: fixture random m: %5d, n: %5d", m, n);
 
   mzd_t* A = mzd_init(m, n);
   mzd_randomize(A);
@@ -232,7 +232,7 @@ int test_pluq_random(rci_t m, rci_t n) {
 }
 
 int test_pluq_string(rci_t m, rci_t n, const char *str) {
-  printf("pluq: testing string m: %5d, n: %5d", m, n);
+  printf("pluq: fixture string m: %5d, n: %5d", m, n);
   
   
   mzd_t *A = mzd_from_str(m, n, str);

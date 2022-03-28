@@ -1157,16 +1157,16 @@ testsuite/test_smallops-test_smallops.obj: testsuite/test_smallops.c
 testsuite/test_smallops-testing.o: testsuite/testing.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -MT testsuite/test_smallops-testing.o -MD -MP -MF testsuite/$(DEPDIR)/test_smallops-testing.Tpo -c -o testsuite/test_smallops-testing.o `test -f 'testsuite/testing.c' || echo '$(srcdir)/'`testsuite/testing.c
 	$(AM_V_at)$(am__mv) testsuite/$(DEPDIR)/test_smallops-testing.Tpo testsuite/$(DEPDIR)/test_smallops-testing.Po
-#	$(AM_V_CC)source='testsuite/testing.c' object='testsuite/test_smallops-testing.o' libtool=no \
+#	$(AM_V_CC)source='testsuite/fixture.c' object='testsuite/test_smallops-fixture.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-testing.o `test -f 'testsuite/testing.c' || echo '$(srcdir)/'`testsuite/testing.c
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-fixture.o `test -f 'testsuite/fixture.c' || echo '$(srcdir)/'`testsuite/fixture.c
 
 testsuite/test_smallops-testing.obj: testsuite/testing.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -MT testsuite/test_smallops-testing.obj -MD -MP -MF testsuite/$(DEPDIR)/test_smallops-testing.Tpo -c -o testsuite/test_smallops-testing.obj `if test -f 'testsuite/testing.c'; then $(CYGPATH_W) 'testsuite/testing.c'; else $(CYGPATH_W) '$(srcdir)/testsuite/testing.c'; fi`
 	$(AM_V_at)$(am__mv) testsuite/$(DEPDIR)/test_smallops-testing.Tpo testsuite/$(DEPDIR)/test_smallops-testing.Po
-#	$(AM_V_CC)source='testsuite/testing.c' object='testsuite/test_smallops-testing.obj' libtool=no \
+#	$(AM_V_CC)source='testsuite/fixture.c' object='testsuite/test_smallops-fixture.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-testing.obj `if test -f 'testsuite/testing.c'; then $(CYGPATH_W) 'testsuite/testing.c'; else $(CYGPATH_W) '$(srcdir)/testsuite/testing.c'; fi`
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-fixture.obj `if test -f 'testsuite/fixture.c'; then $(CYGPATH_W) 'testsuite/fixture.c'; else $(CYGPATH_W) '$(srcdir)/testsuite/fixture.c'; fi`
 
 testsuite/test_solve-test_solve.o: testsuite/test_solve.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_solve_CFLAGS) $(CFLAGS) -MT testsuite/test_solve-test_solve.o -MD -MP -MF testsuite/$(DEPDIR)/test_solve-test_solve.Tpo -c -o testsuite/test_solve-test_solve.o `test -f 'testsuite/test_solve.c' || echo '$(srcdir)/'`testsuite/test_solve.c

@@ -1,10 +1,11 @@
 #include "infra/domain/LaunchInfo.h"
+#include "core/proto/solve_config.pb.h"
 
 #include <utility>
 
 namespace infra::domain {
 
-LaunchInfo::LaunchInfo(testing::TestingConfiguration testing_config)
+LaunchInfo::LaunchInfo(fixture::TestingConfiguration testing_config)
     : _t_config(std::move(testing_config)) {
   if (_t_config.save || _t_config.lookup) {
     _dao.emplace(_t_config.pg_host);
@@ -76,6 +77,13 @@ std::optional<uint32_t> LaunchInfo::check_if_test_is_done(
   launch.branch = _t_config.branch;
   launch.commit_hash = _t_config.commit;
   return _dao->get_launch_id(launch);
+}
+
+uint32_t LaunchInfo::get_threads_required(
+    std::filesystem::path const& solve_config) {
+  SolveConfig slv_cfg;
+  util::CliConfig::read_config(solve_config, slv_cfg);
+  return slv_cfg.cpu_limit();
 }
 
 void LaunchInfo::add(const LaunchObject& object) {

@@ -146,35 +146,45 @@ message AlgorithmConfig {
   GAAlgorithmConfig ga_algorithm_config = 4;
 }
 
+/// Rho-backdoor search configuration
+
+message OneRBSearchConfig {
+  AlgorithmConfig algorithm_config = 2;
+}
+
+message CartesianRBSearchConfig {
+  repeated AlgorithmConfig algorithm_configs = 2;
+  uint32 num_algorithms = 3;
+  uint32 max_unpropagated = 4;
+  uint32 max_cartesian_size = 5;
+}
+
+message RBSearchConfig {
+  string rb_search_type = 1;
+  OneRBSearchConfig one_rb_search_config = 2;
+  CartesianRBSearchConfig cartesian_rb_search_config = 3;
+}
+
 /// Solve configuration
 
 message NaiveSolveConfig {
   SolverConfig solver_config = 1;
 }
 
-message RBSSolveConfig {
+message SingleReduceSolveConfig {
   PreprocessConfig preprocess_config = 1;
-  AlgorithmConfig algorithm_config = 2;
+  RBSearchConfig rb_search_config = 2;
   PropConfig prop_config = 3;
   SolverServiceConfig solver_service_config = 4;
 }
 
-message ParRBSSolveConfig {
+message RecurringReduceSolveConfig {
   PreprocessConfig preprocess_config = 1;
-  repeated AlgorithmConfig algorithm_configs = 2;
-  uint32 num_algorithms = 3;
-  uint32 max_unpropagated = 4;
-  uint32 max_cartesian_size = 5;
-  PropConfig prop_config = 6;
-  SolverServiceConfig solver_service_config = 7;
-}
-
-message RecurringRBSSolveConfig {
-  PreprocessConfig preprocess_config = 1;
-  AlgorithmConfig algorithm_config = 2;
+  RBSearchConfig rb_search_config = 2;
   uint32 max_solve_time_ms = 3;
-  PropConfig prop_config = 4;
-  SolverServiceConfig solver_service_config = 5;
+  uint32 max_recursion_depth = 4;
+  PropConfig prop_config = 5;
+  SolverServiceConfig solver_service_config = 6;
 }
 
 message SolveConfig {
@@ -182,7 +192,6 @@ message SolveConfig {
   uint32 cpu_limit = 2;
   uint32 random_seed = 3;
   NaiveSolveConfig naive_solve_config = 4;
-  RBSSolveConfig rbs_solve_config = 5;
-  ParRBSSolveConfig par_rbs_solve_config = 6;
-  RecurringRBSSolveConfig recurring_rbs_solve_config = 7;
+  SingleReduceSolveConfig single_reduce_solve_config = 5;
+  RecurringReduceSolveConfig recurring_reduce_solve_config = 6;
 }

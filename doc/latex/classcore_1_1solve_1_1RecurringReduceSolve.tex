@@ -1,0 +1,63 @@
+\hypertarget{classcore_1_1solve_1_1RecurringReduceSolve}{}\doxysection{core\+::solve\+::Recurring\+Reduce\+Solve Class Reference}
+\label{classcore_1_1solve_1_1RecurringReduceSolve}\index{core::solve::RecurringReduceSolve@{core::solve::RecurringReduceSolve}}
+
+
+This implementation acts as follows\+:  
+
+
+
+
+{\ttfamily \#include $<$Recurring\+Reduce\+Solve.\+h$>$}
+
+
+
+Inheritance diagram for core\+::solve\+::Recurring\+Reduce\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classcore_1_1solve_1_1RecurringReduceSolve__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::solve\+::Recurring\+Reduce\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classcore_1_1solve_1_1RecurringReduceSolve__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RecurringReduceSolve_ac30c710e8825d1f79768746c737843b1}\label{classcore_1_1solve_1_1RecurringReduceSolve_ac30c710e8825d1f79768746c737843b1}} 
+{\bfseries Recurring\+Reduce\+Solve} (Recurring\+Reduce\+Solve\+Config config)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RecurringReduceSolve_ab1602590f0c8fb43f9bd2c8135ccf931}\label{classcore_1_1solve_1_1RecurringReduceSolve_ab1602590f0c8fb43f9bd2c8135ccf931}} 
+sat\+::\+State {\bfseries \+\_\+solve\+\_\+impl} (ea\+::preprocess\+::\+R\+Preprocess const \&preprocess) override
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1RecurringReduceSolve_abab53c52bbb6560e5c743ceed74a1cf3}\label{classcore_1_1solve_1_1RecurringReduceSolve_abab53c52bbb6560e5c743ceed74a1cf3}} 
+void {\bfseries \+\_\+interrupt\+\_\+impl} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This implementation acts as follows\+: 
+
+
+\begin{DoxyItemize}
+\item Given base assumptions, reduce the current task to a set of tasks.
+\item In the resulting set of tasks, solve ones that can be solved fast enough.
+\item The rest of problems are put into stack and processed in the same manner. 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/reduce/Recurring\+Reduce\+Solve.\+h\item 
+core/solve/reduce/Recurring\+Reduce\+Solve.\+cpp\end{DoxyCompactItemize}

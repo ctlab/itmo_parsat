@@ -1,20 +1,15 @@
-# Description: launch under-10 min (partition 1) tests on performance configurations.
-# Configurations included:
-#   - simppar_parrbs
-#   - simppar_rbs
-#   - painless
-#   - painless_rbs
-#   - painless_parrbs
-#   - simppar_recurring
-#   - painless_recurring
+# Description: 32-cpu tests
+# Size: enormous(unlim).
+# Purpose: performance evaluation.
 
 concurrency = 32
-time-limit = 600
-unsat-only = true
-allow-unspecified-size = true
+time_limit = 600
+unsat_only = true
+allow_unspecified_size = true
 size = 3
 lookup = true
 save = true
-test-groups = main-21-u10m-p1
-test-groups = main-21-u10m-p2
-gtest-opts = --gtest_filter=*simppar_rbs_test*:*simppar_parrbs_test*:*painless_test*:*painless_rbs_test*:*painless_parrbs_test*
+description = 32 cpu perf tests
+test_groups = main-21-u10m-p1
+test_groups = main-21-u10m-p2
+gtest_opts = --gtest_filter=*TestAll32CPU*

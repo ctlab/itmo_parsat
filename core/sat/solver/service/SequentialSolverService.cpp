@@ -36,9 +36,9 @@ std::future<State> SequentialSolverService::solve(
       [this, assumptions, time_limit](auto& solver) {
         if (time_limit == DUR_INDEF) {
           return IPS_TRACE_N_V(
-              "SequentialSolverService::solve", solver.solve(assumptions));
+              "SeqSolverService::solve", solver.solve(assumptions));
         } else {
-          return IPS_TRACE_N_V("SequentialSolverService::solve_time_limit",
+          return IPS_TRACE_N_V("SeqSolverService::solve_tl",
                                _timer.launch(
                                    [&] { return solver.solve(assumptions); },
                                    [&] { solver.interrupt(); }, time_limit););

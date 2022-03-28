@@ -16,7 +16,6 @@ void working_thread(
   util::random::Generator gen(1337);
   Minisat::SimpSolver base_simp_solver;
   common::load_problem(base_simp_solver, problem);
-  uint64_t count = 0, tle = 0;
   common::iter_assumptions(
       [&](auto const& assumption) {
         duration tl = time_limit
@@ -34,8 +33,6 @@ void working_thread(
               base_simp_solver.solveLimited(assumption, false, true));
         }
         ASSERT_EQ(expected, actual);
-        ++count;
-        tle += actual == core::sat::UNKNOWN;
       },
       0, 20, base_simp_solver.nVars() - 1, num_tests);
 }
@@ -87,7 +84,7 @@ INSTANTIATE_TEST_CASE_P(
             common::to_tuple(common::small_inputs),
             common::to_tuple<bool>({false, true})),  // eliminate
         common::to_tuple<int>({16}),                 // num workers
-        common::to_tuple<int>({200}),                // num tests
+        common::to_tuple<int>({1000}),               // num tests
         common::to_tuple<bool>({false}))));          // time_limit
 
 INSTANTIATE_TEST_CASE_P(

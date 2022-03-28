@@ -111,24 +111,24 @@ static void BM_tree_par_16_minisat(benchmark::State& state) {
 BENCHMARK(BM_full_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, N_INPUTS - 1, 1)});
+         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
 
 BENCHMARK(BM_full_minisat_dummy)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, N_INPUTS - 1, 1)});
+         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
 
 BENCHMARK(BM_full_par_16_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, N_INPUTS - 1, 1)});
+         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
 
 BENCHMARK(BM_tree_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, N_INPUTS - 1, 1)});
+         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
 
 BENCHMARK(BM_tree_par_16_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, N_INPUTS - 1, 1)});
+         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});

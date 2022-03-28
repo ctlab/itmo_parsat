@@ -4,10 +4,10 @@ namespace core::solve {
 
 void Solve::interrupt() {
   _interrupted = true;
-  if (_do_interrupt) {
-    _do_interrupt();
-  }
+  _interrupt_impl();
 }
+
+void Solve::_interrupt_impl() {}
 
 bool Solve::_is_interrupted() const noexcept {
   return _interrupted;

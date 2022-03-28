@@ -20,27 +20,39 @@ class Solve {
  public:
   Solve() = default;
 
+  virtual ~Solve() = default;
+
   /**
-   * @brief This method solves SAT. For now, it is expected to be called only once
-   * per object lifetime.
+   * @brief This method solves SAT. For now, it is expected to be called only
+   * once per object lifetime.
    * @param input path to gz archive with task description
    * @return result of the solution
    */
   [[nodiscard]] virtual sat::State solve(sat::Problem const& problem) = 0;
 
-  virtual ~Solve() = default;
-
+  /**
+   * @brief Interrupts solving.
+   */
   void interrupt();
 
  protected:
-  [[nodiscard]] static sat::solver::RSolver _resolve_solver(SolverConfig const& config);
+  [[nodiscard]] static sat::solver::RSolver _resolve_solver(
+      SolverConfig const& config);
 
- protected:
   [[nodiscard]] bool _is_interrupted() const noexcept;
 
+  template <typename T>
+  static void _interrupt(std::shared_ptr<T> shp) {
+    if (shp != nullptr) {
+      shp->interrupt();
+    }
+  }
+
  protected:
-  std::function<void()> _do_interrupt;
-  std::atomic_bool _interrupted{false};
+  virtual void _interrupt_impl() = 0;
+
+ private:
+  bool _interrupted = false;
 };
 
 MAKE_REFS(Solve);

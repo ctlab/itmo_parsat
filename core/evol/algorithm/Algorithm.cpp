@@ -4,19 +4,6 @@
 #include "util/stream.h"
 #include "core/proto/solve_config.pb.h"
 
-namespace {
-
-void collect_stats(
-    ::core::sat::prop::Prop& prop, Mini::vec<Mini::Lit> const& assumptions,
-    Mini::vec<Mini::Lit>& propagated, std::set<int>& collection) {
-  (void) prop.propagate(assumptions, propagated);
-  for (int j = 0; j < propagated.size(); ++j) {
-    collection.insert(var(propagated[(int) j]));
-  }
-}
-
-}  // namespace
-
 namespace ea::algorithm {
 
 void Algorithm::_init_shared_data(InstanceConfig const& config) {

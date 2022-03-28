@@ -17,6 +17,8 @@ class CliConfig {
  public:
   CliConfig();
 
+  ~CliConfig() noexcept;
+
   /**
    * @param options options to be added.
    */
@@ -63,6 +65,11 @@ class CliConfig {
    * @param message the message to be filled.
    */
   static void read_config(std::filesystem::path const& path, google::protobuf::Message& message);
+
+  /**
+   * @return The registered CliConfig instance.
+   */
+  static CliConfig& instance() noexcept;
 
  private:
   boost::program_options::variables_map vm_;

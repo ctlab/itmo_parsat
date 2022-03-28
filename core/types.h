@@ -8,6 +8,8 @@
 
 namespace core {
 
+typedef std::vector<int> vars_set_t;
+
 typedef std::vector<bool> bit_mask_t;
 
 typedef Mini::vec<Mini::Lit> lit_vec_t;

@@ -1,0 +1,6 @@
+{
+    "rb_search_type": "OneRBSearch",
+    "one_rb_search_config": {
+        "algorithm_config": @AC
+    }
+}

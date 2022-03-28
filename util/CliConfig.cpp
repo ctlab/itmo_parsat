@@ -1,15 +1,27 @@
 #include "CliConfig.h"
 
+namespace {
+
+::util::CliConfig* _instance = nullptr;
+
+}  // namespace
+
 namespace util {
 
 namespace po = boost::program_options;
 
 CliConfig::CliConfig() {
+  IPS_VERIFY(_instance == nullptr && bool("CliConfig already exists."));
   // clang-format off
   desc_.add_options()
       ("help,h", po::bool_switch()->default_value(false), "Display help message")
       ("config", po::value<std::filesystem::path>(), "Configuration file");
   // clang-format on
+  _instance = this;
+}
+
+CliConfig::~CliConfig() noexcept {
+  _instance = nullptr;
 }
 
 void CliConfig::add_options(const po::options_description& options) {
@@ -59,6 +71,12 @@ void CliConfig::read_config(
     std::filesystem::path const& path, google::protobuf::Message& message) {
   std::ifstream ifs(path);
   read_config(ifs, message);
+}
+
+CliConfig& CliConfig::instance() noexcept {
+  IPS_VERIFY(
+      _instance != nullptr && bool("CliConfig has not been registered."));
+  return *_instance;
 }
 
 }  // namespace util

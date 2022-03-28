@@ -9,7 +9,7 @@
 namespace core::solve {
 
 /**
- * @brief Naively solves SAT using the specified solver.
+ * @brief Uses the specified native solver to solve the problem.
  */
 class NaiveSolve : public Solve {
  public:
@@ -17,7 +17,11 @@ class NaiveSolve : public Solve {
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
+ protected:
+  void _interrupt_impl() override;
+
  private:
+  sat::solver::RSolver _solver;
   NaiveSolveConfig _cfg;
 };
 

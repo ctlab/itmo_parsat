@@ -1,0 +1,101 @@
+\hypertarget{classcore_1_1solve_1_1ReduceSolve}{}\doxysection{core\+::solve\+::Reduce\+Solve Class Reference}
+\label{classcore_1_1solve_1_1ReduceSolve}\index{core::solve::ReduceSolve@{core::solve::ReduceSolve}}
+
+
+The base class for all algorithms that use rho-\/backdoor search reduction.  
+
+
+
+
+{\ttfamily \#include $<$Reduce\+Solve.\+h$>$}
+
+
+
+Inheritance diagram for core\+::solve\+::Reduce\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1solve_1_1ReduceSolve__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::solve\+::Reduce\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{classcore_1_1solve_1_1ReduceSolve__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a02df3de3a13da4d53856548e7f32553e}\label{classcore_1_1solve_1_1ReduceSolve_a02df3de3a13da4d53856548e7f32553e}} 
+{\bfseries Reduce\+Solve} (Preprocess\+Config const \&preprocess\+\_\+config, Prop\+Config const \&prop\+\_\+config, Solver\+Service\+Config const \&solver\+\_\+service\+\_\+config)
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a4edb8036d18b1541ff63b88344b64acf}\label{classcore_1_1solve_1_1ReduceSolve_a4edb8036d18b1541ff63b88344b64acf}} 
+std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ {\bfseries \+\_\+filter\+\_\+conflict} (domain\+::\+U\+Search assignment)
+\item 
+sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) final
+\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_ad11d4f92227bf4b35964eb6b1caca43b}\label{classcore_1_1solve_1_1ReduceSolve_ad11d4f92227bf4b35964eb6b1caca43b}} 
+sat\+::\+State {\bfseries \+\_\+solve\+\_\+final} (std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ const \&assumptions\+\_\+v)
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a08c9fbe7a5136eaf5bf89a63b9baf7c1}\label{classcore_1_1solve_1_1ReduceSolve_a08c9fbe7a5136eaf5bf89a63b9baf7c1}} 
+virtual sat\+::\+State {\bfseries \+\_\+solve\+\_\+impl} (ea\+::preprocess\+::\+R\+Preprocess const \&preprocess)=0
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a8d3a7f70d6cbfff631f1547acbd0766a}\label{classcore_1_1solve_1_1ReduceSolve_a8d3a7f70d6cbfff631f1547acbd0766a}} 
+void {\bfseries \+\_\+interrupt\+\_\+impl} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a653511f810da733c5b324a8f4dc73037}\label{classcore_1_1solve_1_1ReduceSolve_a653511f810da733c5b324a8f4dc73037}} 
+ea\+::preprocess\+::\+R\+Preprocess {\bfseries \+\_\+preprocess}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a33eb0cfeb706027cc4fa68343dc2ddda}\label{classcore_1_1solve_1_1ReduceSolve_a33eb0cfeb706027cc4fa68343dc2ddda}} 
+sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a8b359835bb4ea58d875fd153f1d18dae}\label{classcore_1_1solve_1_1ReduceSolve_a8b359835bb4ea58d875fd153f1d18dae}} 
+sat\+::solver\+::\+R\+Solver\+Service {\bfseries \+\_\+solver\+\_\+service}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The base class for all algorithms that use rho-\/backdoor search reduction. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}\label{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}} 
+\index{core::solve::ReduceSolve@{core::solve::ReduceSolve}!solve@{solve}}
+\index{solve@{solve}!core::solve::ReduceSolve@{core::solve::ReduceSolve}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily sat\+::\+State core\+::solve\+::\+Reduce\+Solve\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+This method solves S\+AT. For now, it is expected to be called only once per object lifetime. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & path to gz archive with task description \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of the solution 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1Solve_aaa0c64ccf2aae8d9edb555ee603abda8}{core\+::solve\+::\+Solve}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/reduce/Reduce\+Solve.\+h\item 
+core/solve/reduce/Reduce\+Solve.\+cpp\end{DoxyCompactItemize}

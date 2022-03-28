@@ -4,7 +4,7 @@ file(GLOB _EVOL_SRC
         "evol/limit/*" "evol/method/cross/*"
         "evol/method/mutate/*" "evol/method/select/*" "evol/method/preprocess/*"
 )
-file(GLOB _SOLVE_SRC "solve/*")
+file(GLOB _SOLVE_SRC "solve/*" "solve/rbs/*" "solve/reduce/*")
 file(GLOB _PROP_SRC "sat/prop/*")
 file(GLOB _SOLVER_SRC "sat/solver/*" "sat/solver/sequential/*" "sat/solver/service/*" "sat/SimpBase.*" "sat/Problem.*")
 

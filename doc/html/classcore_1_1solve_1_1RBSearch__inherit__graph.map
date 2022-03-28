@@ -1,0 +1,5 @@
+<map id="core::solve::RBSearch" name="core::solve::RBSearch">
+<area shape="rect" id="node1" title="Class used to reduce SAT problems to a set of independent tasks." alt="" coords="153,5,315,32"/>
+<area shape="rect" id="node2" href="$classcore_1_1solve_1_1CartesianRBSearch.html" title="Searches for multiple rho&#45;backdoors with the specified parameters and then performs cartesian product..." alt="" coords="5,80,231,107"/>
+<area shape="rect" id="node3" href="$classcore_1_1solve_1_1OneRBSearch.html" title="Searches for rho&#45;backdoor with the specified parameters." alt="" coords="255,80,445,107"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="core::solve::OneRBSearch" name="core::solve::OneRBSearch">
+<area shape="rect" id="node1" title="Searches for rho&#45;backdoor with the specified parameters." alt="" coords="5,80,195,107"/>
+<area shape="rect" id="node2" href="$classcore_1_1solve_1_1RBSearch.html" title="Class used to reduce SAT problems to a set of independent tasks." alt="" coords="19,5,181,32"/>
+</map>

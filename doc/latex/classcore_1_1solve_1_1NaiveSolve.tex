@@ -2,7 +2,7 @@
 \label{classcore_1_1solve_1_1NaiveSolve}\index{core::solve::NaiveSolve@{core::solve::NaiveSolve}}
 
 
-Naively solves S\+AT using the specified solver.  
+Uses the specified native solver to solve the problem.  
 
 
 
@@ -37,11 +37,17 @@ Collaboration diagram for core\+::solve\+::Naive\+Solve\+:
 \item 
 sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1NaiveSolve_a33cd0e5ddb604a176c956617dfb3b1b0}\label{classcore_1_1solve_1_1NaiveSolve_a33cd0e5ddb604a176c956617dfb3b1b0}} 
+void {\bfseries \+\_\+interrupt\+\_\+impl} () override
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
-Naively solves S\+AT using the specified solver. 
+Uses the specified native solver to solve the problem. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}\label{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}} 

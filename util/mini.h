@@ -1,7 +1,10 @@
 #ifndef ITMO_PARSAT_MINI_H
 #define ITMO_PARSAT_MINI_H
 
+#include <unordered_set>
+
 #include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/mini/utils/Lit.h"
 
 namespace util {
 
@@ -13,6 +16,11 @@ Mini::vec<T> concat(Mini::vec<T> a, Mini::vec<T> const& b) {
   }
   return a;
 }
+
+Mini::vec<Mini::Lit> concat_unique_vars(
+    Mini::vec<Mini::Lit> a, Mini::vec<Mini::Lit> const& b);
+
+Mini::vec<Mini::Lit> filter(Mini::vec<Mini::Lit> const& a);
 
 }  // namespace util
 

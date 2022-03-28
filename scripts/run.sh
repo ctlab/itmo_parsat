@@ -132,10 +132,10 @@ function do_infra() {
     $RUN_CMD $INFRA_BIN \
         --branch $(git status | grep branch | awk '{print $3}') \
         --commit $(git rev-parse --verify HEAD) \
-        --resources-dir $RESOURCES_DIR \
-        --working-dir $INFRA_DIR \
+        --resources_dir $RESOURCES_DIR \
+        --working_dir $INFRA_DIR \
         --exec $SOLVE_BIN \
-        --pg-host $PSQL_HOST $@
+        --pg_host $PSQL_HOST $@
 }
 
 function do_solve() {

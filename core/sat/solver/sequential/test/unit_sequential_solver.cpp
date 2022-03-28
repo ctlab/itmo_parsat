@@ -27,7 +27,7 @@ void test_solver(
         auto actual = solver->solve(assumption);
         ASSERT_EQ(expected, actual);
       },
-      0, 20, base_simp_solver.nVars() - 1, 1000);
+      0, 20, base_simp_solver.nVars() - 1, 16000);
 }
 
 DEFINE_PARAMETRIZED_TEST(
@@ -46,7 +46,7 @@ TEST_P(TestSequentialSolver, correctness) {
 
 INSTANTIATE_TEST_CASE_P(
     TestSequentialSolver, TestSequentialSolver,
-    ::testing::ValuesIn(common::extend(common::cross(
+    ::testing::ValuesIn(common::cross(
         common::to_tuple(solver_configs),
         common::to_tuple(common::small_inputs),
-        common::to_tuple<bool>({false, true})))));
+        common::to_tuple<bool>({false, true}))));

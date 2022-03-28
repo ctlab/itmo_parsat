@@ -1,0 +1,11 @@
+{
+    "rb_search_type": "CartesianRBSearch",
+    "cartesian_rb_search_config": {
+        "max_unpropagated": 100,
+        "max_cartesian_size": 1000000,
+        "num_algorithms": @NA,
+        "algorithm_configs": [
+            @AC
+        ]
+    }
+}

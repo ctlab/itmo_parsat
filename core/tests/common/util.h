@@ -6,10 +6,28 @@
 
 #include "core/tests/common/get.h"
 
+template <typename TupType, size_t... I>
+std::ostream& print_tuple(
+    std::ostream& os, TupType const& tuple, std::index_sequence<I...>) {
+  os << "(";
+  (..., (os << (I == 0 ? "" : ", ") << std::get<I>(tuple)));
+  return os << ")";
+}
+
+template <class... T>
+std::ostream& operator<<(std::ostream& os, std::tuple<T...> const& tuple) {
+  return print_tuple(os, tuple, std::make_index_sequence<sizeof...(T)>());
+}
+
 namespace common {
 
-#define DEFINE_PARAMETRIZED_TEST(NAME, ...) \
-  class NAME : public ::testing::TestWithParam<std::tuple<__VA_ARGS__>> {}
+#define DEFINE_PARAMETRIZED_TEST(NAME, ...)                               \
+  class NAME : public ::testing::TestWithParam<std::tuple<__VA_ARGS__>> { \
+   protected:                                                             \
+    void SetUp() override {                                               \
+      std::cerr << std::boolalpha << GetParam() << std::endl;             \
+    }                                                                     \
+  }
 
 core::sat::State to_state(Minisat::lbool b);
 

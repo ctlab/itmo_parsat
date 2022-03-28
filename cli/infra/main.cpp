@@ -4,7 +4,7 @@
 #include <boost/program_options.hpp>
 
 #include "util/CliConfig.h"
-#include "infra/testing/LaunchFixture.h"
+#include "infra/fixture/LaunchFixture.h"
 
 util::CliConfig parse_args(int argc, char** argv) {
   namespace po = boost::program_options;
@@ -12,21 +12,23 @@ util::CliConfig parse_args(int argc, char** argv) {
   // clang-format off
   options.add_options()
     ("concurrency,j", po::value<uint32_t>()->default_value(std::thread::hardware_concurrency()), "Max concurrency")
-    ("time-limit", po::value<uint64_t>()->default_value(UINT64_MAX), "Time limit in seconds")
-    ("branch", po::value<std::string>()->default_value("")->required(), "The current branch")
-    ("commit", po::value<std::string>()->default_value("")->required(), "The current commit")
-    ("pg-host", po::value<std::string>()->default_value("localhost"), "The host running DB")
-    ("unsat-only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
-    ("repeat-each", po::value<int>()->default_value(1), "Repeat each test")
-    ("allow-unspecified-size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
+    ("time_limit", po::value<uint64_t>()->default_value(UINT64_MAX), "Time limit in seconds")
+    ("branch", po::value<std::string>()->required(), "The current branch")
+    ("commit", po::value<std::string>()->required(), "The current commit")
+    ("description", po::value<std::string>()->default_value(""), "The description of the test")
+    ("pg_host", po::value<std::string>()->default_value("localhost"), "The host running DB")
+    ("unsat_only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
+    ("fail_on_tle", po::bool_switch()->default_value(false), "Whether to fail if TLE happens")
+    ("repeat_each", po::value<int>()->default_value(1), "Repeat each test")
+    ("allow_unspecified_size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
     ("lookup", po::bool_switch()->default_value(false), "Skip tests that are already done")
-    ("size", po::value<int>()->default_value(0), "Tests size (from 0 to 2)")
+    ("size", po::value<int>()->default_value(0), "Tests size (the greater the larger)")
     ("save", po::bool_switch()->default_value(false), "Whether to save results to DB")
-    ("resources-dir,r", po::value<std::filesystem::path>()->required(), "Directory with config/ and cnf/ subdirectories")
-    ("working-dir,w", po::value<std::filesystem::path>()->required(), "Testing working dir")
-    ("exec,e", po::value<std::filesystem::path>()->required(), "Executable path")
-    ("test-groups", po::value<std::vector<std::string>>()->multitoken()->default_value({}, "[]"), "Enabled test groups (directories in cnf/)")
-    ("gtest-opts", po::value<std::vector<std::string>>()->multitoken(), "GTest options");
+    ("resources_dir,r", po::value<std::filesystem::path>()->required(), "Directory with config/ and cnf/ subdirectories")
+    ("working_dir,w", po::value<std::filesystem::path>()->required(), "Testing working dir")
+    ("executable,e", po::value<std::filesystem::path>()->required(), "Executable path")
+    ("test_groups", po::value<std::vector<std::string>>()->multitoken()->default_value({}, "[]"), "Enabled test groups (directories in cnf/)")
+    ("gtest_opts", po::value<std::vector<std::string>>()->multitoken(), "GTest options");
   // clang-format on
 
   util::CliConfig cli_config;
@@ -40,45 +42,46 @@ util::CliConfig parse_args(int argc, char** argv) {
 }
 
 void init_googletest(char const* argv0, util::CliConfig const& config) {
-  if (!config.has("gtest-opts")) {
+  if (!config.has("gtest_opts")) {
     testing::InitGoogleTest();
   } else {
     auto const& gtest_options =
-        config.get<std::vector<std::string>>("gtest-opts");
+        config.get<std::vector<std::string>>("gtest_opts");
     int argc = (int) gtest_options.size() + 1;
     std::vector<char const*> argv;
     argv.push_back(argv0);
     for (auto const& s : gtest_options) {
       argv.push_back(s.data());
     }
-    testing::InitGoogleTest(&argc, (char**) argv.data());
+    ::testing::InitGoogleTest(&argc, (char**) argv.data());
   }
 }
 
 int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
-
   {  // Prepare LaunchFixture
     util::CliConfig config = parse_args(argc, argv);
     init_googletest(argv[0], config);
     auto& lf_config = LaunchFixture::config;
-    lf_config.unsat_only = config.get<bool>("unsat-only");
-    lf_config.max_threads = config.get<uint32_t>("concurrency");
-    lf_config.time_limit_s = config.get<uint64_t>("time-limit");
-    lf_config.pg_host = config.get<std::string>("pg-host");
-    lf_config.test_groups = config.get<std::vector<std::string>>("test-groups");
-    lf_config.allow_unspecified_size =
-        config.get<bool>("allow-unspecified-size");
-    lf_config.repeat = config.get<int>("repeat-each");
-    lf_config.lookup = config.get<bool>("lookup");
-    lf_config.save = config.get<bool>("save");
-    lf_config.size = config.get<int>("size");
-    lf_config.executable = config.get<std::filesystem::path>("exec");
-    lf_config.branch = config.get<std::string>("branch");
-    lf_config.commit = config.get<std::string>("commit");
-    lf_config.resources_dir =
-        config.get<std::filesystem::path>("resources-dir");
-    lf_config.working_dir = config.get<std::filesystem::path>("working-dir");
+#define CLI_CFG_ARG(TYPE, NAME) lf_config.NAME = config.get<TYPE>(#NAME)
+    CLI_CFG_ARG(bool, unsat_only);
+    CLI_CFG_ARG(bool, fail_on_tle);
+    CLI_CFG_ARG(bool, allow_unspecified_size);
+    CLI_CFG_ARG(bool, lookup);
+    CLI_CFG_ARG(bool, save);
+    CLI_CFG_ARG(int, repeat_each);
+    CLI_CFG_ARG(int, size);
+    CLI_CFG_ARG(uint32_t, concurrency);
+    CLI_CFG_ARG(uint64_t, time_limit);
+    CLI_CFG_ARG(std::string, description);
+    CLI_CFG_ARG(std::string, pg_host);
+    CLI_CFG_ARG(std::string, branch);
+    CLI_CFG_ARG(std::string, commit);
+    CLI_CFG_ARG(std::filesystem::path, executable);
+    CLI_CFG_ARG(std::filesystem::path, resources_dir);
+    CLI_CFG_ARG(std::filesystem::path, working_dir);
+    CLI_CFG_ARG(std::vector<std::string>, test_groups);
+#undef CLI_CFG_ARG
   }
   return RUN_ALL_TESTS();
 }
