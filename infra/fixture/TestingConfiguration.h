@@ -16,6 +16,7 @@ struct TestingConfiguration {
   bool fail_on_tle = false;
   int size = 0;
   int repeat_each = 1;
+  int num_tests = 0;
   uint32_t concurrency = 0;
   uint64_t time_limit = 0;
   std::string description;

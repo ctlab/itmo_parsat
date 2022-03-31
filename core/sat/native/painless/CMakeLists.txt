@@ -11,7 +11,7 @@ include_directories(${PROJECT_SOURCE_DIR}/core/sat/native/painless/painless-src)
 include_directories(${PROJECT_SOURCE_DIR}/core/sat/native/mapleCOMSPS)
 include_directories(${PROJECT_SOURCE_DIR}/core/sat/native/mapleCOMSPS/m4ri-20140914)
 
-add_library(painless-lib-static ${PAINLESS_SRC})
+add_library(painless-lib-static ${PAINLESS_SRC} painless-src/solvers/SolverInterface.cpp)
 target_link_libraries(painless-lib-static mapleCOMSPS-lib-static z m)
 
 # Target for performance comparison

@@ -1393,9 +1393,6 @@ lbool Solver::search(int& nof_conflicts) {
 
       if (next == lit_Undef) {
         //        if (assumptions.size() > 0) {  // Hack deguelasse
-        //          if (shrinkAssumptions()) {
-        //            cancelUntil(0);
-        //          }
         //            shrinkAssumptions();
         //            return l_True;
         //        }
@@ -1405,19 +1402,6 @@ lbool Solver::search(int& nof_conflicts) {
         next = pickBranchLit();
 
         if (next == lit_Undef) {
-#if 0
-          static std::mutex m;
-          static int file_tag = 0;
-          {
-            std::stringstream file;
-            file << "/home/dzhiblavi/clion-remote/keks/" << file_tag++ << ".txt";
-            std::lock_guard<std::mutex> lg(m);
-            FILE* f = fopen(file.str().c_str(), "w");
-            toDimacs(f, assumptions);
-            fclose(f);
-          }
-#endif
-          // Model found:
           return l_True;
         }
       }
@@ -1528,7 +1512,6 @@ lbool Solver::solve_() {
   int curr_restarts = 0;
   while (!asynch_interrupt) {
     int weighted = phase_allotment;
-    //    fflush(stdout);
 
     while (status == l_Undef && weighted > 0 && withinBudget()) {
       if (VSIDS) {
@@ -1545,7 +1528,6 @@ lbool Solver::solve_() {
       break;  // Should break here for correctness in incremental SAT solving.
     }
 
-    // VSIDS = !VSIDS;
     if (!VSIDS)
       phase_allotment *= 2;
   }

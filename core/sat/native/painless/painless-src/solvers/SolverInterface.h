@@ -53,9 +53,9 @@ class SolverInterface {
 
   virtual int getDivisionVariable() = 0;
 
-  virtual void setPhase(const int var, const bool phase) = 0;
+  virtual void setPhase(int var, bool phase) = 0;
 
-  virtual void bumpVariableActivity(const int var, const int times) = 0;
+  virtual void bumpVariableActivity(int var, int times) = 0;
 
   virtual void setSolverInterrupt() = 0;
 
@@ -90,9 +90,9 @@ class SolverInterface {
 
   virtual vector<int> getSatAssumptions() = 0;
 
-  explicit SolverInterface(int id) : id(id) {}
-
   virtual ~SolverInterface() noexcept = default;
+
+  SolverInterface();
 
  public:
   int id;

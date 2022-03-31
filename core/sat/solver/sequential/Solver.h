@@ -13,16 +13,18 @@
 #include "util/Registry.h"
 #include "util/Reference.h"
 #include "core/sat/SimpBase.h"
+#include "core/sat/sharing/Shareable.h"
 
 #include "core/sat/native/mini/utils/Lit.h"
 #include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/painless/painless-src/solvers/SolverInterface.h"
 
 namespace core::sat::solver {
 
 /**
  * @brief SAT Solver interface.
  */
-class Solver {
+class Solver : public sat::sharing::Shareable {
  public:
   virtual ~Solver() = default;
 

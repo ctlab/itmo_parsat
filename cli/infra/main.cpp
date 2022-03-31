@@ -20,6 +20,7 @@ util::CliConfig parse_args(int argc, char** argv) {
     ("unsat_only", po::bool_switch()->default_value(false), "Test on only unsat formulas")
     ("fail_on_tle", po::bool_switch()->default_value(false), "Whether to fail if TLE happens")
     ("repeat_each", po::value<int>()->default_value(1), "Repeat each test")
+    ("num_tests", po::value<int>()->default_value(0), "Number of tests (0 = unlimited)")
     ("allow_unspecified_size", po::bool_switch()->default_value(false), "Allow tests of unspecified size")
     ("lookup", po::bool_switch()->default_value(false), "Skip tests that are already done")
     ("size", po::value<int>()->default_value(0), "Tests size (the greater the larger)")
@@ -71,6 +72,7 @@ int main(int argc, char** argv) {
     CLI_CFG_ARG(bool, save);
     CLI_CFG_ARG(int, repeat_each);
     CLI_CFG_ARG(int, size);
+    CLI_CFG_ARG(int, num_tests);
     CLI_CFG_ARG(uint32_t, concurrency);
     CLI_CFG_ARG(uint64_t, time_limit);
     CLI_CFG_ARG(std::string, description);

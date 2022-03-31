@@ -27,6 +27,8 @@ class ReduceSolve : public Solve {
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) final;
 
+  sat::sharing::SharingUnit sharing_unit() noexcept override;
+
  protected:
   [[nodiscard]] sat::State _solve_final(
       std::vector<lit_vec_t> const& assumptions_v);

@@ -25,8 +25,9 @@
 #include "infra/execution/ExecutionManager.h"
 
 DEFINE_PARAMETRIZED_TEST(
-    InfraParametrized, int /* cpu */, std::string /* reduce */,
-    std::string /* rbs */, std::string /* (e|g)a */, std::string /* solver */);
+    InfraParametrized, int /* cpu */, std::string /* with/without painless */,
+    std::string /* solver */, std::string /* reduce */, std::string /* rbs */,
+    std::string /* (e|g)a */);
 
 class LaunchFixture : public InfraParametrized {
  private:
@@ -65,6 +66,7 @@ class LaunchFixture : public InfraParametrized {
   core::event::EventCallbackHandle _sig_cb;
 
  private:
+  int _num_tests_left = 0;
   std::filesystem::path _logs_root;
   std::filesystem::path _configs_root;
 
@@ -72,7 +74,7 @@ class LaunchFixture : public InfraParametrized {
   static infra::fixture::TestingConfiguration config;
   static std::atomic_bool test_failed;
   static std::atomic_bool is_interrupted;
-  static std::set<std::filesystem::path> cnfs;
+  static std::vector<std::filesystem::path> cnfs;
 };
 
 #endif  // ITMO_PARSAT_LAUNCHFIXTURE_H

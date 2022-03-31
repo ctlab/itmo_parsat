@@ -25,90 +25,64 @@
 
 namespace painless {
 
-/// Instance of a MapleCOMSPS solver
 class Reducer : public SolverInterface {
  public:
-  /// Load formula from a given dimacs file, return false if failed.
-  bool loadFormula(const char* filename);
+  bool loadFormula(const char* filename) override;
 
-  bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses);
+  bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) override;
 
-  /// Get the number of variables of the current resolution.
-  int getVariablesCount();
+  int getVariablesCount() override;
 
-  /// Get a variable suitable for search splitting.
-  int getDivisionVariable();
+  int getDivisionVariable() override;
 
-  /// Set initial phase for a given variable.
-  void setPhase(const int var, const bool phase);
+  void setPhase(int var, bool phase) override;
 
-  /// Bump activity of a given variable.
-  void bumpVariableActivity(const int var, const int times);
+  void bumpVariableActivity(int var, int times) override;
 
-  /// Interrupt resolution, solving cannot continue until interrupt is unset.
-  void setSolverInterrupt();
+  void setSolverInterrupt() override;
 
-  /// Remove the SAT solving interrupt request.
-  void unsetSolverInterrupt();
+  void unsetSolverInterrupt() override;
 
-  PSatResult solve(Mini::vec<Mini::Lit> const& assumptions, const std::vector<int>& cube);
+  PSatResult solve(
+      Mini::vec<Mini::Lit> const& assumptions,
+      const std::vector<int>& cube) override;
 
-  /// Add a permanent clause to the formula.
-  void addClause(ClauseExchange* clause);
+  void addClause(ClauseExchange* clause) override;
 
-  /// Add a list of permanent clauses to the formula.
-  void addClauses(const std::vector<ClauseExchange*>& clauses);
+  void addClauses(const std::vector<ClauseExchange*>& clauses) override;
 
-  /// Add a list of initial clauses to the formula.
-  void addInitialClauses(const std::vector<ClauseExchange*>& clauses);
+  void addInitialClauses(const std::vector<ClauseExchange*>& clauses) override;
 
-  /// Add a learned clause to the formula.
-  void addLearnedClause(ClauseExchange* clause);
+  void addLearnedClause(ClauseExchange* clause) override;
 
-  /// Add a list of learned clauses to the formula.
-  void addLearnedClauses(const std::vector<ClauseExchange*>& clauses);
+  void addLearnedClauses(const std::vector<ClauseExchange*>& clauses) override;
 
-  /// Get a list of learned clauses.
-  void getLearnedClauses(std::vector<ClauseExchange*>& clauses);
+  void getLearnedClauses(std::vector<ClauseExchange*>& clauses) override;
 
-  /// Request the solver to produce more clauses.
-  void increaseClauseProduction();
+  void increaseClauseProduction() override;
 
-  /// Request the solver to produce less clauses.
-  void decreaseClauseProduction();
+  void decreaseClauseProduction() override;
 
-  /// Get solver statistics.
-  SolvingStatistics getStatistics();
+  SolvingStatistics getStatistics() override;
 
-  /// Return the model in case of SAT result.
-  vector<int> getModel();
+  vector<int> getModel() override;
 
-  /// Return the final analysis in case of UNSAT.
-  vector<int> getFinalAnalysis();
+  vector<int> getFinalAnalysis() override;
 
-  /// Native diversification.
-  void diversify(int id);
+  void diversify(int id) override;
+
+  vector<int> getSatAssumptions() override;
+
+  explicit Reducer(SolverInterface* solver);
+
+  ~Reducer() noexcept override;
 
   bool strengthed(ClauseExchange* cls, ClauseExchange** outCls);
 
-  vector<int> getSatAssumptions();
-
-  /// Constructor.
-  Reducer(int id, SolverInterface* solver);
-
-  /// Destructor.
-  ~Reducer() noexcept;
-
  protected:
-  /// Pointer to a MapleCOMSPS solver.
   SolverInterface* solver;
-
-  /// Buffer used to import clauses (units included).
   ClauseBuffer clausesToImport;
-
-  /// Buffer used to export clauses (units included).
   ClauseBuffer clausesToExport;
-
   Mini::vec<Mini::Lit> assumptions;
 
   bool _stop = false;

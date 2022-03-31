@@ -16,6 +16,10 @@ sat::State NaiveSolve::solve(sat::Problem const& problem) {
   return IPS_TRACE_V(_solver->solve({}));
 }
 
+sat::sharing::SharingUnit NaiveSolve::sharing_unit() noexcept {
+  return _solver->sharing_unit();
+}
+
 REGISTER_PROTO(Solve, NaiveSolve, naive_solve_config);
 
 }  // namespace core::solve

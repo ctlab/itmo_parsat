@@ -25,11 +25,8 @@
 
 namespace painless {
 
-HordeSatSharing::HordeSatSharing(
-    int shr_lit, int shr_sleep, WorkingResult* result)
-    : SharingStrategy(result)
-    , literalPerRound(shr_lit)
-    , roundBeforeIncrease(250000000 / shr_sleep) {}
+HordeSatSharing::HordeSatSharing(int shr_lit, int shr_sleep)
+    : literalPerRound(shr_lit), roundBeforeIncrease(250000000 / shr_sleep) {}
 
 void HordeSatSharing::doSharing(
     int idSharer, const vector<SolverInterface*>& from,

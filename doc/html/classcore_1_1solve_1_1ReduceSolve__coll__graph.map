@@ -1,4 +1,5 @@
 <map id="core::solve::ReduceSolve" name="core::solve::ReduceSolve">
-<area shape="rect" id="node1" title="The base class for all algorithms that use rho&#45;backdoor search reduction." alt="" coords="5,80,191,107"/>
-<area shape="rect" id="node2" href="$classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="29,5,167,32"/>
+<area shape="rect" id="node1" title="The base class for all algorithms that use rho&#45;backdoor search reduction." alt="" coords="5,169,191,196"/>
+<area shape="rect" id="node2" href="$classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="29,95,167,121"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="31,5,165,47"/>
 </map>

@@ -1,5 +1,6 @@
 <map id="core::sat::solver::MapleCOMSPSSolver" name="core::sat::solver::MapleCOMSPSSolver">
-<area shape="rect" id="node1" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="84,95,243,136"/>
-<area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,140,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="164,13,347,39"/>
+<area shape="rect" id="node1" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="93,184,252,225"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,95,140,136"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="5,5,140,47"/>
+<area shape="rect" id="node4" title=" " alt="" coords="164,102,384,129"/>
 </map>

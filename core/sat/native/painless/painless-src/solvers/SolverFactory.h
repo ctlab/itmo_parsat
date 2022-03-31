@@ -25,8 +25,6 @@
 
 namespace painless {
 
-static std::atomic<int> currentIdSolver(0);
-
 /// Factory to create solvers.
 class SolverFactory {
  public:

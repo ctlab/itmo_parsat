@@ -1,5 +1,5 @@
 set(BENCH_SOURCES
-        ${CMAKE_SOURCE_DIR}/core/sat/prop/test/bench_propagation.cpp)
+        ${CMAKE_SOURCE_DIR}/core/sat/prop/test/bench_propagation.cpp ../../solve/WithPainlessSolve.cpp ../../solve/WithPainlessSolve.h)
 message(STATUS "Found benchmark sources: " ${BENCH_SOURCES})
 
 find_package(benchmark REQUIRED)

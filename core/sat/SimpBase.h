@@ -24,15 +24,6 @@ namespace core::sat {
       return nVars();                                     \
     }                                                     \
                                                           \
-    bool load_problem2(Problem const& problem) {          \
-      util::GzFile file(problem.path());                  \
-      parsing = true;                                     \
-      MS_NS::parse_DIMACS(file.native_handle(), *this);   \
-      parsing = false;                                    \
-      eliminate(true);                                    \
-      return true;                                        \
-    }                                                     \
-                                                          \
     bool load_problem(Problem const& problem) {           \
       parsing = true;                                     \
       MS_NS::SimpSolver::loadClauses(problem.clauses());  \

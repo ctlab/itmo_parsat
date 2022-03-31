@@ -85,10 +85,10 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
   IPS_TRACE_N("RecurringRBSSolve::_filter_fast", {
     std::vector<std::future<sat::State>> results;
     std::vector<lit_vec_t> cur_assumptions;
+    results.reserve(assumptions.size());
     cur_assumptions.reserve(assumptions.size());
     for (auto const& assumption : assumptions) {
-      cur_assumptions.push_back(
-          util::concat_unique_vars(_cur_base_assumption, assumption));
+      cur_assumptions.push_back(util::concat(_cur_base_assumption, assumption));
     }
     for (auto const& assumption : cur_assumptions) {
       results.push_back(_solver_service->solve(assumption, time_limit));

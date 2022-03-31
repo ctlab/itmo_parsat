@@ -85,39 +85,42 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;util/Registry.h&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;util/Reference.h&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;core/sat/SimpBase.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/mini/utils/Lit.h&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/mini/mtl/Vec.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>core::sat::solver {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;core/sat/sharing/Shareable.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/mini/utils/Lit.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/mini/mtl/Vec.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/painless/painless-src/solvers/SolverInterface.h&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1Solver.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; problem) = 0;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> State <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a16fe040877511f1925d40091c7e632df">solve</a>(lit_vec_t <span class="keyword">const</span>&amp; assumptions) = 0;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a5b91b84858f7d02064cffd52b8fcb98d">interrupt</a>() = 0;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a45cfd1ecb97bc0cd35b0cc36702520cf">clear_interrupt</a>() = 0;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">num_vars</a>() <span class="keyword">const</span> noexcept = 0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>core::sat::solver {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1Solver.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">sat::sharing::Shareable</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; problem) = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">virtual</span> State <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a16fe040877511f1925d40091c7e632df">solve</a>(lit_vec_t <span class="keyword">const</span>&amp; assumptions) = 0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a5b91b84858f7d02064cffd52b8fcb98d">interrupt</a>() = 0;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a45cfd1ecb97bc0cd35b0cc36702520cf">clear_interrupt</a>() = 0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">num_vars</a>() <span class="keyword">const</span> noexcept = 0;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;DEFINE_REGISTRY(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>, SolverConfig, solver);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;DEFINE_REGISTRY(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>, SolverConfig, solver);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif  // EVOL_SOLVER_H</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif  // EVOL_SOLVER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_aa65828d34692b28456b4078dec908157"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">core::sat::solver::Solver::load_problem</a></div><div class="ttdeci">virtual void load_problem(Problem const &amp;problem)=0</div><div class="ttdoc">Parses cnf from .gz file with the specified path.</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Shareable_html"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Shareable.html">core::sat::sharing::Shareable</a></div><div class="ttdef"><b>Definition:</b> Shareable.h:31</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a16fe040877511f1925d40091c7e632df"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a16fe040877511f1925d40091c7e632df">core::sat::solver::Solver::solve</a></div><div class="ttdeci">virtual State solve(lit_vec_t const &amp;assumptions)=0</div><div class="ttdoc">Runs solution with the specified assumptions.</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a5b91b84858f7d02064cffd52b8fcb98d"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a5b91b84858f7d02064cffd52b8fcb98d">core::sat::solver::Solver::interrupt</a></div><div class="ttdeci">virtual void interrupt()=0</div><div class="ttdoc">Interrupts solver. Intended to be used from signal handlers.</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:25</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:27</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a45cfd1ecb97bc0cd35b0cc36702520cf"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a45cfd1ecb97bc0cd35b0cc36702520cf">core::sat::solver::Solver::clear_interrupt</a></div><div class="ttdeci">virtual void clear_interrupt()=0</div><div class="ttdoc">Clears interrupt flag.</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:26</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html_a27940fb676610241500f1a99529d02fe"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">core::sat::solver::Solver::num_vars</a></div><div class="ttdeci">virtual unsigned num_vars() const noexcept=0</div><div class="ttdoc">Returns the number of variables in formula.</div></div>

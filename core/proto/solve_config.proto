@@ -2,14 +2,25 @@ syntax = "proto3";
 
 /// Solvers configuration
 
+message SharingConfig {
+  bool enabled = 1;
+  int32 interval_us = 2;
+  int32 shr_lit = 3;
+}
+
+message DiversificationConfig {
+  bool native = 1;
+  bool sparse = 2;
+}
+
 message PainlessSolverConfig {
-  uint32 max_threads = 1;
-  uint32 max_memory = 2;
-  uint32 time_limit_s = 3;
-  uint32 lbd_limit = 4;
-  uint32 shr_sleep_us = 5;
-  uint32 shr_lit = 6;
-  uint32 slv_sleep_us = 7;
+  int32 max_threads = 1;
+  int32 max_memory = 2;
+  int32 block_size = 3;
+  int32 time_limit_s = 4;
+  int32 lbd_limit = 5;
+  int32 slv_sleep_us = 6;
+  SharingConfig sharing_config = 7;
 }
 
 message SolverConfig {
@@ -19,17 +30,14 @@ message SolverConfig {
 
 message SequentialSolverServiceConfig {
   uint32 num_solvers = 1;
-  SolverConfig solver_config = 2;
-}
-
-message SharingSolverServiceConfig {
-  uint32 num_solvers = 1;
+  SharingConfig sharing_config = 2;
+  DiversificationConfig diversification_config = 3;
+  SolverConfig solver_config = 4;
 }
 
 message SolverServiceConfig {
   string solver_service_type = 1;
   SequentialSolverServiceConfig sequential_solver_service_config = 2;
-  SharingSolverServiceConfig sharing_solver_service_config = 3;
 }
 
 /// Propagators configuration
@@ -187,6 +195,12 @@ message RecurringReduceSolveConfig {
   SolverServiceConfig solver_service_config = 6;
 }
 
+message WithPainlessSolveConfig {
+  PainlessSolverConfig painless_solver_config = 1;
+  SharingConfig sharing_config = 2;
+  SolveConfig near_solve_config = 3;
+}
+
 message SolveConfig {
   string solve_type = 1;
   uint32 cpu_limit = 2;
@@ -194,4 +208,5 @@ message SolveConfig {
   NaiveSolveConfig naive_solve_config = 4;
   SingleReduceSolveConfig single_reduce_solve_config = 5;
   RecurringReduceSolveConfig recurring_reduce_solve_config = 6;
+  WithPainlessSolveConfig with_painless_solve_config = 7;
 }

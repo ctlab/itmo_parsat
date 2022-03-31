@@ -8,20 +8,19 @@
 #include "util/TimeTracer.h"
 #include "core/sat/SimpBase.h"
 
+#include "core/sat/native/painless/painless-src/solvers/MapleCOMSPSSolver.h"
 #include "core/sat/native/mini/mapleCOMSPS/mapleCOMSPS/simp/SimpSolver.h"
 #include "core/sat/native/mini/mapleCOMSPS/mapleCOMSPS/core/Dimacs.h"
 #include "core/sat/native/mini/mapleCOMSPS/mapleCOMSPS/core/SolverTypes.h"
 
 namespace core::sat::solver {
 
-SIMP_BASE(MapleCOMSPS);
-
 /**
  * @brief MS_NS:MapleCOMSPSSolver-based Solver implementation.
  */
-class MapleCOMSPSSolver : public Solver, public MapleCOMSPSSimpBase {
+class MapleCOMSPSSolver : public Solver, public painless::MapleCOMSPSSolver {
  public:
-  MapleCOMSPSSolver() = default;
+  MapleCOMSPSSolver();
 
   State solve(lit_vec_t const& assumptions) override;
 
@@ -32,6 +31,8 @@ class MapleCOMSPSSolver : public Solver, public MapleCOMSPSSimpBase {
   void interrupt() override;
 
   void clear_interrupt() override;
+
+  sharing::SharingUnit sharing_unit() noexcept override;
 };
 
 }  // namespace core::sat::solver

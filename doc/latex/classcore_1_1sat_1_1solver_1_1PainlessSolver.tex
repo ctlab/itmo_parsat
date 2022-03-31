@@ -47,7 +47,9 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_afdb4ab2d9ddb
 \begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_aa94d98f0e4c73586da5259f47f8ff201}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_aa94d98f0e4c73586da5259f47f8ff201}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_aa94d98f0e4c73586da5259f47f8ff201}{clear\+\_\+interrupt}} () override
-\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\item 
+sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_addc8914617902b19bfee2a05bd21764a}{sharing\+\_\+unit}} () noexcept override
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -72,6 +74,19 @@ Parses cnf from .gz file with the specified path.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_addc8914617902b19bfee2a05bd21764a}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_addc8914617902b19bfee2a05bd21764a}} 
+\index{core::sat::solver::PainlessSolver@{core::sat::solver::PainlessSolver}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::sat::solver::PainlessSolver@{core::sat::solver::PainlessSolver}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sharing\+::\+Sharing\+Unit core\+::sat\+::solver\+::\+Painless\+Solver\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the sharing unit to share with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1PainlessSolver_aecb7e99e36483993de1be0b272466a73}\label{classcore_1_1sat_1_1solver_1_1PainlessSolver_aecb7e99e36483993de1be0b272466a73}} 
 \index{core::sat::solver::PainlessSolver@{core::sat::solver::PainlessSolver}!solve@{solve}}

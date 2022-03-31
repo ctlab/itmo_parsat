@@ -32,6 +32,11 @@ unsigned SimpSolver::num_vars() const noexcept {
   return MinisatSimpBase::num_vars();
 }
 
+sharing::SharingUnit SimpSolver::sharing_unit() noexcept {
+  IPS_ERROR("sharing_unit called on Minisat::SimpSolver.");
+  return {};
+}
+
 REGISTER_SIMPLE(Solver, SimpSolver);
 
 }  // namespace core::sat::solver

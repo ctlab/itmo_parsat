@@ -32,8 +32,8 @@ Collaboration diagram for core\+::sat\+::solver\+::Sequential\+Solver\+Service\+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a2511940e50eec0995a1c5f174555d84b}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a2511940e50eec0995a1c5f174555d84b}} 
-{\bfseries Sequential\+Solver\+Service} (Sequential\+Solver\+Service\+Config const \&config)
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a504f816a6d0846e7e7bee5150d467a54}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a504f816a6d0846e7e7bee5150d467a54}} 
+{\bfseries Sequential\+Solver\+Service} (Sequential\+Solver\+Service\+Config config)
 \item 
 std\+::future$<$ State $>$ \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a4ab33aaa06c8736938270c8b76d889dc}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions, clock\+\_\+t\+::duration time\+\_\+limit) override
 \item 
@@ -44,7 +44,9 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a655
 \begin{DoxyCompactList}\small\item\em Interrupt all solvers in the service. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_ac2429f78914b9fadb9e8382cb54982f8}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_ac2429f78914b9fadb9e8382cb54982f8}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_ac2429f78914b9fadb9e8382cb54982f8}{clear\+\_\+interrupt}} () override
-\begin{DoxyCompactList}\small\item\em Clear interrupt for all solvers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clear interrupt for all solvers. \end{DoxyCompactList}\item 
+sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a62da6518f2228c22a3ee7086802d3aca}{sharing\+\_\+unit}} () noexcept override
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -70,6 +72,19 @@ Load problem to all solvers.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SolverService_abbaba997a1627610d9d1b6c83966de50}{core\+::sat\+::solver\+::\+Solver\+Service}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a62da6518f2228c22a3ee7086802d3aca}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a62da6518f2228c22a3ee7086802d3aca}} 
+\index{core::sat::solver::SequentialSolverService@{core::sat::solver::SequentialSolverService}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::sat::solver::SequentialSolverService@{core::sat::solver::SequentialSolverService}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sharing\+::\+Sharing\+Unit core\+::sat\+::solver\+::\+Sequential\+Solver\+Service\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the sharing unit to share with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a4ab33aaa06c8736938270c8b76d889dc}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a4ab33aaa06c8736938270c8b76d889dc}} 
 \index{core::sat::solver::SequentialSolverService@{core::sat::solver::SequentialSolverService}!solve@{solve}}

@@ -159,11 +159,14 @@ $(function() {
 <li>get()
 : <a class="el" href="classcore_1_1domain_1_1AssignmentModifier.html#acfe23d59b1f63570e5523b4cabac25e1">core::domain::AssignmentModifier</a>
 </li>
+<li>get_all_solvers()
+: <a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ae4a853145a6517b438141888da2618cc">core::sat::sharing::Sharing</a>
+</li>
 <li>get_best()
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a81afd839286edcada16b88f3896b08a4">ea::algorithm::Algorithm</a>
 </li>
 <li>get_mask()
-: <a class="el" href="structcore_1_1domain_1_1Vars.html#a450a9a825539d57ea68dff7edcc63d36">core::domain::Vars</a>
+: <a class="el" href="structcore_1_1domain_1_1Vars.html#a837d848ea8aa19b8304df62157c192dd">core::domain::Vars</a>
 </li>
 <li>get_prop()
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#ac2f5a7f4fd1dfb7e89a8c92ed4e611f9">ea::algorithm::Algorithm</a>
@@ -172,7 +175,7 @@ $(function() {
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a424af6ccb7a0396522e2864474c7ff16">ea::algorithm::Algorithm</a>
 </li>
 <li>get_vars()
-: <a class="el" href="classea_1_1instance_1_1Instance.html#a15f8e2ead7e81da6a3a9eea5da6f6eb0">ea::instance::Instance</a>
+: <a class="el" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">ea::instance::Instance</a>
 </li>
 </ul>
 
@@ -333,6 +336,19 @@ $(function() {
 : <a class="el" href="classea_1_1method_1_1BestSelector.html#a94e2057cb5ed7a32188533cd6fbb934c">ea::method::BestSelector</a>
 , <a class="el" href="classea_1_1method_1_1Selector.html#aee979d5518dd54e4821407bc7adf27a8">ea::method::Selector</a>
 </li>
+<li>share()
+: <a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ad5e75c637e80925f65fa0e302d59ac40">core::sat::sharing::Sharing</a>
+</li>
+<li>sharing_unit()
+: <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html#a8f3436dd218bb22aabe2249150dd18ee">core::sat::sharing::Shareable</a>
+, <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a7649cf43adea5216d9a068456dc4e83b">core::sat::solver::MapleCOMSPSSolver</a>
+, <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#addc8914617902b19bfee2a05bd21764a">core::sat::solver::PainlessSolver</a>
+, <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a62da6518f2228c22a3ee7086802d3aca">core::sat::solver::SequentialSolverService</a>
+, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a864758629e0333dbf3352bce3e176d8b">core::sat::solver::SimpSolver</a>
+, <a class="el" href="classcore_1_1solve_1_1NaiveSolve.html#a7f4c1af028e8d32e5514d42da20ead48">core::solve::NaiveSolve</a>
+, <a class="el" href="classcore_1_1solve_1_1ReduceSolve.html#a89c7ab02d9a7e93731d1cdb47884fcfb">core::solve::ReduceSolve</a>
+, <a class="el" href="classcore_1_1solve_1_1WithPainlessSolve.html#aa39d918f06aeecd7c4c1f9cbb194fcc1">core::solve::WithPainlessSolve</a>
+</li>
 <li>size()
 : <a class="el" href="classcore_1_1domain_1_1Search.html#a9a862b210186e060fb96d45c4a670983">core::domain::Search</a>
 , <a class="el" href="structcore_1_1domain_1_1Vars.html#aa6946d000077dbf381ccc1a250492fc3">core::domain::Vars</a>
@@ -349,6 +365,7 @@ $(function() {
 , <a class="el" href="classcore_1_1solve_1_1NaiveSolve.html#a59dc98750d530960bb5bfcf1e7a75c32">core::solve::NaiveSolve</a>
 , <a class="el" href="classcore_1_1solve_1_1ReduceSolve.html#a548d6b746c0f80fa292a6930ce3c4e3d">core::solve::ReduceSolve</a>
 , <a class="el" href="classcore_1_1solve_1_1Solve.html#aaa0c64ccf2aae8d9edb555ee603abda8">core::solve::Solve</a>
+, <a class="el" href="classcore_1_1solve_1_1WithPainlessSolve.html#a7f1e9279fe9c5737d38284bc094b4342">core::solve::WithPainlessSolve</a>
 </li>
 <li>split_search()
 : <a class="el" href="classcore_1_1domain_1_1Search.html#a17e6d8a0df067683f0a80ca2171a4acf">core::domain::Search</a>
@@ -358,6 +375,9 @@ $(function() {
 , <a class="el" href="classea_1_1limit_1_1Limit.html#ac43feeb7c292c1332dde400300429c91">ea::limit::Limit</a>
 , <a class="el" href="classea_1_1limit_1_1ResourceLimit.html#ab836dc2ee7c4ef7718e2f63ae39dd107">ea::limit::ResourceLimit</a>
 , <a class="el" href="classea_1_1limit_1_1StallLimit.html#a59fabf61bec2672ad8549ea8e60d43e1">ea::limit::StallLimit</a>
+</li>
+<li>stop()
+: <a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#af2fb28cac51404645732045240333304">core::sat::sharing::Sharing</a>
 </li>
 </ul>
 

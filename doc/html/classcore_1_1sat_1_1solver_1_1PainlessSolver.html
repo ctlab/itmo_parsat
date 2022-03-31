@@ -83,8 +83,9 @@ Inheritance diagram for core::sat::solver::PainlessSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1solver_1_1PainlessSolver__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1solver_1_1PainlessSolver_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1solver_1_1PainlessSolver_inherit__map" id="core_1_1sat_1_1solver_1_1PainlessSolver_inherit__map">
-<area shape="rect" title="Painless&#45;based Solver implementation." alt="" coords="5,95,140,136"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,140,47"/>
+<area shape="rect" title="Painless&#45;based Solver implementation." alt="" coords="5,184,140,225"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,95,140,136"/>
+<area shape="rect" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="5,5,140,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -92,8 +93,9 @@ Collaboration diagram for core::sat::solver::PainlessSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1solver_1_1PainlessSolver__coll__graph.png" border="0" usemap="#core_1_1sat_1_1solver_1_1PainlessSolver_coll__map" alt="Collaboration graph"/></div>
 <map name="core_1_1sat_1_1solver_1_1PainlessSolver_coll__map" id="core_1_1sat_1_1solver_1_1PainlessSolver_coll__map">
-<area shape="rect" title="Painless&#45;based Solver implementation." alt="" coords="5,95,140,136"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,5,140,47"/>
+<area shape="rect" title="Painless&#45;based Solver implementation." alt="" coords="5,184,140,225"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,95,140,136"/>
+<area shape="rect" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="5,5,140,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -120,6 +122,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aa94d98f0e4c73586da5259f47f8ff201">clear_interrupt</a> () override</td></tr>
 <tr class="memdesc:aa94d98f0e4c73586da5259f47f8ff201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears interrupt flag. <br /></td></tr>
 <tr class="separator:aa94d98f0e4c73586da5259f47f8ff201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addc8914617902b19bfee2a05bd21764a"><td class="memItemLeft" align="right" valign="top">sharing::SharingUnit&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#addc8914617902b19bfee2a05bd21764a">sharing_unit</a> () noexcept override</td></tr>
+<tr class="separator:addc8914617902b19bfee2a05bd21764a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Painless-based <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface.">Solver</a> implementation. </p>
@@ -157,6 +161,34 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </dl>
 
 <p>Implements <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">core::sat::solver::Solver</a>.</p>
+
+</div>
+</div>
+<a id="addc8914617902b19bfee2a05bd21764a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addc8914617902b19bfee2a05bd21764a">&#9670;&nbsp;</a></span>sharing_unit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sharing::SharingUnit core::sat::solver::PainlessSolver::sharing_unit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the sharing unit to share with </dd></dl>
+
+<p>Implements <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html#a8f3436dd218bb22aabe2249150dd18ee">core::sat::sharing::Shareable</a>.</p>
 
 </div>
 </div>

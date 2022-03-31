@@ -25,7 +25,7 @@
 #include "../clauses/ClauseManager.h"
 #include "../solvers/MapleCOMSPSSolver.h"
 
-#include <set>
+#include <unordered_set>
 
 using namespace MapleCOMSPS;
 using namespace Mini;
@@ -82,9 +82,7 @@ bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   return true;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit)
-    : SolverInterface(id) {
-  lbdLimit = lbd_limit;
+MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit) : lbdLimit(lbd_limit) {
   cbkExportClause = cbkMapleCOMSPSExportClause;
   cbkImportClause = cbkMapleCOMSPSImportClause;
   cbkImportUnit = cbkMapleCOMSPSImportUnit;
@@ -92,9 +90,8 @@ MapleCOMSPSSolver::MapleCOMSPSSolver(int id, int lbd_limit)
 }
 
 MapleCOMSPSSolver::MapleCOMSPSSolver(
-    int id, int lbd_limit, const MapleCOMSPSSolver& other)
-    : SolverInterface(id), MapleCOMSPS::SimpSolver(other) {
-  lbdLimit = lbd_limit;
+    int lbd_limit, const MapleCOMSPSSolver& other)
+    : MapleCOMSPS::SimpSolver(other), lbdLimit(lbd_limit) {
   cbkExportClause = cbkMapleCOMSPSExportClause;
   cbkImportClause = cbkMapleCOMSPSImportClause;
   cbkImportUnit = cbkMapleCOMSPSImportUnit;
@@ -116,36 +113,28 @@ bool MapleCOMSPSSolver::loadFormula(
   return true;
 }
 
-// Get the number of variables of the formula
 int MapleCOMSPSSolver::getVariablesCount() {
   return nVars();
 }
 
-// Get a variable suitable for search splitting
 int MapleCOMSPSSolver::getDivisionVariable() {
   return (rand() % getVariablesCount()) + 1;
 }
 
-// Set initial phase for a given variable
 void MapleCOMSPSSolver::setPhase(const int var, const bool phase) {
   setPolarity(var - 1, phase);
 }
 
-// Bump activity for a given variable
 void MapleCOMSPSSolver::bumpVariableActivity(const int var, const int times) {}
 
-// Interrupt the SAT solving, so it can be started again with new assumptions
 void MapleCOMSPSSolver::setSolverInterrupt() {
-  stopSolver = true;
   interrupt();
 }
 
 void MapleCOMSPSSolver::unsetSolverInterrupt() {
-  stopSolver = false;
   clearInterrupt();
 }
 
-// Diversify the solver
 void MapleCOMSPSSolver::diversify(int id) {
   if (id == ID_XOR) {
     GE = true;
@@ -166,11 +155,9 @@ void MapleCOMSPSSolver::diversify(int id) {
   }
 }
 
-// Solve the formula with a given set of assumptions
-// return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
 PSatResult MapleCOMSPSSolver::solve(
     Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) {
-  //  unsetSolverInterrupt();
+  unsetSolverInterrupt();
   PSatResult result = PUNKNOWN;
 
   vector<ClauseExchange*> tmp;
@@ -179,14 +166,14 @@ PSatResult MapleCOMSPSSolver::solve(
   for (size_t ind = 0; ind < tmp.size(); ind++) {
     vec<Lit> mcls;
     makeMiniVec(tmp[ind], mcls);
-    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) {
+    if (!SimpSolver::addClause(mcls)) {
       result = PUNSAT;
       break;
     }
   }
 
   if (result == PUNKNOWN) {
-    std::set<int> present;
+    std::unordered_set<int> present;
     vec<Lit> miniAssumptions;
     for (int i = 0; i < assumptions.size(); ++i) {
       if (present.count(assumptions[i].x) == 0) {
@@ -277,36 +264,30 @@ void MapleCOMSPSSolver::decreaseClauseProduction() {
 
 SolvingStatistics MapleCOMSPSSolver::getStatistics() {
   SolvingStatistics stats;
-
   stats.conflicts = conflicts;
   stats.propagations = propagations;
   stats.restarts = starts;
   stats.decisions = decisions;
   stats.memPeak = memUsedPeak();
-
   return stats;
 }
 
 std::vector<int> MapleCOMSPSSolver::getModel() {
   std::vector<int> model;
-
   for (int i = 0; i < nVars(); i++) {
     if (this->model[i] != l_Undef) {
       int lit = this->model[i] == l_True ? i + 1 : -(i + 1);
       model.push_back(lit);
     }
   }
-
   return model;
 }
 
 vector<int> MapleCOMSPSSolver::getFinalAnalysis() {
   vector<int> outCls;
-
   for (int i = 0; i < conflict.size(); i++) {
     outCls.push_back(INT_LIT(conflict[i]));
   }
-
   return outCls;
 }
 

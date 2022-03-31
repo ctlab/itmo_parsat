@@ -27,100 +27,75 @@
 
 namespace painless {
 
-/// Instance of a MapleCOMSPS solver
-class MapleCOMSPSSolver : public SolverInterface, public MapleCOMSPS::SimpSolver {
+class MapleCOMSPSSolver : public SolverInterface,
+                          public MapleCOMSPS::SimpSolver {
  public:
-  /// Load formula from a given dimacs file, return false if failed.
-  bool loadFormula(const char* filename);
+  bool loadFormula(const char* filename) override;
 
-  bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses);
+  bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) override;
 
-  /// Get the number of variables of the current resolution.
-  int getVariablesCount();
+  int getVariablesCount() override;
 
-  /// Get a variable suitable for search splitting.
-  int getDivisionVariable();
+  int getDivisionVariable() override;
 
-  /// Set initial phase for a given variable.
-  void setPhase(const int var, const bool phase);
+  void setPhase(int var, bool phase) override;
 
-  /// Bump activity of a given variable.
-  void bumpVariableActivity(const int var, const int times);
+  void bumpVariableActivity(int var, int times) override;
 
-  /// Interrupt resolution, solving cannot continue until interrupt is unset.
-  void setSolverInterrupt();
+  void setSolverInterrupt() override;
 
-  /// Remove the SAT solving interrupt request.
-  void unsetSolverInterrupt();
+  void unsetSolverInterrupt() override;
 
-  /// Solve the formula with a given cube.
-  PSatResult solve(Mini::vec<Mini::Lit> const& assumptions, const std::vector<int>& cube);
+  PSatResult solve(
+      Mini::vec<Mini::Lit> const& assumptions,
+      const std::vector<int>& cube) override;
 
-  /// Add a permanent clause to the formula.
-  void addClause(ClauseExchange* clause);
+  void addClause(ClauseExchange* clause) override;
 
-  /// Add a list of permanent clauses to the formula.
-  void addClauses(const std::vector<ClauseExchange*>& clauses);
+  void addClauses(const std::vector<ClauseExchange*>& clauses) override;
 
-  /// Add a list of initial clauses to the formula.
-  void addInitialClauses(const std::vector<ClauseExchange*>& clauses);
+  void addInitialClauses(const std::vector<ClauseExchange*>& clauses) override;
 
-  /// Add a learned clause to the formula.
-  void addLearnedClause(ClauseExchange* clause);
+  void addLearnedClause(ClauseExchange* clause) override;
 
-  /// Add a list of learned clauses to the formula.
-  void addLearnedClauses(const std::vector<ClauseExchange*>& clauses);
+  void addLearnedClauses(const std::vector<ClauseExchange*>& clauses) override;
 
-  /// Get a list of learned clauses.
-  void getLearnedClauses(std::vector<ClauseExchange*>& clauses);
+  void getLearnedClauses(std::vector<ClauseExchange*>& clauses) override;
 
-  /// Request the solver to produce more clauses.
-  void increaseClauseProduction();
+  void increaseClauseProduction() override;
 
-  /// Request the solver to produce less clauses.
-  void decreaseClauseProduction();
+  void decreaseClauseProduction() override;
 
-  /// Get solver statistics.
-  SolvingStatistics getStatistics();
+  SolvingStatistics getStatistics() override;
 
-  /// Return the model in case of SAT result.
-  vector<int> getModel();
+  vector<int> getModel() override;
 
-  /// Native diversification.
-  void diversify(int id);
+  void diversify(int id) override;
 
-  /// Constructor.
-  MapleCOMSPSSolver(int id, int lbd_limit);
+  explicit MapleCOMSPSSolver(int lbd_limit);
 
-  /// Copy constructor.
-  MapleCOMSPSSolver(int id, int lbd_limit, const MapleCOMSPSSolver& other);
+  MapleCOMSPSSolver(int lbd_limit, const MapleCOMSPSSolver& other);
 
-  /// Destructor.
-  ~MapleCOMSPSSolver() noexcept = default;
+  ~MapleCOMSPSSolver() noexcept override = default;
 
-  vector<int> getFinalAnalysis();
+  vector<int> getFinalAnalysis() override;
 
-  vector<int> getSatAssumptions();
+  vector<int> getSatAssumptions() override;
 
  public:
-  /// Size limit used to share clauses.
   atomic<int> lbdLimit;
 
  protected:
   ClauseBuffer clausesToImport;
   ClauseBuffer unitsToImport;
   ClauseBuffer clausesToExport;
-
-  /// Buffer used to add permanent clauses.
   ClauseBuffer clausesToAdd;
 
-  /// Used to stop or continue the resolution.
-  std::atomic_bool stopSolver{false};
-
-  /// Callback to export/import clauses.
   friend MapleCOMSPS::Lit cbkMapleCOMSPSImportUnit(void*);
-  friend bool cbkMapleCOMSPSImportClause(void*, int*, MapleCOMSPS::vec<MapleCOMSPS::Lit>&);
-  friend void cbkMapleCOMSPSExportClause(void*, int, MapleCOMSPS::vec<MapleCOMSPS::Lit>&);
+  friend bool cbkMapleCOMSPSImportClause(
+      void*, int*, MapleCOMSPS::vec<MapleCOMSPS::Lit>&);
+  friend void cbkMapleCOMSPSExportClause(
+      void*, int, MapleCOMSPS::vec<MapleCOMSPS::Lit>&);
 };
 
 }  // namespace painless

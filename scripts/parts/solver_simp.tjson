@@ -4,6 +4,13 @@
         "num_solvers": @NS,
         "solver_config": {
             "solver_type": "SimpSolver"
+        },
+        "sharing_config": {
+            "enabled": false
+        },
+        "diversification_config": {
+            "native": false,
+            "sparse": false
         }
     }
 }

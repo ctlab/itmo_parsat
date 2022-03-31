@@ -39,7 +39,9 @@ Collaboration diagram for core\+::solve\+::Reduce\+Solve\+:
 std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ {\bfseries \+\_\+filter\+\_\+conflict} (domain\+::\+U\+Search assignment)
 \item 
 sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) final
-\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\item 
+sat\+::sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1solve_1_1ReduceSolve_a89c7ab02d9a7e93731d1cdb47884fcfb}{sharing\+\_\+unit}} () noexcept override
+\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -71,6 +73,19 @@ sat\+::solver\+::\+R\+Solver\+Service {\bfseries \+\_\+solver\+\_\+service}
 The base class for all algorithms that use rho-\/backdoor search reduction. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a89c7ab02d9a7e93731d1cdb47884fcfb}\label{classcore_1_1solve_1_1ReduceSolve_a89c7ab02d9a7e93731d1cdb47884fcfb}} 
+\index{core::solve::ReduceSolve@{core::solve::ReduceSolve}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::solve::ReduceSolve@{core::solve::ReduceSolve}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sat\+::sharing\+::\+Sharing\+Unit core\+::solve\+::\+Reduce\+Solve\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the sharing unit to share with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
+
 \mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}\label{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}} 
 \index{core::solve::ReduceSolve@{core::solve::ReduceSolve}!solve@{solve}}
 \index{solve@{solve}!core::solve::ReduceSolve@{core::solve::ReduceSolve}}

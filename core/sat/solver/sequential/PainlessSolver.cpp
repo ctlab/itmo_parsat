@@ -7,73 +7,52 @@
 namespace core::sat::solver {
 
 PainlessSolver::PainlessSolver(PainlessSolverConfig config)
-    : _cfg(std::move(config)) {
-  int cpus = (int) _cfg.max_threads();
-  int shr_sleep_us = (int) _cfg.shr_sleep_us();
-  int lbd_limit = (int) _cfg.lbd_limit();
-  int shr_lit = (int) _cfg.shr_lit();
-  int max_memory = (int) _cfg.max_memory();
+    : _sharing(
+          config.sharing_config().interval_us(),
+          config.sharing_config().shr_lit())
+    , _cfg(std::move(config)) {
+  int cpus = _cfg.max_threads();
+  int lbd_limit = _cfg.lbd_limit();
+  int block_size = _cfg.block_size();
+  int block_left = cpus % block_size, solvers = 0;
+  int n_blocks = cpus / block_size + (block_left > 0);
+  sharing::SolverBlockList solver_block_list(n_blocks);
+  SolverInterface* solver = nullptr;
 
-  painless::SolverFactory::createMapleCOMSPSSolvers(
-      lbd_limit, max_memory, cpus - 2, _solvers);
-  _solvers.push_back(painless::SolverFactory::createReducerSolver(
-      painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
-  _solvers.push_back(painless::SolverFactory::createReducerSolver(
-      painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit)));
-
-  int nSolvers = (int) _solvers.size();
-
-  for (int id = 0; id < nSolvers; id++) {
-    if (id % 2) {
-      _solvers_LRB.push_back(_solvers[id]);
+  for (int i = 0; i < n_blocks; ++i, ++solvers) {
+    auto& block = solver_block_list[i];
+    int cur_block_size = std::min(cpus - solvers, block_size);
+    if (cur_block_size > 1) {
+      for (int j = 0; j < cur_block_size - 1; ++j, ++solvers) {
+        solver = painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit);
+        _solvers.push_back(solver);
+        std::get<0>(block).push_back(solver);
+      }
+      solver = painless::SolverFactory::createReducerSolver(
+          painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit));
+      _solvers.push_back(solver);
+      std::get<1>(block) = solver;
     } else {
-      _solvers_VSIDS.push_back(_solvers[id]);
+      solver = painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit);
+      _solvers.push_back(solver);
+      std::get<0>(block).push_back(solver);
     }
   }
 
-  painless::SolverFactory::nativeDiversification(_solvers);
-  painless::SolverFactory::sparseRandomDiversification(_solvers_LRB);
-  painless::SolverFactory::sparseRandomDiversification(_solvers_VSIDS);
-
   working = std::make_unique<painless::Portfolio>(&_result);
-  {
-    prod1.insert(
-        prod1.end(), _solvers.begin(), _solvers.begin() + (cpus / 2 - 1));
-    prod1.push_back(_solvers[_solvers.size() - 2]);
-    prod2.insert(
-        prod2.end(), _solvers.begin() + (cpus / 2 - 1), _solvers.end() - 2);
-    prod2.push_back(_solvers[_solvers.size() - 1]);
-    cons1.insert(cons1.end(), _solvers.begin(), _solvers.end() - 1);
-    cons2.insert(cons2.end(), _solvers.begin(), _solvers.end() - 2);
-    cons2.push_back(_solvers[_solvers.size() - 1]);
-
-    nSharers = 2;
-    _sharers.resize(nSharers);
-    _sharers[0] = std::make_unique<painless::Sharer>(
-        shr_sleep_us, 1,
-        new painless::HordeSatSharing(shr_lit, shr_sleep_us, &_result), prod1,
-        cons1);
-    _sharers[1] = std::make_unique<painless::Sharer>(
-        shr_sleep_us, 2,
-        new painless::HordeSatSharing(shr_lit, shr_sleep_us, &_result), prod2,
-        cons2);
+  for (auto& _solver : _solvers) {
+    working->addSlave(new painless::SequentialWorker(&_result, _solver));
   }
-
-  for (size_t i = 0; i < nSolvers; i++) {
-    working->addSlave(new painless::SequentialWorker(&_result, _solvers[i]));
+  if (_cfg.sharing_config().enabled()) {
+    _sharing.share(solver_block_list);
   }
 }
 
 PainlessSolver::~PainlessSolver() noexcept {
-  // Stop sharing first
-  _sharers.clear();
-
-  // Stop working
+  _sharing.stop();
   working->setInterrupt();
   working->awaitStop();
   working.reset();
-
-  // cleanup
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
       [](auto& solver) { delete solver; });
@@ -83,18 +62,19 @@ void PainlessSolver::load_problem(Problem const& problem) {
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
       [&problem](auto& solver) { solver->loadFormula(problem.clauses()); });
+  painless::SolverFactory::nativeDiversification(_solvers);
+  painless::SolverFactory::sparseRandomDiversification(_solvers);
 }
 
 State PainlessSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
   ++solve_index;
-
-  // reset the result
   _result.globalEnding = false;
   _result.finalResult = PUNKNOWN;
-  working->solve(solve_index, assumptions, {});
+  _result.finalModel.clear();
 
-  uint32_t slv_sleep_us = 100;
+  working->solve(solve_index, assumptions, {});
+  int slv_sleep_us = 100;
   while (!_result.globalEnding.load(std::memory_order_acquire) &&
          !_interrupted) {
     usleep(slv_sleep_us);
@@ -102,7 +82,6 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
       slv_sleep_us *= 2;
     }
   }
-
   working->setInterrupt();
   working->waitInterrupt();
 
@@ -129,6 +108,10 @@ void PainlessSolver::interrupt() {
 void PainlessSolver::clear_interrupt() {
   _interrupted = false;
   working->unsetInterrupt();
+}
+
+sharing::SharingUnit PainlessSolver::sharing_unit() noexcept {
+  return _solvers;
 }
 
 REGISTER_PROTO(Solver, PainlessSolver, painless_solver_config);

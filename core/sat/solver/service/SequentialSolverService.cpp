@@ -1,4 +1,5 @@
 #include "SequentialSolverService.h"
+#include "core/sat/native/painless/painless-src/solvers/SolverFactory.h"
 
 namespace core::sat::solver {
 
@@ -20,12 +21,18 @@ void SequentialSolverService::_solver_working_thread(Solver& solver) {
 }
 
 SequentialSolverService::SequentialSolverService(
-    SequentialSolverServiceConfig const& config) {
-  for (int i = 0; i < config.num_solvers(); ++i) {
+    SequentialSolverServiceConfig config)
+    : _cfg(std::move(config)) {
+  for (int i = 0; i < _cfg.num_solvers(); ++i) {
     _solvers.emplace_back(
-        USolver(SolverRegistry::resolve(config.solver_config())));
+        USolver(SolverRegistry::resolve(_cfg.solver_config())));
   }
-  for (int i = 0; i < config.num_solvers(); ++i) {
+  auto const& sharing_config = _cfg.sharing_config();
+  if (sharing_config.enabled()) {
+    _sharing.emplace(sharing_config.interval_us(), sharing_config.shr_lit());
+    _sharing->share(_sharing_unit());
+  }
+  for (int i = 0; i < _cfg.num_solvers(); ++i) {
     _threads.emplace_back([this, i] { _solver_working_thread(*_solvers[i]); });
   }
 }
@@ -74,6 +81,17 @@ void SequentialSolverService::load_problem(Problem const& problem) {
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
       [&problem](auto& solver) { solver->load_problem(problem); });
+
+  if (_cfg.diversification_config().native() ||
+      _cfg.diversification_config().sparse()) {
+    auto solvers = sat::sharing::Sharing::get_all_solvers(_sharing_unit());
+    if (_cfg.diversification_config().native()) {
+      painless::SolverFactory::nativeDiversification(solvers);
+    }
+    if (_cfg.diversification_config().sparse()) {
+      painless::SolverFactory::sparseRandomDiversification(solvers);
+    }
+  }
 }
 
 void SequentialSolverService::interrupt() {
@@ -90,6 +108,18 @@ void SequentialSolverService::clear_interrupt() {
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
       [](auto& solver) { solver->clear_interrupt(); });
+}
+
+sharing::SharingUnit SequentialSolverService::sharing_unit() noexcept {
+  return _sharing_unit();
+}
+
+sharing::SharingUnit SequentialSolverService::_sharing_unit() noexcept {
+  sharing::SharingUnit sharing_unit = _solvers.front()->sharing_unit();
+  for (size_t i = 1; i < _solvers.size(); ++i) {
+    sharing::concat(sharing_unit, _solvers[i]->sharing_unit());
+  }
+  return sharing_unit;
 }
 
 REGISTER_PROTO(

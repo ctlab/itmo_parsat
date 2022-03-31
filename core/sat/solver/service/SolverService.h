@@ -4,6 +4,7 @@
 #include <future>
 
 #include "core/sat/solver/sequential/Solver.h"
+#include "core/sat/sharing/Shareable.h"
 
 namespace core::sat::solver {
 
@@ -11,7 +12,7 @@ namespace core::sat::solver {
  * @brief SAT solver service used to asynchronously execute sequential solvers
  * with specified time limits.
  */
-class SolverService {
+class SolverService : public sat::sharing::Shareable {
  public:
   static constexpr clock_t::duration DUR_INDEF = std::chrono::milliseconds(0);
 

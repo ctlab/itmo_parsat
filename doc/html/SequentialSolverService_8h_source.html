@@ -79,54 +79,64 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;core/proto/solve_config.pb.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;core/sat/Problem.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;core/sat/solver/service/SolverService.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;util/Timer.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;util/options.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>core::sat::solver {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">SequentialSolverService</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">SequentialSolverService</a>(SequentialSolverServiceConfig <span class="keyword">const</span>&amp; config);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  ~<a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">SequentialSolverService</a>() noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  std::future&lt;State&gt; <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a4ab33aaa06c8736938270c8b76d889dc">solve</a>(</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      lit_vec_t <span class="keyword">const</span>&amp; assumptions, clock_t::duration time_limit) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;core/sat/sharing/Sharing.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;core/proto/solve_config.pb.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;core/sat/Problem.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;core/sat/solver/service/SolverService.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;util/Timer.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;util/options.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/painless/painless-src/sharing/Sharer.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;core/sat/native/painless/painless-src/sharing/HordeSatSharing.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>core::sat::solver {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">SequentialSolverService</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SolverService.html">SolverService</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">SequentialSolverService</a>(SequentialSolverServiceConfig config);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  ~<a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">SequentialSolverService</a>() noexcept <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a2d8301d7381a30a7e6eaca03856ef6d6">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a655f9f467f66362b24de9275d2ff5470">interrupt</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#ac2429f78914b9fadb9e8382cb54982f8">clear_interrupt</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">void</span> _solver_working_thread(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>&amp; solver);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  std::future&lt;State&gt; <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a4ab33aaa06c8736938270c8b76d889dc">solve</a>(</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      lit_vec_t <span class="keyword">const</span>&amp; assumptions, clock_t::duration time_limit) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a2d8301d7381a30a7e6eaca03856ef6d6">load_problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> <span class="keyword">const</span>&amp; problem) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a655f9f467f66362b24de9275d2ff5470">interrupt</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#ac2429f78914b9fadb9e8382cb54982f8">clear_interrupt</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">bool</span> _stop = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  util::Timer _timer;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  std::mutex _queue_m;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  std::condition_variable _queue_cv;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  std::queue&lt;std::packaged_task&lt;void(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>&amp;)&gt;&gt; _task_queue;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  std::vector&lt;USolver&gt; _solvers;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  std::vector&lt;std::thread&gt; _threads;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SEQUENTIALSOLVERSERVICE_H</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  sharing::SharingUnit <a class="code" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a62da6518f2228c22a3ee7086802d3aca">sharing_unit</a>() noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> _solver_working_thread(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>&amp; solver);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  sharing::SharingUnit _sharing_unit() noexcept;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">bool</span> _stop = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  SequentialSolverServiceConfig _cfg;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  util::Timer _timer;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  std::mutex _queue_m;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  std::condition_variable _queue_cv;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::queue&lt;std::packaged_task&lt;void(<a class="code" href="classcore_1_1sat_1_1solver_1_1Solver.html">Solver</a>&amp;)&gt;&gt; _task_queue;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  std::vector&lt;USolver&gt; _solvers;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  std::optional&lt;sat::sharing::Sharing&gt; _sharing;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  std::vector&lt;std::thread&gt; _threads;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SEQUENTIALSOLVERSERVICE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a2d8301d7381a30a7e6eaca03856ef6d6"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a2d8301d7381a30a7e6eaca03856ef6d6">core::sat::solver::SequentialSolverService::load_problem</a></div><div class="ttdeci">void load_problem(sat::Problem const &amp;problem) override</div><div class="ttdoc">Load problem to all solvers.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:73</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_ac2429f78914b9fadb9e8382cb54982f8"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#ac2429f78914b9fadb9e8382cb54982f8">core::sat::solver::SequentialSolverService::clear_interrupt</a></div><div class="ttdeci">void clear_interrupt() override</div><div class="ttdoc">Clear interrupt for all solvers.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:89</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a655f9f467f66362b24de9275d2ff5470"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a655f9f467f66362b24de9275d2ff5470">core::sat::solver::SequentialSolverService::interrupt</a></div><div class="ttdeci">void interrupt() override</div><div class="ttdoc">Interrupt all solvers in the service.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:79</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html">core::sat::solver::SolverService</a></div><div class="ttdoc">SAT solver service used to asynchronously execute sequential solvers with specified time limits.</div><div class="ttdef"><b>Definition:</b> SolverService.h:14</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:25</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">core::sat::solver::SequentialSolverService</a></div><div class="ttdoc">The solver service managing multiple sequential solvers.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.h:21</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a62da6518f2228c22a3ee7086802d3aca"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a62da6518f2228c22a3ee7086802d3aca">core::sat::solver::SequentialSolverService::sharing_unit</a></div><div class="ttdeci">sharing::SharingUnit sharing_unit() noexcept override</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:113</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a2d8301d7381a30a7e6eaca03856ef6d6"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a2d8301d7381a30a7e6eaca03856ef6d6">core::sat::solver::SequentialSolverService::load_problem</a></div><div class="ttdeci">void load_problem(sat::Problem const &amp;problem) override</div><div class="ttdoc">Load problem to all solvers.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:80</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_ac2429f78914b9fadb9e8382cb54982f8"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#ac2429f78914b9fadb9e8382cb54982f8">core::sat::solver::SequentialSolverService::clear_interrupt</a></div><div class="ttdeci">void clear_interrupt() override</div><div class="ttdoc">Clear interrupt for all solvers.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:107</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a655f9f467f66362b24de9275d2ff5470"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a655f9f467f66362b24de9275d2ff5470">core::sat::solver::SequentialSolverService::interrupt</a></div><div class="ttdeci">void interrupt() override</div><div class="ttdoc">Interrupt all solvers in the service.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:97</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SolverService_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SolverService.html">core::sat::solver::SolverService</a></div><div class="ttdoc">SAT solver service used to asynchronously execute sequential solvers with specified time limits.</div><div class="ttdef"><b>Definition:</b> SolverService.h:15</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1Solver_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1Solver.html">core::sat::solver::Solver</a></div><div class="ttdoc">SAT Solver interface.</div><div class="ttdef"><b>Definition:</b> Solver.h:27</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html">core::sat::solver::SequentialSolverService</a></div><div class="ttdoc">The solver service managing multiple sequential solvers.</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.h:24</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:26</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a4ab33aaa06c8736938270c8b76d889dc"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a4ab33aaa06c8736938270c8b76d889dc">core::sat::solver::SequentialSolverService::solve</a></div><div class="ttdeci">std::future&lt; State &gt; solve(lit_vec_t const &amp;assumptions, clock_t::duration time_limit) override</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:33</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1SequentialSolverService_html_a4ab33aaa06c8736938270c8b76d889dc"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a4ab33aaa06c8736938270c8b76d889dc">core::sat::solver::SequentialSolverService::solve</a></div><div class="ttdeci">std::future&lt; State &gt; solve(lit_vec_t const &amp;assumptions, clock_t::duration time_limit) override</div><div class="ttdef"><b>Definition:</b> SequentialSolverService.cpp:40</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -29,6 +29,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "core/sat/native/mini/utils/System.h"
 #include "mapleCOMSPS/simp/SimpSolver.h"
 
+#define IPS_PRINTF(...)           \
+  do {                            \
+    fprintf(stderr, __VA_ARGS__); \
+    fflush(stderr);               \
+  } while (0)
+
 using namespace MapleCOMSPS;
 using namespace Mini;
 
@@ -186,8 +192,9 @@ lbool SimpSolver::solve_(bool do_simp, bool turn_off_simp) {
     result = lbool(eliminate(turn_off_simp));
   }
 
-  if (result == l_True)
+  if (result == l_True) {
     result = Solver::solve_();
+  }
   //  else if (verbosity >= 1)
   //    printf("c
   //    ===============================================================================\n");

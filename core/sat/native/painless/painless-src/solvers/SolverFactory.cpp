@@ -26,7 +26,7 @@ namespace painless {
 
 void SolverFactory::sparseRandomDiversification(
     const vector<SolverInterface*>& solvers) {
-  if (solvers.size() == 0)
+  if (solvers.empty())
     return;
 
   int vars = solvers[0]->getVariablesCount();
@@ -51,11 +51,11 @@ void SolverFactory::nativeDiversification(
 }
 
 SolverInterface* SolverFactory::createMapleCOMSPSSolver(int lbd_limit) {
-  return new MapleCOMSPSSolver(currentIdSolver.fetch_add(1), lbd_limit);
+  return new MapleCOMSPSSolver(lbd_limit);
 }
 
 SolverInterface* SolverFactory::createReducerSolver(SolverInterface* _solver) {
-  return new Reducer(currentIdSolver.fetch_add(1), _solver);
+  return new Reducer(_solver);
 }
 
 void SolverFactory::createMapleCOMSPSSolvers(
@@ -63,11 +63,9 @@ void SolverFactory::createMapleCOMSPSSolvers(
     vector<SolverInterface*>& solvers) {
   solvers.push_back(createMapleCOMSPSSolver(lbd_limit));
   double memoryUsed = getMemoryUsed();
-
   if (max_memory && maxSolvers > max_memory) {
     maxSolvers = max_memory;
   }
-
   for (int i = 1; i < maxSolvers; i++) {
     solvers.push_back(createMapleCOMSPSSolver(lbd_limit));
   }
@@ -75,9 +73,8 @@ void SolverFactory::createMapleCOMSPSSolvers(
 
 SolverInterface* SolverFactory::cloneSolver(SolverInterface* other) {
   SolverInterface* solver;
-  int id = currentIdSolver.fetch_add(1);
   auto&& o = (MapleCOMSPSSolver&) *other;
-  return new MapleCOMSPSSolver(id, o.lbdLimit, (MapleCOMSPSSolver&) *other);
+  return new MapleCOMSPSSolver(o.lbdLimit, (MapleCOMSPSSolver&) *other);
 }
 
 }  // namespace painless

@@ -92,7 +92,7 @@ void SequentialWorker::solve(
 
 void SequentialWorker::join(
     int64_t index, WorkingStrategy* winner, PSatResult res,
-    const vector<int>& model) {
+    vector<int> const& model) {
   setInterrupt();
 
   if (result->globalEnding || current_index != index) {

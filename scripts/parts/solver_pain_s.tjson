@@ -1,0 +1,29 @@
+{
+    "solver_service_type": "SequentialSolverService",
+    "sequential_solver_service_config": {
+        "num_solvers": @NS,
+        "solver_config": {
+            "solver_type": "PainlessSolver",
+            "painless_solver_config": {
+                "max_threads": @MT,
+                "max_memory": 0,
+                "block_size": 16,
+                "time_limit_s": 0,
+                "lbd_limit": 2,
+                "slv_sleep_us": 50000,
+                "sharing_config": {
+                    "enabled": false
+                }
+            }
+        },
+        "sharing_config": {
+            "enabled": true,
+            "interval_us": 100000,
+            "shr_lit": 300
+        },
+        "diversification_config": {
+            "native": false,
+            "sparse": false
+        }
+    }
+}

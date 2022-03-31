@@ -26,13 +26,11 @@ void working_thread(
         core::clock_t::duration dur = core::clock_t::now() - start;
         if (time_limit) {
           ASSERT_LE(dur, tl + 1000ms);
-        }
-        auto expected = core::sat::UNKNOWN;
-        if (!time_limit || actual != core::sat::UNKNOWN) {
-          expected = common::to_state(
+        } else {
+          auto expected = common::to_state(
               base_simp_solver.solveLimited(assumption, false, true));
+          ASSERT_EQ(expected, actual);
         }
-        ASSERT_EQ(expected, actual);
       },
       0, 20, base_simp_solver.nVars() - 1, num_tests);
 }
@@ -66,8 +64,8 @@ DEFINE_PARAMETRIZED_TEST(
 static std::vector<std::string> service_configs{
     "simp_service_1.json",     "simp_service_16.json",
     "maple_service_1.json",    "maple_service_16.json",
-    "painless_service_1.json", "painless_service_4.json",
-};
+    "maple_service_16s.json",  "painless_service_1.json",
+    "painless_service_4.json", "painless_service_4s.json"};
 
 TEST_P(TestSolverService, correctness) {
   auto [service_config, input_name, eliminate, workers, num_tests, time_limit] =

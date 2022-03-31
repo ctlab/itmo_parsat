@@ -17,6 +17,8 @@ class NaiveSolve : public Solve {
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) override;
 
+  sat::sharing::SharingUnit sharing_unit() noexcept override;
+
  protected:
   void _interrupt_impl() override;
 

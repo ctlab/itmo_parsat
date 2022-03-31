@@ -1,0 +1,16 @@
+{
+    "solver_service_type": "SequentialSolverService",
+    "sequential_solver_service_config": {
+        "num_solvers": @NS,
+        "solver_config": {
+            "solver_type": "MapleCOMSPSSolver"
+        },
+        "sharing_config": {
+            "enabled": false
+        },
+        "diversification_config": {
+            "native": false,
+            "sparse": false
+        }
+    }
+}

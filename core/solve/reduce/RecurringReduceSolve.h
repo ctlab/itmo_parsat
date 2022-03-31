@@ -8,6 +8,7 @@
 #include "core/solve/rbs/RBSearch.h"
 #include "util/visit.h"
 #include "util/stream.h"
+#include "util/Logger.h"
 
 namespace core::solve {
 

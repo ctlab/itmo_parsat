@@ -32,6 +32,8 @@ class SimpSolver : public Solver, public MinisatSimpBase {
   void interrupt() override;
 
   void clear_interrupt() override;
+
+  sharing::SharingUnit sharing_unit() noexcept override;
 };
 
 }  // namespace core::sat::solver

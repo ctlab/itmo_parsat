@@ -56,7 +56,8 @@ void Sharer::do_add() {
 void Sharer::main_sharing_thread() {
   using namespace std::chrono_literals;
   int round = 0;
-  std::chrono::duration sleep_dur = std::chrono::microseconds(shr_sleep_us);
+  auto sleep_dur = std::chrono::microseconds(shr_sleep_us);
+  usleep(rand() % (shr_sleep_us >> 2));
 
   while (!_stop) {
     std::unique_lock<std::mutex> ul(share_mutex);
@@ -75,11 +76,11 @@ void Sharer::main_sharing_thread() {
 Sharer::Sharer(
     int shr_sleep_us, int id, SharingStrategy* sharingStrategy,
     vector<SolverInterface*> producers, vector<SolverInterface*> consumers)
-    : result(sharingStrategy->result), shr_sleep_us(shr_sleep_us) {
+    : shr_sleep_us(shr_sleep_us) {
   this->id = id;
   this->sharingStrategy = sharingStrategy;
-  this->producers = producers;
-  this->consumers = consumers;
+  this->producers = std::move(producers);
+  this->consumers = std::move(consumers);
   sharer_thread = std::thread([this] { main_sharing_thread(); });
 }
 

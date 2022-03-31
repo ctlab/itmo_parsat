@@ -10,13 +10,14 @@
 #include "util/SigHandler.h"
 #include "util/TimeTracer.h"
 #include "core/proto/solve_config.pb.h"
+#include "core/sat/sharing/Shareable.h"
 
 namespace core::solve {
 
 /**
  * @brief The core class that performs all actions related to solving SAT.
  */
-class Solve {
+class Solve : public sat::sharing::Shareable {
  public:
   Solve() = default;
 

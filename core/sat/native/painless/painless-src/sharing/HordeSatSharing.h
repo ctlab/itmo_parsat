@@ -30,15 +30,15 @@ namespace painless {
 
 class HordeSatSharing : public SharingStrategy {
  public:
-  explicit HordeSatSharing(int shr_lit, int shr_sleep, WorkingResult* result);
+  explicit HordeSatSharing(int shr_lit, int shr_sleep);
 
-  ~HordeSatSharing() = default;
+  ~HordeSatSharing() override = default;
 
   void doSharing(
       int idSharer, const std::vector<SolverInterface*>& from,
-      const std::vector<SolverInterface*>& to);
+      const std::vector<SolverInterface*>& to) override;
 
-  SharingStatistics getStatistics();
+  SharingStatistics getStatistics() override;
 
  protected:
   int literalPerRound;

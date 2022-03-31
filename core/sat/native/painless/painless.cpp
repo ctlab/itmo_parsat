@@ -127,10 +127,10 @@ int main(int argc, char** argv) {
   cons2.push_back(solvers[solvers.size() - 1]);
   nSharers = 2;
   sharers = new Sharer*[nSharers];
-  sharers[0] = new Sharer(
-      500000, 1, new HordeSatSharing(1500, 500000, &result), prod1, cons1);
-  sharers[1] = new Sharer(
-      500000, 2, new HordeSatSharing(1500, 500000, &result), prod2, cons2);
+  sharers[0] =
+      new Sharer(500000, 1, new HordeSatSharing(1500, 500000), prod1, cons1);
+  sharers[1] =
+      new Sharer(500000, 2, new HordeSatSharing(1500, 500000), prod2, cons2);
 
   // Init working
   for (size_t i = 0; i < nSolvers; i++) {

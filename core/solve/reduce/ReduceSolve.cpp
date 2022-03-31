@@ -100,4 +100,8 @@ sat::State ReduceSolve::solve(sat::Problem const& problem) {
   }
 }
 
+sat::sharing::SharingUnit ReduceSolve::sharing_unit() noexcept {
+  return _solver_service->sharing_unit();
+}
+
 }  // namespace core::solve

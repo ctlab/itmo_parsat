@@ -44,7 +44,9 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SimpSolver_a139be1c329193834
 \begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SimpSolver_ab49317794aae8ea1e5e4c73898011b1c}\label{classcore_1_1sat_1_1solver_1_1SimpSolver_ab49317794aae8ea1e5e4c73898011b1c}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SimpSolver_ab49317794aae8ea1e5e4c73898011b1c}{clear\+\_\+interrupt}} () override
-\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\item 
+sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SimpSolver_a864758629e0333dbf3352bce3e176d8b}{sharing\+\_\+unit}} () noexcept override
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -69,6 +71,19 @@ Parses cnf from .gz file with the specified path.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SimpSolver_a864758629e0333dbf3352bce3e176d8b}\label{classcore_1_1sat_1_1solver_1_1SimpSolver_a864758629e0333dbf3352bce3e176d8b}} 
+\index{core::sat::solver::SimpSolver@{core::sat::solver::SimpSolver}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::sat::solver::SimpSolver@{core::sat::solver::SimpSolver}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sharing\+::\+Sharing\+Unit core\+::sat\+::solver\+::\+Simp\+Solver\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the sharing unit to share with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SimpSolver_a5b37b611afcee5cef6e03595ebda4d92}\label{classcore_1_1sat_1_1solver_1_1SimpSolver_a5b37b611afcee5cef6e03595ebda4d92}} 
 \index{core::sat::solver::SimpSolver@{core::sat::solver::SimpSolver}!solve@{solve}}

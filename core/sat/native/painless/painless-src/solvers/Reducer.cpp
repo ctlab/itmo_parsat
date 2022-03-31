@@ -39,7 +39,7 @@ static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
   }
 }
 
-Reducer::Reducer(int id, SolverInterface* _solver) : SolverInterface(id) {
+Reducer::Reducer(SolverInterface* _solver) {
   solver = _solver;
 }
 

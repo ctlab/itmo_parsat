@@ -16,7 +16,7 @@ Inheritance diagram for core\+::sat\+::solver\+::Maple\+C\+O\+M\+S\+P\+S\+Solver
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=336pt]{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver__inherit__graph}
+\includegraphics[width=350pt]{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -26,7 +26,7 @@ Collaboration diagram for core\+::sat\+::solver\+::Maple\+C\+O\+M\+S\+P\+S\+Solv
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=336pt]{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver__coll__graph}
+\includegraphics[width=350pt]{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -44,7 +44,9 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_acb602b4e6
 \begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a7faa1ea703335862c77cc54f8dc6367c}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a7faa1ea703335862c77cc54f8dc6367c}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a7faa1ea703335862c77cc54f8dc6367c}{clear\+\_\+interrupt}} () override
-\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\item 
+sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a7649cf43adea5216d9a068456dc4e83b}{sharing\+\_\+unit}} () noexcept override
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -69,6 +71,19 @@ Parses cnf from .gz file with the specified path.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a7649cf43adea5216d9a068456dc4e83b}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a7649cf43adea5216d9a068456dc4e83b}} 
+\index{core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sharing\+::\+Sharing\+Unit core\+::sat\+::solver\+::\+Maple\+C\+O\+M\+S\+P\+S\+Solver\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the sharing unit to share with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a9649f6053eeb2cf4a4a6104ceb9bde74}\label{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_a9649f6053eeb2cf4a4a6104ceb9bde74}} 
 \index{core::sat::solver::MapleCOMSPSSolver@{core::sat::solver::MapleCOMSPSSolver}!solve@{solve}}

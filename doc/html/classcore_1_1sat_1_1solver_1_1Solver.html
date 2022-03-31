@@ -83,10 +83,20 @@ Inheritance diagram for core::sat::solver::Solver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1solver_1_1Solver__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1solver_1_1Solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1solver_1_1Solver_inherit__map" id="core_1_1sat_1_1solver_1_1Solver_inherit__map">
-<area shape="rect" title="SAT Solver interface." alt="" coords="5,71,140,112"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="188,5,347,47"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html" title="Painless&#45;based Solver implementation." alt="" coords="200,71,335,112"/>
-<area shape="rect" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="200,136,335,177"/>
+<area shape="rect" title="SAT Solver interface." alt="" coords="188,71,323,112"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="371,5,529,47"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html" title="Painless&#45;based Solver implementation." alt="" coords="383,71,517,112"/>
+<area shape="rect" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="383,136,517,177"/>
+<area shape="rect" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="5,71,140,112"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for core::sat::solver::Solver:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcore_1_1sat_1_1solver_1_1Solver__coll__graph.png" border="0" usemap="#core_1_1sat_1_1solver_1_1Solver_coll__map" alt="Collaboration graph"/></div>
+<map name="core_1_1sat_1_1solver_1_1Solver_coll__map" id="core_1_1sat_1_1solver_1_1Solver_coll__map">
+<area shape="rect" title="SAT Solver interface." alt="" coords="5,95,140,136"/>
+<area shape="rect" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="5,5,140,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -110,6 +120,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a27940fb676610241500f1a99529d02fe">num_vars</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a27940fb676610241500f1a99529d02fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of variables in formula. <br /></td></tr>
 <tr class="separator:a27940fb676610241500f1a99529d02fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcore_1_1sat_1_1sharing_1_1Shareable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1sat_1_1sharing_1_1Shareable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">core::sat::sharing::Shareable</a></td></tr>
+<tr class="memitem:a8f3436dd218bb22aabe2249150dd18ee inherit pub_methods_classcore_1_1sat_1_1sharing_1_1Shareable"><td class="memItemLeft" align="right" valign="top">virtual SharingUnit&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html#a8f3436dd218bb22aabe2249150dd18ee">sharing_unit</a> () noexcept=0</td></tr>
+<tr class="separator:a8f3436dd218bb22aabe2249150dd18ee inherit pub_methods_classcore_1_1sat_1_1sharing_1_1Shareable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SAT <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface.">Solver</a> interface. </p>
@@ -146,7 +159,7 @@ virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#aa81ff4c1f08906b334a39931261045db">core::sat::solver::MapleCOMSPSSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#ae3739bae7f3b02d0d4ea62c0f160c122">core::sat::solver::SimpSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">core::sat::solver::PainlessSolver</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#a6dc7770f1714ba76e2f3a2be3affe569">core::sat::solver::PainlessSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#ae3739bae7f3b02d0d4ea62c0f160c122">core::sat::solver::SimpSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#aa81ff4c1f08906b334a39931261045db">core::sat::solver::MapleCOMSPSSolver</a>.</p>
 
 </div>
 </div>
@@ -183,7 +196,7 @@ virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the result of solving. </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aecb7e99e36483993de1be0b272466a73">core::sat::solver::PainlessSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a9649f6053eeb2cf4a4a6104ceb9bde74">core::sat::solver::MapleCOMSPSSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a5b37b611afcee5cef6e03595ebda4d92">core::sat::solver::SimpSolver</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aecb7e99e36483993de1be0b272466a73">core::sat::solver::PainlessSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a5b37b611afcee5cef6e03595ebda4d92">core::sat::solver::SimpSolver</a>, and <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a9649f6053eeb2cf4a4a6104ceb9bde74">core::sat::solver::MapleCOMSPSSolver</a>.</p>
 
 </div>
 </div>

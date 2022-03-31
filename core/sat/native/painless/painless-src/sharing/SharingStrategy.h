@@ -33,7 +33,7 @@ struct SharingStatistics {
 
 class SharingStrategy {
  public:
-  explicit SharingStrategy(WorkingResult* result) : result(result) {}
+  SharingStrategy() = default;
 
   virtual ~SharingStrategy() = default;
 
@@ -42,9 +42,6 @@ class SharingStrategy {
       const vector<SolverInterface*>& consumers) = 0;
 
   virtual SharingStatistics getStatistics() = 0;
-
- public:
-  WorkingResult* result = nullptr;
 };
 
 }  // namespace painless

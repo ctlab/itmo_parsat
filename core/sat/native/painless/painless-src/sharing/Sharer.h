@@ -71,8 +71,6 @@ class Sharer {
   std::vector<SolverInterface*> removeConsumers;
   std::vector<SolverInterface*> producers;
   std::vector<SolverInterface*> consumers;
-
-  WorkingResult* result;
 };
 
 }  // namespace painless
