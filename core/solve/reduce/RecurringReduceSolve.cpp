@@ -78,42 +78,50 @@ sat::State RecurringReduceSolve::_solve_impl(
 RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
     std::vector<lit_vec_t> const& assumptions, clock_t::duration time_limit) {
   IPS_INFO("Filtering slow assignments (" << assumptions.size() << ").");
+  std::atomic_bool unknown{false}, satisfied{false};
   std::vector<lit_vec_t> failed;
-  bool unknown = false;
+  std::mutex progress_lock, failed_lock;
   boost::timer::progress_display progress(assumptions.size(), std::cerr);
 
   IPS_TRACE_N("RecurringRBSSolve::_filter_fast", {
-    std::vector<std::future<sat::State>> results;
+    std::vector<std::future<sat::State>> futures;
+    futures.reserve(assumptions.size());
     std::vector<lit_vec_t> cur_assumptions;
-    results.reserve(assumptions.size());
     cur_assumptions.reserve(assumptions.size());
     for (auto const& assumption : assumptions) {
       cur_assumptions.push_back(util::concat(_cur_base_assumption, assumption));
     }
-    for (auto const& assumption : cur_assumptions) {
-      results.push_back(_solver_service->solve(assumption, time_limit));
+    for (size_t i = 0; i < cur_assumptions.size(); ++i) {
+      futures.push_back(_solver_service->solve(
+          cur_assumptions[i], time_limit, [&, i](sat::State result) {
+            {
+              std::lock_guard<std::mutex> lg(progress_lock);
+              ++progress;
+            }
+            switch (result) {
+              case core::sat::UNSAT:
+                break;
+              case core::sat::UNKNOWN:
+                unknown = true;
+                {
+                  std::lock_guard<std::mutex> lg(failed_lock);
+                  failed.push_back(std::move(cur_assumptions[i]));
+                }
+                break;
+              case core::sat::SAT:
+                satisfied = true;
+                _solver_service->interrupt();
+                break;
+            }
+          }));
     }
-    for (size_t i = 0; i < results.size(); ++i) {
-      if (_is_interrupted()) {
-        break;
-      }
-      auto& result = results[i];
-      switch (result.get()) {
-        case core::sat::UNSAT:
-          break;
-        case core::sat::UNKNOWN:
-          unknown = true;
-          failed.push_back(std::move(cur_assumptions[i]));
-          break;
-        case core::sat::SAT:
-          return sat::SAT;
-      }
-      ++progress;
-    }
+    util::wait_for_futures(futures);
     IPS_INFO("Total: " << assumptions.size() << ", slow: " << failed.size());
   });
 
-  if (!unknown && !_is_interrupted()) {
+  if (satisfied) {
+    return sat::SAT;
+  } else if (!unknown && !_is_interrupted()) {
     return core::sat::UNSAT;
   } else if (failed.empty()) {
     return sat::UNKNOWN;

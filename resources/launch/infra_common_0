@@ -9,4 +9,4 @@ repeat_each = 3
 fail_on_tle = true
 save = true
 description = Integrational tests
-gtest_opts = --gtest_filter=*TestAll16CPU*
+gtest_opts = --gtest_filter=*Test*16CPU*

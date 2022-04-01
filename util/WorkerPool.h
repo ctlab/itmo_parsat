@@ -19,11 +19,14 @@ class WorkerPool {
   using task_t = std::function<void(WorkerType&)>;
 
  public:
-  WorkerPool(uint32_t max_threads, std::function<WorkerType()> const& worker_generator) {
+  WorkerPool(
+      uint32_t max_threads,
+      std::function<WorkerType()> const& worker_generator) {
     for (uint32_t i = 0; i < max_threads; ++i) {
       _workers.push_back(worker_generator());
     }
-    auto& parent_generator = util::random::Generator::current_thread_generator();
+    auto& parent_generator =
+        util::random::Generator::current_thread_generator();
     for (uint32_t thread = 0; thread < max_threads; ++thread) {
       _threads.emplace_back([this, &parent_generator, thread] {
         util::random::Generator this_thread_generator(parent_generator);
@@ -95,7 +98,7 @@ template <typename T>
 static void wait_for_futures(std::vector<std::future<T>>& futures) {
   for (auto& future : futures) {
     try {
-      future.get();
+      future.wait();
     } catch (...) {
       // ignore
     }
