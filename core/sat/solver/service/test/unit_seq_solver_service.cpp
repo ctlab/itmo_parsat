@@ -79,7 +79,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::extend(
         common::cross(
             common::to_tuple(service_configs),
-            common::to_tuple(common::small_inputs),
+            common::to_tuple(common::inputs("small")),
             common::to_tuple<bool>({false, true})),  // eliminate
         common::to_tuple<int>({16}),                 // num workers
         common::to_tuple<int>({1000}),               // num tests
@@ -90,7 +90,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::extend(
         common::cross(
             common::to_tuple(service_configs),
-            common::to_tuple(common::large_inputs),
+            common::to_tuple(common::inputs("large")),
             common::to_tuple<bool>({false})),  // no eliminate (takes long)
         common::to_tuple<int>({1}),            // num workers
         common::to_tuple<int>({5}),            // num tests

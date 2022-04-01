@@ -110,12 +110,12 @@ INSTANTIATE_TEST_CASE_P(
     TestPropagationSmall, TestPropagation,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(prop_configs),
-        common::to_tuple(common::small_inputs),  //
+        common::to_tuple(common::inputs("small")),  //
         common::to_tuple<bool>({false, true})))));
 
 INSTANTIATE_TEST_CASE_P(
     TestPropagationLarge, TestPropagation,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(prop_configs),
-        common::to_tuple(common::large_inputs),  //
+        common::to_tuple(common::inputs("large")),  //
         common::to_tuple<bool>({false})))));

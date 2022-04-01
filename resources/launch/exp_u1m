@@ -1,8 +1,8 @@
 # Description: 32-cpu tests (samples under 1 minute)
 
 concurrency = 32
-time_limit = 90 # 1.5 minutes
-description = 32-cpu-u1m
+time_limit = 75
+description = 32-cpu-u1m-01.04
 unsat_only = false
 fail_on_tle = false
 repeat_each = 1
@@ -12,4 +12,4 @@ lookup = true
 size = 0
 save = true
 test_groups = m21-u1m
-gtest_opts = --gtest_filter=*ExpAll*
+gtest_opts = --gtest_filter=*Test*32CPU*

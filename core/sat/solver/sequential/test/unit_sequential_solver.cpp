@@ -48,5 +48,5 @@ INSTANTIATE_TEST_CASE_P(
     TestSequentialSolver, TestSequentialSolver,
     ::testing::ValuesIn(common::cross(
         common::to_tuple(solver_configs),
-        common::to_tuple(common::small_inputs),
+        common::to_tuple(common::inputs("small")),
         common::to_tuple<bool>({false, true}))));

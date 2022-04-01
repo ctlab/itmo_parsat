@@ -55,7 +55,7 @@ void load_problem(
 }
 
 core::sat::Problem get_problem(std::string const& input_name, bool eliminate) {
-  static std::filesystem::path path = IPS_PROJECT_ROOT "/resources/cnf/common";
+  static std::filesystem::path path = IPS_PROJECT_ROOT "/resources/cnf";
   return core::sat::Problem(path / input_name, eliminate);
 }
 

@@ -71,12 +71,10 @@ void GAAlgorithm::step() {
 
   selector_->select(_population, h_);
 
-  // clang-format off
   _population.insert(
-      _population.end(),
-      std::make_move_iterator(children.begin()), std::make_move_iterator(children.end())
-  );
-  // clang-format on
+      _population.end(),  //
+      std::make_move_iterator(children.begin()),
+      std::make_move_iterator(children.end()));
 
   _recalc_fits();
 }

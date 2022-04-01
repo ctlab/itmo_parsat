@@ -16,6 +16,8 @@ struct prop_tree_t {} prop_tree;
 struct prop_with_dummy_t {} prop_with_dummy;
 // clang-format on
 
+#define BM_PROP_GROUP "m21-samples"
+
 static void run_propagate(
     core::sat::prop::Prop& prop, core::domain::USearch p_search,
     prop_assignments_t) {
@@ -43,9 +45,8 @@ void test_search(
     benchmark::State& state, TestType type, VarsF const& vars_f,
     Args&&... args) {
   util::random::Generator generator(239);
-  FS_PATH_INPUT(input, common::large_inputs[state.range(1)]);
+  FS_PROBLEM_INPUT(problem, common::inputs(BM_PROP_GROUP)[state.range(1)]);
   T prop(std::forward<Args>(args)...);
-  core::sat::Problem problem(input);
   prop.load_problem(problem);
   for (auto _ : state) {
     run_propagate(prop, vars_f(state.range(0), prop.num_vars()), type);
@@ -111,24 +112,29 @@ static void BM_tree_par_16_minisat(benchmark::State& state) {
 BENCHMARK(BM_full_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
+         benchmark::CreateDenseRange(
+             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
 
 BENCHMARK(BM_full_minisat_dummy)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
+         benchmark::CreateDenseRange(
+             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
 
 BENCHMARK(BM_full_par_16_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
+         benchmark::CreateDenseRange(
+             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
 
 BENCHMARK(BM_tree_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
+         benchmark::CreateDenseRange(
+             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
 
 BENCHMARK(BM_tree_par_16_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(0, common::small_inputs.size() - 1, 1)});
+         benchmark::CreateDenseRange(
+             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});

@@ -4,6 +4,10 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <mutex>
+#include <unordered_map>
+
+#include "core/sat/Problem.h"
 
 namespace common {
 
@@ -13,15 +17,15 @@ static const std::string preprocess_config_path =
     configs_path + "preprocess.json";
 static const std::string log_config_path = configs_path + "log.json";
 
-#define MAX_INPUT_LEN 128
-#define N_INPUTS (sizeof(common::large_inputs) / MAX_INPUT_LEN)
 #define FS_PATH_INPUT(INPUT, NAME) \
   std::filesystem::path INPUT(     \
-      std::string(IPS_PROJECT_ROOT "/resources/cnf/common/") + (NAME))
+      std::string(IPS_PROJECT_ROOT "/resources/cnf/") + (NAME))
 
-extern std::vector<std::string> small_inputs;
+#define FS_PROBLEM_INPUT(INPUT, NAME) \
+  core::sat::Problem INPUT(           \
+      std::string(IPS_PROJECT_ROOT "/resources/cnf/") + (NAME))
 
-extern std::vector<std::string> large_inputs;
+std::vector<std::string> const& inputs(std::string const& group);
 
 }  // namespace common
 

@@ -60,8 +60,8 @@ void run_test(std::string const& config, core::sat::Problem const& problem) {
 DEFINE_PARAMETRIZED_TEST(TestAlgorithm, std::string, std::string);
 
 static std::vector<std::string> algorithm_configs{
-    "ea.json",
-    "ga.json",
+    "ea_unit.json",
+    "ga_unit.json",
 };
 
 TEST_P(TestAlgorithm, correctness) {
@@ -73,4 +73,4 @@ INSTANTIATE_TEST_CASE_P(
     TestAlgorithmSmall, TestAlgorithm,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(algorithm_configs),
-        common::to_tuple(common::small_inputs)))));
+        common::to_tuple(common::inputs("small"))))));
