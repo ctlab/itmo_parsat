@@ -38,17 +38,38 @@ SequentialSolverService::SequentialSolverService(
 }
 
 std::future<State> SequentialSolverService::solve(
-    lit_vec_t const& assumptions, clock_t::duration time_limit) {
+    lit_vec_t const& assumption, clock_t::duration time_limit,
+    slv_callback_t const& callback) {
   auto p_task = std::packaged_task<State(Solver&)>(
-      [this, assumptions, time_limit](auto& solver) {
+      [this, assumption, time_limit, callback](auto& solver) {
         if (time_limit == DUR_INDEF) {
-          return IPS_TRACE_N_V(
-              "SeqSolverService::solve", solver.solve(assumptions));
+          State result;
+          IPS_TRACE_N("SeqSolverService::solve", {
+            result = solver.solve(assumption);
+          });
+          if (callback) {
+            try {
+              callback(result);
+            } catch (...) {
+              // ignore
+            }
+          }
+          return result;
         } else {
-          return IPS_TRACE_N_V("SeqSolverService::solve_tl",
-                               _timer.launch(
-                                   [&] { return solver.solve(assumptions); },
-                                   [&] { solver.interrupt(); }, time_limit););
+          State result;
+          IPS_TRACE_N("SeqSolverService::solve_tl", {
+            result = _timer.launch(
+                [&] { return solver.solve(assumption); },
+                [&] { solver.interrupt(); }, time_limit);
+          });
+          if (callback) {
+            try {
+              callback(result);
+            } catch (...) {
+              // ignore
+            }
+          }
+          return result;
         }
       });
   auto future = p_task.get_future();

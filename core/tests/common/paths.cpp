@@ -16,27 +16,32 @@ std::vector<core::sat::Problem> const& problems(
   std::string key =
       std::to_string(eliminate) + std::to_string(allow_trivial) + group;
   if (inputs.count(key) == 0) {
-    IPS_INFO(
-        "Loading problem group: elim=" << std::boolalpha << eliminate
-                                       << ", allow_trivial=" << allow_trivial
-                                       << " group=" << group);
     std::set<core::sat::Problem> inputs_set;
     std::filesystem::path cnf_path(IPS_PROJECT_ROOT "/resources/cnf");
     cnf_path /= group;
+
+    std::vector<std::future<core::sat::Problem>> f_problems;
     for (auto const& entry : std::filesystem::recursive_directory_iterator(
              cnf_path,
              std::filesystem::directory_options::follow_directory_symlink)) {
       if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
-        auto problem = common::get_problem(
-            group + "/" + entry.path().filename().string(), eliminate);
-        if (!allow_trivial) {
-          if (problem.get_result() != core::sat::UNKNOWN) {
-            continue;
-          }
-        }
-        inputs_set.insert(problem);
+        f_problems.push_back(std::async(
+            std::launch::async,
+            [group, eliminate, name = entry.path().filename().string()] {
+              return common::get_problem(group + "/" + name, eliminate);
+            }));
       }
     }
+    for (auto& f_problem : f_problems) {
+      auto problem = f_problem.get();
+      if (!allow_trivial) {
+        if (problem.get_result() != core::sat::UNKNOWN) {
+          continue;
+        }
+      }
+      inputs_set.insert(problem);
+    }
+
     inputs[key] = {};
     inputs[key].reserve(inputs_set.size());
     for (auto const& problem : inputs_set) {

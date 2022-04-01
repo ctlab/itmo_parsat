@@ -74,4 +74,4 @@ INSTANTIATE_TEST_CASE_P(
     TestAlgorithm, TestAlgorithm,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(algorithm_configs),
-        common::to_tuple(common::problems(false, false, "small", "large"))))));
+        common::to_tuple(common::problems(false, false, "small"))))));

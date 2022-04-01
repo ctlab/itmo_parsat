@@ -8,6 +8,7 @@
 #include "core/sat/solver/service/SolverService.h"
 #include "core/solve/Solve.h"
 #include "core/sat/Problem.h"
+#include "util/WorkerPool.h"
 #include "util/Reference.h"
 #include "util/Registry.h"
 

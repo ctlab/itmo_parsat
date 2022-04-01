@@ -5,6 +5,7 @@
 #include <vector>
 #include <filesystem>
 #include <mutex>
+#include <future>
 #include <unordered_map>
 
 #include "core/sat/Problem.h"

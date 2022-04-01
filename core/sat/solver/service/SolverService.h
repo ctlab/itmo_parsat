@@ -17,15 +17,21 @@ class SolverService : public sat::sharing::Shareable {
   static constexpr clock_t::duration DUR_INDEF = std::chrono::milliseconds(0);
 
  public:
+  using slv_callback_t = std::function<void(sat::State)>;
+
+ public:
   virtual ~SolverService() = default;
 
   /**
+   * @brief Solve with callback.
    * @param assumption the assumption passed to solver
-   * @param time_limit after this duration the solver will be interrupted
-   * @return the future of the sat solver result
+   * @param time_limit after this period solver will be interrupted
+   * @param callback the callback
+   * @return the future of sat solver result
    */
   virtual std::future<core::sat::State> solve(
-      lit_vec_t const& assumption, clock_t::duration time_limit) = 0;
+      lit_vec_t const& assumption, clock_t::duration time_limit,
+      slv_callback_t const& callback = {}) = 0;
 
   /**
    * @brief Load problem to all solvers.

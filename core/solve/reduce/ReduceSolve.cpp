@@ -51,36 +51,40 @@ sat::State ReduceSolve::_solve_final(
     std::vector<lit_vec_t> const& assumptions_v) {
   IPS_INFO(
       "Solving non-conflict assignments (" << assumptions_v.size() << ").");
-  std::atomic_bool unknown{false};
+  std::atomic_bool unknown{false}, satisfied{false};
+  std::mutex progress_lock;
   boost::timer::progress_display progress(assumptions_v.size(), std::cerr);
 
   IPS_TRACE_N("RBSSolveBase::solve_final", {
-    std::list<std::future<sat::State>> futures;
+    std::vector<std::future<sat::State>> futures;
+    futures.reserve(assumptions_v.size());
     for (auto& assumption : assumptions_v) {
       futures.push_back(_solver_service->solve(
-          assumption, sat::solver::SolverService::DUR_INDEF));
+          assumption, sat::solver::SolverService::DUR_INDEF,
+          [this, &unknown, &satisfied, &progress,
+           &progress_lock](sat::State result) {
+            {
+              std::lock_guard<std::mutex> lg(progress_lock);
+              ++progress;
+            }
+            switch (result) {
+              case core::sat::UNSAT:
+                break;
+              case core::sat::UNKNOWN:
+                unknown = true;
+                break;
+              case core::sat::SAT:
+                satisfied = true;
+                _solver_service->interrupt();
+                break;
+            }
+          }));
     }
-    for (auto it = futures.begin(); it != futures.end(); ++it) {
-      if (_is_interrupted()) {
-        break;
-      }
-      auto status = it->wait_for(std::chrono::milliseconds(100));
-      if (status == std::future_status::ready) {
-        auto sat_res = it->get();
-        it = futures.erase(it);
-        switch (sat_res) {
-          case core::sat::UNSAT:
-            break;
-          case core::sat::UNKNOWN:
-            unknown = true;
-            break;
-          case core::sat::SAT:
-            return core::sat::SAT;
-        }
-        ++progress;
-      }
-    }
-    if (!unknown && !_is_interrupted()) {
+    util::wait_for_futures(futures);
+
+    if (satisfied) {
+      return core::sat::SAT;
+    } else if (!unknown && !_is_interrupted()) {
       return core::sat::UNSAT;
     } else {
       return core::sat::UNKNOWN;

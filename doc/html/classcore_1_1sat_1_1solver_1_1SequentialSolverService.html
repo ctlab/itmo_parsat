@@ -104,8 +104,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a504f816a6d0846e7e7bee5150d467a54"><td class="memItemLeft" align="right" valign="top"><a id="a504f816a6d0846e7e7bee5150d467a54"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SequentialSolverService</b> (SequentialSolverServiceConfig config)</td></tr>
 <tr class="separator:a504f816a6d0846e7e7bee5150d467a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ab33aaa06c8736938270c8b76d889dc"><td class="memItemLeft" align="right" valign="top">std::future&lt; State &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a4ab33aaa06c8736938270c8b76d889dc">solve</a> (lit_vec_t const &amp;assumptions, clock_t::duration time_limit) override</td></tr>
-<tr class="separator:a4ab33aaa06c8736938270c8b76d889dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd7d07c8a02de85ad3668174834449d"><td class="memItemLeft" align="right" valign="top">std::future&lt; State &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a8dd7d07c8a02de85ad3668174834449d">solve</a> (lit_vec_t const &amp;assumption, clock_t::duration time_limit, slv_callback_t const &amp;callback) override</td></tr>
+<tr class="memdesc:a8dd7d07c8a02de85ad3668174834449d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve with callback.  <a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a8dd7d07c8a02de85ad3668174834449d">More...</a><br /></td></tr>
+<tr class="separator:a8dd7d07c8a02de85ad3668174834449d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d8301d7381a30a7e6eaca03856ef6d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a2d8301d7381a30a7e6eaca03856ef6d6">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem) override</td></tr>
 <tr class="memdesc:a2d8301d7381a30a7e6eaca03856ef6d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load problem to all solvers.  <a href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a2d8301d7381a30a7e6eaca03856ef6d6">More...</a><br /></td></tr>
 <tr class="separator:a2d8301d7381a30a7e6eaca03856ef6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,6 +123,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_classcore_1_1sat_1_1solver_1_1SolverService"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classcore_1_1sat_1_1solver_1_1SolverService')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html">core::sat::solver::SolverService</a></td></tr>
+<tr class="memitem:a83724d43369c85b6d516e57bc3f306e8 inherit pub_types_classcore_1_1sat_1_1solver_1_1SolverService"><td class="memItemLeft" align="right" valign="top"><a id="a83724d43369c85b6d516e57bc3f306e8"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>slv_callback_t</b> = std::function&lt; void(sat::State)&gt;</td></tr>
+<tr class="separator:a83724d43369c85b6d516e57bc3f306e8 inherit pub_types_classcore_1_1sat_1_1solver_1_1SolverService"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classcore_1_1sat_1_1solver_1_1SolverService"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classcore_1_1sat_1_1solver_1_1SolverService')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html">core::sat::solver::SolverService</a></td></tr>
 <tr class="memitem:a2caa8fdadf515bdc010636a16b5b629b inherit pub_static_attribs_classcore_1_1sat_1_1solver_1_1SolverService"><td class="memItemLeft" align="right" valign="top"><a id="a2caa8fdadf515bdc010636a16b5b629b"></a>
 static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bottom"><b>DUR_INDEF</b> = std::chrono::milliseconds(0)</td></tr>
@@ -194,8 +199,8 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
 
 </div>
 </div>
-<a id="a4ab33aaa06c8736938270c8b76d889dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ab33aaa06c8736938270c8b76d889dc">&#9670;&nbsp;</a></span>solve()</h2>
+<a id="a8dd7d07c8a02de85ad3668174834449d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dd7d07c8a02de85ad3668174834449d">&#9670;&nbsp;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,7 +218,13 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">clock_t::duration&#160;</td>
-          <td class="paramname"><em>time_limit</em>&#160;</td>
+          <td class="paramname"><em>time_limit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">slv_callback_t const &amp;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -227,16 +238,19 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Solve with callback. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">assumption</td><td>the assumption passed to solver </td></tr>
-    <tr><td class="paramname">time_limit</td><td>after this duration the solver will be interrupted </td></tr>
+    <tr><td class="paramname">time_limit</td><td>after this period solver will be interrupted </td></tr>
+    <tr><td class="paramname">callback</td><td>the callback </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the future of the sat solver result </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the future of sat solver result </dd></dl>
 
-<p>Implements <a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a5a94e8e4899997ed9cf72f07f53e4e9b">core::sat::solver::SolverService</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a0977675cf9f4b784785f92bb331afd83">core::sat::solver::SolverService</a>.</p>
 
 </div>
 </div>

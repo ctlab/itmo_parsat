@@ -35,8 +35,8 @@ Collaboration diagram for core\+::sat\+::solver\+::Sequential\+Solver\+Service\+
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a504f816a6d0846e7e7bee5150d467a54}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a504f816a6d0846e7e7bee5150d467a54}} 
 {\bfseries Sequential\+Solver\+Service} (Sequential\+Solver\+Service\+Config config)
 \item 
-std\+::future$<$ State $>$ \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a4ab33aaa06c8736938270c8b76d889dc}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions, clock\+\_\+t\+::duration time\+\_\+limit) override
-\item 
+std\+::future$<$ State $>$ \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a8dd7d07c8a02de85ad3668174834449d}{solve}} (lit\+\_\+vec\+\_\+t const \&assumption, clock\+\_\+t\+::duration time\+\_\+limit, slv\+\_\+callback\+\_\+t const \&callback) override
+\begin{DoxyCompactList}\small\item\em Solve with callback. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a2d8301d7381a30a7e6eaca03856ef6d6}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em Load problem to all solvers. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a655f9f467f66362b24de9275d2ff5470}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a655f9f467f66362b24de9275d2ff5470}} 
@@ -86,25 +86,31 @@ the sharing unit to share with
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a4ab33aaa06c8736938270c8b76d889dc}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a4ab33aaa06c8736938270c8b76d889dc}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a8dd7d07c8a02de85ad3668174834449d}\label{classcore_1_1sat_1_1solver_1_1SequentialSolverService_a8dd7d07c8a02de85ad3668174834449d}} 
 \index{core::sat::solver::SequentialSolverService@{core::sat::solver::SequentialSolverService}!solve@{solve}}
 \index{solve@{solve}!core::sat::solver::SequentialSolverService@{core::sat::solver::SequentialSolverService}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily std\+::future$<$ State $>$ core\+::sat\+::solver\+::\+Sequential\+Solver\+Service\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumption,  }\item[{clock\+\_\+t\+::duration}]{time\+\_\+limit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::future$<$ State $>$ core\+::sat\+::solver\+::\+Sequential\+Solver\+Service\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumption,  }\item[{clock\+\_\+t\+::duration}]{time\+\_\+limit,  }\item[{slv\+\_\+callback\+\_\+t const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Solve with callback. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em assumption} & the assumption passed to solver \\
 \hline
-{\em time\+\_\+limit} & after this duration the solver will be interrupted \\
+{\em time\+\_\+limit} & after this period solver will be interrupted \\
+\hline
+{\em callback} & the callback \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the future of the sat solver result 
+the future of sat solver result 
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SolverService_a5a94e8e4899997ed9cf72f07f53e4e9b}{core\+::sat\+::solver\+::\+Solver\+Service}}.
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SolverService_a0977675cf9f4b784785f92bb331afd83}{core\+::sat\+::solver\+::\+Solver\+Service}}.
 
 
 

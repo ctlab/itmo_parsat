@@ -43,6 +43,7 @@ void LaunchFixture::SetUpTestSuite() {
 }
 
 void LaunchFixture::SetUp() {
+  test_failed = false;
   InfraParametrized::SetUp();
   _info = std::make_unique<infra::domain::LaunchInfo>(config);
   _exec_manager =

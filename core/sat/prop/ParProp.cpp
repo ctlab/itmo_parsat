@@ -37,7 +37,7 @@ void ParProp::_prop_assignments(
               *prop, search_p->split_search(num_threads, index), callback);
         }));
   }
-  PropWorkerPool::wait_for(futures);
+  util::wait_for_futures(futures);
 }
 
 void ParProp::_prop_assignments(
@@ -55,7 +55,7 @@ void ParProp::_prop_assignments(
               search_p->split_search(num_threads, index), callback);
         }));
   }
-  PropWorkerPool::wait_for(futures);
+  util::wait_for_futures(futures);
 }
 
 uint64_t ParProp::_prop_tree(lit_vec_t const& vars, uint32_t head_size) {
@@ -91,7 +91,7 @@ uint64_t ParProp::_prop_tree(lit_vec_t const& vars, uint32_t head_size) {
           result += prop->prop_tree(asgn, base_head + head_size);
         }));
   }
-  PropWorkerPool::wait_for(futures);
+  util::wait_for_futures(futures);
   return result;
 }
 

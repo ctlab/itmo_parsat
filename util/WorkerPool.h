@@ -74,13 +74,6 @@ class WorkerPool {
     return _threads.size();
   }
 
-  template <typename T>
-  static void wait_for(std::vector<std::future<T>>& futures) {
-    for (auto& future : futures) {
-      future.get();
-    }
-  }
-
   std::vector<WorkerType>& get_workers() noexcept {
     return _workers;
   }
@@ -97,6 +90,17 @@ class WorkerPool {
   std::vector<WorkerType> _workers;
   std::queue<std::packaged_task<void(WorkerType&)>> _task_queue;
 };
+
+template <typename T>
+static void wait_for_futures(std::vector<std::future<T>>& futures) {
+  for (auto& future : futures) {
+    try {
+      future.get();
+    } catch (...) {
+      // ignore
+    }
+  }
+}
 
 }  // namespace util
 
