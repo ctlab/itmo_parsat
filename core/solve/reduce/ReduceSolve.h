@@ -1,6 +1,7 @@
 #ifndef ITMO_PARSAT_REDUCESOLVE_H
 #define ITMO_PARSAT_REDUCESOLVE_H
 
+#include <list>
 #include <boost/timer/progress_display.hpp>
 
 #include "core/evol/method/preprocess/Preprocess.h"

@@ -1,7 +1,5 @@
 #include <benchmark/benchmark.h>
 
-#include <filesystem>
-
 #include "core/tests/common/paths.h"
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
@@ -16,7 +14,7 @@ struct prop_tree_t {} prop_tree;
 struct prop_with_dummy_t {} prop_with_dummy;
 // clang-format on
 
-#define BM_PROP_GROUP "m21-samples"
+#define BM_PROP_GROUP true, false, "small"
 
 static void run_propagate(
     core::sat::prop::Prop& prop, core::domain::USearch p_search,
@@ -45,7 +43,7 @@ void test_search(
     benchmark::State& state, TestType type, VarsF const& vars_f,
     Args&&... args) {
   util::random::Generator generator(239);
-  FS_PROBLEM_INPUT(problem, common::inputs(BM_PROP_GROUP)[state.range(1)]);
+  auto problem = common::problems(BM_PROP_GROUP)[state.range(1)];
   T prop(std::forward<Args>(args)...);
   prop.load_problem(problem);
   for (auto _ : state) {
@@ -83,58 +81,58 @@ void tree_search(benchmark::State& state, Args&&... args) {
       std::forward<Args>(args)...);
 }
 
-static void BM_full_minisat(benchmark::State& state) {
+static void BM_prop_full_minisat(benchmark::State& state) {
   full_search<core::sat::prop::SimpProp>(state);
 }
 
-static void BM_full_minisat_dummy(benchmark::State& state) {
+static void BM_prop_full_minisat_dummy(benchmark::State& state) {
   full_search_with_dummy<core::sat::prop::SimpProp>(state);
 }
 
-static void BM_full_par_16_minisat(benchmark::State& state) {
+static void BM_prop_full_par_16_minisat(benchmark::State& state) {
   ParPropConfig config;
   config.set_max_threads(16);
   config.mutable_prop_config()->set_prop_type("SimpProp");
   full_search<core::sat::prop::ParProp>(state, config);
 }
 
-static void BM_tree_minisat(benchmark::State& state) {
+static void BM_prop_tree_minisat(benchmark::State& state) {
   tree_search<core::sat::prop::SimpProp>(state);
 }
 
-static void BM_tree_par_16_minisat(benchmark::State& state) {
+static void BM_prop_tree_par_16_minisat(benchmark::State& state) {
   ParPropConfig config;
   config.set_max_threads(16);
   config.mutable_prop_config()->set_prop_type("SimpProp");
   tree_search<core::sat::prop::ParProp>(state, config);
 }
 
-BENCHMARK(BM_full_minisat)
+BENCHMARK(BM_prop_full_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
          benchmark::CreateDenseRange(
-             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
 
-BENCHMARK(BM_full_minisat_dummy)
+BENCHMARK(BM_prop_full_minisat_dummy)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
          benchmark::CreateDenseRange(
-             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
 
-BENCHMARK(BM_full_par_16_minisat)
+BENCHMARK(BM_prop_full_par_16_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
          benchmark::CreateDenseRange(
-             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
 
-BENCHMARK(BM_tree_minisat)
+BENCHMARK(BM_prop_tree_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
          benchmark::CreateDenseRange(
-             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
 
-BENCHMARK(BM_tree_par_16_minisat)
+BENCHMARK(BM_prop_tree_par_16_minisat)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, 20, 4),
          benchmark::CreateDenseRange(
-             0, (int) common::inputs(BM_PROP_GROUP).size() - 1, 1)});
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});

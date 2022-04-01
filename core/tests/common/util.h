@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <tuple>
 
+#include "core/sat/Problem.h"
 #include "core/tests/common/get.h"
 
 template <typename TupType, size_t... I>

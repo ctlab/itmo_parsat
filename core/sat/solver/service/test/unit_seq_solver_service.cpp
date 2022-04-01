@@ -36,13 +36,9 @@ void working_thread(
 }
 
 void test_solver_service(
-    std::string const& service_config, std::string const& input_name,
-    bool eliminate, size_t n_workers, int num_tests, bool time_limit) {
+    std::string const& service_config, core::sat::Problem const& problem,
+    size_t n_workers, int num_tests, bool time_limit) {
   util::random::Generator gen(239);
-  auto problem = common::get_problem(input_name, eliminate);
-  if (problem.get_result() != core::sat::UNKNOWN) {
-    return;
-  }
   core::sat::solver::RSolverService service =
       common::get_solver_service(common::configs_path + service_config);
   service->load_problem(problem);
@@ -58,7 +54,8 @@ void test_solver_service(
 }
 
 DEFINE_PARAMETRIZED_TEST(
-    TestSolverService, std::string, std::string, bool /* elim */,
+    TestSolverService,  //
+    std::string /* config */, core::sat::Problem /* problem */,
     int /* workers */, int /* num_tests */, bool /* time_limit */);
 
 static std::vector<std::string> service_configs{
@@ -68,10 +65,8 @@ static std::vector<std::string> service_configs{
     "painless_service_4.json", "painless_service_4s.json"};
 
 TEST_P(TestSolverService, correctness) {
-  auto [service_config, input_name, eliminate, workers, num_tests, time_limit] =
-      GetParam();
-  test_solver_service(
-      service_config, input_name, eliminate, workers, num_tests, time_limit);
+  auto [service_config, problem, workers, num_tests, time_limit] = GetParam();
+  test_solver_service(service_config, problem, workers, num_tests, time_limit);
 }
 
 INSTANTIATE_TEST_CASE_P(
@@ -79,19 +74,19 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::extend(
         common::cross(
             common::to_tuple(service_configs),
-            common::to_tuple(common::inputs("small")),
-            common::to_tuple<bool>({false, true})),  // eliminate
-        common::to_tuple<int>({16}),                 // num workers
-        common::to_tuple<int>({1000}),               // num tests
-        common::to_tuple<bool>({false}))));          // time_limit
+            common::to_tuple(common::concat(
+                common::problems(false, false, "small"),
+                common::problems(true, false, "small")))),
+        common::to_tuple<int>({16}),         // num workers
+        common::to_tuple<int>({1000}),       // num tests
+        common::to_tuple<bool>({false}))));  // time_limit
 
 INSTANTIATE_TEST_CASE_P(
     SolverServiceLargeWithTimeLimit, TestSolverService,
     ::testing::ValuesIn(common::extend(
         common::cross(
             common::to_tuple(service_configs),
-            common::to_tuple(common::inputs("large")),
-            common::to_tuple<bool>({false})),  // no eliminate (takes long)
-        common::to_tuple<int>({1}),            // num workers
-        common::to_tuple<int>({5}),            // num tests
-        common::to_tuple<bool>({true}))));     // time_limit
+            common::to_tuple(common::problems(false, false, "large"))),
+        common::to_tuple<int>({1}),         // num workers
+        common::to_tuple<int>({5}),         // num tests
+        common::to_tuple<bool>({true}))));  // time_limit

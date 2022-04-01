@@ -2,28 +2,48 @@
 
 namespace common {
 
-std::vector<std::string> const& inputs(std::string const& group) {
-  static std::unordered_map<std::string, std::vector<std::string>> inputs;
+core::sat::Problem get_problem(std::string const& input_name, bool eliminate) {
+  static std::filesystem::path path = IPS_PROJECT_ROOT "/resources/cnf";
+  return core::sat::Problem(path / input_name, eliminate);
+}
+
+std::vector<core::sat::Problem> const& problems(
+    bool eliminate, bool allow_trivial, std::string const& group) {
+  static std::unordered_map<std::string, std::vector<core::sat::Problem>>
+      inputs;
   static std::mutex m;
   std::lock_guard<std::mutex> lg(m);
-  if (inputs.count(group) == 0) {
-    std::set<std::string> inputs_set;
+  std::string key =
+      std::to_string(eliminate) + std::to_string(allow_trivial) + group;
+  if (inputs.count(key) == 0) {
+    IPS_INFO(
+        "Loading problem group: elim=" << std::boolalpha << eliminate
+                                       << ", allow_trivial=" << allow_trivial
+                                       << " group=" << group);
+    std::set<core::sat::Problem> inputs_set;
     std::filesystem::path cnf_path(IPS_PROJECT_ROOT "/resources/cnf");
     cnf_path /= group;
     for (auto const& entry : std::filesystem::recursive_directory_iterator(
              cnf_path,
              std::filesystem::directory_options::follow_directory_symlink)) {
       if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
-        inputs_set.insert(entry.path().filename());
+        auto problem = common::get_problem(
+            group + "/" + entry.path().filename().string(), eliminate);
+        if (!allow_trivial) {
+          if (problem.get_result() != core::sat::UNKNOWN) {
+            continue;
+          }
+        }
+        inputs_set.insert(problem);
       }
     }
-    inputs[group] = {};
-    inputs[group].reserve(inputs_set.size());
-    for (auto const& s : inputs_set) {
-      inputs[group].push_back(group + "/" + s);
+    inputs[key] = {};
+    inputs[key].reserve(inputs_set.size());
+    for (auto const& problem : inputs_set) {
+      inputs[key].push_back(problem);
     }
   }
-  return inputs[group];
+  return inputs[key];
 }
 
 }  // namespace common

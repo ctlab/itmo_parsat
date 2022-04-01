@@ -57,7 +57,8 @@ void run_test(std::string const& config, core::sat::Problem const& problem) {
       preprocess->var_view(), 0, 20, 100);
 }
 
-DEFINE_PARAMETRIZED_TEST(TestAlgorithm, std::string, std::string);
+DEFINE_PARAMETRIZED_TEST(
+    TestAlgorithm, std::string /* config */, core::sat::Problem /* problem */);
 
 static std::vector<std::string> algorithm_configs{
     "ea_unit.json",
@@ -65,12 +66,12 @@ static std::vector<std::string> algorithm_configs{
 };
 
 TEST_P(TestAlgorithm, correctness) {
-  auto [algorithm_config, input_name] = GetParam();
-  run_test(algorithm_config, common::get_problem(input_name, true));
+  auto [algorithm_config, problem] = GetParam();
+  run_test(algorithm_config, problem);
 }
 
 INSTANTIATE_TEST_CASE_P(
-    TestAlgorithmSmall, TestAlgorithm,
+    TestAlgorithm, TestAlgorithm,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(algorithm_configs),
-        common::to_tuple(common::inputs("small"))))));
+        common::to_tuple(common::problems(false, false, "small", "large"))))));

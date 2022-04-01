@@ -9,6 +9,7 @@
 #include "util/Logger.h"
 #include "util/GzFile.h"
 
+#include "core/types.h"
 #include "core/sat/native/mini/minisat/minisat/core/Dimacs.h"
 #include "core/sat/native/mini/minisat/minisat/simp/SimpSolver.h"
 
@@ -31,16 +32,25 @@ class Problem {
    */
   explicit Problem(std::filesystem::path path, bool eliminate = true);
 
+  Problem(Problem const& o);
+
+  Problem& operator=(Problem const& o);
+
   [[nodiscard]] std::filesystem::path const& path() const noexcept;
 
-  [[nodiscard]] std::vector<Mini::vec<Mini::Lit>> const& clauses() const noexcept;
+  [[nodiscard]] std::vector<Mini::vec<Mini::Lit>> const& clauses()
+      const noexcept;
 
   [[nodiscard]] State get_result() const noexcept;
+
+  std::string to_string() const noexcept;
+
+  bool operator<(Problem const& o) const noexcept;
 
  private:
   /// @note mutable for lazy loading.
   mutable std::mutex _load_mutex;
-  mutable std::vector<Mini::vec<Mini::Lit>> _clauses;
+  mutable std::vector<lit_vec_t> _clauses;
   bool _eliminate;
   std::filesystem::path _path;
   State _result;
@@ -48,8 +58,6 @@ class Problem {
 
 }  // namespace core::sat
 
-//#define MINI_LIT(lit) lit > 0 ? MS_NS::mkLit(lit - 1, false) :
-//MS_NS::mkLit((-lit) - 1, true) #define INT_LIT(lit) MS_NS::sign(lit) ?
-//-(MS_NS::var(lit) + 1) : (MS_NS::var(lit) + 1)
+std::ostream& operator<<(std::ostream& os, core::sat::Problem const& problem);
 
 #endif  // ITMO_PARSAT_PROBLEM_H

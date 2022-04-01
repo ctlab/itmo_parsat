@@ -17,15 +17,20 @@ static const std::string preprocess_config_path =
     configs_path + "preprocess.json";
 static const std::string log_config_path = configs_path + "log.json";
 
-#define FS_PATH_INPUT(INPUT, NAME) \
-  std::filesystem::path INPUT(     \
-      std::string(IPS_PROJECT_ROOT "/resources/cnf/") + (NAME))
+core::sat::Problem get_problem(std::string const& input_name, bool eliminate);
 
-#define FS_PROBLEM_INPUT(INPUT, NAME) \
-  core::sat::Problem INPUT(           \
-      std::string(IPS_PROJECT_ROOT "/resources/cnf/") + (NAME))
+std::vector<core::sat::Problem> const& problems(
+    bool eliminate, bool allow_trivial, std::string const& group);
 
-std::vector<std::string> const& inputs(std::string const& group);
+template <typename... Args>
+std::vector<core::sat::Problem> problems(
+    bool eliminate, bool allow_trivial, std::string const& group,
+    Args... args) {
+  auto tail = problems(eliminate, allow_trivial, args...);
+  auto cur = problems(eliminate, allow_trivial, group);
+  cur.insert(cur.end(), tail.begin(), tail.end());
+  return cur;
+}
 
 }  // namespace common
 

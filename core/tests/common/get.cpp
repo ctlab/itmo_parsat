@@ -54,9 +54,4 @@ void load_problem(
   solver.parsing = false;
 }
 
-core::sat::Problem get_problem(std::string const& input_name, bool eliminate) {
-  static std::filesystem::path path = IPS_PROJECT_ROOT "/resources/cnf";
-  return core::sat::Problem(path / input_name, eliminate);
-}
-
 }  // namespace common

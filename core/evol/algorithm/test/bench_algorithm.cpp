@@ -4,6 +4,8 @@
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
 
+#define BENCH_ALG_GROUPS true, false, "small", "large"
+
 void run_benchmark(
     ea::preprocess::RPreprocess const& preprocess, std::string const& config,
     core::sat::Problem const& problem, core::lit_vec_t const& base_assumption) {
@@ -18,7 +20,7 @@ void run_benchmark(
 void BM_algorithm(benchmark::State& state, std::string config) {
   common::set_logger_config();
   util::random::Generator gen(239);
-  FS_PROBLEM_INPUT(problem, common::inputs("small")[state.range(0)]);
+  auto problem = common::problems(BENCH_ALG_GROUPS)[state.range(0)];
   auto preprocess = common::get_preprocess();
   if (!preprocess->preprocess(problem)) {
     return;
@@ -29,7 +31,7 @@ void BM_algorithm(benchmark::State& state, std::string config) {
 }
 
 BENCHMARK_CAPTURE(BM_algorithm, ea, "ea_prod.json")
-    ->DenseRange(0, (int) common::inputs("small").size() - 1, 1);
+    ->DenseRange(0, (int) common::problems(BENCH_ALG_GROUPS).size() - 1, 1);
 
 BENCHMARK_CAPTURE(BM_algorithm, ga, "ga_prod.json")
-    ->DenseRange(0, (int) common::inputs("small").size() - 1, 1);
+    ->DenseRange(0, (int) common::problems(BENCH_ALG_GROUPS).size() - 1, 1);

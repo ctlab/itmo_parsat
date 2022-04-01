@@ -55,26 +55,30 @@ sat::State ReduceSolve::_solve_final(
   boost::timer::progress_display progress(assumptions_v.size(), std::cerr);
 
   IPS_TRACE_N("RBSSolveBase::solve_final", {
-    std::vector<std::future<sat::State>> results;
-    results.reserve(assumptions_v.size());
+    std::list<std::future<sat::State>> futures;
     for (auto& assumption : assumptions_v) {
-      results.push_back(_solver_service->solve(
+      futures.push_back(_solver_service->solve(
           assumption, sat::solver::SolverService::DUR_INDEF));
     }
-    for (auto& result : results) {
+    for (auto it = futures.begin(); it != futures.end(); ++it) {
       if (_is_interrupted()) {
         break;
       }
-      switch (result.get()) {
-        case core::sat::UNSAT:
-          break;
-        case core::sat::UNKNOWN:
-          unknown = true;
-          break;
-        case core::sat::SAT:
-          return core::sat::SAT;
+      auto status = it->wait_for(std::chrono::milliseconds(100));
+      if (status == std::future_status::ready) {
+        auto sat_res = it->get();
+        it = futures.erase(it);
+        switch (sat_res) {
+          case core::sat::UNSAT:
+            break;
+          case core::sat::UNKNOWN:
+            unknown = true;
+            break;
+          case core::sat::SAT:
+            return core::sat::SAT;
+        }
+        ++progress;
       }
-      ++progress;
     }
     if (!unknown && !_is_interrupted()) {
       return core::sat::UNSAT;

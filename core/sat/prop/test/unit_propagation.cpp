@@ -7,7 +7,6 @@
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
 
-#include "core/sat/SimpBase.h"
 #include "core/sat/prop/SimpProp.h"
 #include "util/Random.h"
 
@@ -36,9 +35,6 @@ void test_propagation(
   auto prop_engine = common::get_prop(common::configs_path + prop_config);
   common::load_problem(base_simp_solver, problem);
   prop_engine->load_problem(problem);
-  if (base_simp_solver.nVars() == 0) {
-    return;
-  }
   f(base_simp_solver, *prop_engine);
 }
 
@@ -81,7 +77,7 @@ void test_propagation_tree(
 }
 
 DEFINE_PARAMETRIZED_TEST(
-    TestPropagation, std::string, std::string, bool /* eliminate */);
+    TestPropagation, std::string, core::sat::Problem, bool /* eliminate */);
 
 static std::vector<std::string> prop_configs{
     "simp_prop.json",
@@ -89,18 +85,17 @@ static std::vector<std::string> prop_configs{
 };
 
 TEST_P(TestPropagation, no_dummy_test) {
-  auto [prop_config, input_name, eliminate] = GetParam();
+  auto [prop_config, problem, eliminate] = GetParam();
   test_propagation_bool(
-      common::get_problem(input_name, eliminate), prop_config,
-      [](auto& solver, auto const& assumption) {
+      problem, prop_config, [](auto& solver, auto const& assumption) {
         return solver.propagate(assumption);
       });
 }
 
 TEST_P(TestPropagation, tree_test) {
-  auto [prop_config, input_name, eliminate] = GetParam();
+  auto [prop_config, problem, eliminate] = GetParam();
   test_propagation_tree(
-      common::get_problem(input_name, eliminate), prop_config,
+      problem, prop_config,
       [](auto& solver, auto const& assumption, uint32_t head_size) {
         return solver.prop_tree(assumption, head_size);
       });
@@ -110,12 +105,12 @@ INSTANTIATE_TEST_CASE_P(
     TestPropagationSmall, TestPropagation,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(prop_configs),
-        common::to_tuple(common::inputs("small")),  //
+        common::to_tuple(common::problems(false, false, "small")),
         common::to_tuple<bool>({false, true})))));
 
 INSTANTIATE_TEST_CASE_P(
     TestPropagationLarge, TestPropagation,
     ::testing::ValuesIn(common::extend(common::cross(
         common::to_tuple(prop_configs),
-        common::to_tuple(common::inputs("large")),  //
+        common::to_tuple(common::problems(false, false, "large")),
         common::to_tuple<bool>({false})))));
