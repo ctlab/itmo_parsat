@@ -68,6 +68,7 @@ class SequentialWorker : public WorkingStrategy {
 
  private:
   bool _stop = false;
+  std::atomic_bool _interrupted{false};
   int64_t current_index = 0;
   SolverInterface* solver = nullptr;
 

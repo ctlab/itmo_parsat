@@ -39,10 +39,10 @@ void SequentialWorker::main_worker_thread() {
     _task.reset();
     ul_job.unlock();
 
-    {
+    do {
       std::lock_guard<std::mutex> lg_int(interrupt_mutex);
       res = solver->solve(assumption, cube);
-    }
+    } while (res == PUNKNOWN && !_interrupted);
 
     if (res == PSAT) {
       model = solver->getModel();
@@ -82,6 +82,7 @@ void SequentialWorker::awaitStop() {
 void SequentialWorker::solve(
     int64_t index, Mini::vec<Mini::Lit> const& assumptions,
     vector<int> const& cube) {
+  unsetInterrupt();
   {
     std::lock_guard<std::mutex> lg(start_mutex);
     current_index = index;
@@ -113,6 +114,7 @@ void SequentialWorker::join(
 
 void SequentialWorker::setInterrupt() {
   solver->setSolverInterrupt();
+  _interrupted = true;
 }
 
 void SequentialWorker::waitInterrupt() {
@@ -120,6 +122,7 @@ void SequentialWorker::waitInterrupt() {
 }
 
 void SequentialWorker::unsetInterrupt() {
+  _interrupted = false;
   solver->unsetSolverInterrupt();
 }
 

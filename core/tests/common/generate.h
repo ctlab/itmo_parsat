@@ -26,6 +26,10 @@ void iter_assumptions(
     std::function<void(core::lit_vec_t&)> const& f, int min_size, int max_size,
     int max_var, int num_tests);
 
+void iter_vars(
+    std::function<void(core::vars_set_t&)> const& f, int min_size, int max_size,
+    int max_var, int num_tests);
+
 void iter_assumptions(
     std::function<void(core::lit_vec_t&)> const& f,
     core::domain::VarView const& var_view, int min_size, int max_size,

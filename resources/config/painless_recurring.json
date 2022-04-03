@@ -6,7 +6,7 @@
     "preprocess_config": {
       "heuristic_size": 200
     },
-    "max_solve_time_ms": 5000,
+    "max_solve_time_ms": 1000,
     "max_recursion_depth": 2,
     "prop_config": {
       "prop_type": "ParProp",
@@ -26,6 +26,7 @@
           "painless_solver_config": {
             "max_threads": 16,
             "max_memory": 0,
+            "block_size": 16,
             "time_limit_s": 0,
             "lbd_limit": 2,
             "slv_sleep_us": 100000,
@@ -86,7 +87,8 @@
                 "omega_x": 20,
                 "max_cache_size": 1000,
                 "sampling_config": {
-                  "base_count": 262144,
+                  "max_vars_fs": 16,
+                  "base_count": 4096,
                   "max_steps": 3,
                   "scale": 2
                 }

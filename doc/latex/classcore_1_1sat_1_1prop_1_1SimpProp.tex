@@ -2,7 +2,7 @@
 \label{classcore_1_1sat_1_1prop_1_1SimpProp}\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
 
 
-minisat-\/based propagation engine implementation  
+Minisat-\/based propagation engine implementation.  
 
 
 
@@ -36,24 +36,23 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}} 
 uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a9a3a76ea9adff36f6611a670e6a8e85d}{num\+\_\+vars}} () const noexcept override
-\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a0199c5d1153bc77f87965bb072d4a973}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a0199c5d1153bc77f87965bb072d4a973}} 
-bool {\bfseries \+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&assumptions) override
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_aa0827e4c009de6001baf1bca9b1f92d6}\label{classcore_1_1sat_1_1prop_1_1SimpProp_aa0827e4c009de6001baf1bca9b1f92d6}} 
-bool {\bfseries \+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&assumptions, lit\+\_\+vec\+\_\+t \&propagated) override
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_aa527d5976eac011f74601637ab455972}\label{classcore_1_1sat_1_1prop_1_1SimpProp_aa527d5976eac011f74601637ab455972}} 
-uint64\+\_\+t {\bfseries \+\_\+prop\+\_\+tree} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size) override
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a4a63a49e64324d7bdf00f82cb1ed6775}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions, lit\+\_\+vec\+\_\+t \&propagated) override
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_ac5e3a8525853fc264a49b5ede03d456b}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions) override
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a813fd545c828ae51d0bc3620598d44e5}{prop\+\_\+tree}} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size) override
+\begin{DoxyCompactList}\small\item\em Lightning fast version of full-\/search style propagate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}
-minisat-\/based propagation engine implementation 
+Minisat-\/based propagation engine implementation. 
+
+\begin{DoxyNote}{Note}
+Does not support multi-\/threaded use (use \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp}{Par\+Prop}}). 
+\end{DoxyNote}
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}} 
@@ -74,6 +73,79 @@ Parses cnf from .gz file with the specified path.
 
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a528c2a9c9fb63e471fbd99d2f5f06d44}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a813fd545c828ae51d0bc3620598d44e5}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a813fd545c828ae51d0bc3620598d44e5}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!prop\_tree@{prop\_tree}}
+\index{prop\_tree@{prop\_tree}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Simp\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Lightning fast version of full-\/search style propagate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vars} & variables for full search \\
+\hline
+{\em head\+\_\+size} & first head\+\_\+size of vars will not be included in search \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of conflicts in the subtree defined by vars, head\+\_\+size 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a092ea61fc9f050a63590e7024bef6a57}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_ac5e3a8525853fc264a49b5ede03d456b}\label{classcore_1_1sat_1_1prop_1_1SimpProp_ac5e3a8525853fc264a49b5ede03d456b}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!propagate@{propagate}}
+\index{propagate@{propagate}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Simp\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Propagates a given list of assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if and only if conflict occurred. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1SimpProp_a4a63a49e64324d7bdf00f82cb1ed6775}\label{classcore_1_1sat_1_1prop_1_1SimpProp_a4a63a49e64324d7bdf00f82cb1ed6775}} 
+\index{core::sat::prop::SimpProp@{core::sat::prop::SimpProp}!propagate@{propagate}}
+\index{propagate@{propagate}!core::sat::prop::SimpProp@{core::sat::prop::SimpProp}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Simp\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions,  }\item[{lit\+\_\+vec\+\_\+t \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Propagates a given list of assumptions. 
+
+\begin{DoxyReturn}{Returns}
+true iff conflicts happened. 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & the assumptions to include. \\
+\hline
+{\em propagated} & the propagated literals. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if and only if conflict occurred. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a0b8a865a30143df3066db4efd1bba208}{core\+::sat\+::prop\+::\+Prop}}.
 
 
 

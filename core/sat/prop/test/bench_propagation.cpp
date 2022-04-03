@@ -4,135 +4,77 @@
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
 
-#include "core/sat/prop/SimpProp.h"
-#include "core/sat/prop/ParProp.h"
+#include "core/domain/assignment/RandomSearch.h"
+#include "core/sat/prop/Prop.h"
 #include "util/Random.h"
 
-// clang-format off
-struct prop_assignments_t {} prop_assignments;
-struct prop_tree_t {} prop_tree;
-struct prop_with_dummy_t {} prop_with_dummy;
-// clang-format on
+#define BM_PROP_GROUP true, false, "small", "large"
 
-#define BM_PROP_GROUP true, false, "small"
-
-static void run_propagate(
-    core::sat::prop::Prop& prop, core::domain::USearch p_search,
-    prop_assignments_t) {
-  prop.prop_assignments(std::move(p_search), [](auto, auto) { return true; });
+static void run_propagate_naive(
+    core::sat::prop::Prop& prop, int size, int num_vars, uint64_t total) {
+  common::iter_vars(
+      [&](core::vars_set_t const& vars) {
+        if (std::log2(total) >= vars.size()) {
+          prop.prop_assignments(core::domain::createFullSearch(vars));
+        } else {
+          prop.prop_assignments(core::domain::createRandomSearch(vars, total));
+        }
+      },
+      size, size, num_vars, 10);
 }
 
-static void run_propagate(
-    core::sat::prop::Prop& prop, core::domain::USearch p_search,
-    prop_with_dummy_t) {
-  auto& search = *p_search;
-  do {
-    Mini::vec<Mini::Lit> dummy;
-    (bool) prop.propagate(search(), dummy);
-  } while (++search);
+static void run_propagate_tree(
+    core::sat::prop::Prop& prop, int size, int num_vars) {
+  common::iter_vars(
+      [&](core::vars_set_t const& vars) {
+        prop.prop_tree(common::to_mini(vars), 0);
+      },
+      size, size, num_vars, 10);
 }
 
-static void run_propagate(
-    core::sat::prop::Prop& prop, Minisat::vec<Minisat::Lit> const& vars,
-    prop_tree_t) {
-  prop.prop_tree(vars, 0);
-}
-
-template <typename T, typename TestType, typename VarsF, typename... Args>
-void test_search(
-    benchmark::State& state, TestType type, VarsF const& vars_f,
-    Args&&... args) {
+static void BM_prop_naive(benchmark::State& state, std::string const& config) {
   util::random::Generator generator(239);
-  auto problem = common::problems(BM_PROP_GROUP)[state.range(1)];
-  T prop(std::forward<Args>(args)...);
-  prop.load_problem(problem);
+  auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
+  auto prop = common::get_prop(common::configs_path + config);
+  prop->load_problem(problem);
   for (auto _ : state) {
-    run_propagate(prop, vars_f(state.range(0), prop.num_vars()), type);
+    run_propagate_naive(
+        *prop, state.range(1), prop->num_vars(), state.range(2));
   }
 }
 
-template <typename T, typename... Args>
-void full_search(benchmark::State& state, Args&&... args) {
-  test_search<T>(
-      state, prop_assignments,
-      [](int size, int nvars) {
-        return core::domain::createFullSearch(common::gen_vars(size, nvars));
-      },
-      std::forward<Args>(args)...);
+static void BM_prop_tree(benchmark::State& state, std::string const& config) {
+  util::random::Generator generator(239);
+  auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
+  auto prop = common::get_prop(common::configs_path + config);
+  prop->load_problem(problem);
+  for (auto _ : state) {
+    run_propagate_tree(*prop, state.range(1), prop->num_vars());
+  }
 }
 
-template <typename T, typename... Args>
-void full_search_with_dummy(benchmark::State& state, Args&&... args) {
-  test_search<T>(
-      state, prop_with_dummy,
-      [](int size, int nvars) {
-        return core::domain::createFullSearch(common::gen_vars(size, nvars));
-      },
-      std::forward<Args>(args)...);
-}
-
-template <typename T, typename... Args>
-void tree_search(benchmark::State& state, Args&&... args) {
-  test_search<T>(
-      state, prop_tree,
-      [](int size, int nvars) {
-        return common::to_mini(common::gen_vars(size, nvars));
-      },
-      std::forward<Args>(args)...);
-}
-
-static void BM_prop_full_minisat(benchmark::State& state) {
-  full_search<core::sat::prop::SimpProp>(state);
-}
-
-static void BM_prop_full_minisat_dummy(benchmark::State& state) {
-  full_search_with_dummy<core::sat::prop::SimpProp>(state);
-}
-
-static void BM_prop_full_par_16_minisat(benchmark::State& state) {
-  ParPropConfig config;
-  config.set_max_threads(16);
-  config.mutable_prop_config()->set_prop_type("SimpProp");
-  full_search<core::sat::prop::ParProp>(state, config);
-}
-
-static void BM_prop_tree_minisat(benchmark::State& state) {
-  tree_search<core::sat::prop::SimpProp>(state);
-}
-
-static void BM_prop_tree_par_16_minisat(benchmark::State& state) {
-  ParPropConfig config;
-  config.set_max_threads(16);
-  config.mutable_prop_config()->set_prop_type("SimpProp");
-  tree_search<core::sat::prop::ParProp>(state, config);
-}
-
-BENCHMARK(BM_prop_full_minisat)
+BENCHMARK_CAPTURE(BM_prop_naive, simp, "simp_prop.json")
     ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(
-             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
+        {benchmark::CreateDenseRange(
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
+         benchmark::CreateDenseRange(0, 24, 2),
+         benchmark::CreateRange(1 << 12, 1 << 16, 2)});
 
-BENCHMARK(BM_prop_full_minisat_dummy)
+BENCHMARK_CAPTURE(BM_prop_naive, par, "par_prop.json")
     ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(
-             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
+        {benchmark::CreateDenseRange(
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
+         benchmark::CreateDenseRange(0, 24, 2),
+         benchmark::CreateRange(1 << 12, 1 << 16, 2)});
 
-BENCHMARK(BM_prop_full_par_16_minisat)
+BENCHMARK_CAPTURE(BM_prop_tree, simp, "simp_prop.json")
     ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(
-             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
+        {benchmark::CreateDenseRange(
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
+         benchmark::CreateDenseRange(0, 24, 2)});
 
-BENCHMARK(BM_prop_tree_minisat)
+BENCHMARK_CAPTURE(BM_prop_tree, par, "par_prop.json")
     ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(
-             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
-
-BENCHMARK(BM_prop_tree_par_16_minisat)
-    ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, 20, 4),
-         benchmark::CreateDenseRange(
-             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1)});
+        {benchmark::CreateDenseRange(
+             0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
+         benchmark::CreateDenseRange(0, 24, 2)});

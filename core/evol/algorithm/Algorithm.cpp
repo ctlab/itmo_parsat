@@ -10,6 +10,8 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   _shared_data = std::make_shared<instance::SharedData>();
   _shared_data->omega_x = config.omega_x();
   _shared_data->cache.set_max_size(config.max_cache_size());
+  _shared_data->sampling_config.max_vars_fs =
+      config.sampling_config().max_vars_fs();
   _shared_data->sampling_config.base_samples =
       config.sampling_config().base_count();
   _shared_data->sampling_config.scale = config.sampling_config().scale();
@@ -41,7 +43,7 @@ void Algorithm::process() {
   uint64_t iteration = 0;
   _limit->start();
   do {
-    IPS_TRACE(step());
+    step();
     IPS_INFO_T(
         BEST_INSTANCE,
         "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) %

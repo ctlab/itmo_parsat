@@ -116,9 +116,10 @@ message SelectorConfig {
 
 message InstanceConfig {
   message SamplingSizeConfig {
-    uint64 base_count = 1;
-    uint32 max_steps = 2;
-    double scale = 3;
+    uint32 max_vars_fs = 1;
+    uint64 base_count = 2;
+    uint32 max_steps = 3;
+    double scale = 4;
   }
 
   uint32 omega_x = 1;

@@ -13,10 +13,10 @@
 
 namespace util {
 
-template <typename WorkerType>
+template <typename WorkerType, typename R>
 class WorkerPool {
  public:
-  using task_t = std::function<void(WorkerType&)>;
+  using task_t = std::function<R(WorkerType&)>;
 
  public:
   WorkerPool(
@@ -62,8 +62,8 @@ class WorkerPool {
     }
   }
 
-  std::future<void> submit(task_t&& task) {
-    auto packaged_task = std::packaged_task<void(WorkerType&)>(std::move(task));
+  std::future<R> submit(task_t&& task) {
+    auto packaged_task = std::packaged_task<R(WorkerType&)>(std::move(task));
     auto future = packaged_task.get_future();
     {
       std::lock_guard<std::mutex> lg(_mutex);
@@ -91,7 +91,7 @@ class WorkerPool {
   std::condition_variable _cv;
   std::vector<std::thread> _threads;
   std::vector<WorkerType> _workers;
-  std::queue<std::packaged_task<void(WorkerType&)>> _task_queue;
+  std::queue<std::packaged_task<R(WorkerType&)>> _task_queue;
 };
 
 template <typename T>

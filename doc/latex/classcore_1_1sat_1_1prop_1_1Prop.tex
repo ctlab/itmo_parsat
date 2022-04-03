@@ -29,46 +29,27 @@ typedef std\+::function$<$ bool(bool, lit\+\_\+vec\+\_\+t const  \&)$>$ \mbox{\h
 \item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a528c2a9c9fb63e471fbd99d2f5f06d44}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem)=0
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a8985b6dbfd89600a710b6e363d7208a4}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions, lit\+\_\+vec\+\_\+t \&propagated)
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions)
-\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a37d0fd0a07d41a5e1696c6aa15234589}{prop\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
-\begin{DoxyCompactList}\small\item\em Propagates all assignments by the given iterator and calls callback respectively. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a23e1592811889cb28b1f83be08dce00f}\label{classcore_1_1sat_1_1prop_1_1Prop_a23e1592811889cb28b1f83be08dce00f}} 
-void {\bfseries prop\+\_\+assignments} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
-\item 
-uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a0b7fc476e97f558f8f306912e5e42fe7}{prop\+\_\+tree}} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size)
-\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2e4ce7be04f1ea1de3cbc385f2}\label{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2e4ce7be04f1ea1de3cbc385f2}} 
 virtual uint32\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1b6fbb2e4ce7be04f1ea1de3cbc385f2}{num\+\_\+vars}} () const noexcept=0
-\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a0b8a865a30143df3066db4efd1bba208}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions, lit\+\_\+vec\+\_\+t \&propagated)=0
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions)
+\begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
+virtual uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a092ea61fc9f050a63590e7024bef6a57}{prop\+\_\+tree}} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size)=0
+\begin{DoxyCompactList}\small\item\em Lightning fast version of full-\/search style propagate. \end{DoxyCompactList}\item 
+virtual uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1aaaef067f712c35675aa6a96522ab9f}{prop\+\_\+assignments}} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback=\{\})
+\begin{DoxyCompactList}\small\item\em Propagates all assignments by the given search specification and calls callback respectively if it is present. \end{DoxyCompactList}\item 
+virtual uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_aaebb137d4b3dcd6ffb946c9d83a220e5}{prop\+\_\+assignments}} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback=\{\})
+\begin{DoxyCompactList}\small\item\em Propagates all assignments by the given search specification and calls callback respectively if it is present. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_af0c3dfb58972438ba7ddebbdff9c15d2}\label{classcore_1_1sat_1_1prop_1_1Prop_af0c3dfb58972438ba7ddebbdff9c15d2}} 
-static void {\bfseries sequential\+\_\+propagate} (\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{Prop}} \&prop, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_ae3908089c8f241d47f47138fa38884ab}\label{classcore_1_1sat_1_1prop_1_1Prop_ae3908089c8f241d47f47138fa38884ab}} 
+static uint64\+\_\+t {\bfseries sequential\+\_\+propagate} (\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{Prop}} \&prop, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a2bec081dea78fd8b46e4733b45f0c5cd}\label{classcore_1_1sat_1_1prop_1_1Prop_a2bec081dea78fd8b46e4733b45f0c5cd}} 
-static void {\bfseries sequential\+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{Prop}} \&prop, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
-\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a08667b3b23fe81e320dc3d17c37386bb}\label{classcore_1_1sat_1_1prop_1_1Prop_a08667b3b23fe81e320dc3d17c37386bb}} 
-virtual uint64\+\_\+t {\bfseries \+\_\+prop\+\_\+tree} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size)=0
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a7dc71d2756998b7ab7f3cbc8a947f306}\label{classcore_1_1sat_1_1prop_1_1Prop_a7dc71d2756998b7ab7f3cbc8a947f306}} 
-virtual bool {\bfseries \+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&assumptions, lit\+\_\+vec\+\_\+t \&propagated)=0
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_ae7920533d72f0f98dee4d51008953e14}\label{classcore_1_1sat_1_1prop_1_1Prop_ae7920533d72f0f98dee4d51008953e14}} 
-virtual bool {\bfseries \+\_\+propagate} (lit\+\_\+vec\+\_\+t const \&assumptions)
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a54bde87432256946eb151acca7c51222}\label{classcore_1_1sat_1_1prop_1_1Prop_a54bde87432256946eb151acca7c51222}} 
-virtual void {\bfseries \+\_\+prop\+\_\+assignments} (domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
-\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_ac415730610b474edb3c8ac3c4f4ec351}\label{classcore_1_1sat_1_1prop_1_1Prop_ac415730610b474edb3c8ac3c4f4ec351}} 
-virtual void {\bfseries \+\_\+prop\+\_\+assignments} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a53744529cc61cafbc13c8abd608e2b1f}\label{classcore_1_1sat_1_1prop_1_1Prop_a53744529cc61cafbc13c8abd608e2b1f}} 
+static uint64\+\_\+t {\bfseries sequential\+\_\+propagate} (\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{Prop}} \&prop, lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, domain\+::\+U\+Search search, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback)
 \end{DoxyCompactItemize}
 
 
@@ -104,15 +85,15 @@ Parses cnf from .gz file with the specified path.
 
 Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a2ea8aa51556a5dda209f5173d5b9ed6a}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a4f785b4221cf7cae704f9fa54f49b0f3}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a37d0fd0a07d41a5e1696c6aa15234589}\label{classcore_1_1sat_1_1prop_1_1Prop_a37d0fd0a07d41a5e1696c6aa15234589}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a1aaaef067f712c35675aa6a96522ab9f}\label{classcore_1_1sat_1_1prop_1_1Prop_a1aaaef067f712c35675aa6a96522ab9f}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!prop\_assignments@{prop\_assignments}}
 \index{prop\_assignments@{prop\_assignments}!core::sat::prop::Prop@{core::sat::prop::Prop}}
-\doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}}
-{\footnotesize\ttfamily void core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&}]{callback = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-Propagates all assignments by the given iterator and calls callback respectively. 
+Propagates all assignments by the given search specification and calls callback respectively if it is present. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -121,19 +102,68 @@ Propagates all assignments by the given iterator and calls callback respectively
 {\em callback} & callback to be called on each solve. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a0b7fc476e97f558f8f306912e5e42fe7}\label{classcore_1_1sat_1_1prop_1_1Prop_a0b7fc476e97f558f8f306912e5e42fe7}} 
+\begin{DoxyReturn}{Returns}
+the number of conflicts 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a4471cb42eab4841855fcd933aa51f326}{core\+::sat\+::prop\+::\+Par\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_aaebb137d4b3dcd6ffb946c9d83a220e5}\label{classcore_1_1sat_1_1prop_1_1Prop_aaebb137d4b3dcd6ffb946c9d83a220e5}} 
+\index{core::sat::prop::Prop@{core::sat::prop::Prop}!prop\_assignments@{prop\_assignments}}
+\index{prop\_assignments@{prop\_assignments}!core::sat::prop::Prop@{core::sat::prop::Prop}}
+\doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{base\+\_\+assumption,  }\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&}]{callback = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Propagates all assignments by the given search specification and calls callback respectively if it is present. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+assumption} & the independent assumption \\
+\hline
+{\em search} & search engine. \\
+\hline
+{\em callback} & callback to be called on each solve. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of conflicts 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_aa8bc77fc4d5208c2eeef8ad9ea69f8a3}{core\+::sat\+::prop\+::\+Par\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a092ea61fc9f050a63590e7024bef6a57}\label{classcore_1_1sat_1_1prop_1_1Prop_a092ea61fc9f050a63590e7024bef6a57}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!prop\_tree@{prop\_tree}}
 \index{prop\_tree@{prop\_tree}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{prop\_tree()}{prop\_tree()}}
-{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily virtual uint64\+\_\+t core\+::sat\+::prop\+::\+Prop\+::prop\+\_\+tree (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{vars,  }\item[{uint32\+\_\+t}]{head\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]\+: documentation \end{DoxyRefDesc}
+
+
+Lightning fast version of full-\/search style propagate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vars} & variables for full search \\
+\hline
+{\em head\+\_\+size} & first head\+\_\+size of vars will not be included in search \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of conflicts in the subtree defined by vars, head\+\_\+size 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a45ccacf4ac0d5ea94407b232ccb1dc08}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a813fd545c828ae51d0bc3620598d44e5}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
+
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c}\label{classcore_1_1sat_1_1prop_1_1Prop_a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -147,11 +177,15 @@ Propagates a given list of assumptions.
 \begin{DoxyReturn}{Returns}
 true if and only if conflict occurred. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a8985b6dbfd89600a710b6e363d7208a4}\label{classcore_1_1sat_1_1prop_1_1Prop_a8985b6dbfd89600a710b6e363d7208a4}} 
+
+
+Reimplemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_ae87a873fe1f3c54ec448ee5f75305d80}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_ac5e3a8525853fc264a49b5ede03d456b}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1Prop_a0b8a865a30143df3066db4efd1bba208}\label{classcore_1_1sat_1_1prop_1_1Prop_a0b8a865a30143df3066db4efd1bba208}} 
 \index{core::sat::prop::Prop@{core::sat::prop::Prop}!propagate@{propagate}}
 \index{propagate@{propagate}!core::sat::prop::Prop@{core::sat::prop::Prop}}
 \doxysubsubsection{\texorpdfstring{propagate()}{propagate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions,  }\item[{lit\+\_\+vec\+\_\+t \&}]{propagated }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily virtual bool core\+::sat\+::prop\+::\+Prop\+::propagate (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions,  }\item[{lit\+\_\+vec\+\_\+t \&}]{propagated }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -170,6 +204,10 @@ true iff conflicts happened.
 \begin{DoxyReturn}{Returns}
 true if and only if conflict occurred. 
 \end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a2b3318aa6c2aa69021e1d37f4669794f}{core\+::sat\+::prop\+::\+Par\+Prop}}, and \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1SimpProp_a4a63a49e64324d7bdf00f82cb1ed6775}{core\+::sat\+::prop\+::\+Simp\+Prop}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

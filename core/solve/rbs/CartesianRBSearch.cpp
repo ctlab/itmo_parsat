@@ -70,7 +70,7 @@ CartesianRBSearch::_pre_solve() {
       },
       event::SBS_FOUND);
 
-  for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
+  for (uint32_t i = 0; i < _cfg.num_algorithms() && !_interrupted; ++i) {
     uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
     rbs_search_threads.emplace_back([&, i, seed,
                                      config = _cfg.algorithm_configs(
@@ -79,11 +79,10 @@ CartesianRBSearch::_pre_solve() {
       auto& algorithm = _algorithms[i];
       algorithm->prepare(_preprocess);
       IPS_TRACE(algorithm->process());
-
-      auto const& rho_backdoor = algorithm->get_best();
       if (_is_interrupted() || _sbs_found) {
         return;
       }
+      auto const& rho_backdoor = algorithm->get_best();
       if (rho_backdoor.is_sbs()) {
         _raise_for_sbs(i);
         return;

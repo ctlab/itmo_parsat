@@ -63,6 +63,16 @@ void iter_assumptions(
   }
 }
 
+void iter_vars(
+    std::function<void(core::vars_set_t&)> const& f, int min_size, int max_size,
+    int max_var, int num_tests) {
+  while (num_tests--) {
+    auto vars =
+        gen_vars(util::random::sample<int>(min_size, max_size), max_var);
+    f(vars);
+  }
+}
+
 void iter_assumptions(
     std::function<void(core::lit_vec_t&)> const& f,
     core::domain::VarView const& var_view, int min_size, int max_size,

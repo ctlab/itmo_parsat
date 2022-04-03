@@ -35,6 +35,11 @@ USearch createRandomSearch(
 
 USearch createRandomSearch(std::vector<int> const& vars, uint64_t total);
 
+USearch createAutoRandomSearch(
+    VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total);
+
+USearch createAutoRandomSearch(std::vector<int> const& vars, uint64_t total);
+
 }  // namespace core::domain
 
 #endif  // ITMO_PARSAT_RANDOMSEARCH_H

@@ -104,9 +104,14 @@ $(function() {
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;USearch createRandomSearch(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars, uint64_t total);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RANDOMSEARCH_H</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;USearch createAutoRandomSearch(</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; bit_mask, uint64_t total);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;USearch createAutoRandomSearch(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars, uint64_t total);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RANDOMSEARCH_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1domain_1_1RandomSearch_html_adce56fef59d43170281b5e253119d5e7"><div class="ttname"><a href="classcore_1_1domain_1_1RandomSearch.html#adce56fef59d43170281b5e253119d5e7">core::domain::RandomSearch::clone</a></div><div class="ttdeci">RandomSearch * clone() const override</div><div class="ttdoc">Clones the current search.</div><div class="ttdef"><b>Definition:</b> RandomSearch.cpp:36</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1Search_html"><div class="ttname"><a href="classcore_1_1domain_1_1Search.html">core::domain::Search</a></div><div class="ttdoc">The class representing the sequential search in assignments space.</div><div class="ttdef"><b>Definition:</b> Search.h:26</div></div>

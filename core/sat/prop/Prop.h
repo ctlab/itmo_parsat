@@ -44,68 +44,63 @@ class Prop {
   virtual void load_problem(Problem const& problem) = 0;
 
   /**
+   * @brief Returns the number of variables in formula.
+   */
+  [[nodiscard]] virtual uint32_t num_vars() const noexcept = 0;
+
+  /**
    * @brief Propagates a given list of assumptions.
    * @return true iff conflicts happened.
    * @param assumptions the assumptions to include.
    * @param propagated the propagated literals.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] bool propagate(
-      lit_vec_t const& assumptions, lit_vec_t& propagated);
+  [[nodiscard]] virtual bool propagate(
+      lit_vec_t const& assumptions, lit_vec_t& propagated) = 0;
 
   /**
    * @brief Propagates a given list of assumptions.
    * @param assumptions assumptions to include.
    * @return true if and only if conflict occurred.
    */
-  [[nodiscard]] bool propagate(lit_vec_t const& assumptions);
+  [[nodiscard]] virtual bool propagate(lit_vec_t const& assumptions);
 
   /**
-   * @brief Propagates all assignments by the given iterator and calls callback
-   * respectively.
+   * @brief Lightning fast version of full-search style propagate
+   * @param vars variables for full search
+   * @param head_size first head_size of vars will not be included in search
+   * @return the number of conflicts in the subtree defined by vars, head_size
+   */
+  virtual uint64_t prop_tree(lit_vec_t const& vars, uint32_t head_size) = 0;
+
+  /**
+   * @brief Propagates all assignments by the given search specification and
+   * calls callback respectively if it is present.
    * @param search search engine.
    * @param callback callback to be called on each solve.
+   * @return the number of conflicts
    */
-  void prop_assignments(
-      domain::USearch search, prop_callback_t const& callback);
-
-  void prop_assignments(
-      lit_vec_t const& base_assumption, domain::USearch search,
-      prop_callback_t const& callback);
-
-  /// @todo: documentation
-  uint64_t prop_tree(lit_vec_t const& vars, uint32_t head_size);
+  virtual uint64_t prop_assignments(
+      domain::USearch search, prop_callback_t const& callback = {});
 
   /**
-   * @brief Returns the number of variables in formula.
+   * @brief Propagates all assignments by the given search specification and
+   * calls callback respectively if it is present.
+   * @param base_assumption the independent assumption
+   * @param search search engine.
+   * @param callback callback to be called on each solve.
+   * @return the number of conflicts
    */
-  [[nodiscard]] virtual uint32_t num_vars() const noexcept = 0;
+  virtual uint64_t prop_assignments(
+      lit_vec_t const& base_assumption, domain::USearch search,
+      prop_callback_t const& callback = {});
 
-  static void sequential_propagate(
+  static uint64_t sequential_propagate(
       Prop& prop, domain::USearch search, prop_callback_t const& callback);
 
-  static void sequential_propagate(
-      lit_vec_t const& base_assumption, Prop& prop, domain::USearch search,
+  static uint64_t sequential_propagate(
+      Prop& prop, lit_vec_t const& base_assumption, domain::USearch search,
       prop_callback_t const& callback);
-
- protected:
-  [[nodiscard]] virtual uint64_t _prop_tree(
-      lit_vec_t const& vars, uint32_t head_size) = 0;
-
-  [[nodiscard]] virtual bool _propagate(
-      lit_vec_t const& assumptions, lit_vec_t& propagated) = 0;
-
-  [[nodiscard]] virtual bool _propagate(lit_vec_t const& assumptions);
-
-  virtual void _prop_assignments(
-      domain::USearch search, prop_callback_t const& callback);
-
-  virtual void _prop_assignments(
-      lit_vec_t const& base_assumption, domain::USearch search,
-      prop_callback_t const& callback);
-
- private:
-  std::mutex _m;
 };
 
 MAKE_REFS(Prop);

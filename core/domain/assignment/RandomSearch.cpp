@@ -43,6 +43,15 @@ lit_vec_t const& RandomSearch::operator()() const {
 
 USearch createRandomSearch(
     VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total) {
+  return USearch(new RandomSearch(var_view, bit_mask, total));
+}
+
+USearch createRandomSearch(std::vector<int> const& vars, uint64_t total) {
+  return USearch(new RandomSearch(vars, total));
+}
+
+USearch createAutoRandomSearch(
+    VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total) {
   uint32_t num_set = std::count(bit_mask.begin(), bit_mask.end(), true);
   if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
     return USearch(new UniqueSearch(var_view, bit_mask, total));
@@ -51,7 +60,7 @@ USearch createRandomSearch(
   }
 }
 
-USearch createRandomSearch(std::vector<int> const& vars, uint64_t total) {
+USearch createAutoRandomSearch(std::vector<int> const& vars, uint64_t total) {
   uint32_t num_set = std::count(vars.begin(), vars.end(), true);
   if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
     return USearch(new UniqueSearch(vars, total));

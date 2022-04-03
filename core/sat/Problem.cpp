@@ -37,16 +37,36 @@ Problem::Problem(std::filesystem::path path, bool eliminate)
   _result = read_clauses_to(_path, _clauses, _eliminate);
 }
 
-Problem::Problem(Problem const& o)
-    : _clauses(o.clauses())
-    , _eliminate(o._eliminate)
-    , _path(o.path())
-    , _result(o._result) {}
-
-Problem& Problem::operator=(Problem const& o) {
+Problem::Problem(Problem const& o) {
+  std::lock_guard<std::mutex> lg(o._load_mutex);
   _clauses = o._clauses;
   _eliminate = o._eliminate;
   _path = o._path;
+  _result = o._result;
+}
+
+Problem::Problem(Problem&& o) {
+  std::lock_guard<std::mutex> lg(o._load_mutex);
+  _clauses = std::move(o._clauses);
+  _eliminate = o._eliminate;
+  _path = std::move(o._path);
+  _result = o._result;
+}
+
+Problem& Problem::operator=(Problem const& o) {
+  std::lock_guard<std::mutex> lg(o._load_mutex);
+  _clauses = o._clauses;
+  _eliminate = o._eliminate;
+  _path = o._path;
+  _result = o._result;
+  return *this;
+}
+
+Problem& Problem::operator=(Problem&& o) {
+  std::lock_guard<std::mutex> lg(o._load_mutex);
+  _clauses = std::move(o._clauses);
+  _eliminate = o._eliminate;
+  _path = std::move(o._path);
   _result = o._result;
   return *this;
 }

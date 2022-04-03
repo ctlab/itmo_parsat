@@ -33,8 +33,10 @@ class Problem {
   explicit Problem(std::filesystem::path path, bool eliminate = true);
 
   Problem(Problem const& o);
+  Problem(Problem&& o);
 
   Problem& operator=(Problem const& o);
+  Problem& operator=(Problem&& o);
 
   [[nodiscard]] std::filesystem::path const& path() const noexcept;
 

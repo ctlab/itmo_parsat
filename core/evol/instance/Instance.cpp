@@ -73,11 +73,10 @@ void Instance::_calc_fitness() {
 void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   auto const& mask = _vars.get_mask();
   int size = (int) std::count(mask.begin(), mask.end(), true);
-
   bool full_search = false;
-  std::atomic_uint64_t conflicts{0};
+  uint64_t conflicts;
 
-  if (std::log2(samples) >= (double) size) {
+  if (_sampling_config().max_vars_fs >= size) {
     full_search = true;
     samples = 1ULL << size;
     core::domain::UFullSearch search =
@@ -88,12 +87,8 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
   } else {
     core::domain::USearch search =
         core::domain::createRandomSearch(_var_view(), mask, samples);
-    _prop->prop_assignments(
-        _shared->base_assumption, std::move(search),
-        [&conflicts](bool conflict, auto const&) {
-          conflicts += conflict;
-          return true;
-        });
+    conflicts =
+        _prop->prop_assignments(_shared->base_assumption, std::move(search));
   }
 
   fit_.rho = (double) conflicts / (double) samples;

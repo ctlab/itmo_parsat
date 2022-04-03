@@ -18,6 +18,7 @@ namespace core::sat::prop {
 
 /**
  * @brief Parallel propagation implementation.
+ * @note Intended to be used in parallel environment.
  */
 class ParProp : public Prop {
  public:
@@ -27,21 +28,31 @@ class ParProp : public Prop {
 
   [[nodiscard]] uint32_t num_vars() const noexcept override;
 
- protected:
-  void _prop_assignments(
+  bool propagate(lit_vec_t const& assumptions, lit_vec_t& propagated) override;
+
+  bool propagate(lit_vec_t const& assumptions) override;
+
+  uint64_t prop_assignments(
       domain::USearch search_p, prop_callback_t const& callback) override;
 
-  void _prop_assignments(
+  uint64_t prop_assignments(
       lit_vec_t const& base_assumption, domain::USearch search_p,
       prop_callback_t const& callback) override;
 
-  bool _propagate(lit_vec_t const& assumptions, lit_vec_t& propagated) override;
-
-  uint64_t _prop_tree(lit_vec_t const& vars, uint32_t head_size) override;
+  uint64_t prop_tree(lit_vec_t const& vars, uint32_t head_size) override;
 
  private:
-  using PropWorkerPool = util::WorkerPool<RProp>;
+  uint64_t _sum() noexcept;
+
+ private:
+  using PropWorkerPool = util::WorkerPool<RProp, uint64_t>;
+
+ private:
+  std::vector<std::future<uint64_t>> _futures;
+  std::mutex _solver_m;
   PropWorkerPool _prop_worker_pool;
+  RProp _seq_worker;
+  uint32_t _tree_max_fixed_vars = 0;
 };
 
 }  // namespace core::sat::prop

@@ -8,6 +8,7 @@
 #include <future>
 #include <unordered_map>
 
+#include "util/TimeTracer.h"
 #include "core/sat/Problem.h"
 
 namespace common {

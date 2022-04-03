@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title=" " alt="" coords="188,245,347,272"/>
 <area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="408,238,567,279"/>
 <area shape="rect" id="node3" title=" " alt="" coords="200,111,335,137"/>
-<area shape="rect" id="node4" href="$classcore_1_1sat_1_1prop_1_1SimpProp.html" title="minisat&#45;based propagation engine implementation" alt="" coords="395,56,580,83"/>
+<area shape="rect" id="node4" href="$classcore_1_1sat_1_1prop_1_1SimpProp.html" title="Minisat&#45;based propagation engine implementation." alt="" coords="395,56,580,83"/>
 <area shape="rect" id="node5" href="$classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="420,107,555,149"/>
 <area shape="rect" id="node6" href="$classcore_1_1sat_1_1prop_1_1Prop.html" title="SAT Propagation interface." alt="" coords="191,31,343,57"/>
 <area shape="rect" id="node7" href="$classcore_1_1sat_1_1prop_1_1ParProp.html" title="Parallel propagation implementation." alt="" coords="401,5,574,32"/>

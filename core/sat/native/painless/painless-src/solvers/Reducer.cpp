@@ -127,6 +127,8 @@ bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
     tmpNewClause = solver->getFinalAnalysis();
   } else if (res == PSAT) {
     tmpNewClause = solver->getSatAssumptions();
+  } else {
+    return false;
   }
 
   if (tmpNewClause.size() < cls->size || res == PSAT) {

@@ -17,12 +17,13 @@ rbs_result_t OneRBSearch::find_rb() {
       _cfg.algorithm_config(), _prop));
   IPS_TRACE(_algorithm->prepare(_preprocess));
   IPS_TRACE(_algorithm->process());
-  auto rb = _algorithm->get_best();
   rbs_result_t result;
+  if (_is_interrupted()) {
+    result = RBS_INTERRUPTED;
+  }
+  auto rb = _algorithm->get_best();
   if (rb.is_sbs()) {
     result = RBS_SBS_FOUND;
-  } else if (_is_interrupted()) {
-    result = RBS_INTERRUPTED;
   } else {
     result = core::domain::createFullSearch(
         _preprocess->var_view(), rb.get_vars().get_mask());

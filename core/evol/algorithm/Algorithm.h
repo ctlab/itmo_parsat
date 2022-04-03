@@ -80,10 +80,10 @@ class Algorithm {
 
   void set_base_assumption(Mini::vec<Mini::Lit> const& assumption) noexcept;
 
+  [[nodiscard]] bool is_interrupted() const;
+
  protected:
   virtual void step() = 0;
-
-  [[nodiscard]] bool is_interrupted() const;
 
  protected:
   InstanceConfig _instance_config;

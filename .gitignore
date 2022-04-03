@@ -9,3 +9,4 @@ d
 ips
 Singularity.def
 ips.sif
+./resources/cnf/*.cnf

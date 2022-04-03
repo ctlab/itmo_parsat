@@ -84,33 +84,34 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>ea::instance {</div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structea_1_1instance_1_1SharedData.html">SharedData</a> {</div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">   20</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">SamplingConfig</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    uint32_t base_samples;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    uint32_t max_scale_steps;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">double</span> scale;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  } sampling_config{};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">   29</a></span>&#160;  core::LRUCache&lt;core::bit_mask_t, Fitness&gt; <a class="code" href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">cache</a>{};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">   34</a></span>&#160;  <a class="code" href="structcore_1_1domain_1_1SearchSpace.html">core::domain::SearchSpace</a> <a class="code" href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">search_space</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">   39</a></span>&#160;  uint32_t <a class="code" href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">omega_x</a>{};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">   45</a></span>&#160;  core::lit_vec_t <a class="code" href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">base_assumption</a>{};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;MAKE_REFS(SharedData);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SHAREDDATA_H</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    uint32_t max_vars_fs;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    uint64_t base_samples;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    uint32_t max_scale_steps;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">double</span> scale;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  } sampling_config{};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">   30</a></span>&#160;  core::LRUCache&lt;core::bit_mask_t, Fitness&gt; <a class="code" href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">cache</a>{};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">   35</a></span>&#160;  <a class="code" href="structcore_1_1domain_1_1SearchSpace.html">core::domain::SearchSpace</a> <a class="code" href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">search_space</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">   40</a></span>&#160;  uint32_t <a class="code" href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">omega_x</a>{};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">   46</a></span>&#160;  core::lit_vec_t <a class="code" href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">base_assumption</a>{};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;MAKE_REFS(SharedData);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SHAREDDATA_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_a396c133e03fb36483b03ee5f76c05449"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">ea::instance::SharedData::cache</a></div><div class="ttdeci">core::LRUCache&lt; core::bit_mask_t, Fitness &gt; cache</div><div class="ttdoc">Instances cache.</div><div class="ttdef"><b>Definition:</b> SharedData.h:29</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_a396c133e03fb36483b03ee5f76c05449"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#a396c133e03fb36483b03ee5f76c05449">ea::instance::SharedData::cache</a></div><div class="ttdeci">core::LRUCache&lt; core::bit_mask_t, Fitness &gt; cache</div><div class="ttdoc">Instances cache.</div><div class="ttdef"><b>Definition:</b> SharedData.h:30</div></div>
 <div class="ttc" id="astructea_1_1instance_1_1SharedData_html"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html">ea::instance::SharedData</a></div><div class="ttdoc">This struct is shared between all instances under the same algorithm.</div><div class="ttdef"><b>Definition:</b> SharedData.h:16</div></div>
 <div class="ttc" id="astructcore_1_1domain_1_1SearchSpace_html"><div class="ttname"><a href="structcore_1_1domain_1_1SearchSpace.html">core::domain::SearchSpace</a></div><div class="ttdoc">The class representing the search space.</div><div class="ttdef"><b>Definition:</b> SearchSpace.h:12</div></div>
-<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_a846cc77f6ba6b3524330d3f29db86e59"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">ea::instance::SharedData::base_assumption</a></div><div class="ttdeci">core::lit_vec_t base_assumption</div><div class="ttdoc">The base assumption, i.e. the assumption applied separately to all operations.</div><div class="ttdef"><b>Definition:</b> SharedData.h:45</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_a846cc77f6ba6b3524330d3f29db86e59"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59">ea::instance::SharedData::base_assumption</a></div><div class="ttdeci">core::lit_vec_t base_assumption</div><div class="ttdoc">The base assumption, i.e. the assumption applied separately to all operations.</div><div class="ttdef"><b>Definition:</b> SharedData.h:46</div></div>
 <div class="ttc" id="astructea_1_1instance_1_1SharedData_1_1SamplingConfig_html"><div class="ttname"><a href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">ea::instance::SharedData::SamplingConfig</a></div><div class="ttdoc">Sampling configuration.</div><div class="ttdef"><b>Definition:</b> SharedData.h:20</div></div>
-<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_aca4f00b9ff36daf549d69bd255a47ba8"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">ea::instance::SharedData::search_space</a></div><div class="ttdeci">core::domain::SearchSpace search_space</div><div class="ttdoc">Search space info.</div><div class="ttdef"><b>Definition:</b> SharedData.h:34</div></div>
-<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_a4f87b9a4c998717264f985d3a9f20bd6"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">ea::instance::SharedData::omega_x</a></div><div class="ttdeci">uint32_t omega_x</div><div class="ttdoc">Inner configuration parameter.</div><div class="ttdef"><b>Definition:</b> SharedData.h:39</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_aca4f00b9ff36daf549d69bd255a47ba8"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#aca4f00b9ff36daf549d69bd255a47ba8">ea::instance::SharedData::search_space</a></div><div class="ttdeci">core::domain::SearchSpace search_space</div><div class="ttdoc">Search space info.</div><div class="ttdef"><b>Definition:</b> SharedData.h:35</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1SharedData_html_a4f87b9a4c998717264f985d3a9f20bd6"><div class="ttname"><a href="structea_1_1instance_1_1SharedData.html#a4f87b9a4c998717264f985d3a9f20bd6">ea::instance::SharedData::omega_x</a></div><div class="ttdeci">uint32_t omega_x</div><div class="ttdoc">Inner configuration parameter.</div><div class="ttdef"><b>Definition:</b> SharedData.h:40</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

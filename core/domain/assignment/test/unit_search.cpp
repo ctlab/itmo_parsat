@@ -92,7 +92,7 @@ void test_random_search(int size, int total) {
   util::random::Generator gen(239);
   bool unique = size <= 63;
   uint32_t max_delta = unique ? 0 : std::max(1, total / 100);
-  domain::USearch assignment_p(domain::createRandomSearch(
+  domain::USearch assignment_p(domain::createAutoRandomSearch(
       common::gen_unique_vars(size, MAX_VAR), total));
   test_assignment_full(std::move(assignment_p), total, max_delta);
 }
@@ -109,7 +109,7 @@ void test_random_search_split(long size, int total, int num_split) {
   util::random::Generator gen(239);
   bool unique = size <= 63;
   uint32_t max_delta = unique ? 0 : std::max(1, total / 100);
-  domain::USearch assignment_p(domain::createRandomSearch(
+  domain::USearch assignment_p(domain::createAutoRandomSearch(
       common::gen_unique_vars(size, MAX_VAR), total));
   test_assignment_split_search(
       std::move(assignment_p), total, max_delta, num_split);

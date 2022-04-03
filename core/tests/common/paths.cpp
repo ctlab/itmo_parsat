@@ -12,6 +12,7 @@ std::vector<core::sat::Problem> const& problems(
   static std::unordered_map<std::string, std::vector<core::sat::Problem>>
       inputs;
   static std::mutex m;
+  std::mutex os_m;
   std::lock_guard<std::mutex> lg(m);
   std::string key =
       std::to_string(eliminate) + std::to_string(allow_trivial) + group;
@@ -27,7 +28,7 @@ std::vector<core::sat::Problem> const& problems(
       if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
         f_problems.push_back(std::async(
             std::launch::async,
-            [group, eliminate, name = entry.path().filename().string()] {
+            [group, eliminate, name = entry.path().filename().string(), &os_m] {
               return common::get_problem(group + "/" + name, eliminate);
             }));
       }
