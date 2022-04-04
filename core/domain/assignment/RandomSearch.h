@@ -3,6 +3,7 @@
 
 #include "core/domain/assignment/AssignmentModifier.h"
 #include "core/domain/assignment/UniqueSearch.h"
+#include "core/domain/assignment/FullSearch.h"
 #include "core/domain/assignment/Search.h"
 #include "util/Random.h"
 

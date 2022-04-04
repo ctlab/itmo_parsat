@@ -87,7 +87,7 @@ class Instance {
  private:
   void _calc_fitness();
 
-  void _calc_fitness(uint32_t samples, uint32_t steps_left);
+  void _calc_fitness(uint64_t samples, uint32_t steps_left);
 
   SharedData::SamplingConfig& _sampling_config() noexcept;
 

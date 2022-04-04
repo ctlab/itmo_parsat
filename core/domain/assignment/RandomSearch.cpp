@@ -61,8 +61,7 @@ USearch createAutoRandomSearch(
 }
 
 USearch createAutoRandomSearch(std::vector<int> const& vars, uint64_t total) {
-  uint32_t num_set = std::count(vars.begin(), vars.end(), true);
-  if (num_set <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
+  if (vars.size() <= SearchSpace::MAX_VARS_FOR_FULL_SEARCH) {
     return USearch(new UniqueSearch(vars, total));
   } else {
     return USearch(new RandomSearch(vars, total));

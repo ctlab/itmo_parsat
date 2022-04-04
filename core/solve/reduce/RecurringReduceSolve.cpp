@@ -54,7 +54,7 @@ sat::State RecurringReduceSolve::_solve_impl(
             }},
         _rb_search->find_rb());
 
-    if (result != sat::UNKNOWN) {
+    if (_is_interrupted() || result != sat::UNKNOWN) {
       return result;
     }
 
@@ -99,16 +99,16 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
               ++progress;
             }
             switch (result) {
-              case core::sat::UNSAT:
+              case sat::UNSAT:
                 break;
-              case core::sat::UNKNOWN:
+              case sat::UNKNOWN:
                 unknown = true;
                 {
                   std::lock_guard<std::mutex> lg(failed_lock);
                   failed.push_back(std::move(cur_assumptions[i]));
                 }
                 break;
-              case core::sat::SAT:
+              case sat::SAT:
                 satisfied = true;
                 _solver_service->interrupt();
                 break;
@@ -122,7 +122,7 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
   if (satisfied) {
     return sat::SAT;
   } else if (!unknown && !_is_interrupted()) {
-    return core::sat::UNSAT;
+    return sat::UNSAT;
   } else if (failed.empty()) {
     return sat::UNKNOWN;
   } else {

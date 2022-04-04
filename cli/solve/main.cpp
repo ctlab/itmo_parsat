@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << std::fixed << std::setprecision(5);
   util::CliConfig config = add_and_read_args(argc, argv);
-  //  core::signal::SigHandler sig_handler;
+  core::signal::SigHandler sig_handler;
   if (config.has("verbose")) {
     fLI::FLAGS_v = config.get<int>("verbose");
   }

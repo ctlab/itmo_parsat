@@ -3,10 +3,11 @@
 # Purpose: integrational testing.
 
 time_limit = 20
-size = 0
+size = 3
+allow_unspecified_size = true
 test_groups = common
 repeat_each = 3
 fail_on_tle = true
-save = true
+save = false
 description = Integrational tests
 gtest_opts = --gtest_filter=*Test*16CPU*

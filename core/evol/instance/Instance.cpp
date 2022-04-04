@@ -46,11 +46,6 @@ Fitness const& Instance::fitness() {
     } else {
       _calc_fitness();
       _cache().add(mask, fit_);
-
-      // Inaccurate number of points is calculated as number of masks
-      // for which cache-miss occurred. That means, this number will not
-      // be equal to the actual number of distinct visited points unless
-      // the number of visited points is less than maximal size of the cache.
       ++_inaccurate_points();
     }
     _cached = true;
@@ -65,18 +60,17 @@ Fitness const& Instance::fitness() const noexcept {
 }
 
 void Instance::_calc_fitness() {
-  // We start from base samples count
   _calc_fitness(
       _sampling_config().base_samples, _sampling_config().max_scale_steps);
 }
 
-void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
+void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
   auto const& mask = _vars.get_mask();
   int size = (int) std::count(mask.begin(), mask.end(), true);
   bool full_search = false;
   uint64_t conflicts;
 
-  if (_sampling_config().max_vars_fs >= size) {
+  if (size <= _sampling_config().max_vars_fs) {
     full_search = true;
     samples = 1ULL << size;
     core::domain::UFullSearch search =
@@ -84,11 +78,18 @@ void Instance::_calc_fitness(uint32_t samples, uint32_t steps_left) {
     conflicts = _prop->prop_tree(
         util::concat(_shared->base_assumption, (*search)()),
         _shared->base_assumption.size());
+  } else if (
+      size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH &&
+      (1ULL << size) <= samples) {
+    full_search = true;
+    samples = 1ULL << size;
+    conflicts = _prop->prop_assignments(
+        _shared->base_assumption,
+        core::domain::createFullSearch(_var_view(), mask));
   } else {
-    core::domain::USearch search =
-        core::domain::createRandomSearch(_var_view(), mask, samples);
-    conflicts =
-        _prop->prop_assignments(_shared->base_assumption, std::move(search));
+    conflicts = _prop->prop_assignments(
+        _shared->base_assumption,
+        core::domain::createRandomSearch(_var_view(), mask, samples));
   }
 
   fit_.rho = (double) conflicts / (double) samples;
@@ -161,7 +162,7 @@ std::ostream& operator<<(
 
   return os << "Confl. ratio: " << instance.fitness().rho
             << " Size: " << instance.fitness().size
-            << " and fitness: " << (double) instance.fitness()
-            << " Vars: " << vars << " samples: " << instance.fitness().samples
-            << " coverage: " << 100. * coverage << "%";
+            << " Fitness: " << (double) instance.fitness() << " Vars: " << vars
+            << " samples: " << instance.fitness().samples
+            << " Coverage: " << 100. * coverage << "%";
 }
