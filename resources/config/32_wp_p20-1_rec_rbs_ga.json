@@ -111,7 +111,7 @@
                                                 {
                                                     "limit_type": "StallLimit",
                                                     "stall_limit_config": {
-                                                        "steps_before_stall": 5000,
+                                                        "steps_before_stall": 1000,
                                                         "time_before_stall_s": 10
                                                     }
                                                 }
@@ -122,7 +122,7 @@
                                         "omega_x": 20,
                                         "max_cache_size": 1000,
                                         "sampling_config": {
-                                            "max_vars_fs": 20,
+                                            "max_vars_fs": 16,
                                             "base_count": 4096,
                                             "max_steps": 3,
                                             "scale": 2
