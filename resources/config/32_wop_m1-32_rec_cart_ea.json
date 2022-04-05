@@ -61,7 +61,7 @@
                                                 "limit_type": "ResourceLimit",
                                                 "resource_limit_config": {
                                                     "memory_limit_kb": 0,
-                                                    "time_limit_sec": 600
+                                                    "time_limit_sec": 180
                                                 }
                                             },
                                             {
@@ -74,8 +74,8 @@
                                             {
                                                 "limit_type": "StallLimit",
                                                 "stall_limit_config": {
-                                                    "steps_before_stall": 1000,
-                                                    "time_before_stall_s": 10
+                                                    "steps_before_stall": 250,
+                                                    "time_before_stall_s": 5
                                                 }
                                             }
                                         ]

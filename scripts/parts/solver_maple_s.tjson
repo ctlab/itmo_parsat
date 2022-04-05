@@ -7,8 +7,8 @@
         },
         "sharing_config": {
             "enabled": true,
-            "interval_us": 100000,
-            "shr_lit": 100
+            "interval_us": 250000,
+            "shr_lit": 10
         },
         "diversification_config": {
             "native": false,
