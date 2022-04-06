@@ -22,6 +22,7 @@ rbs_result_t OneRBSearch::find_rb() {
     result = RBS_INTERRUPTED;
   } else {
     auto rb = _algorithm->get_best();
+    IPS_INFO("The best rho-backdoor:\n\t" << rb);
     if (rb.is_sbs()) {
       result = RBS_SBS_FOUND;
     } else {

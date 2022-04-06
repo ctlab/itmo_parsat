@@ -191,9 +191,10 @@ message RecurringReduceSolveConfig {
   PreprocessConfig preprocess_config = 1;
   RBSearchConfig rb_search_config = 2;
   uint32 max_solve_time_ms = 3;
-  uint32 max_recursion_depth = 4;
-  PropConfig prop_config = 5;
-  SolverServiceConfig solver_service_config = 6;
+  double max_solve_time_scale = 4;
+  uint32 max_recursion_depth = 5;
+  PropConfig prop_config = 6;
+  SolverServiceConfig solver_service_config = 7;
 }
 
 message WithPainlessSolveConfig {

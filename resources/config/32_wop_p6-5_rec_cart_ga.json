@@ -6,7 +6,8 @@
         "preprocess_config": {
             "heuristic_size": 200
         },
-        "max_solve_time_ms": 2500,
+        "max_solve_time_ms": 2000,
+        "max_solve_time_scale": 5,
         "max_recursion_depth": 2,
         "prop_config": {
             "prop_type": "ParProp",
@@ -29,7 +30,7 @@
                         "block_size": 16,
                         "time_limit_s": 0,
                         "lbd_limit": 2,
-                        "slv_sleep_us": 50000,
+                        "slv_sleep_us": 100000,
                         "sharing_config": {
                             "enabled": true,
                             "interval_us": 500000,

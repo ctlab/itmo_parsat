@@ -6,7 +6,8 @@
         "preprocess_config": {
             "heuristic_size": 200
         },
-        "max_solve_time_ms": 2500,
+        "max_solve_time_ms": 2000,
+        "max_solve_time_scale": 5,
         "max_recursion_depth": 2,
         "prop_config": {
             "prop_type": "ParProp",

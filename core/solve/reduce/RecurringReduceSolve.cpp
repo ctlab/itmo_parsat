@@ -16,21 +16,31 @@ void RecurringReduceSolve::_interrupt_impl() {
 sat::State RecurringReduceSolve::_solve_impl(
     ea::preprocess::RPreprocess const& preprocess) {
   std::stack<std::pair<lit_vec_t, uint32_t>> stack;
-  stack.push({});
+  stack.push({{}, 0});
+
+  uint32_t max_solve_time_ms = _cfg.max_solve_time_ms();
+  uint32_t max_solve_time_scale = _cfg.max_solve_time_scale();
 
   while (!stack.empty() && !_is_interrupted()) {
     _cur_base_assumption = stack.top().first;
     uint32_t depth = stack.top().second;
     stack.pop();
 
-    IPS_INFO(
-        "Starting iteration on depth "
-        << depth << " with base assumption: " << _cur_base_assumption);
-
     using namespace std::chrono_literals;
-    auto time_limit = depth < _cfg.max_recursion_depth()
-                          ? std::chrono::milliseconds(_cfg.max_solve_time_ms())
-                          : sat::solver::SolverService::DUR_INDEF;
+    auto time_limit =
+        depth < _cfg.max_recursion_depth()
+            ? std::chrono::milliseconds(uint32_t(
+                  max_solve_time_ms * std::pow(max_solve_time_scale, depth)))
+            : sat::solver::SolverService::DUR_INDEF;
+
+    IPS_INFO(
+        "Starting iteration"
+        << "\n\tDepth " << depth << ", time limit: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(time_limit)
+               .count()
+        << "ms"
+        << "\n\tWith base assumption: " << _cur_base_assumption  //
+    );
 
     _rb_search.reset(
         RBSearchRegistry::resolve(_cfg.rb_search_config(), _prop, _preprocess));
