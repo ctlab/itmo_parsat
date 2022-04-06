@@ -15,7 +15,7 @@ void ReduceSolve::_interrupt_impl() {
 }
 
 std::vector<lit_vec_t> ReduceSolve::_filter_conflict(
-    domain::USearch assignment) {
+    search::USearch assignment) {
   IPS_INFO("Filtering conflict assignments");
   std::mutex progress_lock, nc_lock;
   std::atomic_uint64_t conflicts{0}, total{0};
@@ -23,7 +23,7 @@ std::vector<lit_vec_t> ReduceSolve::_filter_conflict(
   std::vector<lit_vec_t> non_conflict;
 
   IPS_TRACE_N("RBSSolveBase::filter_conflict", {
-    _prop->prop_assignments(
+    _prop->prop_search(
         std::move(assignment), [&](bool conflict, lit_vec_t const& assumption) {
           if (_is_interrupted()) {
             return false;

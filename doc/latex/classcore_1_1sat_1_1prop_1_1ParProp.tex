@@ -44,9 +44,9 @@ bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a2b3318aa6c2aa69021e1d
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_ae87a873fe1f3c54ec448ee5f75305d80}{propagate}} (lit\+\_\+vec\+\_\+t const \&assumptions) override
 \begin{DoxyCompactList}\small\item\em Propagates a given list of assumptions. \end{DoxyCompactList}\item 
-uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a4471cb42eab4841855fcd933aa51f326}{prop\+\_\+assignments}} (domain\+::\+U\+Search search\+\_\+p, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback) override
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a593bf512cedcff0833b35cd2b9c06593}{prop\+\_\+search}} (search\+::\+U\+Search search\+\_\+p, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback) override
 \begin{DoxyCompactList}\small\item\em Propagates all assignments by the given search specification and calls callback respectively if it is present. \end{DoxyCompactList}\item 
-uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_aa8bc77fc4d5208c2eeef8ad9ea69f8a3}{prop\+\_\+assignments}} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, domain\+::\+U\+Search search\+\_\+p, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback) override
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_abc916baadbbadf6e38ad47252e49e7c9}{prop\+\_\+search}} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption, search\+::\+U\+Search search\+\_\+p, \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&callback) override
 \begin{DoxyCompactList}\small\item\em Propagates all assignments by the given search specification and calls callback respectively if it is present. \end{DoxyCompactList}\item 
 uint64\+\_\+t \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1ParProp_a45ccacf4ac0d5ea94407b232ccb1dc08}{prop\+\_\+tree}} (lit\+\_\+vec\+\_\+t const \&vars, uint32\+\_\+t head\+\_\+size) override
 \begin{DoxyCompactList}\small\item\em Lightning fast version of full-\/search style propagate. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -81,35 +81,11 @@ Parses cnf from .gz file with the specified path.
 
 Implements \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a528c2a9c9fb63e471fbd99d2f5f06d44}{core\+::sat\+::prop\+::\+Prop}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1ParProp_a4471cb42eab4841855fcd933aa51f326}\label{classcore_1_1sat_1_1prop_1_1ParProp_a4471cb42eab4841855fcd933aa51f326}} 
-\index{core::sat::prop::ParProp@{core::sat::prop::ParProp}!prop\_assignments@{prop\_assignments}}
-\index{prop\_assignments@{prop\_assignments}!core::sat::prop::ParProp@{core::sat::prop::ParProp}}
-\doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Par\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{Prop\+::prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Propagates all assignments by the given search specification and calls callback respectively if it is present. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em search} & search engine. \\
-\hline
-{\em callback} & callback to be called on each solve. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-the number of conflicts 
-\end{DoxyReturn}
-
-
-Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1aaaef067f712c35675aa6a96522ab9f}{core\+::sat\+::prop\+::\+Prop}}.
-
-\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1ParProp_aa8bc77fc4d5208c2eeef8ad9ea69f8a3}\label{classcore_1_1sat_1_1prop_1_1ParProp_aa8bc77fc4d5208c2eeef8ad9ea69f8a3}} 
-\index{core::sat::prop::ParProp@{core::sat::prop::ParProp}!prop\_assignments@{prop\_assignments}}
-\index{prop\_assignments@{prop\_assignments}!core::sat::prop::ParProp@{core::sat::prop::ParProp}}
-\doxysubsubsection{\texorpdfstring{prop\_assignments()}{prop\_assignments()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Par\+Prop\+::prop\+\_\+assignments (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{base\+\_\+assumption,  }\item[{domain\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1ParProp_abc916baadbbadf6e38ad47252e49e7c9}\label{classcore_1_1sat_1_1prop_1_1ParProp_abc916baadbbadf6e38ad47252e49e7c9}} 
+\index{core::sat::prop::ParProp@{core::sat::prop::ParProp}!prop\_search@{prop\_search}}
+\index{prop\_search@{prop\_search}!core::sat::prop::ParProp@{core::sat::prop::ParProp}}
+\doxysubsubsection{\texorpdfstring{prop\_search()}{prop\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Par\+Prop\+::prop\+\_\+search (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{base\+\_\+assumption,  }\item[{search\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -129,7 +105,31 @@ the number of conflicts
 \end{DoxyReturn}
 
 
-Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_aaebb137d4b3dcd6ffb946c9d83a220e5}{core\+::sat\+::prop\+::\+Prop}}.
+Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a3ea75b08d9fc88ae9a264600b191dbe2}{core\+::sat\+::prop\+::\+Prop}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1ParProp_a593bf512cedcff0833b35cd2b9c06593}\label{classcore_1_1sat_1_1prop_1_1ParProp_a593bf512cedcff0833b35cd2b9c06593}} 
+\index{core::sat::prop::ParProp@{core::sat::prop::ParProp}!prop\_search@{prop\_search}}
+\index{prop\_search@{prop\_search}!core::sat::prop::ParProp@{core::sat::prop::ParProp}}
+\doxysubsubsection{\texorpdfstring{prop\_search()}{prop\_search()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::sat\+::prop\+::\+Par\+Prop\+::prop\+\_\+search (\begin{DoxyParamCaption}\item[{search\+::\+U\+Search}]{search,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_a1453b16ad3f9c3c8b1d578dd02a45879}{Prop\+::prop\+\_\+callback\+\_\+t}} const \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Propagates all assignments by the given search specification and calls callback respectively if it is present. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em search} & search engine. \\
+\hline
+{\em callback} & callback to be called on each solve. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of conflicts 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop_ad219b09c2c324716038c23ea063e4b61}{core\+::sat\+::prop\+::\+Prop}}.
 
 \mbox{\Hypertarget{classcore_1_1sat_1_1prop_1_1ParProp_a45ccacf4ac0d5ea94407b232ccb1dc08}\label{classcore_1_1sat_1_1prop_1_1ParProp_a45ccacf4ac0d5ea94407b232ccb1dc08}} 
 \index{core::sat::prop::ParProp@{core::sat::prop::ParProp}!prop\_tree@{prop\_tree}}

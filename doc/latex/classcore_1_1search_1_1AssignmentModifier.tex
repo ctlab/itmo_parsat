@@ -1,0 +1,74 @@
+\hypertarget{classcore_1_1search_1_1AssignmentModifier}{}\doxysection{core\+::search\+::Assignment\+Modifier Class Reference}
+\label{classcore_1_1search_1_1AssignmentModifier}\index{core::search::AssignmentModifier@{core::search::AssignmentModifier}}
+
+
+The base class for searches that step by modifying search.  
+
+
+
+
+{\ttfamily \#include $<$Assignment\+Modifier.\+h$>$}
+
+
+
+Inheritance diagram for core\+::search\+::Assignment\+Modifier\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1AssignmentModifier__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcore_1_1search_1_1AssignmentModifier_a6b0faf2a423839d00ee19eee98f0b972}{Assignment\+Modifier}} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{domain\+::\+Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&bit\+\_\+mask)
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1AssignmentModifier_a3c88bdae54640b4b450603a81fca4409}\label{classcore_1_1search_1_1AssignmentModifier_a3c88bdae54640b4b450603a81fca4409}} 
+{\bfseries Assignment\+Modifier} (std\+::vector$<$ int $>$ const \&vars)
+\item 
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1AssignmentModifier_ac7b9978f2a9e65c3b551badc5bdb554c}{get}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1AssignmentModifier_a154efda85bbc4b8ce4d90f947f7410a6}\label{classcore_1_1search_1_1AssignmentModifier_a154efda85bbc4b8ce4d90f947f7410a6}} 
+lit\+\_\+vec\+\_\+t {\bfseries \+\_\+assignment}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The base class for searches that step by modifying search. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcore_1_1search_1_1AssignmentModifier_a6b0faf2a423839d00ee19eee98f0b972}\label{classcore_1_1search_1_1AssignmentModifier_a6b0faf2a423839d00ee19eee98f0b972}} 
+\index{core::search::AssignmentModifier@{core::search::AssignmentModifier}!AssignmentModifier@{AssignmentModifier}}
+\index{AssignmentModifier@{AssignmentModifier}!core::search::AssignmentModifier@{core::search::AssignmentModifier}}
+\doxysubsubsection{\texorpdfstring{AssignmentModifier()}{AssignmentModifier()}}
+{\footnotesize\ttfamily core\+::search\+::\+Assignment\+Modifier\+::\+Assignment\+Modifier (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{domain\+::\+Var\+View}} const \&}]{var\+\_\+view,  }\item[{bit\+\_\+mask\+\_\+t const \&}]{bit\+\_\+mask }\end{DoxyParamCaption})}
+
+Initializes the assignment with given set of vars, all set to false. 
+\begin{DoxyParams}{Parameters}
+{\em var\+\_\+view} & the mapping from indices to vars \\
+\hline
+{\em vars} & the bit set representing variables set \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1search_1_1AssignmentModifier_ac7b9978f2a9e65c3b551badc5bdb554c}\label{classcore_1_1search_1_1AssignmentModifier_ac7b9978f2a9e65c3b551badc5bdb554c}} 
+\index{core::search::AssignmentModifier@{core::search::AssignmentModifier}!get@{get}}
+\index{get@{get}!core::search::AssignmentModifier@{core::search::AssignmentModifier}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::search\+::\+Assignment\+Modifier\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+the current state of assignment 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/search/Assignment\+Modifier.\+h\item 
+core/search/Assignment\+Modifier.\+cpp\end{DoxyCompactItemize}

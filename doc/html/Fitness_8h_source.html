@@ -78,25 +78,32 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ea::instance {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1Fitness.html">   13</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keywordtype">double</span> rho;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  uint32_t size;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  uint32_t pow_nr;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  uint32_t samples;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="structea_1_1instance_1_1Fitness.html#a54cde7ec09ddced791ea72362f1f33f9">can_calc</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">explicit</span> <span class="keyword">operator</span> double() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">bool</span> operator&lt;(<a class="code" href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a> <span class="keyword">const</span>&amp; a, <a class="code" href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a> <span class="keyword">const</span>&amp; b);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_FITNESS_H</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1Fitness.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1Fitness.html#a9864fd589381e85a2e88567d052f705e">   19</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="structea_1_1instance_1_1Fitness.html#a9864fd589381e85a2e88567d052f705e">rho</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1Fitness.html#a283180454350855cae5aee44883ee2eb">   24</a></span>&#160;  uint32_t <a class="code" href="structea_1_1instance_1_1Fitness.html#a283180454350855cae5aee44883ee2eb">size</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1Fitness.html#a97b12edba584037d46aee20c17b8a1cd">   29</a></span>&#160;  uint32_t <a class="code" href="structea_1_1instance_1_1Fitness.html#a97b12edba584037d46aee20c17b8a1cd">pow_nr</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structea_1_1instance_1_1Fitness.html#ab323951cf3f10f7065a6d76184997530">   34</a></span>&#160;  uint32_t <a class="code" href="structea_1_1instance_1_1Fitness.html#ab323951cf3f10f7065a6d76184997530">samples</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="structea_1_1instance_1_1Fitness.html#a54cde7ec09ddced791ea72362f1f33f9">can_calc</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">explicit</span> <span class="keyword">operator</span> double() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">bool</span> operator&lt;(<a class="code" href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a> <span class="keyword">const</span>&amp; a, <a class="code" href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a> <span class="keyword">const</span>&amp; b);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_FITNESS_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructea_1_1instance_1_1Fitness_html"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a></div><div class="ttdoc">This structure represents Instances' fitness. Mathematically, it is calculated as rho * 2^{size} + (1...</div><div class="ttdef"><b>Definition:</b> Fitness.h:13</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1Fitness_html"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a></div><div class="ttdoc">This structure represents Instances' fitness. It is calculated as rho * 2^{size} + (1 - \rho) * 2^{po...</div><div class="ttdef"><b>Definition:</b> Fitness.h:14</div></div>
 <div class="ttc" id="astructea_1_1instance_1_1Fitness_html_a54cde7ec09ddced791ea72362f1f33f9"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html#a54cde7ec09ddced791ea72362f1f33f9">ea::instance::Fitness::can_calc</a></div><div class="ttdeci">bool can_calc() const</div><div class="ttdef"><b>Definition:</b> Fitness.cpp:7</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1Fitness_html_a97b12edba584037d46aee20c17b8a1cd"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html#a97b12edba584037d46aee20c17b8a1cd">ea::instance::Fitness::pow_nr</a></div><div class="ttdeci">uint32_t pow_nr</div><div class="ttdoc">The constant used to prefer smaller sets.</div><div class="ttdef"><b>Definition:</b> Fitness.h:29</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1Fitness_html_a9864fd589381e85a2e88567d052f705e"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html#a9864fd589381e85a2e88567d052f705e">ea::instance::Fitness::rho</a></div><div class="ttdeci">double rho</div><div class="ttdoc">The approximated rho-value, i.e. the approximation of proportion of conflict assumptions.</div><div class="ttdef"><b>Definition:</b> Fitness.h:19</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1Fitness_html_ab323951cf3f10f7065a6d76184997530"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html#ab323951cf3f10f7065a6d76184997530">ea::instance::Fitness::samples</a></div><div class="ttdeci">uint32_t samples</div><div class="ttdoc">The number of samples included in approximation of the rho-value.</div><div class="ttdef"><b>Definition:</b> Fitness.h:34</div></div>
+<div class="ttc" id="astructea_1_1instance_1_1Fitness_html_a283180454350855cae5aee44883ee2eb"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html#a283180454350855cae5aee44883ee2eb">ea::instance::Fitness::size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdoc">The number of variables in this rho-backdoor set.</div><div class="ttdef"><b>Definition:</b> Fitness.h:24</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

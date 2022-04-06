@@ -1,5 +1,0 @@
-<map id="core::domain::FullSearch" name="core::domain::FullSearch">
-<area shape="rect" id="node1" title="The class used to perform full search." alt="" coords="110,95,293,121"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1AssignmentModifier.html" title="The base class for searches that step by modifying assignment." alt="" coords="5,5,197,47"/>
-<area shape="rect" id="node3" href="$classcore_1_1domain_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="222,13,381,39"/>
-</map>

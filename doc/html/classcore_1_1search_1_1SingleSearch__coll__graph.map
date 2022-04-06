@@ -1,0 +1,4 @@
+<map id="core::search::SingleSearch" name="core::search::SingleSearch">
+<area shape="rect" id="node1" title="The search implementation consisting of only one (empty) assignment." alt="" coords="5,80,199,107"/>
+<area shape="rect" id="node2" href="$classcore_1_1search_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="25,5,179,32"/>
+</map>

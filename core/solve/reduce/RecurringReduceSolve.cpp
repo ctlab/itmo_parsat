@@ -31,40 +31,40 @@ sat::State RecurringReduceSolve::_solve_impl(
     auto time_limit = depth < _cfg.max_recursion_depth()
                           ? std::chrono::milliseconds(_cfg.max_solve_time_ms())
                           : sat::solver::SolverService::DUR_INDEF;
-
     _rb_search.reset(
         RBSearchRegistry::resolve(_cfg.rb_search_config(), _prop, _preprocess));
-    sat::State result = sat::UNKNOWN;
-    filter_r slow;
-    std::visit(
+
+    filter_r filter_result = std::visit(
         overloaded{
-            [&result](RBSReason stop_reason) {
+            [this](RBSReason stop_reason) -> filter_r {
               switch (stop_reason) {
-                case RBS_SBS_FOUND:
-                  result = sat::UNSAT;
-                  break;
                 case RBS_INTERRUPTED:
-                  result = sat::UNKNOWN;
-                  break;
+                  return sat::UNKNOWN;
+                case RBS_SBS_FOUND:
+                  return _cur_base_assumption.size() == 0 ? sat::UNSAT
+                                                          : sat::UNKNOWN;
               }
+              return sat::UNKNOWN;
             },
-            [this, &slow, &time_limit](domain::USearch&& search) {
-              slow =
-                  _filter_fast(_filter_conflict(std::move(search)), time_limit);
+            [this, &time_limit](search::USearch&& search) -> filter_r {
+              return _filter_fast(
+                  _filter_conflict(std::move(search)), time_limit);
             }},
         _rb_search->find_rb());
 
-    if (_is_interrupted() || result != sat::UNKNOWN) {
-      return result;
+    if (IPS_UNLIKELY(_is_interrupted())) {
+      return sat::UNKNOWN;
     }
 
-    if (std::holds_alternative<sat::State>(slow) &&
-        std::get<sat::State>(slow) == sat::SAT) {
-      // Branch returned SAT, thus the result is SAT.
-      return sat::SAT;
-    } else if (!std::holds_alternative<sat::State>(slow)) {
-      // Otherwise, fill the stack and continue search.
-      for (auto& v : std::get<std::vector<lit_vec_t>>(slow)) {
+    if (std::holds_alternative<sat::State>(filter_result)) {
+      sat::State state = std::get<sat::State>(filter_result);
+      if (state != sat::UNKNOWN) {
+        return state;
+      }
+    }
+
+    if (!std::holds_alternative<sat::State>(filter_result)) {
+      for (auto& v : std::get<std::vector<lit_vec_t>>(filter_result)) {
         stack.emplace(std::move(v), depth + 1);
       }
     }

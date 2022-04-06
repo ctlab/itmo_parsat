@@ -21,7 +21,7 @@ void check_rho_value(
   if (!instance.fitness().can_calc() || (1ULL << size) != samples) {
     return;
   }
-  auto search = core::domain::createFullSearch(
+  auto search = core::search::createFullSearch(
       preprocess->var_view(), instance.get_vars().get_mask());
   uint32_t conflicts = rprop->prop_tree(
       util::concat(base_assumption, (*search)()), base_assumption.size());

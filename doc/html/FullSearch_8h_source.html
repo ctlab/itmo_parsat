@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>itmo-parsat: core/domain/assignment/FullSearch.h Source File</title>
+<title>itmo-parsat: core/search/FullSearch.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li><li class="navelem"><a class="el" href="dir_1610d67eb6bc64da78fd21e475a92ecf.html">domain</a></li><li class="navelem"><a class="el" href="dir_321c8d33955299173c3eb35d70bc1bf6.html">assignment</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li><li class="navelem"><a class="el" href="dir_c5c83097f94e3e1d6a77da0f76559c8a.html">search</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -73,20 +73,20 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ITMO_PARSAT_FULLSEARCH_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ITMO_PARSAT_FULLSEARCH_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/AssignmentModifier.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/Search.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;core/search/AssignmentModifier.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;core/search/Search.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>core::domain {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>core::search {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classcore_1_1domain_1_1FullSearch.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1domain_1_1FullSearch.html">FullSearch</a> : <a class="code" href="classcore_1_1domain_1_1AssignmentModifier.html">AssignmentModifier</a>, <span class="keyword">public</span> <a class="code" href="classcore_1_1domain_1_1Search.html">Search</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classcore_1_1search_1_1FullSearch.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1search_1_1FullSearch.html">FullSearch</a> : <a class="code" href="classcore_1_1search_1_1AssignmentModifier.html">AssignmentModifier</a>, <span class="keyword">public</span> <a class="code" href="classcore_1_1search_1_1Search.html">Search</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <a class="code" href="classcore_1_1domain_1_1FullSearch.html">FullSearch</a>(<a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; bit_mask);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <a class="code" href="classcore_1_1search_1_1FullSearch.html">FullSearch</a>(<a class="code" href="classcore_1_1domain_1_1VarView.html">domain::VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; bit_mask);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1domain_1_1FullSearch.html">FullSearch</a>(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1FullSearch.html">FullSearch</a>(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  [[nodiscard]] <a class="code" href="classcore_1_1domain_1_1FullSearch.html">FullSearch</a>* <a class="code" href="classcore_1_1domain_1_1FullSearch.html#ad7a9b6f9b017198bc2a5ef623fbcf43d">clone</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  [[nodiscard]] <a class="code" href="classcore_1_1search_1_1FullSearch.html">FullSearch</a>* <a class="code" href="classcore_1_1search_1_1FullSearch.html#ada6e05a0b296cf059c618cbcc6b06b8b">clone</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  [[nodiscard]] lit_vec_t <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1domain_1_1FullSearch.html#a648d457bab63be4df8864aa207ca3a37">operator()</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  [[nodiscard]] lit_vec_t <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1search_1_1FullSearch.html#a4ed644f7bea5b4a125776e22f1574959">operator()</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordtype">void</span> _advance() <span class="keyword">override</span>;</div>
@@ -94,21 +94,21 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordtype">void</span> _reset() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1domain_1_1FullSearch.html">FullSearch</a>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1search_1_1FullSearch.html">FullSearch</a>);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;UFullSearch createFullSearch(<a class="code" href="classcore_1_1domain_1_1VarView.html">VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; bit_mask);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;UFullSearch createFullSearch(<a class="code" href="classcore_1_1domain_1_1VarView.html">domain::VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; bit_mask);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;UFullSearch createFullSearch(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}  <span class="comment">// namespace core::search</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_FULLSEARCH_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1domain_1_1FullSearch_html_a648d457bab63be4df8864aa207ca3a37"><div class="ttname"><a href="classcore_1_1domain_1_1FullSearch.html#a648d457bab63be4df8864aa207ca3a37">core::domain::FullSearch::operator()</a></div><div class="ttdeci">lit_vec_t const  &amp; operator()() const override</div><div class="ttdef"><b>Definition:</b> FullSearch.cpp:39</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1FullSearch_html_ad7a9b6f9b017198bc2a5ef623fbcf43d"><div class="ttname"><a href="classcore_1_1domain_1_1FullSearch.html#ad7a9b6f9b017198bc2a5ef623fbcf43d">core::domain::FullSearch::clone</a></div><div class="ttdeci">FullSearch * clone() const override</div><div class="ttdoc">Clones the current search.</div><div class="ttdef"><b>Definition:</b> FullSearch.cpp:31</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1Search_html"><div class="ttname"><a href="classcore_1_1domain_1_1Search.html">core::domain::Search</a></div><div class="ttdoc">The class representing the sequential search in assignments space.</div><div class="ttdef"><b>Definition:</b> Search.h:26</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1AssignmentModifier_html"><div class="ttname"><a href="classcore_1_1domain_1_1AssignmentModifier.html">core::domain::AssignmentModifier</a></div><div class="ttdoc">The base class for searches that step by modifying assignment.</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.h:15</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1FullSearch_html"><div class="ttname"><a href="classcore_1_1domain_1_1FullSearch.html">core::domain::FullSearch</a></div><div class="ttdoc">The class used to perform full search.</div><div class="ttdef"><b>Definition:</b> FullSearch.h:12</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1FullSearch_html_ada6e05a0b296cf059c618cbcc6b06b8b"><div class="ttname"><a href="classcore_1_1search_1_1FullSearch.html#ada6e05a0b296cf059c618cbcc6b06b8b">core::search::FullSearch::clone</a></div><div class="ttdeci">FullSearch * clone() const override</div><div class="ttdef"><b>Definition:</b> FullSearch.cpp:32</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1Search_html"><div class="ttname"><a href="classcore_1_1search_1_1Search.html">core::search::Search</a></div><div class="ttdoc">The class representing the sequential search in assignments space.</div><div class="ttdef"><b>Definition:</b> Search.h:26</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1AssignmentModifier_html"><div class="ttname"><a href="classcore_1_1search_1_1AssignmentModifier.html">core::search::AssignmentModifier</a></div><div class="ttdoc">The base class for searches that step by modifying search.</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.h:15</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1FullSearch_html"><div class="ttname"><a href="classcore_1_1search_1_1FullSearch.html">core::search::FullSearch</a></div><div class="ttdoc">The class used to perform full search.</div><div class="ttdef"><b>Definition:</b> FullSearch.h:12</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1FullSearch_html_a4ed644f7bea5b4a125776e22f1574959"><div class="ttname"><a href="classcore_1_1search_1_1FullSearch.html#a4ed644f7bea5b4a125776e22f1574959">core::search::FullSearch::operator()</a></div><div class="ttdeci">lit_vec_t const  &amp; operator()() const override</div><div class="ttdef"><b>Definition:</b> FullSearch.cpp:40</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a></div><div class="ttdoc">The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...</div><div class="ttdef"><b>Definition:</b> VarView.h:13</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -5,7 +5,7 @@
 namespace ea::instance {
 
 bool Fitness::can_calc() const {
-  return size < 64 && pow_nr < 64;
+  return size < 62 && pow_nr < 62;
 }
 
 Fitness::operator double() const {
@@ -14,25 +14,26 @@ Fitness::operator double() const {
 }
 
 bool operator<(Fitness const& a, Fitness const& b) {
-  if (a.size == 0 || a.rho == 0.0) {
-    return false;
-  }
-  if (b.size == 0 || b.rho == 0.0) {
-    return true;
-  }
+  static constexpr double EPS = 1e-8;
+  static constexpr uint32_t CRIT_SZ_DIFF = 32;
 
-  /* NOTE: For now, pow_nr is always equal to 20 */
   if (a.can_calc() && b.can_calc()) {
     return (double) a < (double) b;
   }
 
-  IPS_WARNING("Comparison of non-evaluable Fitness-es.");
+  if (a.size == 0 || a.rho < EPS || a.size > b.size + CRIT_SZ_DIFF) {
+    return false;
+  }
+  if (b.size == 0 || b.rho < EPS || b.size > a.size + CRIT_SZ_DIFF) {
+    return true;
+  }
+
   int32_t min_pow_r = std::min(a.size, b.size);
   double a_val = a.rho * std::pow(2., a.size - min_pow_r);
   double b_val = b.rho * std::pow(2., b.size - min_pow_r);
 
   int32_t pow_nr = a.pow_nr - min_pow_r;
-  if (min_pow_r > -60) {
+  if (pow_nr > -8) {
     a_val += (1. - a.rho) * std::pow(2., pow_nr);
     b_val += (1. - b.rho) * std::pow(2., pow_nr);
   }

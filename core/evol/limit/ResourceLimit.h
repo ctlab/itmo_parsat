@@ -8,7 +8,8 @@
 namespace ea::limit {
 
 /**
- * @brief This limit controls the execution by limiting time and memory consumption of an algorithm.
+ * @brief This limit controls the execution by limiting time and memory
+ * consumption of an algorithm.
  */
 class ResourceLimit : public Limit {
  public:
@@ -18,7 +19,7 @@ class ResourceLimit : public Limit {
 
  protected:
   /**
-   * @return true iff time and memory limits are both not reached and there
+   * @return if time and memory limits are both not reached and there
    *         still are unvisited points left.
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;

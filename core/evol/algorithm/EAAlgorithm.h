@@ -13,12 +13,13 @@ namespace ea::algorithm {
  */
 class EAAlgorithm : public Algorithm {
  public:
-  explicit EAAlgorithm(EAAlgorithmConfig const& config, core::sat::prop::RProp prop);
-
-  void step() override;
+  explicit EAAlgorithm(
+      EAAlgorithmConfig const& config, core::sat::prop::RProp prop);
 
  protected:
   void _prepare() override;
+
+  void _step() override;
 
  private:
   ea::method::RMutation mutator_;

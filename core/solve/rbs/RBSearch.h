@@ -12,7 +12,7 @@ enum RBSReason {
   RBS_INTERRUPTED,
 };
 
-using rbs_result_t = std::variant<RBSReason, domain::USearch>;
+using rbs_result_t = std::variant<RBSReason, search::USearch>;
 
 /**
  * @brief Class used to reduce SAT problems to a set of independent tasks.

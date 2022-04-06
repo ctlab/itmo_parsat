@@ -1,0 +1,164 @@
+\hypertarget{classcore_1_1search_1_1Search}{}\doxysection{core\+::search\+::Search Class Reference}
+\label{classcore_1_1search_1_1Search}\index{core::search::Search@{core::search::Search}}
+
+
+The class representing the sequential search in assignments space.  
+
+
+
+
+{\ttfamily \#include $<$Search.\+h$>$}
+
+
+
+Inheritance diagram for core\+::search\+::Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1Search__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a7cbcb192e731400592ea04a29a2d29d7}\label{classcore_1_1search_1_1Search_a7cbcb192e731400592ea04a29a2d29d7}} 
+{\bfseries Search} (uint64\+\_\+t total)
+\item 
+virtual lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}{operator()}} () const =0
+\item 
+bool \mbox{\hyperlink{classcore_1_1search_1_1Search_a8a57198a2567b89f406bf28fc12ded66}{operator++}} ()
+\begin{DoxyCompactList}\small\item\em Steps to the next search. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classcore_1_1search_1_1Search_a938d59ebcb1040d3744509fac2606930}{size}} () const noexcept
+\item 
+bool \mbox{\hyperlink{classcore_1_1search_1_1Search_a4e7b0b09d75aa031b21da527598f806d}{empty}} () const noexcept
+\item 
+U\+Search \mbox{\hyperlink{classcore_1_1search_1_1Search_abf250542818e4cf402214c9143d49021}{split\+\_\+search}} (uint64\+\_\+t num\+\_\+split, uint64\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em Separates a part of the assignment. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classcore_1_1search_1_1Search}{Search}} $\ast$ \mbox{\hyperlink{classcore_1_1search_1_1Search_ad4e5c12d92d0513dac8b1cf06ec2cf8b}{clone}} () const =0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a0d3d646b13587382f85c2f894d1fc598}\label{classcore_1_1search_1_1Search_a0d3d646b13587382f85c2f894d1fc598}} 
+static uint64\+\_\+t {\bfseries total\+\_\+size} (bit\+\_\+mask\+\_\+t const \&vars)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a61b0bba3c518d48c56aba65ed8ddb112}\label{classcore_1_1search_1_1Search_a61b0bba3c518d48c56aba65ed8ddb112}} 
+virtual void {\bfseries \+\_\+advance} ()=0
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a115fe13709cb261b24b5f056e459b5df}\label{classcore_1_1search_1_1Search_a115fe13709cb261b24b5f056e459b5df}} 
+virtual void {\bfseries \+\_\+reset} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_afaf1172dfbd27858d8f4b48a5ca6b371}\label{classcore_1_1search_1_1Search_afaf1172dfbd27858d8f4b48a5ca6b371}} 
+static void {\bfseries \+\_\+set\+\_\+assignment} (lit\+\_\+vec\+\_\+t \&vec, uint64\+\_\+t value)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_abd14cc48ccd6062c46e1e1c88ea42356}\label{classcore_1_1search_1_1Search_abd14cc48ccd6062c46e1e1c88ea42356}} 
+uint64\+\_\+t {\bfseries \+\_\+total}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a0fbed05ab093580bda554dcda82e1769}\label{classcore_1_1search_1_1Search_a0fbed05ab093580bda554dcda82e1769}} 
+uint64\+\_\+t {\bfseries \+\_\+done} = 0
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a336e8bf05e7c541397f27781bdfe7bce}\label{classcore_1_1search_1_1Search_a336e8bf05e7c541397f27781bdfe7bce}} 
+uint64\+\_\+t {\bfseries \+\_\+first} = 0
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a531fc005b386c4e97f872845eacfc603}\label{classcore_1_1search_1_1Search_a531fc005b386c4e97f872845eacfc603}} 
+uint64\+\_\+t {\bfseries \+\_\+last} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The class representing the sequential search in assignments space. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_ad4e5c12d92d0513dac8b1cf06ec2cf8b}\label{classcore_1_1search_1_1Search_ad4e5c12d92d0513dac8b1cf06ec2cf8b}} 
+\index{core::search::Search@{core::search::Search}!clone@{clone}}
+\index{clone@{clone}!core::search::Search@{core::search::Search}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classcore_1_1search_1_1Search}{Search}}$\ast$ core\+::search\+::\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1search_1_1SingleSearch_aed229f4471759d3cf6bce8e13b7a2c35}{core\+::search\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch_a79f3533765bb1a69ab765414dc800f51}{core\+::search\+::\+Unique\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1CartesianSearch_aefa81719f60b613f99f6a743089a1875}{core\+::search\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1RandomSearch_a368a80e7bc4dd87ceb5449032fe53c49}{core\+::search\+::\+Random\+Search}}, and \mbox{\hyperlink{classcore_1_1search_1_1FullSearch_ada6e05a0b296cf059c618cbcc6b06b8b}{core\+::search\+::\+Full\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a4e7b0b09d75aa031b21da527598f806d}\label{classcore_1_1search_1_1Search_a4e7b0b09d75aa031b21da527598f806d}} 
+\index{core::search::Search@{core::search::Search}!empty@{empty}}
+\index{empty@{empty}!core::search::Search@{core::search::Search}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool core\+::search\+::\+Search\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+equivalent to \mbox{\hyperlink{classcore_1_1search_1_1Search_a938d59ebcb1040d3744509fac2606930}{Search\+::size()}} == 0. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}\label{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}} 
+\index{core::search::Search@{core::search::Search}!operator()@{operator()}}
+\index{operator()@{operator()}!core::search::Search@{core::search::Search}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily virtual lit\+\_\+vec\+\_\+t const\& core\+::search\+::\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classcore_1_1search_1_1SingleSearch_a48fcfae862728557ca13c985e7dbc064}{core\+::search\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1CartesianSearch_a1b92e45a9c0a7a7cca7f0c5a2176049e}{core\+::search\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1RandomSearch_a714abca241f387dce9bb2aff808cc1e9}{core\+::search\+::\+Random\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch_afca9127c9d2a72d9d2b4d6d7b821830d}{core\+::search\+::\+Unique\+Search}}, and \mbox{\hyperlink{classcore_1_1search_1_1FullSearch_a4ed644f7bea5b4a125776e22f1574959}{core\+::search\+::\+Full\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a8a57198a2567b89f406bf28fc12ded66}\label{classcore_1_1search_1_1Search_a8a57198a2567b89f406bf28fc12ded66}} 
+\index{core::search::Search@{core::search::Search}!operator++@{operator++}}
+\index{operator++@{operator++}!core::search::Search@{core::search::Search}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}}
+{\footnotesize\ttfamily bool core\+::search\+::\+Search\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Steps to the next search. 
+
+\begin{DoxyReturn}{Returns}
+true if the state is valid and operator() can be applied. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a938d59ebcb1040d3744509fac2606930}\label{classcore_1_1search_1_1Search_a938d59ebcb1040d3744509fac2606930}} 
+\index{core::search::Search@{core::search::Search}!size@{size}}
+\index{size@{size}!core::search::Search@{core::search::Search}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily uint64\+\_\+t core\+::search\+::\+Search\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the total number of steps. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_abf250542818e4cf402214c9143d49021}\label{classcore_1_1search_1_1Search_abf250542818e4cf402214c9143d49021}} 
+\index{core::search::Search@{core::search::Search}!split\_search@{split\_search}}
+\index{split\_search@{split\_search}!core::search::Search@{core::search::Search}}
+\doxysubsubsection{\texorpdfstring{split\_search()}{split\_search()}}
+{\footnotesize\ttfamily U\+Search core\+::search\+::\+Search\+::split\+\_\+search (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{num\+\_\+split,  }\item[{uint64\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Separates a part of the assignment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+split} & number of searches this search will be split to. \\
+\hline
+{\em index} & Index of current search in range \mbox{[}0, num\+\_\+split). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new assignment instance. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/search/Search.\+h\item 
+core/search/Search.\+cpp\end{DoxyCompactItemize}

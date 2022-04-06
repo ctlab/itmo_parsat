@@ -31,7 +31,7 @@ rbs_result_t CartesianRBSearch::find_rb() {
   auto cartesian_set = IPS_TRACE_V(_pre_solve());
   if (_sbs_found) {
     return RBS_SBS_FOUND;
-  } else if (_is_interrupted()) {
+  } else if (IPS_UNLIKELY(_is_interrupted())) {
     return RBS_INTERRUPTED;
   } else {
     return _prepare_cartesian(std::move(cartesian_set));
@@ -53,13 +53,16 @@ CartesianRBSearch::_pre_solve() {
   IPS_VERIFY(
       _cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
   std::stringstream algorithms_info;
-  std::vector<std::thread> rbs_search_threads;
+  std::vector<std::thread> rb_search_threads;
 
-  for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
-    _algorithms.push_back(
-        ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
-            _cfg.algorithm_configs((int) i % _cfg.algorithm_configs_size()),
-            _prop)));
+  {
+    std::lock_guard<std::mutex> lg(_m);
+    for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
+      _algorithms.push_back(
+          ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
+              _cfg.algorithm_configs((int) i % _cfg.algorithm_configs_size()),
+              _prop)));
+    }
   }
 
   core::event::EventCallbackHandle sbs_found_handle = core::event::attach(
@@ -72,9 +75,9 @@ CartesianRBSearch::_pre_solve() {
 
   for (uint32_t i = 0; i < _cfg.num_algorithms() && !_interrupted; ++i) {
     uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
-    rbs_search_threads.emplace_back([&, i, seed,
-                                     config = _cfg.algorithm_configs(
-                                         i % _cfg.algorithm_configs_size())] {
+    rb_search_threads.emplace_back([&, i, seed,
+                                    config = _cfg.algorithm_configs(
+                                        i % _cfg.algorithm_configs_size())] {
       util::random::Generator generator(seed);
       auto& algorithm = _algorithms[i];
       algorithm->prepare(_preprocess);
@@ -90,8 +93,8 @@ CartesianRBSearch::_pre_solve() {
 
       std::atomic_uint32_t conflicts{0}, total{0};
       std::mutex nca_mutex;
-      algorithm->get_prop().prop_assignments(
-          domain::createFullSearch(
+      algorithm->get_prop().prop_search(
+          search::createFullSearch(
               _preprocess->var_view(), rho_backdoor.get_vars().get_mask()),
           [&](bool conflict, auto const& assumption) {
             ++total;
@@ -125,16 +128,19 @@ CartesianRBSearch::_pre_solve() {
     });
   }
 
-  for (auto& thread : rbs_search_threads) {
+  for (auto& thread : rb_search_threads) {
     IPS_VERIFY(thread.joinable());
     thread.join();
   }
-  _algorithms.clear();
+  {
+    std::lock_guard<std::mutex> lg(_m);
+    _algorithms.clear();
+  }
   IPS_INFO("Algorithms processing info: " << algorithms_info.str());
   return non_conflict_assignments;
 }
 
-domain::USearch CartesianRBSearch::_prepare_cartesian(
+search::USearch CartesianRBSearch::_prepare_cartesian(
     std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian_set) {
   std::vector<std::vector<std::vector<Mini::Lit>>> result;
   uint32_t max_non_conflict = _cfg.max_unpropagated();
@@ -166,7 +172,7 @@ domain::USearch CartesianRBSearch::_prepare_cartesian(
   }
 
   IPS_INFO("Creating cartesian search");
-  return domain::createCartesianSearch(std::move(result));
+  return search::createCartesianSearch(std::move(result));
 }
 
 REGISTER_PROTO(RBSearch, CartesianRBSearch, cartesian_rb_search_config);

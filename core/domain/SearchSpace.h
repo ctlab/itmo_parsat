@@ -7,7 +7,7 @@
 namespace core::domain {
 
 /**
- * @brief The class representing the search space.
+ * @brief The class representing the search space for SAT assumptions.
  */
 struct SearchSpace {
  public:
@@ -23,12 +23,13 @@ struct SearchSpace {
   bool countable_search_space = false;
 
   /**
-   * @brief The size of search space.
+   * @brief The size of the search space.
    */
   uint64_t search_space_size = 0;
 
   /**
    * @brief The approximation of number of visited points.
+   * It is not fully accurate because the cache size is limited.
    */
   uint64_t inaccurate_visited_points = 0;
 
@@ -38,7 +39,6 @@ struct SearchSpace {
   explicit SearchSpace(uint32_t num_variables) noexcept;
 
   /**
-   * Re-initializes this entity.
    * @param num_variables the number of variables
    */
   void reset(uint32_t num_variables) noexcept;

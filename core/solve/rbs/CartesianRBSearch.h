@@ -4,7 +4,7 @@
 #include "core/solve/rbs/RBSearch.h"
 #include "core/proto/solve_config.pb.h"
 
-#include "core/domain/assignment/CartesianSearch.h"
+#include "core/search/CartesianSearch.h"
 #include "core/evol/algorithm/Algorithm.h"
 #include "util/EventHandler.h"
 #include "util/Logger.h"
@@ -33,7 +33,7 @@ class CartesianRBSearch : public RBSearch {
 
   std::vector<std::vector<std::vector<Mini::Lit>>> _pre_solve();
 
-  domain::USearch _prepare_cartesian(
+  search::USearch _prepare_cartesian(
       std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian_set);
 
  private:

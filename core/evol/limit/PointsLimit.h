@@ -6,8 +6,8 @@
 namespace ea::limit {
 
 /**
- * @brief This limit controls the execution by limiting the number of total (inaccurate!) points
- * visited.
+ * @brief This limit controls the execution by limiting the inaccurate number of
+ * points visited.
  */
 class PointsLimit : public Limit {
  public:
@@ -15,7 +15,8 @@ class PointsLimit : public Limit {
 
  protected:
   /**
-   * @return true iff the number of (inaccurate) visited points is less than the specified limit
+   * @return if the number of (inaccurate) visited points is less than the
+   * specified limit
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 

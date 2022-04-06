@@ -12,14 +12,14 @@
             "slv_sleep_us": 100000,
             "sharing_config": {
                 "enabled": true,
-                "interval_us": 250000,
-                "shr_lit": 750
+                "interval_us": 500000,
+                "shr_lit": 1500
             }
         },
         "sharing_config": {
             "enabled": true,
-            "interval_us": 250000,
-            "shr_lit": 10
+            "interval_us": 500000,
+            "shr_lit": 25
         },
         "near_solve_config": {
             "solve_type": "SingleReduceSolve",
@@ -53,8 +53,8 @@
                                 "slv_sleep_us": 50000,
                                 "sharing_config": {
                                     "enabled": true,
-                                    "interval_us": 250000,
-                                    "shr_lit": 750
+                                    "interval_us": 500000,
+                                    "shr_lit": 1500
                                 }
                             }
                         },
@@ -104,8 +104,8 @@
                                                 {
                                                     "limit_type": "StallLimit",
                                                     "stall_limit_config": {
-                                                        "steps_before_stall": 250,
-                                                        "time_before_stall_s": 5
+                                                        "steps_before_stall": 1000,
+                                                        "time_before_stall_s": 10
                                                     }
                                                 }
                                             ]

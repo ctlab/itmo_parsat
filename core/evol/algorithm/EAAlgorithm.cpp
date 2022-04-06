@@ -12,7 +12,7 @@ void EAAlgorithm::_prepare() {
   _add_instance();
 }
 
-void EAAlgorithm::step() {
+void EAAlgorithm::_step() {
   instance::RInstance child(_population.front()->clone());
   mutator_->apply(*child);
   while (child->is_cached()) {

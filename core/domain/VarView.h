@@ -7,8 +7,8 @@
 namespace core::domain {
 
 /**
- * @brief The class representing variable mapping. Is used to compactly represent
- * mapping from a chosen set of variables, where the rest are usually ignored.
+ * @brief The class representing variable mapping. Is used to compactly
+ * represent mapping from a chosen set of variables.
  */
 class VarView {
  public:

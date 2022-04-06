@@ -1,6 +1,0 @@
-<map id="core::domain::AssignmentModifier" name="core::domain::AssignmentModifier">
-<area shape="rect" id="node1" title="The base class for searches that step by modifying assignment." alt="" coords="223,5,415,47"/>
-<area shape="rect" id="node2" href="$classcore_1_1domain_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="5,95,188,121"/>
-<area shape="rect" id="node3" href="$classcore_1_1domain_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="213,95,426,121"/>
-<area shape="rect" id="node4" href="$classcore_1_1domain_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="450,95,655,121"/>
-</map>

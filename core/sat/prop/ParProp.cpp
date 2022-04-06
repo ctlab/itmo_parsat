@@ -39,8 +39,8 @@ bool ParProp::propagate(lit_vec_t const& assumptions) {
   return _seq_worker->propagate(assumptions);
 }
 
-uint64_t ParProp::prop_assignments(
-    domain::USearch search_p, Prop::prop_callback_t const& callback) {
+uint64_t ParProp::prop_search(
+    search::USearch search_p, Prop::prop_callback_t const& callback) {
   std::lock_guard<std::mutex> lg(_solver_m);
   static std::vector<std::future<uint64_t>> futures;
   uint32_t num_threads = _prop_worker_pool.max_threads();
@@ -56,8 +56,8 @@ uint64_t ParProp::prop_assignments(
   return _sum();
 }
 
-uint64_t ParProp::prop_assignments(
-    lit_vec_t const& base_assumption, domain::USearch search_p,
+uint64_t ParProp::prop_search(
+    lit_vec_t const& base_assumption, search::USearch search_p,
     prop_callback_t const& callback) {
   std::lock_guard<std::mutex> lg(_solver_m);
   uint32_t num_threads = _prop_worker_pool.max_threads();

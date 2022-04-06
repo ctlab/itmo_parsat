@@ -10,6 +10,7 @@
 #include "util/LRUCache.h"
 
 namespace ea::instance {
+
 /**
  * @brief This struct is shared between all instances under the same algorithm.
  */

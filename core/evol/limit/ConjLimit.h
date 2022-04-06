@@ -18,7 +18,7 @@ class ConjLimit : public Limit {
 
  protected:
   /**
-   * @return true iff *all* of limits returned true.
+   * @return if *all* of the limits returned true.
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 

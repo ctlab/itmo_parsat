@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="189,104,324,145"/>
 <area shape="rect" id="node6" href="$classcore_1_1sat_1_1solver_1_1SolverService.html" title="SAT solver service used to asynchronously execute sequential solvers with specified time limits." alt="" coords="189,201,324,243"/>
 <area shape="rect" id="node8" href="$classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="188,293,325,319"/>
-<area shape="rect" id="node3" href="$classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="MS_NS:MapleCOMSPSSolver&#45;based Solver implementation." alt="" coords="387,5,545,47"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html" title="Painless&#45;adapted MapleCOMSPSSolver solver implementation." alt="" coords="387,5,545,47"/>
 <area shape="rect" id="node4" href="$classcore_1_1sat_1_1solver_1_1PainlessSolver.html" title="Painless&#45;based Solver implementation." alt="" coords="399,71,533,112"/>
 <area shape="rect" id="node5" href="$classcore_1_1sat_1_1solver_1_1SimpSolver.html" title="MS_NS:SimpSolver&#45;based Solver implementation." alt="" coords="399,136,533,177"/>
 <area shape="rect" id="node7" href="$classcore_1_1sat_1_1solver_1_1SequentialSolverService.html" title="The solver service managing multiple sequential solvers." alt="" coords="376,201,556,243"/>

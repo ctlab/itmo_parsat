@@ -22,14 +22,6 @@ namespace ea::algorithm {
  * @brief The base class of (E|G)A search algorithms.
  */
 class Algorithm {
- private:
-  void _init_shared_data(InstanceConfig const& config);
-
- protected:
-  void _add_instance();
-
-  virtual void _prepare();
-
  public:
   virtual ~Algorithm() = default;
 
@@ -49,12 +41,7 @@ class Algorithm {
   void process();
 
   /**
-   * @brief interrupts the algorithm.
-   */
-  void interrupt();
-
-  /**
-   * @return the main prop used in this algorithm.
+   * @return the propagation engine used in this algorithm.
    */
   core::sat::prop::Prop& get_prop() noexcept;
 
@@ -78,12 +65,29 @@ class Algorithm {
    */
   [[nodiscard]] bool has_unvisited_points() const noexcept;
 
-  void set_base_assumption(Mini::vec<Mini::Lit> const& assumption) noexcept;
+  /**
+   * @brief Sets the base assumption, i.e. assumption which is always passed
+   * to any SAT solver operations.
+   * @param assumption the base assumption
+   */
+  void set_base_assumption(core::lit_vec_t const& assumption) noexcept;
 
+  /**
+   * @brief interrupts the algorithm.
+   */
+  void interrupt();
+
+  /**
+   * @return whether the algorithm has been interrupted
+   */
   [[nodiscard]] bool is_interrupted() const;
 
  protected:
-  virtual void step() = 0;
+  void _add_instance();
+
+  virtual void _prepare();
+
+  virtual void _step() = 0;
 
  protected:
   InstanceConfig _instance_config;
@@ -91,6 +95,9 @@ class Algorithm {
   ea::instance::RSharedData _shared_data;
   ea::preprocess::RPreprocess _preprocess;
   core::sat::prop::RProp _prop;
+
+ private:
+  void _init_shared_data(InstanceConfig const& config);
 
  private:
   ea::limit::RLimit _limit;

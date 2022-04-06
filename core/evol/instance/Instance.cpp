@@ -73,8 +73,8 @@ void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
   if (size <= _sampling_config().max_vars_fs) {
     full_search = true;
     samples = 1ULL << size;
-    core::domain::UFullSearch search =
-        core::domain::createFullSearch(_var_view(), mask);
+    core::search::UFullSearch search =
+        core::search::createFullSearch(_var_view(), mask);
     conflicts = _prop->prop_tree(
         util::concat(_shared->base_assumption, (*search)()),
         _shared->base_assumption.size());
@@ -83,13 +83,13 @@ void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
       (1ULL << size) <= samples) {
     full_search = true;
     samples = 1ULL << size;
-    conflicts = _prop->prop_assignments(
+    conflicts = _prop->prop_search(
         _shared->base_assumption,
-        core::domain::createFullSearch(_var_view(), mask));
+        core::search::createFullSearch(_var_view(), mask));
   } else {
-    conflicts = _prop->prop_assignments(
+    conflicts = _prop->prop_search(
         _shared->base_assumption,
-        core::domain::createRandomSearch(_var_view(), mask, samples));
+        core::search::createRandomSearch(_var_view(), mask, samples));
   }
 
   fit_.rho = (double) conflicts / (double) samples;

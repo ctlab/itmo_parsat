@@ -2,7 +2,7 @@
 \label{structcore_1_1domain_1_1SearchSpace}\index{core::domain::SearchSpace@{core::domain::SearchSpace}}
 
 
-The class representing the search space.  
+The class representing the search space for S\+AT assumptions.  
 
 
 
@@ -27,10 +27,10 @@ bool \mbox{\hyperlink{structcore_1_1domain_1_1SearchSpace_af3e5e5a0a23e7cdde18b1
 \begin{DoxyCompactList}\small\item\em If the search space can be fully covered. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structcore_1_1domain_1_1SearchSpace_a79c314397705e32ad239de82f1f61322}\label{structcore_1_1domain_1_1SearchSpace_a79c314397705e32ad239de82f1f61322}} 
 uint64\+\_\+t \mbox{\hyperlink{structcore_1_1domain_1_1SearchSpace_a79c314397705e32ad239de82f1f61322}{search\+\_\+space\+\_\+size}} = 0
-\begin{DoxyCompactList}\small\item\em The size of search space. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The size of the search space. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structcore_1_1domain_1_1SearchSpace_acdccd299df2c8fea8004a7fb16bac5e1}\label{structcore_1_1domain_1_1SearchSpace_acdccd299df2c8fea8004a7fb16bac5e1}} 
 uint64\+\_\+t \mbox{\hyperlink{structcore_1_1domain_1_1SearchSpace_acdccd299df2c8fea8004a7fb16bac5e1}{inaccurate\+\_\+visited\+\_\+points}} = 0
-\begin{DoxyCompactList}\small\item\em The approximation of number of visited points. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The approximation of number of visited points. It is not fully accurate because the cache size is limited. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -40,7 +40,7 @@ static constexpr uint32\+\_\+t \mbox{\hyperlink{structcore_1_1domain_1_1SearchSp
 
 
 \doxysubsection{Detailed Description}
-The class representing the search space. 
+The class representing the search space for S\+AT assumptions. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structcore_1_1domain_1_1SearchSpace_aca7e747d73b53fd49750a65ba44b497b}\label{structcore_1_1domain_1_1SearchSpace_aca7e747d73b53fd49750a65ba44b497b}} 
@@ -58,7 +58,7 @@ whether there (probably) are non-\/visited points
 \doxysubsubsection{\texorpdfstring{reset()}{reset()}}
 {\footnotesize\ttfamily void core\+::domain\+::\+Search\+Space\+::reset (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{num\+\_\+variables }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
 
-Re-\/initializes this entity. 
+
 \begin{DoxyParams}{Parameters}
 {\em num\+\_\+variables} & the number of variables \\
 \hline

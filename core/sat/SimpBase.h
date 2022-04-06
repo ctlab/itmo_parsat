@@ -39,6 +39,4 @@ namespace core::sat {
 
 }  // namespace core::sat
 
-//      MS_NS::SimpSolver::loadClauses(problem.clauses());  \
-
 #endif  // ITMO_PARSAT_SIMPBASE_H

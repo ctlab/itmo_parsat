@@ -8,8 +8,8 @@
 
 #include "core/types.h"
 #include "core/sat/SimpBase.h"
-#include "core/domain/assignment/Search.h"
-#include "core/domain/assignment/FullSearch.h"
+#include "core/search/Search.h"
+#include "core/search/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/sat/Problem.h"
 #include "util/Registry.h"
@@ -80,8 +80,8 @@ class Prop {
    * @param callback callback to be called on each solve.
    * @return the number of conflicts
    */
-  virtual uint64_t prop_assignments(
-      domain::USearch search, prop_callback_t const& callback = {});
+  virtual uint64_t prop_search(
+      search::USearch search, prop_callback_t const& callback = {});
 
   /**
    * @brief Propagates all assignments by the given search specification and
@@ -91,15 +91,15 @@ class Prop {
    * @param callback callback to be called on each solve.
    * @return the number of conflicts
    */
-  virtual uint64_t prop_assignments(
-      lit_vec_t const& base_assumption, domain::USearch search,
+  virtual uint64_t prop_search(
+      lit_vec_t const& base_assumption, search::USearch search,
       prop_callback_t const& callback = {});
 
   static uint64_t sequential_propagate(
-      Prop& prop, domain::USearch search, prop_callback_t const& callback);
+      Prop& prop, search::USearch search, prop_callback_t const& callback);
 
   static uint64_t sequential_propagate(
-      Prop& prop, lit_vec_t const& base_assumption, domain::USearch search,
+      Prop& prop, lit_vec_t const& base_assumption, search::USearch search,
       prop_callback_t const& callback);
 };
 

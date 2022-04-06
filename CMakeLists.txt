@@ -4,19 +4,17 @@ project(itmo-parsat)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Link boost statically
+# Prioritize static linkage
 set(Boost_USE_STATIC_LIBS ON)
-
-# Prioritize static libraries
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".so")
 
 # Options
 set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
-option(SANITIZE "Enable sanitizers"         OFF)
-option(GPROF    "Enable -pg flag for gprof" OFF)
-option(LTO      "Enable LTO"                ON)
-option(PGO_GEN  "Enable pgo generation"     OFF)
-option(PGO_USE  "Enable pgo usage"          OFF)
+option(SANITIZE "Enable sanitizers" OFF)
+option(GPROF "Enable -pg flag for gprof" OFF)
+option(LTO "Enable LTO" ON)
+option(PGO_GEN "Enable pgo generation" OFF)
+option(PGO_USE "Enable pgo usage" OFF)
 
 message(STATUS "The architecture is " ${ARCH})
 
@@ -35,11 +33,20 @@ if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
 elseif (CMAKE_BUILD_TYPE STREQUAL "DEV_FAST")
     message(STATUS "DEV_FAST build mode (O3). Internal checks disabled.")
     add_compile_options(-O3)
-    add_compile_definitions(NDEBUG IPS_DISABLE_HEAVY_CHECKS)
+    add_compile_definitions(
+            NDEBUG
+            IPS_DISABLE_HEAVY_CHECKS
+    )
 elseif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     message(STATUS "RELEASE build mode (O3). All checks, log and tracer disabled.")
     add_compile_options(-O3)
-    add_compile_definitions(NDEBUG IPS_DISABLE_TRACE IPS_DISABLE_HEAVY_CHECKS IPS_DISABLE_VERIFY IPS_DISABLE_LOG)
+    add_compile_definitions(
+            NDEBUG
+            IPS_DISABLE_TRACE
+            IPS_DISABLE_HEAVY_CHECKS
+            IPS_DISABLE_VERIFY
+            IPS_DISABLE_LOG
+    )
 endif ()
 
 if (SANITIZE)
@@ -92,6 +99,7 @@ include_directories(.)
 # Project root
 add_compile_definitions(IPS_PROJECT_ROOT="${PROJECT_SOURCE_DIR}")
 
+include_directories(${CMAKE_BINARY_DIR})
 add_subdirectory(util)
 add_subdirectory(core)
 add_subdirectory(infra)

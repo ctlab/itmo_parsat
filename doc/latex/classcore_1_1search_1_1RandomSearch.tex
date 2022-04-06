@@ -1,0 +1,92 @@
+\hypertarget{classcore_1_1search_1_1RandomSearch}{}\doxysection{core\+::search\+::Random\+Search Class Reference}
+\label{classcore_1_1search_1_1RandomSearch}\index{core::search::RandomSearch@{core::search::RandomSearch}}
+
+
+The class used to perform random search.  
+
+
+
+
+{\ttfamily \#include $<$Random\+Search.\+h$>$}
+
+
+
+Inheritance diagram for core\+::search\+::Random\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1RandomSearch__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::search\+::Random\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1RandomSearch__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1RandomSearch_ae3c02a050a911b7d297e3c501fa0d080}\label{classcore_1_1search_1_1RandomSearch_ae3c02a050a911b7d297e3c501fa0d080}} 
+{\bfseries Random\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{domain\+::\+Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&bit\+\_\+mask, uint64\+\_\+t total)
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1RandomSearch_aff056459a5847e788b85db8a036c8430}\label{classcore_1_1search_1_1RandomSearch_aff056459a5847e788b85db8a036c8430}} 
+{\bfseries Random\+Search} (std\+::vector$<$ int $>$ const \&vars, uint64\+\_\+t total)
+\item 
+\mbox{\hyperlink{classcore_1_1search_1_1RandomSearch}{Random\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1search_1_1RandomSearch_a368a80e7bc4dd87ceb5449032fe53c49}{clone}} () const override
+\item 
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1RandomSearch_a714abca241f387dce9bb2aff808cc1e9}{operator()}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1RandomSearch_a5fb0452d1db58b9689943c2d322ca0e4}\label{classcore_1_1search_1_1RandomSearch_a5fb0452d1db58b9689943c2d322ca0e4}} 
+void {\bfseries \+\_\+advance} () override
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1RandomSearch_af68a9600edcfa520a1baf6e4c23d498f}\label{classcore_1_1search_1_1RandomSearch_af68a9600edcfa520a1baf6e4c23d498f}} 
+void {\bfseries \+\_\+reset} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The class used to perform random search. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1search_1_1RandomSearch_a368a80e7bc4dd87ceb5449032fe53c49}\label{classcore_1_1search_1_1RandomSearch_a368a80e7bc4dd87ceb5449032fe53c49}} 
+\index{core::search::RandomSearch@{core::search::RandomSearch}!clone@{clone}}
+\index{clone@{clone}!core::search::RandomSearch@{core::search::RandomSearch}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1search_1_1RandomSearch}{Random\+Search}} $\ast$ core\+::search\+::\+Random\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1search_1_1Search_ad4e5c12d92d0513dac8b1cf06ec2cf8b}{core\+::search\+::\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1search_1_1RandomSearch_a714abca241f387dce9bb2aff808cc1e9}\label{classcore_1_1search_1_1RandomSearch_a714abca241f387dce9bb2aff808cc1e9}} 
+\index{core::search::RandomSearch@{core::search::RandomSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::search::RandomSearch@{core::search::RandomSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::search\+::\+Random\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}{core\+::search\+::\+Search}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/search/Random\+Search.\+h\item 
+core/search/Random\+Search.\+cpp\end{DoxyCompactItemize}

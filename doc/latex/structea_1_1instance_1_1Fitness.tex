@@ -2,7 +2,7 @@
 \label{structea_1_1instance_1_1Fitness}\index{ea::instance::Fitness@{ea::instance::Fitness}}
 
 
-This structure represents Instances\textquotesingle{} fitness. Mathematically, it is calculated as rho $\ast$ 2$^\wedge$\{size\} + (1 -\/ \textbackslash{}rho) $\ast$ 2$^\wedge$\{pow\+\_\+nr\}.  
+This structure represents Instances\textquotesingle{} fitness. It is calculated as rho $\ast$ 2$^\wedge$\{size\} + (1 -\/ \textbackslash{}rho) $\ast$ 2$^\wedge$\{pow\+\_\+nr\} if this can be effectively represented in built-\/in types.  
 
 
 
@@ -20,21 +20,21 @@ bool \mbox{\hyperlink{structea_1_1instance_1_1Fitness_a54cde7ec09ddced791ea72362
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a9864fd589381e85a2e88567d052f705e}\label{structea_1_1instance_1_1Fitness_a9864fd589381e85a2e88567d052f705e}} 
-double {\bfseries rho}
-\item 
+double \mbox{\hyperlink{structea_1_1instance_1_1Fitness_a9864fd589381e85a2e88567d052f705e}{rho}}
+\begin{DoxyCompactList}\small\item\em The approximated rho-\/value, i.\+e. the approximation of proportion of conflict assumptions. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a283180454350855cae5aee44883ee2eb}\label{structea_1_1instance_1_1Fitness_a283180454350855cae5aee44883ee2eb}} 
-uint32\+\_\+t {\bfseries size}
-\item 
+uint32\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1Fitness_a283180454350855cae5aee44883ee2eb}{size}}
+\begin{DoxyCompactList}\small\item\em The number of variables in this rho-\/backdoor set. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a97b12edba584037d46aee20c17b8a1cd}\label{structea_1_1instance_1_1Fitness_a97b12edba584037d46aee20c17b8a1cd}} 
-uint32\+\_\+t {\bfseries pow\+\_\+nr}
-\item 
+uint32\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1Fitness_a97b12edba584037d46aee20c17b8a1cd}{pow\+\_\+nr}}
+\begin{DoxyCompactList}\small\item\em The constant used to prefer smaller sets. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structea_1_1instance_1_1Fitness_ab323951cf3f10f7065a6d76184997530}\label{structea_1_1instance_1_1Fitness_ab323951cf3f10f7065a6d76184997530}} 
-uint32\+\_\+t {\bfseries samples}
-\end{DoxyCompactItemize}
+uint32\+\_\+t \mbox{\hyperlink{structea_1_1instance_1_1Fitness_ab323951cf3f10f7065a6d76184997530}{samples}}
+\begin{DoxyCompactList}\small\item\em The number of samples included in approximation of the rho-\/value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-This structure represents Instances\textquotesingle{} fitness. Mathematically, it is calculated as rho $\ast$ 2$^\wedge$\{size\} + (1 -\/ \textbackslash{}rho) $\ast$ 2$^\wedge$\{pow\+\_\+nr\}. 
+This structure represents Instances\textquotesingle{} fitness. It is calculated as rho $\ast$ 2$^\wedge$\{size\} + (1 -\/ \textbackslash{}rho) $\ast$ 2$^\wedge$\{pow\+\_\+nr\} if this can be effectively represented in built-\/in types. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a54cde7ec09ddced791ea72362f1f33f9}\label{structea_1_1instance_1_1Fitness_a54cde7ec09ddced791ea72362f1f33f9}} 
@@ -44,7 +44,7 @@ This structure represents Instances\textquotesingle{} fitness. Mathematically, i
 {\footnotesize\ttfamily bool ea\+::instance\+::\+Fitness\+::can\+\_\+calc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \begin{DoxyReturn}{Returns}
-whether value can be calculated using uint64 and double types 
+whether value can be calculated using native types. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{structea_1_1instance_1_1Fitness_a3ef6f0194cbe1aa0781471438e0fc98e}\label{structea_1_1instance_1_1Fitness_a3ef6f0194cbe1aa0781471438e0fc98e}} 
 \index{ea::instance::Fitness@{ea::instance::Fitness}!operator double@{operator double}}
@@ -53,7 +53,7 @@ whether value can be calculated using uint64 and double types
 {\footnotesize\ttfamily ea\+::instance\+::\+Fitness\+::operator double (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [explicit]}}
 
 \begin{DoxyReturn}{Returns}
-the fitness value in double 
+the fitness value 
 \end{DoxyReturn}
 
 

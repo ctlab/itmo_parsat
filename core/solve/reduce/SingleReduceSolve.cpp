@@ -28,7 +28,7 @@ sat::State SingleReduceSolve::_solve_impl(
             }
             return sat::UNKNOWN;
           },
-          [this](domain::USearch&& search) -> sat::State {
+          [this](search::USearch&& search) -> sat::State {
             return _solve_final(_filter_conflict(std::move(search)));
           }},
       _rb_search->find_rb());

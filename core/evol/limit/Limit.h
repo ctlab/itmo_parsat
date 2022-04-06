@@ -18,7 +18,8 @@ namespace ea::limit {
 class ConjLimit;
 
 /**
- * @brief This is an interface for all limits that control the execution of an algorithm.
+ * @brief This is an interface for all limits that control the execution of an
+ * algorithm.
  */
 class Limit {
   friend class ConjLimit;
@@ -28,14 +29,15 @@ class Limit {
 
   /**
    * @return if algorithm can and should proceed.
-   * All implementations automatically check if there are unvisited points left.
+   * All implementations automatically check if there are unvisited points left
+   * and if a strong backdoor set has been found.
    */
   bool proceed(ea::algorithm::Algorithm& algorithm);
 
   /**
-   * @return true iff the algorithm should proceed.
+   * @return if the algorithm should proceed.
    */
-  virtual void start() {}
+  virtual void start();
 
  protected:
   virtual bool _proceed(ea::algorithm::Algorithm& algorithm) = 0;

@@ -25,7 +25,7 @@ class ReduceSolve : public Solve {
       SolverServiceConfig const& solver_service_config);
 
   [[nodiscard]] std::vector<lit_vec_t> _filter_conflict(
-      domain::USearch assignment);
+      search::USearch search);
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) final;
 

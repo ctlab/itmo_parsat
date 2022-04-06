@@ -49,7 +49,7 @@ void GAAlgorithm::_prepare() {
   }
 }
 
-void GAAlgorithm::step() {
+void GAAlgorithm::_step() {
   uint32_t g_ = q_ - h_;
   std::vector<uint32_t> parents = choose(fits_, g_);
   std::vector<instance::RInstance> children;
@@ -76,10 +76,10 @@ void GAAlgorithm::step() {
       std::make_move_iterator(children.begin()),
       std::make_move_iterator(children.end()));
 
-  _recalc_fits();
+  _recalculate_fitness();
 }
 
-void GAAlgorithm::_recalc_fits() {
+void GAAlgorithm::_recalculate_fitness() {
   for (uint32_t i = 0; i < _population.size(); ++i) {
     fits_[i] = (double) _population[i]->fitness();
   }

@@ -7,8 +7,8 @@
 #include <atomic>
 
 #include "core/sat/Problem.h"
-#include "core/domain/assignment/Search.h"
-#include "core/domain/assignment/FullSearch.h"
+#include "core/search/Search.h"
+#include "core/search/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "util/Registry.h"
 #include "util/Reference.h"

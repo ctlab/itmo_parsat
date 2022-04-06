@@ -7,21 +7,21 @@ bool Prop::propagate(lit_vec_t const& assumptions) {
   return propagate(assumptions, dummy);
 }
 
-uint64_t Prop::prop_assignments(
-    domain::USearch search, prop_callback_t const& callback) {
+uint64_t Prop::prop_search(
+    search::USearch search, prop_callback_t const& callback) {
   return sequential_propagate(*this, std::move(search), callback);
 }
 
-uint64_t Prop::prop_assignments(
-    lit_vec_t const& base_assumption, domain::USearch search,
+uint64_t Prop::prop_search(
+    lit_vec_t const& base_assumption, search::USearch search,
     prop_callback_t const& callback) {
   return sequential_propagate(
       *this, base_assumption, std::move(search), callback);
 }
 
 uint64_t Prop::sequential_propagate(
-    Prop& prop, domain::USearch search_p, const prop_callback_t& callback) {
-  domain::Search& search = *search_p;
+    Prop& prop, search::USearch search_p, const prop_callback_t& callback) {
+  search::Search& search = *search_p;
   uint64_t conflicts = 0;
   do {
     Mini::vec<Mini::Lit> const& assumptions = search();
@@ -41,9 +41,9 @@ uint64_t Prop::sequential_propagate(
 }
 
 uint64_t Prop::sequential_propagate(
-    Prop& prop, lit_vec_t const& base_assumption, domain::USearch search_p,
+    Prop& prop, lit_vec_t const& base_assumption, search::USearch search_p,
     prop_callback_t const& callback) {
-  domain::Search& search = *search_p;
+  search::Search& search = *search_p;
   uint64_t conflicts = 0;
   do {
     auto cur_assumption = util::concat(base_assumption, search());

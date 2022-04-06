@@ -30,9 +30,6 @@ void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a691feb56bf4c0eddcae6cb4
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}\label{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}} 
 void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_af1eaa3689d623d4babb1811a0b3acc3d}{process}} ()
 \begin{DoxyCompactList}\small\item\em Starts the algorithm. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}\label{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}} 
-void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}{interrupt}} ()
-\begin{DoxyCompactList}\small\item\em interrupts the algorithm. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{core\+::sat\+::prop\+::\+Prop}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ac2f5a7f4fd1dfb7e89a8c92ed4e611f9}{get\+\_\+prop}} () noexcept
 \item 
 \mbox{\hyperlink{classea_1_1instance_1_1Instance}{instance\+::\+Instance}} \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a81afd839286edcada16b88f3896b08a4}{get\+\_\+best}} () noexcept
@@ -43,11 +40,12 @@ uint64\+\_\+t \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a7b26993257ee68
 \item 
 bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}{has\+\_\+unvisited\+\_\+points}} () const noexcept
 \item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af7fae6205d60292f1ef80879b717c2fd}\label{classea_1_1algorithm_1_1Algorithm_af7fae6205d60292f1ef80879b717c2fd}} 
-void {\bfseries set\+\_\+base\+\_\+assumption} (Mini\+::vec$<$ Mini\+::\+Lit $>$ const \&assumption) noexcept
-\item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}\label{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}} 
-bool {\bfseries is\+\_\+interrupted} () const
+void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a95a86cf7b59f70697c791bb8db94adf5}{set\+\_\+base\+\_\+assumption}} (core\+::lit\+\_\+vec\+\_\+t const \&assumption) noexcept
+\begin{DoxyCompactList}\small\item\em Sets the base assumption, i.\+e. assumption which is always passed to any S\+AT solver operations. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}\label{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}} 
+void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}{interrupt}} ()
+\begin{DoxyCompactList}\small\item\em interrupts the algorithm. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}{is\+\_\+interrupted}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -58,8 +56,8 @@ void {\bfseries \+\_\+add\+\_\+instance} ()
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_acdcb5dcdc05f450d50b3d599c7b096c7}\label{classea_1_1algorithm_1_1Algorithm_acdcb5dcdc05f450d50b3d599c7b096c7}} 
 virtual void {\bfseries \+\_\+prepare} ()
 \item 
-\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a4ad15d6343e072efcd9359fb3496d90c}\label{classea_1_1algorithm_1_1Algorithm_a4ad15d6343e072efcd9359fb3496d90c}} 
-virtual void {\bfseries step} ()=0
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_aaf1cdb480de5cf9d54cf800e6795716c}\label{classea_1_1algorithm_1_1Algorithm_aaf1cdb480de5cf9d54cf800e6795716c}} 
+virtual void {\bfseries \+\_\+step} ()=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -115,7 +113,7 @@ the best instance currently found.
 {\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1sat_1_1prop_1_1Prop}{core\+::sat\+::prop\+::\+Prop}} \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+prop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 \begin{DoxyReturn}{Returns}
-the main prop used in this algorithm. 
+the propagation engine used in this algorithm. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}\label{classea_1_1algorithm_1_1Algorithm_a424af6ccb7a0396522e2864474c7ff16}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_shared\_data@{get\_shared\_data}}
@@ -144,6 +142,30 @@ inaccurately checks whether there are points that are not visited.
 \begin{DoxyReturn}{Returns}
 the inaccurate number of visited points. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}\label{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!is\_interrupted@{is\_interrupted}}
+\index{is\_interrupted@{is\_interrupted}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{is\_interrupted()}{is\_interrupted()}}
+{\footnotesize\ttfamily bool ea\+::algorithm\+::\+Algorithm\+::is\+\_\+interrupted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+whether the algorithm has been interrupted 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a95a86cf7b59f70697c791bb8db94adf5}\label{classea_1_1algorithm_1_1Algorithm_a95a86cf7b59f70697c791bb8db94adf5}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!set\_base\_assumption@{set\_base\_assumption}}
+\index{set\_base\_assumption@{set\_base\_assumption}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{set\_base\_assumption()}{set\_base\_assumption()}}
+{\footnotesize\ttfamily void ea\+::algorithm\+::\+Algorithm\+::set\+\_\+base\+\_\+assumption (\begin{DoxyParamCaption}\item[{core\+::lit\+\_\+vec\+\_\+t const \&}]{assumption }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Sets the base assumption, i.\+e. assumption which is always passed to any S\+AT solver operations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumption} & the base assumption \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

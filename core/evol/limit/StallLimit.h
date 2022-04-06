@@ -17,7 +17,7 @@ class StallLimit : public Limit {
 
  protected:
   /**
-   * @return iff the stall is not happening
+   * @return if the stall is not happening
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 

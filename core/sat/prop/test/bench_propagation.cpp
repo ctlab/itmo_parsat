@@ -4,7 +4,7 @@
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
 
-#include "core/domain/assignment/RandomSearch.h"
+#include "core/search/RandomSearch.h"
 #include "core/sat/prop/Prop.h"
 #include "util/Random.h"
 
@@ -14,7 +14,7 @@ static void run_propagate_naive(
     core::sat::prop::Prop& prop, int size, int num_vars, uint64_t total) {
   common::iter_vars(
       [&](core::vars_set_t const& vars) {
-        prop.prop_assignments(core::domain::createRandomSearch(vars, total));
+        prop.prop_search(core::search::createRandomSearch(vars, total));
       },
       size, size, num_vars, 10);
 }

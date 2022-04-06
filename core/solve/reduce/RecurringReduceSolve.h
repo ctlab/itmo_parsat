@@ -20,7 +20,7 @@ namespace core::solve {
  */
 class RecurringReduceSolve : public ReduceSolve {
  private:
-  using filter_r = std::variant<sat::State, std::vector<Mini::vec<Mini::Lit>>>;
+  using filter_r = std::variant<sat::State, std::vector<lit_vec_t>>;
 
  public:
   explicit RecurringReduceSolve(RecurringReduceSolveConfig config);

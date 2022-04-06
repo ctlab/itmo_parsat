@@ -11,7 +11,7 @@ else
   RESOURCES_DIR="$ROOT/resources"
 fi
 
-CNF_PATH="$RESOURCES_DIR/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf"
+CNF_PATH="$RESOURCES_DIR/cnf/large/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$RESOURCES_DIR/config"
 LOG_CFG_PATH="$RESOURCES_DIR/config/log.json"
 

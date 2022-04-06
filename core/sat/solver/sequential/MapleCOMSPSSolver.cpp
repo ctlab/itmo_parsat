@@ -2,8 +2,6 @@
 
 namespace core::sat::solver {
 
-MapleCOMSPSSolver::MapleCOMSPSSolver() : painless::MapleCOMSPSSolver(2) {}
-
 State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
   PSatResult result = IPS_TRACE_N_V(
@@ -25,11 +23,11 @@ void MapleCOMSPSSolver::load_problem(Problem const& problem) {
 }
 
 void MapleCOMSPSSolver::interrupt() {
-  MapleCOMSPS::SimpSolver::interrupt();
+  painless::MapleCOMSPSSolver::setSolverInterrupt();
 }
 
 void MapleCOMSPSSolver::clear_interrupt() {
-  MapleCOMSPS::SimpSolver::clearInterrupt();
+  painless::MapleCOMSPSSolver::unsetSolverInterrupt();
 }
 
 unsigned MapleCOMSPSSolver::num_vars() const noexcept {

@@ -88,7 +88,7 @@ Inheritance diagram for ea::limit::Limit:</div>
 <area shape="rect" title="This is an interface for all limits that control the execution of an algorithm." alt="" coords="5,107,123,133"/>
 <area shape="rect" href="classea_1_1limit_1_1ConjLimit.html" title="Conjunction of a set of limits." alt="" coords="186,5,333,32"/>
 <area shape="rect" href="classea_1_1limit_1_1FitnessLimit.html" title="This limit controls execution by comparing best fitness with the specified limit." alt="" coords="178,56,341,83"/>
-<area shape="rect" href="classea_1_1limit_1_1PointsLimit.html" title="This limit controls the execution by limiting the number of total (inaccurate!) points visited." alt="" coords="181,107,338,133"/>
+<area shape="rect" href="classea_1_1limit_1_1PointsLimit.html" title="This limit controls the execution by limiting the inaccurate number of points visited." alt="" coords="181,107,338,133"/>
 <area shape="rect" href="classea_1_1limit_1_1ResourceLimit.html" title="This limit controls the execution by limiting time and memory consumption of an algorithm." alt="" coords="171,157,348,184"/>
 <area shape="rect" href="classea_1_1limit_1_1StallLimit.html" title="This limit controls execution by limiting the number of same instances (by count or by time)." alt="" coords="186,208,333,235"/>
 </map>
@@ -98,8 +98,8 @@ Inheritance diagram for ea::limit::Limit:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a52fd2ef621ed877cc66abd26c56c0685"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1limit_1_1Limit.html#a52fd2ef621ed877cc66abd26c56c0685">proceed</a> (<a class="el" href="classea_1_1algorithm_1_1Algorithm.html">ea::algorithm::Algorithm</a> &amp;algorithm)</td></tr>
 <tr class="separator:a52fd2ef621ed877cc66abd26c56c0685"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac43feeb7c292c1332dde400300429c91"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1limit_1_1Limit.html#ac43feeb7c292c1332dde400300429c91">start</a> ()</td></tr>
-<tr class="separator:ac43feeb7c292c1332dde400300429c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a5fe948315e768f54a17f6ef18fd2a8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1limit_1_1Limit.html#a1a5fe948315e768f54a17f6ef18fd2a8">start</a> ()</td></tr>
+<tr class="separator:a1a5fe948315e768f54a17f6ef18fd2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -131,12 +131,12 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>ConjLimit</b></td></
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>if algorithm can and should proceed. All implementations automatically check if there are unvisited points left. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>if algorithm can and should proceed. All implementations automatically check if there are unvisited points left and if a strong backdoor set has been found. </dd></dl>
 
 </div>
 </div>
-<a id="ac43feeb7c292c1332dde400300429c91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac43feeb7c292c1332dde400300429c91">&#9670;&nbsp;</a></span>start()</h2>
+<a id="a1a5fe948315e768f54a17f6ef18fd2a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5fe948315e768f54a17f6ef18fd2a8">&#9670;&nbsp;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +145,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>ConjLimit</b></td></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void ea::limit::Limit::start </td>
+          <td class="memname">void ea::limit::Limit::start </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -153,13 +153,13 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>ConjLimit</b></td></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true iff the algorithm should proceed. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>if the algorithm should proceed. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classea_1_1limit_1_1ConjLimit.html#a112e6884f8301c5df707a78e9dd72ec9">ea::limit::ConjLimit</a>, <a class="el" href="classea_1_1limit_1_1ResourceLimit.html#ab836dc2ee7c4ef7718e2f63ae39dd107">ea::limit::ResourceLimit</a>, and <a class="el" href="classea_1_1limit_1_1StallLimit.html#a59fabf61bec2672ad8549ea8e60d43e1">ea::limit::StallLimit</a>.</p>
+<p>Reimplemented in <a class="el" href="classea_1_1limit_1_1ResourceLimit.html#ab836dc2ee7c4ef7718e2f63ae39dd107">ea::limit::ResourceLimit</a>, <a class="el" href="classea_1_1limit_1_1ConjLimit.html#a112e6884f8301c5df707a78e9dd72ec9">ea::limit::ConjLimit</a>, and <a class="el" href="classea_1_1limit_1_1StallLimit.html#a59fabf61bec2672ad8549ea8e60d43e1">ea::limit::StallLimit</a>.</p>
 
 </div>
 </div>

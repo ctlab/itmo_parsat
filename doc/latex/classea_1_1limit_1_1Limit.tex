@@ -24,7 +24,7 @@ Inheritance diagram for ea\+::limit\+::Limit\+:
 \item 
 bool \mbox{\hyperlink{classea_1_1limit_1_1Limit_a52fd2ef621ed877cc66abd26c56c0685}{proceed}} (\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&algorithm)
 \item 
-virtual void \mbox{\hyperlink{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}{start}} ()
+virtual void \mbox{\hyperlink{classea_1_1limit_1_1Limit_a1a5fe948315e768f54a17f6ef18fd2a8}{start}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -51,20 +51,20 @@ This is an interface for all limits that control the execution of an algorithm.
 {\footnotesize\ttfamily bool ea\+::limit\+::\+Limit\+::proceed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm}{ea\+::algorithm\+::\+Algorithm}} \&}]{algorithm }\end{DoxyParamCaption})}
 
 \begin{DoxyReturn}{Returns}
-if algorithm can and should proceed. All implementations automatically check if there are unvisited points left. 
+if algorithm can and should proceed. All implementations automatically check if there are unvisited points left and if a strong backdoor set has been found. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}\label{classea_1_1limit_1_1Limit_ac43feeb7c292c1332dde400300429c91}} 
+\mbox{\Hypertarget{classea_1_1limit_1_1Limit_a1a5fe948315e768f54a17f6ef18fd2a8}\label{classea_1_1limit_1_1Limit_a1a5fe948315e768f54a17f6ef18fd2a8}} 
 \index{ea::limit::Limit@{ea::limit::Limit}!start@{start}}
 \index{start@{start}!ea::limit::Limit@{ea::limit::Limit}}
 \doxysubsubsection{\texorpdfstring{start()}{start()}}
-{\footnotesize\ttfamily virtual void ea\+::limit\+::\+Limit\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void ea\+::limit\+::\+Limit\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
-true iff the algorithm should proceed. 
+if the algorithm should proceed. 
 \end{DoxyReturn}
 
 
-Reimplemented in \mbox{\hyperlink{classea_1_1limit_1_1ConjLimit_a112e6884f8301c5df707a78e9dd72ec9}{ea\+::limit\+::\+Conj\+Limit}}, \mbox{\hyperlink{classea_1_1limit_1_1ResourceLimit_ab836dc2ee7c4ef7718e2f63ae39dd107}{ea\+::limit\+::\+Resource\+Limit}}, and \mbox{\hyperlink{classea_1_1limit_1_1StallLimit_a59fabf61bec2672ad8549ea8e60d43e1}{ea\+::limit\+::\+Stall\+Limit}}.
+Reimplemented in \mbox{\hyperlink{classea_1_1limit_1_1ResourceLimit_ab836dc2ee7c4ef7718e2f63ae39dd107}{ea\+::limit\+::\+Resource\+Limit}}, \mbox{\hyperlink{classea_1_1limit_1_1ConjLimit_a112e6884f8301c5df707a78e9dd72ec9}{ea\+::limit\+::\+Conj\+Limit}}, and \mbox{\hyperlink{classea_1_1limit_1_1StallLimit_a59fabf61bec2672ad8549ea8e60d43e1}{ea\+::limit\+::\+Stall\+Limit}}.
 
 
 

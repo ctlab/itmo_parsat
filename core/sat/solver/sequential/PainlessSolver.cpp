@@ -91,7 +91,7 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
     case PUNSAT:
       return UNSAT;
     case PUNKNOWN:
-      break;
+      return UNKNOWN;
   }
   return UNKNOWN;
 }

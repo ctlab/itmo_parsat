@@ -6,7 +6,8 @@
 namespace ea::limit {
 
 /**
- * @brief This limit controls execution by comparing best fitness with the specified limit.
+ * @brief This limit controls execution by comparing best fitness with the
+ * specified limit.
  */
 class FitnessLimit : public Limit {
  public:
@@ -14,7 +15,8 @@ class FitnessLimit : public Limit {
 
  protected:
   /**
-   * @return iff the best instance in population has fitness higher than the specified value.
+   * @return if the best instance in population has fitness higher than the
+   * specified value.
    */
   bool _proceed(ea::algorithm::Algorithm& algorithm) override;
 

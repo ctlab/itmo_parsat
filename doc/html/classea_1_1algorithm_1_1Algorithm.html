@@ -103,10 +103,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#af1eaa3689d623d4babb1811a0b3acc3d">process</a> ()</td></tr>
 <tr class="memdesc:af1eaa3689d623d4babb1811a0b3acc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the algorithm. <br /></td></tr>
 <tr class="separator:af1eaa3689d623d4babb1811a0b3acc3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a066638648e9f9dfcb62c15bff5e314dd"><td class="memItemLeft" align="right" valign="top"><a id="a066638648e9f9dfcb62c15bff5e314dd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a066638648e9f9dfcb62c15bff5e314dd">interrupt</a> ()</td></tr>
-<tr class="memdesc:a066638648e9f9dfcb62c15bff5e314dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">interrupts the algorithm. <br /></td></tr>
-<tr class="separator:a066638648e9f9dfcb62c15bff5e314dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2f5a7f4fd1dfb7e89a8c92ed4e611f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html">core::sat::prop::Prop</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#ac2f5a7f4fd1dfb7e89a8c92ed4e611f9">get_prop</a> () noexcept</td></tr>
 <tr class="separator:ac2f5a7f4fd1dfb7e89a8c92ed4e611f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81afd839286edcada16b88f3896b08a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classea_1_1instance_1_1Instance.html">instance::Instance</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a81afd839286edcada16b88f3896b08a4">get_best</a> () noexcept</td></tr>
@@ -117,11 +113,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a7b26993257ee6883c26dc6e618cc7b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a8c40052d4b6a2500267a71035ee4c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a1a8c40052d4b6a2500267a71035ee4c5">has_unvisited_points</a> () const noexcept</td></tr>
 <tr class="separator:a1a8c40052d4b6a2500267a71035ee4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7fae6205d60292f1ef80879b717c2fd"><td class="memItemLeft" align="right" valign="top"><a id="af7fae6205d60292f1ef80879b717c2fd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_base_assumption</b> (Mini::vec&lt; Mini::Lit &gt; const &amp;assumption) noexcept</td></tr>
-<tr class="separator:af7fae6205d60292f1ef80879b717c2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae831ae00f0728f8b8cd6cacf3b3faf29"><td class="memItemLeft" align="right" valign="top"><a id="ae831ae00f0728f8b8cd6cacf3b3faf29"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_interrupted</b> () const</td></tr>
+<tr class="memitem:a95a86cf7b59f70697c791bb8db94adf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a95a86cf7b59f70697c791bb8db94adf5">set_base_assumption</a> (core::lit_vec_t const &amp;assumption) noexcept</td></tr>
+<tr class="memdesc:a95a86cf7b59f70697c791bb8db94adf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the base assumption, i.e. assumption which is always passed to any SAT solver operations.  <a href="classea_1_1algorithm_1_1Algorithm.html#a95a86cf7b59f70697c791bb8db94adf5">More...</a><br /></td></tr>
+<tr class="separator:a95a86cf7b59f70697c791bb8db94adf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066638648e9f9dfcb62c15bff5e314dd"><td class="memItemLeft" align="right" valign="top"><a id="a066638648e9f9dfcb62c15bff5e314dd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a066638648e9f9dfcb62c15bff5e314dd">interrupt</a> ()</td></tr>
+<tr class="memdesc:a066638648e9f9dfcb62c15bff5e314dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">interrupts the algorithm. <br /></td></tr>
+<tr class="separator:a066638648e9f9dfcb62c15bff5e314dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae831ae00f0728f8b8cd6cacf3b3faf29"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#ae831ae00f0728f8b8cd6cacf3b3faf29">is_interrupted</a> () const</td></tr>
 <tr class="separator:ae831ae00f0728f8b8cd6cacf3b3faf29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -132,9 +131,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>_add_instance</b> ()<
 <tr class="memitem:acdcb5dcdc05f450d50b3d599c7b096c7"><td class="memItemLeft" align="right" valign="top"><a id="acdcb5dcdc05f450d50b3d599c7b096c7"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_prepare</b> ()</td></tr>
 <tr class="separator:acdcb5dcdc05f450d50b3d599c7b096c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ad15d6343e072efcd9359fb3496d90c"><td class="memItemLeft" align="right" valign="top"><a id="a4ad15d6343e072efcd9359fb3496d90c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>step</b> ()=0</td></tr>
-<tr class="separator:a4ad15d6343e072efcd9359fb3496d90c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf1cdb480de5cf9d54cf800e6795716c"><td class="memItemLeft" align="right" valign="top"><a id="aaf1cdb480de5cf9d54cf800e6795716c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>_step</b> ()=0</td></tr>
+<tr class="separator:aaf1cdb480de5cf9d54cf800e6795716c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -240,7 +239,7 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the main prop used in this algorithm. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the propagation engine used in this algorithm. </dd></dl>
 
 </div>
 </div>
@@ -319,6 +318,58 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the inaccurate number of visited points. </dd></dl>
+
+</div>
+</div>
+<a id="ae831ae00f0728f8b8cd6cacf3b3faf29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae831ae00f0728f8b8cd6cacf3b3faf29">&#9670;&nbsp;</a></span>is_interrupted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ea::algorithm::Algorithm::is_interrupted </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>whether the algorithm has been interrupted </dd></dl>
+
+</div>
+</div>
+<a id="a95a86cf7b59f70697c791bb8db94adf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a86cf7b59f70697c791bb8db94adf5">&#9670;&nbsp;</a></span>set_base_assumption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ea::algorithm::Algorithm::set_base_assumption </td>
+          <td>(</td>
+          <td class="paramtype">core::lit_vec_t const &amp;&#160;</td>
+          <td class="paramname"><em>assumption</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the base assumption, i.e. assumption which is always passed to any SAT solver operations. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assumption</td><td>the base assumption </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

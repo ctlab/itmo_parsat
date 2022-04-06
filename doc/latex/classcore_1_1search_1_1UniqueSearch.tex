@@ -1,0 +1,95 @@
+\hypertarget{classcore_1_1search_1_1UniqueSearch}{}\doxysection{core\+::search\+::Unique\+Search Class Reference}
+\label{classcore_1_1search_1_1UniqueSearch}\index{core::search::UniqueSearch@{core::search::UniqueSearch}}
+
+
+The class used to perform unique random search. Used for small sets of variables.  
+
+
+
+
+{\ttfamily \#include $<$Unique\+Search.\+h$>$}
+
+
+
+Inheritance diagram for core\+::search\+::Unique\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1UniqueSearch__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::search\+::Unique\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1UniqueSearch__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_a22eac3cce74331767e9ef00c3e467488}\label{classcore_1_1search_1_1UniqueSearch_a22eac3cce74331767e9ef00c3e467488}} 
+{\bfseries Unique\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{domain\+::\+Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&vars, uint64\+\_\+t total)
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_a0c92563cfe2cd50bb4b0e819586d3c4a}\label{classcore_1_1search_1_1UniqueSearch_a0c92563cfe2cd50bb4b0e819586d3c4a}} 
+{\bfseries Unique\+Search} (std\+::vector$<$ int $>$ const \&vars, uint64\+\_\+t total)
+\item 
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch_afca9127c9d2a72d9d2b4d6d7b821830d}{operator()}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_a957a9f2a20c0d3eaa8b6d0e8d85e3012}\label{classcore_1_1search_1_1UniqueSearch_a957a9f2a20c0d3eaa8b6d0e8d85e3012}} 
+void {\bfseries \+\_\+advance} () override
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_afbb6b5e3d65ac8b5d5b5537e801973be}\label{classcore_1_1search_1_1UniqueSearch_afbb6b5e3d65ac8b5d5b5537e801973be}} 
+void {\bfseries \+\_\+reset} () override
+\item 
+\mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch}{Unique\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch_a79f3533765bb1a69ab765414dc800f51}{clone}} () const override
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_a1b713c94557362cb7cdd0e38b7f45b0b}\label{classcore_1_1search_1_1UniqueSearch_a1b713c94557362cb7cdd0e38b7f45b0b}} 
+void {\bfseries \+\_\+advance\+\_\+us} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The class used to perform unique random search. Used for small sets of variables. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_a79f3533765bb1a69ab765414dc800f51}\label{classcore_1_1search_1_1UniqueSearch_a79f3533765bb1a69ab765414dc800f51}} 
+\index{core::search::UniqueSearch@{core::search::UniqueSearch}!clone@{clone}}
+\index{clone@{clone}!core::search::UniqueSearch@{core::search::UniqueSearch}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch}{Unique\+Search}} $\ast$ core\+::search\+::\+Unique\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1search_1_1Search_ad4e5c12d92d0513dac8b1cf06ec2cf8b}{core\+::search\+::\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1search_1_1UniqueSearch_afca9127c9d2a72d9d2b4d6d7b821830d}\label{classcore_1_1search_1_1UniqueSearch_afca9127c9d2a72d9d2b4d6d7b821830d}} 
+\index{core::search::UniqueSearch@{core::search::UniqueSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::search::UniqueSearch@{core::search::UniqueSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::search\+::\+Unique\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}{core\+::search\+::\+Search}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/search/Unique\+Search.\+h\item 
+core/search/Unique\+Search.\+cpp\end{DoxyCompactItemize}

@@ -18,15 +18,16 @@ rbs_result_t OneRBSearch::find_rb() {
   IPS_TRACE(_algorithm->prepare(_preprocess));
   IPS_TRACE(_algorithm->process());
   rbs_result_t result;
-  if (_is_interrupted()) {
+  if (IPS_UNLIKELY(_is_interrupted())) {
     result = RBS_INTERRUPTED;
-  }
-  auto rb = _algorithm->get_best();
-  if (rb.is_sbs()) {
-    result = RBS_SBS_FOUND;
   } else {
-    result = core::domain::createFullSearch(
-        _preprocess->var_view(), rb.get_vars().get_mask());
+    auto rb = _algorithm->get_best();
+    if (rb.is_sbs()) {
+      result = RBS_SBS_FOUND;
+    } else {
+      result = core::search::createFullSearch(
+          _preprocess->var_view(), rb.get_vars().get_mask());
+    }
   }
   _algorithm.reset();
   return result;

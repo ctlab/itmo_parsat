@@ -1,0 +1,92 @@
+\hypertarget{classcore_1_1search_1_1FullSearch}{}\doxysection{core\+::search\+::Full\+Search Class Reference}
+\label{classcore_1_1search_1_1FullSearch}\index{core::search::FullSearch@{core::search::FullSearch}}
+
+
+The class used to perform full search.  
+
+
+
+
+{\ttfamily \#include $<$Full\+Search.\+h$>$}
+
+
+
+Inheritance diagram for core\+::search\+::Full\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1FullSearch__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::search\+::Full\+Search\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcore_1_1search_1_1FullSearch__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1FullSearch_a3e6e58302cd4bdfdc63afc727305eab8}\label{classcore_1_1search_1_1FullSearch_a3e6e58302cd4bdfdc63afc727305eab8}} 
+{\bfseries Full\+Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{domain\+::\+Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&bit\+\_\+mask)
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1FullSearch_a544b8f7f67140ff2ea2fba6308a396a7}\label{classcore_1_1search_1_1FullSearch_a544b8f7f67140ff2ea2fba6308a396a7}} 
+{\bfseries Full\+Search} (std\+::vector$<$ int $>$ const \&vars)
+\item 
+\mbox{\hyperlink{classcore_1_1search_1_1FullSearch}{Full\+Search}} $\ast$ \mbox{\hyperlink{classcore_1_1search_1_1FullSearch_ada6e05a0b296cf059c618cbcc6b06b8b}{clone}} () const override
+\item 
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1FullSearch_a4ed644f7bea5b4a125776e22f1574959}{operator()}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1FullSearch_a4e526c5f71e9664ac17cc2316f855980}\label{classcore_1_1search_1_1FullSearch_a4e526c5f71e9664ac17cc2316f855980}} 
+void {\bfseries \+\_\+advance} () override
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1FullSearch_aa95c17f67a83b084673a10dc6adb1c70}\label{classcore_1_1search_1_1FullSearch_aa95c17f67a83b084673a10dc6adb1c70}} 
+void {\bfseries \+\_\+reset} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The class used to perform full search. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1search_1_1FullSearch_ada6e05a0b296cf059c618cbcc6b06b8b}\label{classcore_1_1search_1_1FullSearch_ada6e05a0b296cf059c618cbcc6b06b8b}} 
+\index{core::search::FullSearch@{core::search::FullSearch}!clone@{clone}}
+\index{clone@{clone}!core::search::FullSearch@{core::search::FullSearch}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcore_1_1search_1_1FullSearch}{Full\+Search}} $\ast$ core\+::search\+::\+Full\+Search\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the copy of this search 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1search_1_1Search_ad4e5c12d92d0513dac8b1cf06ec2cf8b}{core\+::search\+::\+Search}}.
+
+\mbox{\Hypertarget{classcore_1_1search_1_1FullSearch_a4ed644f7bea5b4a125776e22f1574959}\label{classcore_1_1search_1_1FullSearch_a4ed644f7bea5b4a125776e22f1574959}} 
+\index{core::search::FullSearch@{core::search::FullSearch}!operator()@{operator()}}
+\index{operator()@{operator()}!core::search::FullSearch@{core::search::FullSearch}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::search\+::\+Full\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+the current assignment 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}{core\+::search\+::\+Search}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/search/Full\+Search.\+h\item 
+core/search/Full\+Search.\+cpp\end{DoxyCompactItemize}

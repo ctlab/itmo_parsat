@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>itmo-parsat: core/domain/assignment/CartesianSearch.h Source File</title>
+<title>itmo-parsat: core/search/CartesianSearch.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li><li class="navelem"><a class="el" href="dir_1610d67eb6bc64da78fd21e475a92ecf.html">domain</a></li><li class="navelem"><a class="el" href="dir_321c8d33955299173c3eb35d70bc1bf6.html">assignment</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_4270bfced15e0e73154b13468c7c9ad9.html">core</a></li><li class="navelem"><a class="el" href="dir_c5c83097f94e3e1d6a77da0f76559c8a.html">search</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -77,22 +77,22 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;numeric&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/domain/assignment/Search.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;core/search/Search.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;util/Logger.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>core::domain {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>core::search {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classcore_1_1domain_1_1CartesianSearch.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1domain_1_1CartesianSearch.html">CartesianSearch</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1domain_1_1Search.html">Search</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classcore_1_1search_1_1CartesianSearch.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1search_1_1CartesianSearch.html">CartesianSearch</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1search_1_1Search.html">Search</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1domain_1_1CartesianSearch.html">CartesianSearch</a>(</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1CartesianSearch.html">CartesianSearch</a>(</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      std::vector&lt;std::vector&lt;std::vector&lt;Mini::Lit&gt;&gt;&gt;&amp;&amp; cartesian);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1domain_1_1CartesianSearch.html">CartesianSearch</a>(</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1CartesianSearch.html">CartesianSearch</a>(</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      std::vector&lt;std::vector&lt;std::vector&lt;Mini::Lit&gt;&gt;&gt; <span class="keyword">const</span>&amp; cartesian);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  lit_vec_t <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1domain_1_1CartesianSearch.html#aa3efb96ba89f771f4914d1a158274ecd">operator()</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  lit_vec_t <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1search_1_1CartesianSearch.html#a1b92e45a9c0a7a7cca7f0c5a2176049e">operator()</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  [[nodiscard]] <a class="code" href="classcore_1_1domain_1_1Search.html">Search</a>* <a class="code" href="classcore_1_1domain_1_1CartesianSearch.html#a21102a433cf729b84afeda9f254c6ee9">clone</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  [[nodiscard]] <a class="code" href="classcore_1_1search_1_1Search.html">Search</a>* <a class="code" href="classcore_1_1search_1_1CartesianSearch.html#aefa81719f60b613f99f6a743089a1875">clone</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">void</span> _advance() <span class="keyword">override</span>;</div>
@@ -107,7 +107,7 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  std::vector&lt;std::vector&lt;std::vector&lt;Mini::Lit&gt;&gt;&gt; _cartesian;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1domain_1_1CartesianSearch.html">CartesianSearch</a>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1search_1_1CartesianSearch.html">CartesianSearch</a>);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;UCartesianSearch createCartesianSearch(</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::vector&lt;std::vector&lt;std::vector&lt;Mini::Lit&gt;&gt;&gt;&amp;&amp; cartesian);</div>
@@ -115,14 +115,14 @@ $(function() {
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;UCartesianSearch createCartesianSearch(</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::vector&lt;std::vector&lt;std::vector&lt;Mini::Lit&gt;&gt;&gt; <span class="keyword">const</span>&amp; cartesian);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}  <span class="comment">// namespace core::domain</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}  <span class="comment">// namespace core::search</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_CARTESIANSEARCH_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1domain_1_1CartesianSearch_html_aa3efb96ba89f771f4914d1a158274ecd"><div class="ttname"><a href="classcore_1_1domain_1_1CartesianSearch.html#aa3efb96ba89f771f4914d1a158274ecd">core::domain::CartesianSearch::operator()</a></div><div class="ttdeci">lit_vec_t const  &amp; operator()() const override</div><div class="ttdef"><b>Definition:</b> CartesianSearch.cpp:34</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1Search_html"><div class="ttname"><a href="classcore_1_1domain_1_1Search.html">core::domain::Search</a></div><div class="ttdoc">The class representing the sequential search in assignments space.</div><div class="ttdef"><b>Definition:</b> Search.h:26</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1CartesianSearch_html"><div class="ttname"><a href="classcore_1_1domain_1_1CartesianSearch.html">core::domain::CartesianSearch</a></div><div class="ttdoc">The class used to search through the cartesian product of custom searches.</div><div class="ttdef"><b>Definition:</b> CartesianSearch.h:17</div></div>
-<div class="ttc" id="aclasscore_1_1domain_1_1CartesianSearch_html_a21102a433cf729b84afeda9f254c6ee9"><div class="ttname"><a href="classcore_1_1domain_1_1CartesianSearch.html#a21102a433cf729b84afeda9f254c6ee9">core::domain::CartesianSearch::clone</a></div><div class="ttdeci">Search * clone() const override</div><div class="ttdoc">Clones the current search.</div><div class="ttdef"><b>Definition:</b> CartesianSearch.cpp:38</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1CartesianSearch_html"><div class="ttname"><a href="classcore_1_1search_1_1CartesianSearch.html">core::search::CartesianSearch</a></div><div class="ttdoc">The class used to search through the cartesian product of custom searches.</div><div class="ttdef"><b>Definition:</b> CartesianSearch.h:17</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1Search_html"><div class="ttname"><a href="classcore_1_1search_1_1Search.html">core::search::Search</a></div><div class="ttdoc">The class representing the sequential search in assignments space.</div><div class="ttdef"><b>Definition:</b> Search.h:26</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1CartesianSearch_html_a1b92e45a9c0a7a7cca7f0c5a2176049e"><div class="ttname"><a href="classcore_1_1search_1_1CartesianSearch.html#a1b92e45a9c0a7a7cca7f0c5a2176049e">core::search::CartesianSearch::operator()</a></div><div class="ttdeci">lit_vec_t const  &amp; operator()() const override</div><div class="ttdef"><b>Definition:</b> CartesianSearch.cpp:34</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1CartesianSearch_html_aefa81719f60b613f99f6a743089a1875"><div class="ttname"><a href="classcore_1_1search_1_1CartesianSearch.html#aefa81719f60b613f99f6a743089a1875">core::search::CartesianSearch::clone</a></div><div class="ttdeci">Search * clone() const override</div><div class="ttdef"><b>Definition:</b> CartesianSearch.cpp:38</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

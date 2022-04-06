@@ -32,11 +32,11 @@ class ParProp : public Prop {
 
   bool propagate(lit_vec_t const& assumptions) override;
 
-  uint64_t prop_assignments(
-      domain::USearch search_p, prop_callback_t const& callback) override;
+  uint64_t prop_search(
+      search::USearch search_p, prop_callback_t const& callback) override;
 
-  uint64_t prop_assignments(
-      lit_vec_t const& base_assumption, domain::USearch search_p,
+  uint64_t prop_search(
+      lit_vec_t const& base_assumption, search::USearch search_p,
       prop_callback_t const& callback) override;
 
   uint64_t prop_tree(lit_vec_t const& vars, uint32_t head_size) override;

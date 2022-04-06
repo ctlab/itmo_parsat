@@ -72,7 +72,7 @@ class MapleCOMSPSSolver : public SolverInterface,
 
   void diversify(int id) override;
 
-  explicit MapleCOMSPSSolver(int lbd_limit);
+  explicit MapleCOMSPSSolver(int lbd_limit = 2);
 
   MapleCOMSPSSolver(int lbd_limit, const MapleCOMSPSSolver& other);
 
