@@ -107,19 +107,20 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  sharing::SharingUnit <a class="code" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#addc8914617902b19bfee2a05bd21764a">sharing_unit</a>() noexcept <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">sharing::Sharing</a> _sharing;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  std::vector&lt;SolverInterface*&gt; _solvers;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  PainlessSolverConfig _cfg;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  painless::WorkingResult _result;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  std::unique_ptr&lt;painless::WorkingStrategy&gt; working;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  int64_t solve_index = 0;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">int</span> nSharers = 0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">bool</span> _interrupted = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PAINLESSSOLVER_H</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  sharing::SolverBlockList _solver_block_list;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">sharing::Sharing</a> _sharing;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  std::vector&lt;SolverInterface*&gt; _solvers;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  PainlessSolverConfig _cfg;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  painless::WorkingResult _result;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  std::unique_ptr&lt;painless::WorkingStrategy&gt; working;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  int64_t solve_index = 0;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">int</span> nSharers = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">bool</span> _interrupted = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}  <span class="comment">// namespace core::sat::solver</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PAINLESSSOLVER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1sat_1_1solver_1_1PainlessSolver_html_afdb4ab2d9ddb8733576cf74965d6c248"><div class="ttname"><a href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#afdb4ab2d9ddb8733576cf74965d6c248">core::sat::solver::PainlessSolver::interrupt</a></div><div class="ttdeci">void interrupt() override</div><div class="ttdoc">Interrupts solver. Intended to be used from signal handlers.</div><div class="ttdef"><b>Definition:</b> PainlessSolver.cpp:103</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Sharing_html"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Sharing.html">core::sat::sharing::Sharing</a></div><div class="ttdef"><b>Definition:</b> Sharing.h:14</div></div>

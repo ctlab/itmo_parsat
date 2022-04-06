@@ -14,11 +14,7 @@ static void run_propagate_naive(
     core::sat::prop::Prop& prop, int size, int num_vars, uint64_t total) {
   common::iter_vars(
       [&](core::vars_set_t const& vars) {
-        if (std::log2(total) >= vars.size()) {
-          prop.prop_assignments(core::domain::createFullSearch(vars));
-        } else {
-          prop.prop_assignments(core::domain::createRandomSearch(vars, total));
-        }
+        prop.prop_assignments(core::domain::createRandomSearch(vars, total));
       },
       size, size, num_vars, 10);
 }

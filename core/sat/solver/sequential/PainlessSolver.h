@@ -38,6 +38,7 @@ class PainlessSolver : public Solver {
   sharing::SharingUnit sharing_unit() noexcept override;
 
  private:
+  sharing::SolverBlockList _solver_block_list;
   sharing::Sharing _sharing;
   std::vector<SolverInterface*> _solvers;
   PainlessSolverConfig _cfg;

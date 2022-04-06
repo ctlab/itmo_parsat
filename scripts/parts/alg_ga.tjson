@@ -37,8 +37,8 @@
                         {
                             "limit_type": "StallLimit",
                             "stall_limit_config": {
-                                "steps_before_stall": 250,
-                                "time_before_stall_s": 5
+                                "steps_before_stall": 400,
+                                "time_before_stall_s": 10
                             }
                         }
                     ]

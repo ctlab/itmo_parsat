@@ -16,11 +16,11 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
   int block_size = _cfg.block_size();
   int block_left = cpus % block_size, solvers = 0;
   int n_blocks = cpus / block_size + (block_left > 0);
-  sharing::SolverBlockList solver_block_list(n_blocks);
   SolverInterface* solver = nullptr;
 
+  _solver_block_list.resize(n_blocks);
   for (int i = 0; i < n_blocks; ++i, ++solvers) {
-    auto& block = solver_block_list[i];
+    auto& block = _solver_block_list[i];
     int cur_block_size = std::min(cpus - solvers, block_size);
     if (cur_block_size > 1) {
       for (int j = 0; j < cur_block_size - 1; ++j, ++solvers) {
@@ -44,7 +44,7 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
     working->addSlave(new painless::SequentialWorker(&_result, _solver));
   }
   if (_cfg.sharing_config().enabled()) {
-    _sharing.share(solver_block_list);
+    _sharing.share(_solver_block_list);
   }
 }
 
@@ -111,7 +111,7 @@ void PainlessSolver::clear_interrupt() {
 }
 
 sharing::SharingUnit PainlessSolver::sharing_unit() noexcept {
-  return _solvers;
+  return _solver_block_list;
 }
 
 REGISTER_PROTO(Solver, PainlessSolver, painless_solver_config);

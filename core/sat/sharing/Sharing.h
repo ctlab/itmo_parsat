@@ -13,9 +13,6 @@ enum SharingDir {
 
 class Sharing {
  public:
-  static constexpr int BLOCK_SIZE = 16;
-
- public:
   Sharing(int interval_us, int shr_lit);
 
   void share(Shareable& s1, Shareable& s2, SharingDir dir);
