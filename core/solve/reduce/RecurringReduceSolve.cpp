@@ -31,6 +31,7 @@ sat::State RecurringReduceSolve::_solve_impl(
     auto time_limit = depth < _cfg.max_recursion_depth()
                           ? std::chrono::milliseconds(_cfg.max_solve_time_ms())
                           : sat::solver::SolverService::DUR_INDEF;
+
     _rb_search.reset(
         RBSearchRegistry::resolve(_cfg.rb_search_config(), _prop, _preprocess));
 
@@ -38,11 +39,11 @@ sat::State RecurringReduceSolve::_solve_impl(
         overloaded{
             [this](RBSReason stop_reason) -> filter_r {
               switch (stop_reason) {
-                case RBS_INTERRUPTED:
-                  return sat::UNKNOWN;
                 case RBS_SBS_FOUND:
                   return _cur_base_assumption.size() == 0 ? sat::UNSAT
                                                           : sat::UNKNOWN;
+                case RBS_INTERRUPTED:
+                  return sat::UNKNOWN;
               }
               return sat::UNKNOWN;
             },
@@ -57,13 +58,11 @@ sat::State RecurringReduceSolve::_solve_impl(
     }
 
     if (std::holds_alternative<sat::State>(filter_result)) {
-      sat::State state = std::get<sat::State>(filter_result);
-      if (state != sat::UNKNOWN) {
-        return state;
+      sat::State result = std::get<sat::State>(filter_result);
+      if (result != sat::UNKNOWN) {
+        return result;
       }
-    }
-
-    if (!std::holds_alternative<sat::State>(filter_result)) {
+    } else {
       for (auto& v : std::get<std::vector<lit_vec_t>>(filter_result)) {
         stack.emplace(std::move(v), depth + 1);
       }
@@ -121,8 +120,6 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
 
   if (satisfied) {
     return sat::SAT;
-  } else if (!unknown && !_is_interrupted()) {
-    return sat::UNSAT;
   } else if (failed.empty()) {
     return sat::UNKNOWN;
   } else {
