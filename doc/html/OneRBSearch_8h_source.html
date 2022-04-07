@@ -87,7 +87,7 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      OneRBSearchConfig config, sat::prop::RProp prop,</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      ea::preprocess::RPreprocess preprocess);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  rbs_result_t <a class="code" href="classcore_1_1solve_1_1OneRBSearch.html#a13a6f89ecfb98983bd6eebe04db8cd58">find_rb</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  rbs_result_t <a class="code" href="classcore_1_1solve_1_1OneRBSearch.html#a72de724da02fb9e82bdff90481edf9cf">find_rb</a>(lit_vec_t <span class="keyword">const</span>&amp; base_assumption) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> _interrupt_impl() <span class="keyword">override</span>;</div>
@@ -102,7 +102,7 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_ONERBSEARCH_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1solve_1_1OneRBSearch_html"><div class="ttname"><a href="classcore_1_1solve_1_1OneRBSearch.html">core::solve::OneRBSearch</a></div><div class="ttdoc">Searches for rho-backdoor with the specified parameters.</div><div class="ttdef"><b>Definition:</b> OneRBSearch.h:15</div></div>
-<div class="ttc" id="aclasscore_1_1solve_1_1OneRBSearch_html_a13a6f89ecfb98983bd6eebe04db8cd58"><div class="ttname"><a href="classcore_1_1solve_1_1OneRBSearch.html#a13a6f89ecfb98983bd6eebe04db8cd58">core::solve::OneRBSearch::find_rb</a></div><div class="ttdeci">rbs_result_t find_rb() override</div><div class="ttdef"><b>Definition:</b> OneRBSearch.cpp:15</div></div>
+<div class="ttc" id="aclasscore_1_1solve_1_1OneRBSearch_html_a72de724da02fb9e82bdff90481edf9cf"><div class="ttname"><a href="classcore_1_1solve_1_1OneRBSearch.html#a72de724da02fb9e82bdff90481edf9cf">core::solve::OneRBSearch::find_rb</a></div><div class="ttdeci">rbs_result_t find_rb(lit_vec_t const &amp;base_assumption) override</div><div class="ttdef"><b>Definition:</b> OneRBSearch.cpp:15</div></div>
 <div class="ttc" id="aclasscore_1_1solve_1_1RBSearch_html"><div class="ttname"><a href="classcore_1_1solve_1_1RBSearch.html">core::solve::RBSearch</a></div><div class="ttdoc">Class used to reduce SAT problems to a set of independent tasks.</div><div class="ttdef"><b>Definition:</b> RBSearch.h:20</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

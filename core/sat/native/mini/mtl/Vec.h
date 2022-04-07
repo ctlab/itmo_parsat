@@ -98,6 +98,10 @@ class vec {
     return sz;
   }
 
+  bool empty() const noexcept {
+    return sz == 0;
+  }
+
   void shrink(Size nelems) {
     assert(nelems <= sz);
     for (Size i = 0; i < nelems; i++)

@@ -23,7 +23,7 @@ class CartesianRBSearch : public RBSearch {
       CartesianRBSearchConfig config, sat::prop::RProp prop,
       ea::preprocess::RPreprocess preprocess);
 
-  rbs_result_t find_rb() override;
+  rbs_result_t find_rb(lit_vec_t const& base_assumption) override;
 
  protected:
   void _interrupt_impl() override;
@@ -31,7 +31,8 @@ class CartesianRBSearch : public RBSearch {
  private:
   void _raise_for_sbs(int id);
 
-  std::vector<std::vector<std::vector<Mini::Lit>>> _pre_solve();
+  std::vector<std::vector<std::vector<Mini::Lit>>> _pre_solve(
+      lit_vec_t const& base_assumption);
 
   search::USearch _prepare_cartesian(
       std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian_set);

@@ -87,7 +87,7 @@ bool Algorithm::has_unvisited_points() const noexcept {
 }
 
 void Algorithm::set_base_assumption(
-    Mini::vec<Mini::Lit> const& assumption) noexcept {
+    core::lit_vec_t const& assumption) noexcept {
   _shared_data->base_assumption = assumption;
 }
 

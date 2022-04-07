@@ -35,7 +35,7 @@ Collaboration diagram for core\+::solve\+::One\+R\+B\+Search\+:
 \mbox{\Hypertarget{classcore_1_1solve_1_1OneRBSearch_a3d21057aef65ce8cc2d497ffea72c2e0}\label{classcore_1_1solve_1_1OneRBSearch_a3d21057aef65ce8cc2d497ffea72c2e0}} 
 {\bfseries One\+R\+B\+Search} (One\+R\+B\+Search\+Config config, sat\+::prop\+::\+R\+Prop prop, ea\+::preprocess\+::\+R\+Preprocess preprocess)
 \item 
-rbs\+\_\+result\+\_\+t \mbox{\hyperlink{classcore_1_1solve_1_1OneRBSearch_a13a6f89ecfb98983bd6eebe04db8cd58}{find\+\_\+rb}} () override
+rbs\+\_\+result\+\_\+t \mbox{\hyperlink{classcore_1_1solve_1_1OneRBSearch_a72de724da02fb9e82bdff90481edf9cf}{find\+\_\+rb}} (lit\+\_\+vec\+\_\+t const \&base\+\_\+assumption) override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -50,18 +50,23 @@ void {\bfseries \+\_\+interrupt\+\_\+impl} () override
 Searches for rho-\/backdoor with the specified parameters. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classcore_1_1solve_1_1OneRBSearch_a13a6f89ecfb98983bd6eebe04db8cd58}\label{classcore_1_1solve_1_1OneRBSearch_a13a6f89ecfb98983bd6eebe04db8cd58}} 
+\mbox{\Hypertarget{classcore_1_1solve_1_1OneRBSearch_a72de724da02fb9e82bdff90481edf9cf}\label{classcore_1_1solve_1_1OneRBSearch_a72de724da02fb9e82bdff90481edf9cf}} 
 \index{core::solve::OneRBSearch@{core::solve::OneRBSearch}!find\_rb@{find\_rb}}
 \index{find\_rb@{find\_rb}!core::solve::OneRBSearch@{core::solve::OneRBSearch}}
 \doxysubsubsection{\texorpdfstring{find\_rb()}{find\_rb()}}
-{\footnotesize\ttfamily rbs\+\_\+result\+\_\+t core\+::solve\+::\+One\+R\+B\+Search\+::find\+\_\+rb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily rbs\+\_\+result\+\_\+t core\+::solve\+::\+One\+R\+B\+Search\+::find\+\_\+rb (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{base\+\_\+assumption }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
 either the reason of abortion or the search space. 
 \end{DoxyReturn}
 
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+assumption} & the base assumption \\
+\hline
+\end{DoxyParams}
 
-Implements \mbox{\hyperlink{classcore_1_1solve_1_1RBSearch_a4d4f5a36d7e0490afc7625f7d72b136d}{core\+::solve\+::\+R\+B\+Search}}.
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1RBSearch_a171c45e8775625cc785f6268c0f7a465}{core\+::solve\+::\+R\+B\+Search}}.
 
 
 

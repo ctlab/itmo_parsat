@@ -39,7 +39,7 @@ class Solver : public sat::sharing::Shareable {
    * @param assumptions assumptions to include.
    * @return the result of solving.
    */
-  virtual State solve(lit_vec_t const& assumptions) = 0;
+  virtual State solve(lit_vec_t const& assumptions = {}) = 0;
 
   /**
    * @brief Interrupts solver. Intended to be used from signal handlers.

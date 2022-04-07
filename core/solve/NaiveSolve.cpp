@@ -13,7 +13,7 @@ void NaiveSolve::_interrupt_impl() {
 sat::State NaiveSolve::solve(sat::Problem const& problem) {
   _solver = _resolve_solver(_cfg.solver_config());
   IPS_TRACE(_solver->load_problem(problem));
-  return IPS_TRACE_V(_solver->solve({}));
+  return IPS_TRACE_V(_solver->solve());
 }
 
 sat::sharing::SharingUnit NaiveSolve::sharing_unit() noexcept {

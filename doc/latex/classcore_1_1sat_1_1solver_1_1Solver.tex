@@ -34,7 +34,7 @@ Collaboration diagram for core\+::sat\+::solver\+::Solver\+:
 \item 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem)=0
 \begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
-virtual State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a16fe040877511f1925d40091c7e632df}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions)=0
+virtual State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a65f4e6a4f45f4c08fab0cada6f8f3d8c}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions=\{\})=0
 \begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1Solver_a5b91b84858f7d02064cffd52b8fcb98d}\label{classcore_1_1sat_1_1solver_1_1Solver_a5b91b84858f7d02064cffd52b8fcb98d}} 
 virtual void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a5b91b84858f7d02064cffd52b8fcb98d}{interrupt}} ()=0
@@ -70,11 +70,11 @@ Parses cnf from .gz file with the specified path.
 
 Implemented in \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1PainlessSolver_a6dc7770f1714ba76e2f3a2be3affe569}{core\+::sat\+::solver\+::\+Painless\+Solver}}, \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1SimpSolver_ae3739bae7f3b02d0d4ea62c0f160c122}{core\+::sat\+::solver\+::\+Simp\+Solver}}, and \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver_aa81ff4c1f08906b334a39931261045db}{core\+::sat\+::solver\+::\+Maple\+C\+O\+M\+S\+P\+S\+Solver}}.
 
-\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1Solver_a16fe040877511f1925d40091c7e632df}\label{classcore_1_1sat_1_1solver_1_1Solver_a16fe040877511f1925d40091c7e632df}} 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1Solver_a65f4e6a4f45f4c08fab0cada6f8f3d8c}\label{classcore_1_1sat_1_1solver_1_1Solver_a65f4e6a4f45f4c08fab0cada6f8f3d8c}} 
 \index{core::sat::solver::Solver@{core::sat::solver::Solver}!solve@{solve}}
 \index{solve@{solve}!core::sat::solver::Solver@{core::sat::solver::Solver}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily virtual State core\+::sat\+::solver\+::\+Solver\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual State core\+::sat\+::solver\+::\+Solver\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 

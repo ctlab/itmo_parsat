@@ -25,8 +25,9 @@ class RBSearch {
 
   /**
    * @return either the reason of abortion or the search space.
+   * @param base_assumption the base assumption
    */
-  virtual rbs_result_t find_rb() = 0;
+  virtual rbs_result_t find_rb(lit_vec_t const& base_assumption = {}) = 0;
 
   /**
    * @brief Interrupts the search.

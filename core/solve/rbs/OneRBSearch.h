@@ -18,7 +18,7 @@ class OneRBSearch : public RBSearch {
       OneRBSearchConfig config, sat::prop::RProp prop,
       ea::preprocess::RPreprocess preprocess);
 
-  rbs_result_t find_rb() override;
+  rbs_result_t find_rb(lit_vec_t const& base_assumption) override;
 
  protected:
   void _interrupt_impl() override;

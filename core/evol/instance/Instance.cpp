@@ -20,7 +20,6 @@ Instance::Instance(
     , _shared(std::move(shared_data))
     , _preprocess(std::move(preprocess)) {
   _vars.resize(_var_view().size());
-  // Initialize instance by setting one random variable
   _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
 }
 

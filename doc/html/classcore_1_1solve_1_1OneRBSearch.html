@@ -103,8 +103,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3d21057aef65ce8cc2d497ffea72c2e0"><td class="memItemLeft" align="right" valign="top"><a id="a3d21057aef65ce8cc2d497ffea72c2e0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>OneRBSearch</b> (OneRBSearchConfig config, sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)</td></tr>
 <tr class="separator:a3d21057aef65ce8cc2d497ffea72c2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13a6f89ecfb98983bd6eebe04db8cd58"><td class="memItemLeft" align="right" valign="top">rbs_result_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1solve_1_1OneRBSearch.html#a13a6f89ecfb98983bd6eebe04db8cd58">find_rb</a> () override</td></tr>
-<tr class="separator:a13a6f89ecfb98983bd6eebe04db8cd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72de724da02fb9e82bdff90481edf9cf"><td class="memItemLeft" align="right" valign="top">rbs_result_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1solve_1_1OneRBSearch.html#a72de724da02fb9e82bdff90481edf9cf">find_rb</a> (lit_vec_t const &amp;base_assumption) override</td></tr>
+<tr class="separator:a72de724da02fb9e82bdff90481edf9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1solve_1_1RBSearch"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1solve_1_1RBSearch')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1solve_1_1RBSearch.html">core::solve::RBSearch</a></td></tr>
 <tr class="memitem:a3a226123351dce239838315886bdb3da inherit pub_methods_classcore_1_1solve_1_1RBSearch"><td class="memItemLeft" align="right" valign="top"><a id="a3a226123351dce239838315886bdb3da"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RBSearch</b> (sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)</td></tr>
@@ -145,8 +145,8 @@ ea::preprocess::RPreprocess&#160;</td><td class="memItemRight" valign="bottom"><
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Searches for rho-backdoor with the specified parameters. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a13a6f89ecfb98983bd6eebe04db8cd58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13a6f89ecfb98983bd6eebe04db8cd58">&#9670;&nbsp;</a></span>find_rb()</h2>
+<a id="a72de724da02fb9e82bdff90481edf9cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72de724da02fb9e82bdff90481edf9cf">&#9670;&nbsp;</a></span>find_rb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +157,8 @@ ea::preprocess::RPreprocess&#160;</td><td class="memItemRight" valign="bottom"><
         <tr>
           <td class="memname">rbs_result_t core::solve::OneRBSearch::find_rb </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">lit_vec_t const &amp;&#160;</td>
+          <td class="paramname"><em>base_assumption</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -168,8 +169,14 @@ ea::preprocess::RPreprocess&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>either the reason of abortion or the search space. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base_assumption</td><td>the base assumption </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implements <a class="el" href="classcore_1_1solve_1_1RBSearch.html#a4d4f5a36d7e0490afc7625f7d72b136d">core::solve::RBSearch</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1solve_1_1RBSearch.html#a171c45e8775625cc785f6268c0f7a465">core::solve::RBSearch</a>.</p>
 
 </div>
 </div>

@@ -105,9 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa65828d34692b28456b4078dec908157"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">Problem</a> const &amp;problem)=0</td></tr>
 <tr class="memdesc:aa65828d34692b28456b4078dec908157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses cnf from .gz file with the specified path.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#aa65828d34692b28456b4078dec908157">More...</a><br /></td></tr>
 <tr class="separator:aa65828d34692b28456b4078dec908157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16fe040877511f1925d40091c7e632df"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a16fe040877511f1925d40091c7e632df">solve</a> (lit_vec_t const &amp;assumptions)=0</td></tr>
-<tr class="memdesc:a16fe040877511f1925d40091c7e632df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#a16fe040877511f1925d40091c7e632df">More...</a><br /></td></tr>
-<tr class="separator:a16fe040877511f1925d40091c7e632df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65f4e6a4f45f4c08fab0cada6f8f3d8c"><td class="memItemLeft" align="right" valign="top">virtual State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a65f4e6a4f45f4c08fab0cada6f8f3d8c">solve</a> (lit_vec_t const &amp;assumptions={})=0</td></tr>
+<tr class="memdesc:a65f4e6a4f45f4c08fab0cada6f8f3d8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs solution with the specified assumptions.  <a href="classcore_1_1sat_1_1solver_1_1Solver.html#a65f4e6a4f45f4c08fab0cada6f8f3d8c">More...</a><br /></td></tr>
+<tr class="separator:a65f4e6a4f45f4c08fab0cada6f8f3d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b91b84858f7d02064cffd52b8fcb98d"><td class="memItemLeft" align="right" valign="top"><a id="a5b91b84858f7d02064cffd52b8fcb98d"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a5b91b84858f7d02064cffd52b8fcb98d">interrupt</a> ()=0</td></tr>
 <tr class="memdesc:a5b91b84858f7d02064cffd52b8fcb98d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupts solver. Intended to be used from signal handlers. <br /></td></tr>
@@ -163,8 +163,8 @@ virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
-<a id="a16fe040877511f1925d40091c7e632df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16fe040877511f1925d40091c7e632df">&#9670;&nbsp;</a></span>solve()</h2>
+<a id="a65f4e6a4f45f4c08fab0cada6f8f3d8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65f4e6a4f45f4c08fab0cada6f8f3d8c">&#9670;&nbsp;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +176,7 @@ virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el
           <td class="memname">virtual State core::sat::solver::Solver::solve </td>
           <td>(</td>
           <td class="paramtype">lit_vec_t const &amp;&#160;</td>
-          <td class="paramname"><em>assumptions</em></td><td>)</td>
+          <td class="paramname"><em>assumptions</em> = <code>{}</code></td><td>)</td>
           <td></td>
         </tr>
       </table>

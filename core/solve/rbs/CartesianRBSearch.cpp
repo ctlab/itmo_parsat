@@ -2,7 +2,7 @@
 
 namespace {
 
-std::vector<Mini::Lit> to_std_assump(Mini::vec<Mini::Lit> const& assumption) {
+std::vector<Mini::Lit> to_std_assump(core::lit_vec_t const& assumption) {
   std::vector<Mini::Lit> result(assumption.size());
   for (int i = 0; i < assumption.size(); ++i) {
     result[i] = assumption[i];
@@ -27,8 +27,8 @@ void CartesianRBSearch::_interrupt_impl() {
   }
 }
 
-rbs_result_t CartesianRBSearch::find_rb() {
-  auto cartesian_set = IPS_TRACE_V(_pre_solve());
+rbs_result_t CartesianRBSearch::find_rb(lit_vec_t const& base_assumption) {
+  auto cartesian_set = IPS_TRACE_V(_pre_solve(base_assumption));
   if (_sbs_found) {
     return RBS_SBS_FOUND;
   } else if (IPS_UNLIKELY(_is_interrupted())) {
@@ -46,8 +46,8 @@ void CartesianRBSearch::_raise_for_sbs(int id) {
   }
 }
 
-std::vector<std::vector<std::vector<Mini::Lit>>>
-CartesianRBSearch::_pre_solve() {
+std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
+    lit_vec_t const& base_assumption) {
   std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(
       _cfg.num_algorithms());
   IPS_VERIFY(
@@ -80,7 +80,8 @@ CartesianRBSearch::_pre_solve() {
                                         i % _cfg.algorithm_configs_size())] {
       util::random::Generator generator(seed);
       auto& algorithm = _algorithms[i];
-      algorithm->prepare(_preprocess);
+      IPS_TRACE(algorithm->prepare(_preprocess));
+      algorithm->set_base_assumption(base_assumption);
       IPS_TRACE(algorithm->process());
       if (_is_interrupted() || _sbs_found) {
         return;

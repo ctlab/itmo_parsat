@@ -61,7 +61,7 @@ sat::State RecurringReduceSolve::_solve_impl(
               return _filter_fast(
                   _filter_conflict(std::move(search)), time_limit);
             }},
-        _rb_search->find_rb());
+        _rb_search->find_rb(_cur_base_assumption));
 
     if (IPS_UNLIKELY(_is_interrupted())) {
       return sat::UNKNOWN;

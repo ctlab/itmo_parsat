@@ -92,39 +92,39 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classcore_1_1solve_1_1RBSearch.html">RBSearch</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">virtual</span> rbs_result_t <a class="code" href="classcore_1_1solve_1_1RBSearch.html#a4d4f5a36d7e0490afc7625f7d72b136d">find_rb</a>() = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1solve_1_1RBSearch.html#a205078ad68da38fdde26ce3ebe226e43">interrupt</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> _is_interrupted() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> _interrupt_impl() = 0;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> _interrupt(std::shared_ptr&lt;T&gt; shp) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (shp != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      shp-&gt;interrupt();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">bool</span> _interrupted = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  sat::prop::RProp _prop;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  ea::preprocess::RPreprocess _preprocess;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1solve_1_1RBSearch.html">RBSearch</a>);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;DEFINE_REGISTRY(</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classcore_1_1solve_1_1RBSearch.html">RBSearch</a>, RBSearchConfig, rb_search, core::sat::prop::RProp,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    ea::preprocess::RPreprocess);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}  <span class="comment">// namespace core::solve</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RBSEARCH_H</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">virtual</span> rbs_result_t <a class="code" href="classcore_1_1solve_1_1RBSearch.html#a171c45e8775625cc785f6268c0f7a465">find_rb</a>(lit_vec_t <span class="keyword">const</span>&amp; base_assumption = {}) = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1solve_1_1RBSearch.html#a205078ad68da38fdde26ce3ebe226e43">interrupt</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> _is_interrupted() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> _interrupt_impl() = 0;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> _interrupt(std::shared_ptr&lt;T&gt; shp) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (shp != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      shp-&gt;interrupt();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">bool</span> _interrupted = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  sat::prop::RProp _prop;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  ea::preprocess::RPreprocess _preprocess;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1solve_1_1RBSearch.html">RBSearch</a>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;DEFINE_REGISTRY(</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classcore_1_1solve_1_1RBSearch.html">RBSearch</a>, RBSearchConfig, rb_search, core::sat::prop::RProp,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    ea::preprocess::RPreprocess);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}  <span class="comment">// namespace core::solve</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_RBSEARCH_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1solve_1_1RBSearch_html_a4d4f5a36d7e0490afc7625f7d72b136d"><div class="ttname"><a href="classcore_1_1solve_1_1RBSearch.html#a4d4f5a36d7e0490afc7625f7d72b136d">core::solve::RBSearch::find_rb</a></div><div class="ttdeci">virtual rbs_result_t find_rb()=0</div></div>
+<div class="ttc" id="aclasscore_1_1solve_1_1RBSearch_html_a171c45e8775625cc785f6268c0f7a465"><div class="ttname"><a href="classcore_1_1solve_1_1RBSearch.html#a171c45e8775625cc785f6268c0f7a465">core::solve::RBSearch::find_rb</a></div><div class="ttdeci">virtual rbs_result_t find_rb(lit_vec_t const &amp;base_assumption={})=0</div></div>
 <div class="ttc" id="aclasscore_1_1solve_1_1RBSearch_html_a205078ad68da38fdde26ce3ebe226e43"><div class="ttname"><a href="classcore_1_1solve_1_1RBSearch.html#a205078ad68da38fdde26ce3ebe226e43">core::solve::RBSearch::interrupt</a></div><div class="ttdeci">void interrupt()</div><div class="ttdoc">Interrupts the search.</div><div class="ttdef"><b>Definition:</b> RBSearch.cpp:9</div></div>
 <div class="ttc" id="aclasscore_1_1solve_1_1RBSearch_html"><div class="ttname"><a href="classcore_1_1solve_1_1RBSearch.html">core::solve::RBSearch</a></div><div class="ttdoc">Class used to reduce SAT problems to a set of independent tasks.</div><div class="ttdef"><b>Definition:</b> RBSearch.h:20</div></div>
 <!-- start footer part -->
