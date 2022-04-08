@@ -30,7 +30,6 @@
                         "block_size": 16,
                         "time_limit_s": 0,
                         "lbd_limit": 2,
-                        "slv_sleep_us": 100000,
                         "sharing_config": {
                             "enabled": false
                         }

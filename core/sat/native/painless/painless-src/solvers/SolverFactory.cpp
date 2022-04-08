@@ -50,31 +50,13 @@ void SolverFactory::nativeDiversification(
   }
 }
 
-SolverInterface* SolverFactory::createMapleCOMSPSSolver(int lbd_limit) {
-  return new MapleCOMSPSSolver(lbd_limit);
+SolverInterface* SolverFactory::createMapleCOMSPSSolver(
+    int lbd_limit, bool sharing) {
+  return new MapleCOMSPSSolver(lbd_limit, sharing);
 }
 
 SolverInterface* SolverFactory::createReducerSolver(SolverInterface* _solver) {
   return new Reducer(_solver);
-}
-
-void SolverFactory::createMapleCOMSPSSolvers(
-    int lbd_limit, int max_memory, int maxSolvers,
-    vector<SolverInterface*>& solvers) {
-  solvers.push_back(createMapleCOMSPSSolver(lbd_limit));
-  double memoryUsed = getMemoryUsed();
-  if (max_memory && maxSolvers > max_memory) {
-    maxSolvers = max_memory;
-  }
-  for (int i = 1; i < maxSolvers; i++) {
-    solvers.push_back(createMapleCOMSPSSolver(lbd_limit));
-  }
-}
-
-SolverInterface* SolverFactory::cloneSolver(SolverInterface* other) {
-  SolverInterface* solver;
-  auto&& o = (MapleCOMSPSSolver&) *other;
-  return new MapleCOMSPSSolver(o.lbdLimit, (MapleCOMSPSSolver&) *other);
 }
 
 }  // namespace painless

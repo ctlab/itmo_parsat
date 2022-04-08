@@ -16,7 +16,7 @@ namespace core::sat::solver {
  */
 class MapleCOMSPSSolver : public Solver, public painless::MapleCOMSPSSolver {
  public:
-  MapleCOMSPSSolver() = default;
+  explicit MapleCOMSPSSolver(MapleCOMSPSSolverConfig const& config);
 
   State solve(lit_vec_t const& assumptions) override;
 

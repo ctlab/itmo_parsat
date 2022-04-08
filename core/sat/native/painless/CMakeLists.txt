@@ -14,10 +14,3 @@ target_link_libraries(
         mapleCOMSPS-lib-static
         z m
 )
-
-add_executable(painless-mcomsps ${PAINLESS_SRC} painless.cpp)
-target_link_libraries(
-        painless-mcomsps
-        mapleCOMSPS-lib-static
-        pthread z m
-)

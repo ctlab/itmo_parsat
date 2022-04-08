@@ -11,10 +11,10 @@
 #include "core/proto/solve_config.pb.h"
 #include "core/sat/Problem.h"
 #include "core/sat/solver/service/SolverService.h"
-#include "util/Timer.h"
-#include "util/options.h"
 #include "core/sat/native/painless/painless-src/sharing/Sharer.h"
 #include "core/sat/native/painless/painless-src/sharing/HordeSatSharing.h"
+#include "util/Timer.h"
+#include "util/options.h"
 
 namespace core::sat::solver {
 

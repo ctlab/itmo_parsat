@@ -82,20 +82,14 @@ bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   return true;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit) : lbdLimit(lbd_limit) {
-  cbkExportClause = cbkMapleCOMSPSExportClause;
-  cbkImportClause = cbkMapleCOMSPSImportClause;
-  cbkImportUnit = cbkMapleCOMSPSImportUnit;
-  issuer = this;
-}
-
-MapleCOMSPSSolver::MapleCOMSPSSolver(
-    int lbd_limit, const MapleCOMSPSSolver& other)
-    : MapleCOMSPS::SimpSolver(other), lbdLimit(lbd_limit) {
-  cbkExportClause = cbkMapleCOMSPSExportClause;
-  cbkImportClause = cbkMapleCOMSPSImportClause;
-  cbkImportUnit = cbkMapleCOMSPSImportUnit;
-  issuer = this;
+MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit, bool sharing_clauses)
+    : lbdLimit(lbd_limit) {
+  if (sharing_clauses) {
+    cbkExportClause = cbkMapleCOMSPSExportClause;
+    cbkImportClause = cbkMapleCOMSPSImportClause;
+    cbkImportUnit = cbkMapleCOMSPSImportUnit;
+    issuer = this;
+  }
 }
 
 bool MapleCOMSPSSolver::loadFormula(const char* filename) {

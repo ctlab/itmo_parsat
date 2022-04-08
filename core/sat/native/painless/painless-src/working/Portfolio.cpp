@@ -53,7 +53,7 @@ void Portfolio::join(
     int64_t index, WorkingStrategy* strat, PSatResult res,
     const vector<int>& model) {
   std::lock_guard<std::mutex> lg(join_mutex);
-  if (res == PUNKNOWN || strategyEnding || result->globalEnding ||
+  if (res == PUNKNOWN || strategyEnding || result->global_ending ||
       index != current_index) {
     return;
   }
@@ -62,11 +62,15 @@ void Portfolio::join(
   setInterrupt();
 
   if (parent == nullptr) {
-    result->finalResult = res;
-    if (res == PSAT) {
-      result->finalModel = model;
+    {
+      std::lock_guard<std::mutex> guard(result->lock);
+      result->final_result = res;
+      if (res == PSAT) {
+        result->final_model = model;
+      }
+      result->global_ending = true;
     }
-    result->globalEnding.store(true, std::memory_order_release);
+    result->cv.notify_one();
   } else {
     parent->join(index, this, res, model);
   }

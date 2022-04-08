@@ -2,7 +2,6 @@
 
 concurrency = 32
 time_limit = 90
-description = 32-cpu-u1m-04.04
 unsat_only = false
 fail_on_tle = false
 repeat_each = 1

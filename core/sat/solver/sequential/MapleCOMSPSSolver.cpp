@@ -2,6 +2,10 @@
 
 namespace core::sat::solver {
 
+MapleCOMSPSSolver::MapleCOMSPSSolver(MapleCOMSPSSolverConfig const& config)
+    : painless::MapleCOMSPSSolver(
+          config.lbd_limit(), config.sharing_enabled()) {}
+
 State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
   PSatResult result = IPS_TRACE_N_V(
@@ -38,6 +42,6 @@ sharing::SharingUnit MapleCOMSPSSolver::sharing_unit() noexcept {
   return sharing::SolverList({this});
 }
 
-REGISTER_SIMPLE(Solver, MapleCOMSPSSolver);
+REGISTER_PROTO(Solver, MapleCOMSPSSolver, maplecomsps_solver_config);
 
 }  // namespace core::sat::solver

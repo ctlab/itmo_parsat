@@ -96,17 +96,20 @@ void SequentialWorker::join(
     vector<int> const& model) {
   setInterrupt();
 
-  if (result->globalEnding || current_index != index) {
+  if (result->global_ending || current_index != index) {
     return;
   }
 
   if (parent == nullptr) {
-    result->globalEnding = true;
-    result->finalResult = res;
-
-    if (res == PSAT) {
-      result->finalModel = model;
+    {
+      std::lock_guard<std::mutex> guard(result->lock);
+      result->final_result = res;
+      if (res == PSAT) {
+        result->final_model = model;
+      }
+      result->global_ending = true;
     }
+    result->cv.notify_one();
   } else {
     parent->join(index, this, res, model);
   }

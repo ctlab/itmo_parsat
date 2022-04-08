@@ -25,26 +25,18 @@
 
 namespace painless {
 
-/// Factory to create solvers.
 class SolverFactory {
  public:
-  /// Instantiate and return a MapleCOMSPS solver.
-  static SolverInterface* createMapleCOMSPSSolver(int lbd_limit);
-
-  /// Instantiate and return a group of MapleCOMSPS solvers.
-  static void createMapleCOMSPSSolvers(
-      int lbd_limit, int max_memory, int groupSize, std::vector<SolverInterface*>& solvers);
+  static SolverInterface* createMapleCOMSPSSolver(
+      int lbd_limit = 2, bool sharing = true);
 
   static SolverInterface* createReducerSolver(SolverInterface* solver);
 
-  /// Clone and return a new solver.
-  static SolverInterface* cloneSolver(SolverInterface* other);
+  static void sparseRandomDiversification(
+      const std::vector<SolverInterface*>& solvers);
 
-  /// Apply a sparse and random diversification on solvers.
-  static void sparseRandomDiversification(const std::vector<SolverInterface*>& solvers);
-
-  /// Apply a native diversification on solvers.
-  static void nativeDiversification(const std::vector<SolverInterface*>& solvers);
+  static void nativeDiversification(
+      const std::vector<SolverInterface*>& solvers);
 };
 
 }  // namespace painless

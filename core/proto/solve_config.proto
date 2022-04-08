@@ -13,19 +13,24 @@ message DiversificationConfig {
   bool sparse = 2;
 }
 
+message MapleCOMSPSSolverConfig {
+  int32 lbd_limit = 1;
+  bool sharing_enabled = 2;
+}
+
 message PainlessSolverConfig {
   int32 max_threads = 1;
   int32 max_memory = 2;
   int32 block_size = 3;
   int32 time_limit_s = 4;
   int32 lbd_limit = 5;
-  int32 slv_sleep_us = 6;
-  SharingConfig sharing_config = 7;
+  SharingConfig sharing_config = 6;
 }
 
 message SolverConfig {
   string solver_type = 1;
-  PainlessSolverConfig painless_solver_config = 5;
+  PainlessSolverConfig painless_solver_config = 2;
+  MapleCOMSPSSolverConfig maplecomsps_solver_config = 3;
 }
 
 message SequentialSolverServiceConfig {

@@ -69,23 +69,20 @@ void PainlessSolver::load_problem(Problem const& problem) {
 State PainlessSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
   ++solve_index;
-  _result.globalEnding = false;
-  _result.finalResult = PUNKNOWN;
-  _result.finalModel.clear();
+  _result.global_ending = false;
+  _result.final_result = PUNKNOWN;
+  _result.final_model.clear();
 
   working->solve(solve_index, assumptions, {});
-  int slv_sleep_us = 100;
-  while (!_result.globalEnding.load(std::memory_order_acquire) &&
-         !_interrupted) {
-    usleep(slv_sleep_us);
-    if (slv_sleep_us < _cfg.slv_sleep_us()) {
-      slv_sleep_us *= 2;
-    }
+  {
+    std::unique_lock<std::mutex> lock(_result.lock);
+    _result.cv.wait(
+        lock, [this] { return _result.global_ending || _interrupted; });
   }
   working->setInterrupt();
   working->waitInterrupt();
 
-  switch (_result.finalResult) {
+  switch (_result.final_result) {
     case PSAT:
       return SAT;
     case PUNSAT:
@@ -101,8 +98,12 @@ unsigned PainlessSolver::num_vars() const noexcept {
 }
 
 void PainlessSolver::interrupt() {
-  _interrupted = true;
-  working->setInterrupt();
+  {
+    std::lock_guard<std::mutex> lg(_result.lock);
+    _interrupted = true;
+    working->setInterrupt();
+  }
+  _result.cv.notify_one();
 }
 
 void PainlessSolver::clear_interrupt() {

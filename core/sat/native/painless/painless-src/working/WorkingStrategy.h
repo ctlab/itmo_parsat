@@ -24,6 +24,7 @@
 #include <vector>
 #include <memory>
 #include <mutex>
+#include <condition_variable>
 
 #define IPS_PRINTF(...)         \
   fprintf(stderr, __VA_ARGS__); \
@@ -32,9 +33,11 @@
 namespace painless {
 
 struct WorkingResult {
-  std::atomic<bool> globalEnding{false};
-  PSatResult finalResult = PUNKNOWN;
-  std::vector<int> finalModel;
+  std::mutex lock;
+  std::condition_variable cv;
+  bool global_ending = false;
+  PSatResult final_result = PUNKNOWN;
+  std::vector<int> final_model;
 };
 
 extern std::mutex m_pf;

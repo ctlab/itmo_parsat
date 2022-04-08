@@ -3,7 +3,11 @@
   "sequential_solver_service_config" : {
     "num_solvers": 16,
     "solver_config": {
-      "solver_type": "MapleCOMSPSSolver"
+      "solver_type": "MapleCOMSPSSolver",
+      "maplecomsps_solver_config": {
+        "lbd_limit" : 2,
+        "sharing_enabled": false
+      }
     }
   }
 }
