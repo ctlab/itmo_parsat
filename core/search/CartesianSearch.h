@@ -22,8 +22,6 @@ class CartesianSearch : public Search {
   explicit CartesianSearch(
       std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
 
-  lit_vec_t const& operator()() const override;
-
   [[nodiscard]] Search* clone() const override;
 
  protected:
@@ -35,7 +33,6 @@ class CartesianSearch : public Search {
 
  private:
   std::vector<uint32_t> _indices;
-  lit_vec_t _assignment;
   std::vector<std::vector<std::vector<Mini::Lit>>> _cartesian;
 };
 

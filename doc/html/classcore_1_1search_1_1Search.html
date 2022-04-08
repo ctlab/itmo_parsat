@@ -101,8 +101,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7cbcb192e731400592ea04a29a2d29d7"><td class="memItemLeft" align="right" valign="top"><a id="a7cbcb192e731400592ea04a29a2d29d7"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Search</b> (uint64_t total)</td></tr>
 <tr class="separator:a7cbcb192e731400592ea04a29a2d29d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4da05a2dcce480e30e993b48884f117a"><td class="memItemLeft" align="right" valign="top">virtual lit_vec_t const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1search_1_1Search.html#a4da05a2dcce480e30e993b48884f117a">operator()</a> () const =0</td></tr>
-<tr class="separator:a4da05a2dcce480e30e993b48884f117a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad39616f2dbaf9cb56745aac3049a30"><td class="memItemLeft" align="right" valign="top"><a id="a8ad39616f2dbaf9cb56745aac3049a30"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Search</b> (<a class="el" href="classcore_1_1domain_1_1VarView.html">domain::VarView</a> const &amp;var_view, bit_mask_t const &amp;bit_mask, uint64_t total)</td></tr>
+<tr class="separator:a8ad39616f2dbaf9cb56745aac3049a30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c99116c360d1a429e5f2f9a978ee890"><td class="memItemLeft" align="right" valign="top"><a id="a5c99116c360d1a429e5f2f9a978ee890"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Search</b> (std::vector&lt; int &gt; const &amp;vars, uint64_t total)</td></tr>
+<tr class="separator:a5c99116c360d1a429e5f2f9a978ee890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad35c6e33a0101dfb4b613c95576b6b1f"><td class="memItemLeft" align="right" valign="top">lit_vec_t const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1search_1_1Search.html#ad35c6e33a0101dfb4b613c95576b6b1f">operator()</a> () const noexcept</td></tr>
+<tr class="separator:ad35c6e33a0101dfb4b613c95576b6b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a57198a2567b89f406bf28fc12ded66"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1search_1_1Search.html#a8a57198a2567b89f406bf28fc12ded66">operator++</a> ()</td></tr>
 <tr class="memdesc:a8a57198a2567b89f406bf28fc12ded66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Steps to the next search.  <a href="classcore_1_1search_1_1Search.html#a8a57198a2567b89f406bf28fc12ded66">More...</a><br /></td></tr>
 <tr class="separator:a8a57198a2567b89f406bf28fc12ded66"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +157,9 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_first</b> = 0</t
 <tr class="memitem:a531fc005b386c4e97f872845eacfc603"><td class="memItemLeft" align="right" valign="top"><a id="a531fc005b386c4e97f872845eacfc603"></a>
 uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td></tr>
 <tr class="separator:a531fc005b386c4e97f872845eacfc603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a070d4473462cc7f39c8260add6f69d5d"><td class="memItemLeft" align="right" valign="top"><a id="a070d4473462cc7f39c8260add6f69d5d"></a>
+lit_vec_t&#160;</td><td class="memItemRight" valign="bottom"><b>_assignment</b></td></tr>
+<tr class="separator:a070d4473462cc7f39c8260add6f69d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class representing the sequential search in assignments space. </p>
@@ -209,8 +218,8 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
 
 </div>
 </div>
-<a id="a4da05a2dcce480e30e993b48884f117a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4da05a2dcce480e30e993b48884f117a">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="ad35c6e33a0101dfb4b613c95576b6b1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad35c6e33a0101dfb4b613c95576b6b1f">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +228,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual lit_vec_t const&amp; core::search::Search::operator() </td>
+          <td class="memname">lit_vec_t const  &amp; core::search::Search::operator() </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -227,13 +236,11 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>_last</b> = 0</td
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current assignment </dd></dl>
-
-<p>Implemented in <a class="el" href="classcore_1_1search_1_1SingleSearch.html#a48fcfae862728557ca13c985e7dbc064">core::search::SingleSearch</a>, <a class="el" href="classcore_1_1search_1_1CartesianSearch.html#a1b92e45a9c0a7a7cca7f0c5a2176049e">core::search::CartesianSearch</a>, <a class="el" href="classcore_1_1search_1_1RandomSearch.html#a714abca241f387dce9bb2aff808cc1e9">core::search::RandomSearch</a>, <a class="el" href="classcore_1_1search_1_1UniqueSearch.html#afca9127c9d2a72d9d2b4d6d7b821830d">core::search::UniqueSearch</a>, and <a class="el" href="classcore_1_1search_1_1FullSearch.html#a4ed644f7bea5b4a125776e22f1574959">core::search::FullSearch</a>.</p>
 
 </div>
 </div>

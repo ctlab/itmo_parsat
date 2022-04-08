@@ -1,9 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classcore_1_1search_1_1AssignmentModifier.html" title="The base class for searches that step by modifying search." alt="" coords="5,45,192,86"/>
-<area shape="rect" id="node2" href="$classcore_1_1search_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="259,5,435,32"/>
-<area shape="rect" id="node3" href="$classcore_1_1search_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="244,56,451,83"/>
-<area shape="rect" id="node4" href="$classcore_1_1search_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="248,107,447,133"/>
-<area shape="rect" id="node5" href="$classcore_1_1search_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="22,111,175,137"/>
-<area shape="rect" id="node6" href="$classcore_1_1search_1_1CartesianSearch.html" title="The class used to search through the cartesian product of custom searches." alt="" coords="240,208,455,235"/>
-<area shape="rect" id="node7" href="$classcore_1_1search_1_1SingleSearch.html" title="The search implementation consisting of only one (empty) assignment." alt="" coords="251,157,444,184"/>
+<area shape="rect" id="node1" href="$classcore_1_1search_1_1Search.html" title="The class representing the sequential search in assignments space." alt="" coords="5,107,159,133"/>
+<area shape="rect" id="node2" href="$classcore_1_1search_1_1CartesianSearch.html" title="The class used to search through the cartesian product of custom searches." alt="" coords="207,5,421,32"/>
+<area shape="rect" id="node3" href="$classcore_1_1search_1_1FullSearch.html" title="The class used to perform full search." alt="" coords="226,56,402,83"/>
+<area shape="rect" id="node4" href="$classcore_1_1search_1_1RandomSearch.html" title="The class used to perform random search." alt="" coords="211,107,417,133"/>
+<area shape="rect" id="node5" href="$classcore_1_1search_1_1SingleSearch.html" title="The search implementation consisting of only one (empty) assignment." alt="" coords="217,157,411,184"/>
+<area shape="rect" id="node6" href="$classcore_1_1search_1_1UniqueSearch.html" title="The class used to perform unique random search. Used for small sets of variables." alt="" coords="215,208,413,235"/>
 </map>

@@ -68,6 +68,7 @@ void PainlessSolver::load_problem(Problem const& problem) {
 
 State PainlessSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
+  PSatResult result;
   ++solve_index;
   _result.global_ending = false;
   _result.final_result = PUNKNOWN;
@@ -78,11 +79,12 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
     std::unique_lock<std::mutex> lock(_result.lock);
     _result.cv.wait(
         lock, [this] { return _result.global_ending || _interrupted; });
+    result = _result.final_result;
   }
   working->setInterrupt();
   working->waitInterrupt();
 
-  switch (_result.final_result) {
+  switch (result) {
     case PSAT:
       return SAT;
     case PUNSAT:
@@ -107,8 +109,12 @@ void PainlessSolver::interrupt() {
 }
 
 void PainlessSolver::clear_interrupt() {
-  _interrupted = false;
-  working->unsetInterrupt();
+  {
+    std::lock_guard<std::mutex> lg(_result.lock);
+    _interrupted = false;
+    working->unsetInterrupt();
+  }
+  _result.cv.notify_one();
 }
 
 sharing::SharingUnit PainlessSolver::sharing_unit() noexcept {

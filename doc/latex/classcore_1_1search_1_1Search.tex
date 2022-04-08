@@ -25,7 +25,13 @@ Inheritance diagram for core\+::search\+::Search\+:
 \mbox{\Hypertarget{classcore_1_1search_1_1Search_a7cbcb192e731400592ea04a29a2d29d7}\label{classcore_1_1search_1_1Search_a7cbcb192e731400592ea04a29a2d29d7}} 
 {\bfseries Search} (uint64\+\_\+t total)
 \item 
-virtual lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}{operator()}} () const =0
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a8ad39616f2dbaf9cb56745aac3049a30}\label{classcore_1_1search_1_1Search_a8ad39616f2dbaf9cb56745aac3049a30}} 
+{\bfseries Search} (\mbox{\hyperlink{classcore_1_1domain_1_1VarView}{domain\+::\+Var\+View}} const \&var\+\_\+view, bit\+\_\+mask\+\_\+t const \&bit\+\_\+mask, uint64\+\_\+t total)
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a5c99116c360d1a429e5f2f9a978ee890}\label{classcore_1_1search_1_1Search_a5c99116c360d1a429e5f2f9a978ee890}} 
+{\bfseries Search} (std\+::vector$<$ int $>$ const \&vars, uint64\+\_\+t total)
+\item 
+lit\+\_\+vec\+\_\+t const  \& \mbox{\hyperlink{classcore_1_1search_1_1Search_ad35c6e33a0101dfb4b613c95576b6b1f}{operator()}} () const noexcept
 \item 
 bool \mbox{\hyperlink{classcore_1_1search_1_1Search_a8a57198a2567b89f406bf28fc12ded66}{operator++}} ()
 \begin{DoxyCompactList}\small\item\em Steps to the next search. \end{DoxyCompactList}\item 
@@ -72,6 +78,9 @@ uint64\+\_\+t {\bfseries \+\_\+first} = 0
 \item 
 \mbox{\Hypertarget{classcore_1_1search_1_1Search_a531fc005b386c4e97f872845eacfc603}\label{classcore_1_1search_1_1Search_a531fc005b386c4e97f872845eacfc603}} 
 uint64\+\_\+t {\bfseries \+\_\+last} = 0
+\item 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_a070d4473462cc7f39c8260add6f69d5d}\label{classcore_1_1search_1_1Search_a070d4473462cc7f39c8260add6f69d5d}} 
+lit\+\_\+vec\+\_\+t {\bfseries \+\_\+assignment}
 \end{DoxyCompactItemize}
 
 
@@ -101,19 +110,15 @@ Implemented in \mbox{\hyperlink{classcore_1_1search_1_1SingleSearch_aed229f44717
 \begin{DoxyReturn}{Returns}
 equivalent to \mbox{\hyperlink{classcore_1_1search_1_1Search_a938d59ebcb1040d3744509fac2606930}{Search\+::size()}} == 0. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}\label{classcore_1_1search_1_1Search_a4da05a2dcce480e30e993b48884f117a}} 
+\mbox{\Hypertarget{classcore_1_1search_1_1Search_ad35c6e33a0101dfb4b613c95576b6b1f}\label{classcore_1_1search_1_1Search_ad35c6e33a0101dfb4b613c95576b6b1f}} 
 \index{core::search::Search@{core::search::Search}!operator()@{operator()}}
 \index{operator()@{operator()}!core::search::Search@{core::search::Search}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily virtual lit\+\_\+vec\+\_\+t const\& core\+::search\+::\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily lit\+\_\+vec\+\_\+t const  \& core\+::search\+::\+Search\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 \begin{DoxyReturn}{Returns}
 the current assignment 
 \end{DoxyReturn}
-
-
-Implemented in \mbox{\hyperlink{classcore_1_1search_1_1SingleSearch_a48fcfae862728557ca13c985e7dbc064}{core\+::search\+::\+Single\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1CartesianSearch_a1b92e45a9c0a7a7cca7f0c5a2176049e}{core\+::search\+::\+Cartesian\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1RandomSearch_a714abca241f387dce9bb2aff808cc1e9}{core\+::search\+::\+Random\+Search}}, \mbox{\hyperlink{classcore_1_1search_1_1UniqueSearch_afca9127c9d2a72d9d2b4d6d7b821830d}{core\+::search\+::\+Unique\+Search}}, and \mbox{\hyperlink{classcore_1_1search_1_1FullSearch_a4ed644f7bea5b4a125776e22f1574959}{core\+::search\+::\+Full\+Search}}.
-
 \mbox{\Hypertarget{classcore_1_1search_1_1Search_a8a57198a2567b89f406bf28fc12ded66}\label{classcore_1_1search_1_1Search_a8a57198a2567b89f406bf28fc12ded66}} 
 \index{core::search::Search@{core::search::Search}!operator++@{operator++}}
 \index{operator++@{operator++}!core::search::Search@{core::search::Search}}

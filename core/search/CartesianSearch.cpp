@@ -9,30 +9,25 @@ CartesianSearch::CartesianSearch(
     : Search(std::accumulate(
           cartesian.begin(), cartesian.end(), uint32_t(1),
           [](uint32_t size, auto const& v) { return size * v.size(); }))
-    , _assignment((int) std::accumulate(
-          cartesian.begin(), cartesian.end(), uint32_t(0),
-          [](uint32_t size, auto const& v) { return size + v.front().size(); }))
     , _cartesian(std::move(cartesian)) {
+  _assignment.growTo((int) std::accumulate(
+      _cartesian.begin(), _cartesian.end(), uint32_t(0),
+      [](uint32_t size, auto const& v) { return size + v.front().size(); }));
   _indices.resize(_cartesian.size(), 0);
   _set_cur(0);
 }
 
-/// @todo: remove copy-paste
 CartesianSearch::CartesianSearch(
     std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian)
     : Search(std::accumulate(
           cartesian.begin(), cartesian.end(), uint32_t(1),
           [](uint32_t size, auto const& v) { return size * v.size(); }))
-    , _assignment((int) std::accumulate(
-          cartesian.begin(), cartesian.end(), uint32_t(0),
-          [](uint32_t size, auto const& v) { return size + v.front().size(); }))
     , _cartesian(cartesian) {
+  _assignment.growTo((int) std::accumulate(
+      _cartesian.begin(), _cartesian.end(), uint32_t(0),
+      [](uint32_t size, auto const& v) { return size + v.front().size(); }));
   _indices.resize(_cartesian.size(), 0);
   _set_cur(0);
-}
-
-Mini::vec<Mini::Lit> const& CartesianSearch::operator()() const {
-  return _assignment;
 }
 
 Search* CartesianSearch::clone() const {

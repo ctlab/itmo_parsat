@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['base_5fassumption_4',['base_assumption',['../structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59',1,'ea::instance::SharedData']]],
-  ['bestselector_5',['BestSelector',['../classea_1_1method_1_1BestSelector.html',1,'ea::method']]]
+  ['base_5fassumption_3',['base_assumption',['../structea_1_1instance_1_1SharedData.html#a846cc77f6ba6b3524330d3f29db86e59',1,'ea::instance::SharedData']]],
+  ['bestselector_4',['BestSelector',['../classea_1_1method_1_1BestSelector.html',1,'ea::method']]]
 ];

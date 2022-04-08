@@ -3,13 +3,13 @@
 namespace core::search {
 
 UniqueSearch::UniqueSearch(
-    domain::VarView const& var_view, bit_mask_t const& vars, uint64_t total)
-    : AssignmentModifier(var_view, vars), Search(total) {
+    domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total)
+    : Search(var_view, bit_mask, total) {
   _advance_us();
 }
 
 UniqueSearch::UniqueSearch(std::vector<int> const& vars, uint64_t total)
-    : AssignmentModifier(vars), Search(total) {
+    : Search(vars, total) {
   _advance_us();
 }
 
@@ -33,10 +33,6 @@ UniqueSearch* UniqueSearch::clone() const {
 void UniqueSearch::_reset() {
   visited_.clear();
   _advance();
-}
-
-lit_vec_t const& UniqueSearch::operator()() const {
-  return get();
 }
 
 }  // namespace core::search

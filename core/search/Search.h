@@ -30,10 +30,16 @@ class Search {
  public:
   virtual ~Search() = default;
 
+  Search(
+      domain::VarView const& var_view, bit_mask_t const& bit_mask,
+      uint64_t total);
+
+  explicit Search(std::vector<int> const& vars, uint64_t total);
+
   /**
    * @return the current assignment
    */
-  [[nodiscard]] virtual lit_vec_t const& operator()() const = 0;
+  [[nodiscard]] lit_vec_t const& operator()() const noexcept;
 
   /**
    * @brief Steps to the next search.
@@ -83,6 +89,7 @@ class Search {
   uint64_t _done = 0;
   uint64_t _first = 0;
   uint64_t _last = 0;
+  lit_vec_t _assignment;
 };
 
 /**
@@ -91,8 +98,6 @@ class Search {
 class SingleSearch final : public Search {
  public:
   SingleSearch();
-
-  [[nodiscard]] lit_vec_t const& operator()() const override;
 
   [[nodiscard]] Search* clone() const override;
 

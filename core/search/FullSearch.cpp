@@ -19,11 +19,10 @@ namespace core::search {
 
 FullSearch::FullSearch(
     domain::VarView const& var_view, bit_mask_t const& bit_mask)
-    : AssignmentModifier(var_view, bit_mask)
-    , Search(Search::total_size(bit_mask)) {}
+    : Search(var_view, bit_mask, Search::total_size(bit_mask)) {}
 
 FullSearch::FullSearch(std::vector<int> const& vars)
-    : AssignmentModifier(vars), Search(1ULL << vars.size()) {}
+    : Search(vars, 1ULL << vars.size()) {}
 
 void FullSearch::_advance() {
   next_assignment(_assignment);
@@ -35,10 +34,6 @@ FullSearch* FullSearch::clone() const {
 
 void FullSearch::_reset() {
   _set_assignment(_assignment, _first);
-}
-
-lit_vec_t const& FullSearch::operator()() const {
-  return get();
 }
 
 UFullSearch createFullSearch(

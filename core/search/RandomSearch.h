@@ -1,7 +1,6 @@
 #ifndef ITMO_PARSAT_RANDOMSEARCH_H
 #define ITMO_PARSAT_RANDOMSEARCH_H
 
-#include "core/search/AssignmentModifier.h"
 #include "core/search/UniqueSearch.h"
 #include "core/domain/SearchSpace.h"
 #include "core/search/Search.h"
@@ -12,7 +11,7 @@ namespace core::search {
 /**
  * @brief The class used to perform random search.
  */
-class RandomSearch : AssignmentModifier, public Search {
+class RandomSearch : public Search {
  public:
   explicit RandomSearch(
       domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total);
@@ -20,8 +19,6 @@ class RandomSearch : AssignmentModifier, public Search {
   explicit RandomSearch(std::vector<int> const& vars, uint64_t total);
 
   [[nodiscard]] RandomSearch* clone() const override;
-
-  [[nodiscard]] lit_vec_t const& operator()() const override;
 
  protected:
   void _advance() override;

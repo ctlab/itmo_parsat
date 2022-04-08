@@ -14,12 +14,12 @@ namespace core::search {
 
 RandomSearch::RandomSearch(
     domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total)
-    : AssignmentModifier(var_view, bit_mask), Search(total) {
+    : Search(var_view, bit_mask, total) {
   set_random(_assignment);
 }
 
 RandomSearch::RandomSearch(std::vector<int> const& vars, uint64_t total)
-    : AssignmentModifier(vars), Search(total) {
+    : Search(vars, total) {
   set_random(_assignment);
 }
 
@@ -33,10 +33,6 @@ void RandomSearch::_reset() {
 
 RandomSearch* RandomSearch::clone() const {
   return new RandomSearch(*this);
-}
-
-lit_vec_t const& RandomSearch::operator()() const {
-  return get();
 }
 
 USearch createRandomSearch(

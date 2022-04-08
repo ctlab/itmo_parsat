@@ -27,6 +27,27 @@ Search::Search(uint64_t total) : _total(total) {
   _set_range();
 }
 
+Search::Search(std::vector<int> const& vars, uint64_t total) : Search(total) {
+  _assignment.capacity((int) vars.size());
+  for (int var : vars) {
+    _assignment.push(Mini::mkLit(var, false));
+  }
+}
+
+Search::Search(
+    domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total)
+    : Search(total) {
+  for (int i = 0; i < (int) bit_mask.size(); ++i) {
+    if (bit_mask[i]) {
+      _assignment.push(Mini::mkLit(var_view[i], false));
+    }
+  }
+}
+
+lit_vec_t const& Search::operator()() const noexcept {
+  return _assignment;
+}
+
 uint64_t Search::size() const noexcept {
   return _total;
 }
@@ -77,11 +98,6 @@ void Search::_set_range() {
 }
 
 SingleSearch::SingleSearch() : Search(1) {}
-
-Mini::vec<Mini::Lit> const& SingleSearch::operator()() const {
-  static Mini::vec<Mini::Lit> empty_asgn;
-  return empty_asgn;
-}
 
 void SingleSearch::_advance() {}
 

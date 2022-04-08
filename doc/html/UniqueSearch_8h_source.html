@@ -75,45 +75,40 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;unordered_set&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;core/search/AssignmentModifier.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;core/search/Search.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;util/Random.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>core::search {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classcore_1_1search_1_1UniqueSearch.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a> : <a class="code" href="classcore_1_1search_1_1AssignmentModifier.html">AssignmentModifier</a>, <span class="keyword">public</span> <a class="code" href="classcore_1_1search_1_1Search.html">Search</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>(</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      <a class="code" href="classcore_1_1domain_1_1VarView.html">domain::VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; vars, uint64_t total);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars, uint64_t total);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  [[nodiscard]] lit_vec_t <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1search_1_1UniqueSearch.html#afca9127c9d2a72d9d2b4d6d7b821830d">operator()</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;core/search/Search.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;util/Random.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>core::search {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classcore_1_1search_1_1UniqueSearch.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a> : <span class="keyword">public</span> <a class="code" href="classcore_1_1search_1_1Search.html">Search</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>(</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      <a class="code" href="classcore_1_1domain_1_1VarView.html">domain::VarView</a> <span class="keyword">const</span>&amp; var_view, bit_mask_t <span class="keyword">const</span>&amp; vars, uint64_t total);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>(std::vector&lt;int&gt; <span class="keyword">const</span>&amp; vars, uint64_t total);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  std::unordered_set&lt;uint64_t&gt; visited_;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  std::unordered_set&lt;uint64_t&gt; visited_;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordtype">void</span> _advance() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">void</span> _advance() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">void</span> _reset() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  [[nodiscard]] <a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>* <a class="code" href="classcore_1_1search_1_1UniqueSearch.html#a79f3533765bb1a69ab765414dc800f51">clone</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">void</span> _reset() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  [[nodiscard]] <a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>* <a class="code" href="classcore_1_1search_1_1UniqueSearch.html#a79f3533765bb1a69ab765414dc800f51">clone</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">void</span> _advance_us();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> _advance_us();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}  <span class="comment">// namespace core::search</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_UNIQUESEARCH_H</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;MAKE_REFS(<a class="code" href="classcore_1_1search_1_1UniqueSearch.html">UniqueSearch</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}  <span class="comment">// namespace core::search</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_UNIQUESEARCH_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasscore_1_1search_1_1Search_html"><div class="ttname"><a href="classcore_1_1search_1_1Search.html">core::search::Search</a></div><div class="ttdoc">The class representing the sequential search in assignments space.</div><div class="ttdef"><b>Definition:</b> Search.h:26</div></div>
-<div class="ttc" id="aclasscore_1_1search_1_1AssignmentModifier_html"><div class="ttname"><a href="classcore_1_1search_1_1AssignmentModifier.html">core::search::AssignmentModifier</a></div><div class="ttdoc">The base class for searches that step by modifying search.</div><div class="ttdef"><b>Definition:</b> AssignmentModifier.h:15</div></div>
-<div class="ttc" id="aclasscore_1_1search_1_1UniqueSearch_html"><div class="ttname"><a href="classcore_1_1search_1_1UniqueSearch.html">core::search::UniqueSearch</a></div><div class="ttdoc">The class used to perform unique random search. Used for small sets of variables.</div><div class="ttdef"><b>Definition:</b> UniqueSearch.h:16</div></div>
+<div class="ttc" id="aclasscore_1_1search_1_1UniqueSearch_html"><div class="ttname"><a href="classcore_1_1search_1_1UniqueSearch.html">core::search::UniqueSearch</a></div><div class="ttdoc">The class used to perform unique random search. Used for small sets of variables.</div><div class="ttdef"><b>Definition:</b> UniqueSearch.h:15</div></div>
 <div class="ttc" id="aclasscore_1_1search_1_1UniqueSearch_html_a79f3533765bb1a69ab765414dc800f51"><div class="ttname"><a href="classcore_1_1search_1_1UniqueSearch.html#a79f3533765bb1a69ab765414dc800f51">core::search::UniqueSearch::clone</a></div><div class="ttdeci">UniqueSearch * clone() const override</div><div class="ttdef"><b>Definition:</b> UniqueSearch.cpp:29</div></div>
-<div class="ttc" id="aclasscore_1_1search_1_1UniqueSearch_html_afca9127c9d2a72d9d2b4d6d7b821830d"><div class="ttname"><a href="classcore_1_1search_1_1UniqueSearch.html#afca9127c9d2a72d9d2b4d6d7b821830d">core::search::UniqueSearch::operator()</a></div><div class="ttdeci">lit_vec_t const  &amp; operator()() const override</div><div class="ttdef"><b>Definition:</b> UniqueSearch.cpp:38</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a></div><div class="ttdoc">The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...</div><div class="ttdef"><b>Definition:</b> VarView.h:13</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
