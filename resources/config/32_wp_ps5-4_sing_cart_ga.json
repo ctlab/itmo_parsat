@@ -61,7 +61,7 @@
                         },
                         "diversification_config": {
                             "native": false,
-                            "sparse": false
+                            "sparse": true
                         }
                     }
                 },

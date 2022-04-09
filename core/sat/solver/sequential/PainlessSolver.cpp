@@ -38,6 +38,7 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
       std::get<0>(block).push_back(solver);
     }
   }
+  painless::SolverFactory::nativeDiversification(_solvers);
 
   working = std::make_unique<painless::Portfolio>(&_result);
   for (auto& _solver : _solvers) {
@@ -62,7 +63,6 @@ void PainlessSolver::load_problem(Problem const& problem) {
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
       [&problem](auto& solver) { solver->loadFormula(problem.clauses()); });
-  painless::SolverFactory::nativeDiversification(_solvers);
   painless::SolverFactory::sparseRandomDiversification(_solvers);
 }
 
