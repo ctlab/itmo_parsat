@@ -9,32 +9,32 @@ thread_local ::util::random::Generator* _this_thread_generator = nullptr;
 namespace util::random {
 
 Generator::Generator(uint32_t seed) : _seed(seed), _mt(seed) {
-  IPS_VERIFY(
-      _this_thread_generator == nullptr &&
-      bool("Trying to create second Generator in the same thread."));
+  IPS_VERIFY_S(
+      _this_thread_generator == nullptr,
+      "Trying to create second Generator in the same thread.");
   _this_thread_generator = this;
 }
 
 Generator::Generator(Generator const& other) : Generator(other._seed) {}
 
 Generator::~Generator() noexcept {
-  IPS_VERIFY(
-      _this_thread_generator != nullptr &&
-      bool("This thread did not initialize Generator."));
+  IPS_VERIFY_S(
+      _this_thread_generator != nullptr,
+      "This thread did not initialize Generator.");
   _this_thread_generator = nullptr;
 }
 
 Generator& Generator::current_thread_generator() {
-  IPS_VERIFY(
-      _this_thread_generator != nullptr &&
-      bool("This thread did not initialize Generator."));
+  IPS_VERIFY_S(
+      _this_thread_generator != nullptr,
+      "This thread did not initialize Generator.");
   return *_this_thread_generator;
 }
 
 std::mt19937& stdgen() {
-  IPS_VERIFY(
-      _this_thread_generator != nullptr &&
-      bool("This thread did not initialize Generator."));
+  IPS_VERIFY_S(
+      _this_thread_generator != nullptr,
+      "This thread did not initialize Generator.");
   return _this_thread_generator->_mt;
 }
 

@@ -53,8 +53,7 @@ Fitness const& Instance::fitness() {
 }
 
 Fitness const& Instance::fitness() const noexcept {
-  IPS_VERIFY(
-      is_cached() && bool("Const-fitness called on non-cached Instance"));
+  IPS_VERIFY_S(is_cached(), "Const-fitness called on non-cached Instance");
   return _cached ? fit_ : fit_ = _shared->cache.get(_vars.get_mask()).value();
 }
 

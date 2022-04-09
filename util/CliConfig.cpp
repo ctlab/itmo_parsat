@@ -11,7 +11,7 @@ namespace util {
 namespace po = boost::program_options;
 
 CliConfig::CliConfig() {
-  IPS_VERIFY(_instance == nullptr && bool("CliConfig already exists."));
+  IPS_VERIFY_S(_instance == nullptr, "CliConfig already exists.");
   // clang-format off
   desc_.add_options()
       ("help,h", po::bool_switch()->default_value(false), "Display help message")
@@ -74,8 +74,7 @@ void CliConfig::read_config(
 }
 
 CliConfig& CliConfig::instance() noexcept {
-  IPS_VERIFY(
-      _instance != nullptr && bool("CliConfig has not been registered."));
+  IPS_VERIFY_S(_instance != nullptr, "CliConfig has not been registered.");
   return *_instance;
 }
 

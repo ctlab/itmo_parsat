@@ -38,8 +38,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
     lit_vec_t const& base_assumption) {
   std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(
       _cfg.num_algorithms());
-  IPS_VERIFY(
-      _cfg.num_algorithms() > 0 && bool("num_algorithms must be positive"));
+  IPS_VERIFY(_cfg.num_algorithms() > 0);
   std::stringstream algorithms_info;
   std::vector<std::thread> rb_search_threads;
 
