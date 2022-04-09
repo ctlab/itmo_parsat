@@ -72,3 +72,12 @@ INSTANTIATE_TEST_CASE_P(
         common::to_tuple<std::string>({"sing", "rec"}),
         common::to_tuple<std::string>({"rbs", "cart"}),
         common::to_tuple<std::string>({"ea", "ga"}))));
+
+INSTANTIATE_TEST_CASE_P(
+    Experiment1_32CPU, LaunchFixture,
+    ::testing::ValuesIn(common::cross(
+        common::to_tuple<int>({32}), common::to_tuple<std::string>({"wp"}),
+        common::to_tuple<std::string>({"s1-21", "ms1-20", "ps5-4"}),
+        common::to_tuple<std::string>({"sing", "rec"}),
+        common::to_tuple<std::string>({"rbs", "cart"}),
+        common::to_tuple<std::string>({"ea"}))));

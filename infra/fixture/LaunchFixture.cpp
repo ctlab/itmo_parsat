@@ -92,7 +92,6 @@ std::string LaunchFixture::_generate_uniq_string() {
 }
 
 void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
-  /* Setup files */
   std::string salt = _generate_uniq_string();
   std::filesystem::path const& artifact_logs_path =
       _logs_root / (salt + ".txt");
