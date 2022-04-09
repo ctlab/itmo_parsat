@@ -25,9 +25,11 @@
 #include <string>
 #include <string.h>
 
+namespace painless {
+
 using namespace std;
 
-extern map<string, string> params;
+extern std::map<string, string> params;
 
 extern char* filename;
 
@@ -72,7 +74,8 @@ class Parameters {
 
     cout << "c ";
 
-    for (map<string, string>::iterator it = params.begin(); it != params.end(); it++) {
+    for (map<string, string>::iterator it = params.begin(); it != params.end();
+         it++) {
       if (it->second.empty()) {
         cout << it->first << ", ";
       } else {
@@ -109,3 +112,5 @@ class Parameters {
     return defaultValue;
   }
 };
+
+}  // namespace painless

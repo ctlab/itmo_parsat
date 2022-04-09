@@ -8,15 +8,15 @@ MapleCOMSPSSolver::MapleCOMSPSSolver(MapleCOMSPSSolverConfig const& config)
 
 State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
-  PSatResult result = IPS_TRACE_N_V(
+  painless::PSatResult result = IPS_TRACE_N_V(
       "MapleCOMSPS::solve",
       painless::MapleCOMSPSSolver::solve(assumptions, {}));
   switch (result) {
-    case PSAT:
+    case painless::PSAT:
       return SAT;
-    case PUNSAT:
+    case painless::PUNSAT:
       return UNSAT;
-    case PUNKNOWN:
+    case painless::PUNKNOWN:
       return UNKNOWN;
   }
   return UNKNOWN;

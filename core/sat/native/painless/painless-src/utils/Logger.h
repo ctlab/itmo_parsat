@@ -19,8 +19,12 @@
 
 #pragma once
 
+namespace painless {
+
 /// Set the verbosity level.
 void setVerbosityLevel(int level);
 
 /// Function to print log with a certain level of verbosity.
 void log(int verbosityLevel, const char* fmt...);
+
+}  // namespace painless

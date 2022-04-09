@@ -32,6 +32,8 @@
     exit(res);            \
   }
 
+namespace painless {
+
 /// Mutex class.
 class Mutex {
  public:
@@ -83,3 +85,5 @@ class Thread {
   /// The id of the pthread.
   pthread_t myTid;
 };
+
+}  // namespace painless

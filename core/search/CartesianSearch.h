@@ -16,11 +16,16 @@ namespace core::search {
  */
 class CartesianSearch : public Search {
  public:
-  explicit CartesianSearch(
-      std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);
+  using cartesian_set_t = std::vector<std::vector<std::vector<Mini::Lit>>>;
 
+ private:
   explicit CartesianSearch(
-      std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
+      std::shared_ptr<cartesian_set_t> cartesian_set);
+
+ public:
+  explicit CartesianSearch(cartesian_set_t&& cartesian_set);
+
+  explicit CartesianSearch(cartesian_set_t const& cartesian_set);
 
   [[nodiscard]] Search* clone() const override;
 
@@ -33,16 +38,16 @@ class CartesianSearch : public Search {
 
  private:
   std::vector<uint32_t> _indices;
-  std::vector<std::vector<std::vector<Mini::Lit>>> _cartesian;
+  std::shared_ptr<cartesian_set_t> _r_cartesian_set;
 };
 
 MAKE_REFS(CartesianSearch);
 
 UCartesianSearch createCartesianSearch(
-    std::vector<std::vector<std::vector<Mini::Lit>>>&& cartesian);
+    CartesianSearch::cartesian_set_t&& cartesian_set);
 
 UCartesianSearch createCartesianSearch(
-    std::vector<std::vector<std::vector<Mini::Lit>>> const& cartesian);
+    CartesianSearch::cartesian_set_t const& cartesian_set);
 
 }  // namespace core::search
 

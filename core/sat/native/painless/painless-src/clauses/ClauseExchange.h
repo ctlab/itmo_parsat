@@ -24,6 +24,8 @@
 
 using namespace std;
 
+namespace painless {
+
 /// Structure of a shared clause.
 typedef struct ClauseExchange {
   /// Number of references on this clause.
@@ -39,3 +41,5 @@ typedef struct ClauseExchange {
   int lits[0];
 
 } ClauseExchange;
+
+}  // namespace painless

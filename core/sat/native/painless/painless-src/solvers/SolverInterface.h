@@ -33,6 +33,8 @@
 
 using namespace std;
 
+namespace painless {
+
 enum PSatResult { PSAT = 10, PUNSAT = 20, PUNKNOWN = 0 };
 
 struct SolvingStatistics {
@@ -47,7 +49,8 @@ class SolverInterface {
  public:
   virtual bool loadFormula(const char* filename) = 0;
 
-  virtual bool loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) = 0;
+  virtual bool loadFormula(
+      std::vector<Mini::vec<Mini::Lit>> const& clauses) = 0;
 
   virtual int getVariablesCount() = 0;
 
@@ -97,3 +100,5 @@ class SolverInterface {
  public:
   int id;
 };
+
+}  // namespace painless

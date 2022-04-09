@@ -26,7 +26,6 @@ sat::State RecurringReduceSolve::_solve_impl(
     uint32_t depth = stack.top().second;
     stack.pop();
 
-    using namespace std::chrono_literals;
     auto time_limit =
         depth < _cfg.max_recursion_depth()
             ? std::chrono::milliseconds(uint32_t(

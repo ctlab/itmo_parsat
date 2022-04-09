@@ -65,30 +65,29 @@ void Instance::_calc_fitness() {
 
 void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
   auto const& mask = _vars.get_mask();
-  int size = (int) std::count(mask.begin(), mask.end(), true);
-  bool full_search = false;
+  uint32_t size = _vars.size();
   uint64_t conflicts;
+  bool full_search = false;
 
   if (size <= _sampling_config().max_vars_fs) {
     full_search = true;
     samples = 1ULL << size;
-    core::search::UFullSearch search =
-        core::search::createFullSearch(_var_view(), mask);
     conflicts = _prop->prop_tree(
-        util::concat(_shared->base_assumption, (*search)()),
+        util::concat(
+            _shared->base_assumption,
+            util::map_to_mini_vars(_vars.map_to_vars(_var_view()))),
         _shared->base_assumption.size());
-  } else if (
-      size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH &&
-      (1ULL << size) <= samples) {
-    full_search = true;
-    samples = 1ULL << size;
-    conflicts = _prop->prop_search(
-        _shared->base_assumption,
-        core::search::createFullSearch(_var_view(), mask));
   } else {
-    conflicts = _prop->prop_search(
-        _shared->base_assumption,
-        core::search::createRandomSearch(_var_view(), mask, samples));
+    core::search::USearch search;
+    if (size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH &&
+        (1ULL << size) <= samples) {
+      full_search = true;
+      samples = 1ULL << size;
+      search = core::search::createFullSearch(_var_view(), mask);
+    } else {
+      search = core::search::createRandomSearch(_var_view(), mask, samples);
+    }
+    conflicts = _prop->prop_search(_shared->base_assumption, std::move(search));
   }
 
   fit_.rho = (double) conflicts / (double) samples;

@@ -1,17 +1,5 @@
 #include "core/solve/rbs/CartesianRBSearch.h"
 
-namespace {
-
-std::vector<Mini::Lit> to_std_assump(core::lit_vec_t const& assumption) {
-  std::vector<Mini::Lit> result(assumption.size());
-  for (int i = 0; i < assumption.size(); ++i) {
-    result[i] = assumption[i];
-  }
-  return result;
-}
-
-}  // namespace
-
 namespace core::solve {
 
 CartesianRBSearch::CartesianRBSearch(
@@ -101,7 +89,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
             ++total;
             if (!conflict) {
               std::lock_guard<std::mutex> lg(nca_mutex);
-              non_conflict_assignments[i].push_back(to_std_assump(assumption));
+              non_conflict_assignments[i].push_back(util::to_std(assumption));
             } else {
               ++conflicts;
             }
@@ -130,8 +118,9 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
   }
 
   for (auto& thread : rb_search_threads) {
-    IPS_VERIFY(thread.joinable());
-    thread.join();
+    if (thread.joinable()) {
+      thread.join();
+    }
   }
   {
     std::lock_guard<std::mutex> lg(_m);

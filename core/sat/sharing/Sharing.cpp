@@ -14,7 +14,7 @@ void Sharing::share(Shareable& s1, Shareable& s2, SharingDir dir) {
 }
 
 void Sharing::share(SolverBlockList const& su) {
-  std::vector<SolverInterface*> consumers;
+  std::vector<painless::SolverInterface*> consumers;
   for (auto const& block : su) {
     auto const& [solvers, _] = block;
     // solvers are always consumers

@@ -40,7 +40,7 @@ class PainlessSolver : public Solver {
  private:
   sharing::SolverBlockList _solver_block_list;
   sharing::Sharing _sharing;
-  std::vector<SolverInterface*> _solvers;
+  std::vector<painless::SolverInterface*> _solvers;
   PainlessSolverConfig _cfg;
   painless::WorkingResult _result;
   std::unique_ptr<painless::WorkingStrategy> working;

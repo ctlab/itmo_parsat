@@ -11,17 +11,14 @@ uint32_t SimpProp::num_vars() const noexcept {
 }
 
 bool SimpProp::propagate(lit_vec_t const& assumptions, lit_vec_t& propagated) {
-  clearInterrupt();
   return !prop_check(assumptions, propagated, 0);
 }
 
 bool SimpProp::propagate(lit_vec_t const& assumptions) {
-  clearInterrupt();
   return !prop_check(assumptions, 0);
 }
 
 uint64_t SimpProp::prop_tree(lit_vec_t const& vars, uint32_t head_size) {
-  clearInterrupt();
   return prop_check_subtree(vars, head_size);
 }
 

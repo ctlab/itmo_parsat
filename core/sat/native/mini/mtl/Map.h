@@ -113,7 +113,7 @@ class Map {
     vec<Pair>& ps = table[index(k)];
     ps.push();
     ps.last().key = k;
-    ps.last().data = d;
+    ps.last()._data = d;
   }
 
   void rehash() {
@@ -129,7 +129,7 @@ class Map {
 
     for (int i = 0; i < old_cap; i++) {
       for (int j = 0; j < old[i].size(); j++) {
-        _insert(old[i][j].key, old[i][j].data);
+        _insert(old[i][j].key, old[i][j]._data);
       }
     }
 
@@ -152,7 +152,7 @@ class Map {
     const vec<Pair>& ps = table[index(k)];
     for (int i = 0; i < ps.size(); i++)
       if (equals(ps[i].key, k))
-        res = &ps[i].data;
+        res = &ps[i]._data;
     assert(res != NULL);
     return *res;
   }
@@ -164,7 +164,7 @@ class Map {
     vec<Pair>& ps = table[index(k)];
     for (int i = 0; i < ps.size(); i++)
       if (equals(ps[i].key, k))
-        res = &ps[i].data;
+        res = &ps[i]._data;
     assert(res != NULL);
     return *res;
   }
@@ -182,7 +182,7 @@ class Map {
     const vec<Pair>& ps = table[index(k)];
     for (int i = 0; i < ps.size(); i++)
       if (equals(ps[i].key, k)) {
-        d = ps[i].data;
+        d = ps[i]._data;
         return true;
       }
     return false;

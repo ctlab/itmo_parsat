@@ -21,6 +21,8 @@
 
 #include "../utils/System.h"
 
+namespace painless {
+
 static double timeStart = getAbsoluteTime();
 
 double getAbsoluteTime() {
@@ -40,3 +42,5 @@ double getMemoryUsed() {
   getrusage(RUSAGE_SELF, &r_usage);
   return r_usage.ru_maxrss;
 }
+
+}  // namespace painless

@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+namespace painless {
+
 static int verbosityLevelSetting = 0;
 
 void setVerbosityLevel(int level) {
@@ -45,3 +47,5 @@ void log(int verbosityLevel, const char* fmt...) {
     fflush(stdout);
   }
 }
+
+}  // namespace painless

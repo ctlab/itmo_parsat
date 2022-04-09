@@ -18,6 +18,8 @@
 #ifndef UTILS_SYSTEM_H
 #define UTILS_SYSTEM_H
 
+namespace painless {
+
 /// Get the relative in seconds time.
 double getRelativeTime();
 
@@ -26,5 +28,7 @@ double getAbsoluteTime();
 
 /// Get the current memory used in Ko.
 double getMemoryUsed();
+
+}  // namespace painless
 
 #endif  // UTILS_SYSTEM_H

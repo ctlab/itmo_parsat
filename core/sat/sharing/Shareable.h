@@ -12,11 +12,11 @@
 
 namespace core::sat::sharing {
 
-using SolverList = std::vector<SolverInterface*>;
+using SolverList = std::vector<painless::SolverInterface*>;
 
 using SolverBlock = std::tuple<  //
     SolverList,                  // solvers
-    SolverInterface*             // reducer
+    painless::SolverInterface*             // reducer
     >;
 
 using SolverBlockList = std::vector<SolverBlock>;

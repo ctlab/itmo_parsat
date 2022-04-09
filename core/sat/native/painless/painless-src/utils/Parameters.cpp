@@ -19,8 +19,10 @@
 
 #include "../utils/Parameters.h"
 
-using namespace std;
+namespace painless {
 
-map<string, string> params;
+std::map<string, string> params;
 
 char* filename;
+
+}  // namespace painless

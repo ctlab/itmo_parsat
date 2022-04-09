@@ -16,7 +16,7 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
   int block_size = _cfg.block_size();
   int block_left = cpus % block_size, solvers = 0;
   int n_blocks = cpus / block_size + (block_left > 0);
-  SolverInterface* solver = nullptr;
+  painless::SolverInterface* solver = nullptr;
 
   _solver_block_list.resize(n_blocks);
   for (int i = 0; i < n_blocks; ++i, ++solvers) {
@@ -68,10 +68,10 @@ void PainlessSolver::load_problem(Problem const& problem) {
 
 State PainlessSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
-  PSatResult result;
+  painless::PSatResult result;
   ++solve_index;
   _result.global_ending = false;
-  _result.final_result = PUNKNOWN;
+  _result.final_result = painless::PUNKNOWN;
   _result.final_model.clear();
 
   working->solve(solve_index, assumptions, {});
@@ -85,11 +85,11 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
   working->waitInterrupt();
 
   switch (result) {
-    case PSAT:
+    case painless::PSAT:
       return SAT;
-    case PUNSAT:
+    case painless::PUNSAT:
       return UNSAT;
-    case PUNKNOWN:
+    case painless::PUNKNOWN:
       return UNKNOWN;
   }
   return UNKNOWN;
