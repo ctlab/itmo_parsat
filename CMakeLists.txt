@@ -37,11 +37,10 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "DEV_FAST")
             NDEBUG
     )
 elseif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-    message(STATUS "RELEASE build mode (O3). All checks, log and tracer disabled.")
+    message(STATUS "RELEASE build mode (O3). All checks and tracer disabled.")
     add_compile_options(-O3)
     add_compile_definitions(
             NDEBUG
-            IPS_DISABLE_LOG
             IPS_DISABLE_TRACE
             IPS_DISABLE_VERIFY
     )
