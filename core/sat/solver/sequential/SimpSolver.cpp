@@ -33,7 +33,6 @@ unsigned SimpSolver::num_vars() const noexcept {
 }
 
 sharing::SharingUnit SimpSolver::sharing_unit() noexcept {
-  IPS_ERROR("sharing_unit called on Minisat::SimpSolver.");
   return {};
 }
 

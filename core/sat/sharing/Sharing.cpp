@@ -67,6 +67,9 @@ void Sharing::_share_right(SharingUnit const& su1, SharingUnit const& su2) {
 }
 
 void Sharing::_add_sharer(SolverList const& prod, SolverList const& cons) {
+  if (prod.empty() || cons.empty()) {
+    return;
+  }
   _sharers.push_back(std::make_unique<painless::Sharer>(
       _interval_us, 0, new painless::HordeSatSharing(_shr_lit, _interval_us),
       prod, cons));
