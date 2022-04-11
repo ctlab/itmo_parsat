@@ -18,8 +18,11 @@ struct Preprocess {
 
   [[nodiscard]] bool preprocess(core::sat::Problem const& problem);
 
+  uint32_t num_vars() const noexcept;
+
  private:
   PreprocessConfig _config;
+  uint32_t _num_vars;
   core::domain::VarView _var_view;
 };
 

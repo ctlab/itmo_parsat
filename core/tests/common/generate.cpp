@@ -6,7 +6,7 @@ core::lit_vec_t gen_assumption(int min_size, int max_size, int max_var) {
   int size = util::random::sample<int>(min_size, max_size);
   core::lit_vec_t assumption(size);
   for (int i = 0; i < size; ++i) {
-    int var = util::random::sample<int>(0, max_var);
+    int var = util::random::sample<int>(0, max_var - 1);
     int sign = util::random::sample<int>(0, 1);
     assumption[i] = Mini::mkLit(var, sign);
   }

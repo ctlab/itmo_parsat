@@ -28,6 +28,7 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
   std::vector<std::pair<int, int>> stats;
   stats.reserve(prop.num_vars());
 
+  _num_vars = prop.num_vars();
   if (prop.num_vars() == 0) {
     return false;
   }
@@ -69,6 +70,10 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
 
 core::domain::VarView const& Preprocess::var_view() const noexcept {
   return _var_view;
+}
+
+uint32_t Preprocess::num_vars() const noexcept {
+  return _num_vars;
 }
 
 }  // namespace ea::preprocess

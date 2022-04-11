@@ -10,3 +10,4 @@ ips
 Singularity.def
 ips.sif
 ./resources/cnf/*.cnf
+bench.csv
