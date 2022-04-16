@@ -17,6 +17,12 @@ Mini::vec<T> concat(Mini::vec<T> a, Mini::vec<T> const& b) {
   return a;
 }
 
+std::vector<int> filter_vars(
+    std::vector<int> const& vars,
+    std::unordered_set<int> const& vars_to_filter);
+
+std::unordered_set<int> get_vars(Mini::vec<Mini::Lit> const& assumption);
+
 std::vector<Mini::Lit> to_std(Mini::vec<Mini::Lit> const& mini_vec);
 
 Mini::vec<Mini::Lit> to_mini(std::vector<Mini::Lit> const& std_vec);

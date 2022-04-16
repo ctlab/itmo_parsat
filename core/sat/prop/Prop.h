@@ -81,7 +81,7 @@ class Prop {
    * @return the number of conflicts
    */
   virtual uint64_t prop_search(
-      search::USearch search, prop_callback_t const& callback = {});
+      search::USearch search, prop_callback_t const& callback = {}) = 0;
 
   /**
    * @brief Propagates all assignments by the given search specification and
@@ -93,14 +93,15 @@ class Prop {
    */
   virtual uint64_t prop_search(
       lit_vec_t const& base_assumption, search::USearch search,
-      prop_callback_t const& callback = {});
+      prop_callback_t const& callback = {}) = 0;
 
   static uint64_t sequential_propagate(
-      Prop& prop, search::USearch search, prop_callback_t const& callback);
-
-  static uint64_t sequential_propagate(
-      Prop& prop, lit_vec_t const& base_assumption, search::USearch search,
+      Minisat::SimpSolver& prop, search::USearch search,
       prop_callback_t const& callback);
+
+  static uint64_t sequential_propagate(
+      Minisat::SimpSolver& prop, lit_vec_t const& base_assumption,
+      search::USearch search, prop_callback_t const& callback);
 };
 
 MAKE_REFS(Prop);

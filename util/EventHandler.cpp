@@ -26,9 +26,14 @@ EventHandler::EventHandler()
     : _event_thread([this] { _event_handling_thread(); }) {}
 
 EventHandler::~EventHandler() {
-  _shutdown = true;
+  {
+    std::lock_guard<std::mutex> lg(_event_queue_mutex);
+    _shutdown = true;
+  }
   _event_cv.notify_one();
-  _event_thread.join();
+  if (_event_thread.joinable()) {
+    _event_thread.join();
+  }
 }
 
 void EventHandler::raise(Event event) {
@@ -58,10 +63,10 @@ void EventHandler::_event_handling_thread() {
     _event_cv.wait(ul, [this] {
       return !_event_queue.empty() || static_cast<bool>(_shutdown);
     });
-    if (_shutdown) {
+    if (IPS_UNLIKELY(_shutdown)) {
       break;
     }
-    if (_event_queue.empty()) {
+    if (IPS_UNLIKELY(_event_queue.empty())) {
       continue;
     }
 

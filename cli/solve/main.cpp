@@ -19,9 +19,9 @@ util::CliConfig add_and_read_args(int argc, char** argv) {
   // clang-format off
   options.add_options()
       ("verbose,v", po::value<int>()->default_value(2), "Verbosity level.")
-      ("log-config,l", po::value<std::filesystem::path>()->required(), "Path to JSON Logging configuration.")
-      ("solve-config,e", po::value<std::filesystem::path>()->required(), "Path to JSON Solve configuration.")
-      ("input,i", po::value<std::filesystem::path>()->required(), "Input file with CNF formula.");
+      ("log-config,l", po::value<std::filesystem::path>()->required(), "Path to logging configuration.")
+      ("solve-config,e", po::value<std::filesystem::path>()->required(), "Path to solve configuration.")
+      ("input,i", po::value<std::filesystem::path>()->required(), "Input file with dimacs-CNF formula.");
   // clang-format on
 
   util::CliConfig cli_config;
@@ -57,24 +57,19 @@ int main(int argc, char** argv) {
   LOG(INFO) << std::fixed << std::setprecision(5);
   util::CliConfig config = add_and_read_args(argc, argv);
   core::signal::SigHandler sig_handler;
-  if (config.has("verbose")) {
-    fLI::FLAGS_v = config.get<int>("verbose");
-  }
+  fLI::FLAGS_v = config.get<int>("verbose");
   std::filesystem::path input = config.get<std::filesystem::path>("input");
-  std::filesystem::path solver_cfg_path =
-      config.get<std::filesystem::path>("solve-config");
-  std::filesystem::path logger_cfg_path =
-      config.get<std::filesystem::path>("log-config");
   IPS_INFO("Input file: " << input);
-
   core::sat::Problem problem(input);
   core::sat::State result = problem.get_result();
+
   if (result == core::sat::UNKNOWN) {
-    auto&& [solve_config, log_config] =
-        read_json_configs(solver_cfg_path, logger_cfg_path);
-    core::Logger::set_logger_config(log_config);
+    auto&& [solve_config, log_config] = read_json_configs(
+        config.get<std::filesystem::path>("solve-config"),
+        config.get<std::filesystem::path>("log-config"));
 
     util::random::Generator generator(solve_config.random_seed());
+    core::Logger::set_logger_config(log_config);
     core::solve::RSolve solve(
         core::solve::SolveRegistry::resolve(solve_config));
     core::event::EventCallbackHandle solve_interrupt_handler =
@@ -86,9 +81,10 @@ int main(int argc, char** argv) {
             },
             core::event::INTERRUPT);
     result = IPS_TRACE_V(solve->solve(problem));
+    solve_interrupt_handler->detach();
   }
-  core::TimeTracer::print_summary(10);
 
+  IPS_TRACE_SUMMARY(10);
   if (result == core::sat::UNSAT) {
     std::cout << "UNSAT" << std::endl;
     return 0;

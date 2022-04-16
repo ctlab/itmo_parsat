@@ -4,8 +4,8 @@
 #include "core/tests/common/get.h"
 #include "core/tests/common/generate.h"
 
-#define BENCH_ALG_GROUPS true, false, "small", "large"
-#define SAMPLES 10
+#define BENCH_ALG_GROUPS true, false, "exp_u700s"
+#define SAMPLES 25
 
 static void run_benchmark_one(
     ea::preprocess::RPreprocess const& preprocess, std::string const& config,
@@ -25,10 +25,11 @@ static void run_benchmark(
       [&](auto const& assumption) {
         run_benchmark_one(preprocess, config, problem, assumption);
       },
-      0, 20, preprocess->num_vars(), SAMPLES);
+      0, 24, preprocess->num_vars(), SAMPLES);
 }
 
 static void BM_algorithm(benchmark::State& state, std::string config) {
+  // Set silent logging config
   common::set_logger_config();
   // Here and in other places benchmarks' generator has a fixed seed,
   // thus everything will be fair for all configurations.

@@ -31,6 +31,13 @@ class SimpProp : public Prop, public MinisatSimpBase {
 
   [[nodiscard]] bool propagate(lit_vec_t const& assumptions) override;
 
+  uint64_t prop_search(
+      search::USearch search, prop_callback_t const& callback = {}) override;
+
+  uint64_t prop_search(
+      lit_vec_t const& base_assumption, search::USearch search,
+      prop_callback_t const& callback = {}) override;
+
   uint64_t prop_tree(lit_vec_t const& vars, uint32_t head_size) override;
 };
 

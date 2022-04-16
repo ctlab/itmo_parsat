@@ -19,12 +19,8 @@ class WorkerPool {
   using task_t = std::function<R(WorkerType&)>;
 
  public:
-  WorkerPool(
-      uint32_t max_threads,
-      std::function<WorkerType()> const& worker_generator) {
-    for (uint32_t i = 0; i < max_threads; ++i) {
-      _workers.push_back(worker_generator());
-    }
+  WorkerPool(uint32_t max_threads)
+    : _workers(max_threads) {
     auto& parent_generator =
         util::random::Generator::current_thread_generator();
     for (uint32_t thread = 0; thread < max_threads; ++thread) {
@@ -56,7 +52,7 @@ class WorkerPool {
     }
     _cv.notify_all();
     for (auto& thread : _threads) {
-      if (thread.joinable()) {
+      if (IPS_LIKELY(thread.joinable())) {
         thread.join();
       }
     }

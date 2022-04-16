@@ -9,6 +9,27 @@ std::vector<Mini::Lit> to_std(Mini::vec<Mini::Lit> const& mini_vec) {
   return std_vec;
 }
 
+std::vector<int> filter_vars(
+    std::vector<int> const& vars,
+    std::unordered_set<int> const& vars_to_filter) {
+  std::vector<int> result;
+  result.reserve(vars.size());
+  for (auto var : vars) {
+    if (vars_to_filter.find(var) == vars_to_filter.end()) {
+      result.push_back(var);
+    }
+  }
+  return result;
+}
+
+std::unordered_set<int> get_vars(Mini::vec<Mini::Lit> const& assumption) {
+  std::unordered_set<int> result;
+  for (int i = 0; i < assumption.size(); ++i) {
+    result.insert(Mini::var(assumption[i]));
+  }
+  return result;
+}
+
 Mini::vec<Mini::Lit> to_mini(std::vector<Mini::Lit> const& std_vec) {
   Mini::vec<Mini::Lit> mini_vec(std_vec.size());
   std::copy(std_vec.begin(), std_vec.end(), mini_vec.data());

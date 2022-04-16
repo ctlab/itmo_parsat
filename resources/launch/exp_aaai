@@ -1,0 +1,14 @@
+# Description: AAAI result reproduction tests
+
+concurrency = 32
+time_limit = 0
+unsat_only = false
+fail_on_tle = false
+repeat_each = 1
+num_tests = 0
+allow_unspecified_size = true
+lookup = true
+size = 0
+save = true
+test_groups = aaai
+gtest_opts = --gtest_filter=*Experiment_AAAI_reproduce*

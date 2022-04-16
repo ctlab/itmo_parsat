@@ -19,14 +19,14 @@
               "limit_type": "ResourceLimit",
               "resource_limit_config": {
                 "memory_limit_kb": 0,
-                "time_limit_sec": 60
+                "time_limit_sec": 180
               }
             },
             {
               "limit_type": "FitnessLimit",
               "fitness_limit_config": {
-                "lowest_fitness": 0.995,
-                "max_size": 16
+                "lowest_fitness": 0.997,
+                "max_size": 15
               }
             }
           ]

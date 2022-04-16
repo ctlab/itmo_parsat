@@ -170,6 +170,7 @@ function do_sync() {
         --exclude '.idea/' \
         --exclude '.git/' \
         --exclude '*build*/' \
+        --exclude '**/*.csv' \
         --exclude '**/*.cnf' \
         ~/itmo-parsat/ $HOST/itmo-parsat
 }

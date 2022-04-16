@@ -27,8 +27,10 @@ rbs_result_t OneRBSearch::find_rb(lit_vec_t const& base_assumption) {
     if (rb.is_sbs()) {
       result = RBS_SBS_FOUND;
     } else {
-      result = core::search::createFullSearch(
-          _preprocess->var_view(), rb.get_vars().get_mask());
+      std::unordered_set<int> base_vars = util::get_vars(base_assumption);
+      auto vars = util::filter_vars(
+          rb.get_vars().map_to_vars(_preprocess->var_view()), base_vars);
+      result = core::search::createFullSearch(vars);
     }
   }
   _algorithm.reset();

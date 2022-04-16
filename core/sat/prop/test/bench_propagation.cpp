@@ -78,7 +78,7 @@ BENCHMARK(BM_prop_naive)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(
              0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateDenseRange(1, 16, 4),
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),
          benchmark::CreateDenseRange(0, 24, 2),
          benchmark::CreateRange(1 << 12, 1 << 16, 2)});
 
@@ -86,5 +86,5 @@ BENCHMARK(BM_prop_tree)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(
              0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateDenseRange(1, 16, 4),
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),
          benchmark::CreateDenseRange(0, 24, 2)});

@@ -60,7 +60,7 @@ class Execution {
         _cv.wait_for(lg, std::chrono::milliseconds(100), [this, &proc_]() {
           return _interrupted || !proc_.running();
         });
-        time_limit_exceeded = (_timestamp() - started_at) > time_limit_s;
+        time_limit_exceeded = time_limit_s > 0 && (_timestamp() - started_at) > time_limit_s;
       }
 
       CHECK(time_limit_exceeded || _interrupted || !proc_.running());

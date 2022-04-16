@@ -28,12 +28,14 @@ class EventHandler;
 
 namespace _details {
 
-class EventCallbackHandle : public boost::intrusive::list_base_hook<
-                                boost::intrusive::link_mode<boost::intrusive::auto_unlink>> {
+class EventCallbackHandle
+    : public boost::intrusive::list_base_hook<
+          boost::intrusive::link_mode<boost::intrusive::auto_unlink>> {
   friend class core::event::EventHandler;
 
  public:
-  EventCallbackHandle(std::mutex* unlink_mutex, event_callback_t&& event_callback);
+  EventCallbackHandle(
+      std::mutex* unlink_mutex, event_callback_t&& event_callback);
 
   ~EventCallbackHandle();
 
@@ -55,7 +57,8 @@ class EventHandler {
  private:
   using callback_entry_t = std::pair<
       std::mutex, boost::intrusive::list<
-                      _details::EventCallbackHandle, boost::intrusive::constant_time_size<false>>>;
+                      _details::EventCallbackHandle,
+                      boost::intrusive::constant_time_size<false>>>;
 
  public:
   EventHandler();
@@ -79,7 +82,6 @@ class EventHandler {
   void _event_handling_thread();
 
  private:
-  /// queue routine
   std::mutex _event_queue_mutex;
   std::condition_variable _event_cv;
   std::queue<Event> _event_queue;

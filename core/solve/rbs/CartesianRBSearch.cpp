@@ -41,6 +41,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
   IPS_VERIFY(_cfg.num_algorithms() > 0);
   std::stringstream algorithms_info;
   std::vector<std::thread> rb_search_threads;
+  std::unordered_set<int> base_vars = util::get_vars(base_assumption);
 
   {
     std::lock_guard<std::mutex> lg(_m);
@@ -73,17 +74,19 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
       if (_is_interrupted() || _sbs_found) {
         return;
       }
-      auto const& rho_backdoor = algorithm->get_best();
-      if (rho_backdoor.is_sbs()) {
+      auto const& rb = algorithm->get_best();
+      if (rb.is_sbs()) {
         _raise_for_sbs(i);
         return;
       }
 
+      auto vars = util::filter_vars(
+          rb.get_vars().map_to_vars(_preprocess->var_view()), base_vars);
+
       std::atomic_uint32_t conflicts{0}, total{0};
       std::mutex nca_mutex;
       algorithm->get_prop().prop_search(
-          search::createFullSearch(
-              _preprocess->var_view(), rho_backdoor.get_vars().get_mask()),
+          search::createFullSearch(vars),
           [&](bool conflict, auto const& assumption) {
             ++total;
             if (!conflict) {
@@ -104,7 +107,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
         algorithms_info << "\n[Thread " << i << "]\n"
                         << "\tNumber of points visited: "
                         << algorithm->inaccurate_points() << '\n'
-                        << "\tThe best backdoor is: " << rho_backdoor << '\n'
+                        << "\tThe best backdoor is: " << rb << '\n'
                         << "\tConflicts: " << conflicts << ", total: " << total
                         << "\n\tActual rho value: "
                         << (double) conflicts / (double) total << '\n';

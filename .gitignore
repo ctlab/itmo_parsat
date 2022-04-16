@@ -9,5 +9,7 @@ d
 ips
 Singularity.def
 ips.sif
-./resources/cnf/*.cnf
-bench.csv
+resources/cnf/*.cnf
+resources/cnf/exp_u700s/*.cnf
+**/*.csv
+

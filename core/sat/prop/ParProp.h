@@ -10,9 +10,10 @@
 #include <future>
 #include <queue>
 
-#include "util/Random.h"
+#include "core/sat/prop/SimpProp.h"
 #include "core/sat/prop/Prop.h"
 #include "util/WorkerPool.h"
+#include "util/Random.h"
 
 namespace core::sat::prop {
 
@@ -44,15 +45,18 @@ class ParProp : public Prop {
  private:
   uint64_t _sum() noexcept;
 
- private:
-  using PropWorkerPool = util::WorkerPool<RProp, uint64_t>;
+  MinisatSimpBase& _get_solver() noexcept;
+
+  MinisatSimpBase const& _get_solver() const noexcept;
 
  private:
+  using PropWorkerPool = util::WorkerPool<MinisatSimpBase, uint64_t>;
+
+ private:
+  uint32_t _tree_max_fixed_vars = 0;
   std::vector<std::future<uint64_t>> _futures;
   std::mutex _solver_m;
   PropWorkerPool _prop_worker_pool;
-  RProp _seq_worker;
-  uint32_t _tree_max_fixed_vars = 0;
 };
 
 }  // namespace core::sat::prop

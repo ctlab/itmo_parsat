@@ -19,8 +19,8 @@
 namespace core {
 
 using clock_t = typename std::conditional<
-    std::chrono::high_resolution_clock::is_steady, std::chrono::high_resolution_clock,
-    std::chrono::steady_clock>::type;
+    std::chrono::high_resolution_clock::is_steady,
+    std::chrono::high_resolution_clock, std::chrono::steady_clock>::type;
 
 namespace trace {
 
@@ -82,6 +82,8 @@ class TimeTracer {
 
 #ifndef IPS_DISABLE_TRACE
 
+#define IPS_TRACE_SUMMARY(n) ::core::TimeTracer::print_summary(n)
+
 #define IPS_TRACE_N(name, expr)         \
   do {                                  \
     ::core::trace::CodeBlock _cb(name); \
@@ -102,6 +104,8 @@ class TimeTracer {
 #define IPS_EVENT(name) ::core::trace::Event _event(name);
 
 #else
+
+#define IPS_TRACE_SUMMARY(...)
 
 #define IPS_TRACE_N(name, expr) expr
 

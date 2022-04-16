@@ -66,20 +66,23 @@ void LaunchFixture::_prepare_resources() {
   }
   CHECK(std::filesystem::exists(config.resources_dir));
   std::set<std::filesystem::path> result;
-  auto cnf_path = config.resources_dir / "cnf";
-  for (auto const& entry : std::filesystem::recursive_directory_iterator(
-           cnf_path,
-           std::filesystem::directory_options::follow_directory_symlink)) {
-    if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
-      result.insert(std::filesystem::relative(entry.path(), cnf_path));
+  std::filesystem::path cnf_path = config.resources_dir / "cnf";
+  for (std::string const& test_group : config.test_groups) {
+    for (auto const& entry : std::filesystem::recursive_directory_iterator(
+             cnf_path / test_group,
+             std::filesystem::directory_options::follow_directory_symlink)) {
+      if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
+        result.insert(std::filesystem::relative(entry.path(), cnf_path));
+      }
     }
   }
+
+  // Add all unique cnfs to the list
   cnfs.reserve(result.size());
   for (auto const& path : result) {
     cnfs.push_back(path);
   }
-
-  // Preserve random still determined order of cnfs (for low num_tests numbers).
+  // Preserve random yet determined order of cnfs (for low num_tests numbers).
   std::shuffle(cnfs.begin(), cnfs.end(), std::mt19937(239));
 }
 
