@@ -11,4 +11,4 @@ lookup = true
 size = 0
 save = true
 test_groups = aaai
-gtest_opts = --gtest_filter=*Experiment_AAAI_reproduce*
+gtest_opts = --gtest_filter=*Experiment_AAAI_reproduce_wop_GA*
