@@ -8,22 +8,21 @@
 #define SAMPLES 25
 
 static void run_benchmark_one(
-    ea::preprocess::RPreprocess const& preprocess, std::string const& config,
-    core::sat::Problem const& problem, core::lit_vec_t const& base_assumption) {
-  auto rprop = common::get_prop(common::configs_path + "par_prop.json");
+    core::sat::prop::RProp rprop, ea::preprocess::RPreprocess const& preprocess,
+    std::string const& config, core::sat::Problem const& problem,
+    core::lit_vec_t const& base_assumption) {
   auto algorithm = common::get_algorithm(rprop, common::configs_path + config);
-  rprop->load_problem(problem);
   algorithm->prepare(preprocess);
   algorithm->set_base_assumption(base_assumption);
   algorithm->process();
 }
 
 static void run_benchmark(
-    ea::preprocess::RPreprocess const& preprocess, std::string const& config,
-    core::sat::Problem const& problem) {
+    core::sat::prop::RProp rprop, ea::preprocess::RPreprocess const& preprocess,
+    std::string const& config, core::sat::Problem const& problem) {
   common::iter_assumptions(
       [&](auto const& assumption) {
-        run_benchmark_one(preprocess, config, problem, assumption);
+        run_benchmark_one(rprop, preprocess, config, problem, assumption);
       },
       0, 24, preprocess->num_vars(), SAMPLES);
 }
@@ -35,14 +34,14 @@ static void BM_algorithm(benchmark::State& state, std::string config) {
   // thus everything will be fair for all configurations.
   util::random::Generator gen(239);
   auto problem = common::problems(BENCH_ALG_GROUPS)[state.range(0)];
-  auto preprocess = common::get_preprocess();
+  auto rprop = common::get_prop(common::configs_path + "par_prop.json");
+  rprop->load_problem(problem);
+  auto preprocess = common::get_preprocess(rprop);
   if (!preprocess->preprocess(problem)) {
     // Skip if the task is meaningless (same for all testing configurations).
     return;
   }
-  for (auto _ : state) {
-    run_benchmark(preprocess, config, problem);
-  }
+  for (auto _ : state) { run_benchmark(rprop, preprocess, config, problem); }
 }
 
 BENCHMARK_CAPTURE(BM_algorithm, ea, "ea_prod.json")

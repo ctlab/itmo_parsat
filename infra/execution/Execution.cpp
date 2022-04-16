@@ -15,9 +15,7 @@ void Execution::interrupt() noexcept {
 }
 
 void Execution::await() noexcept {
-  if (_thread.joinable()) {
-    _thread.join();
-  }
+  if (_thread.joinable()) { _thread.join(); }
 }
 
 }  // namespace infra::execution

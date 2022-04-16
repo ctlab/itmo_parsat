@@ -29,16 +29,13 @@ HordeSatSharing::HordeSatSharing(int shr_lit, int shr_sleep)
     : literalPerRound(shr_lit), roundBeforeIncrease(250000000 / shr_sleep) {}
 
 void HordeSatSharing::doSharing(
-    int idSharer, const vector<SolverInterface*>& from,
-    const vector<SolverInterface*>& to) {
+    int idSharer, const vector<SolverInterface*>& from, const vector<SolverInterface*>& to) {
   static unsigned int round = 1;
   for (size_t i = 0; i < from.size(); i++) {
     int used, usedPercent, selectCount;
 
     int id = from[i]->id;
-    if (!this->databases.count(id)) {
-      this->databases[id] = std::make_unique<ClauseDatabase>();
-    }
+    if (!this->databases.count(id)) { this->databases[id] = std::make_unique<ClauseDatabase>(); }
 
     tmp.clear();
 
@@ -46,14 +43,11 @@ void HordeSatSharing::doSharing(
 
     stats.receivedClauses += tmp.size();
 
-    for (size_t k = 0; k < tmp.size(); k++) {
-      this->databases[id]->addClause(tmp[k]);
-    }
+    for (size_t k = 0; k < tmp.size(); k++) { this->databases[id]->addClause(tmp[k]); }
 
     tmp.clear();
 
-    used =
-        this->databases[id]->giveSelection(tmp, literalPerRound, &selectCount);
+    used = this->databases[id]->giveSelection(tmp, literalPerRound, &selectCount);
     usedPercent = (100 * used) / literalPerRound;
 
     stats.sharedClauses += tmp.size();
@@ -64,25 +58,17 @@ void HordeSatSharing::doSharing(
       from[i]->decreaseClauseProduction();
     }
 
-    if (selectCount > 0) {
-      this->initPhase = false;
-    }
-    if (round >= this->roundBeforeIncrease) {
-      this->initPhase = false;
-    }
+    if (selectCount > 0) { this->initPhase = false; }
+    if (round >= this->roundBeforeIncrease) { this->initPhase = false; }
 
     for (size_t j = 0; j < to.size(); j++) {
       if (from[i]->id != to[j]->id) {
-        for (size_t k = 0; k < tmp.size(); k++) {
-          ClauseManager::increaseClause(tmp[k], 1);
-        }
+        for (size_t k = 0; k < tmp.size(); k++) { ClauseManager::increaseClause(tmp[k], 1); }
         to[j]->addLearnedClauses(tmp);
       }
     }
 
-    for (size_t k = 0; k < tmp.size(); k++) {
-      ClauseManager::releaseClause(tmp[k]);
-    }
+    for (size_t k = 0; k < tmp.size(); k++) { ClauseManager::releaseClause(tmp[k]); }
   }
   round++;
 }

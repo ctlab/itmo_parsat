@@ -34,9 +34,7 @@ using namespace Mini;
 #define INT_LIT(lit) sign(lit) ? -(var(lit) + 1) : (var(lit) + 1)
 
 static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
-  for (size_t i = 0; i < cls->size; i++) {
-    mcls.push(MINI_LIT(cls->lits[i]));
-  }
+  for (size_t i = 0; i < cls->size; i++) { mcls.push(MINI_LIT(cls->lits[i])); }
 }
 
 Reducer::Reducer(SolverInterface* _solver) {
@@ -93,16 +91,13 @@ void Reducer::diversify(int id) {
 
 // Solve the formula with a given set of assumptions
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
-PSatResult Reducer::solve(
-    Mini::vec<Mini::Lit> const& assumptions, const vector<int>&) {
+PSatResult Reducer::solve(Mini::vec<Mini::Lit> const& assumptions, const vector<int>&) {
   this->assumptions = assumptions;
 
   while (!_interrupt) {
     ClauseExchange* cls = nullptr;
     ClauseExchange* strengthenedCls = nullptr;
-    if (!clausesToImport.getClause(&cls)) {
-      continue;
-    }
+    if (!clausesToImport.getClause(&cls)) { continue; }
     if (strengthed(cls, &strengthenedCls)) {
       if (strengthenedCls->size == 0) {
         ClauseManager::releaseClause(cls);
@@ -119,9 +114,7 @@ PSatResult Reducer::solve(
 bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
   vector<int> assumps;
   vector<int> tmpNewClause;
-  for (size_t ind = 0; ind < cls->size; ind++) {
-    assumps.push_back(-cls->lits[ind]);
-  }
+  for (size_t ind = 0; ind < cls->size; ind++) { assumps.push_back(-cls->lits[ind]); }
   PSatResult res = solver->solve(assumptions, assumps);
   if (res == PUNSAT) {
     tmpNewClause = solver->getFinalAnalysis();
@@ -137,12 +130,8 @@ bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
       (*outCls)->lits[idLit] = tmpNewClause[idLit];
     }
     (*outCls)->lbd = cls->lbd;
-    if ((*outCls)->size < (*outCls)->lbd) {
-      (*outCls)->lbd = (*outCls)->size;
-    }
-    if (res == PSAT) {
-      solver->addClause(*outCls);
-    }
+    if ((*outCls)->size < (*outCls)->lbd) { (*outCls)->lbd = (*outCls)->size; }
+    if (res == PSAT) { solver->addClause(*outCls); }
   }
   return tmpNewClause.size() < cls->size;
 }
@@ -168,9 +157,7 @@ void Reducer::addInitialClauses(const vector<ClauseExchange*>& clauses) {
 }
 
 void Reducer::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
-  for (size_t i = 0; i < clauses.size(); i++) {
-    addLearnedClause(clauses[i]);
-  }
+  for (size_t i = 0; i < clauses.size(); i++) { addLearnedClause(clauses[i]); }
 }
 
 void Reducer::getLearnedClauses(vector<ClauseExchange*>& clauses) {

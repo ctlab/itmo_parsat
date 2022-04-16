@@ -3,9 +3,7 @@
 namespace core::solve {
 
 RecurringReduceSolve::RecurringReduceSolve(RecurringReduceSolveConfig config)
-    : ReduceSolve(
-          config.preprocess_config(), config.prop_config(),
-          config.solver_service_config())
+    : ReduceSolve(config.preprocess_config(), config.prop_config(), config.solver_service_config())
     , _cfg(std::move(config)) {}
 
 void RecurringReduceSolve::_interrupt_impl() {
@@ -13,8 +11,7 @@ void RecurringReduceSolve::_interrupt_impl() {
   _interrupt(_rb_search);
 }
 
-sat::State RecurringReduceSolve::_solve_impl(
-    ea::preprocess::RPreprocess const& preprocess) {
+sat::State RecurringReduceSolve::_solve_impl(ea::preprocess::RPreprocess const& preprocess) {
   std::stack<std::pair<lit_vec_t, uint32_t>> stack;
   stack.push({{}, 0});
 
@@ -26,51 +23,40 @@ sat::State RecurringReduceSolve::_solve_impl(
     uint32_t depth = stack.top().second;
     stack.pop();
 
-    auto time_limit =
-        depth < _cfg.max_recursion_depth()
-            ? std::chrono::milliseconds(uint32_t(
-                  max_solve_time_ms * std::pow(max_solve_time_scale, depth)))
-            : sat::solver::SolverService::DUR_INDEF;
+    auto time_limit = depth < _cfg.max_recursion_depth()
+                          ? std::chrono::milliseconds(
+                                uint32_t(max_solve_time_ms * std::pow(max_solve_time_scale, depth)))
+                          : sat::solver::SolverService::DUR_INDEF;
 
     IPS_INFO(
         "Starting iteration"
         << "\n\tDepth " << depth << ", time limit: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(time_limit)
-               .count()
-        << "ms"
+        << std::chrono::duration_cast<std::chrono::milliseconds>(time_limit).count() << "ms"
         << "\n\tWith base assumption: " << _cur_base_assumption  //
     );
 
-    _rb_search.reset(
-        RBSearchRegistry::resolve(_cfg.rb_search_config(), _prop, _preprocess));
+    _rb_search.reset(RBSearchRegistry::resolve(_cfg.rb_search_config(), _prop, _preprocess));
 
     filter_r filter_result = std::visit(
         overloaded{
             [this](RBSReason stop_reason) -> filter_r {
               switch (stop_reason) {
                 case RBS_SBS_FOUND:
-                  return _cur_base_assumption.size() == 0 ? sat::UNSAT
-                                                          : sat::UNKNOWN;
-                case RBS_INTERRUPTED:
-                  return sat::UNKNOWN;
+                  return _cur_base_assumption.size() == 0 ? sat::UNSAT : sat::UNKNOWN;
+                case RBS_INTERRUPTED: return sat::UNKNOWN;
               }
               return sat::UNKNOWN;
             },
             [this, &time_limit](search::USearch&& search) -> filter_r {
-              return _filter_fast(
-                  _filter_conflict(std::move(search)), time_limit);
+              return _filter_fast(_filter_conflict(std::move(search)), time_limit);
             }},
         _rb_search->find_rb(_cur_base_assumption));
 
-    if (IPS_UNLIKELY(_is_interrupted())) {
-      return sat::UNKNOWN;
-    }
+    if (IPS_UNLIKELY(_is_interrupted())) { return sat::UNKNOWN; }
 
     if (std::holds_alternative<sat::State>(filter_result)) {
       sat::State result = std::get<sat::State>(filter_result);
-      if (result != sat::UNKNOWN) {
-        return result;
-      }
+      if (result != sat::UNKNOWN) { return result; }
     } else {
       for (auto& v : std::get<std::vector<lit_vec_t>>(filter_result)) {
         stack.emplace(std::move(v), depth + 1);
@@ -100,15 +86,14 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
       cur_assumptions.push_back(util::concat(_cur_base_assumption, assumption));
     }
     for (size_t i = 0; i < cur_assumptions.size(); ++i) {
-      futures.push_back(_solver_service->solve(
-          cur_assumptions[i], time_limit, [&, i](sat::State result) {
+      futures.push_back(
+          _solver_service->solve(cur_assumptions[i], time_limit, [&, i](sat::State result) {
             {
               std::lock_guard<std::mutex> lg(progress_lock);
               ++progress;
             }
             switch (result) {
-              case sat::UNSAT:
-                break;
+              case sat::UNSAT: break;
               case sat::UNKNOWN:
                 unknown = true;
                 {

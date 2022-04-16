@@ -8,8 +8,7 @@ UniqueSearch::UniqueSearch(
   _advance_us();
 }
 
-UniqueSearch::UniqueSearch(std::vector<int> const& vars, uint64_t total)
-    : Search(vars, total) {
+UniqueSearch::UniqueSearch(std::vector<int> const& vars, uint64_t total) : Search(vars, total) {
   _advance_us();
 }
 
@@ -19,9 +18,7 @@ void UniqueSearch::_advance() {
 
 void UniqueSearch::_advance_us() {
   uint64_t sample = _first;
-  while (visited_.count(sample)) {
-    sample = util::random::sample<uint64_t>(_first + 1, _last);
-  }
+  while (visited_.count(sample)) { sample = util::random::sample<uint64_t>(_first + 1, _last); }
   visited_.insert(sample);
   _set_assignment(_assignment, sample);
 }

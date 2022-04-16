@@ -37,6 +37,8 @@ namespace core::sat {
     }                                                     \
   }
 
+SIMP_BASE(Minisat);
+
 }  // namespace core::sat
 
 #endif  // ITMO_PARSAT_SIMPBASE_H

@@ -26,17 +26,14 @@ util::CliConfig add_and_read_args(int argc, char** argv) {
 
   util::CliConfig cli_config;
   cli_config.add_options(options);
-  if (!cli_config.parse(argc, argv)) {
-    std::exit(0);
-  }
+  if (!cli_config.parse(argc, argv)) { std::exit(0); }
 
   cli_config.notify();
   return cli_config;
 }
 
 std::pair<SolveConfig, LoggingConfig> read_json_configs(
-    std::filesystem::path const& solve_config_path,
-    std::filesystem::path const& log_config_path) {
+    std::filesystem::path const& solve_config_path, std::filesystem::path const& log_config_path) {
   SolveConfig solve_config;
   LoggingConfig log_config;
   {
@@ -70,16 +67,14 @@ int main(int argc, char** argv) {
 
     util::random::Generator generator(solve_config.random_seed());
     core::Logger::set_logger_config(log_config);
-    core::solve::RSolve solve(
-        core::solve::SolveRegistry::resolve(solve_config));
-    core::event::EventCallbackHandle solve_interrupt_handler =
-        core::event::attach(
-            [&] {
-              IPS_INFO("Solve has been interrupted.");
-              solve->interrupt();
-              solve_interrupt_handler->detach();
-            },
-            core::event::INTERRUPT);
+    core::solve::RSolve solve(core::solve::SolveRegistry::resolve(solve_config));
+    core::event::EventCallbackHandle solve_interrupt_handler = core::event::attach(
+        [&] {
+          IPS_INFO("Solve has been interrupted.");
+          solve->interrupt();
+          solve_interrupt_handler->detach();
+        },
+        core::event::INTERRUPT);
     result = IPS_TRACE_V(solve->solve(problem));
     solve_interrupt_handler->detach();
   }

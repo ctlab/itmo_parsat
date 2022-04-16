@@ -4,8 +4,7 @@
 namespace ea::limit {
 
 bool Limit::proceed(ea::algorithm::Algorithm& algorithm) {
-  return algorithm.has_unvisited_points() && _proceed(algorithm) &&
-         !algorithm.get_best().is_sbs();
+  return algorithm.has_unvisited_points() && _proceed(algorithm) && !algorithm.get_best().is_sbs();
 }
 
 void Limit::start() {}

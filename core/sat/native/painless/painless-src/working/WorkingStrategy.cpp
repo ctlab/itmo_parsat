@@ -2,8 +2,7 @@
 
 namespace painless {
 
-WorkingStrategy::WorkingStrategy(WorkingResult* working_result)
-    : result(working_result) {}
+WorkingStrategy::WorkingStrategy(WorkingResult* working_result) : result(working_result) {}
 
 void WorkingStrategy::addSlave(WorkingStrategy* slave) {
   slave->parent = this;

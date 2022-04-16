@@ -27,8 +27,7 @@
 namespace painless {
 
 static unsigned intWidth(int i) {
-  if (i == 0)
-    return 1;
+  if (i == 0) return 1;
 
   return (i < 0) + 1 + (unsigned) log10(fabs(i));
 }
@@ -44,9 +43,7 @@ void printModel(vector<int>& model) {
       usedWidth = 0;
     }
 
-    if (usedWidth == 0) {
-      usedWidth += printf("v");
-    }
+    if (usedWidth == 0) { usedWidth += printf("v"); }
 
     usedWidth += printf(" %d", model[i]);
   }
@@ -54,12 +51,10 @@ void printModel(vector<int>& model) {
   printf("\n");
 }
 
-bool loadFormulaToSolvers(
-    vector<SolverInterface*> solvers, const char* filename) {
+bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename) {
   FILE* f = fopen(filename, "r");
 
-  if (f == NULL)
-    return false;
+  if (f == NULL) return false;
 
   int c = 0;
   bool neg = false;
@@ -74,15 +69,12 @@ bool loadFormulaToSolvers(
     // comment or problem definition line
     if (c == 'c' || c == 'p') {
       // skip this line
-      while (c != '\n') {
-        c = fgetc(f);
-      }
+      while (c != '\n') { c = fgetc(f); }
 
       continue;
     }
     // whitespace
-    if (isspace(c))
-      continue;
+    if (isspace(c)) continue;
 
     // negative
     if (c == '-') {
@@ -101,9 +93,7 @@ bool loadFormulaToSolvers(
         c = fgetc(f);
       }
 
-      if (neg) {
-        num *= -1;
-      }
+      if (neg) { num *= -1; }
 
       neg = false;
 
@@ -112,9 +102,7 @@ bool loadFormulaToSolvers(
       } else {
         ClauseExchange* ncls = ClauseManager::allocClause(cls.size());
 
-        for (size_t i = 0; i < cls.size(); i++) {
-          ncls->lits[i] = cls[i];
-        }
+        for (size_t i = 0; i < cls.size(); i++) { ncls->lits[i] = cls[i]; }
 
         ClauseManager::increaseClause(ncls, solvers.size());
 
@@ -127,9 +115,7 @@ bool loadFormulaToSolvers(
 
   fclose(f);
 
-  for (size_t i = 0; i < solvers.size(); i++) {
-    solvers[i]->addInitialClauses(clauses);
-  }
+  for (size_t i = 0; i < solvers.size(); i++) { solvers[i]->addInitialClauses(clauses); }
 
   return true;
 }

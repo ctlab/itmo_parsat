@@ -72,31 +72,21 @@ int main(int argc, char** argv) {
     // Extra options:
     //
     IntOption verb(
-        "MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1,
-        IntRange(0, 2));
-    BoolOption pre(
-        "MAIN", "pre", "Completely turn on/off any preprocessing.", true);
-    BoolOption solve(
-        "MAIN", "solve", "Completely turn on/off solving after preprocessing.",
-        true);
+        "MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1, IntRange(0, 2));
+    BoolOption pre("MAIN", "pre", "Completely turn on/off any preprocessing.", true);
+    BoolOption solve("MAIN", "solve", "Completely turn on/off solving after preprocessing.", true);
     StringOption dimacs(
         "MAIN", "dimacs",
         "If given, stop after preprocessing and write the result to this "
         "file.");
     IntOption cpu_lim(
-        "MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", 0,
-        IntRange(0, INT32_MAX));
+        "MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", 0, IntRange(0, INT32_MAX));
     IntOption mem_lim(
-        "MAIN", "mem-lim", "Limit on memory usage in megabytes.\n", 0,
-        IntRange(0, INT32_MAX));
-    BoolOption strictp(
-        "MAIN", "strict", "Validate DIMACS header during parsing.", false);
+        "MAIN", "mem-lim", "Limit on memory usage in megabytes.\n", 0, IntRange(0, INT32_MAX));
+    BoolOption strictp("MAIN", "strict", "Validate DIMACS header during parsing.", false);
     BoolOption model(
-        "MAIN", "model",
-        "Print the values for the model in case of satisfiable.", true);
-    StringOption proof(
-        "MAIN", "proof",
-        "Given a filename, a DRAT proof will be written there.");
+        "MAIN", "model", "Print the values for the model in case of satisfiable.", true);
+    StringOption proof("MAIN", "proof", "Given a filename, a DRAT proof will be written there.");
 
     parseOptions(argc, argv, true);
 
@@ -104,8 +94,7 @@ int main(int argc, char** argv) {
     double initial_time = cpuTime();
 
     S.parsing = 1;
-    if (!pre)
-      S.eliminate(true);
+    if (!pre) S.eliminate(true);
 
     S.verbosity = verb;
 
@@ -115,20 +104,14 @@ int main(int argc, char** argv) {
     sigTerm(SIGINT_exit);
 
     // Try to set resource limits:
-    if (cpu_lim != 0)
-      limitTime(cpu_lim);
-    if (mem_lim != 0)
-      limitMemory(mem_lim);
+    if (cpu_lim != 0) limitTime(cpu_lim);
+    if (mem_lim != 0) limitMemory(mem_lim);
 
-    if (argc == 1)
-      printf("c Reading from standard input... Use '--help' for help.\n");
+    if (argc == 1) printf("c Reading from standard input... Use '--help' for help.\n");
 
     gzFile in = (argc == 1) ? gzdopen(0, "rb") : gzopen(argv[1], "rb");
     if (in == NULL)
-      printf(
-          "c ERROR! Could not open file: %s\n",
-          argc == 1 ? "<stdin>" : argv[1]),
-          exit(1);
+      printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
 
     if (S.verbosity > 0) {
       printf(
@@ -186,8 +169,7 @@ int main(int argc, char** argv) {
 
     if (!S.okay()) {
       S.finalizeProof(true);
-      if (res != NULL)
-        fprintf(res, "s UNSATISFIABLE\n"), fclose(res);
+      if (res != NULL) fprintf(res, "s UNSATISFIABLE\n"), fclose(res);
       if (S.verbosity > 0) {
         printf(
             "c "
@@ -212,20 +194,17 @@ int main(int argc, char** argv) {
           "===================================================================="
           "===========\n");
 
-    if (dimacs && ret == l_Undef)
-      S.toDimacs((const char*) dimacs);
+    if (dimacs && ret == l_Undef) S.toDimacs((const char*) dimacs);
 
     if (S.verbosity > 0) {
       S.printStats();
       printf("c \n");
     }
     printf(
-        ret == l_True ? "s SATISFIABLE\n"
-                      : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
+        ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
     if (ret == l_True && model) {
       std::stringstream s;
-      for (int i = 0; i < S.nVars(); i++)
-        s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
+      for (int i = 0; i < S.nVars(); i++) s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
       printf("v %s0\n", s.str().c_str());
     }
 
@@ -236,9 +215,7 @@ int main(int argc, char** argv) {
         fprintf(res, "s SATISFIABLE\n");
         for (int i = 0; i < S.nVars(); i++)
           if (S.model[i] != l_Undef)
-            fprintf(
-                res, "%s%s%d", (i == 0) ? "" : " ",
-                (S.model[i] == l_True) ? "" : "-", i + 1);
+            fprintf(res, "%s%s%d", (i == 0) ? "" : " ", (S.model[i] == l_True) ? "" : "-", i + 1);
         fprintf(res, " 0\n");
       } else if (ret == l_False)
         fprintf(res, "s UNSATISFIABLE\n");
@@ -248,11 +225,8 @@ int main(int argc, char** argv) {
     }
 
 #ifdef NDEBUG
-    exit(
-        ret == l_True
-            ? 10
-            : ret == l_False ? 20 : 0);  // (faster than "return", which will
-                                         // invoke the destructor for 'Solver')
+    exit(ret == l_True ? 10 : ret == l_False ? 20 : 0);  // (faster than "return", which will
+                                                         // invoke the destructor for 'Solver')
 #else
     return (ret == l_True ? 10 : ret == l_False ? 20 : 0);
 #endif

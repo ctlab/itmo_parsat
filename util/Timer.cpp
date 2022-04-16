@@ -14,14 +14,9 @@ Timer::Timer()
     : _thread([this] {
       while (!_stop) {
         std::unique_lock<std::mutex> ul(_m);
-        _cv.wait_for(ul, _events.begin()->when - core::clock_t::now(), [this] {
-          return _stop;
-        });
-        if (IPS_UNLIKELY(_stop)) {
-          break;
-        }
-        for (auto it = _events.begin();
-             it != _events.end() && it->when <= core::clock_t::now();) {
+        _cv.wait_for(ul, _events.begin()->when - core::clock_t::now(), [this] { return _stop; });
+        if (IPS_UNLIKELY(_stop)) { break; }
+        for (auto it = _events.begin(); it != _events.end() && it->when <= core::clock_t::now();) {
           if (!it->handle->aborted && it->callback) {
             try {
               it->callback();
@@ -40,13 +35,10 @@ Timer::~Timer() {
     _stop = true;
   }
   _cv.notify_one();
-  if (_thread.joinable()) {
-    _thread.join();
-  }
+  if (_thread.joinable()) { _thread.join(); }
 }
 
-TimerHandle Timer::add(
-    std::function<void()> const& callback, core::clock_t::duration dur) {
+TimerHandle Timer::add(std::function<void()> const& callback, core::clock_t::duration dur) {
   core::clock_t::time_point when = core::clock_t::now() + dur;
   auto handle = std::make_shared<TimerHandleType>();
   {

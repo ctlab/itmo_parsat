@@ -28,33 +28,28 @@ using namespace std;
 
 namespace painless {
 
-Portfolio::Portfolio(WorkingResult* working_result)
-    : WorkingStrategy(working_result) {}
+Portfolio::Portfolio(WorkingResult* working_result) : WorkingStrategy(working_result) {}
 
 Portfolio::~Portfolio() {
-  std::for_each(
-      IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [&](auto* slave) {
-        slave->setInterrupt();
-        delete slave;
-      });
+  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [&](auto* slave) {
+    slave->setInterrupt();
+    delete slave;
+  });
 }
 
 void Portfolio::solve(
-    int64_t index, Mini::vec<Mini::Lit> const& assumptions,
-    vector<int> const& cube) {
+    int64_t index, Mini::vec<Mini::Lit> const& assumptions, vector<int> const& cube) {
   current_index = index;
   strategyEnding = false;
-  std::for_each(
-      IPS_EXEC_POLICY, slaves.begin(), slaves.end(),
-      [&](auto& slave) { slave->solve(index, assumptions, cube); });
+  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [&](auto& slave) {
+    slave->solve(index, assumptions, cube);
+  });
 }
 
 void Portfolio::join(
-    int64_t index, WorkingStrategy* strat, PSatResult res,
-    const vector<int>& model) {
+    int64_t index, WorkingStrategy* strat, PSatResult res, const vector<int>& model) {
   std::lock_guard<std::mutex> lg(join_mutex);
-  if (res == PUNKNOWN || strategyEnding || result->global_ending ||
-      index != current_index) {
+  if (res == PUNKNOWN || strategyEnding || result->global_ending || index != current_index) {
     return;
   }
 
@@ -65,9 +60,7 @@ void Portfolio::join(
     {
       std::lock_guard<std::mutex> guard(result->lock);
       result->final_result = res;
-      if (res == PSAT) {
-        result->final_model = model;
-      }
+      if (res == PSAT) { result->final_model = model; }
       result->global_ending = true;
     }
     result->cv.notify_one();
@@ -77,27 +70,23 @@ void Portfolio::join(
 }
 
 void Portfolio::setInterrupt() {
-  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
-    slave->setInterrupt();
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) { slave->setInterrupt(); });
 }
 
 void Portfolio::waitInterrupt() {
-  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
-    slave->waitInterrupt();
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) { slave->waitInterrupt(); });
 }
 
 void Portfolio::unsetInterrupt() {
-  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
-    slave->unsetInterrupt();
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) { slave->unsetInterrupt(); });
 }
 
 void Portfolio::awaitStop() {
-  std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) {
-    slave->awaitStop();
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) { slave->awaitStop(); });
 }
 
 int Portfolio::getDivisionVariable() {

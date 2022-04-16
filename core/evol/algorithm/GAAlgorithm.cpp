@@ -4,25 +4,20 @@
 
 namespace {
 
-std::vector<uint32_t> choose(
-    std::vector<double> const& distrib, uint32_t count) {
+std::vector<uint32_t> choose(std::vector<double> const& distrib, uint32_t count) {
   std::vector<uint32_t> res(count);
   std::vector<double> cumulative(distrib);
   for (uint32_t i = 0; i < cumulative.size(); ++i) {
     cumulative[i] = 1. / cumulative[i];
-    if (i > 0) {
-      cumulative[i] += cumulative[i - 1];
-    }
+    if (i > 0) { cumulative[i] += cumulative[i - 1]; }
   }
   double sum = cumulative.back();
-  std::for_each(
-      cumulative.begin(), cumulative.end(), [sum](double& x) { x /= sum; });
+  std::for_each(cumulative.begin(), cumulative.end(), [sum](double& x) { x /= sum; });
 
   while (count--) {
     double sample = ::util::random::sample<double>(0., 1.);
     res[count] =
-        std::lower_bound(cumulative.begin(), cumulative.end(), sample) -
-        cumulative.begin();
+        std::lower_bound(cumulative.begin(), cumulative.end(), sample) - cumulative.begin();
   }
 
   return res;
@@ -32,8 +27,7 @@ std::vector<uint32_t> choose(
 
 namespace ea::algorithm {
 
-GAAlgorithm::GAAlgorithm(
-    GAAlgorithmConfig const& config, core::sat::prop::RProp prop)
+GAAlgorithm::GAAlgorithm(GAAlgorithmConfig const& config, core::sat::prop::RProp prop)
     : Algorithm(config.base_algorithm_config(), std::move(prop))
     , mutator_(method::MutationRegistry::resolve(config.mutation_config()))
     , cross_(method::CrossoverRegistry::resolve(config.crossover_config()))
@@ -73,8 +67,7 @@ void GAAlgorithm::_step() {
 
   _population.insert(
       _population.end(),  //
-      std::make_move_iterator(children.begin()),
-      std::make_move_iterator(children.end()));
+      std::make_move_iterator(children.begin()), std::make_move_iterator(children.end()));
 
   _recalculate_fitness();
 }

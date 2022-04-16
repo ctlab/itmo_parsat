@@ -34,9 +34,7 @@ util::CliConfig parse_args(int argc, char** argv) {
 
   util::CliConfig cli_config;
   cli_config.add_options(options);
-  if (!cli_config.parse(argc, argv)) {
-    std::exit(0);
-  }
+  if (!cli_config.parse(argc, argv)) { std::exit(0); }
 
   cli_config.notify();
   return cli_config;
@@ -46,14 +44,11 @@ void init_googletest(char const* argv0, util::CliConfig const& config) {
   if (!config.has("gtest_opts")) {
     testing::InitGoogleTest();
   } else {
-    auto const& gtest_options =
-        config.get<std::vector<std::string>>("gtest_opts");
+    auto const& gtest_options = config.get<std::vector<std::string>>("gtest_opts");
     int argc = (int) gtest_options.size() + 1;
     std::vector<char const*> argv;
     argv.push_back(argv0);
-    for (auto const& s : gtest_options) {
-      argv.push_back(s.data());
-    }
+    for (auto const& s : gtest_options) { argv.push_back(s.data()); }
     ::testing::InitGoogleTest(&argc, (char**) argv.data());
   }
 }

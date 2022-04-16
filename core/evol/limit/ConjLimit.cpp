@@ -9,14 +9,13 @@ ConjLimit::ConjLimit(const ConjLimitConfig& config) {
 }
 
 bool ConjLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
-  return std::all_of(
-      _limits.begin(), _limits.end(),
-      [&algorithm](RLimit& limit) { return limit->_proceed(algorithm); });
+  return std::all_of(_limits.begin(), _limits.end(), [&algorithm](RLimit& limit) {
+    return limit->_proceed(algorithm);
+  });
 }
 
 void ConjLimit::start() {
-  std::for_each(
-      _limits.begin(), _limits.end(), [](RLimit& limit) { limit->start(); });
+  std::for_each(_limits.begin(), _limits.end(), [](RLimit& limit) { limit->start(); });
 }
 
 REGISTER_PROTO(Limit, ConjLimit, conj_limit_config);

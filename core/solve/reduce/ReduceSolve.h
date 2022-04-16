@@ -44,8 +44,8 @@ class ReduceSolve : public Solve {
   void _load_problem(sat::Problem const& problem);
 
  protected:
-  ea::preprocess::RPreprocess _preprocess;
   sat::prop::RProp _prop;
+  ea::preprocess::RPreprocess _preprocess;
   sat::solver::RSolverService _solver_service;
 };
 

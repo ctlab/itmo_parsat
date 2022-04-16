@@ -3,16 +3,12 @@
 namespace core::solve {
 
 CartesianRBSearch::CartesianRBSearch(
-    CartesianRBSearchConfig config, sat::prop::RProp prop,
-    ea::preprocess::RPreprocess preprocess)
-    : RBSearch(std::move(prop), std::move(preprocess))
-    , _cfg(std::move(config)) {}
+    CartesianRBSearchConfig config, sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)
+    : RBSearch(std::move(prop), std::move(preprocess)), _cfg(std::move(config)) {}
 
 void CartesianRBSearch::_interrupt_impl() {
   std::lock_guard<std::mutex> lg(_m);
-  for (auto& algorithm : _algorithms) {
-    _interrupt(algorithm);
-  }
+  for (auto& algorithm : _algorithms) { _interrupt(algorithm); }
 }
 
 rbs_result_t CartesianRBSearch::find_rb(lit_vec_t const& base_assumption) {
@@ -36,8 +32,7 @@ void CartesianRBSearch::_raise_for_sbs(int id) {
 
 std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
     lit_vec_t const& base_assumption) {
-  std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(
-      _cfg.num_algorithms());
+  std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(_cfg.num_algorithms());
   IPS_VERIFY(_cfg.num_algorithms() > 0);
   std::stringstream algorithms_info;
   std::vector<std::thread> rb_search_threads;
@@ -46,10 +41,8 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
   {
     std::lock_guard<std::mutex> lg(_m);
     for (uint32_t i = 0; i < _cfg.num_algorithms(); ++i) {
-      _algorithms.push_back(
-          ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
-              _cfg.algorithm_configs((int) i % _cfg.algorithm_configs_size()),
-              _prop)));
+      _algorithms.push_back(ea::algorithm::RAlgorithm(ea::algorithm::AlgorithmRegistry::resolve(
+          _cfg.algorithm_configs((int) i % _cfg.algorithm_configs_size()), _prop)));
     }
   }
 
@@ -64,30 +57,26 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
   for (uint32_t i = 0; i < _cfg.num_algorithms() && !_interrupted; ++i) {
     uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
     rb_search_threads.emplace_back([&, i, seed,
-                                    config = _cfg.algorithm_configs(
-                                        i % _cfg.algorithm_configs_size())] {
+                                    config =
+                                        _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
       util::random::Generator generator(seed);
       auto& algorithm = _algorithms[i];
       IPS_TRACE(algorithm->prepare(_preprocess));
       algorithm->set_base_assumption(base_assumption);
       IPS_TRACE(algorithm->process());
-      if (_is_interrupted() || _sbs_found) {
-        return;
-      }
+      if (_is_interrupted() || _sbs_found) { return; }
       auto const& rb = algorithm->get_best();
       if (rb.is_sbs()) {
         _raise_for_sbs(i);
         return;
       }
 
-      auto vars = util::filter_vars(
-          rb.get_vars().map_to_vars(_preprocess->var_view()), base_vars);
+      auto vars = util::filter_vars(rb.get_vars().map_to_vars(_preprocess->var_view()), base_vars);
 
       std::atomic_uint32_t conflicts{0}, total{0};
       std::mutex nca_mutex;
       algorithm->get_prop().prop_search(
-          search::createFullSearch(vars),
-          [&](bool conflict, auto const& assumption) {
+          search::createFullSearch(vars), [&](bool conflict, auto const& assumption) {
             ++total;
             if (!conflict) {
               std::lock_guard<std::mutex> lg(nca_mutex);
@@ -98,31 +87,23 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
             return !_sbs_found && !_is_interrupted();
           });
 
-      if (non_conflict_assignments[i].empty()) {
-        _raise_for_sbs(i);
-      }
+      if (non_conflict_assignments[i].empty()) { _raise_for_sbs(i); }
 
       {
         std::lock_guard<std::mutex> lg(_m);
         algorithms_info << "\n[Thread " << i << "]\n"
-                        << "\tNumber of points visited: "
-                        << algorithm->inaccurate_points() << '\n'
+                        << "\tNumber of points visited: " << algorithm->inaccurate_points() << '\n'
                         << "\tThe best backdoor is: " << rb << '\n'
                         << "\tConflicts: " << conflicts << ", total: " << total
-                        << "\n\tActual rho value: "
-                        << (double) conflicts / (double) total << '\n';
-        if (_sbs_found) {
-          algorithms_info << "\tMay be stopped because SBS has been found.\n";
-        }
+                        << "\n\tActual rho value: " << (double) conflicts / (double) total << '\n';
+        if (_sbs_found) { algorithms_info << "\tMay be stopped because SBS has been found.\n"; }
         _algorithms[i].reset();
       }
     });
   }
 
   for (auto& thread : rb_search_threads) {
-    if (thread.joinable()) {
-      thread.join();
-    }
+    if (thread.joinable()) { thread.join(); }
   }
   {
     std::lock_guard<std::mutex> lg(_m);

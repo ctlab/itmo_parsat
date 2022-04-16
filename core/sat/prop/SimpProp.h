@@ -12,8 +12,6 @@
 
 namespace core::sat::prop {
 
-SIMP_BASE(Minisat);
-
 /**
  * @brief Minisat-based propagation engine implementation.
  * @note Does not support multi-threaded use (use ParProp).
@@ -21,6 +19,8 @@ SIMP_BASE(Minisat);
 class SimpProp : public Prop, public MinisatSimpBase {
  public:
   SimpProp() = default;
+
+  std::vector<MinisatSimpBase*> native() noexcept override;
 
   void load_problem(Problem const& problem) override;
 

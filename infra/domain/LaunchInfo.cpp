@@ -7,9 +7,7 @@ namespace infra::domain {
 
 LaunchInfo::LaunchInfo(fixture::TestingConfiguration testing_config)
     : _t_config(std::move(testing_config)) {
-  if (_t_config.save || _t_config.lookup) {
-    _dao.emplace(_t_config.pg_host);
-  }
+  if (_t_config.save || _t_config.lookup) { _dao.emplace(_t_config.pg_host); }
 }
 
 std::string LaunchInfo::get_test_group(LaunchConfig const& config) {
@@ -22,20 +20,14 @@ std::string LaunchInfo::get_input_name(LaunchConfig const& config) {
 
 bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
   if (std::find(
-          _t_config.test_groups.begin(), _t_config.test_groups.end(),
-          get_test_group(config)) == _t_config.test_groups.end()) {
+          _t_config.test_groups.begin(), _t_config.test_groups.end(), get_test_group(config)) ==
+      _t_config.test_groups.end()) {
     return false;
   }
-  if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) {
-    return false;
-  }
+  if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) { return false; }
   int test_size = get_test_size(config);
-  if (test_size == -1 && !_t_config.allow_unspecified_size) {
-    return false;
-  }
-  if (test_size > _t_config.size) {
-    return false;
-  }
+  if (test_size == -1 && !_t_config.allow_unspecified_size) { return false; }
+  if (test_size > _t_config.size) { return false; }
   if (_t_config.lookup) {
     auto opt_launch_id = check_if_test_is_done(config);
     if (opt_launch_id.has_value()) {
@@ -56,8 +48,7 @@ int LaunchInfo::get_test_size(LaunchConfig const& config) {
   }
 }
 
-infra::domain::SatResult LaunchInfo::get_sat_result(
-    LaunchConfig const& config) {
+infra::domain::SatResult LaunchInfo::get_sat_result(LaunchConfig const& config) {
   auto filename = std::filesystem::path(config.input).filename().string();
   if (filename.find("unsat", 0) != std::string::npos) {
     return infra::domain::UNSAT;
@@ -68,8 +59,7 @@ infra::domain::SatResult LaunchInfo::get_sat_result(
   }
 }
 
-std::optional<uint32_t> LaunchInfo::check_if_test_is_done(
-    LaunchConfig const& config) {
+std::optional<uint32_t> LaunchInfo::check_if_test_is_done(LaunchConfig const& config) {
   LaunchObject launch;
   launch.test_group = get_test_group(config);
   launch.input_name = get_input_name(config);
@@ -79,8 +69,7 @@ std::optional<uint32_t> LaunchInfo::check_if_test_is_done(
   return _dao->get_launch_id(launch);
 }
 
-uint32_t LaunchInfo::get_threads_required(
-    std::filesystem::path const& solve_config) {
+uint32_t LaunchInfo::get_threads_required(std::filesystem::path const& solve_config) {
   SolveConfig slv_cfg;
   util::CliConfig::read_config(solve_config, slv_cfg);
   return slv_cfg.cpu_limit();
@@ -88,9 +77,7 @@ uint32_t LaunchInfo::get_threads_required(
 
 void LaunchInfo::add(const LaunchObject& object) {
   // We do not add interrupted launches to DB.
-  if (_t_config.save && object.result != INTERRUPTED) {
-    _dao->add(object);
-  }
+  if (_t_config.save && object.result != INTERRUPTED) { _dao->add(object); }
 }
 
 }  // namespace infra::domain

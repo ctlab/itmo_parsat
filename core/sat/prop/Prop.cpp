@@ -8,8 +8,7 @@ bool Prop::propagate(lit_vec_t const& assumptions) {
 }
 
 uint64_t Prop::sequential_propagate(
-    Minisat::SimpSolver& prop, search::USearch search_p,
-    const prop_callback_t& callback) {
+    Minisat::SimpSolver& prop, search::USearch search_p, const prop_callback_t& callback) {
   search::Search& search = *search_p;
   uint64_t conflicts = 0;
   do {
@@ -18,9 +17,7 @@ uint64_t Prop::sequential_propagate(
     conflicts += conflict;
     if (callback) {
       try {
-        if (!callback(conflict, assumptions)) {
-          break;
-        }
+        if (!callback(conflict, assumptions)) { break; }
       } catch (...) {
         // ignore
       }
@@ -30,8 +27,8 @@ uint64_t Prop::sequential_propagate(
 }
 
 uint64_t Prop::sequential_propagate(
-    Minisat::SimpSolver& prop, lit_vec_t const& base_assumption,
-    search::USearch search_p, prop_callback_t const& callback) {
+    Minisat::SimpSolver& prop, lit_vec_t const& base_assumption, search::USearch search_p,
+    prop_callback_t const& callback) {
   search::Search& search = *search_p;
   uint64_t conflicts = 0;
   do {
@@ -40,9 +37,7 @@ uint64_t Prop::sequential_propagate(
     conflicts += conflict;
     if (callback) {
       try {
-        if (!callback(conflict, cur_assumption)) {
-          break;
-        }
+        if (!callback(conflict, cur_assumption)) { break; }
       } catch (...) {
         // ignore
       }

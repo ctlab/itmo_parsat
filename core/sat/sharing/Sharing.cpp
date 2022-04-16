@@ -2,8 +2,7 @@
 
 namespace core::sat::sharing {
 
-Sharing::Sharing(int interval_us, int shr_lit)
-    : _interval_us(interval_us), _shr_lit(shr_lit) {}
+Sharing::Sharing(int interval_us, int shr_lit) : _interval_us(interval_us), _shr_lit(shr_lit) {}
 
 void Sharing::stop() noexcept {
   _sharers.clear();
@@ -32,9 +31,7 @@ void Sharing::share(SolverBlockList const& su) {
 
     _add_sharer(producers, consumers);
 
-    if (reducer != nullptr) {
-      consumers.pop_back();
-    }
+    if (reducer != nullptr) { consumers.pop_back(); }
   }
 }
 
@@ -50,14 +47,9 @@ void Sharing::share(SharingUnit const& u) {
       u);
 }
 
-void Sharing::share(
-    SharingUnit const& su1, SharingUnit const& su2, SharingDir dir) {
-  if (dir == RIGHT || dir == BIDIR) {
-    _share_right(su1, su2);
-  }
-  if (dir == LEFT || dir == BIDIR) {
-    _share_right(su2, su1);
-  }
+void Sharing::share(SharingUnit const& su1, SharingUnit const& su2, SharingDir dir) {
+  if (dir == RIGHT || dir == BIDIR) { _share_right(su1, su2); }
+  if (dir == LEFT || dir == BIDIR) { _share_right(su2, su1); }
 }
 
 void Sharing::_share_right(SharingUnit const& su1, SharingUnit const& su2) {
@@ -67,12 +59,9 @@ void Sharing::_share_right(SharingUnit const& su1, SharingUnit const& su2) {
 }
 
 void Sharing::_add_sharer(SolverList const& prod, SolverList const& cons) {
-  if (prod.empty() || cons.empty()) {
-    return;
-  }
+  if (prod.empty() || cons.empty()) { return; }
   _sharers.push_back(std::make_unique<painless::Sharer>(
-      _interval_us, 0, new painless::HordeSatSharing(_shr_lit, _interval_us),
-      prod, cons));
+      _interval_us, 0, new painless::HordeSatSharing(_shr_lit, _interval_us), prod, cons));
 }
 
 SolverList Sharing::get_all_solvers(SharingUnit const& su) {
@@ -83,9 +72,7 @@ SolverList Sharing::get_all_solvers(SharingUnit const& su) {
             SolverList result;
             for (auto const& [solvers, reducer] : sbl) {
               result.insert(result.end(), solvers.begin(), solvers.end());
-              if (reducer != nullptr) {
-                result.push_back(reducer);
-              }
+              if (reducer != nullptr) { result.push_back(reducer); }
             }
             return result;
           }},

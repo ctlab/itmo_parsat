@@ -12,7 +12,7 @@ namespace ea::preprocess {
  */
 struct Preprocess {
  public:
-  explicit Preprocess(PreprocessConfig config);
+  Preprocess(PreprocessConfig config, core::sat::prop::RProp prop);
 
   core::domain::VarView const& var_view() const noexcept;
 
@@ -21,6 +21,7 @@ struct Preprocess {
   uint32_t num_vars() const noexcept;
 
  private:
+  core::sat::prop::RProp _prop;
   PreprocessConfig _config;
   uint32_t _num_vars;
   core::domain::VarView _var_view;

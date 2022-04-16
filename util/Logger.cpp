@@ -22,15 +22,12 @@ bool Logger::_should_log(LogType log_type) noexcept {
    * but it's ok */
   auto& entry = entries_[log_type];
   bool should;
-  if (fLI::FLAGS_v >= (int32_t) entry.config.verbose_level() &&
-      entry.cur_counter == 0) {
+  if (fLI::FLAGS_v >= (int32_t) entry.config.verbose_level() && entry.cur_counter == 0) {
     should = true;
   } else {
     should = false;
   }
-  if (++entry.cur_counter == entry.config.every_n()) {
-    entry.cur_counter = 0;
-  }
+  if (++entry.cur_counter == entry.config.every_n()) { entry.cur_counter = 0; }
   return should;
 }
 

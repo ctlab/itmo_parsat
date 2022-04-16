@@ -29,8 +29,7 @@ void Mini::parseOptions(int& argc, char** argv, bool strict) {
   int i, j;
   for (i = j = 1; i < argc; i++) {
     const char* str = argv[i];
-    if (match(str, "--") && match(str, Option::getHelpPrefixString()) &&
-        match(str, "help")) {
+    if (match(str, "--") && match(str, Option::getHelpPrefixString()) && match(str, "help")) {
       if (*str == '\0')
         printUsageAndExit(argc, argv);
       else if (match(str, "-verb"))
@@ -49,8 +48,8 @@ void Mini::parseOptions(int& argc, char** argv, bool strict) {
       if (!parsed_ok) {
         if (strict && match(argv[i], "-"))
           fprintf(
-              stderr, "ERROR! Unknown flag \"%s\". Use '--%shelp' for help.\n",
-              argv[i], Option::getHelpPrefixString()),
+              stderr, "ERROR! Unknown flag \"%s\". Use '--%shelp' for help.\n", argv[i],
+              Option::getHelpPrefixString()),
               exit(1);
         else
           argv[j++] = argv[i];
@@ -69,8 +68,7 @@ void Mini::setHelpPrefixStr(const char* str) {
 }
 void Mini::printUsageAndExit(int /*argc*/, char** argv, bool verbose) {
   const char* usage = Option::getUsageString();
-  if (usage != NULL)
-    fprintf(stderr, usage, argv[0]);
+  if (usage != NULL) fprintf(stderr, usage, argv[0]);
 
   sort(Option::getOptionList(), Option::OptionLt());
 
@@ -93,12 +91,8 @@ void Mini::printUsageAndExit(int /*argc*/, char** argv, bool verbose) {
   }
 
   fprintf(stderr, "\nHELP OPTIONS:\n\n");
-  fprintf(
-      stderr, "  --%shelp        Print help message.\n",
-      Option::getHelpPrefixString());
-  fprintf(
-      stderr, "  --%shelp-verb   Print verbose help message.\n",
-      Option::getHelpPrefixString());
+  fprintf(stderr, "  --%shelp        Print help message.\n", Option::getHelpPrefixString());
+  fprintf(stderr, "  --%shelp-verb   Print verbose help message.\n", Option::getHelpPrefixString());
   fprintf(stderr, "\n");
   exit(0);
 }

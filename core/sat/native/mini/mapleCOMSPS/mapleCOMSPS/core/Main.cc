@@ -42,24 +42,19 @@ void printStats(Solver& solver) {
   double mem_used = memUsedPeak();
   printf("c restarts              : %" PRIu64 "\n", solver.starts);
   printf(
-      "c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n",
-      solver.conflicts, solver.conflicts / cpu_time);
+      "c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", solver.conflicts,
+      solver.conflicts / cpu_time);
   printf(
-      "c decisions             : %-12" PRIu64
-      "   (%4.2f %% random) (%.0f /sec)\n",
-      solver.decisions,
-      (float) solver.rnd_decisions * 100 / (float) solver.decisions,
+      "c decisions             : %-12" PRIu64 "   (%4.2f %% random) (%.0f /sec)\n",
+      solver.decisions, (float) solver.rnd_decisions * 100 / (float) solver.decisions,
       solver.decisions / cpu_time);
   printf(
-      "c propagations          : %-12" PRIu64 "   (%.0f /sec)\n",
-      solver.propagations, solver.propagations / cpu_time);
+      "c propagations          : %-12" PRIu64 "   (%.0f /sec)\n", solver.propagations,
+      solver.propagations / cpu_time);
   printf(
-      "c conflict literals     : %-12" PRIu64 "   (%4.2f %% deleted)\n",
-      solver.tot_literals,
-      (solver.max_literals - solver.tot_literals) * 100 /
-          (double) solver.max_literals);
-  if (mem_used != 0)
-    printf("c Memory used           : %.2f MB\n", mem_used);
+      "c conflict literals     : %-12" PRIu64 "   (%4.2f %% deleted)\n", solver.tot_literals,
+      (solver.max_literals - solver.tot_literals) * 100 / (double) solver.max_literals);
+  if (mem_used != 0) printf("c Memory used           : %.2f MB\n", mem_used);
   printf("c CPU time              : %g s\n", cpu_time);
 }
 
@@ -102,14 +97,12 @@ int main(int argc, char** argv) {
     _FPU_GETCW(oldcw);
     newcw = (oldcw & ~_FPU_EXTENDED) | _FPU_DOUBLE;
     _FPU_SETCW(newcw);
-    printf(
-        "c WARNING: for repeatability, setting FPU to use double precision\n");
+    printf("c WARNING: for repeatability, setting FPU to use double precision\n");
 #endif
     // Extra options:
     //
     IntOption verb(
-        "MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1,
-        IntRange(0, 2));
+        "MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1, IntRange(0, 2));
     IntOption cpu_lim(
         "MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", INT32_MAX,
         IntRange(0, INT32_MAX));
@@ -153,15 +146,11 @@ int main(int argc, char** argv) {
       }
     }
 
-    if (argc == 1)
-      printf("c Reading from standard input... Use '--help' for help.\n");
+    if (argc == 1) printf("c Reading from standard input... Use '--help' for help.\n");
 
     gzFile in = (argc == 1) ? gzdopen(0, "rb") : gzopen(argv[1], "rb");
     if (in == NULL)
-      printf(
-          "c ERROR! Could not open file: %s\n",
-          argc == 1 ? "<stdin>" : argv[1]),
-          exit(1);
+      printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
 
     if (S.verbosity > 0) {
       printf(
@@ -204,8 +193,7 @@ int main(int argc, char** argv) {
     signal(SIGXCPU, SIGINT_interrupt);
 
     if (!S.simplify()) {
-      if (res != NULL)
-        fprintf(res, "UNSAT\n"), fclose(res);
+      if (res != NULL) fprintf(res, "UNSAT\n"), fclose(res);
       if (S.verbosity > 0) {
         printf(
             "c "
@@ -226,15 +214,12 @@ int main(int argc, char** argv) {
       printf("\n");
     }
     printf(
-        ret == l_True ? "s SATISFIABLE\n"
-                      : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
+        ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
     if (ret == l_True) {
       printf("v ");
       for (int i = 0; i < S.nVars(); i++)
         if (S.model[i] != l_Undef)
-          printf(
-              "%s%s%d", (i == 0) ? "" : " ", (S.model[i] == l_True) ? "" : "-",
-              i + 1);
+          printf("%s%s%d", (i == 0) ? "" : " ", (S.model[i] == l_True) ? "" : "-", i + 1);
       printf(" 0\n");
     }
 
@@ -243,9 +228,7 @@ int main(int argc, char** argv) {
         fprintf(res, "SAT\n");
         for (int i = 0; i < S.nVars(); i++)
           if (S.model[i] != l_Undef)
-            fprintf(
-                res, "%s%s%d", (i == 0) ? "" : " ",
-                (S.model[i] == l_True) ? "" : "-", i + 1);
+            fprintf(res, "%s%s%d", (i == 0) ? "" : " ", (S.model[i] == l_True) ? "" : "-", i + 1);
         fprintf(res, " 0\n");
       } else if (ret == l_False)
         fprintf(res, "UNSAT\n");
@@ -255,11 +238,8 @@ int main(int argc, char** argv) {
     }
 
 #ifdef NDEBUG
-    exit(
-        ret == l_True
-            ? 10
-            : ret == l_False ? 20 : 0);  // (faster than "return", which will
-                                         // invoke the destructor for 'Solver')
+    exit(ret == l_True ? 10 : ret == l_False ? 20 : 0);  // (faster than "return", which will
+                                                         // invoke the destructor for 'Solver')
 #else
     return (ret == l_True ? 10 : ret == l_False ? 20 : 0);
 #endif

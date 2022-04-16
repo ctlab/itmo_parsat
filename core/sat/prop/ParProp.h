@@ -25,6 +25,8 @@ class ParProp : public Prop {
  public:
   explicit ParProp(ParPropConfig const& config);
 
+  std::vector<MinisatSimpBase*> native() noexcept override;
+
   void load_problem(Problem const& problem) override;
 
   [[nodiscard]] uint32_t num_vars() const noexcept override;
@@ -53,6 +55,7 @@ class ParProp : public Prop {
   using PropWorkerPool = util::WorkerPool<MinisatSimpBase, uint64_t>;
 
  private:
+  bool loaded = false;
   uint32_t _tree_max_fixed_vars = 0;
   std::vector<std::future<uint64_t>> _futures;
   std::mutex _solver_m;

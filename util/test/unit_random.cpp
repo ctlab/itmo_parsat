@@ -9,9 +9,7 @@ void test_flip_coin(uint32_t a, uint32_t b) {
   double p = (double) a / (double) b;
   double count = 0;
   int samples = 1000000;
-  for (int i = 0; i < samples; ++i) {
-    count += util::random::flip_coin(a, b);
-  }
+  for (int i = 0; i < samples; ++i) { count += util::random::flip_coin(a, b); }
   ASSERT_LE(std::abs(p - count / samples), 1e-2);
 }
 

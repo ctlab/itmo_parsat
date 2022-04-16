@@ -19,8 +19,7 @@ core::signal::SigHandler* _sig_handler = nullptr;
 namespace core::signal {
 
 SigHandler::SigHandler() {
-  IPS_VERIFY_S(
-      _sig_handler == nullptr, "SigHandler registered more than once.");
+  IPS_VERIFY_S(_sig_handler == nullptr, "SigHandler registered more than once.");
   _sig_handler = this;
   sigset_t ss;
   IPS_SYSCALL(sigemptyset(&ss));
@@ -35,9 +34,7 @@ SigHandler::SigHandler() {
 
     for (;;) {
       int err = sigtimedwait(&ss, &si, &ts);
-      if (_shutdown) {
-        break;
-      }
+      if (_shutdown) { break; }
       if (err == -1) {
         if (errno == EAGAIN) {
           continue;
@@ -72,9 +69,7 @@ bool is_set() {
 }
 
 void unset() {
-  if (_sig_handler != nullptr) {
-    _sig_handler->unset();
-  }
+  if (_sig_handler != nullptr) { _sig_handler->unset(); }
 }
 
 }  // namespace core::signal

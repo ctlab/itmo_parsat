@@ -6,8 +6,7 @@ namespace core::solve {
 
 WithPainlessSolve::WithPainlessSolve(WithPainlessSolveConfig config)
     : _cfg(std::move(config))
-    , _painless_solver(std::make_shared<sat::solver::PainlessSolver>(
-          _cfg.painless_solver_config()))
+    , _painless_solver(std::make_shared<sat::solver::PainlessSolver>(_cfg.painless_solver_config()))
     , _primary_solve(SolveRegistry::resolve(_cfg.near_solve_config())) {
   auto const& sharing_config = _cfg.sharing_config();
   if (sharing_config.enabled()) {
@@ -30,8 +29,7 @@ sat::State WithPainlessSolve::solve(sat::Problem const& problem) {
   std::thread t_solve([&, this] {
     util::random::Generator gen(_cfg.near_solve_config().random_seed());
     sat::State expected = sat::UNKNOWN;
-    if (result.compare_exchange_strong(
-            expected, _primary_solve->solve(problem))) {
+    if (result.compare_exchange_strong(expected, _primary_solve->solve(problem))) {
       IPS_INFO("Primary solve won.");
     }
     _painless_solver->interrupt();

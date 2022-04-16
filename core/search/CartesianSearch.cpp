@@ -17,8 +17,7 @@ CartesianSearch::CartesianSearch(std::shared_ptr<cartesian_set_t> cartesian_set)
 }
 
 CartesianSearch::CartesianSearch(cartesian_set_t&& cartesian)
-    : CartesianSearch(std::make_shared<cartesian_set_t>(std::move(cartesian))) {
-}
+    : CartesianSearch(std::make_shared<cartesian_set_t>(std::move(cartesian))) {}
 
 CartesianSearch::CartesianSearch(cartesian_set_t const& cartesian)
     : CartesianSearch(std::make_shared<cartesian_set_t>(cartesian)) {}
@@ -40,16 +39,12 @@ void CartesianSearch::_reset() {
 void CartesianSearch::_set_cur(uint32_t from) {
   auto& cartesian = *_r_cartesian_set;
   uint32_t offset = 0;
-  for (uint32_t i = 0; i < from; ++i) {
-    offset += cartesian[i][_indices[i]].size();
-  }
+  for (uint32_t i = 0; i < from; ++i) { offset += cartesian[i][_indices[i]].size(); }
   for (size_t i = from; i < _indices.size(); ++i) {
     uint32_t cur_index = _indices[i];
     auto const& assignment = cartesian[i][cur_index];
     uint32_t cur_size = assignment.size();
-    for (uint32_t j = 0; j < cur_size; ++j) {
-      _assignment[(int) (offset + j)] = assignment[j];
-    }
+    for (uint32_t j = 0; j < cur_size; ++j) { _assignment[(int) (offset + j)] = assignment[j]; }
     offset += cur_size;
   }
 }
@@ -61,19 +56,15 @@ void CartesianSearch::_advance() {
     _indices[index] = 0;
     --index;
   }
-  if (index >= 0) {
-    ++_indices[index];
-  }
+  if (index >= 0) { ++_indices[index]; }
   _set_cur(std::max(index, 0));
 }
 
-UCartesianSearch createCartesianSearch(
-    CartesianSearch::cartesian_set_t&& cartesian) {
+UCartesianSearch createCartesianSearch(CartesianSearch::cartesian_set_t&& cartesian) {
   return std::make_unique<CartesianSearch>(std::move(cartesian));
 }
 
-UCartesianSearch createCartesianSearch(
-    CartesianSearch::cartesian_set_t const& cartesian) {
+UCartesianSearch createCartesianSearch(CartesianSearch::cartesian_set_t const& cartesian) {
   return std::make_unique<CartesianSearch>(cartesian);
 }
 

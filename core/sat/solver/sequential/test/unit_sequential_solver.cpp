@@ -9,18 +9,15 @@
 #include "core/sat/solver/sequential/Solver.h"
 #include "core/sat/native/mini/minisat/minisat/simp/SimpSolver.h"
 
-void test_solver(
-    std::string const& solver_config, core::sat::Problem const& problem) {
+void test_solver(std::string const& solver_config, core::sat::Problem const& problem) {
   util::random::Generator gen(239);
-  core::sat::solver::RSolver solver =
-      common::get_solver(common::configs_path + solver_config);
+  core::sat::solver::RSolver solver = common::get_solver(common::configs_path + solver_config);
   Minisat::SimpSolver base_simp_solver;
   solver->load_problem(problem);
   common::load_problem(base_simp_solver, problem);
   common::iter_assumptions(
       [&](auto const& assumption) {
-        auto expected = common::to_state(
-            base_simp_solver.solveLimited(assumption, false, true));
+        auto expected = common::to_state(base_simp_solver.solveLimited(assumption, false, true));
         auto actual = solver->solve(assumption);
         ASSERT_EQ(expected, actual);
       },
@@ -28,8 +25,7 @@ void test_solver(
 }
 
 DEFINE_PARAMETRIZED_TEST(
-    TestSequentialSolver, std::string /* config */,
-    core::sat::Problem /* problem */);
+    TestSequentialSolver, std::string /* config */, core::sat::Problem /* problem */);
 
 static std::vector<std::string> solver_configs{
     "simp_solver.json",
@@ -47,5 +43,4 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::cross(
         common::to_tuple(solver_configs),
         common::to_tuple(common::concat(
-            common::problems(false, false, "small"),
-            common::problems(true, false, "small"))))));
+            common::problems(false, false, "small"), common::problems(true, false, "small"))))));

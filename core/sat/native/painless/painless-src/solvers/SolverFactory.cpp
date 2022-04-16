@@ -24,10 +24,8 @@
 
 namespace painless {
 
-void SolverFactory::sparseRandomDiversification(
-    const vector<SolverInterface*>& solvers) {
-  if (solvers.empty())
-    return;
+void SolverFactory::sparseRandomDiversification(const vector<SolverInterface*>& solvers) {
+  if (solvers.empty()) return;
 
   int vars = solvers[0]->getVariablesCount();
 
@@ -36,22 +34,16 @@ void SolverFactory::sparseRandomDiversification(
   for (int sid = 1; sid < solvers.size(); sid++) {
     srand(sid);
     for (int var = 1; var <= vars; var++) {
-      if (rand() % solvers.size() == 0) {
-        solvers[sid]->setPhase(var, rand() % 2 == 1);
-      }
+      if (rand() % solvers.size() == 0) { solvers[sid]->setPhase(var, rand() % 2 == 1); }
     }
   }
 }
 
-void SolverFactory::nativeDiversification(
-    const vector<SolverInterface*>& solvers) {
-  for (int sid = 0; sid < solvers.size(); sid++) {
-    solvers[sid]->diversify(sid);
-  }
+void SolverFactory::nativeDiversification(const vector<SolverInterface*>& solvers) {
+  for (int sid = 0; sid < solvers.size(); sid++) { solvers[sid]->diversify(sid); }
 }
 
-SolverInterface* SolverFactory::createMapleCOMSPSSolver(
-    int lbd_limit, bool sharing) {
+SolverInterface* SolverFactory::createMapleCOMSPSSolver(int lbd_limit, bool sharing) {
   return new MapleCOMSPSSolver(lbd_limit, sharing);
 }
 

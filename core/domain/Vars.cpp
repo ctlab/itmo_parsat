@@ -22,9 +22,7 @@ std::vector<int> Vars::map_to_vars(VarView const& var_view) const {
   std::vector<int> vars;
   auto const& mask = _bit_mask;
   for (uint32_t i = 0; i < _bit_mask.size(); ++i) {
-    if (mask[i]) {
-      vars.push_back(var_view[(int) i]);
-    }
+    if (mask[i]) { vars.push_back(var_view[(int) i]); }
   }
   return vars;
 }

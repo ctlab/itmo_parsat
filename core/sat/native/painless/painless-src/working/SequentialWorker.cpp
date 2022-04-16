@@ -29,12 +29,8 @@ void SequentialWorker::main_worker_thread() {
   while (!_stop) {
     std::unique_lock<std::mutex> ul_job(start_mutex);
     start_cv.wait(ul_job, [this] { return _stop || _task.has_value(); });
-    if (_stop) {
-      break;
-    }
-    if (!_task.has_value()) {
-      continue;
-    }
+    if (_stop) { break; }
+    if (!_task.has_value()) { continue; }
     auto [index, cube, assumption] = std::move(_task.value());
     _task.reset();
     ul_job.unlock();
@@ -44,19 +40,14 @@ void SequentialWorker::main_worker_thread() {
       res = solver->solve(assumption, cube);
     } while (res == PUNKNOWN && !_interrupted);
 
-    if (res == PSAT) {
-      model = solver->getModel();
-    }
+    if (res == PSAT) { model = solver->getModel(); }
     join(index, nullptr, res, model);
     model.clear();
   }
 }
 
-SequentialWorker::SequentialWorker(
-    WorkingResult* working_result, SolverInterface* solver_)
-    : WorkingStrategy(working_result)
-    , solver(solver_)
-    , worker([this] { main_worker_thread(); }) {}
+SequentialWorker::SequentialWorker(WorkingResult* working_result, SolverInterface* solver_)
+    : WorkingStrategy(working_result), solver(solver_), worker([this] { main_worker_thread(); }) {}
 
 SequentialWorker::~SequentialWorker() noexcept {
   stop();
@@ -70,9 +61,7 @@ void SequentialWorker::stop() {
   }
   start_cv.notify_all();
 
-  if (worker.joinable()) {
-    worker.join();
-  }
+  if (worker.joinable()) { worker.join(); }
 }
 
 void SequentialWorker::awaitStop() {
@@ -80,8 +69,7 @@ void SequentialWorker::awaitStop() {
 }
 
 void SequentialWorker::solve(
-    int64_t index, Mini::vec<Mini::Lit> const& assumptions,
-    vector<int> const& cube) {
+    int64_t index, Mini::vec<Mini::Lit> const& assumptions, vector<int> const& cube) {
   unsetInterrupt();
   {
     std::lock_guard<std::mutex> lg(start_mutex);
@@ -92,21 +80,16 @@ void SequentialWorker::solve(
 }
 
 void SequentialWorker::join(
-    int64_t index, WorkingStrategy* winner, PSatResult res,
-    vector<int> const& model) {
+    int64_t index, WorkingStrategy* winner, PSatResult res, vector<int> const& model) {
   setInterrupt();
 
-  if (result->global_ending || current_index != index) {
-    return;
-  }
+  if (result->global_ending || current_index != index) { return; }
 
   if (parent == nullptr) {
     {
       std::lock_guard<std::mutex> guard(result->lock);
       result->final_result = res;
-      if (res == PSAT) {
-        result->final_model = model;
-      }
+      if (res == PSAT) { result->final_model = model; }
       result->global_ending = true;
     }
     result->cv.notify_one();

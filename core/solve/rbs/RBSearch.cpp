@@ -2,8 +2,7 @@
 
 namespace core::solve {
 
-RBSearch::RBSearch(
-    sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)
+RBSearch::RBSearch(sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)
     : _prop(std::move(prop)), _preprocess(std::move(preprocess)) {}
 
 void RBSearch::interrupt() {

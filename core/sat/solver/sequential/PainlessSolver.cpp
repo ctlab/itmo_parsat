@@ -7,9 +7,7 @@
 namespace core::sat::solver {
 
 PainlessSolver::PainlessSolver(PainlessSolverConfig config)
-    : _sharing(
-          config.sharing_config().interval_us(),
-          config.sharing_config().shr_lit())
+    : _sharing(config.sharing_config().interval_us(), config.sharing_config().shr_lit())
     , _cfg(std::move(config)) {
   int cpus = _cfg.max_threads();
   int lbd_limit = _cfg.lbd_limit();
@@ -44,9 +42,7 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
   for (auto& _solver : _solvers) {
     working->addSlave(new painless::SequentialWorker(&_result, _solver));
   }
-  if (_cfg.sharing_config().enabled()) {
-    _sharing.share(_solver_block_list);
-  }
+  if (_cfg.sharing_config().enabled()) { _sharing.share(_solver_block_list); }
 }
 
 PainlessSolver::~PainlessSolver() noexcept {
@@ -55,14 +51,13 @@ PainlessSolver::~PainlessSolver() noexcept {
   working->awaitStop();
   working.reset();
   std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [](auto& solver) { delete solver; });
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { delete solver; });
 }
 
 void PainlessSolver::load_problem(Problem const& problem) {
-  std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [&problem](auto& solver) { solver->loadFormula(problem.clauses()); });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [&problem](auto& solver) {
+    solver->loadFormula(problem.clauses());
+  });
   painless::SolverFactory::sparseRandomDiversification(_solvers);
 }
 
@@ -77,20 +72,16 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
   working->solve(solve_index, assumptions, {});
   {
     std::unique_lock<std::mutex> lock(_result.lock);
-    _result.cv.wait(
-        lock, [this] { return _result.global_ending || _interrupted; });
+    _result.cv.wait(lock, [this] { return _result.global_ending || _interrupted; });
     result = _result.final_result;
   }
   working->setInterrupt();
   working->waitInterrupt();
 
   switch (result) {
-    case painless::PSAT:
-      return SAT;
-    case painless::PUNSAT:
-      return UNSAT;
-    case painless::PUNKNOWN:
-      return UNKNOWN;
+    case painless::PSAT: return SAT;
+    case painless::PUNSAT: return UNSAT;
+    case painless::PUNKNOWN: return UNKNOWN;
   }
   return UNKNOWN;
 }

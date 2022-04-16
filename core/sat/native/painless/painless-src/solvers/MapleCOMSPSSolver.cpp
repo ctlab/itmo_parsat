@@ -38,20 +38,15 @@ using namespace Mini;
 namespace painless {
 
 static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
-  for (size_t i = 0; i < cls->size; i++) {
-    mcls.push(MINI_LIT(cls->lits[i]));
-  }
+  for (size_t i = 0; i < cls->size; i++) { mcls.push(MINI_LIT(cls->lits[i])); }
 }
 
 void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
   auto* mp = (MapleCOMSPSSolver*) issuer;
-  if (lbd > mp->lbdLimit)
-    return;
+  if (lbd > mp->lbdLimit) return;
 
   ClauseExchange* ncls = ClauseManager::allocClause(cls.size());
-  for (int i = 0; i < cls.size(); i++) {
-    ncls->lits[i] = INT_LIT(cls[i]);
-  }
+  for (int i = 0; i < cls.size(); i++) { ncls->lits[i] = INT_LIT(cls[i]); }
   ncls->lbd = lbd;
 
   mp->clausesToExport.addClause(ncls);
@@ -61,8 +56,7 @@ Lit cbkMapleCOMSPSImportUnit(void* issuer) {
   auto* mp = (MapleCOMSPSSolver*) issuer;
   Lit l = lit_Undef;
   ClauseExchange* cls = nullptr;
-  if (!mp->unitsToImport.getClause(&cls))
-    return l;
+  if (!mp->unitsToImport.getClause(&cls)) return l;
   l = MINI_LIT(cls->lits[0]);
 
   ClauseManager::releaseClause(cls);
@@ -72,8 +66,7 @@ Lit cbkMapleCOMSPSImportUnit(void* issuer) {
 bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   auto* mp = (MapleCOMSPSSolver*) issuer;
   ClauseExchange* cls = nullptr;
-  if (!mp->clausesToImport.getClause(&cls))
-    return false;
+  if (!mp->clausesToImport.getClause(&cls)) return false;
 
   makeMiniVec(cls, mcls);
   *lbd = cls->lbd;
@@ -82,8 +75,7 @@ bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   return true;
 }
 
-MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit, bool sharing_clauses)
-    : lbdLimit(lbd_limit) {
+MapleCOMSPSSolver::MapleCOMSPSSolver(int lbd_limit, bool sharing_clauses) : lbdLimit(lbd_limit) {
   if (sharing_clauses) {
     cbkExportClause = cbkMapleCOMSPSExportClause;
     cbkImportClause = cbkMapleCOMSPSImportClause;
@@ -99,8 +91,7 @@ bool MapleCOMSPSSolver::loadFormula(const char* filename) {
   return true;
 }
 
-bool MapleCOMSPSSolver::loadFormula(
-    std::vector<Mini::vec<Mini::Lit>> const& clauses) {
+bool MapleCOMSPSSolver::loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) {
   parsing = true;
   MapleCOMSPS::SimpSolver::loadClauses(clauses);
   parsing = false;
@@ -175,9 +166,7 @@ PSatResult MapleCOMSPSSolver::solve(
         present.insert(assumptions[i].x);
       }
     }
-    for (int ind : cube) {
-      miniAssumptions.push(MINI_LIT(ind));
-    }
+    for (int ind : cube) { miniAssumptions.push(MINI_LIT(ind)); }
 
     lbool res = solveLimited(miniAssumptions, false, true);
     if (res == l_True) {
@@ -189,9 +178,7 @@ PSatResult MapleCOMSPSSolver::solve(
     }
   }
 
-  for (auto clause : tmp) {
-    ClauseManager::releaseClause(clause);
-  }
+  for (auto clause : tmp) { ClauseManager::releaseClause(clause); }
   return result;
 }
 
@@ -213,8 +200,7 @@ void MapleCOMSPSSolver::addClauses(const vector<ClauseExchange*>& clauses) {
   setSolverInterrupt();
 }
 
-void MapleCOMSPSSolver::addInitialClauses(
-    const vector<ClauseExchange*>& clauses) {
+void MapleCOMSPSSolver::addInitialClauses(const vector<ClauseExchange*>& clauses) {
   for (size_t ind = 0; ind < clauses.size(); ind++) {
     vec<Lit> mcls;
 
@@ -222,9 +208,7 @@ void MapleCOMSPSSolver::addInitialClauses(
       int lit = clauses[ind]->lits[i];
       int var = abs(lit);
 
-      while (nVars() < var) {
-        newVar();
-      }
+      while (nVars() < var) { newVar(); }
 
       mcls.push(MINI_LIT(lit));
     }
@@ -235,11 +219,8 @@ void MapleCOMSPSSolver::addInitialClauses(
   }
 }
 
-void MapleCOMSPSSolver::addLearnedClauses(
-    const vector<ClauseExchange*>& clauses) {
-  for (size_t i = 0; i < clauses.size(); i++) {
-    addLearnedClause(clauses[i]);
-  }
+void MapleCOMSPSSolver::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
+  for (size_t i = 0; i < clauses.size(); i++) { addLearnedClause(clauses[i]); }
 }
 
 void MapleCOMSPSSolver::getLearnedClauses(vector<ClauseExchange*>& clauses) {
@@ -251,9 +232,7 @@ void MapleCOMSPSSolver::increaseClauseProduction() {
 }
 
 void MapleCOMSPSSolver::decreaseClauseProduction() {
-  if (lbdLimit > 2) {
-    lbdLimit--;
-  }
+  if (lbdLimit > 2) { lbdLimit--; }
 }
 
 SolvingStatistics MapleCOMSPSSolver::getStatistics() {
@@ -279,9 +258,7 @@ std::vector<int> MapleCOMSPSSolver::getModel() {
 
 vector<int> MapleCOMSPSSolver::getFinalAnalysis() {
   vector<int> outCls;
-  for (int i = 0; i < conflict.size(); i++) {
-    outCls.push_back(INT_LIT(conflict[i]));
-  }
+  for (int i = 0; i < conflict.size(); i++) { outCls.push_back(INT_LIT(conflict[i])); }
   return outCls;
 }
 
@@ -289,9 +266,7 @@ vector<int> MapleCOMSPSSolver::getSatAssumptions() {
   vector<int> outCls;
   vec<Lit> lits;
   getAssumptions(lits);
-  for (int i = 0; i < lits.size(); i++) {
-    outCls.push_back(-(INT_LIT(lits[i])));
-  }
+  for (int i = 0; i < lits.size(); i++) { outCls.push_back(-(INT_LIT(lits[i]))); }
   return outCls;
 }
 

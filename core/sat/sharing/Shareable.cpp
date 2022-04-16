@@ -3,9 +3,7 @@
 namespace core::sat::sharing {
 
 void concat(SharingUnit& a, SharingUnit const& b) {
-  IPS_VERIFY_S(
-      a.index() == b.index(),
-      "Trying to concat different types of sharing units.");
+  IPS_VERIFY_S(a.index() == b.index(), "Trying to concat different types of sharing units.");
   std::visit(
       overloaded{
           [&b](SolverList& sl) {

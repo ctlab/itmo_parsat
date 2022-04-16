@@ -8,9 +8,7 @@ GzFile::GzFile(std::filesystem::path const& path) {
 }
 
 GzFile::~GzFile() noexcept {
-  if (file_ != nullptr) {
-    gzclose(file_);
-  }
+  if (file_ != nullptr) { gzclose(file_); }
 }
 
 gzFile GzFile::native_handle() noexcept {

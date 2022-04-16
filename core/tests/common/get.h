@@ -24,7 +24,7 @@ core::sat::solver::RSolver get_solver(std::filesystem::path const& config_path);
 core::sat::solver::RSolverService get_solver_service(
     std::filesystem::path const& config_path);
 
-ea::preprocess::RPreprocess get_preprocess();
+ea::preprocess::RPreprocess get_preprocess(core::sat::prop::RProp prop);
 
 ea::algorithm::RAlgorithm get_algorithm(
     core::sat::prop::RProp const& rprop,

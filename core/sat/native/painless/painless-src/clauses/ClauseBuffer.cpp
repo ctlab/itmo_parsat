@@ -67,9 +67,7 @@ void ClauseBuffer::addClause(ClauseExchange* clause) {
 }
 
 void ClauseBuffer::addClauses(const std::vector<ClauseExchange*>& clauses) {
-  for (int i = 0; i < clauses.size(); i++) {
-    addClause(clauses[i]);
-  }
+  for (int i = 0; i < clauses.size(); i++) { addClause(clauses[i]); }
 }
 
 bool ClauseBuffer::getClause(ClauseExchange** clause) {
@@ -82,16 +80,13 @@ bool ClauseBuffer::getClause(ClauseExchange** clause) {
 
     if (head == buffer.head) {
       if (head == tail) {
-        if (next == nullptr)
-          return false;
+        if (next == nullptr) return false;
 
         buffer.tail.compare_exchange_strong(tail, next);
       } else {
         *clause = next->clause;
 
-        if (buffer.head.compare_exchange_strong(head, next)) {
-          break;
-        }
+        if (buffer.head.compare_exchange_strong(head, next)) { break; }
       }
     }
   }

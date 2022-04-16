@@ -7,8 +7,7 @@ namespace {
 using namespace std;
 
 core::sat::State read_clauses_to(
-    std::filesystem::path const& path,
-    std::vector<Mini::vec<Mini::Lit>>& clauses, bool eliminate) {
+    std::filesystem::path const& path, std::vector<Mini::vec<Mini::Lit>>& clauses, bool eliminate) {
   clauses.clear();
   Minisat::SimpSolver solver;
   util::GzFile gz_file(path);
@@ -16,9 +15,7 @@ core::sat::State read_clauses_to(
   Minisat::parse_DIMACS(gz_file.native_handle(), solver);
   solver.parsing = false;
   bool ok = true;
-  if (eliminate) {
-    ok = solver.eliminate(true);
-  }
+  if (eliminate) { ok = solver.eliminate(true); }
   solver.toDimacs(clauses);
 
   if (clauses.empty()) {
@@ -89,8 +86,7 @@ State Problem::get_result() const noexcept {
 
 std::string Problem::to_string() const noexcept {
   std::stringstream os;
-  os << (_eliminate ? "[elm]:" : "[raw]:")
-     << _path.parent_path().filename().string() << "/"
+  os << (_eliminate ? "[elm]:" : "[raw]:") << _path.parent_path().filename().string() << "/"
      << _path.filename().string();
   return os.str();
 }

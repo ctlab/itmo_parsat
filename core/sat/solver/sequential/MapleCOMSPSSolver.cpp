@@ -3,21 +3,16 @@
 namespace core::sat::solver {
 
 MapleCOMSPSSolver::MapleCOMSPSSolver(MapleCOMSPSSolverConfig const& config)
-    : painless::MapleCOMSPSSolver(
-          config.lbd_limit(), config.sharing_enabled()) {}
+    : painless::MapleCOMSPSSolver(config.lbd_limit(), config.sharing_enabled()) {}
 
 State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
-  painless::PSatResult result = IPS_TRACE_N_V(
-      "MapleCOMSPS::solve",
-      painless::MapleCOMSPSSolver::solve(assumptions, {}));
+  painless::PSatResult result =
+      IPS_TRACE_N_V("MapleCOMSPS::solve", painless::MapleCOMSPSSolver::solve(assumptions, {}));
   switch (result) {
-    case painless::PSAT:
-      return SAT;
-    case painless::PUNSAT:
-      return UNSAT;
-    case painless::PUNKNOWN:
-      return UNKNOWN;
+    case painless::PSAT: return SAT;
+    case painless::PUNSAT: return UNSAT;
+    case painless::PUNKNOWN: return UNKNOWN;
   }
   return UNKNOWN;
 }

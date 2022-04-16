@@ -12,6 +12,7 @@
 #include "core/search/FullSearch.h"
 #include "core/proto/solve_config.pb.h"
 #include "core/sat/Problem.h"
+#include "core/sat/SimpBase.h"
 #include "util/Registry.h"
 #include "util/mini.h"
 
@@ -23,7 +24,7 @@ namespace core::sat::prop {
 class Prop {
  public:
   /**
-   * @details Callbacks types must be thread safe for asynchronous
+   * @note Callbacks types must be thread safe for asynchronous
    * implementations.
    */
   // clang-format off
@@ -36,6 +37,11 @@ class Prop {
 
  public:
   virtual ~Prop() = default;
+
+  /**
+   * @return native implementation
+   */
+  virtual std::vector<MinisatSimpBase*> native() noexcept = 0;
 
   /**
    * @brief Parses cnf from .gz file with the specified path.

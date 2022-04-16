@@ -7,12 +7,8 @@ void SequentialSolverService::_solver_working_thread(Solver& solver) {
   while (!_stop) {
     std::unique_lock<std::mutex> ul(_queue_m);
     _queue_cv.wait(ul, [this] { return _stop || !_task_queue.empty(); });
-    if (IPS_UNLIKELY(_stop)) {
-      break;
-    }
-    if (IPS_UNLIKELY(_task_queue.empty())) {
-      continue;
-    }
+    if (IPS_UNLIKELY(_stop)) { break; }
+    if (IPS_UNLIKELY(_task_queue.empty())) { continue; }
     auto task = std::move(_task_queue.front());
     _task_queue.pop();
     ul.unlock();
@@ -20,12 +16,10 @@ void SequentialSolverService::_solver_working_thread(Solver& solver) {
   }
 }
 
-SequentialSolverService::SequentialSolverService(
-    SequentialSolverServiceConfig config)
+SequentialSolverService::SequentialSolverService(SequentialSolverServiceConfig config)
     : _cfg(std::move(config)) {
   for (int i = 0; i < _cfg.num_solvers(); ++i) {
-    _solvers.emplace_back(
-        USolver(SolverRegistry::resolve(_cfg.solver_config())));
+    _solvers.emplace_back(USolver(SolverRegistry::resolve(_cfg.solver_config())));
   }
   auto const& sharing_config = _cfg.sharing_config();
   if (sharing_config.enabled()) {
@@ -38,15 +32,12 @@ SequentialSolverService::SequentialSolverService(
 }
 
 std::future<State> SequentialSolverService::solve(
-    lit_vec_t const& assumption, clock_t::duration time_limit,
-    slv_callback_t const& callback) {
-  auto p_task = std::packaged_task<State(Solver&)>(
-      [this, assumption, time_limit, callback](auto& solver) {
+    lit_vec_t const& assumption, clock_t::duration time_limit, slv_callback_t const& callback) {
+  auto p_task =
+      std::packaged_task<State(Solver&)>([this, assumption, time_limit, callback](auto& solver) {
         if (time_limit == DUR_INDEF) {
           State result;
-          IPS_TRACE_N("SeqSolverService::solve", {
-            result = solver.solve(assumption);
-          });
+          IPS_TRACE_N("SeqSolverService::solve", { result = solver.solve(assumption); });
           if (callback) {
             try {
               callback(result);
@@ -59,8 +50,7 @@ std::future<State> SequentialSolverService::solve(
           State result;
           IPS_TRACE_N("SeqSolverService::solve_tl", {
             result = _timer.launch(
-                [&] { return solver.solve(assumption); },
-                [&] { solver.interrupt(); }, time_limit);
+                [&] { return solver.solve(assumption); }, [&] { solver.interrupt(); }, time_limit);
           });
           if (callback) {
             try {
@@ -88,23 +78,19 @@ SequentialSolverService::~SequentialSolverService() noexcept {
     _task_queue = {};
   }
   std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [](auto& solver) { solver->interrupt(); });
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
   _queue_cv.notify_all();
   for (auto& thread : _threads) {
-    if (thread.joinable()) {
-      thread.join();
-    }
+    if (thread.joinable()) { thread.join(); }
   }
 }
 
 void SequentialSolverService::load_problem(Problem const& problem) {
-  std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [&problem](auto& solver) { solver->load_problem(problem); });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [&problem](auto& solver) {
+    solver->load_problem(problem);
+  });
 
-  if (_cfg.diversification_config().native() ||
-      _cfg.diversification_config().sparse()) {
+  if (_cfg.diversification_config().native() || _cfg.diversification_config().sparse()) {
     auto solvers = sat::sharing::Sharing::get_all_solvers(_sharing_unit());
     if (_cfg.diversification_config().native()) {
       painless::SolverFactory::nativeDiversification(solvers);
@@ -121,14 +107,13 @@ void SequentialSolverService::interrupt() {
     _task_queue = {};
   }
   std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [](auto& solver) { solver->interrupt(); });
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
 }
 
 void SequentialSolverService::clear_interrupt() {
-  std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(),
-      [](auto& solver) { solver->clear_interrupt(); });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) {
+    solver->clear_interrupt();
+  });
 }
 
 sharing::SharingUnit SequentialSolverService::sharing_unit() noexcept {
@@ -143,7 +128,6 @@ sharing::SharingUnit SequentialSolverService::_sharing_unit() noexcept {
   return sharing_unit;
 }
 
-REGISTER_PROTO(
-    SolverService, SequentialSolverService, sequential_solver_service_config);
+REGISTER_PROTO(SolverService, SequentialSolverService, sequential_solver_service_config);
 
 }  // namespace core::sat::solver
