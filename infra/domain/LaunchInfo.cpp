@@ -5,8 +5,7 @@
 
 namespace infra::domain {
 
-LaunchInfo::LaunchInfo(fixture::TestingConfiguration testing_config)
-    : _t_config(std::move(testing_config)) {
+LaunchInfo::LaunchInfo(fixture::TestingConfiguration testing_config) : _t_config(std::move(testing_config)) {
   if (_t_config.save || _t_config.lookup) { _dao.emplace(_t_config.pg_host); }
 }
 
@@ -19,8 +18,7 @@ std::string LaunchInfo::get_input_name(LaunchConfig const& config) {
 }
 
 bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
-  if (std::find(
-          _t_config.test_groups.begin(), _t_config.test_groups.end(), get_test_group(config)) ==
+  if (std::find(_t_config.test_groups.begin(), _t_config.test_groups.end(), get_test_group(config)) ==
       _t_config.test_groups.end()) {
     return false;
   }

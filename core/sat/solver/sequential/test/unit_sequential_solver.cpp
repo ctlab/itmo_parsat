@@ -24,8 +24,7 @@ void test_solver(std::string const& solver_config, core::sat::Problem const& pro
       0, 20, base_simp_solver.nVars() - 1, 16000);
 }
 
-DEFINE_PARAMETRIZED_TEST(
-    TestSequentialSolver, std::string /* config */, core::sat::Problem /* problem */);
+DEFINE_PARAMETRIZED_TEST(TestSequentialSolver, std::string /* config */, core::sat::Problem /* problem */);
 
 static std::vector<std::string> solver_configs{
     "simp_solver.json",
@@ -42,5 +41,5 @@ INSTANTIATE_TEST_CASE_P(
     TestSequentialSolver, TestSequentialSolver,
     ::testing::ValuesIn(common::cross(
         common::to_tuple(solver_configs),
-        common::to_tuple(common::concat(
-            common::problems(false, false, "small"), common::problems(true, false, "small"))))));
+        common::to_tuple(
+            common::concat(common::problems(false, false, "small"), common::problems(true, false, "small"))))));

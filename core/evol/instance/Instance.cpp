@@ -13,8 +13,7 @@ uint32_t Instance::num_vars() const noexcept {
   return _preprocess->var_view().size();
 }
 
-Instance::Instance(
-    core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)
+Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)
     : _prop(std::move(prop)), _shared(std::move(shared_data)), _preprocess(std::move(preprocess)) {
   _vars.resize(_var_view().size());
   _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
@@ -68,8 +67,7 @@ void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
     full_search = true;
     samples = 1ULL << size;
     conflicts = _prop->prop_tree(
-        util::concat(
-            _shared->base_assumption, util::map_to_mini_vars(_vars.map_to_vars(_var_view()))),
+        util::concat(_shared->base_assumption, util::map_to_mini_vars(_vars.map_to_vars(_var_view()))),
         _shared->base_assumption.size());
   } else {
     core::search::USearch search;
@@ -92,10 +90,9 @@ void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
   if (!full_search && fit_.rho == 1.0 && steps_left > 0) {
     auto scaled_samples = uint32_t(samples * _sampling_config().scale);
     IPS_INFO_T(
-        FITNESS_SCALE, "Fitness reached 1 for sampling size "
-                           << samples << ", scaling sampling size to " << scaled_samples
-                           << " instance:\n"
-                           << *this);
+        FITNESS_SCALE, "Fitness reached 1 for sampling size " << samples << ", scaling sampling size to "
+                                                              << scaled_samples << " instance:\n"
+                                                              << *this);
     _cached = false;
     _calc_fitness(scaled_samples, steps_left - 1);
   } else {
@@ -152,6 +149,5 @@ std::ostream& operator<<(std::ostream& os, ea::instance::Instance const& instanc
 
   return os << "Confl. ratio: " << instance.fitness().rho << " Size: " << instance.fitness().size
             << " Fitness: " << (double) instance.fitness() << " Vars: " << vars
-            << " samples: " << instance.fitness().samples << " Coverage: " << 100. * coverage
-            << "%";
+            << " samples: " << instance.fitness().samples << " Coverage: " << 100. * coverage << "%";
 }

@@ -41,16 +41,12 @@ void printStats(Solver& solver) {
   double cpu_time = cpuTime();
   double mem_used = memUsedPeak();
   printf("c restarts              : %" PRIu64 "\n", solver.starts);
+  printf("c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", solver.conflicts, solver.conflicts / cpu_time);
   printf(
-      "c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", solver.conflicts,
-      solver.conflicts / cpu_time);
+      "c decisions             : %-12" PRIu64 "   (%4.2f %% random) (%.0f /sec)\n", solver.decisions,
+      (float) solver.rnd_decisions * 100 / (float) solver.decisions, solver.decisions / cpu_time);
   printf(
-      "c decisions             : %-12" PRIu64 "   (%4.2f %% random) (%.0f /sec)\n",
-      solver.decisions, (float) solver.rnd_decisions * 100 / (float) solver.decisions,
-      solver.decisions / cpu_time);
-  printf(
-      "c propagations          : %-12" PRIu64 "   (%.0f /sec)\n", solver.propagations,
-      solver.propagations / cpu_time);
+      "c propagations          : %-12" PRIu64 "   (%.0f /sec)\n", solver.propagations, solver.propagations / cpu_time);
   printf(
       "c conflict literals     : %-12" PRIu64 "   (%4.2f %% deleted)\n", solver.tot_literals,
       (solver.max_literals - solver.tot_literals) * 100 / (double) solver.max_literals);
@@ -101,14 +97,9 @@ int main(int argc, char** argv) {
 #endif
     // Extra options:
     //
-    IntOption verb(
-        "MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1, IntRange(0, 2));
-    IntOption cpu_lim(
-        "MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", INT32_MAX,
-        IntRange(0, INT32_MAX));
-    IntOption mem_lim(
-        "MAIN", "mem-lim", "Limit on memory usage in megabytes.\n", INT32_MAX,
-        IntRange(0, INT32_MAX));
+    IntOption verb("MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1, IntRange(0, 2));
+    IntOption cpu_lim("MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", INT32_MAX, IntRange(0, INT32_MAX));
+    IntOption mem_lim("MAIN", "mem-lim", "Limit on memory usage in megabytes.\n", INT32_MAX, IntRange(0, INT32_MAX));
 
     parseOptions(argc, argv, true);
 
@@ -129,8 +120,7 @@ int main(int argc, char** argv) {
       getrlimit(RLIMIT_CPU, &rl);
       if (rl.rlim_max == RLIM_INFINITY || (rlim_t) cpu_lim < rl.rlim_max) {
         rl.rlim_cur = cpu_lim;
-        if (setrlimit(RLIMIT_CPU, &rl) == -1)
-          printf("c WARNING! Could not set resource limit: CPU-time.\n");
+        if (setrlimit(RLIMIT_CPU, &rl) == -1) printf("c WARNING! Could not set resource limit: CPU-time.\n");
       }
     }
 
@@ -141,16 +131,14 @@ int main(int argc, char** argv) {
       getrlimit(RLIMIT_AS, &rl);
       if (rl.rlim_max == RLIM_INFINITY || new_mem_lim < rl.rlim_max) {
         rl.rlim_cur = new_mem_lim;
-        if (setrlimit(RLIMIT_AS, &rl) == -1)
-          printf("c WARNING! Could not set resource limit: Virtual memory.\n");
+        if (setrlimit(RLIMIT_AS, &rl) == -1) printf("c WARNING! Could not set resource limit: Virtual memory.\n");
       }
     }
 
     if (argc == 1) printf("c Reading from standard input... Use '--help' for help.\n");
 
     gzFile in = (argc == 1) ? gzdopen(0, "rb") : gzopen(argv[1], "rb");
-    if (in == NULL)
-      printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
+    if (in == NULL) printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
 
     if (S.verbosity > 0) {
       printf(
@@ -213,13 +201,11 @@ int main(int argc, char** argv) {
       printStats(S);
       printf("\n");
     }
-    printf(
-        ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
+    printf(ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
     if (ret == l_True) {
       printf("v ");
       for (int i = 0; i < S.nVars(); i++)
-        if (S.model[i] != l_Undef)
-          printf("%s%s%d", (i == 0) ? "" : " ", (S.model[i] == l_True) ? "" : "-", i + 1);
+        if (S.model[i] != l_Undef) printf("%s%s%d", (i == 0) ? "" : " ", (S.model[i] == l_True) ? "" : "-", i + 1);
       printf(" 0\n");
     }
 

@@ -16,8 +16,7 @@ void SequentialSolverService::_solver_working_thread(Solver& solver) {
   }
 }
 
-SequentialSolverService::SequentialSolverService(SequentialSolverServiceConfig config)
-    : _cfg(std::move(config)) {
+SequentialSolverService::SequentialSolverService(SequentialSolverServiceConfig config) : _cfg(std::move(config)) {
   for (int i = 0; i < _cfg.num_solvers(); ++i) {
     _solvers.emplace_back(USolver(SolverRegistry::resolve(_cfg.solver_config())));
   }
@@ -33,35 +32,33 @@ SequentialSolverService::SequentialSolverService(SequentialSolverServiceConfig c
 
 std::future<State> SequentialSolverService::solve(
     lit_vec_t const& assumption, clock_t::duration time_limit, slv_callback_t const& callback) {
-  auto p_task =
-      std::packaged_task<State(Solver&)>([this, assumption, time_limit, callback](auto& solver) {
-        if (time_limit == DUR_INDEF) {
-          State result;
-          IPS_TRACE_N("SeqSolverService::solve", { result = solver.solve(assumption); });
-          if (callback) {
-            try {
-              callback(result);
-            } catch (...) {
-              // ignore
-            }
-          }
-          return result;
-        } else {
-          State result;
-          IPS_TRACE_N("SeqSolverService::solve_tl", {
-            result = _timer.launch(
-                [&] { return solver.solve(assumption); }, [&] { solver.interrupt(); }, time_limit);
-          });
-          if (callback) {
-            try {
-              callback(result);
-            } catch (...) {
-              // ignore
-            }
-          }
-          return result;
+  auto p_task = std::packaged_task<State(Solver&)>([this, assumption, time_limit, callback](auto& solver) {
+    if (time_limit == DUR_INDEF) {
+      State result;
+      IPS_TRACE_N("SeqSolverService::solve", { result = solver.solve(assumption); });
+      if (callback) {
+        try {
+          callback(result);
+        } catch (...) {
+          // ignore
         }
+      }
+      return result;
+    } else {
+      State result;
+      IPS_TRACE_N("SeqSolverService::solve_tl", {
+        result = _timer.launch([&] { return solver.solve(assumption); }, [&] { solver.interrupt(); }, time_limit);
       });
+      if (callback) {
+        try {
+          callback(result);
+        } catch (...) {
+          // ignore
+        }
+      }
+      return result;
+    }
+  });
   auto future = p_task.get_future();
   {
     std::lock_guard<std::mutex> lg(_queue_m);
@@ -77,8 +74,7 @@ SequentialSolverService::~SequentialSolverService() noexcept {
     _stop = true;
     _task_queue = {};
   }
-  std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
   _queue_cv.notify_all();
   for (auto& thread : _threads) {
     if (thread.joinable()) { thread.join(); }
@@ -86,18 +82,13 @@ SequentialSolverService::~SequentialSolverService() noexcept {
 }
 
 void SequentialSolverService::load_problem(Problem const& problem) {
-  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [&problem](auto& solver) {
-    solver->load_problem(problem);
-  });
+  std::for_each(
+      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [&problem](auto& solver) { solver->load_problem(problem); });
 
   if (_cfg.diversification_config().native() || _cfg.diversification_config().sparse()) {
     auto solvers = sat::sharing::Sharing::get_all_solvers(_sharing_unit());
-    if (_cfg.diversification_config().native()) {
-      painless::SolverFactory::nativeDiversification(solvers);
-    }
-    if (_cfg.diversification_config().sparse()) {
-      painless::SolverFactory::sparseRandomDiversification(solvers);
-    }
+    if (_cfg.diversification_config().native()) { painless::SolverFactory::nativeDiversification(solvers); }
+    if (_cfg.diversification_config().sparse()) { painless::SolverFactory::sparseRandomDiversification(solvers); }
   }
 }
 
@@ -106,14 +97,11 @@ void SequentialSolverService::interrupt() {
     std::lock_guard<std::mutex> lg(_queue_m);
     _task_queue = {};
   }
-  std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
 }
 
 void SequentialSolverService::clear_interrupt() {
-  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) {
-    solver->clear_interrupt();
-  });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->clear_interrupt(); });
 }
 
 sharing::SharingUnit SequentialSolverService::sharing_unit() noexcept {

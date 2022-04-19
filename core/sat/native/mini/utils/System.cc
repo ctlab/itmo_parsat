@@ -41,8 +41,7 @@ static inline int memReadStat(int field) {
   if (in == NULL) return 0;
 
   for (; field >= 0; field--)
-    if (fscanf(in, "%d", &value) != 1)
-      printf("c ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
+    if (fscanf(in, "%d", &value) != 1) printf("c ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
   fclose(in);
   return value;
 }
@@ -132,8 +131,7 @@ void Mini::limitMemory(uint64_t max_mem_mb) {
     getrlimit(RLIMIT_AS, &rl);
     if (rl.rlim_max == RLIM_INFINITY || new_mem_lim < rl.rlim_max) {
       rl.rlim_cur = new_mem_lim;
-      if (setrlimit(RLIMIT_AS, &rl) == -1)
-        printf("c WARNING! Could not set resource limit: Virtual memory.\n");
+      if (setrlimit(RLIMIT_AS, &rl) == -1) printf("c WARNING! Could not set resource limit: Virtual memory.\n");
     }
   }
 
@@ -154,8 +152,7 @@ void Mini::limitTime(uint32_t max_cpu_time) {
     getrlimit(RLIMIT_CPU, &rl);
     if (rl.rlim_max == RLIM_INFINITY || (rlim_t) max_cpu_time < rl.rlim_max) {
       rl.rlim_cur = max_cpu_time;
-      if (setrlimit(RLIMIT_CPU, &rl) == -1)
-        printf("c WARNING! Could not set resource limit: CPU-time.\n");
+      if (setrlimit(RLIMIT_CPU, &rl) == -1) printf("c WARNING! Could not set resource limit: CPU-time.\n");
     }
   }
 }

@@ -7,8 +7,7 @@ core::sat::Problem get_problem(std::string const& input_name, bool eliminate) {
   return core::sat::Problem(path / input_name, eliminate);
 }
 
-std::vector<core::sat::Problem> const& problems(
-    bool eliminate, bool allow_trivial, std::string const& group) {
+std::vector<core::sat::Problem> const& problems(bool eliminate, bool allow_trivial, std::string const& group) {
   static std::unordered_map<std::string, std::vector<core::sat::Problem>> inputs;
   static std::mutex m;
   std::lock_guard<std::mutex> lg(m);
@@ -22,8 +21,8 @@ std::vector<core::sat::Problem> const& problems(
     for (auto const& entry : std::filesystem::recursive_directory_iterator(
              cnf_path, std::filesystem::directory_options::follow_directory_symlink)) {
       if (entry.is_regular_file() && entry.path().extension() == ".cnf") {
-        f_problems.push_back(std::async(
-            std::launch::async, [group, eliminate, name = entry.path().filename().string()] {
+        f_problems.push_back(
+            std::async(std::launch::async, [group, eliminate, name = entry.path().filename().string()] {
               return common::get_problem(group + "/" + name, eliminate);
             }));
       }
@@ -35,7 +34,9 @@ std::vector<core::sat::Problem> const& problems(
     }
 
     inputs[key].reserve(inputs_set.size());
-    for (auto const& problem : inputs_set) { inputs[key].push_back(problem); }
+    for (auto const& problem : inputs_set) {
+      inputs[key].push_back(problem);
+    }
   }
   return inputs[key];
 }

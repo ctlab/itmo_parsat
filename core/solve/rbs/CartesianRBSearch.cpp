@@ -8,7 +8,9 @@ CartesianRBSearch::CartesianRBSearch(
 
 void CartesianRBSearch::_interrupt_impl() {
   std::lock_guard<std::mutex> lg(_m);
-  for (auto& algorithm : _algorithms) { _interrupt(algorithm); }
+  for (auto& algorithm : _algorithms) {
+    _interrupt(algorithm);
+  }
 }
 
 rbs_result_t CartesianRBSearch::find_rb(lit_vec_t const& base_assumption) {
@@ -30,8 +32,7 @@ void CartesianRBSearch::_raise_for_sbs(int id) {
   }
 }
 
-std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
-    lit_vec_t const& base_assumption) {
+std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(lit_vec_t const& base_assumption) {
   std::vector<std::vector<std::vector<Mini::Lit>>> non_conflict_assignments(_cfg.num_algorithms());
   IPS_VERIFY(_cfg.num_algorithms() > 0);
   std::stringstream algorithms_info;
@@ -56,9 +57,7 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
 
   for (uint32_t i = 0; i < _cfg.num_algorithms() && !_interrupted; ++i) {
     uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
-    rb_search_threads.emplace_back([&, i, seed,
-                                    config =
-                                        _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
+    rb_search_threads.emplace_back([&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
       util::random::Generator generator(seed);
       auto& algorithm = _algorithms[i];
       IPS_TRACE(algorithm->prepare(_preprocess));
@@ -75,17 +74,16 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(
 
       std::atomic_uint32_t conflicts{0}, total{0};
       std::mutex nca_mutex;
-      algorithm->get_prop().prop_search(
-          search::createFullSearch(vars), [&](bool conflict, auto const& assumption) {
-            ++total;
-            if (!conflict) {
-              std::lock_guard<std::mutex> lg(nca_mutex);
-              non_conflict_assignments[i].push_back(util::to_std(assumption));
-            } else {
-              ++conflicts;
-            }
-            return !_sbs_found && !_is_interrupted();
-          });
+      algorithm->get_prop().prop_search(search::createFullSearch(vars), [&](bool conflict, auto const& assumption) {
+        ++total;
+        if (!conflict) {
+          std::lock_guard<std::mutex> lg(nca_mutex);
+          non_conflict_assignments[i].push_back(util::to_std(assumption));
+        } else {
+          ++conflicts;
+        }
+        return !_sbs_found && !_is_interrupted();
+      });
 
       if (non_conflict_assignments[i].empty()) { _raise_for_sbs(i); }
 
@@ -120,8 +118,7 @@ search::USearch CartesianRBSearch::_prepare_cartesian(
   uint32_t max_cartesian_size = _cfg.max_cartesian_size();
 
   auto it = std::min_element(
-      cartesian_set.begin(), cartesian_set.end(),
-      [](auto const& a, auto const& b) { return a.size() < b.size(); });
+      cartesian_set.begin(), cartesian_set.end(), [](auto const& a, auto const& b) { return a.size() < b.size(); });
 
   if (it->size() > max_non_conflict) {
     IPS_INFO("Sets are too large. Taking minimal with size " << it->size());

@@ -69,7 +69,9 @@ bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename
     // comment or problem definition line
     if (c == 'c' || c == 'p') {
       // skip this line
-      while (c != '\n') { c = fgetc(f); }
+      while (c != '\n') {
+        c = fgetc(f);
+      }
 
       continue;
     }
@@ -102,7 +104,9 @@ bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename
       } else {
         ClauseExchange* ncls = ClauseManager::allocClause(cls.size());
 
-        for (size_t i = 0; i < cls.size(); i++) { ncls->lits[i] = cls[i]; }
+        for (size_t i = 0; i < cls.size(); i++) {
+          ncls->lits[i] = cls[i];
+        }
 
         ClauseManager::increaseClause(ncls, solvers.size());
 
@@ -115,7 +119,9 @@ bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename
 
   fclose(f);
 
-  for (size_t i = 0; i < solvers.size(); i++) { solvers[i]->addInitialClauses(clauses); }
+  for (size_t i = 0; i < solvers.size(); i++) {
+    solvers[i]->addInitialClauses(clauses);
+  }
 
   return true;
 }

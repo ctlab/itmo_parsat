@@ -16,8 +16,7 @@ std::vector<uint32_t> choose(std::vector<double> const& distrib, uint32_t count)
 
   while (count--) {
     double sample = ::util::random::sample<double>(0., 1.);
-    res[count] =
-        std::lower_bound(cumulative.begin(), cumulative.end(), sample) - cumulative.begin();
+    res[count] = std::lower_bound(cumulative.begin(), cumulative.end(), sample) - cumulative.begin();
   }
 
   return res;

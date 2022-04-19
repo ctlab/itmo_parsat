@@ -12,8 +12,7 @@
 
 namespace {
 
-uint64_t num_conflicts_in_subtree(
-    Minisat::SimpSolver& solver, core::lit_vec_t& vars, uint32_t index) {
+uint64_t num_conflicts_in_subtree(Minisat::SimpSolver& solver, core::lit_vec_t& vars, uint32_t index) {
   if (index == (uint32_t) vars.size()) { return !solver.prop_check(vars, 0); }
   vars[(int) index] = Mini::mkLit(var(vars[(int) index]), false);
   uint64_t sub_false = num_conflicts_in_subtree(solver, vars, index + 1);
@@ -52,8 +51,7 @@ void test_propagation_bool(
 
 void test_propagation_tree(
     core::sat::Problem const& problem, std::string const& prop_config,
-    std::function<uint64_t(core::sat::prop::Prop&, Mini::vec<Mini::Lit> const&, uint32_t)> const&
-        prop) {
+    std::function<uint64_t(core::sat::prop::Prop&, Mini::vec<Mini::Lit> const&, uint32_t)> const& prop) {
   test_propagation(problem, prop_config, [&](auto& base_simp_solver, auto& prop_engine) {
     common::iter_assumptions(
         [&](auto& assumption) {
@@ -75,17 +73,15 @@ static std::vector<std::string> prop_configs{
 
 TEST_P(TestPropagation, no_dummy_test) {
   auto [prop_config, problem, eliminate] = GetParam();
-  test_propagation_bool(problem, prop_config, [](auto& solver, auto const& assumption) {
-    return solver.propagate(assumption);
-  });
+  test_propagation_bool(
+      problem, prop_config, [](auto& solver, auto const& assumption) { return solver.propagate(assumption); });
 }
 
 TEST_P(TestPropagation, tree_test) {
   auto [prop_config, problem, eliminate] = GetParam();
-  test_propagation_tree(
-      problem, prop_config, [](auto& solver, auto const& assumption, uint32_t head_size) {
-        return solver.prop_tree(assumption, head_size);
-      });
+  test_propagation_tree(problem, prop_config, [](auto& solver, auto const& assumption, uint32_t head_size) {
+    return solver.prop_tree(assumption, head_size);
+  });
 }
 
 INSTANTIATE_TEST_CASE_P(

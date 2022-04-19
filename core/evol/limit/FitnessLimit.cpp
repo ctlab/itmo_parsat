@@ -14,8 +14,7 @@ bool FitnessLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   bool stop = rho_value >= _lowest_fitness && size <= _max_size;
   IPS_INFO_IF_T(
       LIMIT, stop,
-      "Fitness exceeded " << _lowest_fitness << " having rho value of " << rho_value << " and size "
-                          << size);
+      "Fitness exceeded " << _lowest_fitness << " having rho value of " << rho_value << " and size " << size);
   return !stop;
 }
 

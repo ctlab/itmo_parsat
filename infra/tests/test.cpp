@@ -34,8 +34,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({16}), common::to_tuple<std::string>({"wop"}),
         common::to_tuple<std::string>({"s1-16", "m1-16", "ms1-15", "p15-1", "p5-3", "ps5-3"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
-        common::to_tuple<std::string>({"rbs", "cart"}),
+        common::to_tuple<std::string>({"sing", "rec"}), common::to_tuple<std::string>({"rbs", "cart"}),
         common::to_tuple<std::string>({"ea", "ga"}))));
 
 INSTANTIATE_TEST_CASE_P(
@@ -43,8 +42,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({16}), common::to_tuple<std::string>({"wp"}),
         common::to_tuple<std::string>({"s1-11", "m1-11", "ms1-10", "p10-1", "p5-2", "ps5-2"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
-        common::to_tuple<std::string>({"rbs", "cart"}),
+        common::to_tuple<std::string>({"sing", "rec"}), common::to_tuple<std::string>({"rbs", "cart"}),
         common::to_tuple<std::string>({"ea", "ga"}))));
 
 INSTANTIATE_TEST_CASE_P(
@@ -52,8 +50,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({32}), common::to_tuple<std::string>({"wop"}),
         common::to_tuple<std::string>({"s1-32", "m1-32", "ms1-31", "p31-1", "p6-5", "ps6-5"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
-        common::to_tuple<std::string>({"rbs", "cart"}),
+        common::to_tuple<std::string>({"sing", "rec"}), common::to_tuple<std::string>({"rbs", "cart"}),
         common::to_tuple<std::string>({"ea", "ga"}))));
 
 INSTANTIATE_TEST_CASE_P(
@@ -61,8 +58,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({32}), common::to_tuple<std::string>({"wp"}),
         common::to_tuple<std::string>({"s1-21", "m1-21", "ms1-20", "p20-1", "p5-4", "ps5-4"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
-        common::to_tuple<std::string>({"rbs", "cart"}),
+        common::to_tuple<std::string>({"sing", "rec"}), common::to_tuple<std::string>({"rbs", "cart"}),
         common::to_tuple<std::string>({"ea", "ga"}))));
 
 /* Experiments definition */
@@ -71,33 +67,26 @@ INSTANTIATE_TEST_CASE_P(
     Experiment_1_32CPU_EA, LaunchFixture,
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({32}), common::to_tuple<std::string>({"wp"}),
-        common::to_tuple<std::string>({"s1-21", "ms1-20", "ps5-4"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
+        common::to_tuple<std::string>({"s1-21", "ms1-20", "ps5-4"}), common::to_tuple<std::string>({"sing", "rec"}),
         common::to_tuple<std::string>({"rbs", "cart"}), common::to_tuple<std::string>({"ea"}))));
 
 INSTANTIATE_TEST_CASE_P(
     Experiment_1_32CPU_GA, LaunchFixture,
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({32}), common::to_tuple<std::string>({"wp"}),
-        common::to_tuple<std::string>({"s1-21", "ms1-20", "ps5-4"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
+        common::to_tuple<std::string>({"s1-21", "ms1-20", "ps5-4"}), common::to_tuple<std::string>({"sing", "rec"}),
         common::to_tuple<std::string>({"rbs", "cart"}), common::to_tuple<std::string>({"ga"}))));
 
 INSTANTIATE_TEST_CASE_P(
     Experiment_AAAI_reproduce_wop_EA, LaunchFixture,
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({32}), common::to_tuple<std::string>({"wop"}),
-        common::to_tuple<std::string>({"s1-32", "ms1-31", "ps6-5"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
-        common::to_tuple<std::string>({"rbs", "cart"}),
-        common::to_tuple<std::string>({"ea"}))));
+        common::to_tuple<std::string>({"s1-32", "ms1-31", "ps6-5"}), common::to_tuple<std::string>({"sing", "rec"}),
+        common::to_tuple<std::string>({"rbs", "cart"}), common::to_tuple<std::string>({"ea"}))));
 
 INSTANTIATE_TEST_CASE_P(
     Experiment_AAAI_reproduce_wop_GA, LaunchFixture,
     ::testing::ValuesIn(common::cross(
         common::to_tuple<int>({32}), common::to_tuple<std::string>({"wop"}),
-        common::to_tuple<std::string>({"s1-32", "ms1-31", "ps6-5"}),
-        common::to_tuple<std::string>({"sing", "rec"}),
-        common::to_tuple<std::string>({"rbs", "cart"}),
-        common::to_tuple<std::string>({"ga"}))));
-
+        common::to_tuple<std::string>({"s1-32", "ms1-31", "ps6-5"}), common::to_tuple<std::string>({"sing", "rec"}),
+        common::to_tuple<std::string>({"rbs", "cart"}), common::to_tuple<std::string>({"ga"}))));

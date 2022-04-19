@@ -22,9 +22,7 @@ sat::State SingleReduceSolve::_solve_impl(ea::preprocess::RPreprocess const& pre
             }
             return sat::UNKNOWN;
           },
-          [this](search::USearch&& search) -> sat::State {
-            return _solve_final(_filter_conflict(std::move(search)));
-          }},
+          [this](search::USearch&& search) -> sat::State { return _solve_final(_filter_conflict(std::move(search))); }},
       _rb_search->find_rb());
 }
 

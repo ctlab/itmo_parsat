@@ -2,8 +2,7 @@
 
 namespace core::solve {
 
-OneRBSearch::OneRBSearch(
-    OneRBSearchConfig config, sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)
+OneRBSearch::OneRBSearch(OneRBSearchConfig config, sat::prop::RProp prop, ea::preprocess::RPreprocess preprocess)
     : RBSearch(std::move(prop), std::move(preprocess)), _cfg(std::move(config)) {}
 
 void OneRBSearch::_interrupt_impl() {

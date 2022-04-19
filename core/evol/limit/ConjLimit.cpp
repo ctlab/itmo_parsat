@@ -9,9 +9,8 @@ ConjLimit::ConjLimit(const ConjLimitConfig& config) {
 }
 
 bool ConjLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
-  return std::all_of(_limits.begin(), _limits.end(), [&algorithm](RLimit& limit) {
-    return limit->_proceed(algorithm);
-  });
+  return std::all_of(
+      _limits.begin(), _limits.end(), [&algorithm](RLimit& limit) { return limit->_proceed(algorithm); });
 }
 
 void ConjLimit::start() {

@@ -69,7 +69,7 @@ class WorkerPool {
     return future;
   }
 
-  [[nodiscard]] uint32_t max_threads() const noexcept {
+  [[nodiscard]] size_t max_threads() const noexcept {
     return _threads.size();
   }
 

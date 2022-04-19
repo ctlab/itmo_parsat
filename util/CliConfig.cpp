@@ -55,8 +55,7 @@ bool CliConfig::has(const std::string& name) const {
 
 void CliConfig::read_config(std::istream& is, google::protobuf::Message& message) {
   std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());
-  google::protobuf::util::Status status =
-      google::protobuf::util::JsonStringToMessage(message_str, &message);
+  google::protobuf::util::Status status = google::protobuf::util::JsonStringToMessage(message_str, &message);
   if (!status.ok()) {
     IPS_VERIFY_S(
         status.ok(), "Failed to read  configuration from '" << message_str << "':\n"

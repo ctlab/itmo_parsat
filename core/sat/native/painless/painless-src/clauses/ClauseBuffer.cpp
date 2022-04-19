@@ -67,7 +67,9 @@ void ClauseBuffer::addClause(ClauseExchange* clause) {
 }
 
 void ClauseBuffer::addClauses(const std::vector<ClauseExchange*>& clauses) {
-  for (int i = 0; i < clauses.size(); i++) { addClause(clauses[i]); }
+  for (int i = 0; i < clauses.size(); i++) {
+    addClause(clauses[i]);
+  }
 }
 
 bool ClauseBuffer::getClause(ClauseExchange** clause) {

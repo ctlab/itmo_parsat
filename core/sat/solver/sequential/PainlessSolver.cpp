@@ -7,8 +7,7 @@
 namespace core::sat::solver {
 
 PainlessSolver::PainlessSolver(PainlessSolverConfig config)
-    : _sharing(config.sharing_config().interval_us(), config.sharing_config().shr_lit())
-    , _cfg(std::move(config)) {
+    : _sharing(config.sharing_config().interval_us(), config.sharing_config().shr_lit()), _cfg(std::move(config)) {
   int cpus = _cfg.max_threads();
   int lbd_limit = _cfg.lbd_limit();
   int block_size = _cfg.block_size();
@@ -26,8 +25,8 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
         _solvers.push_back(solver);
         std::get<0>(block).push_back(solver);
       }
-      solver = painless::SolverFactory::createReducerSolver(
-          painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit));
+      solver =
+          painless::SolverFactory::createReducerSolver(painless::SolverFactory::createMapleCOMSPSSolver(lbd_limit));
       _solvers.push_back(solver);
       std::get<1>(block) = solver;
     } else {
@@ -50,8 +49,7 @@ PainlessSolver::~PainlessSolver() noexcept {
   working->setInterrupt();
   working->awaitStop();
   working.reset();
-  std::for_each(
-      IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { delete solver; });
+  std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { delete solver; });
 }
 
 void PainlessSolver::load_problem(Problem const& problem) {

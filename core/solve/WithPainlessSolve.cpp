@@ -21,17 +21,13 @@ sat::State WithPainlessSolve::solve(sat::Problem const& problem) {
   std::thread t_painless([&, this] {
     sat::State expected = sat::UNKNOWN;
     _painless_solver->load_problem(problem);
-    if (result.compare_exchange_strong(expected, _painless_solver->solve({}))) {
-      IPS_INFO("Painless solver won.");
-    }
+    if (result.compare_exchange_strong(expected, _painless_solver->solve({}))) { IPS_INFO("Painless solver won."); }
     _primary_solve->interrupt();
   });
   std::thread t_solve([&, this] {
     util::random::Generator gen(_cfg.near_solve_config().random_seed());
     sat::State expected = sat::UNKNOWN;
-    if (result.compare_exchange_strong(expected, _primary_solve->solve(problem))) {
-      IPS_INFO("Primary solve won.");
-    }
+    if (result.compare_exchange_strong(expected, _primary_solve->solve(problem))) { IPS_INFO("Primary solve won."); }
     _painless_solver->interrupt();
   });
 

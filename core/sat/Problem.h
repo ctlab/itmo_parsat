@@ -40,8 +40,7 @@ class Problem {
 
   [[nodiscard]] std::filesystem::path const& path() const noexcept;
 
-  [[nodiscard]] std::vector<Mini::vec<Mini::Lit>> const& clauses()
-      const noexcept;
+  [[nodiscard]] std::vector<lit_vec_t> const& clauses() const noexcept;
 
   [[nodiscard]] State get_result() const noexcept;
 

@@ -43,7 +43,9 @@ void HordeSatSharing::doSharing(
 
     stats.receivedClauses += tmp.size();
 
-    for (size_t k = 0; k < tmp.size(); k++) { this->databases[id]->addClause(tmp[k]); }
+    for (size_t k = 0; k < tmp.size(); k++) {
+      this->databases[id]->addClause(tmp[k]);
+    }
 
     tmp.clear();
 
@@ -63,12 +65,16 @@ void HordeSatSharing::doSharing(
 
     for (size_t j = 0; j < to.size(); j++) {
       if (from[i]->id != to[j]->id) {
-        for (size_t k = 0; k < tmp.size(); k++) { ClauseManager::increaseClause(tmp[k], 1); }
+        for (size_t k = 0; k < tmp.size(); k++) {
+          ClauseManager::increaseClause(tmp[k], 1);
+        }
         to[j]->addLearnedClauses(tmp);
       }
     }
 
-    for (size_t k = 0; k < tmp.size(); k++) { ClauseManager::releaseClause(tmp[k]); }
+    for (size_t k = 0; k < tmp.size(); k++) {
+      ClauseManager::releaseClause(tmp[k]);
+    }
   }
   round++;
 }

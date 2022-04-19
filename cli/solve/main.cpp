@@ -62,8 +62,7 @@ int main(int argc, char** argv) {
 
   if (result == core::sat::UNKNOWN) {
     auto&& [solve_config, log_config] = read_json_configs(
-        config.get<std::filesystem::path>("solve-config"),
-        config.get<std::filesystem::path>("log-config"));
+        config.get<std::filesystem::path>("solve-config"), config.get<std::filesystem::path>("log-config"));
 
     util::random::Generator generator(solve_config.random_seed());
     core::Logger::set_logger_config(log_config);

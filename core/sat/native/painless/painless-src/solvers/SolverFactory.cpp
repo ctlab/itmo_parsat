@@ -40,7 +40,9 @@ void SolverFactory::sparseRandomDiversification(const vector<SolverInterface*>& 
 }
 
 void SolverFactory::nativeDiversification(const vector<SolverInterface*>& solvers) {
-  for (int sid = 0; sid < solvers.size(); sid++) { solvers[sid]->diversify(sid); }
+  for (int sid = 0; sid < solvers.size(); sid++) {
+    solvers[sid]->diversify(sid);
+  }
 }
 
 SolverInterface* SolverFactory::createMapleCOMSPSSolver(int lbd_limit, bool sharing) {

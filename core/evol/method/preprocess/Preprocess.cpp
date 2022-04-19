@@ -6,10 +6,12 @@
 namespace {
 
 void collect_stats(
-    core::sat::MinisatSimpBase& prop, core::lit_vec_t const& assumptions,
-    core::lit_vec_t& propagated, std::set<int>& collection) {
+    core::sat::MinisatSimpBase& prop, core::lit_vec_t const& assumptions, core::lit_vec_t& propagated,
+    std::set<int>& collection) {
   (void) prop.prop_check(assumptions, propagated);
-  for (int j = 0; j < propagated.size(); ++j) { collection.insert(var(propagated[(int) j])); }
+  for (int j = 0; j < propagated.size(); ++j) {
+    collection.insert(var(propagated[(int) j]));
+  }
 }
 
 }  // namespace
@@ -23,7 +25,6 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
   _num_vars = _prop->num_vars();
   if (_num_vars == 0) { return false; }
   auto workers = _prop->native();
-  //  std::vector<core::sat::MinisatSimpBase> workers(16);
 
   size_t concurrency = workers.size();
   uint32_t vars_per_thread = _num_vars / concurrency;
@@ -42,9 +43,8 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
   for (uint32_t i = 0, start_var = 0; i < concurrency && start_var < _num_vars; ++i) {
     uint32_t cur_num_vars = vars_per_thread + (i < add_vars_per_thread);
     uint32_t end_var = std::min(_num_vars, start_var + cur_num_vars);
-    worker_threads.emplace_back([&problem, start_var, end_var, &workers, i, &result_mutex, &stats] {
+    worker_threads.emplace_back([start_var, end_var, &workers, i, &result_mutex, &stats] {
       auto* worker = workers[i];
-      //      worker.load_problem(problem);
       core::lit_vec_t assumptions(1), propagated;
       std::vector<std::pair<int, int>> stats_thread;
       for (uint32_t var = start_var; var < end_var; ++var) {
@@ -71,7 +71,10 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
 
   /// @brief Check if the 'best' variable has propagated more than one literal.
   /// otherwise, it makes no sense to use EA for this problem.
-  if (it->first <= 1) { return false; }
+  if (it->first <= 1) {
+    IPS_WARNING("Preprocessing resulted in no meaningful variables.");
+    return false;
+  }
 
   for (uint32_t i = 0; i < max_watched_count && it->first > 1; ++i, ++it) {
     _var_view.map_var((int) i, it->second);

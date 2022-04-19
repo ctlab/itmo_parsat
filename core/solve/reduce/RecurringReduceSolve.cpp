@@ -23,15 +23,15 @@ sat::State RecurringReduceSolve::_solve_impl(ea::preprocess::RPreprocess const& 
     uint32_t depth = stack.top().second;
     stack.pop();
 
-    auto time_limit = depth < _cfg.max_recursion_depth()
-                          ? std::chrono::milliseconds(
-                                uint32_t(max_solve_time_ms * std::pow(max_solve_time_scale, depth)))
-                          : sat::solver::SolverService::DUR_INDEF;
+    auto time_limit =
+        depth < _cfg.max_recursion_depth()
+            ? std::chrono::milliseconds(uint32_t(max_solve_time_ms * std::pow(max_solve_time_scale, depth)))
+            : sat::solver::SolverService::DUR_INDEF;
 
     IPS_INFO(
         "Starting iteration"
-        << "\n\tDepth " << depth << ", time limit: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(time_limit).count() << "ms"
+        << "\n\tDepth " << depth
+        << ", time limit: " << std::chrono::duration_cast<std::chrono::milliseconds>(time_limit).count() << "ms"
         << "\n\tWith base assumption: " << _cur_base_assumption  //
     );
 
@@ -41,8 +41,7 @@ sat::State RecurringReduceSolve::_solve_impl(ea::preprocess::RPreprocess const& 
         overloaded{
             [this](RBSReason stop_reason) -> filter_r {
               switch (stop_reason) {
-                case RBS_SBS_FOUND:
-                  return _cur_base_assumption.size() == 0 ? sat::UNSAT : sat::UNKNOWN;
+                case RBS_SBS_FOUND: return _cur_base_assumption.size() == 0 ? sat::UNSAT : sat::UNKNOWN;
                 case RBS_INTERRUPTED: return sat::UNKNOWN;
               }
               return sat::UNKNOWN;
@@ -86,27 +85,26 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
       cur_assumptions.push_back(util::concat(_cur_base_assumption, assumption));
     }
     for (size_t i = 0; i < cur_assumptions.size(); ++i) {
-      futures.push_back(
-          _solver_service->solve(cur_assumptions[i], time_limit, [&, i](sat::State result) {
+      futures.push_back(_solver_service->solve(cur_assumptions[i], time_limit, [&, i](sat::State result) {
+        {
+          std::lock_guard<std::mutex> lg(progress_lock);
+          ++progress;
+        }
+        switch (result) {
+          case sat::UNSAT: break;
+          case sat::UNKNOWN:
+            unknown = true;
             {
-              std::lock_guard<std::mutex> lg(progress_lock);
-              ++progress;
+              std::lock_guard<std::mutex> lg(failed_lock);
+              failed.push_back(std::move(cur_assumptions[i]));
             }
-            switch (result) {
-              case sat::UNSAT: break;
-              case sat::UNKNOWN:
-                unknown = true;
-                {
-                  std::lock_guard<std::mutex> lg(failed_lock);
-                  failed.push_back(std::move(cur_assumptions[i]));
-                }
-                break;
-              case sat::SAT:
-                satisfied = true;
-                _solver_service->interrupt();
-                break;
-            }
-          }));
+            break;
+          case sat::SAT:
+            satisfied = true;
+            _solver_service->interrupt();
+            break;
+        }
+      }));
     }
     util::wait_for_futures(futures);
     IPS_INFO("Total: " << assumptions.size() << ", slow: " << failed.size());

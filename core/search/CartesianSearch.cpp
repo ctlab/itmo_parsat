@@ -39,12 +39,16 @@ void CartesianSearch::_reset() {
 void CartesianSearch::_set_cur(uint32_t from) {
   auto& cartesian = *_r_cartesian_set;
   uint32_t offset = 0;
-  for (uint32_t i = 0; i < from; ++i) { offset += cartesian[i][_indices[i]].size(); }
+  for (uint32_t i = 0; i < from; ++i) {
+    offset += cartesian[i][_indices[i]].size();
+  }
   for (size_t i = from; i < _indices.size(); ++i) {
     uint32_t cur_index = _indices[i];
     auto const& assignment = cartesian[i][cur_index];
     uint32_t cur_size = assignment.size();
-    for (uint32_t j = 0; j < cur_size; ++j) { _assignment[(int) (offset + j)] = assignment[j]; }
+    for (uint32_t j = 0; j < cur_size; ++j) {
+      _assignment[(int) (offset + j)] = assignment[j];
+    }
     offset += cur_size;
   }
 }

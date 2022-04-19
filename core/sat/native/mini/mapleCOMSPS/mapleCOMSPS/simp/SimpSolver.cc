@@ -53,11 +53,9 @@ static bool xors_found = false;
 static const char* _cat = "SIMP";
 
 static BoolOption opt_use_asymm(_cat, "asymm", "Shrink clauses by asymmetric branching.", false);
-static BoolOption opt_use_rcheck(
-    _cat, "rcheck", "Check if a clause is already implied. (costly)", false);
+static BoolOption opt_use_rcheck(_cat, "rcheck", "Check if a clause is already implied. (costly)", false);
 static BoolOption opt_use_elim(_cat, "elim", "Perform variable elimination.", true);
-static IntOption opt_grow(
-    _cat, "grow", "Allow a variable elimination step to grow by a number of clauses.", 0);
+static IntOption opt_grow(_cat, "grow", "Allow a variable elimination step to grow by a number of clauses.", 0);
 static IntOption opt_clause_lim(
     _cat, "cl-lim",
     "Variables are not eliminated if it produces a resolvent with a length "
@@ -196,14 +194,16 @@ lbool SimpSolver::solve_(bool do_simp, bool turn_off_simp) {
 
   if (do_simp)
     // Unfreeze the assumptions that were frozen:
-    for (int i = 0; i < extra_frozen.size(); i++) setFrozen(extra_frozen[i], false);
+    for (int i = 0; i < extra_frozen.size(); i++)
+      setFrozen(extra_frozen[i], false);
 
   return result;
 }
 
 bool SimpSolver::addClause_(vec<Lit>& ps) {
 #ifndef NDEBUG
-  for (int i = 0; i < ps.size(); i++) assert(!isEliminated(var(ps[i])));
+  for (int i = 0; i < ps.size(); i++)
+    assert(!isEliminated(var(ps[i])));
 #endif
 
   int nclauses = clauses.size();
@@ -453,9 +453,7 @@ bool SimpSolver::backwardSubsumptionCheck(bool verbose) {
     for (int j = 0; j < _cs.size(); j++)
       if (c.mark())
         break;
-      else if (
-          !ca[cs[j]].mark() && cs[j] != cr &&
-          (subsumption_lim == -1 || ca[cs[j]].size() < subsumption_lim)) {
+      else if (!ca[cs[j]].mark() && cs[j] != cr && (subsumption_lim == -1 || ca[cs[j]].size() < subsumption_lim)) {
         Lit l = c.subsumes(ca[cs[j]]);
 
         if (l == lit_Undef)
@@ -548,7 +546,8 @@ bool SimpSolver::eliminateVar(Var v) {
   //
   const vec<CRef>& cls = occurs.lookup(v);
   vec<CRef> pos, neg;
-  for (int i = 0; i < cls.size(); i++) (find(ca[cls[i]], mkLit(v)) ? pos : neg).push(cls[i]);
+  for (int i = 0; i < cls.size(); i++)
+    (find(ca[cls[i]], mkLit(v)) ? pos : neg).push(cls[i]);
 
   // Check wether the increase in number of clauses stays within the allowed
   // ('grow'). Moreover, no clause must exceed the limit on the maximal clause
@@ -569,10 +568,12 @@ bool SimpSolver::eliminateVar(Var v) {
   eliminated_vars++;
 
   if (pos.size() > neg.size()) {
-    for (int i = 0; i < neg.size(); i++) mkElimClause(elimclauses, v, ca[neg[i]]);
+    for (int i = 0; i < neg.size(); i++)
+      mkElimClause(elimclauses, v, ca[neg[i]]);
     mkElimClause(elimclauses, mkLit(v));
   } else {
-    for (int i = 0; i < pos.size(); i++) mkElimClause(elimclauses, v, ca[pos[i]]);
+    for (int i = 0; i < pos.size(); i++)
+      mkElimClause(elimclauses, v, ca[pos[i]]);
     mkElimClause(elimclauses, ~mkLit(v));
   }
 
@@ -582,7 +583,8 @@ bool SimpSolver::eliminateVar(Var v) {
     for (int j = 0; j < neg.size(); j++)
       if (merge(ca[pos[i]], ca[neg[j]], v, resolvent) && !addClause_(resolvent)) return false;
 
-  for (int i = 0; i < cls.size(); i++) removeClause(cls[i]);
+  for (int i = 0; i < cls.size(); i++)
+    removeClause(cls[i]);
 
   // Free occurs list for this variable:
   occurs[v].clear(true);
@@ -761,8 +763,7 @@ bool SimpSolver::eliminate_() {
     gatherTouchedClauses();
     // printf("  ## (time = %6.2f s) BWD-SUB: queue = %d, trail = %d\n",
     // cpuTime(), subsumption_queue.size(), trail.size() - bwdsub_assigns);
-    if ((subsumption_queue.size() > 0 || bwdsub_assigns < trail.size()) &&
-        !backwardSubsumptionCheck(true)) {
+    if ((subsumption_queue.size() > 0 || bwdsub_assigns < trail.size()) && !backwardSubsumptionCheck(true)) {
       ok = false;
       goto cleanup;
     }
@@ -843,12 +844,14 @@ void SimpSolver::relocAll(ClauseAllocator& to) {
   occurs.cleanAll();
   for (int i = 0; i < nVars(); i++) {
     vec<CRef>& cs = occurs[i];
-    for (int j = 0; j < cs.size(); j++) ca.reloc(cs[j], to);
+    for (int j = 0; j < cs.size(); j++)
+      ca.reloc(cs[j], to);
   }
 
   // Subsumption queue:
   //
-  for (int i = 0; i < subsumption_queue.size(); i++) ca.reloc(subsumption_queue[i], to);
+  for (int i = 0; i < subsumption_queue.size(); i++)
+    ca.reloc(subsumption_queue[i], to);
 
   // Temporary clause:
   //
@@ -875,8 +878,7 @@ void SimpSolver::garbageCollect() {
 
 #ifndef NDEBUG
 static bool sanityCheck(
-    const vec<XorScc*>& xor_sccs, const vec<Var>& v2scc_id, const vec<vec<Var>>& var_sccs,
-    int nVars) {
+    const vec<XorScc*>& xor_sccs, const vec<Var>& v2scc_id, const vec<vec<Var>>& var_sccs, int nVars) {
   int n_sccs = 0;
   vec<char> seen_id(var_sccs.size(), 0), seen_v(nVars, 0), seen_v2(nVars, 0);
   assert(v2scc_id.size() == nVars);
@@ -906,7 +908,8 @@ static bool sanityCheck(
     else
       assert(v2scc_id[i] == -1);
   assert(n_sccs == 0);
-  for (int i = 0; i < var_sccs.size(); i++) assert(var_sccs[i].size() == 0);
+  for (int i = 0; i < var_sccs.size(); i++)
+    assert(var_sccs[i].size() == 0);
   return true;
 }
 #endif
@@ -949,8 +952,10 @@ bool SimpSolver::gaussElim() {
 
   ok = performGaussElim(xor_sccs);
 
-  for (int i = 0; i < xors.size(); i++) delete xors[i];
-  for (int i = 0; i < xor_sccs.size(); i++) delete xor_sccs[i];
+  for (int i = 0; i < xors.size(); i++)
+    delete xors[i];
+  for (int i = 0; i < xor_sccs.size(); i++)
+    delete xor_sccs[i];
 
   // printf("c [GE] matrices: %d, unary xor: %d, bin xor: %d, bin added: %d
   // (time: %.2f)\n",
@@ -1054,7 +1059,8 @@ bool SimpSolver::performGaussElim(vec<XorScc*>& xor_sccs) {
 
 inline static void sortAfterCopy(const Clause& c, vec<Lit>& out) {
   out.clear();
-  for (int i = 0; i < c.size(); i++) out.push(c[i]);
+  for (int i = 0; i < c.size(); i++)
+    out.push(c[i]);
   sort(out);
 }
 
@@ -1073,10 +1079,12 @@ class SeenMarker {
 
  public:
   SeenMarker(const Clause& c_, vec<char>& seen_) : c(c_), seen(seen_) {
-    for (int i = 0; i < c.size(); i++) seen[var(c[i])] = 1;
+    for (int i = 0; i < c.size(); i++)
+      seen[var(c[i])] = 1;
   }
   ~SeenMarker() {
-    for (int i = 0; i < c.size(); i++) seen[var(c[i])] = 0;
+    for (int i = 0; i < c.size(); i++)
+      seen[var(c[i])] = 0;
   }
 };
 
@@ -1146,8 +1154,7 @@ bool SimpSolver::searchXors(vec<Xor*>& /*out*/ xors) {
       const Clause& c2 = ca[occs[j]];
       assert(c2.mark() == 0 || c2.mark() == 3);
 
-      if (c2.mark() == 0 && c2.size() == c.size() && c2.abstraction() == c.abstraction())
-        pool.push(occs[j]);
+      if (c2.mark() == 0 && c2.size() == c.size() && c2.abstraction() == c.abstraction()) pool.push(occs[j]);
     }
     if (pool.size() < 2 * required_h) continue;  // Short-circuit if not enough clauses.
 
@@ -1194,8 +1201,7 @@ struct SizeDec {
   }
 };
 
-int SimpSolver::computeVarSccs(
-    vec<Var>& /*out*/ scc_id, vec<vec<Var>>& /*out*/ sccs, vec<Xor*>& xors) const {
+int SimpSolver::computeVarSccs(vec<Var>& /*out*/ scc_id, vec<vec<Var>>& /*out*/ sccs, vec<Xor*>& xors) const {
   assert(scc_id.size() == 0);
   assert(sccs.size() == 0);
   /*
@@ -1290,8 +1296,8 @@ int SimpSolver::computeVarSccs(
 }
 
 void SimpSolver::computeXorSccs(
-    vec<XorScc*>& /*out*/ xor_sccs, const vec<Xor*>& xors, const vec<Var>& v2scc_id,
-    vec<vec<Var>>& var_sccs, int upper_limit) const {
+    vec<XorScc*>& /*out*/ xor_sccs, const vec<Xor*>& xors, const vec<Var>& v2scc_id, vec<vec<Var>>& var_sccs,
+    int upper_limit) const {
   assert(xor_sccs.size() == 0);
   xor_sccs.growTo(upper_limit, NULL);
 
@@ -1330,7 +1336,9 @@ void SimpSolver::loadClauses(std::vector<Mini::vec<Mini::Lit>> const& in_cls) {
     for (int i = 0; i < clause.size(); ++i) {
       Mini::Lit lit = clause[i];
       int var = Mini::var(lit);
-      while (var >= nVars()) { newVar(); }
+      while (var >= nVars()) {
+        newVar();
+      }
       lits.push(lit);
     }
     addClause_(lits);

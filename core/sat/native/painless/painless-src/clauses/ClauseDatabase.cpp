@@ -26,7 +26,9 @@ ClauseDatabase::ClauseDatabase() {}
 
 ClauseDatabase::~ClauseDatabase() {
   for (auto& clauses : clauses) {
-    for (auto& clause : clauses) { ClauseManager::releaseClause(clause); }
+    for (auto& clause : clauses) {
+      ClauseManager::releaseClause(clause);
+    }
   }
 }
 
@@ -45,8 +47,7 @@ void ClauseDatabase::addClause(ClauseExchange* clause) {
   }
 }
 
-int ClauseDatabase::giveSelection(
-    vector<ClauseExchange*>& selectedCls, unsigned totalSize, int* selectCount) {
+int ClauseDatabase::giveSelection(vector<ClauseExchange*>& selectedCls, unsigned totalSize, int* selectCount) {
   int used = 0;
   *selectCount = 0;
 

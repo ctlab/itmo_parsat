@@ -5,26 +5,26 @@
 #include "core/tests/common/generate.h"
 
 #define BENCH_ALG_GROUPS true, false, "exp_u700s"
-#define SAMPLES 25
+#define SAMPLES 5
 
 static void run_benchmark_one(
-    core::sat::prop::RProp rprop, ea::preprocess::RPreprocess const& preprocess,
-    std::string const& config, core::sat::Problem const& problem,
+    core::sat::prop::RProp rprop, std::string const& config, core::sat::Problem const& problem,
     core::lit_vec_t const& base_assumption) {
+  auto preprocess = common::get_preprocess(rprop);
+  if (!preprocess->preprocess(problem)) {
+    // Skip the meaningless task (zero-time)
+    return;
+  }
   auto algorithm = common::get_algorithm(rprop, common::configs_path + config);
   algorithm->prepare(preprocess);
   algorithm->set_base_assumption(base_assumption);
   algorithm->process();
 }
 
-static void run_benchmark(
-    core::sat::prop::RProp rprop, ea::preprocess::RPreprocess const& preprocess,
-    std::string const& config, core::sat::Problem const& problem) {
+static void run_benchmark(core::sat::prop::RProp rprop, std::string const& config, core::sat::Problem const& problem) {
   common::iter_assumptions(
-      [&](auto const& assumption) {
-        run_benchmark_one(rprop, preprocess, config, problem, assumption);
-      },
-      0, 24, preprocess->num_vars(), SAMPLES);
+      [&](auto const& assumption) { run_benchmark_one(rprop, config, problem, assumption); },  //
+      0, 24, rprop->num_vars(), SAMPLES);
 }
 
 static void BM_algorithm(benchmark::State& state, std::string config) {
@@ -36,12 +36,9 @@ static void BM_algorithm(benchmark::State& state, std::string config) {
   auto problem = common::problems(BENCH_ALG_GROUPS)[state.range(0)];
   auto rprop = common::get_prop(common::configs_path + "par_prop.json");
   rprop->load_problem(problem);
-  auto preprocess = common::get_preprocess(rprop);
-  if (!preprocess->preprocess(problem)) {
-    // Skip if the task is meaningless (same for all testing configurations).
-    return;
+  for (auto _ : state) {
+    run_benchmark(rprop, config, problem);
   }
-  for (auto _ : state) { run_benchmark(rprop, preprocess, config, problem); }
 }
 
 BENCHMARK_CAPTURE(BM_algorithm, ea, "ea_prod.json")

@@ -13,9 +13,8 @@ namespace {
 std::array<char, 65536> print_buf_;
 
 void print_(char const* format, va_list args) {
-  const size_t size = ::std::min(
-      ::vsnprintf(&print_buf_[0], print_buf_.size(), format, args),
-      static_cast<int>(print_buf_.size()));
+  const size_t size =
+      ::std::min(::vsnprintf(&print_buf_[0], print_buf_.size(), format, args), static_cast<int>(print_buf_.size()));
   for (size_t offset = 0; offset < size;) {
     size_t bytes_written = ::write(STDERR_FILENO, &print_buf_[offset], size - offset);
     if (bytes_written <= 0) { break; }
@@ -145,9 +144,9 @@ void panic(
   if (const auto exception_ptr = std::current_exception()) {
     try {
       std::rethrow_exception(exception_ptr);
-    } catch (std::exception const& e) {
-      IPS_TERMINATE("unhandled exception: %s\n", e.what());
-    } catch (...) { IPS_TERMINATE("unhandled exception: (unknown exception)"); }
+    } catch (std::exception const& e) { IPS_TERMINATE("unhandled exception: %s\n", e.what()); } catch (...) {
+      IPS_TERMINATE("unhandled exception: (unknown exception)");
+    }
   }
 });
 
@@ -188,8 +187,7 @@ bool set_sigsegv_handler() {
         reinterpret_cast<std::uintptr_t>(info->si_addr), ip, (is_write ? "write" : "read"));
     std::signal(SIGSEGV, SIG_DFL);
 #else
-    core::assert::_details::panic(
-        __FILE__, __LINE__, "SIGSEGV handler", nullptr, false, "segmentation fault");
+    core::assert::_details::panic(__FILE__, __LINE__, "SIGSEGV handler", nullptr, false, "segmentation fault");
     std::signal(SIGSEGV, SIG_DFL);
 #endif
   };

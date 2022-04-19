@@ -52,18 +52,14 @@ static DoubleOption opt_random_var_freq(
     "variable",
     0, DoubleRange(0, true, 1, true));
 static DoubleOption opt_random_seed(
-    _cat, "rnd-seed", "Used by the random variable selection", 91648253,
-    DoubleRange(0, false, HUGE_VAL, false));
+    _cat, "rnd-seed", "Used by the random variable selection", 91648253, DoubleRange(0, false, HUGE_VAL, false));
 static IntOption opt_ccmin_mode(
-    _cat, "ccmin-mode", "Controls conflict clause minimization (0=none, 1=basic, 2=deep)", 2,
-    IntRange(0, 2));
+    _cat, "ccmin-mode", "Controls conflict clause minimization (0=none, 1=basic, 2=deep)", 2, IntRange(0, 2));
 static IntOption opt_phase_saving(
-    _cat, "phase-saving", "Controls the level of phase saving (0=none, 1=limited, 2=full)", 2,
-    IntRange(0, 2));
+    _cat, "phase-saving", "Controls the level of phase saving (0=none, 1=limited, 2=full)", 2, IntRange(0, 2));
 static BoolOption opt_rnd_init_act(_cat, "rnd-init", "Randomize the initial activity", false);
 static BoolOption opt_luby_restart(_cat, "luby", "Use the Luby restart sequence", true);
-static IntOption opt_restart_first(
-    _cat, "rfirst", "The base restart interval", 100, IntRange(1, INT32_MAX));
+static IntOption opt_restart_first(_cat, "rfirst", "The base restart interval", 100, IntRange(1, INT32_MAX));
 static DoubleOption opt_restart_inc(
     _cat, "rinc", "Restart interval increase factor", 2, DoubleRange(1, false, HUGE_VAL, false));
 static DoubleOption opt_garbage_frac(
@@ -71,8 +67,7 @@ static DoubleOption opt_garbage_frac(
     "The fraction of wasted memory allowed before a garbage collection is "
     "triggered",
     0.20, DoubleRange(0, false, HUGE_VAL, false));
-static IntOption opt_min_learnts_lim(
-    _cat, "min-learnts", "Minimum learnt clause limit", 0, IntRange(0, INT32_MAX));
+static IntOption opt_min_learnts_lim(_cat, "min-learnts", "Minimum learnt clause limit", 0, IntRange(0, INT32_MAX));
 
 //=================================================================================================
 // Constructor/Destructor:
@@ -145,9 +140,9 @@ Solver::Solver()
 
 // > dzhiblavi: constructor with passed parameters
 Solver::Solver(
-    int verbosity, double var_decay, double clause_decay, double random_var_freq,
-    double random_seed, bool luby_restart, int ccmin_mode, int phase_saving, bool rnd_init_act,
-    double garbage_frac, int min_learnts_lim, int restart_first, double restart_inc)
+    int verbosity, double var_decay, double clause_decay, double random_var_freq, double random_seed, bool luby_restart,
+    int ccmin_mode, int phase_saving, bool rnd_init_act, double garbage_frac, int min_learnts_lim, int restart_first,
+    double restart_inc)
     :  // Parameters (user settable):
        //
     verbosity(verbosity)
@@ -280,8 +275,7 @@ bool Solver::addClause_(vec<Lit>& ps) {
     proofTmp.clear();
     for (i = j = 0, p = lit_Undef; i < ps.size(); i++) {
       proofTmp.push(ps[i]);
-      if (value(ps[i]) == l_True || ps[i] == ~ps[i - 1 < 0 ? 0 : i - 1] || value(ps[i]) == l_False)
-        modifiedClause = 1;
+      if (value(ps[i]) == l_True || ps[i] == ~ps[i - 1 < 0 ? 0 : i - 1] || value(ps[i]) == l_False) modifiedClause = 1;
     }
   }
 
@@ -368,8 +362,7 @@ void Solver::cancelUntil(int level) {
     for (int c = trail.size() - 1; c >= trail_lim[level]; c--) {
       Var x = var(trail[c]);
       assigns[x] = l_Undef;
-      if (phase_saving > 1 || (phase_saving == 1 && c > trail_lim.last()))
-        polarity[x] = sign(trail[c]);
+      if (phase_saving > 1 || (phase_saving == 1 && c > trail_lim.last())) polarity[x] = sign(trail[c]);
       insertVarOrder(x);
     }
     qhead = trail_lim[level];
@@ -473,8 +466,7 @@ void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel) {
   out_learnt.copyTo(analyze_toclear);
   if (ccmin_mode == 2) {
     for (i = j = 1; i < out_learnt.size(); i++)
-      if (reason(var(out_learnt[i])) == CRef_Undef || !litRedundant(out_learnt[i]))
-        out_learnt[j++] = out_learnt[i];
+      if (reason(var(out_learnt[i])) == CRef_Undef || !litRedundant(out_learnt[i])) out_learnt[j++] = out_learnt[i];
 
   } else if (ccmin_mode == 1) {
     for (i = j = 1; i < out_learnt.size(); i++) {
@@ -534,9 +526,7 @@ bool Solver::litRedundant(Lit p) {
       Lit l = (*c)[i];
 
       // Variable at level 0 or previously removable:
-      if (level(var(l)) == 0 || seen[var(l)] == seen_source || seen[var(l)] == seen_removable) {
-        continue;
-      }
+      if (level(var(l)) == 0 || seen[var(l)] == seen_source || seen[var(l)] == seen_removable) { continue; }
 
       // Check variable can not be removed for some local reason:
       if (reason(var(l)) == CRef_Undef || seen[var(l)] == seen_failed) {
@@ -679,7 +669,8 @@ CRef Solver::propagate() {
         confl = cr;
         qhead = trail.size();
         // Copy the remaining watches:
-        while (i < end) *j++ = *i++;
+        while (i < end)
+          *j++ = *i++;
       } else
         uncheckedEnqueue(first, cr);
 
@@ -875,7 +866,8 @@ bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
 
   // copying the result
   if (decisionLevel() > level) {
-    for (int c = trail_lim[level]; c < trail.size(); ++c) prop.push(trail[c]);
+    for (int c = trail_lim[level]; c < trail.size(); ++c)
+      prop.push(trail[c]);
 
     // if there is a conflict, pushing
     // the conflicting literal as well
@@ -987,7 +979,8 @@ bool Solver::simplify() {
     // printf("trail.size()= %d, qhead = %d\n", trail.size(), qhead);
     qhead = trail.size();
 
-    for (int i = 0; i < released_vars.size(); i++) seen[released_vars[i]] = 0;
+    for (int i = 0; i < released_vars.size(); i++)
+      seen[released_vars[i]] = 0;
 
     // Released variables are now ready to be reused:
     append(released_vars, free_vars);
@@ -1060,8 +1053,8 @@ lbool Solver::search(int nof_conflicts) {
           printf(
               "c | %9d | %7d %8d %8d | %8d %8d %6.0f | %6.3f %% |\n", (int) conflicts,
               (int) dec_vars - (trail_lim.size() == 0 ? trail.size() : trail_lim[0]), nClauses(),
-              (int) clauses_literals, (int) max_learnts, nLearnts(),
-              (double) learnts_literals / nLearnts(), progressEstimate() * 100);
+              (int) clauses_literals, (int) max_learnts, nLearnts(), (double) learnts_literals / nLearnts(),
+              progressEstimate() * 100);
       }
 
     } else {
@@ -1188,8 +1181,7 @@ lbool Solver::solve_() {
   // Search:
   int curr_restarts = 0;
   while (status == l_Undef) {
-    double rest_base =
-        luby_restart ? luby(restart_inc, curr_restarts) : pow(restart_inc, curr_restarts);
+    double rest_base = luby_restart ? luby(restart_inc, curr_restarts) : pow(restart_inc, curr_restarts);
     status = search(rest_base * restart_first);
     if (!withinBudget()) break;
     curr_restarts++;
@@ -1204,7 +1196,8 @@ lbool Solver::solve_() {
   if (status == l_True) {
     // Extend & copy model:
     model.growTo(nVars());
-    for (int i = 0; i < nVars(); i++) model[i] = value(i);
+    for (int i = 0; i < nVars(); i++)
+      model[i] = value(i);
   } else if (status == l_False && conflict.size() == 0)
     ok = false;
 
@@ -1228,7 +1221,8 @@ bool Solver::implies(const vec<Lit>& assumps, vec<Lit>& out) {
   bool ret = true;
   if (propagate() == CRef_Undef) {
     out.clear();
-    for (int j = trail_before; j < trail.size(); j++) out.push(trail[j]);
+    for (int j = trail_before; j < trail.size(); j++)
+      out.push(trail[j]);
   } else
     ret = false;
 
@@ -1253,8 +1247,7 @@ void Solver::toDimacs(FILE* f, Clause& c, vec<Var>& map, Var& max) {
   if (satisfied(c)) return;
 
   for (int i = 0; i < c.size(); i++)
-    if (value(c[i]) != l_False)
-      fprintf(f, "%s%d ", sign(c[i]) ? "-" : "", mapVar(var(c[i]), map, max) + 1);
+    if (value(c[i]) != l_False) fprintf(f, "%s%d ", sign(c[i]) ? "-" : "", mapVar(var(c[i]), map, max) + 1);
   fprintf(f, "0\n");
 }
 
@@ -1298,7 +1291,8 @@ void Solver::toDimacs(FILE* f, const vec<Lit>& assumps) {
     fprintf(f, "%s%d 0\n", sign(assumps[i]) ? "-" : "", mapVar(var(assumps[i]), map, max) + 1);
   }
 
-  for (int i = 0; i < clauses.size(); i++) toDimacs(f, ca[clauses[i]], map, max);
+  for (int i = 0; i < clauses.size(); i++)
+    toDimacs(f, ca[clauses[i]], map, max);
 
   if (verbosity > 0) printf("c Wrote DIMACS with %d variables and %d clauses.\n", max, cnt);
 }
@@ -1307,14 +1301,11 @@ void Solver::printStats() const {
   double cpu_time = cpuTime();
   double mem_used = memUsedPeak();
   printf("c restarts              : %" PRIu64 "\n", starts);
-  printf(
-      "c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", conflicts, conflicts / cpu_time);
+  printf("c conflicts             : %-12" PRIu64 "   (%.0f /sec)\n", conflicts, conflicts / cpu_time);
   printf(
       "c decisions             : %-12" PRIu64 "   (%4.2f %% random) (%.0f /sec)\n", decisions,
       (float) rnd_decisions * 100 / (float) decisions, decisions / cpu_time);
-  printf(
-      "c propagations          : %-12" PRIu64 "   (%.0f /sec)\n", propagations,
-      propagations / cpu_time);
+  printf("c propagations          : %-12" PRIu64 "   (%.0f /sec)\n", propagations, propagations / cpu_time);
   printf(
       "c conflict literals     : %-12" PRIu64 "   (%4.2f %% deleted)\n", tot_literals,
       (max_literals - tot_literals) * 100 / (double) max_literals);
@@ -1333,7 +1324,8 @@ void Solver::relocAll(ClauseAllocator& to) {
     for (int s = 0; s < 2; s++) {
       Lit p = mkLit(v, s);
       vec<Watcher>& ws = watches[p];
-      for (int j = 0; j < ws.size(); j++) ca.reloc(ws[j].cref, to);
+      for (int j = 0; j < ws.size(); j++)
+        ca.reloc(ws[j].cref, to);
     }
 
   // All reasons:
@@ -1379,8 +1371,8 @@ void Solver::garbageCollect() {
   relocAll(to);
   if (verbosity >= 2)
     printf(
-        "c |  Garbage collection:   %12d bytes => %12d bytes             |\n",
-        ca.size() * ClauseAllocator::Unit_Size, to.size() * ClauseAllocator::Unit_Size);
+        "c |  Garbage collection:   %12d bytes => %12d bytes             |\n", ca.size() * ClauseAllocator::Unit_Size,
+        to.size() * ClauseAllocator::Unit_Size);
   to.moveTo(ca);
 }
 

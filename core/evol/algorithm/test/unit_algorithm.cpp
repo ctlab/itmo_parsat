@@ -17,19 +17,16 @@ void check_rho_value(
   uint32_t samples = instance.fitness().samples;
   uint32_t size = instance.size();
   if (!instance.fitness().can_calc() || (1ULL << size) != samples) { return; }
-  auto search =
-      core::search::createFullSearch(preprocess->var_view(), instance.get_vars().get_mask());
-  uint32_t conflicts =
-      rprop->prop_tree(util::concat(base_assumption, (*search)()), base_assumption.size());
+  auto search = core::search::createFullSearch(preprocess->var_view(), instance.get_vars().get_mask());
+  uint32_t conflicts = rprop->prop_tree(util::concat(base_assumption, (*search)()), base_assumption.size());
   double expected_rho = instance.fitness().rho;
   double actual_rho = (double) conflicts / (double) (1ULL << instance.size());
   ASSERT_NEAR(expected_rho, actual_rho, 1e-8);
 }
 
 void run_test(
-    core::sat::prop::RProp rprop, ea::preprocess::RPreprocess const& preprocess,
-    std::string const& config, core::sat::Problem const& problem,
-    core::lit_vec_t const& base_assumption) {
+    core::sat::prop::RProp rprop, ea::preprocess::RPreprocess const& preprocess, std::string const& config,
+    core::sat::Problem const& problem, core::lit_vec_t const& base_assumption) {
   auto algorithm = common::get_algorithm(rprop, common::configs_path + config);
   algorithm->prepare(preprocess);
   algorithm->set_base_assumption(base_assumption);
@@ -65,5 +62,4 @@ TEST_P(TestAlgorithm, correctness) {
 INSTANTIATE_TEST_CASE_P(
     TestAlgorithm, TestAlgorithm,
     ::testing::ValuesIn(common::extend(common::cross(
-        common::to_tuple(algorithm_configs),
-        common::to_tuple(common::problems(false, false, "small"))))));
+        common::to_tuple(algorithm_configs), common::to_tuple(common::problems(false, false, "small"))))));

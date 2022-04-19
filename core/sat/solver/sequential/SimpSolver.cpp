@@ -4,8 +4,8 @@ namespace core::sat::solver {
 
 State SimpSolver::solve(lit_vec_t const& assumptions) {
   clear_interrupt();
-  Minisat::lbool result = IPS_TRACE_N_V(
-      "SimpSolver::solve", Minisat::SimpSolver::solveLimited(assumptions, false, true));
+  Minisat::lbool result =
+      IPS_TRACE_N_V("SimpSolver::solve", Minisat::SimpSolver::solveLimited(assumptions, false, true));
   if (result == Minisat::l_True) {
     return SAT;
   } else if (result == Minisat::l_False) {

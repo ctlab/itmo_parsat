@@ -60,8 +60,8 @@ void TimeTracer::print_summary(uint32_t num_quantiles) {
     info << "\n" << std::setw(32) << name << std::setw(10) << stats.count;
   }
   info << "\n"
-       << std::setw(32) << "Name" << std::setw(12) << "Count" << std::setw(12) << "Total(s)"
-       << std::setw(12) << "Min(s)" << std::setw(12) << "Max(s)";
+       << std::setw(32) << "Name" << std::setw(12) << "Count" << std::setw(12) << "Total(s)" << std::setw(12)
+       << "Min(s)" << std::setw(12) << "Max(s)";
 
   for (auto& p : instance()._dur_stats) {
     std::string const& name = p.first;
@@ -77,8 +77,8 @@ void TimeTracer::print_summary(uint32_t num_quantiles) {
     size_t quantiles = std::min(num_quantiles, (uint32_t) stats.durations.size());
     size_t step = stats.durations.size() / quantiles;
     info << "\n"
-         << std::setw(32) << name << std::setw(12) << stats.count << std::setw(12) << total_time
-         << std::setw(12) << min_time << std::setw(12) << max_time;
+         << std::setw(32) << name << std::setw(12) << stats.count << std::setw(12) << total_time << std::setw(12)
+         << min_time << std::setw(12) << max_time;
     quant << "\n" << std::setw(32) << name << " [ ";
     for (size_t i = 0; i < stats.durations.size(); i += step) {
       std::nth_element(stats.durations.begin(), stats.durations.begin() + i, stats.durations.end());

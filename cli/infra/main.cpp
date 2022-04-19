@@ -48,7 +48,9 @@ void init_googletest(char const* argv0, util::CliConfig const& config) {
     int argc = (int) gtest_options.size() + 1;
     std::vector<char const*> argv;
     argv.push_back(argv0);
-    for (auto const& s : gtest_options) { argv.push_back(s.data()); }
+    for (auto const& s : gtest_options) {
+      argv.push_back(s.data());
+    }
     ::testing::InitGoogleTest(&argc, (char**) argv.data());
   }
 }

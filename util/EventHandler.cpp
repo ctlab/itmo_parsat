@@ -4,8 +4,7 @@ namespace core::event {
 
 namespace _details {
 
-EventCallbackHandle::EventCallbackHandle(
-    std::mutex* unlink_mutex, event_callback_t&& event_callback)
+EventCallbackHandle::EventCallbackHandle(std::mutex* unlink_mutex, event_callback_t&& event_callback)
     : _unlink_mutex(unlink_mutex), _callback(std::move(event_callback)) {}
 
 EventCallbackHandle::~EventCallbackHandle() {
@@ -43,8 +42,7 @@ void EventHandler::raise(Event event) {
 
 EventCallbackHandle EventHandler::attach(event_callback_t event_callback, Event event) {
   auto& event_entry = _cb_map[event];
-  auto handle_ptr = std::make_shared<_details::EventCallbackHandle>(
-      &event_entry.first, std::move(event_callback));
+  auto handle_ptr = std::make_shared<_details::EventCallbackHandle>(&event_entry.first, std::move(event_callback));
   {
     std::lock_guard<std::mutex> lg(event_entry.first);
     event_entry.second.push_back(*handle_ptr);

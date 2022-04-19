@@ -12,8 +12,7 @@ LaunchConfig& LaunchConfig::set_config_path(std::filesystem::path const& new_con
   return *this;
 }
 
-LaunchConfig& LaunchConfig::set_log_config_path(
-    std::filesystem::path const& new_log_config) noexcept {
+LaunchConfig& LaunchConfig::set_log_config_path(std::filesystem::path const& new_log_config) noexcept {
   log_config = new_log_config;
   return *this;
 }

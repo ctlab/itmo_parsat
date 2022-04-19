@@ -24,7 +24,9 @@ core::lit_vec_t gen_assumption(core::domain::VarView const& var_view, int min_si
 
 std::vector<int> gen_vars(size_t size, int num_vars) {
   std::vector<int> vars(size);
-  for (int& x : vars) { x = util::random::sample<int>(0, num_vars - 1); }
+  for (int& x : vars) {
+    x = util::random::sample<int>(0, num_vars - 1);
+  }
   return vars;
 }
 
@@ -34,7 +36,9 @@ std::vector<int> gen_unique_vars(size_t size, int num_vars) {
   std::vector<int> vars(size);
   for (int& x : vars) {
     x = util::random::sample<int>(0, num_vars - 1);
-    while (used_vars.count(x)) { x = util::random::sample<int>(0, num_vars - 1); }
+    while (used_vars.count(x)) {
+      x = util::random::sample<int>(0, num_vars - 1);
+    }
     used_vars.insert(x);
   }
   return vars;
@@ -42,13 +46,14 @@ std::vector<int> gen_unique_vars(size_t size, int num_vars) {
 
 core::lit_vec_t to_mini(std::vector<int> const& vars) {
   Mini::vec<Mini::Lit> v((int) vars.size());
-  for (size_t i = 0; i < vars.size(); ++i) { v[(int) i] = Mini::mkLit(vars[i], false); }
+  for (size_t i = 0; i < vars.size(); ++i) {
+    v[(int) i] = Mini::mkLit(vars[i], false);
+  }
   return v;
 }
 
 void iter_assumptions(
-    std::function<void(core::lit_vec_t&)> const& f, int min_size, int max_size, int max_var,
-    int num_tests) {
+    std::function<void(core::lit_vec_t&)> const& f, int min_size, int max_size, int max_var, int num_tests) {
   while (num_tests--) {
     auto assumption = gen_assumption(min_size, max_size, max_var);
     f(assumption);
@@ -56,8 +61,7 @@ void iter_assumptions(
 }
 
 void iter_vars(
-    std::function<void(core::vars_set_t&)> const& f, int min_size, int max_size, int max_var,
-    int num_tests) {
+    std::function<void(core::vars_set_t&)> const& f, int min_size, int max_size, int max_var, int num_tests) {
   while (num_tests--) {
     auto vars = gen_vars(util::random::sample<int>(min_size, max_size), max_var);
     f(vars);
@@ -65,8 +69,8 @@ void iter_vars(
 }
 
 void iter_assumptions(
-    std::function<void(core::lit_vec_t&)> const& f, core::domain::VarView const& var_view,
-    int min_size, int max_size, int num_tests) {
+    std::function<void(core::lit_vec_t&)> const& f, core::domain::VarView const& var_view, int min_size, int max_size,
+    int num_tests) {
   while (num_tests--) {
     auto assumption = gen_assumption(var_view, min_size, max_size);
     f(assumption);

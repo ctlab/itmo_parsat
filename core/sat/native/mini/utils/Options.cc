@@ -48,8 +48,7 @@ void Mini::parseOptions(int& argc, char** argv, bool strict) {
       if (!parsed_ok) {
         if (strict && match(argv[i], "-"))
           fprintf(
-              stderr, "ERROR! Unknown flag \"%s\". Use '--%shelp' for help.\n", argv[i],
-              Option::getHelpPrefixString()),
+              stderr, "ERROR! Unknown flag \"%s\". Use '--%shelp' for help.\n", argv[i], Option::getHelpPrefixString()),
               exit(1);
         else
           argv[j++] = argv[i];

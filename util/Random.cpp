@@ -9,8 +9,7 @@ thread_local ::util::random::Generator* _this_thread_generator = nullptr;
 namespace util::random {
 
 Generator::Generator(uint32_t seed) : _seed(seed), _mt(seed) {
-  IPS_VERIFY_S(
-      _this_thread_generator == nullptr, "Trying to create second Generator in the same thread.");
+  IPS_VERIFY_S(_this_thread_generator == nullptr, "Trying to create second Generator in the same thread.");
   _this_thread_generator = this;
 }
 

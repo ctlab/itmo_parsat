@@ -38,7 +38,9 @@ using namespace Mini;
 namespace painless {
 
 static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
-  for (size_t i = 0; i < cls->size; i++) { mcls.push(MINI_LIT(cls->lits[i])); }
+  for (size_t i = 0; i < cls->size; i++) {
+    mcls.push(MINI_LIT(cls->lits[i]));
+  }
 }
 
 void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
@@ -46,7 +48,9 @@ void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
   if (lbd > mp->lbdLimit) return;
 
   ClauseExchange* ncls = ClauseManager::allocClause(cls.size());
-  for (int i = 0; i < cls.size(); i++) { ncls->lits[i] = INT_LIT(cls[i]); }
+  for (int i = 0; i < cls.size(); i++) {
+    ncls->lits[i] = INT_LIT(cls[i]);
+  }
   ncls->lbd = lbd;
 
   mp->clausesToExport.addClause(ncls);
@@ -140,8 +144,7 @@ void MapleCOMSPSSolver::diversify(int id) {
   }
 }
 
-PSatResult MapleCOMSPSSolver::solve(
-    Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) {
+PSatResult MapleCOMSPSSolver::solve(Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) {
   unsetSolverInterrupt();
   PSatResult result = PUNKNOWN;
 
@@ -166,7 +169,9 @@ PSatResult MapleCOMSPSSolver::solve(
         present.insert(assumptions[i].x);
       }
     }
-    for (int ind : cube) { miniAssumptions.push(MINI_LIT(ind)); }
+    for (int ind : cube) {
+      miniAssumptions.push(MINI_LIT(ind));
+    }
 
     lbool res = solveLimited(miniAssumptions, false, true);
     if (res == l_True) {
@@ -178,7 +183,9 @@ PSatResult MapleCOMSPSSolver::solve(
     }
   }
 
-  for (auto clause : tmp) { ClauseManager::releaseClause(clause); }
+  for (auto clause : tmp) {
+    ClauseManager::releaseClause(clause);
+  }
   return result;
 }
 
@@ -208,19 +215,21 @@ void MapleCOMSPSSolver::addInitialClauses(const vector<ClauseExchange*>& clauses
       int lit = clauses[ind]->lits[i];
       int var = abs(lit);
 
-      while (nVars() < var) { newVar(); }
+      while (nVars() < var) {
+        newVar();
+      }
 
       mcls.push(MINI_LIT(lit));
     }
 
-    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) {
-      printf("c unsat when adding initial cls\n");
-    }
+    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) { printf("c unsat when adding initial cls\n"); }
   }
 }
 
 void MapleCOMSPSSolver::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
-  for (size_t i = 0; i < clauses.size(); i++) { addLearnedClause(clauses[i]); }
+  for (size_t i = 0; i < clauses.size(); i++) {
+    addLearnedClause(clauses[i]);
+  }
 }
 
 void MapleCOMSPSSolver::getLearnedClauses(vector<ClauseExchange*>& clauses) {
@@ -258,7 +267,9 @@ std::vector<int> MapleCOMSPSSolver::getModel() {
 
 vector<int> MapleCOMSPSSolver::getFinalAnalysis() {
   vector<int> outCls;
-  for (int i = 0; i < conflict.size(); i++) { outCls.push_back(INT_LIT(conflict[i])); }
+  for (int i = 0; i < conflict.size(); i++) {
+    outCls.push_back(INT_LIT(conflict[i]));
+  }
   return outCls;
 }
 
@@ -266,7 +277,9 @@ vector<int> MapleCOMSPSSolver::getSatAssumptions() {
   vector<int> outCls;
   vec<Lit> lits;
   getAssumptions(lits);
-  for (int i = 0; i < lits.size(); i++) { outCls.push_back(-(INT_LIT(lits[i]))); }
+  for (int i = 0; i < lits.size(); i++) {
+    outCls.push_back(-(INT_LIT(lits[i])));
+  }
   return outCls;
 }
 

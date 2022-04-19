@@ -40,8 +40,8 @@ void Algorithm::process() {
   do {
     _step();
     IPS_INFO_T(
-        BEST_INSTANCE, "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) % 128
-                                  << "] [Iter " << iteration << "]"
+        BEST_INSTANCE, "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) % 128 << "] [Iter "
+                                  << iteration << "]"
                                   << "[Points " << inaccurate_points() << "]"
                                   << " Best instance: " << get_best());
     ++iteration;
@@ -62,8 +62,7 @@ core::sat::prop::Prop& Algorithm::get_prop() noexcept {
 }
 
 instance::Instance& Algorithm::get_best() noexcept {
-  return *(*std::min_element(
-      _population.begin(), _population.end(), [](auto& a, auto& b) { return *a < *b; }));
+  return *(*std::min_element(_population.begin(), _population.end(), [](auto& a, auto& b) { return *a < *b; }));
 }
 
 instance::SharedData& Algorithm::get_shared_data() noexcept {

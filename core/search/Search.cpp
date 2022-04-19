@@ -29,11 +29,12 @@ Search::Search(uint64_t total) : _total(total) {
 
 Search::Search(std::vector<int> const& vars, uint64_t total) : Search(total) {
   _assignment.capacity((int) vars.size());
-  for (int var : vars) { _assignment.push(Mini::mkLit(var, false)); }
+  for (int var : vars) {
+    _assignment.push(Mini::mkLit(var, false));
+  }
 }
 
-Search::Search(domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total)
-    : Search(total) {
+Search::Search(domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total) : Search(total) {
   for (int i = 0; i < (int) bit_mask.size(); ++i) {
     if (bit_mask[i]) { _assignment.push(Mini::mkLit(var_view[i], false)); }
   }

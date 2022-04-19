@@ -34,7 +34,9 @@ using namespace Mini;
 #define INT_LIT(lit) sign(lit) ? -(var(lit) + 1) : (var(lit) + 1)
 
 static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
-  for (size_t i = 0; i < cls->size; i++) { mcls.push(MINI_LIT(cls->lits[i])); }
+  for (size_t i = 0; i < cls->size; i++) {
+    mcls.push(MINI_LIT(cls->lits[i]));
+  }
 }
 
 Reducer::Reducer(SolverInterface* _solver) {
@@ -114,7 +116,9 @@ PSatResult Reducer::solve(Mini::vec<Mini::Lit> const& assumptions, const vector<
 bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
   vector<int> assumps;
   vector<int> tmpNewClause;
-  for (size_t ind = 0; ind < cls->size; ind++) { assumps.push_back(-cls->lits[ind]); }
+  for (size_t ind = 0; ind < cls->size; ind++) {
+    assumps.push_back(-cls->lits[ind]);
+  }
   PSatResult res = solver->solve(assumptions, assumps);
   if (res == PUNSAT) {
     tmpNewClause = solver->getFinalAnalysis();
@@ -157,7 +161,9 @@ void Reducer::addInitialClauses(const vector<ClauseExchange*>& clauses) {
 }
 
 void Reducer::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
-  for (size_t i = 0; i < clauses.size(); i++) { addLearnedClause(clauses[i]); }
+  for (size_t i = 0; i < clauses.size(); i++) {
+    addLearnedClause(clauses[i]);
+  }
 }
 
 void Reducer::getLearnedClauses(vector<ClauseExchange*>& clauses) {

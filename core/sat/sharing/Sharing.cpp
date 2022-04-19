@@ -41,10 +41,7 @@ void Sharing::share(SolverList const& sl) {
 
 void Sharing::share(SharingUnit const& u) {
   std::visit(
-      overloaded{
-          [this](SolverList const& sl) { share(sl); },
-          [this](SolverBlockList const& sl) { share(sl); }},
-      u);
+      overloaded{[this](SolverList const& sl) { share(sl); }, [this](SolverBlockList const& sl) { share(sl); }}, u);
 }
 
 void Sharing::share(SharingUnit const& su1, SharingUnit const& su2, SharingDir dir) {

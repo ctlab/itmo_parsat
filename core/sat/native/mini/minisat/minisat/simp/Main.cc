@@ -71,21 +71,17 @@ int main(int argc, char** argv) {
 
     // Extra options:
     //
-    IntOption verb(
-        "MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1, IntRange(0, 2));
+    IntOption verb("MAIN", "verb", "Verbosity level (0=silent, 1=some, 2=more).", 1, IntRange(0, 2));
     BoolOption pre("MAIN", "pre", "Completely turn on/off any preprocessing.", true);
     BoolOption solve("MAIN", "solve", "Completely turn on/off solving after preprocessing.", true);
     StringOption dimacs(
         "MAIN", "dimacs",
         "If given, stop after preprocessing and write the result to this "
         "file.");
-    IntOption cpu_lim(
-        "MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", 0, IntRange(0, INT32_MAX));
-    IntOption mem_lim(
-        "MAIN", "mem-lim", "Limit on memory usage in megabytes.\n", 0, IntRange(0, INT32_MAX));
+    IntOption cpu_lim("MAIN", "cpu-lim", "Limit on CPU time allowed in seconds.\n", 0, IntRange(0, INT32_MAX));
+    IntOption mem_lim("MAIN", "mem-lim", "Limit on memory usage in megabytes.\n", 0, IntRange(0, INT32_MAX));
     BoolOption strictp("MAIN", "strict", "Validate DIMACS header during parsing.", false);
-    BoolOption model(
-        "MAIN", "model", "Print the values for the model in case of satisfiable.", true);
+    BoolOption model("MAIN", "model", "Print the values for the model in case of satisfiable.", true);
     StringOption proof("MAIN", "proof", "Given a filename, a DRAT proof will be written there.");
 
     parseOptions(argc, argv, true);
@@ -110,8 +106,7 @@ int main(int argc, char** argv) {
     if (argc == 1) printf("c Reading from standard input... Use '--help' for help.\n");
 
     gzFile in = (argc == 1) ? gzdopen(0, "rb") : gzopen(argv[1], "rb");
-    if (in == NULL)
-      printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
+    if (in == NULL) printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
 
     if (S.verbosity > 0) {
       printf(
@@ -200,11 +195,11 @@ int main(int argc, char** argv) {
       S.printStats();
       printf("c \n");
     }
-    printf(
-        ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
+    printf(ret == l_True ? "s SATISFIABLE\n" : ret == l_False ? "s UNSATISFIABLE\n" : "s UNKNOWN\n");
     if (ret == l_True && model) {
       std::stringstream s;
-      for (int i = 0; i < S.nVars(); i++) s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
+      for (int i = 0; i < S.nVars(); i++)
+        s << ((S.model[i] == l_True) ? i + 1 : -i - 1) << " ";
       printf("v %s0\n", s.str().c_str());
     }
 

@@ -8,8 +8,7 @@ std::vector<Mini::Lit> to_std(Mini::vec<Mini::Lit> const& mini_vec) {
   return std_vec;
 }
 
-std::vector<int> filter_vars(
-    std::vector<int> const& vars, std::unordered_set<int> const& vars_to_filter) {
+std::vector<int> filter_vars(std::vector<int> const& vars, std::unordered_set<int> const& vars_to_filter) {
   std::vector<int> result;
   result.reserve(vars.size());
   for (auto var : vars) {
@@ -20,7 +19,9 @@ std::vector<int> filter_vars(
 
 std::unordered_set<int> get_vars(Mini::vec<Mini::Lit> const& assumption) {
   std::unordered_set<int> result;
-  for (int i = 0; i < assumption.size(); ++i) { result.insert(Mini::var(assumption[i])); }
+  for (int i = 0; i < assumption.size(); ++i) {
+    result.insert(Mini::var(assumption[i]));
+  }
   return result;
 }
 
@@ -32,14 +33,18 @@ Mini::vec<Mini::Lit> to_mini(std::vector<Mini::Lit> const& std_vec) {
 
 Mini::vec<Mini::Lit> map_to_mini_vars(std::vector<int> const& vars) {
   Mini::vec<Mini::Lit> m_vars(vars.size());
-  for (size_t i = 0; i < vars.size(); ++i) { m_vars[i] = Mini::mkLit(vars[i], false); }
+  for (size_t i = 0; i < vars.size(); ++i) {
+    m_vars[i] = Mini::mkLit(vars[i], false);
+  }
   return m_vars;
 }
 
 Mini::vec<Mini::Lit> concat_unique_vars(Mini::vec<Mini::Lit> a, Mini::vec<Mini::Lit> const& b) {
   std::unordered_set<int> used;
   a.capacity(a.size() + b.size());
-  for (int i = 0; i < a.size(); ++i) { used.insert(Mini::var(a[i])); }
+  for (int i = 0; i < a.size(); ++i) {
+    used.insert(Mini::var(a[i]));
+  }
   for (int i = 0; i < b.size(); ++i) {
     if (used.count(Mini::var(b[i])) == 0) {
       used.insert(Mini::var(b[i]));

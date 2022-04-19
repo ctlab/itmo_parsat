@@ -14,7 +14,9 @@ uint32_t DoerrMutation::_get_alpha(uint32_t size) const {
   double p = util::random::sample<double>(0., 1.);
   double c = 0.;
 
-  for (uint32_t i = 1; i < bound; ++i) { c += 1. / std::pow(i, beta_); }
+  for (uint32_t i = 1; i < bound; ++i) {
+    c += 1. / std::pow(i, beta_);
+  }
 
   for (uint32_t k = 1; k < bound; ++k) {
     ll = rr;

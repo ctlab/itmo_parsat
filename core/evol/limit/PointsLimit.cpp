@@ -4,8 +4,7 @@
 
 namespace ea::limit {
 
-PointsLimit::PointsLimit(PointsLimitConfig const& config)
-    : _max_visited(config.max_points_visited()) {}
+PointsLimit::PointsLimit(PointsLimitConfig const& config) : _max_visited(config.max_points_visited()) {}
 
 bool PointsLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
   bool stop = algorithm.inaccurate_points() >= _max_visited;

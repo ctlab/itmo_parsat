@@ -68,8 +68,7 @@ void SequentialWorker::awaitStop() {
   stop();
 }
 
-void SequentialWorker::solve(
-    int64_t index, Mini::vec<Mini::Lit> const& assumptions, vector<int> const& cube) {
+void SequentialWorker::solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, vector<int> const& cube) {
   unsetInterrupt();
   {
     std::lock_guard<std::mutex> lg(start_mutex);
@@ -79,8 +78,7 @@ void SequentialWorker::solve(
   start_cv.notify_one();
 }
 
-void SequentialWorker::join(
-    int64_t index, WorkingStrategy* winner, PSatResult res, vector<int> const& model) {
+void SequentialWorker::join(int64_t index, WorkingStrategy* winner, PSatResult res, vector<int> const& model) {
   setInterrupt();
 
   if (result->global_ending || current_index != index) { return; }
