@@ -21,7 +21,8 @@ core::sat::prop::RProp get_prop(uint32_t threads) {
   } else {
     prop_config.set_prop_type("ParProp");
     prop_config.mutable_par_prop_config()->set_max_threads(threads);
-    prop_config.mutable_par_prop_config()->mutable_prop_config()->set_prop_type("SimpProp");
+    prop_config.mutable_par_prop_config()->set_tree_split_vars(12);
+    prop_config.mutable_par_prop_config()->set_seq_split_samples(16384);
   }
   return core::sat::prop::RProp(core::sat::prop::PropRegistry::resolve(prop_config));
 }
@@ -65,11 +66,12 @@ static void BM_prop_tree(benchmark::State& state) {
 BENCHMARK(BM_prop_naive)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),  //
-         benchmark::CreateDenseRange(0, 20, 4), benchmark::CreateRange(1 << 12, 1 << 18, 2)});
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),      // threads count
+         benchmark::CreateDenseRange(0, 20, 4),          // size of assumption
+         benchmark::CreateRange(1 << 12, 1 << 18, 2)});  // number of samples
 
 BENCHMARK(BM_prop_tree)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),  //
-         benchmark::CreateDenseRange(0, 20, 4)});
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
+         benchmark::CreateDenseRange(0, 20, 4)});    // size of assumption

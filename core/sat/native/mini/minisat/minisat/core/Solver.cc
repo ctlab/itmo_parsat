@@ -685,9 +685,10 @@ CRef Solver::propagate() {
 }
 
 uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
-  if (index == vars.size()) { return 0; }
+  int nvars = vars.size();
+  if (index == nvars) { return 0; }
   int variable = var(vars[index]);
-  uint64_t result = 0, half_subtree_size = 1ULL << (vars.size() - index - 1);
+  uint64_t result = 0, half_subtree_size = 1ULL << (nvars - index - 1);
 
   {  // Process left subtree
     // try to set variable to true
@@ -751,8 +752,8 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
 }
 
 // returns the number of conflicting assignments in the subtree, which path to
-// root is head vars: first head_size are literals, other are just variables
-// that will be assigned.
+// root is head vars: first head_size are ignored and passed in head_assignment
+// other |vars| - head_size are completely ignored
 uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
   uint32_t assign_size = vars.size();
   assert(assign_size <= 63 && bool("Assignment is too large to be processed as a full tree."));
@@ -766,7 +767,7 @@ uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
   // Create decision level with head assigned
   newDecisionLevel();
   for (uint64_t i = 0; i < head_size; ++i) {
-    Lit literal = vars[i];
+    Lit const& literal = vars[i];
     lbool val = value(literal);
     if (val == l_False) {
       result = subtree_size;

@@ -22,7 +22,10 @@ uint32_t ilog2(uint64_t x) {
 namespace core::sat::prop {
 
 ParProp::ParProp(ParPropConfig const& config)
-    : _tree_max_fixed_vars(ilog2(config.max_threads())), _prop_worker_pool(config.max_threads()) {}
+    : _tree_max_fixed_vars(ilog2(config.max_threads()))
+    , _prop_worker_pool(config.max_threads())
+    , _tree_split_vars(config.tree_split_vars())
+    , _seq_split_samples(config.seq_split_samples()) {}
 
 std::vector<MinisatSimpBase*> ParProp::native() noexcept {
   std::vector<MinisatSimpBase*> _native;
@@ -58,15 +61,14 @@ uint64_t ParProp::prop_search(
 }
 
 uint64_t ParProp::prop_tree(lit_vec_t const& vars, uint32_t head_size) {
-  static constexpr int VARS_TREE_SEQ_MIN = 8;
   static thread_local std::vector<std::future<uint64_t>> futures;
   uint32_t vars_left = vars.size() - head_size;
-  if (vars_left <= VARS_TREE_SEQ_MIN) {
+  if (vars_left <= _tree_split_vars) {
     return _prop_worker_pool
         .submit([&vars, &head_size](auto& prop) { return prop.prop_check_subtree(vars, head_size); })
         .get();
   }
-  uint32_t may_be_fixed_vars = vars_left - VARS_TREE_SEQ_MIN;
+  uint32_t may_be_fixed_vars = vars_left - _tree_split_vars;
   uint32_t fixed_vars = std::min(_tree_max_fixed_vars, may_be_fixed_vars);
   uint32_t threads = uint32_t(1) << fixed_vars;
   futures.clear();

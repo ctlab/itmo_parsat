@@ -53,23 +53,23 @@ class ParProp : public Prop {
 
  private:
   uint32_t _tree_max_fixed_vars = 0;
+  uint32_t _tree_split_vars = 0;
+  uint32_t _seq_split_samples = 0;
   PropWorkerPool _prop_worker_pool;
 };
 
 template <typename... Args>
 uint64_t ParProp::_prop_search(
     search::USearch search_p, Prop::prop_callback_t const& callback, Args const&... args) noexcept {
-  /* We apply sequential propagation if the number of samples is less than 8192 */
-  static constexpr size_t SAMPLES_PARALLEL_MIN = 1ULL << 13;
   static thread_local std::vector<std::future<uint64_t>> futures;
-  if (search_p->size() <= SAMPLES_PARALLEL_MIN) {
+  if (search_p->size() <= _seq_split_samples) {
     return _prop_worker_pool
         .submit([&args..., &search_p, &callback](auto& prop) {
           return sequential_propagate(prop, args..., std::move(search_p), callback);
         })
         .get();
   }
-  uint32_t num_threads = std::min(search_p->size() / SAMPLES_PARALLEL_MIN, _prop_worker_pool.max_threads());
+  uint32_t num_threads = std::min(search_p->size() / _seq_split_samples, _prop_worker_pool.max_threads());
   futures.clear();
   futures.reserve(num_threads);
   for (uint32_t index = 0; index < num_threads; ++index) {

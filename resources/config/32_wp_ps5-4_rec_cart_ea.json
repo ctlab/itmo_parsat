@@ -35,9 +35,8 @@
                     "prop_type": "ParProp",
                     "par_prop_config": {
                         "max_threads": 21,
-                        "prop_config": {
-                            "prop_type": "SimpProp"
-                        }
+                        "tree_split_vars": 12,
+                        "seq_split_samples": 16384
                     }
                 },
                 "solver_service_config": {

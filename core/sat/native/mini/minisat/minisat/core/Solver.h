@@ -79,7 +79,7 @@ class Solver {
   bool prop_check(const vec<Lit>& assumps, int psaving = 0);
 
   uint64_t prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index);
-  uint64_t prop_check_subtree(const vec<Lit>& vars, uint32_t head_size);
+  uint64_t prop_check_subtree(const vec<Lit>& vars, uint32_t head_size);  // head assignment passed in vars
 
   bool simplify();  // Removes already satisfied clauses.
   bool solve(

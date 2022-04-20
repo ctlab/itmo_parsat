@@ -49,12 +49,13 @@ message SolverServiceConfig {
 
 message PropConfig {
   string prop_type = 1;
-  ParPropConfig par_prop_config = 2;
+  ParPropConfig par_prop_config = 4;
 }
 
 message ParPropConfig {
   uint32 max_threads = 1;
-  PropConfig prop_config = 2;
+  uint32 tree_split_vars = 2;
+  uint32 seq_split_samples = 3;
 }
 
 /// Algorithms' resource limits configuration
