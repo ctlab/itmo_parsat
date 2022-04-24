@@ -76,7 +76,7 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
   std::mutex progress_lock, failed_lock;
   boost::timer::progress_display progress(assumptions.size(), std::cerr);
 
-  IPS_TRACE_N("RecurringRBSSolve::_filter_fast", {
+  IPS_BLOCK(recurr_filter_fast, {
     std::vector<std::future<sat::State>> futures;
     futures.reserve(assumptions.size());
     std::vector<lit_vec_t> cur_assumptions;

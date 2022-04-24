@@ -9,8 +9,8 @@
 #include "util/Random.h"
 #include "util/stream.h"
 
-#define BM_PROP_GROUP true, false, "small", "large"
-#define SAMPLES 10
+#define BM_PROP_GROUP true, false, "exp_u700s_30"
+#define SAMPLES 5
 
 namespace {
 
@@ -67,11 +67,11 @@ BENCHMARK(BM_prop_naive)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
          benchmark::CreateRange(1 << 0, 1 << 4, 2),      // threads count
-         benchmark::CreateDenseRange(0, 20, 4),          // size of assumption
-         benchmark::CreateRange(1 << 12, 1 << 18, 2)});  // number of samples
+         benchmark::CreateDenseRange(5, 25, 10),         // size of assumption
+         benchmark::CreateRange(1 << 13, 1 << 17, 2)});  // number of samples: 8192 : 131072
 
 BENCHMARK(BM_prop_tree)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
          benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
-         benchmark::CreateDenseRange(0, 20, 4)});    // size of assumption
+         benchmark::CreateDenseRange(5, 25, 10)});   // size of assumption

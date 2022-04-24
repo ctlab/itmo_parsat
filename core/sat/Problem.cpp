@@ -17,7 +17,7 @@ core::sat::State read_clauses_to(
   Minisat::parse_DIMACS(gz_file.native_handle(), solver);
   solver.parsing = false;
   bool ok = true;
-  if (eliminate) { ok = IPS_TRACE_N_V("Problem::eliminate", solver.eliminate(true)); }
+  if (eliminate) { ok = IPS_BLOCK_R(problem_eliminate, solver.eliminate(true)); }
   solver.toDimacs(clauses);
 
   if (clauses.empty()) {
@@ -32,7 +32,7 @@ core::sat::State read_clauses_to(
 namespace core::sat {
 
 Problem::Problem(std::filesystem::path path, bool eliminate) : _path(std::move(path)), _eliminate(eliminate) {
-  _result = IPS_TRACE_N_V("Problem::Problem", read_clauses_to(_path, _clauses, _eliminate));
+  _result = IPS_BLOCK_R(problem_construct, read_clauses_to(_path, _clauses, _eliminate));
 }
 
 Problem::Problem(Problem const& o) {

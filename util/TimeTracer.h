@@ -19,103 +19,104 @@
 namespace core {
 
 using clock_t = typename std::conditional<
-    std::chrono::high_resolution_clock::is_steady,
-    std::chrono::high_resolution_clock, std::chrono::steady_clock>::type;
+    std::chrono::high_resolution_clock::is_steady, std::chrono::high_resolution_clock, std::chrono::steady_clock>::type;
 
-namespace trace {
+namespace _detail {
 
 struct Event {
-  explicit Event(std::string name);
-  ~Event() noexcept;
-
- protected:
-  std::string _name;
+  explicit Event(std::atomic<int64_t>* count);
 };
 
 struct CodeBlock {
-  explicit CodeBlock(std::string name);
+  CodeBlock(std::atomic<int64_t>* count, std::atomic<int64_t>* time);
+
   ~CodeBlock() noexcept;
 
  private:
-  std::string _name;
-  std::chrono::time_point<clock_t> _start;
+  clock_t::time_point _start;
+  std::atomic<int64_t>* _count;
+  std::atomic<int64_t>* _time;
 };
 
-}  // namespace trace
+}  // namespace _detail
 
 /**
  * @brief Tracing utility class.
  */
 class TimeTracer {
-  friend struct trace::Event;
-  friend struct trace::CodeBlock;
+ public:
+  typedef std::atomic<int64_t> event_t;
 
- private:
-  struct EventStats {
-    uint64_t count{0};
+  struct cblock_t {
+    std::atomic<int64_t> count{};
+    std::atomic<int64_t> time{};
   };
 
-  struct DurStats {
-    uint64_t count{0};
-    std::vector<float> durations{};
-  };
+  struct Events {
+    cblock_t algorithm_step{};
+    cblock_t algorithm_preprocess{};
+    cblock_t algorithm_prepare{};
+    cblock_t algorithm_process{};
+    cblock_t cartesian_search{};
+    cblock_t recurr_filter_fast{};
+    cblock_t reduce_solve_tasks{};
+    cblock_t problem_eliminate{};
+    cblock_t problem_construct{};
+    cblock_t solve_solve{};
+    cblock_t solver_propagate{};
+    cblock_t solver_solve{};
+    cblock_t solver_load_problem{};
+    cblock_t filter_conflict{};
+    cblock_t prop_load_problem{};
+    cblock_t solver_service_load_problem{};
+    cblock_t solver_service_solve_undef{};
+    cblock_t solver_service_solve_time_limit{};
+  } events{};
+
+  static void print_summary();
+
+  static void clean();
+
+  static TimeTracer& instance();
 
  private:
   TimeTracer() = default;
 
   void _clean() noexcept;
-
-  static TimeTracer& instance();
-
- public:
-  static void print_summary(uint32_t num_quantiles);
-
-  static void clean();
-
- private:
-  std::mutex _stats_mutex;
-  std::unordered_map<std::string, EventStats> _event_stats;
-  std::unordered_map<std::string, DurStats> _dur_stats;
 };
 
 }  // namespace core
 
 #ifndef IPS_DISABLE_TRACE
 
-#define IPS_TRACE_SUMMARY(n) ::core::TimeTracer::print_summary(n)
+#define IPS_TRACE_SUMMARY ::core::TimeTracer::print_summary()
 
-#define IPS_TRACE_N(name, expr)         \
-  do {                                  \
-    ::core::trace::CodeBlock _cb(name); \
-    expr;                               \
+#define IPS_EVENT(TYPE) ::core::_detail::Event(&::core::TimeTracer::instance().events.TYPE)
+
+#define IPS_BLOCK(TYPE, EXPR)                                                            \
+  do {                                                                                   \
+    auto& tracer = ::core::TimeTracer::instance();                                       \
+    ::core::_detail::CodeBlock _cb(&tracer.events.TYPE.count, &tracer.events.TYPE.time); \
+    EXPR;                                                                                \
   } while (0)
 
-#define IPS_TRACE_N_V(name, expr)                  \
-  [&] {                                            \
-    ::core::trace::CodeBlock _cb(name);            \
-    auto&& result = expr;                          \
-    return std::forward<decltype(result)>(result); \
+#define IPS_BLOCK_R(TYPE, EXPR)                                                          \
+  [&] {                                                                                  \
+    auto& tracer = ::core::TimeTracer::instance();                                       \
+    ::core::_detail::CodeBlock _cb(&tracer.events.TYPE.count, &tracer.events.TYPE.time); \
+    auto&& result = EXPR;                                                                \
+    return std::forward<decltype(result)>(result);                                       \
   }()
-
-#define IPS_TRACE(expr) IPS_TRACE_N(#expr, expr)
-
-#define IPS_TRACE_V(expr) IPS_TRACE_N_V(#expr, expr)
-
-#define IPS_EVENT(name) ::core::trace::Event _event(name);
 
 #else
 
-#define IPS_TRACE_SUMMARY(...)
+#define IPS_TRACE_SUMMARY
 
-#define IPS_TRACE_N(name, expr) expr
+#define IPS_EVENT(TYPE)
 
-#define IPS_TRACE_N_V(name, expr) expr
+#define IPS_BLOCK(TYPE, EXPR) EXPR
 
-#define IPS_TRACE(expr) expr
-
-#define IPS_TRACE_V(expr) expr
-
-#define IPS_EVENT(...)
+#define IPS_BLOCK_R(TYPE, EXPR) EXPR
 
 #endif
 

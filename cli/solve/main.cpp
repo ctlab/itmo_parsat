@@ -74,11 +74,11 @@ int main(int argc, char** argv) {
           solve_interrupt_handler->detach();
         },
         core::event::INTERRUPT);
-    result = IPS_TRACE_V(solve->solve(problem));
+    result = IPS_BLOCK_R(solve_solve, solve->solve(problem));
     solve_interrupt_handler->detach();
   }
 
-  IPS_TRACE_SUMMARY(10);
+  IPS_TRACE_SUMMARY;
   if (result == core::sat::UNSAT) {
     std::cout << "UNSAT" << std::endl;
     return 0;

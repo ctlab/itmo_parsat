@@ -35,7 +35,7 @@ std::future<State> SequentialSolverService::solve(
   auto p_task = std::packaged_task<State(Solver&)>([this, assumption, time_limit, callback](auto& solver) {
     if (time_limit == DUR_INDEF) {
       State result;
-      IPS_TRACE_N("SeqSolverService::solve", { result = solver.solve(assumption); });
+      result = IPS_BLOCK_R(solver_service_solve_undef, solver.solve(assumption));
       if (callback) {
         try {
           callback(result);
@@ -46,9 +46,9 @@ std::future<State> SequentialSolverService::solve(
       return result;
     } else {
       State result;
-      IPS_TRACE_N("SeqSolverService::solve_tl", {
-        result = _timer.launch([&] { return solver.solve(assumption); }, [&] { solver.interrupt(); }, time_limit);
-      });
+      result = IPS_BLOCK_R(
+          solver_service_solve_time_limit,
+          _timer.launch([&] { return solver.solve(assumption); }, [&] { solver.interrupt(); }, time_limit));
       if (callback) {
         try {
           callback(result);

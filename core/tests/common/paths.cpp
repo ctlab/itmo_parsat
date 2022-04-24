@@ -13,6 +13,7 @@ std::vector<core::sat::Problem> const& problems(bool eliminate, bool allow_trivi
   std::lock_guard<std::mutex> lg(m);
   std::string key = std::to_string(eliminate) + "$" + std::to_string(allow_trivial) + "$" + group;
   if (inputs.count(key) == 0) {
+    std::cerr << "> Loading problemset '" << key << "'" << std::endl;
     std::set<core::sat::Problem> inputs_set;
     std::filesystem::path cnf_path(IPS_PROJECT_ROOT "/resources/cnf");
     cnf_path /= group;
@@ -37,6 +38,7 @@ std::vector<core::sat::Problem> const& problems(bool eliminate, bool allow_trivi
     for (auto const& problem : inputs_set) {
       inputs[key].push_back(problem);
     }
+    std::cerr << "< Loaded problemset '" << key << "'" << std::endl;
   }
   return inputs[key];
 }

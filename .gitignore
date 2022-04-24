@@ -11,5 +11,6 @@ Singularity.def
 ips.sif
 resources/cnf/*.cnf
 resources/cnf/exp_u700s/*.cnf
+resources/cnf/exp_u700s_30/*.cnf
 **/*.csv
 

@@ -38,7 +38,7 @@ void Algorithm::process() {
   uint64_t iteration = 0;
   _limit->start();
   do {
-    _step();
+    IPS_BLOCK(algorithm_step, _step());
     IPS_INFO_T(
         BEST_INSTANCE, "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) % 128 << "] [Iter "
                                   << iteration << "]"

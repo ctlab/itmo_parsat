@@ -11,9 +11,9 @@ void OneRBSearch::_interrupt_impl() {
 
 rbs_result_t OneRBSearch::find_rb(lit_vec_t const& base_assumption) {
   _algorithm.reset(ea::algorithm::AlgorithmRegistry::resolve(_cfg.algorithm_config(), _prop));
-  IPS_TRACE(_algorithm->prepare(_preprocess));
+  IPS_BLOCK(algorithm_prepare, _algorithm->prepare(_preprocess));
   _algorithm->set_base_assumption(base_assumption);
-  IPS_TRACE(_algorithm->process());
+  IPS_BLOCK(algorithm_process, _algorithm->process());
   rbs_result_t result;
   if (IPS_UNLIKELY(_is_interrupted())) {
     result = RBS_INTERRUPTED;

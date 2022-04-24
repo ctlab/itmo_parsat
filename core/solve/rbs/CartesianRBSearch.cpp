@@ -14,7 +14,7 @@ void CartesianRBSearch::_interrupt_impl() {
 }
 
 rbs_result_t CartesianRBSearch::find_rb(lit_vec_t const& base_assumption) {
-  auto cartesian_set = IPS_TRACE_V(_pre_solve(base_assumption));
+  auto cartesian_set = IPS_BLOCK_R(cartesian_search, _pre_solve(base_assumption));
   if (_sbs_found) {
     return RBS_SBS_FOUND;
   } else if (IPS_UNLIKELY(_is_interrupted())) {
@@ -60,9 +60,9 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(l
     rb_search_threads.emplace_back([&, i, seed, config = _cfg.algorithm_configs(i % _cfg.algorithm_configs_size())] {
       util::random::Generator generator(seed);
       auto& algorithm = _algorithms[i];
-      IPS_TRACE(algorithm->prepare(_preprocess));
+      IPS_BLOCK(algorithm_prepare, algorithm->prepare(_preprocess));
       algorithm->set_base_assumption(base_assumption);
-      IPS_TRACE(algorithm->process());
+      IPS_BLOCK(algorithm_process, algorithm->process());
       if (_is_interrupted() || _sbs_found) { return; }
       auto const& rb = algorithm->get_best();
       if (rb.is_sbs()) {

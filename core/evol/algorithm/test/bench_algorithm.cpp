@@ -5,7 +5,7 @@
 #include "core/tests/common/generate.h"
 
 #define BENCH_ALG_GROUPS true, false, "exp_u700s"
-#define SAMPLES 5
+#define SAMPLES 1
 
 static void run_benchmark_one(
     core::sat::prop::RProp rprop, std::string const& config, core::sat::Problem const& problem,
@@ -32,6 +32,7 @@ static void BM_algorithm(benchmark::State& state, std::string config) {
   common::set_logger_config();
   // Here and in other places benchmarks' generator has a fixed seed,
   // thus everything will be fair for all configurations.
+  core::TimeTracer::clean();
   util::random::Generator gen(239);
   auto problem = common::problems(BENCH_ALG_GROUPS)[state.range(0)];
   auto rprop = common::get_prop(common::configs_path + "par_prop.json");
@@ -39,10 +40,15 @@ static void BM_algorithm(benchmark::State& state, std::string config) {
   for (auto _ : state) {
     run_benchmark(rprop, config, problem);
   }
+  IPS_TRACE_SUMMARY;
 }
 
-BENCHMARK_CAPTURE(BM_algorithm, ea, "ea_prod.json")
-    ->DenseRange(0, (int) common::problems(BENCH_ALG_GROUPS).size() - 1, 1);
+// BENCHMARK_CAPTURE(BM_algorithm, ea, "ea_prod.json")
+//    ->DenseRange(0, (int) common::problems(BENCH_ALG_GROUPS).size() - 1, 1);
 
-BENCHMARK_CAPTURE(BM_algorithm, ga, "ga_prod.json")
-    ->DenseRange(0, (int) common::problems(BENCH_ALG_GROUPS).size() - 1, 1);
+BENCHMARK_CAPTURE(BM_algorithm, ea_speed, "ea_bench.json")
+    ->DenseRange(0, (int) common::problems(true, false, "aaai").size() - 1, 1)
+    ->Iterations(1);
+
+// BENCHMARK_CAPTURE(BM_algorithm, ga, "ga_prod.json")
+//    ->DenseRange(0, (int) common::problems(BENCH_ALG_GROUPS).size() - 1, 1);

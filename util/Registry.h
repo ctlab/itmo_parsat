@@ -37,7 +37,6 @@ namespace core {
     template <typename... Args>                                               \
     INTERFACE* _resolve(CONFIG_TYPE const& config, Args&&... args) {          \
       std::string name = config.NAME##_type();                                \
-      IPS_EVENT("Resolve_" + name)                                            \
       IPS_VERIFY_S(                                                           \
           map_.count(name) > 0,                                               \
           "Trying to resolve non-existing implementation of " #NAME << ": "   \

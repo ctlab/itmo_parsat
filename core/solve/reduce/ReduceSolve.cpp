@@ -20,7 +20,7 @@ std::vector<lit_vec_t> ReduceSolve::_filter_conflict(search::USearch assignment)
   boost::timer::progress_display progress(assignment->size(), std::cerr);
   std::vector<lit_vec_t> non_conflict;
 
-  IPS_TRACE_N("RBSSolveBase::filter_conflict", {
+  IPS_BLOCK(filter_conflict, {
     _prop->prop_search(std::move(assignment), [&](bool conflict, lit_vec_t const& assumption) {
       if (_is_interrupted()) { return false; }
       bool resume = true;
@@ -48,7 +48,7 @@ sat::State ReduceSolve::_solve_final(std::vector<lit_vec_t> const& assumptions_v
   std::mutex progress_lock;
   boost::timer::progress_display progress(assumptions_v.size(), std::cerr);
 
-  IPS_TRACE_N("RBSSolveBase::solve_final", {
+  IPS_BLOCK(reduce_solve_tasks, {
     std::vector<std::future<sat::State>> futures;
     futures.reserve(assumptions_v.size());
     for (auto& assumption : assumptions_v) {
@@ -82,13 +82,13 @@ sat::State ReduceSolve::_solve_final(std::vector<lit_vec_t> const& assumptions_v
 }
 
 void ReduceSolve::_load_problem(sat::Problem const& problem) {
-  _prop->load_problem(problem);
-  _solver_service->load_problem(problem);
+  IPS_BLOCK(prop_load_problem, _prop->load_problem(problem));
+  IPS_BLOCK(solver_service_load_problem, _solver_service->load_problem(problem));
 }
 
 sat::State ReduceSolve::solve(sat::Problem const& problem) {
-  IPS_TRACE_N("ReduceSolve::load_problem", _load_problem(problem));
-  if (!IPS_TRACE_N_V("ReduceSolve::preprocess", _preprocess->preprocess(problem))) {
+  _load_problem(problem);
+  if (!IPS_BLOCK_R(algorithm_preprocess, _preprocess->preprocess(problem))) {
     return _solver_service->solve({}, sat::solver::SolverService::DUR_INDEF).get();
   } else {
     return _solve_impl(_preprocess);
