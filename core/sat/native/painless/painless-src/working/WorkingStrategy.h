@@ -20,6 +20,7 @@
 #pragma once
 
 #include "core/sat/native/painless/painless-src/solvers/SolverInterface.h"
+#include "core/sat/native/mini/mtl/lbool.h"
 
 #include <vector>
 #include <memory>
@@ -37,7 +38,7 @@ struct WorkingResult {
   std::condition_variable cv;
   bool global_ending = false;
   PSatResult final_result = PUNKNOWN;
-  std::vector<int> final_model;
+  Mini::vec<Mini::lbool> final_model;
 };
 
 extern std::mutex m_pf;
@@ -48,9 +49,9 @@ class WorkingStrategy {
 
   virtual ~WorkingStrategy() = default;
 
-  virtual void solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, const vector<int>& cube) = 0;
+  virtual void solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, vector<int> const& cube) = 0;
 
-  virtual void join(int64_t index, WorkingStrategy* winner, PSatResult res, const vector<int>& model) = 0;
+  virtual void join(int64_t index, WorkingStrategy* winner, PSatResult res, Mini::vec<Mini::lbool> const& model) = 0;
 
   virtual int getDivisionVariable() = 0;
 

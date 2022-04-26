@@ -62,8 +62,8 @@ class LaunchFixture : public InfraParametrized {
  private:
   std::unique_ptr<infra::domain::LaunchInfo> _info;
   std::unique_ptr<infra::execution::ExecutionManager> _exec_manager;
-  core::signal::SigHandler _handler;
-  core::event::EventCallbackHandle _sig_cb;
+  util::signal::SigHandler _handler;
+  util::event::EventCallbackHandle _sig_cb;
 
  private:
   int _num_tests_left = 0;

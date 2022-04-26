@@ -51,25 +51,17 @@ class vec {
   Size sz = 0;
   Size cap = 0;
 
-  static inline Size max(Size x, Size y) {
-    return (x > y) ? x : y;
-  }
+  static inline Size max(Size x, Size y) { return (x > y) ? x : y; }
 
  public:
   // Constructors:
   vec() = default;
 
-  explicit vec(Size size) : _data(NULL), sz(0), cap(0) {
-    growTo(size);
-  }
+  explicit vec(Size size) : _data(NULL), sz(0), cap(0) { growTo(size); }
 
-  vec(Size size, const T& pad) : _data(NULL), sz(0), cap(0) {
-    growTo(size, pad);
-  }
+  vec(Size size, const T& pad) : _data(NULL), sz(0), cap(0) { growTo(size, pad); }
 
-  ~vec() {
-    clear(true);
-  }
+  ~vec() { clear(true); }
 
   vec<T>& operator=(vec<T> const& other) {
     capacity(other.size());
@@ -92,26 +84,16 @@ class vec {
   }
 
   // Pointer to first element:
-  operator T*() noexcept {
-    return _data;
-  }
+  operator T*() noexcept { return _data; }
 
-  T* data() noexcept {
-    return _data;
-  }
+  T* data() noexcept { return _data; }
 
-  T const* data() const noexcept {
-    return _data;
-  }
+  T const* data() const noexcept { return _data; }
 
   // Size operations:
-  Size size() const noexcept {
-    return sz;
-  }
+  Size size() const noexcept { return sz; }
 
-  bool empty() const noexcept {
-    return sz == 0;
-  }
+  bool empty() const noexcept { return sz == 0; }
 
   void shrink(Size nelems) {
     assert(nelems <= sz);
@@ -124,9 +106,7 @@ class vec {
     sz -= nelems;
   }
 
-  int capacity() const {
-    return cap;
-  }
+  int capacity() const { return cap; }
 
   void capacity(Size min_cap);
   void growTo(Size size);
@@ -162,22 +142,14 @@ class vec {
   // calculated (below). Essentially, all capacities are even, but INT_MAX is
   // odd.
 
-  const T& last() const noexcept {
-    return _data[sz - 1];
-  }
+  const T& last() const noexcept { return _data[sz - 1]; }
 
-  T& last() noexcept {
-    return _data[sz - 1];
-  }
+  T& last() noexcept { return _data[sz - 1]; }
 
   // Vector interface:
-  const T& operator[](Size index) const noexcept {
-    return _data[index];
-  }
+  const T& operator[](Size index) const noexcept { return _data[index]; }
 
-  T& operator[](Size index) noexcept {
-    return _data[index];
-  }
+  T& operator[](Size index) noexcept { return _data[index]; }
 
   // Duplicatation (preferred instead):
   void copyTo(vec<T>& copy) const noexcept {
@@ -208,10 +180,8 @@ template <class T, class _Size>
 void vec<T, _Size>::capacity(Size min_cap) {
   if (cap >= min_cap)
     return;
-  Size add =
-      max((min_cap - cap + 1) & ~1,
-          ((cap >> 1) + 2) & ~1);  // NOTE: grow by approximately 3/2
-  const Size size_max = std::numeric_limits<Size>::max();
+  Size add = max((min_cap - cap + 1) & ~1,
+                 ((cap >> 1) + 2) & ~1);  // NOTE: grow by approximately 3/2
   _data = (T*) ::realloc(_data, (cap += add) * sizeof(T));
 }
 
@@ -220,7 +190,7 @@ void vec<T, _Size>::growTo(Size size, const T& pad) {
   if (sz >= size)
     return;
   capacity(size);
-  for (Size i = sz; i < size; i++)
+  for (Size i = sz; i < size; ++i)
     _data[i] = pad;
   sz = size;
 }
@@ -230,7 +200,7 @@ void vec<T, _Size>::growTo(Size size) {
   if (sz >= size)
     return;
   capacity(size);
-  for (Size i = sz; i < size; i++)
+  for (Size i = sz; i < size; ++i)
     new (&_data[i]) T();
   sz = size;
 }
@@ -238,7 +208,7 @@ void vec<T, _Size>::growTo(Size size) {
 template <class T, class _Size>
 void vec<T, _Size>::clear(bool dealloc) {
   if (_data != NULL) {
-    for (Size i = 0; i < sz; i++)
+    for (Size i = 0; i < sz; ++i)
       _data[i].~T();
     sz = 0;
     if (dealloc)

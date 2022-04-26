@@ -33,9 +33,7 @@ double getAbsoluteTime() {
   return (double) time.tv_sec + (double) time.tv_usec * 0.000001;
 }
 
-double getRelativeTime() {
-  return getAbsoluteTime() - timeStart;
-}
+double getRelativeTime() { return getAbsoluteTime() - timeStart; }
 
 double getMemoryUsed() {
   struct rusage r_usage;

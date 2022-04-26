@@ -16,25 +16,17 @@ State MapleCOMSPSSolver::solve(lit_vec_t const& assumptions) {
   return UNKNOWN;
 }
 
-void MapleCOMSPSSolver::load_problem(Problem const& problem) {
-  loadFormula(problem.clauses());
-}
+void MapleCOMSPSSolver::load_problem(Problem const& problem) { loadFormula(problem.clauses()); }
 
-void MapleCOMSPSSolver::interrupt() {
-  painless::MapleCOMSPSSolver::setSolverInterrupt();
-}
+void MapleCOMSPSSolver::interrupt() { painless::MapleCOMSPSSolver::setSolverInterrupt(); }
 
-void MapleCOMSPSSolver::clear_interrupt() {
-  painless::MapleCOMSPSSolver::unsetSolverInterrupt();
-}
+void MapleCOMSPSSolver::clear_interrupt() { painless::MapleCOMSPSSolver::unsetSolverInterrupt(); }
 
-unsigned MapleCOMSPSSolver::num_vars() const noexcept {
-  return nVars();
-}
+unsigned MapleCOMSPSSolver::num_vars() const noexcept { return nVars(); }
 
-sharing::SharingUnit MapleCOMSPSSolver::sharing_unit() noexcept {
-  return sharing::SolverList({this});
-}
+sharing::SharingUnit MapleCOMSPSSolver::sharing_unit() noexcept { return sharing::SolverList({this}); }
+
+Mini::vec<Mini::lbool> MapleCOMSPSSolver::get_model() const noexcept { return painless::MapleCOMSPSSolver::getModel(); }
 
 REGISTER_PROTO(Solver, MapleCOMSPSSolver, maplecomsps_solver_config);
 

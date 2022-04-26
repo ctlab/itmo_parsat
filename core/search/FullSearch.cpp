@@ -8,7 +8,9 @@ void next_assignment(core::lit_vec_t& vec) {
     vec[pos] = ~vec[pos];
     ++pos;
   }
-  if (pos < vec.size()) { vec[pos] = Mini::mkLit(Mini::var(vec[pos]), true); }
+  if (pos < vec.size()) {
+    vec[pos] = Mini::mkLit(Mini::var(vec[pos]), true);
+  }
 }
 
 }  // namespace
@@ -20,24 +22,16 @@ FullSearch::FullSearch(domain::VarView const& var_view, bit_mask_t const& bit_ma
 
 FullSearch::FullSearch(std::vector<int> const& vars) : Search(vars, 1ULL << vars.size()) {}
 
-void FullSearch::_advance() {
-  next_assignment(_assignment);
-}
+void FullSearch::_advance() { next_assignment(_assignment); }
 
-FullSearch* FullSearch::clone() const {
-  return new FullSearch(*this);
-}
+FullSearch* FullSearch::clone() const { return new FullSearch(*this); }
 
-void FullSearch::_reset() {
-  _set_assignment(_assignment, _first);
-}
+void FullSearch::_reset() { _set_assignment(_assignment, _first); }
 
 UFullSearch createFullSearch(domain::VarView const& var_view, bit_mask_t const& bit_mask) {
   return std::make_unique<FullSearch>(var_view, bit_mask);
 }
 
-UFullSearch createFullSearch(std::vector<int> const& vars) {
-  return std::make_unique<FullSearch>(vars);
-}
+UFullSearch createFullSearch(std::vector<int> const& vars) { return std::make_unique<FullSearch>(vars); }
 
 }  // namespace core::search

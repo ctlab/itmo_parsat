@@ -3,7 +3,7 @@
 
 #include "util/Random.h"
 
-using namespace core;
+using namespace util;
 
 void test_flip_coin(uint32_t a, uint32_t b) {
   double p = (double) a / (double) b;

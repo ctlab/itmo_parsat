@@ -13,7 +13,7 @@
 
 #include "Logger.h"
 
-namespace core::event {
+namespace util::event {
 
 enum Event {
   INTERRUPT = 0,
@@ -31,7 +31,7 @@ namespace _details {
 class EventCallbackHandle
     : public boost::intrusive::list_base_hook<
           boost::intrusive::link_mode<boost::intrusive::auto_unlink>> {
-  friend class core::event::EventHandler;
+  friend class util::event::EventHandler;
 
  public:
   EventCallbackHandle(
@@ -95,6 +95,6 @@ EventCallbackHandle attach(event_callback_t callback, Event event);
 
 void raise(Event event);
 
-}  // namespace core::event
+}  // namespace util::event
 
 #endif  // ITMO_PARSAT_EVENTHANDLER_H

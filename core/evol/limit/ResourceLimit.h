@@ -27,7 +27,7 @@ class ResourceLimit : public Limit {
  private:
   uint32_t _memory_limit_kb;
   uint32_t _time_limit_sec;
-  std::chrono::time_point<core::clock_t> _start;
+  std::chrono::time_point<util::clock_t> _start;
 };
 
 }  // namespace ea::limit

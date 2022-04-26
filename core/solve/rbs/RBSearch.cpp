@@ -10,8 +10,6 @@ void RBSearch::interrupt() {
   _interrupt_impl();
 }
 
-bool RBSearch::_is_interrupted() const noexcept {
-  return _interrupted;
-}
+bool RBSearch::_is_interrupted() const noexcept { return _interrupted; }
 
 }  // namespace core::solve

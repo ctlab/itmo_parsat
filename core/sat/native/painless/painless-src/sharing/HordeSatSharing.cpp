@@ -35,7 +35,9 @@ void HordeSatSharing::doSharing(
     int used, usedPercent, selectCount;
 
     int id = from[i]->id;
-    if (!this->databases.count(id)) { this->databases[id] = std::make_unique<ClauseDatabase>(); }
+    if (!this->databases.count(id)) {
+      this->databases[id] = std::make_unique<ClauseDatabase>();
+    }
 
     tmp.clear();
 
@@ -60,8 +62,12 @@ void HordeSatSharing::doSharing(
       from[i]->decreaseClauseProduction();
     }
 
-    if (selectCount > 0) { this->initPhase = false; }
-    if (round >= this->roundBeforeIncrease) { this->initPhase = false; }
+    if (selectCount > 0) {
+      this->initPhase = false;
+    }
+    if (round >= this->roundBeforeIncrease) {
+      this->initPhase = false;
+    }
 
     for (size_t j = 0; j < to.size(); j++) {
       if (from[i]->id != to[j]->id) {
@@ -79,8 +85,6 @@ void HordeSatSharing::doSharing(
   round++;
 }
 
-SharingStatistics HordeSatSharing::getStatistics() {
-  return stats;
-}
+SharingStatistics HordeSatSharing::getStatistics() { return stats; }
 
 }  // namespace painless

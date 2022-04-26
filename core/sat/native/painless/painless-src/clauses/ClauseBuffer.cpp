@@ -82,13 +82,16 @@ bool ClauseBuffer::getClause(ClauseExchange** clause) {
 
     if (head == buffer.head) {
       if (head == tail) {
-        if (next == nullptr) return false;
+        if (next == nullptr)
+          return false;
 
         buffer.tail.compare_exchange_strong(tail, next);
       } else {
         *clause = next->clause;
 
-        if (buffer.head.compare_exchange_strong(head, next)) { break; }
+        if (buffer.head.compare_exchange_strong(head, next)) {
+          break;
+        }
       }
     }
   }
@@ -110,8 +113,6 @@ void ClauseBuffer::getClauses(std::vector<ClauseExchange*>& clauses) {
   }
 }
 
-int ClauseBuffer::size() {
-  return buffer.size;
-}
+int ClauseBuffer::size() { return buffer.size; }
 
 }  // namespace painless

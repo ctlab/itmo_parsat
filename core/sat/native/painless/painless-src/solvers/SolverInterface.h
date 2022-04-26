@@ -26,6 +26,7 @@
 #include <vector>
 
 #include "core/sat/native/mini/mtl/Vec.h"
+#include "core/sat/native/mini/mtl/lbool.h"
 #include "core/sat/native/mini/utils/Lit.h"
 
 #define ID_SYM 0
@@ -85,7 +86,7 @@ class SolverInterface {
 
   virtual SolvingStatistics getStatistics() = 0;
 
-  virtual vector<int> getModel() = 0;
+  virtual Mini::vec<Mini::lbool> getModel() const = 0;
 
   virtual void diversify(int id) = 0;
 

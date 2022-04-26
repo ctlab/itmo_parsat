@@ -102,15 +102,15 @@ Collaboration diagram for core::sat::solver::SolverService:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a83724d43369c85b6d516e57bc3f306e8"><td class="memItemLeft" align="right" valign="top"><a id="a83724d43369c85b6d516e57bc3f306e8"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>slv_callback_t</b> = std::function&lt; void(sat::State)&gt;</td></tr>
-<tr class="separator:a83724d43369c85b6d516e57bc3f306e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cdb24e007248bd774514f46b6fc242f"><td class="memItemLeft" align="right" valign="top"><a id="a6cdb24e007248bd774514f46b6fc242f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>slv_callback_t</b> = std::function&lt; void(sat::State, std::optional&lt; Mini::vec&lt; Mini::lbool &gt; &gt; model)&gt;</td></tr>
+<tr class="separator:a6cdb24e007248bd774514f46b6fc242f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0977675cf9f4b784785f92bb331afd83"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; core::sat::State &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a0977675cf9f4b784785f92bb331afd83">solve</a> (lit_vec_t const &amp;assumption, clock_t::duration time_limit, slv_callback_t const &amp;callback={})=0</td></tr>
-<tr class="memdesc:a0977675cf9f4b784785f92bb331afd83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve with callback.  <a href="classcore_1_1sat_1_1solver_1_1SolverService.html#a0977675cf9f4b784785f92bb331afd83">More...</a><br /></td></tr>
-<tr class="separator:a0977675cf9f4b784785f92bb331afd83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf235dd28c783fc7b2216ee4109b5b7e"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; core::sat::State &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#adf235dd28c783fc7b2216ee4109b5b7e">solve</a> (lit_vec_t const &amp;assumption, util::clock_t::duration time_limit, slv_callback_t const &amp;callback={})=0</td></tr>
+<tr class="memdesc:adf235dd28c783fc7b2216ee4109b5b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve with callback.  <a href="classcore_1_1sat_1_1solver_1_1SolverService.html#adf235dd28c783fc7b2216ee4109b5b7e">More...</a><br /></td></tr>
+<tr class="separator:adf235dd28c783fc7b2216ee4109b5b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbaba997a1627610d9d1b6c83966de50"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">load_problem</a> (<a class="el" href="classcore_1_1sat_1_1Problem.html">sat::Problem</a> const &amp;problem)=0</td></tr>
 <tr class="memdesc:abbaba997a1627610d9d1b6c83966de50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load problem to all solvers.  <a href="classcore_1_1sat_1_1solver_1_1SolverService.html#abbaba997a1627610d9d1b6c83966de50">More...</a><br /></td></tr>
 <tr class="separator:abbaba997a1627610d9d1b6c83966de50"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,9 +128,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a2caa8fdadf515bdc010636a16b5b629b"><td class="memItemLeft" align="right" valign="top"><a id="a2caa8fdadf515bdc010636a16b5b629b"></a>
-static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bottom"><b>DUR_INDEF</b> = std::chrono::milliseconds(0)</td></tr>
-<tr class="separator:a2caa8fdadf515bdc010636a16b5b629b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a959a1861cfcb11a3fd214406750d0164"><td class="memItemLeft" align="right" valign="top"><a id="a959a1861cfcb11a3fd214406750d0164"></a>
+static constexpr util::clock_t::duration&#160;</td><td class="memItemRight" valign="bottom"><b>DUR_INDEF</b> = std::chrono::milliseconds(0)</td></tr>
+<tr class="separator:a959a1861cfcb11a3fd214406750d0164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SAT solver service used to asynchronously execute sequential solvers with specified time limits. </p>
@@ -171,8 +171,8 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
 
 </div>
 </div>
-<a id="a0977675cf9f4b784785f92bb331afd83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0977675cf9f4b784785f92bb331afd83">&#9670;&nbsp;</a></span>solve()</h2>
+<a id="adf235dd28c783fc7b2216ee4109b5b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf235dd28c783fc7b2216ee4109b5b7e">&#9670;&nbsp;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +189,7 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">clock_t::duration&#160;</td>
+          <td class="paramtype">util::clock_t::duration&#160;</td>
           <td class="paramname"><em>time_limit</em>, </td>
         </tr>
         <tr>
@@ -222,7 +222,7 @@ static constexpr clock_t::duration&#160;</td><td class="memItemRight" valign="bo
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the future of sat solver result </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a8dd7d07c8a02de85ad3668174834449d">core::sat::solver::SequentialSolverService</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a64055cb05e541ca730839cc6d21e3cb4">core::sat::solver::SequentialSolverService</a>.</p>
 
 </div>
 </div>

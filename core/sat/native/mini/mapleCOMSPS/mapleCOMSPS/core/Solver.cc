@@ -320,7 +320,8 @@ Var Solver::newVar(bool sign, bool dvar) {
 
 bool Solver::addClause_(vec<Lit>& ps) {
   assert(decisionLevel() == 0);
-  if (!ok) return false;
+  if (!ok)
+    return false;
 
   // Check if clause is satisfied and remove false/duplicate literals:
   sort(ps);
@@ -373,7 +374,8 @@ bool Solver::addClause_(vec<Lit>& ps) {
 bool Solver::importUnitClauses() {
   assert(decisionLevel() == 0);
 
-  if (cbkImportUnit == NULL) return true;
+  if (cbkImportUnit == NULL)
+    return true;
   Lit l;
   while ((l = cbkImportUnit(issuer)) != lit_Undef) {
     if (value(var(l)) == l_Undef) {
@@ -389,7 +391,8 @@ bool Solver::importUnitClauses() {
 bool Solver::importClauses() {
   assert(decisionLevel() == 0);
 
-  if (cbkImportClause == NULL) return true;
+  if (cbkImportClause == NULL)
+    return true;
   int lbd, k, l;
   bool alreadySat;
   while (cbkImportClause(issuer, &lbd, importedClause)) {
@@ -500,7 +503,8 @@ void Solver::removeClause(CRef cr) {
 
 bool Solver::satisfied(const Clause& c) const {
   for (int i = 0; i < c.size(); i++)
-    if (value(c[i]) == l_True) return true;
+    if (value(c[i]) == l_True)
+      return true;
   return false;
 }
 
@@ -529,7 +533,8 @@ void Solver::cancelUntil(int level) {
 
       assigns[x] = l_Undef;
 
-      if (phase_saving > 1 || (phase_saving == 1) && c > trail_lim.last()) polarity[x] = sign(trail[c]);
+      if (phase_saving > 1 || (phase_saving == 1) && c > trail_lim.last())
+        polarity[x] = sign(trail[c]);
       insertVarOrder(x);
     }
     qhead = trail_lim[level];
@@ -605,7 +610,8 @@ void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel, int& ou
     if (c.learnt() && c.mark() != CORE) {
       int lbd = computeLBD(c);
       if (lbd < c.lbd()) {
-        if (c.lbd() <= 30) c.removable(false);  // Protect once from reduction.
+        if (c.lbd() <= 30)
+          c.removable(false);  // Protect once from reduction.
         c.set_lbd(lbd);
         if (lbd <= core_lbd_cut) {
           learnts_core.push(confl);
@@ -690,8 +696,9 @@ void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel, int& ou
   tot_literals += out_learnt.size();
 
   out_lbd = computeLBD(out_learnt);
-  if (out_lbd <= 6 && out_learnt.size() <= 30)                         // Try further minimization?
-    if (binResMinimize(out_learnt)) out_lbd = computeLBD(out_learnt);  // Recompute LBD if minimized.
+  if (out_lbd <= 6 && out_learnt.size() <= 30)  // Try further minimization?
+    if (binResMinimize(out_learnt))
+      out_lbd = computeLBD(out_learnt);  // Recompute LBD if minimized.
 
   // Find correct backtrack level:
   //
@@ -701,7 +708,8 @@ void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel, int& ou
     int max_i = 1;
     // Find the first literal assigned at the next-highest level:
     for (int i = 2; i < out_learnt.size(); i++)
-      if (level(var(out_learnt[i])) > level(var(out_learnt[max_i]))) max_i = i;
+      if (level(var(out_learnt[i])) > level(var(out_learnt[max_i])))
+        max_i = i;
     // Swap-in this literal at index 1:
     Lit p = out_learnt[max_i];
     out_learnt[max_i] = out_learnt[1];
@@ -712,7 +720,8 @@ void Solver::analyze(CRef confl, vec<Lit>& out_learnt, int& out_btlevel, int& ou
   if (VSIDS) {
     for (int i = 0; i < add_tmp.size(); i++) {
       Var v = var(add_tmp[i]);
-      if (level(v) >= out_btlevel - 1) varBumpActivity(v, 1);
+      if (level(v) >= out_btlevel - 1)
+        varBumpActivity(v, 1);
     }
     add_tmp.clear();
   } else {
@@ -762,7 +771,8 @@ bool Solver::binResMinimize(vec<Lit>& out_learnt) {
   if (to_remove > 0) {
     int last = out_learnt.size() - 1;
     for (int i = 1; i < out_learnt.size() - to_remove; i++)
-      if (seen2[var(out_learnt[i])] != counter) out_learnt[i--] = out_learnt[last--];
+      if (seen2[var(out_learnt[i])] != counter)
+        out_learnt[i--] = out_learnt[last--];
     out_learnt.shrink(to_remove);
   }
   return to_remove != 0;
@@ -819,7 +829,8 @@ void Solver::analyzeFinal(Lit p, vec<Lit>& out_conflict) {
   out_conflict.clear();
   out_conflict.push(p);
 
-  if (decisionLevel() == 0) return;
+  if (decisionLevel() == 0)
+    return;
 
   seen[var(p)] = 1;
 
@@ -832,7 +843,8 @@ void Solver::analyzeFinal(Lit p, vec<Lit>& out_conflict) {
       } else {
         Clause& c = ca[reason(x)];
         for (int j = c.size() == 2 ? 0 : 1; j < c.size(); j++)
-          if (level(var(c[j])) > 0) seen[var(c[j])] = 1;
+          if (level(var(c[j])) > 0)
+            seen[var(c[j])] = 1;
       }
       seen[x] = 0;
     }
@@ -904,7 +916,8 @@ CRef Solver::propagate() {
       CRef cr = i->cref;
       Clause& c = ca[cr];
       Lit false_lit = ~p;
-      if (c[0] == false_lit) c[0] = c[1], c[1] = false_lit;
+      if (c[0] == false_lit)
+        c[0] = c[1], c[1] = false_lit;
       assert(c[1] == false_lit);
       i++;
 
@@ -960,9 +973,7 @@ Binary clauses are never removed.
 struct reduceDB_lt {
   ClauseAllocator& ca;
   reduceDB_lt(ClauseAllocator& ca_) : ca(ca_) {}
-  bool operator()(CRef x, CRef y) const {
-    return ca[x].activity() < ca[y].activity();
-  }
+  bool operator()(CRef x, CRef y) const { return ca[x].activity() < ca[y].activity(); }
 };
 void Solver::reduceDB() {
   int i, j;
@@ -978,7 +989,8 @@ void Solver::reduceDB() {
       if (c.removable() && !locked(c) && i < limit)
         removeClause(learnts_local[i]);
       else {
-        if (!c.removable()) limit++;
+        if (!c.removable())
+          limit++;
         c.removable(true);
         learnts_local[j++] = learnts_local[i];
       }
@@ -1019,7 +1031,8 @@ void Solver::removeSatisfied(vec<CRef>& cs) {
 void Solver::rebuildOrderHeap() {
   vec<Var> vs;
   for (Var v = 0; v < nVars(); v++)
-    if (decision[v] && value(v) == l_Undef) vs.push(v);
+    if (decision[v] && value(v) == l_Undef)
+      vs.push(v);
 
   order_heap_CHB.build(vs);
   order_heap_VSIDS.build(vs);
@@ -1037,9 +1050,11 @@ but more things can be put here.
 bool Solver::simplify(bool do_stamping) {
   assert(decisionLevel() == 0);
 
-  if (!ok || propagate() != CRef_Undef) return ok = false;
+  if (!ok || propagate() != CRef_Undef)
+    return ok = false;
 
-  if (nAssigns() == simpDB_assigns || (simpDB_props > 0)) return true;
+  if (nAssigns() == simpDB_assigns || (simpDB_props > 0))
+    return true;
 
   // Remove satisfied clauses:
   safeRemoveSatisfiedCompact(learnts_core, CORE);
@@ -1048,7 +1063,8 @@ bool Solver::simplify(bool do_stamping) {
   if (remove_satisfied)  // Can be turned off.
     removeSatisfied(clauses);
 
-  if (do_stamping) ok = stampAll(true);
+  if (do_stamping)
+    ok = stampAll(true);
 
   checkGarbage();
   rebuildOrderHeap();
@@ -1096,7 +1112,8 @@ void Solver::safeRemoveSatisfiedCompact(vec<CRef>& cs, unsigned valid_mark) {
   int i, j, k, l;
   for (i = j = 0; i < cs.size(); i++) {
     Clause& c = ca[cs[i]];
-    if (c.mark() != valid_mark) continue;
+    if (c.mark() != valid_mark)
+      continue;
 
     Lit c0 = c[0], c1 = c[1];
     if (drup_file) {  // Remember the original clause before attempting to
@@ -1127,7 +1144,8 @@ void Solver::safeRemoveSatisfiedCompact(vec<CRef>& cs, unsigned valid_mark) {
       CRef cr = ca.alloc(add_tmp,
                          learnt);  // Caution! 'alloc' may invalidate the 'c' reference.
       if (learnt) {
-        if (m != CORE) learnts_core.push(cr);
+        if (m != CORE)
+          learnts_core.push(cr);
         ca[cr].mark(CORE);
         ca[cr].set_lbd(lbd > 2 ? 2 : lbd);
       }
@@ -1201,8 +1219,10 @@ lbool Solver::search(int& nof_conflicts) {
 
   while (!asynch_interrupt) {
     if (decisionLevel() == 0) {  // We import clauses
-      if (!importUnitClauses()) return l_False;
-      if (!importClauses()) return l_False;
+      if (!importUnitClauses())
+        return l_False;
+      if (!importClauses())
+        return l_False;
     }
 
     CRef confl = propagate();
@@ -1210,18 +1230,22 @@ lbool Solver::search(int& nof_conflicts) {
     if (confl != CRef_Undef) {
       // CONFLICT
       if (VSIDS) {
-        if (--timer == 0 && var_decay < 0.95) timer = 5000, var_decay += 0.01;
+        if (--timer == 0 && var_decay < 0.95)
+          timer = 5000, var_decay += 0.01;
       } else if (step_size > min_step_size)
         step_size -= step_size_dec;
 
       conflicts++;
       nof_conflicts--;
-      if (conflicts == 100000 && learnts_core.size() < 100) core_lbd_cut = 5;
-      if (decisionLevel() == 0) return l_False;
+      if (conflicts == 100000 && learnts_core.size() < 100)
+        core_lbd_cut = 5;
+      if (decisionLevel() == 0)
+        return l_False;
 
       learnt_clause.clear();
       analyze(confl, learnt_clause, backtrack_level, lbd);
-      if (cbkExportClause != NULL) cbkExportClause(issuer, lbd, learnt_clause);
+      if (cbkExportClause != NULL)
+        cbkExportClause(issuer, lbd, learnt_clause);
 
       cancelUntil(backtrack_level);
 
@@ -1266,7 +1290,8 @@ lbool Solver::search(int& nof_conflicts) {
 #endif
       }
 
-      if (VSIDS) varDecayActivity();
+      if (VSIDS)
+        varDecayActivity();
       claDecayActivity();
 
       /*if (--learntsize_adjust_cnt == 0){
@@ -1301,7 +1326,8 @@ lbool Solver::search(int& nof_conflicts) {
       }
 
       // Simplify the set of problem clauses:
-      if (decisionLevel() == 0 && !simplify(true)) return l_False;
+      if (decisionLevel() == 0 && !simplify(true))
+        return l_False;
 
       if (conflicts >= next_T2_reduce) {
         next_T2_reduce = conflicts + 10000;
@@ -1338,7 +1364,9 @@ lbool Solver::search(int& nof_conflicts) {
         decisions++;
         next = pickBranchLit();
 
-        if (next == lit_Undef) { return l_True; }
+        if (next == lit_Undef) {
+          return l_True;
+        }
       }
 
       // Increase decision level and enqueue 'next'
@@ -1357,7 +1385,9 @@ bool Solver::shrinkAssumptions() {
   // Remove literals corresponding to dummy decision levels
   int i, j;
   for (i = j = 0; i < assumptions.size(); i++) {
-    if (trail_lim[i] < trail.size() && trail[trail_lim[i]] == assumptions[i]) { assumptions[j++] = assumptions[i]; }
+    if (trail_lim[i] < trail.size() && trail[trail_lim[i]] == assumptions[i]) {
+      assumptions[j++] = assumptions[i];
+    }
   }
   assumptions.shrink(i - j);
   return assumptions.size() < sz;
@@ -1414,7 +1444,8 @@ static double luby(double y, int x) {
 lbool Solver::solve_() {
   model.clear();
   conflict.clear();
-  if (!ok) return l_False;
+  if (!ok)
+    return l_False;
 
   solves++;
 
@@ -1460,7 +1491,8 @@ lbool Solver::solve_() {
       break;  // Should break here for correctness in incremental SAT solving.
     }
 
-    if (!VSIDS) phase_allotment *= 2;
+    if (!VSIDS)
+      phase_allotment *= 2;
   }
 
   //  if (verbosity >= 1)
@@ -1468,7 +1500,8 @@ lbool Solver::solve_() {
   //    ===============================================================================\n");
 
 #ifdef BIN_DRUP
-  if (drup_file && status == l_False) binDRUP_flush(drup_file);
+  if (drup_file && status == l_False)
+    binDRUP_flush(drup_file);
 #endif
 
   if (status == l_True) {
@@ -1497,16 +1530,19 @@ static Var mapVar(Var x, vec<Var>& map, Var& max) {
 }
 
 void Solver::toDimacs(FILE* f, Clause& c, vec<Var>& map, Var& max) {
-  if (satisfied(c)) return;
+  if (satisfied(c))
+    return;
 
   for (int i = 0; i < c.size(); i++)
-    if (value(c[i]) != l_False) fprintf(f, "%s%d ", sign(c[i]) ? "-" : "", mapVar(var(c[i]), map, max) + 1);
+    if (value(c[i]) != l_False)
+      fprintf(f, "%s%d ", sign(c[i]) ? "-" : "", mapVar(var(c[i]), map, max) + 1);
   fprintf(f, "0\n");
 }
 
 void Solver::toDimacs(const char* file, const vec<Lit>& assumps) {
   FILE* f = fopen(file, "wr");
-  if (f == NULL) fprintf(stderr, "could not open file %s\n", file), exit(1);
+  if (f == NULL)
+    fprintf(stderr, "could not open file %s\n", file), exit(1);
   toDimacs(f, assumps);
   fclose(f);
 }
@@ -1525,13 +1561,15 @@ void Solver::toDimacs(FILE* f, const vec<Lit>& assumps) {
   // to deallocate them at this point. Could be improved.
   int cnt = 0;
   for (int i = 0; i < clauses.size(); i++)
-    if (!satisfied(ca[clauses[i]])) cnt++;
+    if (!satisfied(ca[clauses[i]]))
+      cnt++;
 
   for (int i = 0; i < clauses.size(); i++)
     if (!satisfied(ca[clauses[i]])) {
       Clause& c = ca[clauses[i]];
       for (int j = 0; j < c.size(); j++)
-        if (value(c[j]) != l_False) mapVar(var(c[j]), map, max);
+        if (value(c[j]) != l_False)
+          mapVar(var(c[j]), map, max);
     }
 
   // Assumptions are added as unit clauses:
@@ -1577,7 +1615,8 @@ void Solver::relocAll(ClauseAllocator& to) {
   for (int i = 0; i < trail.size(); i++) {
     Var v = var(trail[i]);
 
-    if (reason(v) != CRef_Undef && (ca[reason(v)].reloced() || locked(ca[reason(v)]))) ca.reloc(vardata[v].reason, to);
+    if (reason(v) != CRef_Undef && (ca[reason(v)].reloced() || locked(ca[reason(v)])))
+      ca.reloc(vardata[v].reason, to);
   }
 
   // All learnt:
@@ -1617,7 +1656,8 @@ void Solver::garbageCollect() {
 
 inline int gcd(int a, int b) {
   int tmp;
-  if (a < b) tmp = a, a = b, b = tmp;
+  if (a < b)
+    tmp = a, a = b, b = tmp;
   while (b)
     tmp = b, b = a % b, a = tmp;
   return a;
@@ -1638,7 +1678,8 @@ bool Solver::stampAll(bool use_bin_learnts) {
     int l = irand(random_seed, nLits);
     int l_inc = irand(random_seed, nLits - 1) + 1;  // Avoid 0 but ensure less than 'nLits'.
     while (gcd(nLits, l_inc) > 1)
-      if (++l_inc == nLits) l_inc = 1;
+      if (++l_inc == nLits)
+        l_inc = 1;
 
     int first = l;
     do {
@@ -1647,12 +1688,14 @@ bool Solver::stampAll(bool use_bin_learnts) {
           implExistsByBin(p, use_bin_learnts)) {
         stamp_time = stamp(p, stamp_time, use_bin_learnts);
 
-        if (!ok || propagate() != CRef_Undef) return ok = false;
+        if (!ok || propagate() != CRef_Undef)
+          return ok = false;
       }
 
       // Compute next literal to look at.
       l += l_inc;
-      if (l >= nLits) l -= nLits;
+      if (l >= nLits)
+        l -= nLits;
 
     } while (l != first);
   }
@@ -1748,7 +1791,8 @@ int Solver::stamp(Lit p, int stamp_time, bool use_bin_learnts) {
 #endif
         }
 
-        if (!(ok = enqueue(~failed))) return -1;  // Who cares what?
+        if (!(ok = enqueue(~failed)))
+          return -1;  // Who cares what?
 
         if (discovered[toInt(~f.next)] && !finished[toInt(~f.next)]) {
           rec_stack.pop();  // Skip this edge after a failed literal.
@@ -1799,17 +1843,18 @@ bool Solver::implExistsByBin(Lit p, bool use_bin_learnts) const {
     assert(value(the_other) != l_False);  // Propagate then.
 
     if (value(the_other) != l_True && !discovered[toInt(the_other)])
-      if (use_bin_learnts || !ca[ws[i].cref].learnt()) return true;
+      if (use_bin_learnts || !ca[ws[i].cref].learnt())
+        return true;
   }
   return false;
 }
 
-bool Solver::isRoot(Lit p, bool use_bin_learnts) const {
-  return !implExistsByBin(~p, use_bin_learnts);
-}
+bool Solver::isRoot(Lit p, bool use_bin_learnts) const { return !implExistsByBin(~p, use_bin_learnts); }
 
 uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
-  if (index == vars.size()) { return 0; }
+  if (index == vars.size()) {
+    return 0;
+  }
   int variable = var(vars[index]);
   uint64_t result = 0, half_subtree_size = 1ULL << (vars.size() - index - 1);
 
@@ -1883,7 +1928,9 @@ uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
   assert(head_size <= assign_size);
   uint64_t subtree_size = 1ULL << (assign_size - head_size);
 
-  if (!ok) { return subtree_size; }
+  if (!ok) {
+    return subtree_size;
+  }
   int level = decisionLevel();
   uint64_t result = 0;
 
@@ -1911,7 +1958,9 @@ uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
 
   // Iterate over subtree
 finish:
-  if (decisionLevel() > level) { cancelUntil(level); }
+  if (decisionLevel() > level) {
+    cancelUntil(level);
+  }
   return result;
 }
 
@@ -1920,7 +1969,9 @@ finish:
 bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
   // TODO: collect garbage manually
   //  garbageCollect();
-  if (!ok) { return false; }
+  if (!ok) {
+    return false;
+  }
 
   bool st = true;
   int level = decisionLevel();
@@ -1940,7 +1991,9 @@ bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
       uncheckedEnqueue(p);
     }
   }
-  if (st) { confl = propagate(); }
+  if (st) {
+    confl = propagate();
+  }
 #else  // Original implementation: propagate one by one
   for (int i = 0; st && confl == CRef_Undef && i < assumps.size(); ++i) {
     Lit p = assumps[i];
@@ -1955,7 +2008,9 @@ bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
   }
 #endif
 
-  if (decisionLevel() > level) { cancelUntil(level); }
+  if (decisionLevel() > level) {
+    cancelUntil(level);
+  }
   phase_saving = psaving_copy;
   return st && confl == CRef_Undef;
 }
@@ -1965,7 +2020,9 @@ bool Solver::prop_check(const vec<Lit>& assumps, int psaving) {
 bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
   prop.clear();
 
-  if (!ok) { return false; }
+  if (!ok) {
+    return false;
+  }
 
   bool st = true;
   int level = decisionLevel();
@@ -1995,7 +2052,9 @@ bool Solver::prop_check(const vec<Lit>& assumps, vec<Lit>& prop, int psaving) {
 
     // if there is a conflict, pushing
     // the conflicting literal as well
-    if (confl != CRef_Undef) { prop.push(ca[confl][0]); }
+    if (confl != CRef_Undef) {
+      prop.push(ca[confl][0]);
+    }
 
     // backtracking
     cancelUntil(level);

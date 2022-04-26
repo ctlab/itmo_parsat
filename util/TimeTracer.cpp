@@ -1,10 +1,8 @@
 #include "TimeTracer.h"
 
-namespace core::_detail {
+namespace util::_detail {
 
-Event::Event(std::atomic<int64_t>* count) {
-  count->fetch_add(1, std::memory_order_relaxed);
-}
+Event::Event(std::atomic<int64_t>* count) { count->fetch_add(1, std::memory_order_relaxed); }
 
 CodeBlock::CodeBlock(std::atomic<int64_t>* count, std::atomic<int64_t>* time)
     : _start(clock_t::now()), _count(count), _time(time) {}
@@ -16,9 +14,9 @@ CodeBlock::~CodeBlock() noexcept {
   _time->fetch_add(dur, std::memory_order_relaxed);
 }
 
-}  // namespace core::_detail
+}  // namespace util::_detail
 
-namespace core {
+namespace util {
 
 TimeTracer& TimeTracer::instance() {
   static TimeTracer _tracer;
@@ -41,7 +39,9 @@ void TimeTracer::print_summary() {
 #define PRINT_BLOCK(TYPE)                                                                                     \
   do {                                                                                                        \
     int64_t count = events.TYPE.count.load(std::memory_order_relaxed);                                        \
-    if (count == 0) { break; }                                                                                \
+    if (count == 0) {                                                                                         \
+      break;                                                                                                  \
+    }                                                                                                         \
     float time_s = static_cast<float>(events.TYPE.time.load(std::memory_order_relaxed)) / 1000000.f;          \
     float bandwidth = static_cast<float>(count) / time_s;                                                     \
     float avg = time_s / count;                                                                               \
@@ -78,7 +78,7 @@ void TimeTracer::print_summary() {
   PRINT_BLOCK(solver_service_solve_time_limit);
 
   IPS_INFO(info.str() << quant.str());
-}  // namespace core
+}  // namespace util
 
 void TimeTracer::_clean() noexcept {
 #define CLEAR_BLOCK(TYPE)                                \
@@ -105,8 +105,6 @@ void TimeTracer::_clean() noexcept {
   CLEAR_BLOCK(solver_service_solve_time_limit);
 }
 
-void TimeTracer::clean() {
-  instance()._clean();
-}
+void TimeTracer::clean() { instance()._clean(); }
 
-}  // namespace core
+}  // namespace util

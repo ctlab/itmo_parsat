@@ -25,7 +25,7 @@ class StallLimit : public Limit {
   double _duration();
 
  private:
-  core::clock_t::time_point _last_change_timestamp;
+  util::clock_t::time_point _last_change_timestamp;
   uint32_t _steps_before_stall;
   uint32_t _steps_already = 0;
   uint32_t _last_size = 0;

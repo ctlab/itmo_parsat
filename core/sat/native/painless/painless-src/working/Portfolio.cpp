@@ -44,9 +44,11 @@ void Portfolio::solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, ve
       IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [&](auto& slave) { slave->solve(index, assumptions, cube); });
 }
 
-void Portfolio::join(int64_t index, WorkingStrategy* strat, PSatResult res, const vector<int>& model) {
+void Portfolio::join(int64_t index, WorkingStrategy* strat, PSatResult res, Mini::vec<Mini::lbool> const& model) {
   std::lock_guard<std::mutex> lg(join_mutex);
-  if (res == PUNKNOWN || strategyEnding || result->global_ending || index != current_index) { return; }
+  if (res == PUNKNOWN || strategyEnding || result->global_ending || index != current_index) {
+    return;
+  }
 
   strategyEnding = true;
   setInterrupt();
@@ -55,7 +57,9 @@ void Portfolio::join(int64_t index, WorkingStrategy* strat, PSatResult res, cons
     {
       std::lock_guard<std::mutex> guard(result->lock);
       result->final_result = res;
-      if (res == PSAT) { result->final_model = model; }
+      if (res == PSAT) {
+        result->final_model = model;
+      }
       result->global_ending = true;
     }
     result->cv.notify_one();
@@ -80,9 +84,7 @@ void Portfolio::awaitStop() {
   std::for_each(IPS_EXEC_POLICY, slaves.begin(), slaves.end(), [](auto& slave) { slave->awaitStop(); });
 }
 
-int Portfolio::getDivisionVariable() {
-  return 0;
-}
+int Portfolio::getDivisionVariable() { return 0; }
 
 void Portfolio::setPhase(int var, bool value) {}
 

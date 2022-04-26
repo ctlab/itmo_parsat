@@ -95,77 +95,74 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classea_1_1instance_1_1Instance.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a> {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a816a58827fa37521892ea68437869a19">Instance</a>(</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      core::sat::prop::RProp prop, RSharedData shared_data,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      preprocess::RPreprocess preprocess);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() noexcept;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  [[nodiscard]] <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>* <a class="code" href="classea_1_1instance_1_1Instance.html#a7257c1ba917f29b51cc5d597b5c92315">clone</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b">is_cached</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  [[nodiscard]] uint32_t <a class="code" href="classea_1_1instance_1_1Instance.html#a597c6255ccc1a074c3b7e96f2382e412">num_vars</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">is_sbs</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  [[nodiscard]] uint32_t <a class="code" href="classea_1_1instance_1_1Instance.html#aefdfd74a4d747d061e65ebc02c5141db">size</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> _calc_fitness();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a816a58827fa37521892ea68437869a19">Instance</a>(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() noexcept;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">get_vars</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  [[nodiscard]] <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>* <a class="code" href="classea_1_1instance_1_1Instance.html#a7257c1ba917f29b51cc5d597b5c92315">clone</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> <span class="keyword">const</span>&amp; <a class="code" href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">fitness</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b">is_cached</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  [[nodiscard]] uint32_t <a class="code" href="classea_1_1instance_1_1Instance.html#a597c6255ccc1a074c3b7e96f2382e412">num_vars</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">is_sbs</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  [[nodiscard]] uint32_t <a class="code" href="classea_1_1instance_1_1Instance.html#aefdfd74a4d747d061e65ebc02c5141db">size</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordtype">void</span> _calc_fitness();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> _calc_fitness(uint64_t samples, uint32_t steps_left);</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> _calc_fitness(uint64_t samples, uint32_t steps_left);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <a class="code" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">SharedData::SamplingConfig</a>&amp; _sampling_config() noexcept;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <a class="code" href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">SharedData::SamplingConfig</a>&amp; _sampling_config() noexcept;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  util::LRUCache&lt;core::bit_mask_t, Fitness&gt;&amp; _cache() noexcept;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  core::LRUCache&lt;core::bit_mask_t, Fitness&gt;&amp; _cache() noexcept;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  uint64_t&amp; _inaccurate_points() noexcept;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  uint64_t&amp; _inaccurate_points() noexcept;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <a class="code" href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a> <span class="keyword">const</span>&amp; _var_view() <span class="keyword">const</span> noexcept;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <a class="code" href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a> <span class="keyword">const</span>&amp; _var_view() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">bool</span> _cached = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  preprocess::RPreprocess _preprocess;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  core::sat::prop::RProp _prop;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  RSharedData _shared;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> _vars;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keyword">mutable</span> <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> fit_{};</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">friend</span> std::ostream&amp; ::operator&lt;&lt;(</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      std::ostream&amp;, <a class="code" href="classea_1_1instance_1_1Instance.html">ea::instance::Instance</a> <span class="keyword">const</span>&amp; instance);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; a, <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; b);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;MAKE_REFS(<a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">using</span> Population = std::vector&lt;RInstance&gt;;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;MAKE_REFS(Population);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif  // EVOL_INSTANCE_H</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordtype">bool</span> _cached = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  preprocess::RPreprocess _preprocess;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  core::sat::prop::RProp _prop;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  RSharedData _shared;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <a class="code" href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a> _vars;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">mutable</span> <a class="code" href="structea_1_1instance_1_1Fitness.html">Fitness</a> fit_{};</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keyword">friend</span> std::ostream&amp; ::operator&lt;&lt;(std::ostream&amp;, <a class="code" href="classea_1_1instance_1_1Instance.html">ea::instance::Instance</a> <span class="keyword">const</span>&amp; instance);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;};</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; a, <a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>&amp; b);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;MAKE_REFS(<a class="code" href="classea_1_1instance_1_1Instance.html">Instance</a>);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">using</span> Population = std::vector&lt;RInstance&gt;;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;MAKE_REFS(Population);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}  <span class="comment">// namespace ea::instance</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif  // EVOL_INSTANCE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a597c6255ccc1a074c3b7e96f2382e412"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a597c6255ccc1a074c3b7e96f2382e412">ea::instance::Instance::num_vars</a></div><div class="ttdeci">uint32_t num_vars() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:12</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a7257c1ba917f29b51cc5d597b5c92315"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a7257c1ba917f29b51cc5d597b5c92315">ea::instance::Instance::clone</a></div><div class="ttdeci">Instance * clone()</div><div class="ttdoc">Clones the instance (used to create new instances through mutation or crossover).</div><div class="ttdef"><b>Definition:</b> Instance.cpp:31</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a7257c1ba917f29b51cc5d597b5c92315"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a7257c1ba917f29b51cc5d597b5c92315">ea::instance::Instance::clone</a></div><div class="ttdeci">Instance * clone()</div><div class="ttdoc">Clones the instance (used to create new instances through mutation or crossover).</div><div class="ttdef"><b>Definition:</b> Instance.cpp:27</div></div>
 <div class="ttc" id="astructea_1_1instance_1_1Fitness_html"><div class="ttname"><a href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a></div><div class="ttdoc">This structure represents Instances' fitness. It is calculated as rho * 2^{size} + (1 - \rho) * 2^{po...</div><div class="ttdef"><b>Definition:</b> Fitness.h:14</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a81dab914c2b50c6d96cfb9ab9cd52f1f"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">ea::instance::Instance::is_sbs</a></div><div class="ttdeci">bool is_sbs() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:107</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a1dfec9acce2b27c9094e745d135fe38b"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b">ea::instance::Instance::is_cached</a></div><div class="ttdeci">bool is_cached() const noexcept</div><div class="ttdoc">Checks whether this instance is cached (locally or in shared cache).</div><div class="ttdef"><b>Definition:</b> Instance.cpp:103</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_aefdfd74a4d747d061e65ebc02c5141db"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#aefdfd74a4d747d061e65ebc02c5141db">ea::instance::Instance::size</a></div><div class="ttdeci">uint32_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:112</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a816a58827fa37521892ea68437869a19"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a816a58827fa37521892ea68437869a19">ea::instance::Instance::Instance</a></div><div class="ttdeci">Instance(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)</div><div class="ttdef"><b>Definition:</b> Instance.cpp:16</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a81dab914c2b50c6d96cfb9ab9cd52f1f"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a81dab914c2b50c6d96cfb9ab9cd52f1f">ea::instance::Instance::is_sbs</a></div><div class="ttdeci">bool is_sbs() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:97</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a1dfec9acce2b27c9094e745d135fe38b"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a1dfec9acce2b27c9094e745d135fe38b">ea::instance::Instance::is_cached</a></div><div class="ttdeci">bool is_cached() const noexcept</div><div class="ttdoc">Checks whether this instance is cached (locally or in shared cache).</div><div class="ttdef"><b>Definition:</b> Instance.cpp:95</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_aefdfd74a4d747d061e65ebc02c5141db"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#aefdfd74a4d747d061e65ebc02c5141db">ea::instance::Instance::size</a></div><div class="ttdeci">uint32_t size() const noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:102</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a816a58827fa37521892ea68437869a19"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a816a58827fa37521892ea68437869a19">ea::instance::Instance::Instance</a></div><div class="ttdeci">Instance(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess)</div><div class="ttdef"><b>Definition:</b> Instance.cpp:14</div></div>
 <div class="ttc" id="astructcore_1_1domain_1_1Vars_html"><div class="ttname"><a href="structcore_1_1domain_1_1Vars.html">core::domain::Vars</a></div><div class="ttdoc">The class representing variables set. Variables are meant as keys in variable mapping core::domain::V...</div><div class="ttdef"><b>Definition:</b> Vars.h:17</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_ad2b77cfdfc613b176af0042c3b3fa606"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">ea::instance::Instance::fitness</a></div><div class="ttdeci">Fitness const  &amp; fitness()</div><div class="ttdoc">Calculates instance's fitness if it is not cached.</div><div class="ttdef"><b>Definition:</b> Instance.cpp:35</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_ad2b77cfdfc613b176af0042c3b3fa606"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#ad2b77cfdfc613b176af0042c3b3fa606">ea::instance::Instance::fitness</a></div><div class="ttdeci">Fitness const  &amp; fitness()</div><div class="ttdoc">Calculates instance's fitness if it is not cached.</div><div class="ttdef"><b>Definition:</b> Instance.cpp:29</div></div>
 <div class="ttc" id="aclassea_1_1instance_1_1Instance_html"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html">ea::instance::Instance</a></div><div class="ttdoc">This class represents (E|G)A instance used in this project.</div><div class="ttdef"><b>Definition:</b> Instance.h:26</div></div>
-<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a598567d6409fa4cc84a13cd2d97939e7"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">ea::instance::Instance::get_vars</a></div><div class="ttdeci">core::domain::Vars &amp; get_vars() noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:22</div></div>
+<div class="ttc" id="aclassea_1_1instance_1_1Instance_html_a598567d6409fa4cc84a13cd2d97939e7"><div class="ttname"><a href="classea_1_1instance_1_1Instance.html#a598567d6409fa4cc84a13cd2d97939e7">ea::instance::Instance::get_vars</a></div><div class="ttdeci">core::domain::Vars &amp; get_vars() noexcept</div><div class="ttdef"><b>Definition:</b> Instance.cpp:20</div></div>
 <div class="ttc" id="astructea_1_1instance_1_1SharedData_1_1SamplingConfig_html"><div class="ttname"><a href="structea_1_1instance_1_1SharedData_1_1SamplingConfig.html">ea::instance::SharedData::SamplingConfig</a></div><div class="ttdoc">Sampling configuration.</div><div class="ttdef"><b>Definition:</b> SharedData.h:21</div></div>
 <div class="ttc" id="aclasscore_1_1domain_1_1VarView_html"><div class="ttname"><a href="classcore_1_1domain_1_1VarView.html">core::domain::VarView</a></div><div class="ttdoc">The class representing variable mapping. Is used to compactly represent mapping from a chosen set of ...</div><div class="ttdef"><b>Definition:</b> VarView.h:13</div></div>
 <!-- start footer part -->

@@ -7,12 +7,10 @@ namespace ea::limit {
 StallLimit::StallLimit(StallLimitConfig const& config)
     : _steps_before_stall(config.steps_before_stall()), _time_before_stall(config.time_before_stall_s()) {}
 
-void StallLimit::start() {
-  _last_change_timestamp = core::clock_t::now();
-}
+void StallLimit::start() { _last_change_timestamp = util::clock_t::now(); }
 
 double StallLimit::_duration() {
-  return (double) std::chrono::duration_cast<std::chrono::seconds>(core::clock_t::now() - _last_change_timestamp)
+  return (double) std::chrono::duration_cast<std::chrono::seconds>(util::clock_t::now() - _last_change_timestamp)
       .count();
 }
 
@@ -32,7 +30,7 @@ bool StallLimit::_proceed(ea::algorithm::Algorithm& algorithm) {
     _steps_already = 0;
     _last_size = size;
     _last_rho = rho_value;
-    _last_change_timestamp = core::clock_t::now();
+    _last_change_timestamp = util::clock_t::now();
     return true;
   }
 }

@@ -5,7 +5,7 @@ namespace common {
 void set_logger_config() {
   LoggingConfig logging_config;
   util::CliConfig::read_config(common::log_config_path, logging_config);
-  core::Logger::set_logger_config(logging_config);
+  util::Logger::set_logger_config(logging_config);
 }
 
 core::sat::prop::RProp get_prop(std::filesystem::path const& config_path) {

@@ -17,7 +17,9 @@ void print_(char const* format, va_list args) {
       ::std::min(::vsnprintf(&print_buf_[0], print_buf_.size(), format, args), static_cast<int>(print_buf_.size()));
   for (size_t offset = 0; offset < size;) {
     size_t bytes_written = ::write(STDERR_FILENO, &print_buf_[offset], size - offset);
-    if (bytes_written <= 0) { break; }
+    if (bytes_written <= 0) {
+      break;
+    }
     offset += bytes_written;
   }
 }
@@ -120,7 +122,7 @@ void panic_(
 
 }  // namespace
 
-namespace core::assert::_details {
+namespace util::assert::_details {
 
 // clang-format off
 void panic(
@@ -138,7 +140,7 @@ void panic(
 }
 // clang-format on
 
-}  // namespace core::assert::_details
+}  // namespace util::assert::_details
 
 [[gnu::unused]] const auto old_terminate_handler = std::set_terminate([] {
   if (const auto exception_ptr = std::current_exception()) {
@@ -152,14 +154,14 @@ void panic(
 
 bool set_sigabrt_handler() {
   std::signal(SIGABRT, [](int signal) noexcept {
-    core::assert::_details::panic(__FILE__, __LINE__, "SIGABRT handler", nullptr, true, nullptr);
+    util::assert::_details::panic(__FILE__, __LINE__, "SIGABRT handler", nullptr, true, nullptr);
   });
   return true;
 }
 
 bool set_sigbus_handler() {
   std::signal(SIGBUS, [](int signal) noexcept {
-    core::assert::_details::panic(__FILE__, __LINE__, "SIGBUS handler", nullptr, true, nullptr);
+    util::assert::_details::panic(__FILE__, __LINE__, "SIGBUS handler", nullptr, true, nullptr);
   });
   return true;
 }
@@ -180,14 +182,14 @@ bool set_sigsegv_handler() {
     static constexpr int X86_PF_WRITE = 2;
     bool is_write = context->uc_mcontext.gregs[REG_ERR] & X86_PF_WRITE;
     auto ip = static_cast<std::uintptr_t>(context->uc_mcontext.gregs[REG_RIP]);
-    core::assert::_details::panic(
+    util::assert::_details::panic(
         __FILE__, __LINE__, "SIGSEGV handler", nullptr, false,
         "segmentation fault accessing address 0x%zx; "
         "Instruction at 0x%zx; Access type: %s",
         reinterpret_cast<std::uintptr_t>(info->si_addr), ip, (is_write ? "write" : "read"));
     std::signal(SIGSEGV, SIG_DFL);
 #else
-    core::assert::_details::panic(__FILE__, __LINE__, "SIGSEGV handler", nullptr, false, "segmentation fault");
+    util::assert::_details::panic(__FILE__, __LINE__, "SIGSEGV handler", nullptr, false, "segmentation fault");
     std::signal(SIGSEGV, SIG_DFL);
 #endif
   };

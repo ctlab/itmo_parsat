@@ -22,12 +22,15 @@ message(STATUS "The architecture is " ${ARCH})
 add_compile_options(-march=${ARCH})
 add_link_options(-march=${ARCH})
 
+# Not enabling these options because major native solvers refactoring is required
+# add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+
 # Global linker options
 link_libraries(tbb)
 
 if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     message(STATUS "DEBUG build mode (Og). All checks are enabled, log and tracer are enabled.")
-    add_compile_options(-O0 -g)
+    add_compile_options(-O0 -ggdb)
     add_compile_definitions(DEBUG)
     set(LTO OFF)
 elseif (CMAKE_BUILD_TYPE STREQUAL "DEV_FAST")

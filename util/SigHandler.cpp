@@ -12,11 +12,11 @@
 
 namespace {
 
-core::signal::SigHandler* _sig_handler = nullptr;
+util::signal::SigHandler* _sig_handler = nullptr;
 
 }  // namespace
 
-namespace core::signal {
+namespace util::signal {
 
 SigHandler::SigHandler() {
   IPS_VERIFY_S(_sig_handler == nullptr, "SigHandler registered more than once.");
@@ -34,7 +34,9 @@ SigHandler::SigHandler() {
 
     for (;;) {
       int err = sigtimedwait(&ss, &si, &ts);
-      if (_shutdown) { break; }
+      if (_shutdown) {
+        break;
+      }
       if (err == -1) {
         if (errno == EAGAIN) {
           continue;
@@ -43,7 +45,7 @@ SigHandler::SigHandler() {
         }
       }
       _interrupted = true;
-      core::event::raise(event::INTERRUPT);
+      util::event::raise(event::INTERRUPT);
     }
   });
 }
@@ -56,20 +58,16 @@ SigHandler::~SigHandler() noexcept {
   _sig_handler = nullptr;
 }
 
-bool SigHandler::is_set() {
-  return _interrupted;
-}
+bool SigHandler::is_set() { return _interrupted; }
 
-void SigHandler::unset() {
-  _interrupted = false;
-}
+void SigHandler::unset() { _interrupted = false; }
 
-bool is_set() {
-  return _sig_handler != nullptr && _sig_handler->is_set();
-}
+bool is_set() { return _sig_handler != nullptr && _sig_handler->is_set(); }
 
 void unset() {
-  if (_sig_handler != nullptr) { _sig_handler->unset(); }
+  if (_sig_handler != nullptr) {
+    _sig_handler->unset();
+  }
 }
 
-}  // namespace core::signal
+}  // namespace util::signal

@@ -32,7 +32,7 @@ static void BM_algorithm(benchmark::State& state, std::string config) {
   common::set_logger_config();
   // Here and in other places benchmarks' generator has a fixed seed,
   // thus everything will be fair for all configurations.
-  core::TimeTracer::clean();
+  util::TimeTracer::clean();
   util::random::Generator gen(239);
   auto problem = common::problems(BENCH_ALG_GROUPS)[state.range(0)];
   auto rprop = common::get_prop(common::configs_path + "par_prop.json");

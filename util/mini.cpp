@@ -2,17 +2,21 @@
 
 namespace util {
 
-std::vector<Mini::Lit> to_std(Mini::vec<Mini::Lit> const& mini_vec) {
-  std::vector<Mini::Lit> std_vec(mini_vec.size());
-  std::copy(mini_vec.data(), mini_vec.data() + mini_vec.size(), std_vec.begin());
-  return std_vec;
+std::vector<bool> convert_ms_model(int n_vars, Mini::vec<Minisat::lbool> const& ms_model) {
+  std::vector<bool> model(n_vars, false);
+  for (int i = 0; i < ms_model.size(); ++i) {
+    model[i] = ms_model[i] == Minisat::l_True;
+  }
+  return model;
 }
 
 std::vector<int> filter_vars(std::vector<int> const& vars, std::unordered_set<int> const& vars_to_filter) {
   std::vector<int> result;
   result.reserve(vars.size());
   for (auto var : vars) {
-    if (vars_to_filter.find(var) == vars_to_filter.end()) { result.push_back(var); }
+    if (vars_to_filter.find(var) == vars_to_filter.end()) {
+      result.push_back(var);
+    }
   }
   return result;
 }
@@ -23,12 +27,6 @@ std::unordered_set<int> get_vars(Mini::vec<Mini::Lit> const& assumption) {
     result.insert(Mini::var(assumption[i]));
   }
   return result;
-}
-
-Mini::vec<Mini::Lit> to_mini(std::vector<Mini::Lit> const& std_vec) {
-  Mini::vec<Mini::Lit> mini_vec(std_vec.size());
-  std::copy(std_vec.begin(), std_vec.end(), mini_vec.data());
-  return mini_vec;
 }
 
 Mini::vec<Mini::Lit> map_to_mini_vars(std::vector<int> const& vars) {

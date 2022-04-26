@@ -65,7 +65,7 @@ class Reducer : public SolverInterface {
 
   SolvingStatistics getStatistics() override;
 
-  vector<int> getModel() override;
+  Mini::vec<Mini::lbool> getModel() const override;
 
   vector<int> getFinalAnalysis() override;
 

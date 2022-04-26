@@ -24,7 +24,9 @@ TEST_P(LaunchFixture, infra_test) {
       .set_config_path(get_config_name(GetParam()));
   for (const auto& path : LaunchFixture::cnfs) {
     launch(config.set_input_path(path));
-    if (is_interrupted) { break; }
+    if (is_interrupted) {
+      break;
+    }
     ASSERT_FALSE(test_failed);
   }
 }

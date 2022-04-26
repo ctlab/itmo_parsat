@@ -22,9 +22,7 @@ CartesianSearch::CartesianSearch(cartesian_set_t&& cartesian)
 CartesianSearch::CartesianSearch(cartesian_set_t const& cartesian)
     : CartesianSearch(std::make_shared<cartesian_set_t>(cartesian)) {}
 
-Search* CartesianSearch::clone() const {
-  return new CartesianSearch(_r_cartesian_set);
-}
+Search* CartesianSearch::clone() const { return new CartesianSearch(_r_cartesian_set); }
 
 void CartesianSearch::_reset() {
   auto& cartesian = *_r_cartesian_set;
@@ -60,7 +58,9 @@ void CartesianSearch::_advance() {
     _indices[index] = 0;
     --index;
   }
-  if (index >= 0) { ++_indices[index]; }
+  if (index >= 0) {
+    ++_indices[index];
+  }
   _set_cur(std::max(index, 0));
 }
 

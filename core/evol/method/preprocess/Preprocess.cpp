@@ -23,7 +23,9 @@ Preprocess::Preprocess(PreprocessConfig config, core::sat::prop::RProp prop)
 
 bool Preprocess::preprocess(core::sat::Problem const& problem) {
   _num_vars = _prop->num_vars();
-  if (_num_vars == 0) { return false; }
+  if (_num_vars == 0) {
+    return false;
+  }
   auto workers = _prop->native();
 
   size_t concurrency = workers.size();
@@ -80,7 +82,7 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
     _var_view.map_var((int) i, it->second);
   }
 
-  if (core::Logger::should_log(LogType::HEURISTIC_RESULT)) {
+  if (util::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
     for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
       ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
@@ -90,12 +92,8 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
   return true;
 }
 
-core::domain::VarView const& Preprocess::var_view() const noexcept {
-  return _var_view;
-}
+core::domain::VarView const& Preprocess::var_view() const noexcept { return _var_view; }
 
-uint32_t Preprocess::num_vars() const noexcept {
-  return _num_vars;
-}
+uint32_t Preprocess::num_vars() const noexcept { return _num_vars; }
 
 }  // namespace ea::preprocess

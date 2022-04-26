@@ -85,9 +85,7 @@ uint64_t ParProp::prop_tree(lit_vec_t const& vars, uint32_t head_size) {
   return _sum(futures);
 }
 
-unsigned ParProp::num_vars() const noexcept {
-  return _prop_worker_pool.get_workers().front().num_vars();
-}
+unsigned ParProp::num_vars() const noexcept { return _prop_worker_pool.get_workers().front().num_vars(); }
 
 uint64_t ParProp::_sum(std::vector<std::future<uint64_t>>& futures) noexcept {
   uint64_t result = 0;

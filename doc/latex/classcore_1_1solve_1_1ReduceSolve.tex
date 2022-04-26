@@ -41,6 +41,8 @@ std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ {\bfseries \+\_\+filter\+\_\+conflict} 
 sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1ReduceSolve_a548d6b746c0f80fa292a6930ce3c4e3d}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) final
 \begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\item 
 sat\+::sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1solve_1_1ReduceSolve_a89c7ab02d9a7e93731d1cdb47884fcfb}{sharing\+\_\+unit}} () noexcept override
+\item 
+Mini\+::vec$<$ Mini\+::lbool $>$ \mbox{\hyperlink{classcore_1_1solve_1_1ReduceSolve_a93ca1e34394b9d8d0871b964ec642a30}{get\+\_\+model}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -65,6 +67,12 @@ ea\+::preprocess\+::\+R\+Preprocess {\bfseries \+\_\+preprocess}
 \item 
 \mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a8b359835bb4ea58d875fd153f1d18dae}\label{classcore_1_1solve_1_1ReduceSolve_a8b359835bb4ea58d875fd153f1d18dae}} 
 sat\+::solver\+::\+R\+Solver\+Service {\bfseries \+\_\+solver\+\_\+service}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a045b9807e43e7f3de5f8905bf16a6815}\label{classcore_1_1solve_1_1ReduceSolve_a045b9807e43e7f3de5f8905bf16a6815}} 
+std\+::mutex {\bfseries \+\_\+model\+\_\+lock}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_aa98cab75b1112b00c382dbb9327e3907}\label{classcore_1_1solve_1_1ReduceSolve_aa98cab75b1112b00c382dbb9327e3907}} 
+Mini\+::vec$<$ Mini\+::lbool $>$ {\bfseries \+\_\+model}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -73,6 +81,19 @@ sat\+::solver\+::\+R\+Solver\+Service {\bfseries \+\_\+solver\+\_\+service}
 The base class for all algorithms that use rho-\/backdoor search reduction. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a93ca1e34394b9d8d0871b964ec642a30}\label{classcore_1_1solve_1_1ReduceSolve_a93ca1e34394b9d8d0871b964ec642a30}} 
+\index{core::solve::ReduceSolve@{core::solve::ReduceSolve}!get\_model@{get\_model}}
+\index{get\_model@{get\_model}!core::solve::ReduceSolve@{core::solve::ReduceSolve}}
+\doxysubsubsection{\texorpdfstring{get\_model()}{get\_model()}}
+{\footnotesize\ttfamily Mini\+::vec$<$ Mini\+::lbool $>$ core\+::solve\+::\+Reduce\+Solve\+::get\+\_\+model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+The satisfying model if any has been found. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1Solve_a4bc16edaaba45afbe3197416cb9ba958}{core\+::solve\+::\+Solve}}.
+
 \mbox{\Hypertarget{classcore_1_1solve_1_1ReduceSolve_a89c7ab02d9a7e93731d1cdb47884fcfb}\label{classcore_1_1solve_1_1ReduceSolve_a89c7ab02d9a7e93731d1cdb47884fcfb}} 
 \index{core::solve::ReduceSolve@{core::solve::ReduceSolve}!sharing\_unit@{sharing\_unit}}
 \index{sharing\_unit@{sharing\_unit}!core::solve::ReduceSolve@{core::solve::ReduceSolve}}

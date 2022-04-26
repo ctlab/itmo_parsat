@@ -39,13 +39,9 @@ class SequentialWorker : public WorkingStrategy {
 
   ~SequentialWorker() noexcept override;
 
-  void solve(
-      int64_t index, Mini::vec<Mini::Lit> const& assumptions,
-      const vector<int>& cube) override;
+  void solve(int64_t index, Mini::vec<Mini::Lit> const& assumptions, vector<int> const& cube) override;
 
-  void join(
-      int64_t index, WorkingStrategy* winner, PSatResult res,
-      const vector<int>& model) override;
+  void join(int64_t index, WorkingStrategy* winner, PSatResult res, Mini::vec<Mini::lbool> const& model) override;
 
   void setInterrupt() override;
 
@@ -76,8 +72,7 @@ class SequentialWorker : public WorkingStrategy {
   std::condition_variable start_cv;
   std::mutex start_mutex;
 
-  std::optional<std::tuple<int64_t, std::vector<int>, Mini::vec<Mini::Lit>>>
-      _task;
+  std::optional<std::tuple<int64_t, std::vector<int>, Mini::vec<Mini::Lit>>> _task;
   std::thread worker;
 };
 

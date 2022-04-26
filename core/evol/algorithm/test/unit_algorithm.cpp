@@ -16,7 +16,9 @@ void check_rho_value(
     ea::instance::Instance const& instance, core::lit_vec_t const& base_assumption) {
   uint32_t samples = instance.fitness().samples;
   uint32_t size = instance.size();
-  if (!instance.fitness().can_calc() || (1ULL << size) != samples) { return; }
+  if (!instance.fitness().can_calc() || (1ULL << size) != samples) {
+    return;
+  }
   auto search = core::search::createFullSearch(preprocess->var_view(), instance.get_vars().get_mask());
   uint32_t conflicts = rprop->prop_tree(util::concat(base_assumption, (*search)()), base_assumption.size());
   double expected_rho = instance.fitness().rho;
@@ -40,7 +42,9 @@ void run_test(std::string const& config, core::sat::Problem const& problem) {
   auto rprop = common::get_prop(common::configs_path + "par_prop.json");
   rprop->load_problem(problem);
   auto preprocess = common::get_preprocess(rprop);
-  if (!preprocess->preprocess(problem)) { return; }
+  if (!preprocess->preprocess(problem)) {
+    return;
+  }
   run_test(rprop, preprocess, config, problem, {});
   common::iter_assumptions(
       [&](auto& base_assumption) { run_test(rprop, preprocess, config, problem, base_assumption); },

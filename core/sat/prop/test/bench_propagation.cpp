@@ -9,7 +9,7 @@
 #include "util/Random.h"
 #include "util/stream.h"
 
-#define BM_PROP_GROUP true, false, "exp_u700s_30"
+#define BM_PROP_GROUP true, false, "aaai"
 #define SAMPLES 5
 
 namespace {
@@ -29,10 +29,19 @@ core::sat::prop::RProp get_prop(uint32_t threads) {
 
 }  // namespace
 
-static void run_propagate_naive(core::sat::prop::Prop& prop, int size, int num_vars, uint64_t total) {
+static void run_propagate_random(core::sat::prop::Prop& prop, int size, int num_vars, uint64_t total) {
   common::iter_vars(
       [&](core::vars_set_t const& vars) {
         core::search::USearch search = core::search::createRandomSearch(vars, total);
+        prop.prop_search(std::move(search));
+      },
+      size, size, num_vars, SAMPLES);
+}
+
+static void run_propagate_full(core::sat::prop::Prop& prop, int size, int num_vars) {
+  common::iter_vars(
+      [&](core::vars_set_t const& vars) {
+        core::search::USearch search = core::search::createFullSearch(vars);
         prop.prop_search(std::move(search));
       },
       size, size, num_vars, SAMPLES);
@@ -43,13 +52,23 @@ static void run_propagate_tree(core::sat::prop::Prop& prop, int size, int num_va
       [&](core::vars_set_t const& vars) { prop.prop_tree(common::to_mini(vars), 0); }, size, size, num_vars, SAMPLES);
 }
 
-static void BM_prop_naive(benchmark::State& state) {
+static void BM_prop_random(benchmark::State& state) {
   util::random::Generator generator(239);
   auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
   auto prop = get_prop(state.range(1));
   prop->load_problem(problem);
   for (auto _ : state) {
-    run_propagate_naive(*prop, state.range(2), prop->num_vars(), state.range(3));
+    run_propagate_random(*prop, state.range(2), prop->num_vars(), state.range(3));
+  }
+}
+
+static void BM_prop_full(benchmark::State& state) {
+  util::random::Generator generator(239);
+  auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
+  auto prop = get_prop(state.range(1));
+  prop->load_problem(problem);
+  for (auto _ : state) {
+    run_propagate_full(*prop, state.range(2), prop->num_vars());
   }
 }
 
@@ -63,15 +82,21 @@ static void BM_prop_tree(benchmark::State& state) {
   }
 }
 
-BENCHMARK(BM_prop_naive)
+BENCHMARK(BM_prop_random)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),      // threads count
-         benchmark::CreateDenseRange(5, 25, 10),         // size of assumption
-         benchmark::CreateRange(1 << 13, 1 << 17, 2)});  // number of samples: 8192 : 131072
+         benchmark::CreateRange(1 << 0, 1 << 4, 15),     // threads count
+         benchmark::CreateDenseRange(2, 18, 4),          // size of assumption
+         benchmark::CreateRange(1 << 13, 1 << 16, 2)});  // number of samples: 8192 : 65536
+
+BENCHMARK(BM_prop_full)
+    ->ArgsProduct(
+        {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
+         benchmark::CreateRange(1 << 0, 1 << 4, 15),  // threads count
+         benchmark::CreateDenseRange(2, 18, 4)});     // size of assumption
 
 BENCHMARK(BM_prop_tree)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
-         benchmark::CreateDenseRange(5, 25, 10)});   // size of assumption
+         benchmark::CreateRange(1 << 0, 1 << 4, 15),  // threads count
+         benchmark::CreateDenseRange(2, 18, 4)});     // size of assumption

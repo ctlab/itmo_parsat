@@ -1,6 +1,0 @@
-./resources/cnf/common/unsat_dubois21-@0.cnf
-./resources/cnf/common/unsat_aim-100-1_6-no-1-@0.cnf
-./resources/cnf/common/sat_simple_v3_c2-@0.cnf
-./resources/cnf/common/unsat_dubois22-@0.cnf
-./resources/cnf/common/unsat_dubois20-@0.cnf
-./resources/cnf/common/unsat_pancake_vs_selection_7_4-@2.cnf

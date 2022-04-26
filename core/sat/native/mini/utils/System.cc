@@ -38,10 +38,12 @@ static inline int memReadStat(int field) {
 
   sprintf(name, "/proc/%d/statm", pid);
   FILE* in = fopen(name, "rb");
-  if (in == NULL) return 0;
+  if (in == NULL)
+    return 0;
 
   for (; field >= 0; field--)
-    if (fscanf(in, "%d", &value) != 1) printf("c ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
+    if (fscanf(in, "%d", &value) != 1)
+      printf("c ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
   fclose(in);
   return value;
 }
@@ -52,7 +54,8 @@ static inline int memReadPeak(void) {
 
   sprintf(name, "/proc/%d/status", pid);
   FILE* in = fopen(name, "rb");
-  if (in == NULL) return 0;
+  if (in == NULL)
+    return 0;
 
   // Find the correct line, beginning with "VmPeak:":
   int peak_kb = 0;
@@ -64,9 +67,7 @@ static inline int memReadPeak(void) {
   return peak_kb;
 }
 
-double Mini::memUsed() {
-  return (double) memReadStat(0) * (double) getpagesize() / (1024 * 1024);
-}
+double Mini::memUsed() { return (double) memReadStat(0) * (double) getpagesize() / (1024 * 1024); }
 double Mini::memUsedPeak(bool strictlyPeak) {
   double peak = memReadPeak() / (double) 1024;
   return peak == 0 && !strictlyPeak ? memUsed() : peak;
@@ -79,9 +80,7 @@ double Mini::memUsed() {
   getrusage(RUSAGE_SELF, &ru);
   return (double) ru.ru_maxrss / 1024;
 }
-double Mini::memUsedPeak(bool) {
-  return memUsed();
-}
+double Mini::memUsedPeak(bool) { return memUsed(); }
 
 #elif defined(__APPLE__)
 #include <malloc/malloc.h>
@@ -91,17 +90,11 @@ double Mini::memUsed() {
   malloc_zone_statistics(NULL, &t);
   return (double) t.max_size_in_use / (1024 * 1024);
 }
-double Mini::memUsedPeak(bool) {
-  return memUsed();
-}
+double Mini::memUsedPeak(bool) { return memUsed(); }
 
 #else
-double Mini::memUsed() {
-  return 0;
-}
-double Mini::memUsedPeak(bool) {
-  return 0;
-}
+double Mini::memUsed() { return 0; }
+double Mini::memUsedPeak(bool) { return 0; }
 #endif
 
 void Mini::setX86FPUPrecision() {
@@ -131,7 +124,8 @@ void Mini::limitMemory(uint64_t max_mem_mb) {
     getrlimit(RLIMIT_AS, &rl);
     if (rl.rlim_max == RLIM_INFINITY || new_mem_lim < rl.rlim_max) {
       rl.rlim_cur = new_mem_lim;
-      if (setrlimit(RLIMIT_AS, &rl) == -1) printf("c WARNING! Could not set resource limit: Virtual memory.\n");
+      if (setrlimit(RLIMIT_AS, &rl) == -1)
+        printf("c WARNING! Could not set resource limit: Virtual memory.\n");
     }
   }
 
@@ -152,7 +146,8 @@ void Mini::limitTime(uint32_t max_cpu_time) {
     getrlimit(RLIMIT_CPU, &rl);
     if (rl.rlim_max == RLIM_INFINITY || (rlim_t) max_cpu_time < rl.rlim_max) {
       rl.rlim_cur = max_cpu_time;
-      if (setrlimit(RLIMIT_CPU, &rl) == -1) printf("c WARNING! Could not set resource limit: CPU-time.\n");
+      if (setrlimit(RLIMIT_CPU, &rl) == -1)
+        printf("c WARNING! Could not set resource limit: CPU-time.\n");
     }
   }
 }

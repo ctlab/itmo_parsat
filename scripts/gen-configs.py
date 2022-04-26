@@ -4,6 +4,11 @@ import re
 import time
 
 
+"""
+This script is made to make configuration generation simple
+"""
+
+
 configs_dir = './resources/config'
 replacements = dict() 
 

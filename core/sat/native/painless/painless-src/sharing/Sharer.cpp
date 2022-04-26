@@ -58,7 +58,9 @@ void Sharer::main_sharing_thread() {
   while (!_stop) {
     std::unique_lock<std::mutex> ul(share_mutex);
     share_cv.wait_for(ul, sleep_dur, [this] { return _stop; });
-    if (_stop) { break; }
+    if (_stop) {
+      break;
+    }
     round++;
 
     do_add();
@@ -84,7 +86,9 @@ Sharer::~Sharer() noexcept {
     _stop = true;
   }
   share_cv.notify_all();
-  if (sharer_thread.joinable()) { sharer_thread.join(); }
+  if (sharer_thread.joinable()) {
+    sharer_thread.join();
+  }
   delete sharingStrategy;
 }
 

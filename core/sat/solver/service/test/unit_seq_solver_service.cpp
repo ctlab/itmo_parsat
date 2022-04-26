@@ -19,9 +19,9 @@ void working_thread(
       [&](auto const& assumption) {
         duration tl = time_limit ? milliseconds(util::random::sample<int>(100, 500))
                                  : core::sat::solver::SolverService::DUR_INDEF;
-        core::clock_t::time_point start = core::clock_t::now();
+        util::clock_t::time_point start = util::clock_t::now();
         auto actual = service.solve(assumption, tl).get();
-        core::clock_t::duration dur = core::clock_t::now() - start;
+        util::clock_t::duration dur = util::clock_t::now() - start;
         if (time_limit) {
           ASSERT_LE(dur, tl + 1000ms);
         } else {

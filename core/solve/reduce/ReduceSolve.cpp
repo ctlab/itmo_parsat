@@ -9,9 +9,7 @@ ReduceSolve::ReduceSolve(
     , _preprocess(new ea::preprocess::Preprocess(preprocess_config, _prop))
     , _solver_service(core::sat::solver::SolverServiceRegistry::resolve(solver_service_config)) {}
 
-void ReduceSolve::_interrupt_impl() {
-  _interrupt(_solver_service);
-}
+void ReduceSolve::_interrupt_impl() { _interrupt(_solver_service); }
 
 std::vector<lit_vec_t> ReduceSolve::_filter_conflict(search::USearch assignment) {
   IPS_INFO("Filtering conflict assignments");
@@ -22,7 +20,9 @@ std::vector<lit_vec_t> ReduceSolve::_filter_conflict(search::USearch assignment)
 
   IPS_BLOCK(filter_conflict, {
     _prop->prop_search(std::move(assignment), [&](bool conflict, lit_vec_t const& assumption) {
-      if (_is_interrupted()) { return false; }
+      if (_is_interrupted()) {
+        return false;
+      }
       bool resume = true;
       if (!conflict) {
         std::lock_guard<std::mutex> lg(nc_lock);
@@ -54,7 +54,7 @@ sat::State ReduceSolve::_solve_final(std::vector<lit_vec_t> const& assumptions_v
     for (auto& assumption : assumptions_v) {
       futures.push_back(_solver_service->solve(
           assumption, sat::solver::SolverService::DUR_INDEF,
-          [this, &unknown, &satisfied, &progress, &progress_lock](sat::State result) {
+          [this, &unknown, &satisfied, &progress, &progress_lock](sat::State result, auto model) {
             {
               std::lock_guard<std::mutex> lg(progress_lock);
               ++progress;
@@ -64,6 +64,11 @@ sat::State ReduceSolve::_solve_final(std::vector<lit_vec_t> const& assumptions_v
               case core::sat::UNKNOWN: unknown = true; break;
               case core::sat::SAT:
                 satisfied = true;
+                IPS_VERIFY(model.has_value());
+                {
+                  std::lock_guard<std::mutex> lg(_model_lock);
+                  _model = std::move(model.value());
+                }
                 _solver_service->interrupt();
                 break;
             }
@@ -95,8 +100,8 @@ sat::State ReduceSolve::solve(sat::Problem const& problem) {
   }
 }
 
-sat::sharing::SharingUnit ReduceSolve::sharing_unit() noexcept {
-  return _solver_service->sharing_unit();
-}
+sat::sharing::SharingUnit ReduceSolve::sharing_unit() noexcept { return _solver_service->sharing_unit(); }
+
+Mini::vec<Mini::lbool> ReduceSolve::get_model() const { return _model; }
 
 }  // namespace core::solve

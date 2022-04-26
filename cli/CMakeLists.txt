@@ -11,3 +11,10 @@ add_executable(
         ${CORE_SRC}
 )
 target_link_libraries(solve_bin ${UTIL_LIBS} ${CORE_LIBS})
+
+add_executable(
+        verify_bin verify/main.cpp
+        ${UTIL_SRC}
+        ${CORE_SRC}
+)
+target_link_libraries(verify_bin ${UTIL_LIBS} ${CORE_LIBS})

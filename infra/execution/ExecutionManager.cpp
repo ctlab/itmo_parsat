@@ -2,9 +2,7 @@
 
 namespace infra::execution {
 
-ExecutionManager::ExecutionManager(uint32_t cpu_limit) {
-  _semaphore.set_max(cpu_limit);
-}
+ExecutionManager::ExecutionManager(uint32_t cpu_limit) { _semaphore.set_max(cpu_limit); }
 
 void ExecutionManager::interrupt() {
   for (auto& exec : _execs) {

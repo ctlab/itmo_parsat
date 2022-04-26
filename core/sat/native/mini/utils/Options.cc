@@ -59,15 +59,12 @@ void Mini::parseOptions(int& argc, char** argv, bool strict) {
   argc -= (i - j);
 }
 
-void Mini::setUsageHelp(const char* str) {
-  Option::getUsageString() = str;
-}
-void Mini::setHelpPrefixStr(const char* str) {
-  Option::getHelpPrefixString() = str;
-}
+void Mini::setUsageHelp(const char* str) { Option::getUsageString() = str; }
+void Mini::setHelpPrefixStr(const char* str) { Option::getHelpPrefixString() = str; }
 void Mini::printUsageAndExit(int /*argc*/, char** argv, bool verbose) {
   const char* usage = Option::getUsageString();
-  if (usage != NULL) fprintf(stderr, usage, argv[0]);
+  if (usage != NULL)
+    fprintf(stderr, usage, argv[0]);
 
   sort(Option::getOptionList(), Option::OptionLt());
 

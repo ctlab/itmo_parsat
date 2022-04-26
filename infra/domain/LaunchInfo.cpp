@@ -6,7 +6,9 @@
 namespace infra::domain {
 
 LaunchInfo::LaunchInfo(fixture::TestingConfiguration testing_config) : _t_config(std::move(testing_config)) {
-  if (_t_config.save || _t_config.lookup) { _dao.emplace(_t_config.pg_host); }
+  if (_t_config.save || _t_config.lookup) {
+    _dao.emplace(_t_config.pg_host);
+  }
 }
 
 std::string LaunchInfo::get_test_group(LaunchConfig const& config) {
@@ -22,10 +24,16 @@ bool LaunchInfo::should_be_launched(LaunchConfig const& config) {
       _t_config.test_groups.end()) {
     return false;
   }
-  if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) { return false; }
+  if (get_sat_result(config) != infra::domain::UNSAT && _t_config.unsat_only) {
+    return false;
+  }
   int test_size = get_test_size(config);
-  if (test_size == -1 && !_t_config.allow_unspecified_size) { return false; }
-  if (test_size > _t_config.size) { return false; }
+  if (test_size == -1 && !_t_config.allow_unspecified_size) {
+    return false;
+  }
+  if (test_size > _t_config.size) {
+    return false;
+  }
   if (_t_config.lookup) {
     auto opt_launch_id = check_if_test_is_done(config);
     if (opt_launch_id.has_value()) {
@@ -75,7 +83,9 @@ uint32_t LaunchInfo::get_threads_required(std::filesystem::path const& solve_con
 
 void LaunchInfo::add(const LaunchObject& object) {
   // We do not add interrupted launches to DB.
-  if (_t_config.save && object.result != INTERRUPTED) { _dao->add(object); }
+  if (_t_config.save && object.result != INTERRUPTED) {
+    _dao->add(object);
+  }
 }
 
 }  // namespace infra::domain

@@ -55,6 +55,11 @@ class Solver : public sat::sharing::Shareable {
    * @brief Returns the number of variables in formula.
    */
   [[nodiscard]] virtual unsigned num_vars() const noexcept = 0;
+
+  /*
+   * @brief Returns the satisfying model if any has been found.
+   */
+  [[nodiscard]] virtual Mini::vec<Mini::lbool> get_model() const noexcept = 0;
 };
 
 MAKE_REFS(Solver);

@@ -33,11 +33,11 @@ class Portfolio : public WorkingStrategy {
 
   void solve(
       int64_t index, Mini::vec<Mini::Lit> const& assumptions,
-      const vector<int>& cube) override;
+      vector<int> const& cube) override;
 
   void join(
       int64_t index, WorkingStrategy* strat, PSatResult res,
-      const vector<int>& model) override;
+      Mini::vec<Mini::lbool> const& model) override;
 
   void setInterrupt() override;
 

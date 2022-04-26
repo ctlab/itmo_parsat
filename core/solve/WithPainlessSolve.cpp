@@ -21,19 +21,25 @@ sat::State WithPainlessSolve::solve(sat::Problem const& problem) {
   std::thread t_painless([&, this] {
     sat::State expected = sat::UNKNOWN;
     _painless_solver->load_problem(problem);
-    if (result.compare_exchange_strong(expected, _painless_solver->solve({}))) { IPS_INFO("Painless solver won."); }
-    _primary_solve->interrupt();
+    if (result.compare_exchange_strong(expected, _painless_solver->solve({}))) {
+      IPS_INFO("Painless solver won.");
+      _model = _painless_solver->get_model();
+      _primary_solve->interrupt();
+    }
   });
   std::thread t_solve([&, this] {
     util::random::Generator gen(_cfg.near_solve_config().random_seed());
     sat::State expected = sat::UNKNOWN;
-    if (result.compare_exchange_strong(expected, _primary_solve->solve(problem))) { IPS_INFO("Primary solve won."); }
-    _painless_solver->interrupt();
+    if (result.compare_exchange_strong(expected, _primary_solve->solve(problem))) {
+      IPS_INFO("Primary solve won.");
+      _model = _primary_solve->get_model();
+      _painless_solver->interrupt();
+    }
   });
 
   t_painless.join();
   t_solve.join();
-  return result.load();
+  return result.load(std::memory_order_relaxed);
 }
 
 void WithPainlessSolve::_interrupt_impl() {
@@ -45,6 +51,8 @@ sat::sharing::SharingUnit WithPainlessSolve::sharing_unit() noexcept {
   IPS_WARNING("Requested sharing_unit from WithPainlessSolve.");
   return {};
 }
+
+Mini::vec<Mini::lbool> WithPainlessSolve::get_model() const { return _model; }
 
 REGISTER_PROTO(Solve, WithPainlessSolve, with_painless_solve_config);
 

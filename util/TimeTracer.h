@@ -16,7 +16,7 @@
 #include "Logger.h"
 #include "util/Assert.h"
 
-namespace core {
+namespace util {
 
 using clock_t = typename std::conditional<
     std::chrono::high_resolution_clock::is_steady, std::chrono::high_resolution_clock, std::chrono::steady_clock>::type;
@@ -85,25 +85,25 @@ class TimeTracer {
   void _clean() noexcept;
 };
 
-}  // namespace core
+}  // namespace util
 
 #ifndef IPS_DISABLE_TRACE
 
-#define IPS_TRACE_SUMMARY ::core::TimeTracer::print_summary()
+#define IPS_TRACE_SUMMARY ::util::TimeTracer::print_summary()
 
-#define IPS_EVENT(TYPE) ::core::_detail::Event(&::core::TimeTracer::instance().events.TYPE)
+#define IPS_EVENT(TYPE) ::util::_detail::Event(&::util::TimeTracer::instance().events.TYPE)
 
 #define IPS_BLOCK(TYPE, EXPR)                                                            \
   do {                                                                                   \
-    auto& tracer = ::core::TimeTracer::instance();                                       \
-    ::core::_detail::CodeBlock _cb(&tracer.events.TYPE.count, &tracer.events.TYPE.time); \
+    auto& tracer = ::util::TimeTracer::instance();                                       \
+    ::util::_detail::CodeBlock _cb(&tracer.events.TYPE.count, &tracer.events.TYPE.time); \
     EXPR;                                                                                \
   } while (0)
 
 #define IPS_BLOCK_R(TYPE, EXPR)                                                          \
   [&] {                                                                                  \
-    auto& tracer = ::core::TimeTracer::instance();                                       \
-    ::core::_detail::CodeBlock _cb(&tracer.events.TYPE.count, &tracer.events.TYPE.time); \
+    auto& tracer = ::util::TimeTracer::instance();                                       \
+    ::util::_detail::CodeBlock _cb(&tracer.events.TYPE.count, &tracer.events.TYPE.time); \
     auto&& result = EXPR;                                                                \
     return std::forward<decltype(result)>(result);                                       \
   }()

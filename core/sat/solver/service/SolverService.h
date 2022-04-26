@@ -14,10 +14,10 @@ namespace core::sat::solver {
  */
 class SolverService : public sat::sharing::Shareable {
  public:
-  static constexpr clock_t::duration DUR_INDEF = std::chrono::milliseconds(0);
+  static constexpr util::clock_t::duration DUR_INDEF = std::chrono::milliseconds(0);
 
  public:
-  using slv_callback_t = std::function<void(sat::State)>;
+  using slv_callback_t = std::function<void(sat::State, std::optional<Mini::vec<Mini::lbool>> model)>;
 
  public:
   virtual ~SolverService() = default;
@@ -30,8 +30,7 @@ class SolverService : public sat::sharing::Shareable {
    * @return the future of sat solver result
    */
   virtual std::future<core::sat::State> solve(
-      lit_vec_t const& assumption, clock_t::duration time_limit,
-      slv_callback_t const& callback = {}) = 0;
+      lit_vec_t const& assumption, util::clock_t::duration time_limit, slv_callback_t const& callback = {}) = 0;
 
   /**
    * @brief Load problem to all solvers.

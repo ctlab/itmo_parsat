@@ -28,9 +28,7 @@ namespace painless {
 
 static int verbosityLevelSetting = 0;
 
-void setVerbosityLevel(int level) {
-  verbosityLevelSetting = level;
-}
+void setVerbosityLevel(int level) { verbosityLevelSetting = level; }
 
 void log(int verbosityLevel, const char* fmt...) {
   if (verbosityLevel <= verbosityLevelSetting) {

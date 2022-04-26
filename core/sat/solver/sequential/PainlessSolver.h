@@ -37,6 +37,8 @@ class PainlessSolver : public Solver {
 
   sharing::SharingUnit sharing_unit() noexcept override;
 
+  Mini::vec<Mini::lbool> get_model() const noexcept override;
+
  private:
   sharing::SolverBlockList _solver_block_list;
   sharing::Sharing _sharing;

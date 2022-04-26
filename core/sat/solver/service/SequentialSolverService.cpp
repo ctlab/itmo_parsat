@@ -7,8 +7,12 @@ void SequentialSolverService::_solver_working_thread(Solver& solver) {
   while (!_stop) {
     std::unique_lock<std::mutex> ul(_queue_m);
     _queue_cv.wait(ul, [this] { return _stop || !_task_queue.empty(); });
-    if (IPS_UNLIKELY(_stop)) { break; }
-    if (IPS_UNLIKELY(_task_queue.empty())) { continue; }
+    if (IPS_UNLIKELY(_stop)) {
+      break;
+    }
+    if (IPS_UNLIKELY(_task_queue.empty())) {
+      continue;
+    }
     auto task = std::move(_task_queue.front());
     _task_queue.pop();
     ul.unlock();
@@ -31,27 +35,25 @@ SequentialSolverService::SequentialSolverService(SequentialSolverServiceConfig c
 }
 
 std::future<State> SequentialSolverService::solve(
-    lit_vec_t const& assumption, clock_t::duration time_limit, slv_callback_t const& callback) {
-  auto p_task = std::packaged_task<State(Solver&)>([this, assumption, time_limit, callback](auto& solver) {
+    lit_vec_t const& assumption, util::clock_t::duration time_limit, slv_callback_t const& callback) {
+  auto p_task = std::packaged_task<State(Solver&)>([this, assumption, callback, time_limit](auto& solver) {
     if (time_limit == DUR_INDEF) {
-      State result;
-      result = IPS_BLOCK_R(solver_service_solve_undef, solver.solve(assumption));
+      State result = IPS_BLOCK_R(solver_service_solve_undef, solver.solve(assumption));
       if (callback) {
         try {
-          callback(result);
+          callback(result, result == SAT ? std::optional<Mini::vec<Mini::lbool>>(solver.get_model()) : std::nullopt);
         } catch (...) {
           // ignore
         }
       }
       return result;
     } else {
-      State result;
-      result = IPS_BLOCK_R(
+      State result = IPS_BLOCK_R(
           solver_service_solve_time_limit,
           _timer.launch([&] { return solver.solve(assumption); }, [&] { solver.interrupt(); }, time_limit));
       if (callback) {
         try {
-          callback(result);
+          callback(result, result == SAT ? std::optional<Mini::vec<Mini::lbool>>(solver.get_model()) : std::nullopt);
         } catch (...) {
           // ignore
         }
@@ -77,18 +79,23 @@ SequentialSolverService::~SequentialSolverService() noexcept {
   std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->interrupt(); });
   _queue_cv.notify_all();
   for (auto& thread : _threads) {
-    if (thread.joinable()) { thread.join(); }
+    if (thread.joinable()) {
+      thread.join();
+    }
   }
 }
 
 void SequentialSolverService::load_problem(Problem const& problem) {
   std::for_each(
       IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [&problem](auto& solver) { solver->load_problem(problem); });
-
   if (_cfg.diversification_config().native() || _cfg.diversification_config().sparse()) {
     auto solvers = sat::sharing::Sharing::get_all_solvers(_sharing_unit());
-    if (_cfg.diversification_config().native()) { painless::SolverFactory::nativeDiversification(solvers); }
-    if (_cfg.diversification_config().sparse()) { painless::SolverFactory::sparseRandomDiversification(solvers); }
+    if (_cfg.diversification_config().native()) {
+      painless::SolverFactory::nativeDiversification(solvers);
+    }
+    if (_cfg.diversification_config().sparse()) {
+      painless::SolverFactory::sparseRandomDiversification(solvers);
+    }
   }
 }
 
@@ -104,9 +111,7 @@ void SequentialSolverService::clear_interrupt() {
   std::for_each(IPS_EXEC_POLICY, _solvers.begin(), _solvers.end(), [](auto& solver) { solver->clear_interrupt(); });
 }
 
-sharing::SharingUnit SequentialSolverService::sharing_unit() noexcept {
-  return _sharing_unit();
-}
+sharing::SharingUnit SequentialSolverService::sharing_unit() noexcept { return _sharing_unit(); }
 
 sharing::SharingUnit SequentialSolverService::_sharing_unit() noexcept {
   sharing::SharingUnit sharing_unit = _solvers.front()->sharing_unit();

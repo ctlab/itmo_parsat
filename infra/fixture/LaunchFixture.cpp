@@ -20,7 +20,7 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 }  // namespace
 
 LaunchFixture::LaunchFixture() {
-  _sig_cb = core::event::attach([this] { interrupt(); }, core::event::INTERRUPT);
+  _sig_cb = util::event::attach([this] { interrupt(); }, util::event::INTERRUPT);
 }
 
 infra::fixture::TestingConfiguration LaunchFixture::config{};
@@ -31,7 +31,9 @@ void LaunchFixture::interrupt() {
 }
 
 void LaunchFixture::SetUpTestSuite() {
-  if (!std::filesystem::is_directory(config.working_dir)) { std::filesystem::create_directories(config.working_dir); }
+  if (!std::filesystem::is_directory(config.working_dir)) {
+    std::filesystem::create_directories(config.working_dir);
+  }
   _prepare_resources();
 }
 
@@ -48,12 +50,12 @@ void LaunchFixture::SetUp() {
   std::filesystem::create_directories(_configs_root);
 }
 
-void LaunchFixture::TearDown() {
-  _exec_manager->await();
-}
+void LaunchFixture::TearDown() { _exec_manager->await(); }
 
 void LaunchFixture::_prepare_resources() {
-  if (!cnfs.empty()) { return; }
+  if (!cnfs.empty()) {
+    return;
+  }
   CHECK(std::filesystem::exists(config.resources_dir));
   std::set<std::filesystem::path> result;
   std::filesystem::path cnf_path = config.resources_dir / "cnf";
@@ -132,12 +134,18 @@ void LaunchFixture::launch_one(infra::domain::LaunchConfig& launch_config) {
 }
 
 void LaunchFixture::launch(infra::domain::LaunchConfig launch_config) {
-  if (is_interrupted || test_failed || !_info->should_be_launched(launch_config)) { return; }
-  if (_num_tests_left-- <= 0) { return; }
+  if (is_interrupted || test_failed || !_info->should_be_launched(launch_config)) {
+    return;
+  }
+  if (_num_tests_left-- <= 0) {
+    return;
+  }
   if (launch_config.expected_result == infra::domain::UNKNOWN) {
     launch_config.expected_result = _info->get_sat_result(launch_config);
   }
-  if (launch_config.description.empty()) { launch_config.description = config.description; }
+  if (launch_config.description.empty()) {
+    launch_config.description = config.description;
+  }
   std::filesystem::path config_path = config.resources_dir / "config" / launch_config.config;
   launch_config.threads_required = _info->get_threads_required(config_path);
   if (launch_config.threads_required > config.concurrency) {

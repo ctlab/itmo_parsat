@@ -41,7 +41,9 @@ PainlessSolver::PainlessSolver(PainlessSolverConfig config)
   for (auto& _solver : _solvers) {
     working->addSlave(new painless::SequentialWorker(&_result, _solver));
   }
-  if (_cfg.sharing_config().enabled()) { _sharing.share(_solver_block_list); }
+  if (_cfg.sharing_config().enabled()) {
+    _sharing.share(_solver_block_list);
+  }
 }
 
 PainlessSolver::~PainlessSolver() noexcept {
@@ -84,9 +86,7 @@ State PainlessSolver::solve(lit_vec_t const& assumptions) {
   return UNKNOWN;
 }
 
-unsigned PainlessSolver::num_vars() const noexcept {
-  return _solvers.front()->getVariablesCount();
-}
+unsigned PainlessSolver::num_vars() const noexcept { return _solvers.front()->getVariablesCount(); }
 
 void PainlessSolver::interrupt() {
   {
@@ -106,9 +106,9 @@ void PainlessSolver::clear_interrupt() {
   _result.cv.notify_one();
 }
 
-sharing::SharingUnit PainlessSolver::sharing_unit() noexcept {
-  return _solver_block_list;
-}
+sharing::SharingUnit PainlessSolver::sharing_unit() noexcept { return _solver_block_list; }
+
+Mini::vec<Mini::lbool> PainlessSolver::get_model() const noexcept { return _result.final_model; }
 
 REGISTER_PROTO(Solver, PainlessSolver, painless_solver_config);
 

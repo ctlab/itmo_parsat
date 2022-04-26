@@ -12,7 +12,7 @@ The problem descriptor class.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classcore_1_1sat_1_1Problem_a672c9517b143ab4a56d5a8344228ec36}{Problem}} (std\+::filesystem\+::path path, bool eliminate=true)
+\mbox{\hyperlink{classcore_1_1sat_1_1Problem_a672c9517b143ab4a56d5a8344228ec36}{Problem}} (std\+::filesystem\+::path \mbox{\hyperlink{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}{path}}, bool eliminate=true)
 \begin{DoxyCompactList}\small\item\em Constructs the problem by the cnf path. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a5774f0c0b005dd07068adbbffc53c97e}\label{classcore_1_1sat_1_1Problem_a5774f0c0b005dd07068adbbffc53c97e}} 
 {\bfseries Problem} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&o)
@@ -26,17 +26,21 @@ The problem descriptor class.
 \mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a841de36dad5f8ed76caa470b2fbaf631}\label{classcore_1_1sat_1_1Problem_a841de36dad5f8ed76caa470b2fbaf631}} 
 \mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} \& {\bfseries operator=} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} \&\&o)
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}\label{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}} 
-std\+::filesystem\+::path const  \& {\bfseries path} () const noexcept
+std\+::filesystem\+::path const  \& \mbox{\hyperlink{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}{path}} () const noexcept
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_aff3ef2d77515e455ff1d8d37dc49640d}\label{classcore_1_1sat_1_1Problem_aff3ef2d77515e455ff1d8d37dc49640d}} 
-std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ const  \& {\bfseries clauses} () const noexcept
+std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ const  \& \mbox{\hyperlink{classcore_1_1sat_1_1Problem_aff3ef2d77515e455ff1d8d37dc49640d}{clauses}} () const noexcept
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}\label{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}} 
-State {\bfseries get\+\_\+result} () const noexcept
+State \mbox{\hyperlink{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}{get\+\_\+result}} () const noexcept
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a58fd1d8460d4650a428de7a7c7427142}\label{classcore_1_1sat_1_1Problem_a58fd1d8460d4650a428de7a7c7427142}} 
-std\+::string {\bfseries to\+\_\+string} () const noexcept
+std\+::string \mbox{\hyperlink{classcore_1_1sat_1_1Problem_a58fd1d8460d4650a428de7a7c7427142}{to\+\_\+string}} () const noexcept
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_adcfad9f424fc5934b866d24a6536004c}\label{classcore_1_1sat_1_1Problem_adcfad9f424fc5934b866d24a6536004c}} 
+Mini\+::vec$<$ Mini\+::lbool $>$ {\bfseries remap\+\_\+variables} (Mini\+::vec$<$ Mini\+::lbool $>$ const \&vars)
+\item 
+Mini\+::vec$<$ Mini\+::lbool $>$ const  \& \mbox{\hyperlink{classcore_1_1sat_1_1Problem_a4b8b1c852fae90e6eccf362d486e26da}{get\+\_\+model}} () const noexcept
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a8772b20f1002b21760154467e6925eff}\label{classcore_1_1sat_1_1Problem_a8772b20f1002b21760154467e6925eff}} 
+Mini\+::vec$<$ Mini\+::\+Var $>$ const  \& {\bfseries get\+\_\+mapping} () const noexcept
 \item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a2fa25c0cfe2fa1e60073fc071a885515}\label{classcore_1_1sat_1_1Problem_a2fa25c0cfe2fa1e60073fc071a885515}} 
 bool {\bfseries operator$<$} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&o) const noexcept
@@ -59,9 +63,57 @@ Constructs the problem by the cnf path.
 
 
 \begin{DoxyParams}{Parameters}
-{\em path} & the path to cnf formula \\
+{\em path} & the path to cnf formula in dimacs format \\
 \hline
 \end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_aff3ef2d77515e455ff1d8d37dc49640d}\label{classcore_1_1sat_1_1Problem_aff3ef2d77515e455ff1d8d37dc49640d}} 
+\index{core::sat::Problem@{core::sat::Problem}!clauses@{clauses}}
+\index{clauses@{clauses}!core::sat::Problem@{core::sat::Problem}}
+\doxysubsubsection{\texorpdfstring{clauses()}{clauses()}}
+{\footnotesize\ttfamily std\+::vector$<$ lit\+\_\+vec\+\_\+t $>$ const  \& core\+::sat\+::\+Problem\+::clauses (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the set of clauses describing the formula 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a4b8b1c852fae90e6eccf362d486e26da}\label{classcore_1_1sat_1_1Problem_a4b8b1c852fae90e6eccf362d486e26da}} 
+\index{core::sat::Problem@{core::sat::Problem}!get\_model@{get\_model}}
+\index{get\_model@{get\_model}!core::sat::Problem@{core::sat::Problem}}
+\doxysubsubsection{\texorpdfstring{get\_model()}{get\_model()}}
+{\footnotesize\ttfamily Mini\+::vec$<$ Mini\+::lbool $>$ const  \& core\+::sat\+::\+Problem\+::get\+\_\+model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+The satisfying assignment if the problem has been solved on parsing stage and is S\+AT 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}\label{classcore_1_1sat_1_1Problem_a9604a9c794d1eba52395c004290c2285}} 
+\index{core::sat::Problem@{core::sat::Problem}!get\_result@{get\_result}}
+\index{get\_result@{get\_result}!core::sat::Problem@{core::sat::Problem}}
+\doxysubsubsection{\texorpdfstring{get\_result()}{get\_result()}}
+{\footnotesize\ttfamily State core\+::sat\+::\+Problem\+::get\+\_\+result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the result of parsing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}\label{classcore_1_1sat_1_1Problem_a18ae05912c95095026322f496fb97517}} 
+\index{core::sat::Problem@{core::sat::Problem}!path@{path}}
+\index{path@{path}!core::sat::Problem@{core::sat::Problem}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily std\+::filesystem\+::path const  \& core\+::sat\+::\+Problem\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the path to cnf formula specified in the constructor 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcore_1_1sat_1_1Problem_a58fd1d8460d4650a428de7a7c7427142}\label{classcore_1_1sat_1_1Problem_a58fd1d8460d4650a428de7a7c7427142}} 
+\index{core::sat::Problem@{core::sat::Problem}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!core::sat::Problem@{core::sat::Problem}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}}
+{\footnotesize\ttfamily std\+::string core\+::sat\+::\+Problem\+::to\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+string representation of formula, including path and elimination 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

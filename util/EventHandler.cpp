@@ -1,15 +1,13 @@
 #include "EventHandler.h"
 
-namespace core::event {
+namespace util::event {
 
 namespace _details {
 
 EventCallbackHandle::EventCallbackHandle(std::mutex* unlink_mutex, event_callback_t&& event_callback)
     : _unlink_mutex(unlink_mutex), _callback(std::move(event_callback)) {}
 
-EventCallbackHandle::~EventCallbackHandle() {
-  detach();
-}
+EventCallbackHandle::~EventCallbackHandle() { detach(); }
 
 void EventCallbackHandle::detach() {
   if (_unlink_mutex) {
@@ -29,7 +27,9 @@ EventHandler::~EventHandler() {
     _shutdown = true;
   }
   _event_cv.notify_one();
-  if (_event_thread.joinable()) { _event_thread.join(); }
+  if (_event_thread.joinable()) {
+    _event_thread.join();
+  }
 }
 
 void EventHandler::raise(Event event) {
@@ -55,8 +55,12 @@ void EventHandler::_event_handling_thread() {
   for (;;) {
     std::unique_lock<std::mutex> ul(_event_queue_mutex);
     _event_cv.wait(ul, [this] { return !_event_queue.empty() || static_cast<bool>(_shutdown); });
-    if (IPS_UNLIKELY(_shutdown)) { break; }
-    if (IPS_UNLIKELY(_event_queue.empty())) { continue; }
+    if (IPS_UNLIKELY(_shutdown)) {
+      break;
+    }
+    if (IPS_UNLIKELY(_event_queue.empty())) {
+      continue;
+    }
 
     Event event = _event_queue.front();
     _event_queue.pop();
@@ -78,12 +82,10 @@ EventHandler& EventHandler::instance() {
   return handler;
 }
 
-void raise(Event event) {
-  EventHandler::instance().raise(event);
-}
+void raise(Event event) { EventHandler::instance().raise(event); }
 
 EventCallbackHandle attach(event_callback_t callback, Event event) {
   return EventHandler::instance().attach(std::move(callback), event);
 }
 
-}  // namespace core::event
+}  // namespace util::event

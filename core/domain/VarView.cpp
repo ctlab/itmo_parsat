@@ -2,16 +2,10 @@
 
 namespace core::domain {
 
-void VarView::map_var(int index, int var) {
-  _map[index] = var;
-}
+void VarView::map_var(int index, int var) { _map[index] = var; }
 
-int VarView::operator[](int index) const noexcept {
-  return _map.at(index);
-}
+int VarView::operator[](int index) const noexcept { return _map.at(index); }
 
-uint32_t VarView::size() const noexcept {
-  return _map.size();
-}
+uint32_t VarView::size() const noexcept { return _map.size(); }
 
 }  // namespace core::domain

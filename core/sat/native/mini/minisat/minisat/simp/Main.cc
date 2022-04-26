@@ -39,9 +39,7 @@ static Solver* solver;
 // Terminate by notifying the solver and back out gracefully. This is mainly to
 // have a tests-case for this feature of the Solver as it may take longer than
 // an immediate call to '_exit()'.
-static void SIGINT_interrupt(int) {
-  solver->interrupt();
-}
+static void SIGINT_interrupt(int) { solver->interrupt(); }
 
 // Note that '_exit()' rather than 'exit()' has to be used. The reason is that
 // 'exit()' calls destructors and may cause deadlocks if a malloc/free function
@@ -90,7 +88,8 @@ int main(int argc, char** argv) {
     double initial_time = cpuTime();
 
     S.parsing = 1;
-    if (!pre) S.eliminate(true);
+    if (!pre)
+      S.eliminate(true);
 
     S.verbosity = verb;
 
@@ -100,13 +99,17 @@ int main(int argc, char** argv) {
     sigTerm(SIGINT_exit);
 
     // Try to set resource limits:
-    if (cpu_lim != 0) limitTime(cpu_lim);
-    if (mem_lim != 0) limitMemory(mem_lim);
+    if (cpu_lim != 0)
+      limitTime(cpu_lim);
+    if (mem_lim != 0)
+      limitMemory(mem_lim);
 
-    if (argc == 1) printf("c Reading from standard input... Use '--help' for help.\n");
+    if (argc == 1)
+      printf("c Reading from standard input... Use '--help' for help.\n");
 
     gzFile in = (argc == 1) ? gzdopen(0, "rb") : gzopen(argv[1], "rb");
-    if (in == NULL) printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
+    if (in == NULL)
+      printf("c ERROR! Could not open file: %s\n", argc == 1 ? "<stdin>" : argv[1]), exit(1);
 
     if (S.verbosity > 0) {
       printf(
@@ -164,7 +167,8 @@ int main(int argc, char** argv) {
 
     if (!S.okay()) {
       S.finalizeProof(true);
-      if (res != NULL) fprintf(res, "s UNSATISFIABLE\n"), fclose(res);
+      if (res != NULL)
+        fprintf(res, "s UNSATISFIABLE\n"), fclose(res);
       if (S.verbosity > 0) {
         printf(
             "c "
@@ -189,7 +193,8 @@ int main(int argc, char** argv) {
           "===================================================================="
           "===========\n");
 
-    if (dimacs && ret == l_Undef) S.toDimacs((const char*) dimacs);
+    if (dimacs && ret == l_Undef)
+      S.toDimacs((const char*) dimacs);
 
     if (S.verbosity > 0) {
       S.printStats();

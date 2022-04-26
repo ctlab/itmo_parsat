@@ -51,11 +51,15 @@ sat::State RecurringReduceSolve::_solve_impl(ea::preprocess::RPreprocess const& 
             }},
         _rb_search->find_rb(_cur_base_assumption));
 
-    if (IPS_UNLIKELY(_is_interrupted())) { return sat::UNKNOWN; }
+    if (IPS_UNLIKELY(_is_interrupted())) {
+      return sat::UNKNOWN;
+    }
 
     if (std::holds_alternative<sat::State>(filter_result)) {
       sat::State result = std::get<sat::State>(filter_result);
-      if (result != sat::UNKNOWN) { return result; }
+      if (result != sat::UNKNOWN) {
+        return result;
+      }
     } else {
       for (auto& v : std::get<std::vector<lit_vec_t>>(filter_result)) {
         stack.emplace(std::move(v), depth + 1);
@@ -69,7 +73,7 @@ sat::State RecurringReduceSolve::_solve_impl(ea::preprocess::RPreprocess const& 
 }
 
 RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
-    std::vector<lit_vec_t> const& assumptions, clock_t::duration time_limit) {
+    std::vector<lit_vec_t> const& assumptions, util::clock_t::duration time_limit) {
   IPS_INFO("Filtering slow assignments (" << assumptions.size() << ").");
   std::atomic_bool unknown{false}, satisfied{false};
   std::vector<lit_vec_t> failed;
@@ -85,26 +89,34 @@ RecurringReduceSolve::filter_r RecurringReduceSolve::_filter_fast(
       cur_assumptions.push_back(util::concat(_cur_base_assumption, assumption));
     }
     for (size_t i = 0; i < cur_assumptions.size(); ++i) {
-      futures.push_back(_solver_service->solve(cur_assumptions[i], time_limit, [&, i](sat::State result) {
-        {
-          std::lock_guard<std::mutex> lg(progress_lock);
-          ++progress;
-        }
-        switch (result) {
-          case sat::UNSAT: break;
-          case sat::UNKNOWN:
-            unknown = true;
+      futures.push_back(_solver_service->solve(
+          cur_assumptions[i], time_limit,
+          [&progress_lock, &progress, &satisfied, &unknown, &failed_lock, &failed, &cur_assumptions, this, i](
+              sat::State result, auto model) {
             {
-              std::lock_guard<std::mutex> lg(failed_lock);
-              failed.push_back(std::move(cur_assumptions[i]));
+              std::lock_guard<std::mutex> lg(progress_lock);
+              ++progress;
             }
-            break;
-          case sat::SAT:
-            satisfied = true;
-            _solver_service->interrupt();
-            break;
-        }
-      }));
+            switch (result) {
+              case sat::UNSAT: break;
+              case sat::UNKNOWN:
+                unknown = true;
+                {
+                  std::lock_guard<std::mutex> lg(failed_lock);
+                  failed.push_back(std::move(cur_assumptions[i]));
+                }
+                break;
+              case sat::SAT:
+                satisfied = true;
+                IPS_VERIFY(model.has_value());
+                {
+                  std::lock_guard<std::mutex> lg(_model_lock);
+                  _model = std::move(model.value());
+                }
+                _solver_service->interrupt();
+                break;
+            }
+          }));
     }
     util::wait_for_futures(futures);
     IPS_INFO("Total: " << assumptions.size() << ", slow: " << failed.size());

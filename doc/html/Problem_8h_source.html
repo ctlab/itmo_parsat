@@ -95,7 +95,7 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1Problem.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">Problem</a>(std::filesystem::path path, <span class="keywordtype">bool</span> eliminate = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">Problem</a>(std::filesystem::path <a class="code" href="classcore_1_1sat_1_1Problem.html#a18ae05912c95095026322f496fb97517">path</a>, <span class="keywordtype">bool</span> eliminate = <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">Problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; o);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">Problem</a>(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a>&amp;&amp; o);</div>
@@ -103,32 +103,52 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a>&amp; operator=(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; o);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a>&amp; operator=(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a>&amp;&amp; o);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  [[nodiscard]] std::filesystem::path <span class="keyword">const</span>&amp; path() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  [[nodiscard]] std::vector&lt;lit_vec_t&gt; <span class="keyword">const</span>&amp; clauses() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  [[nodiscard]] State get_result() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  std::string to_string() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; o) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  [[nodiscard]] std::filesystem::path <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1sat_1_1Problem.html#a18ae05912c95095026322f496fb97517">path</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  [[nodiscard]] std::vector&lt;lit_vec_t&gt; <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1sat_1_1Problem.html#aff3ef2d77515e455ff1d8d37dc49640d">clauses</a>() <span class="keyword">const</span> noexcept;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">mutable</span> std::mutex _load_mutex;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">mutable</span> std::vector&lt;lit_vec_t&gt; _clauses;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">bool</span> _eliminate;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  std::filesystem::path _path;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  State _result;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}  <span class="comment">// namespace core::sat</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <a class="code" href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a> <span class="keyword">const</span>&amp; problem);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PROBLEM_H</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  [[nodiscard]] State <a class="code" href="classcore_1_1sat_1_1Problem.html#a9604a9c794d1eba52395c004290c2285">get_result</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  std::string <a class="code" href="classcore_1_1sat_1_1Problem.html#a58fd1d8460d4650a428de7a7c7427142">to_string</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="comment">/*</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">   * @brief Remaps the variables as they were before variable elimination.</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   * */</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  [[nodiscard]] Mini::vec&lt;Mini::lbool&gt; remap_variables(Mini::vec&lt;Mini::lbool&gt; <span class="keyword">const</span>&amp; vars);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  [[nodiscard]] Mini::vec&lt;Mini::lbool&gt; <span class="keyword">const</span>&amp; <a class="code" href="classcore_1_1sat_1_1Problem.html#a4b8b1c852fae90e6eccf362d486e26da">get_model</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  Mini::vec&lt;Mini::Var&gt; <span class="keyword">const</span>&amp; get_mapping() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">bool</span> operator&lt;(<a class="code" href="classcore_1_1sat_1_1Problem.html">Problem</a> <span class="keyword">const</span>&amp; o) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  core::sat::State read_clauses();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">mutable</span> std::mutex _load_mutex;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  std::vector&lt;lit_vec_t&gt; _clauses;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  Mini::vec&lt;Mini::Var&gt; _mapping;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  Mini::vec&lt;Mini::lbool&gt; _model;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">bool</span> _eliminate;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  std::filesystem::path _path;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  Minisat::SimpSolver _solver;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  State _result;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}  <span class="comment">// namespace core::sat</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <a class="code" href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a> <span class="keyword">const</span>&amp; problem);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_PROBLEM_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_aff3ef2d77515e455ff1d8d37dc49640d"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#aff3ef2d77515e455ff1d8d37dc49640d">core::sat::Problem::clauses</a></div><div class="ttdeci">std::vector&lt; lit_vec_t &gt; const  &amp; clauses() const noexcept</div><div class="ttdef"><b>Definition:</b> Problem.cpp:105</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_a18ae05912c95095026322f496fb97517"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#a18ae05912c95095026322f496fb97517">core::sat::Problem::path</a></div><div class="ttdeci">std::filesystem::path const  &amp; path() const noexcept</div><div class="ttdef"><b>Definition:</b> Problem.cpp:103</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_a58fd1d8460d4650a428de7a7c7427142"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#a58fd1d8460d4650a428de7a7c7427142">core::sat::Problem::to_string</a></div><div class="ttdeci">std::string to_string() const noexcept</div><div class="ttdef"><b>Definition:</b> Problem.cpp:109</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_a9604a9c794d1eba52395c004290c2285"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#a9604a9c794d1eba52395c004290c2285">core::sat::Problem::get_result</a></div><div class="ttdeci">State get_result() const noexcept</div><div class="ttdef"><b>Definition:</b> Problem.cpp:107</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_a4b8b1c852fae90e6eccf362d486e26da"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#a4b8b1c852fae90e6eccf362d486e26da">core::sat::Problem::get_model</a></div><div class="ttdeci">Mini::vec&lt; Mini::lbool &gt; const  &amp; get_model() const noexcept</div><div class="ttdef"><b>Definition:</b> Problem.cpp:61</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1Problem_html"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html">core::sat::Problem</a></div><div class="ttdoc">The problem descriptor class.</div><div class="ttdef"><b>Definition:</b> Problem.h:27</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_a672c9517b143ab4a56d5a8344228ec36"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">core::sat::Problem::Problem</a></div><div class="ttdeci">Problem(std::filesystem::path path, bool eliminate=true)</div><div class="ttdoc">Constructs the problem by the cnf path.</div><div class="ttdef"><b>Definition:</b> Problem.cpp:34</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1Problem_html_a672c9517b143ab4a56d5a8344228ec36"><div class="ttname"><a href="classcore_1_1sat_1_1Problem.html#a672c9517b143ab4a56d5a8344228ec36">core::sat::Problem::Problem</a></div><div class="ttdeci">Problem(std::filesystem::path path, bool eliminate=true)</div><div class="ttdoc">Constructs the problem by the cnf path.</div><div class="ttdef"><b>Definition:</b> Problem.cpp:38</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

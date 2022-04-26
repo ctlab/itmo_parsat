@@ -30,6 +30,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "core/sat/native/mini/mtl/Vec.h"
 #include "core/sat/native/mini/mtl/Map.h"
 #include "core/sat/native/mini/mtl/Alloc.h"
+#include "core/sat/native/mini/mtl/lbool.h"
 #include "core/sat/native/mini/utils/Lit.h"
 
 namespace MapleCOMSPS {
@@ -41,65 +42,6 @@ using namespace Mini;
 
 // NOTE! Variables are just integers. No abstraction here. They should be chosen from 0..N,
 // so that they can be used as array indices.
-
-//=================================================================================================
-// Lifted booleans:
-//
-// NOTE: this implementation is optimized for the case when comparisons between values are mostly
-//       between one variable and one constant. Some care had to be taken to make sure that gcc
-//       does enough constant propagation to produce sensible code, and this appears to be somewhat
-//       fragile unfortunately.
-
-#define l_True \
-  lbool((uint8_t) 0)  // gcc does not do constant propagation if these are real constants.
-#define l_False lbool((uint8_t) 1)
-#define l_Undef lbool((uint8_t) 2)
-
-class lbool {
-  uint8_t value;
-
- public:
-  explicit lbool(uint8_t v) : value(v) {}
-
-  lbool() : value(0) {}
-  explicit lbool(bool x) : value(!x) {}
-
-  bool operator==(lbool b) const {
-    return ((b.value & 2) & (value & 2)) | (!(b.value & 2) & (value == b.value));
-  }
-  bool operator!=(lbool b) const {
-    return !(*this == b);
-  }
-  lbool operator^(bool b) const {
-    return lbool((uint8_t)(value ^ (uint8_t) b));
-  }
-
-  lbool operator&&(lbool b) const {
-    uint8_t sel = (this->value << 1) | (b.value << 3);
-    uint8_t v = (0xF7F755F4 >> sel) & 3;
-    return lbool(v);
-  }
-
-  lbool operator||(lbool b) const {
-    uint8_t sel = (this->value << 1) | (b.value << 3);
-    uint8_t v = (0xFCFCF400 >> sel) & 3;
-    return lbool(v);
-  }
-
-  friend int toInt(lbool l);
-  friend lbool toLbool(int v);
-};
-
-inline int toInt(Var v) {
-  return v;
-}
-
-inline int toInt(lbool l) {
-  return l.value;
-}
-inline lbool toLbool(int v) {
-  return lbool((uint8_t) v);
-}
 
 //=================================================================================================
 // Clause -- a simple class for representing a clause:
@@ -159,70 +101,38 @@ class Clause {
     data[header.size].abs = abstraction;
   }
 
-  int size() const {
-    return header.size;
-  }
+  int size() const { return header.size; }
   void shrink(int i) {
     assert(i <= size());
     if (header.has_extra)
       data[header.size - i] = data[header.size];
     header.size -= i;
   }
-  void pop() {
-    shrink(1);
-  }
-  bool learnt() const {
-    return header.learnt;
-  }
-  bool has_extra() const {
-    return header.has_extra;
-  }
-  uint32_t mark() const {
-    return header.mark;
-  }
-  void mark(uint32_t m) {
-    header.mark = m;
-  }
-  const Lit& last() const {
-    return data[header.size - 1].lit;
-  }
+  void pop() { shrink(1); }
+  bool learnt() const { return header.learnt; }
+  bool has_extra() const { return header.has_extra; }
+  uint32_t mark() const { return header.mark; }
+  void mark(uint32_t m) { header.mark = m; }
+  const Lit& last() const { return data[header.size - 1].lit; }
 
-  bool reloced() const {
-    return header.reloced;
-  }
-  CRef relocation() const {
-    return data[0].rel;
-  }
+  bool reloced() const { return header.reloced; }
+  CRef relocation() const { return data[0].rel; }
   void relocate(CRef c) {
     header.reloced = 1;
     data[0].rel = c;
   }
 
-  int lbd() const {
-    return header.lbd;
-  }
-  void set_lbd(int lbd) {
-    header.lbd = lbd;
-  }
-  bool removable() const {
-    return header.removable;
-  }
-  void removable(bool b) {
-    header.removable = b;
-  }
+  int lbd() const { return header.lbd; }
+  void set_lbd(int lbd) { header.lbd = lbd; }
+  bool removable() const { return header.removable; }
+  void removable(bool b) { header.removable = b; }
 
   // NOTE: somewhat unsafe to change the clause in-place! Must manually call 'calcAbstraction'
   // afterwards for
   //       subsumption operations to behave correctly.
-  Lit& operator[](int i) {
-    return data[i].lit;
-  }
-  Lit operator[](int i) const {
-    return data[i].lit;
-  }
-  operator const Lit*(void) const {
-    return (Lit*) data;
-  }
+  Lit& operator[](int i) { return data[i].lit; }
+  Lit operator[](int i) const { return data[i].lit; }
+  operator const Lit*(void) const { return (Lit*) data; }
 
   uint32_t& touched() {
     assert(header.has_extra && header.learnt);
@@ -253,8 +163,7 @@ class ClauseAllocator : public RegionAllocator<uint32_t> {
  public:
   bool extra_clause_field;
 
-  ClauseAllocator(uint32_t start_cap)
-      : RegionAllocator<uint32_t>(start_cap), extra_clause_field(false) {}
+  ClauseAllocator(uint32_t start_cap) : RegionAllocator<uint32_t>(start_cap), extra_clause_field(false) {}
   ClauseAllocator() : extra_clause_field(false) {}
 
   void moveTo(ClauseAllocator& to) {
@@ -275,21 +184,11 @@ class ClauseAllocator : public RegionAllocator<uint32_t> {
   }
 
   // Deref, Load Effective Address (LEA), Inverse of LEA (AEL):
-  Clause& operator[](Ref r) {
-    return (Clause&) RegionAllocator<uint32_t>::operator[](r);
-  }
-  const Clause& operator[](Ref r) const {
-    return (Clause&) RegionAllocator<uint32_t>::operator[](r);
-  }
-  Clause* lea(Ref r) {
-    return (Clause*) RegionAllocator<uint32_t>::lea(r);
-  }
-  const Clause* lea(Ref r) const {
-    return (Clause*) RegionAllocator<uint32_t>::lea(r);
-  }
-  Ref ael(const Clause* t) {
-    return RegionAllocator<uint32_t>::ael((uint32_t*) t);
-  }
+  Clause& operator[](Ref r) { return (Clause&) RegionAllocator<uint32_t>::operator[](r); }
+  const Clause& operator[](Ref r) const { return (Clause&) RegionAllocator<uint32_t>::operator[](r); }
+  Clause* lea(Ref r) { return (Clause*) RegionAllocator<uint32_t>::lea(r); }
+  const Clause* lea(Ref r) const { return (Clause*) RegionAllocator<uint32_t>::lea(r); }
+  Ref ael(const Clause* t) { return RegionAllocator<uint32_t>::ael((uint32_t*) t); }
 
   void free(CRef cid) {
     Clause& c = operator[](cid);
@@ -338,12 +237,8 @@ class OccLists {
     occs.growTo(toInt(idx) + 1);
     dirty.growTo(toInt(idx) + 1, 0);
   }
-  const Vec& operator[](const Idx& idx) const {
-    return occs[toInt(idx)];
-  }
-  Vec& operator[](const Idx& idx) {
-    return occs[toInt(idx)];
-  }
+  const Vec& operator[](const Idx& idx) const { return occs[toInt(idx)]; }
+  Vec& operator[](const Idx& idx) { return occs[toInt(idx)]; }
   Vec& lookup(const Idx& idx) {
     if (dirty[toInt(idx)])
       clean(idx);
@@ -400,9 +295,7 @@ void OccLists<Idx, Vec, Deleted>::clean(const Idx& idx) {
 template <class T>
 class CMap {
   struct CRefHash {
-    uint32_t operator()(CRef cr) const {
-      return (uint32_t) cr;
-    }
+    uint32_t operator()(CRef cr) const { return (uint32_t) cr; }
   };
 
   typedef Map<CRef, T, CRefHash> HashTable;
@@ -410,52 +303,28 @@ class CMap {
 
  public:
   // Size-operations:
-  void clear() {
-    map.clear();
-  }
-  int size() const {
-    return map.elems();
-  }
+  void clear() { map.clear(); }
+  int size() const { return map.elems(); }
 
   // Insert/Remove/Test mapping:
-  void insert(CRef cr, const T& t) {
-    map.insert(cr, t);
-  }
-  void growTo(CRef cr, const T& t) {
-    map.insert(cr, t);
-  }  // NOTE: for compatibility
-  void remove(CRef cr) {
-    map.remove(cr);
-  }
-  bool has(CRef cr, T& t) {
-    return map.peek(cr, t);
-  }
+  void insert(CRef cr, const T& t) { map.insert(cr, t); }
+  void growTo(CRef cr, const T& t) { map.insert(cr, t); }  // NOTE: for compatibility
+  void remove(CRef cr) { map.remove(cr); }
+  bool has(CRef cr, T& t) { return map.peek(cr, t); }
 
   // Vector interface (the clause 'c' must already exist):
-  const T& operator[](CRef cr) const {
-    return map[cr];
-  }
-  T& operator[](CRef cr) {
-    return map[cr];
-  }
+  const T& operator[](CRef cr) const { return map[cr]; }
+  T& operator[](CRef cr) { return map[cr]; }
 
   // Iteration (not transparent at all at the moment):
-  int bucket_count() const {
-    return map.bucket_count();
-  }
-  const vec<typename HashTable::Pair>& bucket(int i) const {
-    return map.bucket(i);
-  }
+  int bucket_count() const { return map.bucket_count(); }
+  const vec<typename HashTable::Pair>& bucket(int i) const { return map.bucket(i); }
 
   // Move contents to other map:
-  void moveTo(CMap& other) {
-    map.moveTo(other.map);
-  }
+  void moveTo(CMap& other) { map.moveTo(other.map); }
 
   // TMP debug:
-  void debug() {
-    printf(" --- size = %d, bucket_count = %d\n", size(), map.bucket_count());
-  }
+  void debug() { printf(" --- size = %d, bucket_count = %d\n", size(), map.bucket_count()); }
 };
 
 /*_________________________________________________________________________________________________
@@ -479,8 +348,7 @@ inline Lit Clause::subsumes(const Clause& other) const {
   assert(!other.header.learnt);
   assert(header.has_extra);
   assert(other.header.has_extra);
-  if (other.header.size < header.size ||
-      (data[header.size].abs & ~other.data[other.header.size].abs) != 0)
+  if (other.header.size < header.size || (data[header.size].abs & ~other.data[other.header.size].abs) != 0)
     return lit_Error;
 
   Lit ret = lit_Undef;

@@ -27,34 +27,38 @@
 namespace painless {
 
 static unsigned intWidth(int i) {
-  if (i == 0) return 1;
+  if (i == 0)
+    return 1;
 
   return (i < 0) + 1 + (unsigned) log10(fabs(i));
 }
 
-void printModel(vector<int>& model) {
+void printModel(vector<int> model) {
   model.push_back(0);
 
   unsigned usedWidth = 0;
 
   for (unsigned i = 0; i < model.size(); i++) {
     if (usedWidth + 1 + intWidth(model[i]) > 80) {
-      printf("\n");
+      fprintf(stdout, "\n");
       usedWidth = 0;
     }
 
-    if (usedWidth == 0) { usedWidth += printf("v"); }
+    if (usedWidth == 0) {
+      usedWidth += printf("v");
+    }
 
-    usedWidth += printf(" %d", model[i]);
+    usedWidth += fprintf(stdout, " %d", model[i]);
   }
 
-  printf("\n");
+  fprintf(stdout, "\n");
 }
 
 bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename) {
   FILE* f = fopen(filename, "r");
 
-  if (f == NULL) return false;
+  if (f == NULL)
+    return false;
 
   int c = 0;
   bool neg = false;
@@ -76,7 +80,8 @@ bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename
       continue;
     }
     // whitespace
-    if (isspace(c)) continue;
+    if (isspace(c))
+      continue;
 
     // negative
     if (c == '-') {
@@ -95,7 +100,9 @@ bool loadFormulaToSolvers(vector<SolverInterface*> solvers, const char* filename
         c = fgetc(f);
       }
 
-      if (neg) { num *= -1; }
+      if (neg) {
+        num *= -1;
+      }
 
       neg = false;
 

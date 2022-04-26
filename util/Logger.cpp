@@ -1,6 +1,6 @@
 #include "Logger.h"
 
-namespace core {
+namespace util {
 
 Logger::Logger() {
   for (size_t i = 0; i < entries_.size(); ++i) {
@@ -27,7 +27,9 @@ bool Logger::_should_log(LogType log_type) noexcept {
   } else {
     should = false;
   }
-  if (++entry.cur_counter == entry.config.every_n()) { entry.cur_counter = 0; }
+  if (++entry.cur_counter == entry.config.every_n()) {
+    entry.cur_counter = 0;
+  }
   return should;
 }
 
@@ -36,12 +38,8 @@ Logger& Logger::instance() {
   return _logger;
 }
 
-void Logger::set_logger_config(const LoggingConfig& config) {
-  instance()._set_logger_config(config);
-}
+void Logger::set_logger_config(const LoggingConfig& config) { instance()._set_logger_config(config); }
 
-bool Logger::should_log(LogType log_type) noexcept {
-  return instance()._should_log(log_type);
-}
+bool Logger::should_log(LogType log_type) noexcept { return instance()._should_log(log_type); }
 
-}  // namespace core
+}  // namespace util

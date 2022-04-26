@@ -28,7 +28,7 @@ class Problem {
  public:
   /**
    * @brief Constructs the problem by the cnf path.
-   * @param path the path to cnf formula
+   * @param path the path to cnf formula in dimacs format
    */
   explicit Problem(std::filesystem::path path, bool eliminate = true);
 
@@ -38,22 +38,51 @@ class Problem {
   Problem& operator=(Problem const& o);
   Problem& operator=(Problem&& o);
 
+  /**
+   * @return the path to cnf formula specified in the constructor
+   */
   [[nodiscard]] std::filesystem::path const& path() const noexcept;
 
+  /**
+   * @return the set of clauses describing the formula
+   */
   [[nodiscard]] std::vector<lit_vec_t> const& clauses() const noexcept;
 
+  /**
+   * @return the result of parsing
+   */
   [[nodiscard]] State get_result() const noexcept;
 
+  /**
+   * @return string representation of formula, including path and elimination
+   */
   std::string to_string() const noexcept;
+
+  /*
+   * @brief Remaps the variables as they were before variable elimination.
+   * */
+  [[nodiscard]] Mini::vec<Mini::lbool> remap_variables(Mini::vec<Mini::lbool> const& vars);
+
+  /**
+   * @return The satisfying assignment if the problem has been solved on parsing stage and is SAT
+   */
+  [[nodiscard]] Mini::vec<Mini::lbool> const& get_model() const noexcept;
+
+  Mini::vec<Mini::Var> const& get_mapping() const noexcept;
 
   bool operator<(Problem const& o) const noexcept;
 
  private:
-  /// @note mutable for lazy loading.
+  core::sat::State read_clauses();
+
   mutable std::mutex _load_mutex;
-  mutable std::vector<lit_vec_t> _clauses;
+  std::vector<lit_vec_t> _clauses;
+  Mini::vec<Mini::Var> _mapping;
+  Mini::vec<Mini::lbool> _model;
+
   bool _eliminate;
   std::filesystem::path _path;
+  Minisat::SimpSolver _solver;
   State _result;
 };
 

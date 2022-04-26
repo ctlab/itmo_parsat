@@ -36,6 +36,11 @@ class Solve : public sat::sharing::Shareable {
    */
   void interrupt();
 
+  /**
+   * @return The satisfying model if any has been found.
+   */
+  [[nodiscard]] virtual Mini::vec<Mini::lbool> get_model() const = 0;
+
  protected:
   [[nodiscard]] static sat::solver::RSolver _resolve_solver(
       SolverConfig const& config);

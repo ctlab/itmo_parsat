@@ -38,6 +38,8 @@ Collaboration diagram for core\+::solve\+::Naive\+Solve\+:
 sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1NaiveSolve_a59dc98750d530960bb5bfcf1e7a75c32}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) override
 \begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\item 
 sat\+::sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1solve_1_1NaiveSolve_a7f4c1af028e8d32e5514d42da20ead48}{sharing\+\_\+unit}} () noexcept override
+\item 
+Mini\+::vec$<$ Mini\+::lbool $>$ \mbox{\hyperlink{classcore_1_1solve_1_1NaiveSolve_a539a1141c6f3da73cc88e910aca3d5ca}{get\+\_\+model}} () const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -52,6 +54,19 @@ void {\bfseries \+\_\+interrupt\+\_\+impl} () override
 Uses the specified native solver to solve the problem. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1NaiveSolve_a539a1141c6f3da73cc88e910aca3d5ca}\label{classcore_1_1solve_1_1NaiveSolve_a539a1141c6f3da73cc88e910aca3d5ca}} 
+\index{core::solve::NaiveSolve@{core::solve::NaiveSolve}!get\_model@{get\_model}}
+\index{get\_model@{get\_model}!core::solve::NaiveSolve@{core::solve::NaiveSolve}}
+\doxysubsubsection{\texorpdfstring{get\_model()}{get\_model()}}
+{\footnotesize\ttfamily Mini\+::vec$<$ Mini\+::lbool $>$ core\+::solve\+::\+Naive\+Solve\+::get\+\_\+model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+The satisfying model if any has been found. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1Solve_a4bc16edaaba45afbe3197416cb9ba958}{core\+::solve\+::\+Solve}}.
+
 \mbox{\Hypertarget{classcore_1_1solve_1_1NaiveSolve_a7f4c1af028e8d32e5514d42da20ead48}\label{classcore_1_1solve_1_1NaiveSolve_a7f4c1af028e8d32e5514d42da20ead48}} 
 \index{core::solve::NaiveSolve@{core::solve::NaiveSolve}!sharing\_unit@{sharing\_unit}}
 \index{sharing\_unit@{sharing\_unit}!core::solve::NaiveSolve@{core::solve::NaiveSolve}}

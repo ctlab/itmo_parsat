@@ -9,7 +9,9 @@ std::vector<uint32_t> choose(std::vector<double> const& distrib, uint32_t count)
   std::vector<double> cumulative(distrib);
   for (uint32_t i = 0; i < cumulative.size(); ++i) {
     cumulative[i] = 1. / cumulative[i];
-    if (i > 0) { cumulative[i] += cumulative[i - 1]; }
+    if (i > 0) {
+      cumulative[i] += cumulative[i - 1];
+    }
   }
   double sum = cumulative.back();
   std::for_each(cumulative.begin(), cumulative.end(), [sum](double& x) { x /= sum; });

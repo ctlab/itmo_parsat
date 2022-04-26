@@ -20,7 +20,7 @@ struct TimerHandleType {
 using TimerHandle = std::shared_ptr<TimerHandleType>;
 
 struct TimerEvent {
-  core::clock_t::time_point when;
+  util::clock_t::time_point when;
   std::function<void()> callback;
   TimerHandle handle;
 };
@@ -34,11 +34,11 @@ class Timer {
   ~Timer();
 
   TimerHandle add(
-      std::function<void()> const& callback, core::clock_t::duration dur);
+      std::function<void()> const& callback, util::clock_t::duration dur);
 
   template <typename F>
   auto launch(
-      F&& f, std::function<void()> const& abort, core::clock_t::duration dur) {
+      F&& f, std::function<void()> const& abort, util::clock_t::duration dur) {
     auto handle = add(abort, dur);
     auto result = f();
     handle->abort();

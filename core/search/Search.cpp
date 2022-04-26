@@ -23,9 +23,7 @@ void get_start_and_todo(
 
 namespace core::search {
 
-Search::Search(uint64_t total) : _total(total) {
-  _set_range();
-}
+Search::Search(uint64_t total) : _total(total) { _set_range(); }
 
 Search::Search(std::vector<int> const& vars, uint64_t total) : Search(total) {
   _assignment.capacity((int) vars.size());
@@ -36,21 +34,17 @@ Search::Search(std::vector<int> const& vars, uint64_t total) : Search(total) {
 
 Search::Search(domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total) : Search(total) {
   for (int i = 0; i < (int) bit_mask.size(); ++i) {
-    if (bit_mask[i]) { _assignment.push(Mini::mkLit(var_view[i], false)); }
+    if (bit_mask[i]) {
+      _assignment.push(Mini::mkLit(var_view[i], false));
+    }
   }
 }
 
-lit_vec_t const& Search::operator()() const noexcept {
-  return _assignment;
-}
+lit_vec_t const& Search::operator()() const noexcept { return _assignment; }
 
-uint64_t Search::size() const noexcept {
-  return _total;
-}
+uint64_t Search::size() const noexcept { return _total; }
 
-bool Search::empty() const noexcept {
-  return size() == 0;
-}
+bool Search::empty() const noexcept { return size() == 0; }
 
 bool Search::operator++() {
   if (_done == _total - 1 || _total == 0) {
@@ -97,12 +91,8 @@ SingleSearch::SingleSearch() : Search(1) {}
 
 void SingleSearch::_advance() {}
 
-Search* SingleSearch::clone() const {
-  return new SingleSearch();
-}
+Search* SingleSearch::clone() const { return new SingleSearch(); }
 
-USingleSearch createSingleSearch() {
-  return std::make_unique<SingleSearch>();
-}
+USingleSearch createSingleSearch() { return std::make_unique<SingleSearch>(); }
 
 }  // namespace core::search

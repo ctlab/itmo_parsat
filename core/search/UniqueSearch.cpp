@@ -7,13 +7,9 @@ UniqueSearch::UniqueSearch(domain::VarView const& var_view, bit_mask_t const& bi
   _advance_us();
 }
 
-UniqueSearch::UniqueSearch(std::vector<int> const& vars, uint64_t total) : Search(vars, total) {
-  _advance_us();
-}
+UniqueSearch::UniqueSearch(std::vector<int> const& vars, uint64_t total) : Search(vars, total) { _advance_us(); }
 
-void UniqueSearch::_advance() {
-  _advance_us();
-}
+void UniqueSearch::_advance() { _advance_us(); }
 
 void UniqueSearch::_advance_us() {
   uint64_t sample = _first;
@@ -24,9 +20,7 @@ void UniqueSearch::_advance_us() {
   _set_assignment(_assignment, sample);
 }
 
-UniqueSearch* UniqueSearch::clone() const {
-  return new UniqueSearch(*this);
-}
+UniqueSearch* UniqueSearch::clone() const { return new UniqueSearch(*this); }
 
 void UniqueSearch::_reset() {
   visited_.clear();

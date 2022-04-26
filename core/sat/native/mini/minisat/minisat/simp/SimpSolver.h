@@ -64,7 +64,7 @@ class SimpSolver : public Solver {
                                   // cause a contradiction).
 
   /// dzhiblavi@: dump clauses
-  void toDimacs(std::vector<Mini::vec<Mini::Lit>>& out_cls);
+  void toDimacs(std::vector<Mini::vec<Mini::Lit>>& out_cls, vec<Var>& map);
   bool toDimacs(Mini::vec<Mini::Lit>& lits, Clause& c, vec<Var>& map, Var& max);
   /// dzhiblavi@: load clauses from vector
   void loadClauses(std::vector<Mini::vec<Mini::Lit>> const& clauses);
@@ -133,6 +133,8 @@ class SimpSolver : public Solver {
   int asymm_lits;
   int eliminated_vars;
 
+  void extendModel();
+
  protected:
   // Helper structures:
   //
@@ -197,7 +199,6 @@ class SimpSolver : public Solver {
   bool merge(const Clause& _ps, const Clause& _qs, Var v, int& size);
   bool backwardSubsumptionCheck(bool verbose = false);
   bool eliminateVar(Var v);
-  void extendModel();
 
   void removeClause(CRef cr, bool remove_from_proof = true);
   bool strengthenClause(CRef cr, Lit l);

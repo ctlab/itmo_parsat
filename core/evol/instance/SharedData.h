@@ -28,7 +28,7 @@ struct SharedData {
   /**
    * @brief Instances cache.
    */
-  core::LRUCache<core::bit_mask_t, Fitness> cache{};
+  util::LRUCache<core::bit_mask_t, Fitness> cache{};
 
   /**
    * @brief Search space info.

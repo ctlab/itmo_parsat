@@ -17,7 +17,9 @@ uint64_t Prop::sequential_propagate(
     conflicts += conflict;
     if (callback) {
       try {
-        if (!callback(conflict, assumptions)) { break; }
+        if (!callback(conflict, assumptions)) {
+          break;
+        }
       } catch (...) {
         // ignore
       }
@@ -37,7 +39,9 @@ uint64_t Prop::sequential_propagate(
     conflicts += conflict;
     if (callback) {
       try {
-        if (!callback(conflict, cur_assumption)) { break; }
+        if (!callback(conflict, cur_assumption)) {
+          break;
+        }
       } catch (...) {
         // ignore
       }

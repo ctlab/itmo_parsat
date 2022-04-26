@@ -62,9 +62,6 @@ static void parse_DIMACS_main(B& in, Solver& S, bool strictp = false) {
       if (eagerMatch(in, "p cnf")) {
         parseInt(in);
         clauses = parseInt(in);
-        // SATRACE'06 hack
-        // if (clauses > 4000000)
-        //     S.eliminate(true);
       } else {
         printf("c PARSE ERROR! Unexpected char: %c\n", *in), exit(3);
       }

@@ -7,9 +7,7 @@ EAAlgorithm::EAAlgorithm(EAAlgorithmConfig const& config, core::sat::prop::RProp
     , mutator_(method::MutationRegistry::resolve(config.mutation_config()))
     , selector_(method::SelectorRegistry::resolve(config.selector_config())) {}
 
-void EAAlgorithm::_prepare() {
-  _add_instance();
-}
+void EAAlgorithm::_prepare() { _add_instance(); }
 
 void EAAlgorithm::_step() {
   instance::RInstance child(_population.front()->clone());

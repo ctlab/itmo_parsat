@@ -39,41 +39,25 @@ static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
   }
 }
 
-Reducer::Reducer(SolverInterface* _solver) {
-  solver = _solver;
-}
+Reducer::Reducer(SolverInterface* _solver) { solver = _solver; }
 
-Reducer::~Reducer() {
-  delete solver;
-}
+Reducer::~Reducer() { delete solver; }
 
-bool Reducer::loadFormula(const char* filename) {
-  return solver->loadFormula(filename);
-}
+bool Reducer::loadFormula(const char* filename) { return solver->loadFormula(filename); }
 
-bool Reducer::loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) {
-  return solver->loadFormula(clauses);
-}
+bool Reducer::loadFormula(std::vector<Mini::vec<Mini::Lit>> const& clauses) { return solver->loadFormula(clauses); }
 
 // Get the number of variables of the formula
-int Reducer::getVariablesCount() {
-  return solver->getVariablesCount();
-}
+int Reducer::getVariablesCount() { return solver->getVariablesCount(); }
 
 // Get a variable suitable for search splitting
-int Reducer::getDivisionVariable() {
-  return solver->getDivisionVariable();
-}
+int Reducer::getDivisionVariable() { return solver->getDivisionVariable(); }
 
 // Set initial phase for a given variable
-void Reducer::setPhase(const int var, const bool phase) {
-  solver->setPhase(var, phase);
-}
+void Reducer::setPhase(const int var, const bool phase) { solver->setPhase(var, phase); }
 
 // Bump activity for a given variable
-void Reducer::bumpVariableActivity(const int var, const int times) {
-  solver->bumpVariableActivity(var, times);
-}
+void Reducer::bumpVariableActivity(const int var, const int times) { solver->bumpVariableActivity(var, times); }
 
 // Interrupt the SAT solving, so it can be started again with new assumptions
 void Reducer::setSolverInterrupt() {
@@ -87,9 +71,7 @@ void Reducer::unsetSolverInterrupt() {
 }
 
 // Diversify the solver
-void Reducer::diversify(int id) {
-  solver->diversify(id);
-}
+void Reducer::diversify(int id) { solver->diversify(id); }
 
 // Solve the formula with a given set of assumptions
 // return 10 for SAT, 20 for UNSAT, 0 for UNKNOWN
@@ -99,7 +81,9 @@ PSatResult Reducer::solve(Mini::vec<Mini::Lit> const& assumptions, const vector<
   while (!_interrupt) {
     ClauseExchange* cls = nullptr;
     ClauseExchange* strengthenedCls = nullptr;
-    if (!clausesToImport.getClause(&cls)) { continue; }
+    if (!clausesToImport.getClause(&cls)) {
+      continue;
+    }
     if (strengthed(cls, &strengthenedCls)) {
       if (strengthenedCls->size == 0) {
         ClauseManager::releaseClause(cls);
@@ -134,15 +118,17 @@ bool Reducer::strengthed(ClauseExchange* cls, ClauseExchange** outCls) {
       (*outCls)->lits[idLit] = tmpNewClause[idLit];
     }
     (*outCls)->lbd = cls->lbd;
-    if ((*outCls)->size < (*outCls)->lbd) { (*outCls)->lbd = (*outCls)->size; }
-    if (res == PSAT) { solver->addClause(*outCls); }
+    if ((*outCls)->size < (*outCls)->lbd) {
+      (*outCls)->lbd = (*outCls)->size;
+    }
+    if (res == PSAT) {
+      solver->addClause(*outCls);
+    }
   }
   return tmpNewClause.size() < cls->size;
 }
 
-void Reducer::addClause(ClauseExchange* clause) {
-  solver->addClause(clause);
-}
+void Reducer::addClause(ClauseExchange* clause) { solver->addClause(clause); }
 
 void Reducer::addLearnedClause(ClauseExchange* clause) {
   if (clause->size == 1) {
@@ -152,13 +138,9 @@ void Reducer::addLearnedClause(ClauseExchange* clause) {
   }
 }
 
-void Reducer::addClauses(const vector<ClauseExchange*>& clauses) {
-  solver->addClauses(clauses);
-}
+void Reducer::addClauses(const vector<ClauseExchange*>& clauses) { solver->addClauses(clauses); }
 
-void Reducer::addInitialClauses(const vector<ClauseExchange*>& clauses) {
-  solver->addInitialClauses(clauses);
-}
+void Reducer::addInitialClauses(const vector<ClauseExchange*>& clauses) { solver->addInitialClauses(clauses); }
 
 void Reducer::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
   for (size_t i = 0; i < clauses.size(); i++) {
@@ -166,32 +148,18 @@ void Reducer::addLearnedClauses(const vector<ClauseExchange*>& clauses) {
   }
 }
 
-void Reducer::getLearnedClauses(vector<ClauseExchange*>& clauses) {
-  clausesToExport.getClauses(clauses);
-}
+void Reducer::getLearnedClauses(vector<ClauseExchange*>& clauses) { clausesToExport.getClauses(clauses); }
 
-void Reducer::increaseClauseProduction() {
-  solver->increaseClauseProduction();
-}
+void Reducer::increaseClauseProduction() { solver->increaseClauseProduction(); }
 
-void Reducer::decreaseClauseProduction() {
-  solver->decreaseClauseProduction();
-}
+void Reducer::decreaseClauseProduction() { solver->decreaseClauseProduction(); }
 
-SolvingStatistics Reducer::getStatistics() {
-  return solver->getStatistics();
-}
+SolvingStatistics Reducer::getStatistics() { return solver->getStatistics(); }
 
-vector<int> Reducer::getModel() {
-  return solver->getModel();
-}
+Mini::vec<Mini::lbool> Reducer::getModel() const { return solver->getModel(); }
 
-vector<int> Reducer::getFinalAnalysis() {
-  return solver->getFinalAnalysis();
-}
+vector<int> Reducer::getFinalAnalysis() { return solver->getFinalAnalysis(); }
 
-vector<int> Reducer::getSatAssumptions() {
-  return solver->getSatAssumptions();
-}
+vector<int> Reducer::getSatAssumptions() { return solver->getSatAssumptions(); }
 
 }  // namespace painless

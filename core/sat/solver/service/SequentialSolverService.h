@@ -28,7 +28,7 @@ class SequentialSolverService : public SolverService {
   ~SequentialSolverService() noexcept override;
 
   std::future<State> solve(
-      lit_vec_t const& assumption, clock_t::duration time_limit,
+      lit_vec_t const& assumption, util::clock_t::duration time_limit,
       slv_callback_t const& callback) override;
 
   void load_problem(sat::Problem const& problem) override;

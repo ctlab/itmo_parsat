@@ -21,17 +21,11 @@ RandomSearch::RandomSearch(std::vector<int> const& vars, uint64_t total) : Searc
   set_random(_assignment);
 }
 
-void RandomSearch::_advance() {
-  set_random(_assignment);
-}
+void RandomSearch::_advance() { set_random(_assignment); }
 
-void RandomSearch::_reset() {
-  _advance();
-}
+void RandomSearch::_reset() { _advance(); }
 
-RandomSearch* RandomSearch::clone() const {
-  return new RandomSearch(*this);
-}
+RandomSearch* RandomSearch::clone() const { return new RandomSearch(*this); }
 
 USearch createRandomSearch(domain::VarView const& var_view, bit_mask_t const& bit_mask, uint64_t total) {
   return USearch(new RandomSearch(var_view, bit_mask, total));

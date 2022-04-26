@@ -24,29 +24,30 @@ class ReduceSolve : public Solve {
       PreprocessConfig const& preprocess_config, PropConfig const& prop_config,
       SolverServiceConfig const& solver_service_config);
 
-  [[nodiscard]] std::vector<lit_vec_t> _filter_conflict(
-      search::USearch search);
+  [[nodiscard]] std::vector<lit_vec_t> _filter_conflict(search::USearch search);
 
   [[nodiscard]] sat::State solve(sat::Problem const& problem) final;
 
   sat::sharing::SharingUnit sharing_unit() noexcept override;
 
- protected:
-  [[nodiscard]] sat::State _solve_final(
-      std::vector<lit_vec_t> const& assumptions_v);
+  Mini::vec<Mini::lbool> get_model() const override;
 
-  [[nodiscard]] virtual sat::State _solve_impl(
-      ea::preprocess::RPreprocess const& preprocess) = 0;
+ protected:
+  [[nodiscard]] sat::State _solve_final(std::vector<lit_vec_t> const& assumptions_v);
+
+  [[nodiscard]] virtual sat::State _solve_impl(ea::preprocess::RPreprocess const& preprocess) = 0;
 
   void _interrupt_impl() override;
 
- private:
-  void _load_problem(sat::Problem const& problem);
-
- protected:
   sat::prop::RProp _prop;
   ea::preprocess::RPreprocess _preprocess;
   sat::solver::RSolverService _solver_service;
+
+  std::mutex _model_lock;
+  Mini::vec<Mini::lbool> _model;
+
+ private:
+  void _load_problem(sat::Problem const& problem);
 };
 
 MAKE_REFS(ReduceSolve);

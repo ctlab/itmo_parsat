@@ -20,13 +20,9 @@ CliConfig::CliConfig() {
   _instance = this;
 }
 
-CliConfig::~CliConfig() noexcept {
-  _instance = nullptr;
-}
+CliConfig::~CliConfig() noexcept { _instance = nullptr; }
 
-void CliConfig::add_options(const po::options_description& options) {
-  desc_.add(options);
-}
+void CliConfig::add_options(const po::options_description& options) { desc_.add(options); }
 
 bool CliConfig::parse(int argc, char** argv) {
   po::store(po::parse_command_line(argc, argv, desc_), vm_);
@@ -45,13 +41,9 @@ bool CliConfig::parse(int argc, char** argv) {
   return true;
 }
 
-void CliConfig::notify() {
-  po::notify(vm_);
-}
+void CliConfig::notify() { po::notify(vm_); }
 
-bool CliConfig::has(const std::string& name) const {
-  return vm_.count(name) > 0;
-}
+bool CliConfig::has(const std::string& name) const { return vm_.count(name) > 0; }
 
 void CliConfig::read_config(std::istream& is, google::protobuf::Message& message) {
   std::string message_str((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>());

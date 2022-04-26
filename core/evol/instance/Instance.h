@@ -31,9 +31,7 @@ class Instance {
    * @param shared_data the data shared between all instances
    * @param preprocess the preprocess data
    */
-  explicit Instance(
-      core::sat::prop::RProp prop, RSharedData shared_data,
-      preprocess::RPreprocess preprocess);
+  explicit Instance(core::sat::prop::RProp prop, RSharedData shared_data, preprocess::RPreprocess preprocess);
 
   /**
    * @return variables which this instance represents.
@@ -91,7 +89,7 @@ class Instance {
 
   SharedData::SamplingConfig& _sampling_config() noexcept;
 
-  core::LRUCache<core::bit_mask_t, Fitness>& _cache() noexcept;
+  util::LRUCache<core::bit_mask_t, Fitness>& _cache() noexcept;
 
   uint64_t& _inaccurate_points() noexcept;
 
@@ -106,8 +104,7 @@ class Instance {
   mutable Fitness fit_{};
 
  public:
-  friend std::ostream& ::operator<<(
-      std::ostream&, ea::instance::Instance const& instance);
+  friend std::ostream& ::operator<<(std::ostream&, ea::instance::Instance const& instance);
 };
 
 bool operator<(Instance& a, Instance& b);

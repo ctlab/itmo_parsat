@@ -68,7 +68,7 @@ class MapleCOMSPSSolver : public SolverInterface,
 
   SolvingStatistics getStatistics() override;
 
-  vector<int> getModel() override;
+  Mini::vec<Mini::lbool> getModel() const override;
 
   void diversify(int id) override;
 

@@ -20,6 +20,8 @@ class WithPainlessSolve : public Solve {
 
   sat::sharing::SharingUnit sharing_unit() noexcept override;
 
+  Mini::vec<Mini::lbool> get_model() const override;
+
  protected:
   void _interrupt_impl() override;
 
@@ -28,6 +30,7 @@ class WithPainlessSolve : public Solve {
   sat::solver::RSolver _painless_solver;
   RSolve _primary_solve;
   std::optional<sat::sharing::Sharing> _sharing;
+  Mini::vec<Mini::lbool> _model;
 };
 
 }  // namespace core::solve

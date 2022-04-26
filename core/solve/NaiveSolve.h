@@ -19,6 +19,8 @@ class NaiveSolve : public Solve {
 
   sat::sharing::SharingUnit sharing_unit() noexcept override;
 
+  Mini::vec<Mini::lbool> get_model() const override;
+
  protected:
   void _interrupt_impl() override;
 

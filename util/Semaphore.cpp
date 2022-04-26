@@ -2,9 +2,7 @@
 
 namespace util {
 
-void Semaphore::set_max(uint32_t max_value) {
-  max = max_value;
-}
+void Semaphore::set_max(uint32_t max_value) { max = max_value; }
 
 void Semaphore::acquire(uint32_t num) {
   IPS_VERIFY(num <= max);

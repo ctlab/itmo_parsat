@@ -2,9 +2,7 @@
 
 namespace infra::execution {
 
-Execution::~Execution() noexcept {
-  await();
-}
+Execution::~Execution() noexcept { await(); }
 
 void Execution::interrupt() noexcept {
   {
@@ -15,7 +13,9 @@ void Execution::interrupt() noexcept {
 }
 
 void Execution::await() noexcept {
-  if (_thread.joinable()) { _thread.join(); }
+  if (_thread.joinable()) {
+    _thread.join();
+  }
 }
 
 }  // namespace infra::execution

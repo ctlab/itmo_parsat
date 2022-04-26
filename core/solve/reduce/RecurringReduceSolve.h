@@ -33,7 +33,7 @@ class RecurringReduceSolve : public ReduceSolve {
 
  private:
   filter_r _filter_fast(
-      std::vector<lit_vec_t> const& assumptions, clock_t::duration time_limit);
+      std::vector<lit_vec_t> const& assumptions, util::clock_t::duration time_limit);
 
  private:
   RRBSearch _rb_search;

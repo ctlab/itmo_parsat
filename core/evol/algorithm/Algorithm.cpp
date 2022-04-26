@@ -53,29 +53,19 @@ void Algorithm::interrupt() {
   _interrupted = true;
 }
 
-bool Algorithm::is_interrupted() const {
-  return _interrupted;
-}
+bool Algorithm::is_interrupted() const { return _interrupted; }
 
-core::sat::prop::Prop& Algorithm::get_prop() noexcept {
-  return *_prop;
-}
+core::sat::prop::Prop& Algorithm::get_prop() noexcept { return *_prop; }
 
 instance::Instance& Algorithm::get_best() noexcept {
   return *(*std::min_element(_population.begin(), _population.end(), [](auto& a, auto& b) { return *a < *b; }));
 }
 
-instance::SharedData& Algorithm::get_shared_data() noexcept {
-  return *_shared_data;
-}
+instance::SharedData& Algorithm::get_shared_data() noexcept { return *_shared_data; }
 
-uint64_t Algorithm::inaccurate_points() const noexcept {
-  return _shared_data->search_space.inaccurate_visited_points;
-}
+uint64_t Algorithm::inaccurate_points() const noexcept { return _shared_data->search_space.inaccurate_visited_points; }
 
-bool Algorithm::has_unvisited_points() const noexcept {
-  return _shared_data->search_space.has_unvisited_points();
-}
+bool Algorithm::has_unvisited_points() const noexcept { return _shared_data->search_space.has_unvisited_points(); }
 
 void Algorithm::set_base_assumption(core::lit_vec_t const& assumption) noexcept {
   _shared_data->base_assumption = assumption;

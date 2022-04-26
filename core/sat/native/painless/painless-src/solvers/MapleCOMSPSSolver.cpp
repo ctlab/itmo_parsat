@@ -45,7 +45,8 @@ static void makeMiniVec(ClauseExchange* cls, vec<Lit>& mcls) {
 
 void cbkMapleCOMSPSExportClause(void* issuer, int lbd, vec<Lit>& cls) {
   auto* mp = (MapleCOMSPSSolver*) issuer;
-  if (lbd > mp->lbdLimit) return;
+  if (lbd > mp->lbdLimit)
+    return;
 
   ClauseExchange* ncls = ClauseManager::allocClause(cls.size());
   for (int i = 0; i < cls.size(); i++) {
@@ -60,7 +61,8 @@ Lit cbkMapleCOMSPSImportUnit(void* issuer) {
   auto* mp = (MapleCOMSPSSolver*) issuer;
   Lit l = lit_Undef;
   ClauseExchange* cls = nullptr;
-  if (!mp->unitsToImport.getClause(&cls)) return l;
+  if (!mp->unitsToImport.getClause(&cls))
+    return l;
   l = MINI_LIT(cls->lits[0]);
 
   ClauseManager::releaseClause(cls);
@@ -70,7 +72,8 @@ Lit cbkMapleCOMSPSImportUnit(void* issuer) {
 bool cbkMapleCOMSPSImportClause(void* issuer, int* lbd, vec<Lit>& mcls) {
   auto* mp = (MapleCOMSPSSolver*) issuer;
   ClauseExchange* cls = nullptr;
-  if (!mp->clausesToImport.getClause(&cls)) return false;
+  if (!mp->clausesToImport.getClause(&cls))
+    return false;
 
   makeMiniVec(cls, mcls);
   *lbd = cls->lbd;
@@ -102,27 +105,17 @@ bool MapleCOMSPSSolver::loadFormula(std::vector<Mini::vec<Mini::Lit>> const& cla
   return true;
 }
 
-int MapleCOMSPSSolver::getVariablesCount() {
-  return nVars();
-}
+int MapleCOMSPSSolver::getVariablesCount() { return nVars(); }
 
-int MapleCOMSPSSolver::getDivisionVariable() {
-  return (rand() % getVariablesCount()) + 1;
-}
+int MapleCOMSPSSolver::getDivisionVariable() { return (rand() % getVariablesCount()) + 1; }
 
-void MapleCOMSPSSolver::setPhase(const int var, const bool phase) {
-  setPolarity(var - 1, phase);
-}
+void MapleCOMSPSSolver::setPhase(const int var, const bool phase) { setPolarity(var - 1, phase); }
 
 void MapleCOMSPSSolver::bumpVariableActivity(const int var, const int times) {}
 
-void MapleCOMSPSSolver::setSolverInterrupt() {
-  interrupt();
-}
+void MapleCOMSPSSolver::setSolverInterrupt() { interrupt(); }
 
-void MapleCOMSPSSolver::unsetSolverInterrupt() {
-  clearInterrupt();
-}
+void MapleCOMSPSSolver::unsetSolverInterrupt() { clearInterrupt(); }
 
 void MapleCOMSPSSolver::diversify(int id) {
   if (id == ID_XOR) {
@@ -222,7 +215,9 @@ void MapleCOMSPSSolver::addInitialClauses(const vector<ClauseExchange*>& clauses
       mcls.push(MINI_LIT(lit));
     }
 
-    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) { printf("c unsat when adding initial cls\n"); }
+    if (!static_cast<SimpSolver*>(this)->addClause(mcls)) {
+      printf("c unsat when adding initial cls\n");
+    }
   }
 }
 
@@ -232,16 +227,14 @@ void MapleCOMSPSSolver::addLearnedClauses(const vector<ClauseExchange*>& clauses
   }
 }
 
-void MapleCOMSPSSolver::getLearnedClauses(vector<ClauseExchange*>& clauses) {
-  clausesToExport.getClauses(clauses);
-}
+void MapleCOMSPSSolver::getLearnedClauses(vector<ClauseExchange*>& clauses) { clausesToExport.getClauses(clauses); }
 
-void MapleCOMSPSSolver::increaseClauseProduction() {
-  lbdLimit++;
-}
+void MapleCOMSPSSolver::increaseClauseProduction() { lbdLimit++; }
 
 void MapleCOMSPSSolver::decreaseClauseProduction() {
-  if (lbdLimit > 2) { lbdLimit--; }
+  if (lbdLimit > 2) {
+    lbdLimit--;
+  }
 }
 
 SolvingStatistics MapleCOMSPSSolver::getStatistics() {
@@ -254,16 +247,7 @@ SolvingStatistics MapleCOMSPSSolver::getStatistics() {
   return stats;
 }
 
-std::vector<int> MapleCOMSPSSolver::getModel() {
-  std::vector<int> model;
-  for (int i = 0; i < nVars(); i++) {
-    if (this->model[i] != l_Undef) {
-      int lit = this->model[i] == l_True ? i + 1 : -(i + 1);
-      model.push_back(lit);
-    }
-  }
-  return model;
-}
+Mini::vec<Mini::lbool> MapleCOMSPSSolver::getModel() const { return model; }
 
 vector<int> MapleCOMSPSSolver::getFinalAnalysis() {
   vector<int> outCls;

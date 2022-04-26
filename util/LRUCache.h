@@ -1,9 +1,10 @@
 #ifndef ITMO_PARSAT_LRUCACHE_H
 #define ITMO_PARSAT_LRUCACHE_H
 
+#include <cstdint>
 #include <unordered_map>
 
-namespace core {
+namespace util {
 
 /**
  * @brief Almost LRU cache implementaion.
@@ -66,6 +67,6 @@ class LRUCache {
   std::unordered_map<Key, Value> map_;
 };
 
-}  // namespace core
+}  // namespace util
 
 #endif  // ITMO_PARSAT_LRUCACHE_H

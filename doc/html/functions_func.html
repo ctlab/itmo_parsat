@@ -94,6 +94,9 @@ $(function() {
 <li>can_calc()
 : <a class="el" href="structea_1_1instance_1_1Fitness.html#a54cde7ec09ddced791ea72362f1f33f9">ea::instance::Fitness</a>
 </li>
+<li>clauses()
+: <a class="el" href="classcore_1_1sat_1_1Problem.html#aff3ef2d77515e455ff1d8d37dc49640d">core::sat::Problem</a>
+</li>
 <li>clear_interrupt()
 : <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a7faa1ea703335862c77cc54f8dc6367c">core::sat::solver::MapleCOMSPSSolver</a>
 , <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aa94d98f0e4c73586da5259f47f8ff201">core::sat::solver::PainlessSolver</a>
@@ -144,10 +147,20 @@ $(function() {
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a81afd839286edcada16b88f3896b08a4">ea::algorithm::Algorithm</a>
 </li>
 <li>get_mask()
-: <a class="el" href="structcore_1_1domain_1_1Vars.html#a837d848ea8aa19b8304df62157c192dd">core::domain::Vars</a>
+: <a class="el" href="structcore_1_1domain_1_1Vars.html#a450a9a825539d57ea68dff7edcc63d36">core::domain::Vars</a>
+</li>
+<li>get_model()
+: <a class="el" href="classcore_1_1sat_1_1Problem.html#a4b8b1c852fae90e6eccf362d486e26da">core::sat::Problem</a>
+, <a class="el" href="classcore_1_1solve_1_1NaiveSolve.html#a539a1141c6f3da73cc88e910aca3d5ca">core::solve::NaiveSolve</a>
+, <a class="el" href="classcore_1_1solve_1_1ReduceSolve.html#a93ca1e34394b9d8d0871b964ec642a30">core::solve::ReduceSolve</a>
+, <a class="el" href="classcore_1_1solve_1_1Solve.html#a4bc16edaaba45afbe3197416cb9ba958">core::solve::Solve</a>
+, <a class="el" href="classcore_1_1solve_1_1WithPainlessSolve.html#ae28424c754d83e3a5e8ffecda1c91775">core::solve::WithPainlessSolve</a>
 </li>
 <li>get_prop()
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#ac2f5a7f4fd1dfb7e89a8c92ed4e611f9">ea::algorithm::Algorithm</a>
+</li>
+<li>get_result()
+: <a class="el" href="classcore_1_1sat_1_1Problem.html#a9604a9c794d1eba52395c004290c2285">core::sat::Problem</a>
 </li>
 <li>get_shared_data()
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a424af6ccb7a0396522e2864474c7ff16">ea::algorithm::Algorithm</a>
@@ -257,6 +270,9 @@ $(function() {
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
+<li>path()
+: <a class="el" href="classcore_1_1sat_1_1Problem.html#a18ae05912c95095026322f496fb97517">core::sat::Problem</a>
+</li>
 <li>prepare()
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#a691feb56bf4c0eddcae6cb4a7d5195f7">ea::algorithm::Algorithm</a>
 </li>
@@ -273,7 +289,7 @@ $(function() {
 : <a class="el" href="classea_1_1algorithm_1_1Algorithm.html#af1eaa3689d623d4babb1811a0b3acc3d">ea::algorithm::Algorithm</a>
 </li>
 <li>prop_search()
-: <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a593bf512cedcff0833b35cd2b9c06593">core::sat::prop::ParProp</a>
+: <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#abc916baadbbadf6e38ad47252e49e7c9">core::sat::prop::ParProp</a>
 , <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#af472c5810363a2b9036a482ab21d78b4">core::sat::prop::Prop</a>
 , <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#a138823173a9fcd65f1ff1ec3f117402f">core::sat::prop::SimpProp</a>
 </li>
@@ -284,8 +300,8 @@ $(function() {
 </li>
 <li>propagate()
 : <a class="el" href="classcore_1_1sat_1_1prop_1_1ParProp.html#a2b3318aa6c2aa69021e1d37f4669794f">core::sat::prop::ParProp</a>
-, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a0b8a865a30143df3066db4efd1bba208">core::sat::prop::Prop</a>
-, <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#a4a63a49e64324d7bdf00f82cb1ed6775">core::sat::prop::SimpProp</a>
+, <a class="el" href="classcore_1_1sat_1_1prop_1_1Prop.html#a1dfcb4ed2d4bb8269c3c5f1ceb6ef99c">core::sat::prop::Prop</a>
+, <a class="el" href="classcore_1_1sat_1_1prop_1_1SimpProp.html#ac5e3a8525853fc264a49b5ede03d456b">core::sat::prop::SimpProp</a>
 </li>
 </ul>
 
@@ -330,10 +346,10 @@ $(function() {
 <li>solve()
 : <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a9649f6053eeb2cf4a4a6104ceb9bde74">core::sat::solver::MapleCOMSPSSolver</a>
 , <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#aecb7e99e36483993de1be0b272466a73">core::sat::solver::PainlessSolver</a>
-, <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a8dd7d07c8a02de85ad3668174834449d">core::sat::solver::SequentialSolverService</a>
+, <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a64055cb05e541ca730839cc6d21e3cb4">core::sat::solver::SequentialSolverService</a>
 , <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a5b37b611afcee5cef6e03595ebda4d92">core::sat::solver::SimpSolver</a>
 , <a class="el" href="classcore_1_1sat_1_1solver_1_1Solver.html#a65f4e6a4f45f4c08fab0cada6f8f3d8c">core::sat::solver::Solver</a>
-, <a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#a0977675cf9f4b784785f92bb331afd83">core::sat::solver::SolverService</a>
+, <a class="el" href="classcore_1_1sat_1_1solver_1_1SolverService.html#adf235dd28c783fc7b2216ee4109b5b7e">core::sat::solver::SolverService</a>
 , <a class="el" href="classcore_1_1solve_1_1NaiveSolve.html#a59dc98750d530960bb5bfcf1e7a75c32">core::solve::NaiveSolve</a>
 , <a class="el" href="classcore_1_1solve_1_1ReduceSolve.html#a548d6b746c0f80fa292a6930ce3c4e3d">core::solve::ReduceSolve</a>
 , <a class="el" href="classcore_1_1solve_1_1Solve.html#aaa0c64ccf2aae8d9edb555ee603abda8">core::solve::Solve</a>
@@ -350,6 +366,13 @@ $(function() {
 </li>
 <li>stop()
 : <a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#af2fb28cac51404645732045240333304">core::sat::sharing::Sharing</a>
+</li>
+</ul>
+
+
+<h3><a id="index_t"></a>- t -</h3><ul>
+<li>to_string()
+: <a class="el" href="classcore_1_1sat_1_1Problem.html#a58fd1d8460d4650a428de7a7c7427142">core::sat::Problem</a>
 </li>
 </ul>
 

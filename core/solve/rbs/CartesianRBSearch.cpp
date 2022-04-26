@@ -28,7 +28,7 @@ void CartesianRBSearch::_raise_for_sbs(int id) {
   bool expect = false;
   if (_sbs_found.compare_exchange_strong(expect, true)) {
     IPS_INFO("[" << id << "] Found SBS.");
-    core::event::raise(event::SBS_FOUND);
+    util::event::raise(util::event::SBS_FOUND);
   }
 }
 
@@ -47,13 +47,13 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(l
     }
   }
 
-  core::event::EventCallbackHandle sbs_found_handle = core::event::attach(
+  util::event::EventCallbackHandle sbs_found_handle = util::event::attach(
       [&] {
         IPS_INFO("Interrupting because SBS has been found.");
         interrupt();
         sbs_found_handle->detach();
       },
-      event::SBS_FOUND);
+      util::event::SBS_FOUND);
 
   for (uint32_t i = 0; i < _cfg.num_algorithms() && !_interrupted; ++i) {
     uint32_t seed = util::random::sample<uint32_t>(0, UINT32_MAX);
@@ -63,7 +63,9 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(l
       IPS_BLOCK(algorithm_prepare, algorithm->prepare(_preprocess));
       algorithm->set_base_assumption(base_assumption);
       IPS_BLOCK(algorithm_process, algorithm->process());
-      if (_is_interrupted() || _sbs_found) { return; }
+      if (_is_interrupted() || _sbs_found) {
+        return;
+      }
       auto const& rb = algorithm->get_best();
       if (rb.is_sbs()) {
         _raise_for_sbs(i);
@@ -85,7 +87,9 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(l
         return !_sbs_found && !_is_interrupted();
       });
 
-      if (non_conflict_assignments[i].empty()) { _raise_for_sbs(i); }
+      if (non_conflict_assignments[i].empty()) {
+        _raise_for_sbs(i);
+      }
 
       {
         std::lock_guard<std::mutex> lg(_m);
@@ -94,14 +98,18 @@ std::vector<std::vector<std::vector<Mini::Lit>>> CartesianRBSearch::_pre_solve(l
                         << "\tThe best backdoor is: " << rb << '\n'
                         << "\tConflicts: " << conflicts << ", total: " << total
                         << "\n\tActual rho value: " << (double) conflicts / (double) total << '\n';
-        if (_sbs_found) { algorithms_info << "\tMay be stopped because SBS has been found.\n"; }
+        if (_sbs_found) {
+          algorithms_info << "\tMay be stopped because SBS has been found.\n";
+        }
         _algorithms[i].reset();
       }
     });
   }
 
   for (auto& thread : rb_search_threads) {
-    if (thread.joinable()) { thread.join(); }
+    if (thread.joinable()) {
+      thread.join();
+    }
   }
   {
     std::lock_guard<std::mutex> lg(_m);

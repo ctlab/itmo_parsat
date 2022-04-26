@@ -9,9 +9,7 @@ void Solve::interrupt() {
 
 void Solve::_interrupt_impl() {}
 
-bool Solve::_is_interrupted() const noexcept {
-  return _interrupted;
-}
+bool Solve::_is_interrupted() const noexcept { return _interrupted; }
 
 sat::solver::RSolver Solve::_resolve_solver(SolverConfig const& config) {
   return sat::solver::RSolver(sat::solver::SolverRegistry::resolve(config));

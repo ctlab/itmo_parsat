@@ -13,7 +13,9 @@
 namespace {
 
 uint64_t num_conflicts_in_subtree(Minisat::SimpSolver& solver, core::lit_vec_t& vars, uint32_t index) {
-  if (index == (uint32_t) vars.size()) { return !solver.prop_check(vars, 0); }
+  if (index == (uint32_t) vars.size()) {
+    return !solver.prop_check(vars, 0);
+  }
   vars[(int) index] = Mini::mkLit(var(vars[(int) index]), false);
   uint64_t sub_false = num_conflicts_in_subtree(solver, vars, index + 1);
   vars[(int) index] = Mini::mkLit(var(vars[(int) index]), true);

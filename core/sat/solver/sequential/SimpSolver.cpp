@@ -1,5 +1,7 @@
 #include "SimpSolver.h"
 
+#include "util/mini.h"
+
 namespace core::sat::solver {
 
 State SimpSolver::solve(lit_vec_t const& assumptions) {
@@ -14,25 +16,17 @@ State SimpSolver::solve(lit_vec_t const& assumptions) {
   }
 }
 
-void SimpSolver::load_problem(Problem const& problem) {
-  MinisatSimpBase::load_problem(problem);
-}
+void SimpSolver::load_problem(Problem const& problem) { MinisatSimpBase::load_problem(problem); }
 
-void SimpSolver::interrupt() {
-  Minisat::SimpSolver::interrupt();
-}
+void SimpSolver::interrupt() { Minisat::SimpSolver::interrupt(); }
 
-void SimpSolver::clear_interrupt() {
-  Minisat::SimpSolver::clearInterrupt();
-}
+void SimpSolver::clear_interrupt() { Minisat::SimpSolver::clearInterrupt(); }
 
-unsigned SimpSolver::num_vars() const noexcept {
-  return MinisatSimpBase::num_vars();
-}
+unsigned SimpSolver::num_vars() const noexcept { return MinisatSimpBase::num_vars(); }
 
-sharing::SharingUnit SimpSolver::sharing_unit() noexcept {
-  return {};
-}
+sharing::SharingUnit SimpSolver::sharing_unit() noexcept { return {}; }
+
+Mini::vec<Mini::lbool> SimpSolver::get_model() const noexcept { return model; }
 
 REGISTER_SIMPLE(Solver, SimpSolver);
 

@@ -9,7 +9,7 @@
 #include "Logger.h"
 #include "util/Assert.h"
 
-namespace core::signal {
+namespace util::signal {
 
 /**
  * @brief Signal handling routine
@@ -45,6 +45,6 @@ class SigHandler {
 
 void unset();
 
-}  // namespace core::signal
+}  // namespace util::signal
 
 #endif  // EVOL_SIGHANDLER_H

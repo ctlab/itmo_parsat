@@ -10,7 +10,7 @@ ResourceLimit::ResourceLimit(const ResourceLimitConfig& config)
 bool ResourceLimit::_proceed(ea::algorithm::Algorithm&) {
   bool time_ok = true, mem_ok = true;
   if (_time_limit_sec) {
-    std::chrono::duration<double> elapsed = core::clock_t::now() - _start;
+    std::chrono::duration<double> elapsed = util::clock_t::now() - _start;
     time_ok = std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() < _time_limit_sec;
     IPS_INFO_IF_T(LIMIT, !time_ok, "Time limit exceeded.");
   }
@@ -21,9 +21,7 @@ bool ResourceLimit::_proceed(ea::algorithm::Algorithm&) {
   return time_ok && mem_ok;
 }
 
-void ResourceLimit::start() {
-  _start = core::clock_t::now();
-}
+void ResourceLimit::start() { _start = util::clock_t::now(); }
 
 REGISTER_PROTO(Limit, ResourceLimit, resource_limit_config);
 

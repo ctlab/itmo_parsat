@@ -65,7 +65,9 @@ static void test_assignment_split_search(
   for (uint32_t index = 0; index < ranges; ++index) {
     auto split = search->split_search(ranges, index);
     do {
-      if (split->empty()) { break; }
+      if (split->empty()) {
+        break;
+      }
       ++total;
       uniques.insert(to_std_vec((*split)()));
     } while (++(*split));

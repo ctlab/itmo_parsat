@@ -11,7 +11,7 @@
 #include "TimeTracer.h"
 #include "util/Assert.h"
 
-namespace core {
+namespace util {
 
 /**
  * @brief Utility macro used to register and resolve dynamically-chosen
@@ -69,9 +69,9 @@ namespace core {
                                                                               \
    private:                                                                   \
     std::unordered_map<std::string, builder_t> map_{};                        \
-  }  // namespace core
+  }  // namespace util
 
-}  // namespace core
+}  // namespace util
 
 #define CONFIG_TYPE(INTERFACE) INTERFACE##Config
 

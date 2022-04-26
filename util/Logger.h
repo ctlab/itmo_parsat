@@ -7,7 +7,7 @@
 #include "util/Assert.h"
 #include "util/proto/logging_config.pb.h"
 
-namespace core {
+namespace util {
 
 /**
  * @brief Logging utility class.
@@ -70,7 +70,7 @@ class Logger {
   std::array<LogEntry, MAX_LOG_TYPES> entries_{};
 };
 
-}  // namespace core
+}  // namespace util
 
 #ifndef IPS_DISABLE_LOG
 
@@ -79,13 +79,13 @@ class Logger {
 #define IPS_LOG_IF(GLOG_TYPE, COND, STREAM) LOG_IF(GLOG_TYPE, COND) << STREAM
 
 #define IPS_LOG_T(GLOG_TYPE, IPS_LOG_TYPE, STREAM)                       \
-  LOG_IF(GLOG_TYPE, ::core::Logger::should_log(::LogType::IPS_LOG_TYPE)) \
+  LOG_IF(GLOG_TYPE, ::util::Logger::should_log(::LogType::IPS_LOG_TYPE)) \
       << STREAM
 
 #define IPS_LOG_IF_T(GLOG_TYPE, IPS_LOG_TYPE, COND, STREAM)          \
   LOG_IF(                                                            \
       GLOG_TYPE,                                                     \
-      (COND) && ::core::Logger::should_log(::LogType::IPS_LOG_TYPE)) \
+      (COND) && ::util::Logger::should_log(::LogType::IPS_LOG_TYPE)) \
       << STREAM
 
 #else

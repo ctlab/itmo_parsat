@@ -30,7 +30,9 @@ std::vector<core::sat::Problem> const& problems(bool eliminate, bool allow_trivi
     }
     for (auto& f_problem : f_problems) {
       auto problem = f_problem.get();
-      if (!allow_trivial && problem.get_result() != core::sat::UNKNOWN) { continue; }
+      if (!allow_trivial && problem.get_result() != core::sat::UNKNOWN) {
+        continue;
+      }
       inputs_set.insert(problem);
     }
 
