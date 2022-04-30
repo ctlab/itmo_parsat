@@ -1,7 +1,7 @@
 #ifndef ITMO_PARSAT_VARVIEW_H
 #define ITMO_PARSAT_VARVIEW_H
 
-#include <unordered_map>
+#include <vector>
 #include <cstdint>
 
 namespace core::domain {
@@ -36,8 +36,13 @@ class VarView {
    */
   [[nodiscard]] uint32_t size() const noexcept;
 
+  /**
+   * @return The variable set
+   */
+  std::vector<int> const& get_map() const noexcept;
+
  private:
-  std::unordered_map<int, int> _map;
+  std::vector<int> _map;
 };
 
 }  // namespace core::domain

@@ -18,6 +18,12 @@
 
 namespace ea::algorithm {
 
+struct AlgorithmStatistics {
+  int64_t iterations = 0;
+  int64_t duration_ms = 0;
+  std::vector<float> rho_value{};
+};
+
 /**
  * @brief The base class of (E|G)A search algorithms.
  */
@@ -82,6 +88,11 @@ class Algorithm {
    */
   [[nodiscard]] bool is_interrupted() const;
 
+  /**
+   * @return algorithms' search statistics
+   */
+  [[nodiscard]] AlgorithmStatistics const& get_statistics() const noexcept;
+
  protected:
   void _add_instance();
 
@@ -95,6 +106,7 @@ class Algorithm {
   ea::instance::RSharedData _shared_data;
   ea::preprocess::RPreprocess _preprocess;
   core::sat::prop::RProp _prop;
+  AlgorithmStatistics _stats{};
 
  private:
   void _init_shared_data(InstanceConfig const& config);

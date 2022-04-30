@@ -18,3 +18,11 @@ add_executable(
         ${CORE_SRC}
 )
 target_link_libraries(verify_bin ${UTIL_LIBS} ${CORE_LIBS})
+
+add_executable(
+        rb_search_bin rb_search/main.cpp
+        ${UTIL_SRC}
+        ${CORE_SRC}
+        ${TEST_COMMON}
+)
+target_link_libraries(rb_search_bin ${UTIL_LIBS} ${CORE_LIBS})

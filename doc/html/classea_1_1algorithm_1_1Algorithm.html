@@ -90,6 +90,15 @@ Inheritance diagram for ea::algorithm::Algorithm:</div>
 <area shape="rect" href="classea_1_1algorithm_1_1GAAlgorithm.html" title="Genetic algorithm." alt="" coords="227,80,427,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for ea::algorithm::Algorithm:</div>
+<div class="dyncontent">
+<div class="center"><img src="classea_1_1algorithm_1_1Algorithm__coll__graph.png" border="0" usemap="#ea_1_1algorithm_1_1Algorithm_coll__map" alt="Collaboration graph"/></div>
+<map name="ea_1_1algorithm_1_1Algorithm_coll__map" id="ea_1_1algorithm_1_1Algorithm_coll__map">
+<area shape="rect" title="The base class of (E|G)A search algorithms." alt="" coords="5,109,187,136"/>
+<area shape="rect" href="structea_1_1algorithm_1_1AlgorithmStatistics.html" title=" " alt="" coords="5,5,187,47"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -122,6 +131,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a066638648e9f9dfcb62c15bff5e314dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae831ae00f0728f8b8cd6cacf3b3faf29"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#ae831ae00f0728f8b8cd6cacf3b3faf29">is_interrupted</a> () const</td></tr>
 <tr class="separator:ae831ae00f0728f8b8cd6cacf3b3faf29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a2972ee190714219458e3439485bf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structea_1_1algorithm_1_1AlgorithmStatistics.html">AlgorithmStatistics</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classea_1_1algorithm_1_1Algorithm.html#af2a2972ee190714219458e3439485bf6">get_statistics</a> () const noexcept</td></tr>
+<tr class="separator:af2a2972ee190714219458e3439485bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -152,6 +163,9 @@ ea::preprocess::RPreprocess&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:a07c39a1944742109fec363dec15c13b9"><td class="memItemLeft" align="right" valign="top"><a id="a07c39a1944742109fec363dec15c13b9"></a>
 core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_prop</b></td></tr>
 <tr class="separator:a07c39a1944742109fec363dec15c13b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70753627ea0e75690db0dce04902320c"><td class="memItemLeft" align="right" valign="top"><a id="a70753627ea0e75690db0dce04902320c"></a>
+<a class="el" href="structea_1_1algorithm_1_1AlgorithmStatistics.html">AlgorithmStatistics</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_stats</b> {}</td></tr>
+<tr class="separator:a70753627ea0e75690db0dce04902320c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The base class of (E|G)A search algorithms. </p>
@@ -266,6 +280,32 @@ core::sat::prop::RProp&#160;</td><td class="memItemRight" valign="bottom"><b>_pr
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the data shared between instances. </dd></dl>
+
+</div>
+</div>
+<a id="af2a2972ee190714219458e3439485bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2a2972ee190714219458e3439485bf6">&#9670;&nbsp;</a></span>get_statistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structea_1_1algorithm_1_1AlgorithmStatistics.html">AlgorithmStatistics</a> const  &amp; ea::algorithm::Algorithm::get_statistics </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>algorithms' search statistics </dd></dl>
 
 </div>
 </div>

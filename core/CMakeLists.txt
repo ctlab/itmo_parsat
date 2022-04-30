@@ -58,3 +58,6 @@ set(
 set(CORE_SRC ${CORE_SRC} PARENT_SCOPE)
 
 add_subdirectory(tests)
+
+set(TEST_COMMON ${TEST_COMMON} PARENT_SCOPE)
+

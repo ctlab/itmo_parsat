@@ -21,8 +21,8 @@ core::sat::prop::RProp get_prop(uint32_t threads) {
   } else {
     prop_config.set_prop_type("ParProp");
     prop_config.mutable_par_prop_config()->set_max_threads(threads);
-    prop_config.mutable_par_prop_config()->set_tree_split_vars(12);
-    prop_config.mutable_par_prop_config()->set_seq_split_samples(16384);
+    prop_config.mutable_par_prop_config()->set_tree_split_vars(10);
+    prop_config.mutable_par_prop_config()->set_seq_split_samples(8192);
   }
   return core::sat::prop::RProp(core::sat::prop::PropRegistry::resolve(prop_config));
 }
@@ -85,18 +85,18 @@ static void BM_prop_tree(benchmark::State& state) {
 BENCHMARK(BM_prop_random)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 15),     // threads count
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),      // threads count
          benchmark::CreateDenseRange(2, 18, 4),          // size of assumption
-         benchmark::CreateRange(1 << 13, 1 << 16, 2)});  // number of samples: 8192 : 65536
+         benchmark::CreateRange(1 << 13, 1 << 18, 2)});  // number of samples: 2^13 to 2^18
 
 BENCHMARK(BM_prop_full)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 15),  // threads count
-         benchmark::CreateDenseRange(2, 18, 4)});     // size of assumption
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
+         benchmark::CreateDenseRange(2, 18, 4)});    // size of assumption
 
 BENCHMARK(BM_prop_tree)
     ->ArgsProduct(
         {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 15),  // threads count
-         benchmark::CreateDenseRange(2, 18, 4)});     // size of assumption
+         benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
+         benchmark::CreateDenseRange(2, 18, 4)});    // size of assumption

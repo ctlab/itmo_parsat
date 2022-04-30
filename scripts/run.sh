@@ -19,6 +19,7 @@ BUILD_DIR="$ROOT/build"
 SOLVE_BIN="$BUILD_DIR/cli/solve_bin"
 INFRA_BIN="$BUILD_DIR/cli/infra_bin"
 VERIFY_BIN="$BUILD_DIR/cli/verify_bin"
+SEARCH_BIN="$BUILD_DIR/cli/rb_search_bin"
 TEST_BIN="$BUILD_DIR/core/tests/unit/unit_tests"
 BENCH_BIN="$BUILD_DIR/core/tests/bench/benchmark"
 
@@ -58,12 +59,12 @@ function do_run_cmd() {
 
 function do_format() {
     find . \( -iname *.h -iname *.hpp -o -iname *.cpp -o -iname *.cc \) \
-        -and -not -path './*build*/*' -and -not -path '**/.undodir/**' | xargs clang-format -i
+        -and -not -path './*build*/*' -and -not -path '**/.undodir/*' | xargs clang-format -i
 }
 
 function do_chk_format() {
     find . \( -iname *.h -iname *.hpp -o -iname *.cpp -o -iname *.cc \) \
-        -and -not -path './*build*/*' | xargs clang-format --dry-run --Werror
+        -and -not -path './*build*/*' -and -not -path '**/.undodir/*' | xargs clang-format --dry-run --Werror
 }
 
 function do_clean() {
@@ -122,7 +123,7 @@ function do_verify() {
 }
 
 function do_verify_cert() {
-    $VERIFY_BIN $@
+    $RUN_CMD $VERIFY_BIN $@
 }
 
 function do_unit() {
@@ -155,6 +156,19 @@ function do_solve() {
     else
         $RUN_CMD $SOLVE_BIN $@
     fi
+}
+
+function do_search() {
+  $RUN_CMD $SEARCH_BIN \
+    --verbose 8 \
+    --seed 239 \
+    --log-config resources/config/log.json \
+    --algorithm-config core/tests/resources/ea_inf.json \
+    --stats-path stats.csv \
+    --rb-path backdoor.txt \
+    --heuristic-path heuristic.txt \
+    --input "$CNF_PATH" \
+    $@
 }
 
 function do_run_pgo() {
@@ -196,6 +210,7 @@ function do_desc() {
 }
 
 add_option "-s|--solve" "    Run cli binary"             do_solve          0
+add_option "-f|--find-rb" "  Run RB search"              do_search         1
 add_option "-g|--build-cfg" "Set build mode"             do_set_build_mode 1
 add_option "-r|--resources" "Set resources directory"    do_set_res        1
 add_option "-b|--build" "    Build cli binary"           do_build          0

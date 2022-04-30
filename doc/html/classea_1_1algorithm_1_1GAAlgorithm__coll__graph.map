@@ -1,4 +1,5 @@
 <map id="ea::algorithm::GAAlgorithm" name="ea::algorithm::GAAlgorithm">
-<area shape="rect" id="node1" title="Genetic algorithm." alt="" coords="5,80,205,107"/>
-<area shape="rect" id="node2" href="$classea_1_1algorithm_1_1Algorithm.html" title="The base class of (E|G)A search algorithms." alt="" coords="15,5,196,32"/>
+<area shape="rect" id="node1" title="Genetic algorithm." alt="" coords="5,185,205,212"/>
+<area shape="rect" id="node2" href="$classea_1_1algorithm_1_1Algorithm.html" title="The base class of (E|G)A search algorithms." alt="" coords="15,109,196,136"/>
+<area shape="rect" id="node3" href="$structea_1_1algorithm_1_1AlgorithmStatistics.html" title=" " alt="" coords="15,5,196,47"/>
 </map>

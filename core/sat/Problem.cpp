@@ -21,6 +21,16 @@ core::sat::State Problem::read_clauses() {
   }
 
   _solver.toDimacs(_clauses, _mapping);
+  for (int var = 0; var < _solver.nVars(); ++var) {
+    if (_mapping.size() <= var || _mapping[var] == -1) {
+      continue;
+    }
+    int mapped = _mapping[var];
+    if (_rev_mapping.size() <= mapped) {
+      _rev_mapping.resize(1 + mapped);
+    }
+    _rev_mapping[mapped] = var;
+  }
 
   if (_clauses.empty()) {
     if (ok) {
@@ -41,7 +51,9 @@ Problem::Problem(std::filesystem::path path, bool eliminate) : _path(std::move(p
 
 Mini::vec<Mini::Var> const& Problem::get_mapping() const noexcept { return _mapping; }
 
-Mini::vec<Mini::lbool> Problem::remap_variables(Mini::vec<Mini::lbool> const& vars) {
+std::vector<int> const& Problem::get_rev_mapping() const noexcept { return _rev_mapping; }
+
+Mini::vec<Mini::lbool> Problem::remap_and_extend_model(Mini::vec<Mini::lbool> const& vars) {
   _solver.model.growTo(_solver.nVars(), Minisat::l_Undef);
   for (int i = 0; i < _solver.nVars(); ++i) {
     if (_solver.value(i) != Mini::l_Undef) {
@@ -56,6 +68,16 @@ Mini::vec<Mini::lbool> Problem::remap_variables(Mini::vec<Mini::lbool> const& va
   }
   _solver.extendModel();
   return _solver.model;
+}
+
+std::vector<int> Problem::remap_variables(std::vector<int> const& vars) const {
+  std::vector<int> result;
+  result.reserve(vars.size());
+  for (int var : vars) {
+    IPS_VERIFY(var < _rev_mapping.size());
+    result.push_back(_rev_mapping[var]);
+  }
+  return result;
 }
 
 Mini::vec<Mini::lbool> const& Problem::get_model() const noexcept { return _model; }

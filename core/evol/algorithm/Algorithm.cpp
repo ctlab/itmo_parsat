@@ -35,17 +35,21 @@ void Algorithm::prepare(preprocess::RPreprocess const& preprocess) {
 void Algorithm::_prepare() {}
 
 void Algorithm::process() {
-  uint64_t iteration = 0;
   _limit->start();
+  auto start_timestamp = util::clock_t::now();
   do {
     IPS_BLOCK(algorithm_step, _step());
+    auto const& best_instance = get_best();
     IPS_INFO_T(
         BEST_INSTANCE, "[Thread " << std::hash<std::thread::id>()(std::this_thread::get_id()) % 128 << "] [Iter "
-                                  << iteration << "]"
+                                  << _stats.iterations << "]"
                                   << "[Points " << inaccurate_points() << "]"
-                                  << " Best instance: " << get_best());
-    ++iteration;
+                                  << " Best instance: " << best_instance);
+    ++_stats.iterations;
+    _stats.rho_value.push_back(best_instance.fitness().rho);
   } while (!is_interrupted() && _limit->proceed(*this));
+  auto end_timestamp = util::clock_t::now();
+  _stats.duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_timestamp - start_timestamp).count();
 }
 
 void Algorithm::interrupt() {
@@ -70,5 +74,7 @@ bool Algorithm::has_unvisited_points() const noexcept { return _shared_data->sea
 void Algorithm::set_base_assumption(core::lit_vec_t const& assumption) noexcept {
   _shared_data->base_assumption = assumption;
 }
+
+AlgorithmStatistics const& Algorithm::get_statistics() const noexcept { return _stats; }
 
 }  // namespace ea::algorithm

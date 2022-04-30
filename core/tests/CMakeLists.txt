@@ -3,5 +3,7 @@ file(
         "common/*"
 )
 
+set(TEST_COMMON ${TEST_COMMON} PARENT_SCOPE)
+
 add_subdirectory(bench)
 add_subdirectory(unit)

@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
     solve_interrupt_handler->detach();
 
     if (config.print_model && result == core::sat::SAT) {
-      sat_model = problem.remap_variables(solve->get_model());
+      sat_model = problem.remap_and_extend_model(solve->get_model());
     }
   } else {
     if (config.print_model && result == core::sat::SAT) {

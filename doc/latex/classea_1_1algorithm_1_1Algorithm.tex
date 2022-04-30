@@ -19,6 +19,16 @@ Inheritance diagram for ea\+::algorithm\+::Algorithm\+:
 \includegraphics[width=350pt]{classea_1_1algorithm_1_1Algorithm__inherit__graph}
 \end{center}
 \end{figure}
+
+
+Collaboration diagram for ea\+::algorithm\+::Algorithm\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classea_1_1algorithm_1_1Algorithm__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -46,6 +56,8 @@ void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a95a86cf7b59f70697c791bb
 void \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_a066638648e9f9dfcb62c15bff5e314dd}{interrupt}} ()
 \begin{DoxyCompactList}\small\item\em interrupts the algorithm. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_ae831ae00f0728f8b8cd6cacf3b3faf29}{is\+\_\+interrupted}} () const
+\item 
+\mbox{\hyperlink{structea_1_1algorithm_1_1AlgorithmStatistics}{Algorithm\+Statistics}} const  \& \mbox{\hyperlink{classea_1_1algorithm_1_1Algorithm_af2a2972ee190714219458e3439485bf6}{get\+\_\+statistics}} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -76,6 +88,9 @@ ea\+::preprocess\+::\+R\+Preprocess {\bfseries \+\_\+preprocess}
 \item 
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}\label{classea_1_1algorithm_1_1Algorithm_a07c39a1944742109fec363dec15c13b9}} 
 core\+::sat\+::prop\+::\+R\+Prop {\bfseries \+\_\+prop}
+\item 
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a70753627ea0e75690db0dce04902320c}\label{classea_1_1algorithm_1_1Algorithm_a70753627ea0e75690db0dce04902320c}} 
+\mbox{\hyperlink{structea_1_1algorithm_1_1AlgorithmStatistics}{Algorithm\+Statistics}} {\bfseries \+\_\+stats} \{\}
 \end{DoxyCompactItemize}
 
 
@@ -123,6 +138,15 @@ the propagation engine used in this algorithm.
 
 \begin{DoxyReturn}{Returns}
 the data shared between instances. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_af2a2972ee190714219458e3439485bf6}\label{classea_1_1algorithm_1_1Algorithm_af2a2972ee190714219458e3439485bf6}} 
+\index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!get\_statistics@{get\_statistics}}
+\index{get\_statistics@{get\_statistics}!ea::algorithm::Algorithm@{ea::algorithm::Algorithm}}
+\doxysubsubsection{\texorpdfstring{get\_statistics()}{get\_statistics()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structea_1_1algorithm_1_1AlgorithmStatistics}{Algorithm\+Statistics}} const  \& ea\+::algorithm\+::\+Algorithm\+::get\+\_\+statistics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+algorithms\textquotesingle{} search statistics 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}\label{classea_1_1algorithm_1_1Algorithm_a1a8c40052d4b6a2500267a71035ee4c5}} 
 \index{ea::algorithm::Algorithm@{ea::algorithm::Algorithm}!has\_unvisited\_points@{has\_unvisited\_points}}

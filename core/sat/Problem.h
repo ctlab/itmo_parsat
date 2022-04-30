@@ -59,9 +59,14 @@ class Problem {
   std::string to_string() const noexcept;
 
   /*
-   * @brief Remaps the variables as they were before variable elimination.
+   * @brief Remaps variables and extends model for source variables
    * */
-  [[nodiscard]] Mini::vec<Mini::lbool> remap_variables(Mini::vec<Mini::lbool> const& vars);
+  [[nodiscard]] Mini::vec<Mini::lbool> remap_and_extend_model(Mini::vec<Mini::lbool> const& model);
+
+  /*
+   * @brief Remaps variables
+   * */
+  [[nodiscard]] std::vector<int> remap_variables(std::vector<int> const& vars) const;
 
   /**
    * @return The satisfying assignment if the problem has been solved on parsing stage and is SAT
@@ -69,6 +74,8 @@ class Problem {
   [[nodiscard]] Mini::vec<Mini::lbool> const& get_model() const noexcept;
 
   Mini::vec<Mini::Var> const& get_mapping() const noexcept;
+
+  std::vector<int> const& get_rev_mapping() const noexcept;
 
   bool operator<(Problem const& o) const noexcept;
 
@@ -78,6 +85,7 @@ class Problem {
   mutable std::mutex _load_mutex;
   std::vector<lit_vec_t> _clauses;
   Mini::vec<Mini::Var> _mapping;
+  std::vector<int> _rev_mapping;
   Mini::vec<Mini::lbool> _model;
 
   bool _eliminate;
