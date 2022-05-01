@@ -27,7 +27,7 @@ function do_run_pg() {
             docker run --name "$DB_NAME" \
                 -p 5432:5432 \
                 -e POSTGRES_USER=ips \
-                -e POSTGRES_PASSWORD=ips \
+                -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
                 -e POSTGRES_DB=infra_db \
                 -e PGDATA=/var/lib/postgresql/data/pgdata \
                 -d \

@@ -1,44 +1,108 @@
-IPS: Itmo-2021/2 backdoor search based ParSat algorithms.
+IPS (itmo-parsat): backdoor search algorithms and parallel SAT solver.
 
-# Setup
-In order to start working with this project, run
+# Description
+
+This project contains efficient C++ implementations of rho-backdoor search algorithms
+alongside implementations of SAT instance reducing and solving. Generally, we've implemented:
+* Parallel and tree-based approximation and calculation of rho-values of sets of variables.
+* Rho-backdoor and Rho-backdoor-set based SAT instance splitting algorithms.
+* Parallel solver of subproblems, allowing usage of different (theoretially, any) native
+  solver implementations. Clause sharing is also available for use and is highly configurable.
+* Straightforward and recurring strategies of solving subtasks.
+* Performance bencmarks and unit tests for some subroutines.
+* Integrational tests infrastructure (`infra/`).
+
+# Current issues
+Please report any bugs or other issues either here or via email (dzhiblavi@gmail.com).
+Currently we are facing the following issues:
+* Correctness heavily relies on native implementations (MiniSat, painless). During
+  implementation of this project, they have proven themselves to be not exactly very safe.
+* Native solvers contain lots of dirty code. This issue has been fixed partially,
+  yet enabling warnings and errors or using sanitizers in some configurations using dirty code
+  will produce errors.
+
+# Releases and tags description, changelog
+* `v1.0`. First prestable and highly tested version of the library.
+* `v2.0` [TBD]. 
+  - Added SAT model output capability.
+  - Added rho-backdoor search utility.
+  - Added SAT certificate verification tool.
+  - Minor core and documentation refactoring.
+  - Monor bugs and dirty pieces of code fixed.
+
+# Working with this project
+
+For convenience and ease, the development and usage environment has been prepared via Docker
+image. The image itself is described in `scripts/docker/ips.Dockerfile`. Also, some of the
+source code is covered with documentation, which is available at the `doc/` directory in
+`HTML` format. Feel free to view it through your browser.
+
+## Setup
+
+At first, pull this project and change directory:
+```console
+$ git pull https://github.com/dzhiblavi/itmo-parsat.git
+$ cd itmo-parsat
+```
+
+Then, run the setup script that will create all necessary links and hooks
 ```console
 $ ./setup.sh
 ```
-This script will prepare all needed symlinks, including Git hooks and utility scripts.
 
-# Docker
-To automatically prepare all need environment (and reproduce the results), you can 
-use docker containers. After setup, run
+Now one is ready to build the docker image (you will need to do it only once).
+The `d` script can be used to do it easily.
 ```console
-$ ./d
+$ ./d -b
 ```
 
-This will show you the list of available options to manipulate docker containers and images.
-For example, to start a container and attach to it, simply run
+After the container is successfully built, one can run the container:
 ```console
-$ ./d -s -b -r -a
+$ ./d -r
 ```
 
-After attaching to the container, you can close the shell when needed, by calling `exit` command.
-This will not stop the container, you will be able to attach to it later:
+Now one can attach to the running container:
 ```console
 $ ./d -a
 ```
 
-# Running
-After the environment has been prepared (via docker or manually), one can start working with the IPS.
-The `ips` script is designed for it:
+## Building
+
+In order to build (or rebuild) the project, just use the `ips` utility script. The
+following command will build the project in `DEV_FAST` mode:
 ```console
-$ ./ips
+$ ./ips -g DEV_FAST -b
 ```
-will show you the list of options. For example, one can build, then run integrational test (with size 0, the
-minimal one, and test group `common`), via the following command:
+
+The partial list of available modes are:
+* `DEBUG`. The debugging build mode, enabling all information needed for gdb and using
+  low (or not at all) optimization level.
+* `DEV_FAST`. The 'default' build mode for development. Builds with logging, tracing but with
+  high (O3) optimization level. Also enables LTO.
+* `RELEASE`. The fastest available build mode: is slightly faster than `DEV_FAST`.
+
+Other options can be found in `CMakeLists.txt` or by running `./ips --help`.
+
+## Execution
+
+After the build, four binaries will be produced:
+* `cli/verify_bin`: SAT certificate verification tool.
+* `cli/rb_search_bin`: Rho-backdoor search tool.
+* `cli/solve_bin`: SAT solver itself.
+* `cli/infra_bin`: Integrational testing or benchmarking tool.
+
+Available usage options can be seen via running any of these binaries with `--help` option.
+
+# Example
+
+For easier dive-into, one can start from these simple use cases. Example configurations
+can be found in `resources/config` directory. Some SAT problem instances can be found
+in `resources/cnf` subdirectories. In order to run SAT solver on some instance, please
+try the following command:
 ```console
-$ ./ips -g DEV_FAST --build-infra -- --run-infra --size 0 --test-groups common --
+$ ./ips -c 16_wop_s1-16_sing_rbs_ea -i resources/cnf/<some-instance> -s
 ```
-where the `-g dev_fast` is build mode. Available build modes are listed in `.bazelrc`.
-Another example. run the solution of the default CNF task with `par_rbs` algorithm:
-```console
-$ ./ips -g DEV_FAST -b -v 6 -c par_rbs -s
-```
+
+The script will start the preconfigured execution, writing the following files:
+* `proof.txt`: the DIMACS SAT certificate in case of SAT result.
+

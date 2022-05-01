@@ -42,7 +42,7 @@ class EventCallbackHandle
   void detach();
 
  private:
-  std::mutex* _unlink_mutex;
+  std::atomic<std::mutex*> _unlink_mutex;
   event_callback_t _callback;
 };
 
@@ -86,9 +86,9 @@ class EventHandler {
   std::condition_variable _event_cv;
   std::queue<Event> _event_queue;
 
-  std::thread _event_thread;
   std::atomic_bool _shutdown{false};
   std::array<callback_entry_t, _EVENTS_COUNT> _cb_map;
+  std::thread _event_thread;
 };
 
 EventCallbackHandle attach(event_callback_t callback, Event event);

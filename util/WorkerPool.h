@@ -27,10 +27,10 @@ class WorkerPool {
       _threads.emplace_back([this, &parent_generator, thread] {
         util::random::Generator this_thread_generator(parent_generator);
         auto& worker = _workers[thread];
-        while (!_stop) {
+        while (!_stop.load(std::memory_order_relaxed)) {
           std::unique_lock<std::mutex> ul(_mutex);
-          _cv.wait(ul, [this] { return _stop || !_task_queue.empty(); });
-          if (IPS_UNLIKELY(_stop)) {
+          _cv.wait(ul, [this] { return _stop.load(std::memory_order_relaxed) || !_task_queue.empty(); });
+          if (IPS_UNLIKELY(_stop.load(std::memory_order_relaxed))) {
             break;
           }
           if (IPS_UNLIKELY(_task_queue.empty())) {
@@ -46,10 +46,7 @@ class WorkerPool {
   }
 
   ~WorkerPool() {
-    {
-      std::lock_guard<std::mutex> lg(_mutex);
-      _stop = true;
-    }
+    _stop.store(true, std::memory_order_relaxed);
     _cv.notify_all();
     for (auto& thread : _threads) {
       if (IPS_LIKELY(thread.joinable())) {
@@ -82,7 +79,7 @@ class WorkerPool {
   }
 
  private:
-  bool _stop = false;
+  std::atomic_bool _stop{false};
   std::mutex _mutex;
   std::condition_variable _cv;
   std::vector<std::thread> _threads;

@@ -5,7 +5,7 @@
 
 namespace util::opt {
 
-#ifdef IPS_SANITIZE
+#if defined(IPS_SANITIZE_COMMON) || defined(IPS_SANITIZE_THREAD)
 
 // We disable parallel execution when sanitizing,
 // because leak appears to be in tbb (most probably, false positive).
@@ -16,6 +16,8 @@ namespace util::opt {
 #define IPS_EXEC_POLICY std::execution::par_unseq
 
 #endif
+
+std::string get_options_description();
 
 }  // namespace util::opt
 

@@ -2,20 +2,21 @@
 
 namespace util {
 
-void TimerHandleType::abort() noexcept { aborted = true; }
+void TimerHandleType::abort() noexcept { aborted.store(true, std::memory_order_relaxed); }
 
 bool operator<(TimerEvent const& a, TimerEvent const& b) noexcept { return a.when < b.when; }
 
 Timer::Timer()
     : _thread([this] {
-      while (!_stop) {
+      while (!_stop.load(std::memory_order_relaxed)) {
         std::unique_lock<std::mutex> ul(_m);
-        _cv.wait_for(ul, _events.begin()->when - util::clock_t::now(), [this] { return _stop; });
-        if (IPS_UNLIKELY(_stop)) {
+        _cv.wait_for(
+            ul, _events.begin()->when - util::clock_t::now(), [this] { return _stop.load(std::memory_order_relaxed); });
+        if (IPS_UNLIKELY(_stop.load(std::memory_order_relaxed))) {
           break;
         }
         for (auto it = _events.begin(); it != _events.end() && it->when <= util::clock_t::now();) {
-          if (!it->handle->aborted && it->callback) {
+          if (!it->handle->aborted.load(std::memory_order_relaxed) && it->callback) {
             try {
               it->callback();
             } catch (...) {
@@ -28,10 +29,7 @@ Timer::Timer()
     }) {}
 
 Timer::~Timer() {
-  {
-    std::lock_guard<std::mutex> lg(_m);
-    _stop = true;
-  }
+  _stop.store(true, std::memory_order_relaxed);
   _cv.notify_one();
   if (_thread.joinable()) {
     _thread.join();

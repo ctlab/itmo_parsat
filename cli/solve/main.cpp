@@ -8,6 +8,7 @@
 #include "util/stream.h"
 #include "util/Logger.h"
 #include "util/Random.h"
+#include "util/options.h"
 #include "util/TimeTracer.h"
 #include "util/SigHandler.h"
 #include "core/solve/Solve.h"
@@ -71,6 +72,7 @@ void do_print_model(std::ostream& os, Mini::vec<Mini::lbool> const& model) {
 
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
+  IPS_INFO(util::opt::get_options_description());
   LOG(INFO) << std::fixed << std::setprecision(5);
   util::CliConfig cli_config = add_and_read_args(argc, argv);
   util::signal::SigHandler sig_handler;

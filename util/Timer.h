@@ -46,7 +46,7 @@ class Timer {
   }
 
  private:
-  bool _stop = false;
+  std::atomic_bool _stop{false};
   std::set<TimerEvent> _events;
   std::condition_variable _cv;
   std::mutex _m;

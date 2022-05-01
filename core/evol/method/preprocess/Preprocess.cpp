@@ -84,7 +84,7 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
 
   if (util::Logger::should_log(LogType::HEURISTIC_RESULT)) {
     std::stringstream ss;
-    for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) max_watched_count; ++iter) {
+    for (auto iter = stats.crbegin(); iter != stats.crbegin() + (int) _var_view.size(); ++iter) {
       ss << "{ prop: " << iter->first << ", var: " << iter->second << " }\n";
     }
     IPS_INFO("Heuristic init:\n" << ss.str());

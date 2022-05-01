@@ -24,7 +24,6 @@ TEST_BIN="$BUILD_DIR/core/tests/unit/unit_tests"
 BENCH_BIN="$BUILD_DIR/core/tests/bench/benchmark"
 
 SLV_CFG="naive.json"
-PSQL_HOST="51.250.12.107"
 
 NEXT_NATIVE=0
 BUILD_DEBUG=""
@@ -33,7 +32,6 @@ CMAKE_OPTS=""
 
 export GLOG_logtostderr=1
 export ASAN_OPTIONS=exitcode=1337
-export PGPASSWORD=ips
 
 function do_doc() {
     rm -rf doc/* || true
@@ -97,6 +95,10 @@ function do_unset_cmake() {
 
 function do_sanitize() {
     do_set_cmake "SANITIZE"
+}
+
+function do_t_sanitize() {
+    do_set_cmake "THREAD_SANITIZE"
 }
 
 function do_pgo_gen() {
@@ -226,8 +228,9 @@ add_option "--rm-opt" "      Set cmake option to OFF"    do_unset_cmake    1
 add_option "--format" "      Apply clang-format"         do_format         0
 add_option "--check-format" "Check format"               do_chk_format     0
 add_option "--verify" "      Run verification"           do_verify         0
-add_option "--verify-cert" " Verify SAT certificate"     do_verify_cert         0
-add_option "--sanitize" "    Enable sanitizer"           do_sanitize       0
+add_option "--verify-cert" " Verify SAT certificate"     do_verify_cert    0
+add_option "--sanitize" "    Enable common sanitizers"   do_sanitize       0
+add_option "--t-sanitize" "  Enable thread sanitizer"    do_t_sanitize     0
 add_option "--run-pgo" "     Run PGO warmup binary"      do_run_pgo        0
 add_option "--run-cmd" "     Specify run prefix"         do_run_cmd        1
 add_option "--run-infra" "   Run integration tests"      do_infra          0

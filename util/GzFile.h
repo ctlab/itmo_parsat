@@ -9,7 +9,7 @@
 namespace util {
 
 /**
- * @brief GZ file wrapper utility.
+ * @brief GZ read-only file wrapper utility.
  */
 class GzFile {
  public:

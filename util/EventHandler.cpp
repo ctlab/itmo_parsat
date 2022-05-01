@@ -10,10 +10,11 @@ EventCallbackHandle::EventCallbackHandle(std::mutex* unlink_mutex, event_callbac
 EventCallbackHandle::~EventCallbackHandle() { detach(); }
 
 void EventCallbackHandle::detach() {
-  if (_unlink_mutex) {
-    std::lock_guard<std::mutex> lg(*_unlink_mutex);
+  std::mutex* unlink_mutex = _unlink_mutex.load(std::memory_order_relaxed);
+  std::mutex* dummy_nullptr = unlink_mutex;
+  if (unlink_mutex && _unlink_mutex.compare_exchange_strong(dummy_nullptr, nullptr)) {
+    std::lock_guard<std::mutex> lg(*unlink_mutex);
     unlink();
-    _unlink_mutex = nullptr;
   }
 }
 
@@ -22,10 +23,7 @@ void EventCallbackHandle::detach() {
 EventHandler::EventHandler() : _event_thread([this] { _event_handling_thread(); }) {}
 
 EventHandler::~EventHandler() {
-  {
-    std::lock_guard<std::mutex> lg(_event_queue_mutex);
-    _shutdown = true;
-  }
+  _shutdown.store(true, std::memory_order_relaxed);
   _event_cv.notify_one();
   if (_event_thread.joinable()) {
     _event_thread.join();
@@ -54,8 +52,8 @@ EventCallbackHandle EventHandler::attach(event_callback_t event_callback, Event 
 void EventHandler::_event_handling_thread() {
   for (;;) {
     std::unique_lock<std::mutex> ul(_event_queue_mutex);
-    _event_cv.wait(ul, [this] { return !_event_queue.empty() || static_cast<bool>(_shutdown); });
-    if (IPS_UNLIKELY(_shutdown)) {
+    _event_cv.wait(ul, [this] { return !_event_queue.empty() || _shutdown.load(std::memory_order_relaxed); });
+    if (IPS_UNLIKELY(_shutdown.load(std::memory_order_relaxed))) {
       break;
     }
     if (IPS_UNLIKELY(_event_queue.empty())) {

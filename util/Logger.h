@@ -10,7 +10,7 @@
 namespace util {
 
 /**
- * @brief Logging utility class.
+ * @brief Logging utility class. Implemented using google logging library (glog).
  */
 class Logger {
  private:

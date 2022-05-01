@@ -100,12 +100,6 @@ void panic_(
     }
 
     print("\n");
-    std::array<void*, 64> stack_buffer;
-    auto size = ::backtrace(&stack_buffer[0], stack_buffer.size());
-    for (auto i = 0; i < size; ++i) {
-      print("%d: ", i);
-      ::backtrace_symbols_fd(&stack_buffer[i], 1, STDERR_FILENO);
-    }
   }
 
   if (abort && (pid > 0 || pid == -1)) {

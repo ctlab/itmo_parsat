@@ -8,6 +8,7 @@
 #include "util/stream.h"
 #include "util/Logger.h"
 #include "util/Random.h"
+#include "util/options.h"
 #include "util/TimeTracer.h"
 #include "util/SigHandler.h"
 #include "core/evol/algorithm/Algorithm.h"
@@ -86,6 +87,7 @@ int main(int argc, char** argv) {
   util::CliConfig cli_config = add_and_read_args(argc, argv);
   util::signal::SigHandler sig_handler;
   fLI::FLAGS_v = config.verbose;
+  IPS_INFO(util::opt::get_options_description());
   IPS_INFO("Input file: " << config.input_cnf);
   core::sat::Problem problem(config.input_cnf);
   core::sat::State result = problem.get_result();

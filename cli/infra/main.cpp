@@ -4,6 +4,7 @@
 #include <boost/program_options.hpp>
 
 #include "util/CliConfig.h"
+#include "util/options.h"
 #include "infra/fixture/LaunchFixture.h"
 
 util::CliConfig parse_args(int argc, char** argv, infra::fixture::TestingConfiguration& config) {
@@ -59,7 +60,8 @@ void init_googletest(char const* argv0, util::CliConfig const& config) {
 
 int main(int argc, char** argv) {
   ::google::InitGoogleLogging(argv[0]);
-  {  // Prepare LaunchFixture
+  IPS_INFO(util::opt::get_options_description());
+  {
     util::CliConfig config = parse_args(argc, argv, LaunchFixture::config);
     init_googletest(argv[0], config);
   }

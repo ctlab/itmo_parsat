@@ -8,9 +8,18 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(Boost_USE_STATIC_LIBS ON)
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".so")
 
+# Fetch current commit hash
+execute_process(
+  COMMAND git log -1 --format=%h
+  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+  OUTPUT_VARIABLE GIT_HASH
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
 # Options
 set(ARCH "native" CACHE STRING "Architecture to optimize for (-march[=native])")
-option(SANITIZE "Enable sanitizers" OFF)
+option(SANITIZE "Enable common sanitizers" OFF)
+option(THREAD_SANITIZE "Enable thread sanitizer (incompatible with SANITIZE)" OFF)
 option(GPROF "Enable -pg flag for gprof" OFF)
 option(LTO "Enable LTO" ON)
 option(PGO_GEN "Enable pgo generation" OFF)
@@ -21,6 +30,8 @@ message(STATUS "The architecture is " ${ARCH})
 # Global compiler options
 add_compile_options(-march=${ARCH})
 add_link_options(-march=${ARCH})
+add_compile_definitions(GIT_HASH=${GIT_HASH})
+add_compile_definitions(CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
 
 # Not enabling these options because major native solvers refactoring is required
 # add_compile_options(-Wall -Wextra -Wpedantic -Werror)
@@ -30,7 +41,7 @@ link_libraries(tbb)
 
 if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     message(STATUS "DEBUG build mode (Og). All checks are enabled, log and tracer are enabled.")
-    add_compile_options(-O0 -ggdb)
+    add_compile_options(-Og -ggdb)
     add_compile_definitions(DEBUG)
     set(LTO OFF)
 elseif (CMAKE_BUILD_TYPE STREQUAL "DEV_FAST")
@@ -50,12 +61,30 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 endif ()
 
 if (SANITIZE)
-    message(STATUS "Address sanitizer enabled.")
-    add_compile_definitions(IPS_SANITIZE)
+    message(STATUS "Common sanitizers enabled.")
+    add_compile_definitions(IPS_SANITIZE_COMMON)
+    add_compile_options(
+        -fsanitize=address
+        -fsanitize=leak
+        -fsanitize=undefined
+        -g -ggdb
+    )
     add_link_options(
-            -fsanitize=address
-            -fsanitize=leak
-            -fsanitize=undefined
+        -fsanitize=address
+        -fsanitize=leak
+        -fsanitize=undefined
+    )
+endif ()
+
+if (THREAD_SANITIZE)
+    message(STATUS "Thread sanitizer enabled.")
+    add_compile_definitions(IPS_SANITIZE_THREAD)
+    add_compile_options(
+        -fsanitize=thread 
+        -g -ggdb
+    )
+    add_link_options(
+        -fsanitize=thread
     )
 endif ()
 

@@ -7,7 +7,7 @@
 namespace util {
 
 /**
- * @brief Almost LRU cache implementaion.
+ * @brief 'Almost LRU' cache implementaion.
  * @tparam Key key type.
  * @tparam Value value type.
  */

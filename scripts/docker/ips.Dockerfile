@@ -40,4 +40,4 @@ RUN git clone https://github.com/google/benchmark.git && \
     cmake --build "build" --config Release && \
     cmake --build "build" --config Release --target install
 
-WORKDIR /home/${user}
+WORKDIR /home/${user}/itmo-parsat

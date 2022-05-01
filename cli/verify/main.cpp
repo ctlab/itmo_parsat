@@ -6,6 +6,7 @@
 #include "core/proto/solve_config.pb.h"
 #include "util/stream.h"
 #include "util/Logger.h"
+#include "util/options.h"
 #include "util/TimeTracer.h"
 #include "core/sat/solver/sequential/Solver.h"
 
@@ -33,6 +34,7 @@ util::CliConfig add_and_read_args(int argc, char** argv) {
 
 int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
+  IPS_INFO(util::opt::get_options_description());
   LOG(INFO) << std::fixed << std::setprecision(5);
   util::CliConfig cli_config = add_and_read_args(argc, argv);
 

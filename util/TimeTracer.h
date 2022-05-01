@@ -41,7 +41,7 @@ struct CodeBlock {
 }  // namespace _detail
 
 /**
- * @brief Tracing utility class.
+ * @brief Almost zero-cost time tracing methods.
  */
 class TimeTracer {
  public:

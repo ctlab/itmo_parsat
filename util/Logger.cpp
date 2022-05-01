@@ -18,17 +18,17 @@ void Logger::_set_logger_config(LoggingConfig const& config) noexcept {
 }
 
 bool Logger::_should_log(LogType log_type) noexcept {
-  /* This will not work absolutely correctly in terms of parallel algorithms,
-   * but it's ok */
+  // Not completely consistent, but OK for its purposes
   auto& entry = entries_[log_type];
   bool should;
-  if (fLI::FLAGS_v >= (int32_t) entry.config.verbose_level() && entry.cur_counter == 0) {
+  if (fLI::FLAGS_v >= (int32_t) entry.config.verbose_level() &&
+      entry.cur_counter.load(std::memory_order_relaxed) == 0) {
     should = true;
   } else {
     should = false;
   }
   if (++entry.cur_counter == entry.config.every_n()) {
-    entry.cur_counter = 0;
+    entry.cur_counter.store(0, std::memory_order_relaxed);
   }
   return should;
 }
