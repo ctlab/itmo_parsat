@@ -71,6 +71,8 @@ class TimeTracer {
     cblock_t solver_service_load_problem{};
     cblock_t solver_service_solve_undef{};
     cblock_t solver_service_solve_time_limit{};
+
+    event_t algorithm_cache_hit{};
   } events{};
 
   static void print_summary();

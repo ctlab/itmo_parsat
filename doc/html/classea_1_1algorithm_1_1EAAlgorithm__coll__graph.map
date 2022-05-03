@@ -1,5 +1,5 @@
 <map id="ea::algorithm::EAAlgorithm" name="ea::algorithm::EAAlgorithm">
 <area shape="rect" id="node1" title="Evolutionary (1+1) algorithm." alt="" coords="5,185,204,212"/>
 <area shape="rect" id="node2" href="$classea_1_1algorithm_1_1Algorithm.html" title="The base class of (E|G)A search algorithms." alt="" coords="14,109,195,136"/>
-<area shape="rect" id="node3" href="$structea_1_1algorithm_1_1AlgorithmStatistics.html" title=" " alt="" coords="14,5,195,47"/>
+<area shape="rect" id="node3" href="$structea_1_1algorithm_1_1AlgorithmStatistics.html" title="Statistics of rho&#45;backdoor search." alt="" coords="14,5,195,47"/>
 </map>

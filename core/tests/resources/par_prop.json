@@ -2,7 +2,7 @@
   "prop_type": "ParProp",
   "par_prop_config": {
     "max_threads": 16,
-    "tree_split_vars": 12,
-    "seq_split_samples": 16384
+    "tree_split_vars": 10,
+    "seq_split_samples": 8192
   }
 }

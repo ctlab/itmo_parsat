@@ -136,8 +136,9 @@ message InstanceConfig {
 /// Algorithm's configuration
 
 message BaseAlgorithmConfig {
-  LimitConfig limit_config = 1;
-  InstanceConfig instance_config = 2;
+  bool save_stats = 1;
+  LimitConfig limit_config = 2;
+  InstanceConfig instance_config = 3;
 }
 
 message EAAlgorithmConfig {

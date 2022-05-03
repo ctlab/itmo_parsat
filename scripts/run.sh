@@ -161,16 +161,19 @@ function do_solve() {
 }
 
 function do_search() {
-  $RUN_CMD $SEARCH_BIN \
-    --verbose 8 \
-    --seed 239 \
-    --log-config resources/config/log.json \
-    --algorithm-config core/tests/resources/ea_inf.json \
-    --stats-path stats.csv \
-    --rb-path backdoor.txt \
-    --heuristic-path heuristic.txt \
-    --input "$CNF_PATH" \
-    $@
+  if [[ -z "$@" ]]; then
+    $RUN_CMD $SEARCH_BIN \
+      --verbose "$VERBOSE" \
+      --seed 239 \
+      --log-config resources/config/log.json \
+      --algorithm-config core/tests/resources/ea_inf.json \
+      --stats-path stats.csv \
+      --rb-path backdoor.txt \
+      --heuristic-path heuristic.txt \
+      --input "$CNF_PATH"
+  else
+      $RUN_CMD $SEARCH_BIN $@
+  fi
 }
 
 function do_run_pgo() {

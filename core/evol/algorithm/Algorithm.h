@@ -18,10 +18,15 @@
 
 namespace ea::algorithm {
 
+/**
+ * @brief Statistics of rho-backdoor search.
+ * @note Statistics collection must be enabled in the configuration.
+ * @note Statistics collection results in performance degradation.
+ */
 struct AlgorithmStatistics {
   int64_t iterations = 0;
   int64_t duration_ms = 0;
-  std::vector<float> rho_value{};
+  std::vector<ea::instance::Fitness> fitness{};
 };
 
 /**
@@ -107,6 +112,7 @@ class Algorithm {
   ea::preprocess::RPreprocess _preprocess;
   core::sat::prop::RProp _prop;
   AlgorithmStatistics _stats{};
+  bool _save_stats = false;
 
  private:
   void _init_shared_data(InstanceConfig const& config);

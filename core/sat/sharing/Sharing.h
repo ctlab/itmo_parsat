@@ -5,16 +5,27 @@
 
 namespace core::sat::sharing {
 
+/**
+ * The direction in which the clause sharing will be performed.
+ */
 enum SharingDir {
   RIGHT,
   LEFT,
   BIDIR,
 };
 
+/**
+ * @brief The class responsible for clause sharing
+ */
 class Sharing {
  public:
   Sharing(int interval_us, int shr_lit);
 
+  /**
+   * @brief Start sharing between two Shareable instances in the specified direction.
+   * @param s1 the first Shareable
+   * @param s2 the second Shareable
+   */
   void share(Shareable& s1, Shareable& s2, SharingDir dir);
 
   /**
@@ -36,6 +47,7 @@ class Sharing {
 
   /**
    * @brief Automatically chooses share implementation.
+   * @param the SharingUnit in which the sharing will be performed
    */
   void share(SharingUnit const& u);
 

@@ -77,50 +77,51 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>core::sat::sharing {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">enum</span> SharingDir {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  RIGHT,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  LEFT,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  BIDIR,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">Sharing</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">Sharing</a>(<span class="keywordtype">int</span> interval_us, <span class="keywordtype">int</span> shr_lit);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">void</span> share(<a class="code" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a>&amp; s1, <a class="code" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a>&amp; s2, SharingDir dir);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#af2fb28cac51404645732045240333304">stop</a>() noexcept;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">void</span> share(SolverBlockList <span class="keyword">const</span>&amp; su);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">enum</span> SharingDir {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  RIGHT,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  LEFT,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  BIDIR,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;};</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">Sharing</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html">Sharing</a>(<span class="keywordtype">int</span> interval_us, <span class="keywordtype">int</span> shr_lit);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">share</a>(<a class="code" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a>&amp; s1, <a class="code" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a>&amp; s2, SharingDir dir);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> share(SolverList <span class="keyword">const</span>&amp; sl);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">void</span> share(SharingUnit <span class="keyword">const</span>&amp; u);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#af2fb28cac51404645732045240333304">stop</a>() noexcept;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">share</a>(SolverBlockList <span class="keyword">const</span>&amp; su);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> share(SharingUnit <span class="keyword">const</span>&amp; su1, SharingUnit <span class="keyword">const</span>&amp; su2, SharingDir dir);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">static</span> SolverList <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ae4a853145a6517b438141888da2618cc">get_all_solvers</a>(SharingUnit <span class="keyword">const</span>&amp; su);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> _share_right(SharingUnit <span class="keyword">const</span>&amp; su1, SharingUnit <span class="keyword">const</span>&amp; su2);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> _add_sharer(SolverList <span class="keyword">const</span>&amp; prod, SolverList <span class="keyword">const</span>&amp; cons);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">int</span> _interval_us;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">int</span> _shr_lit;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  std::vector&lt;std::unique_ptr&lt;painless::Sharer&gt;&gt; _sharers;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">share</a>(SolverList <span class="keyword">const</span>&amp; sl);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">share</a>(SharingUnit <span class="keyword">const</span>&amp; u);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">share</a>(SharingUnit <span class="keyword">const</span>&amp; su1, SharingUnit <span class="keyword">const</span>&amp; su2, SharingDir dir);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">static</span> SolverList <a class="code" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ae4a853145a6517b438141888da2618cc">get_all_solvers</a>(SharingUnit <span class="keyword">const</span>&amp; su);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}  <span class="comment">// namespace core::sat::sharing</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SHARING_H</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> _share_right(SharingUnit <span class="keyword">const</span>&amp; su1, SharingUnit <span class="keyword">const</span>&amp; su2);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordtype">void</span> _add_sharer(SolverList <span class="keyword">const</span>&amp; prod, SolverList <span class="keyword">const</span>&amp; cons);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">int</span> _interval_us;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">int</span> _shr_lit;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  std::vector&lt;std::unique_ptr&lt;painless::Sharer&gt;&gt; _sharers;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}  <span class="comment">// namespace core::sat::sharing</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif  // ITMO_PARSAT_SHARING_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Sharing_html"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Sharing.html">core::sat::sharing::Sharing</a></div><div class="ttdef"><b>Definition:</b> Sharing.h:14</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Sharing_html"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Sharing.html">core::sat::sharing::Sharing</a></div><div class="ttdoc">The class responsible for clause sharing.</div><div class="ttdef"><b>Definition:</b> Sharing.h:20</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Sharing_html_a50356e1c8774c5ebdfa416275118153b"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">core::sat::sharing::Sharing::share</a></div><div class="ttdeci">void share(Shareable &amp;s1, Shareable &amp;s2, SharingDir dir)</div><div class="ttdoc">Start sharing between two Shareable instances in the specified direction.</div><div class="ttdef"><b>Definition:</b> Sharing.cpp:9</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Sharing_html_af2fb28cac51404645732045240333304"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#af2fb28cac51404645732045240333304">core::sat::sharing::Sharing::stop</a></div><div class="ttdeci">void stop() noexcept</div><div class="ttdoc">Completely stops sharing and resets.</div><div class="ttdef"><b>Definition:</b> Sharing.cpp:7</div></div>
 <div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Sharing_html_ae4a853145a6517b438141888da2618cc"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ae4a853145a6517b438141888da2618cc">core::sat::sharing::Sharing::get_all_solvers</a></div><div class="ttdeci">static SolverList get_all_solvers(SharingUnit const &amp;su)</div><div class="ttdoc">Retrieves all solvers from sharing unit.</div><div class="ttdef"><b>Definition:</b> Sharing.cpp:66</div></div>
-<div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Shareable_html"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Shareable.html">core::sat::sharing::Shareable</a></div><div class="ttdef"><b>Definition:</b> Shareable.h:31</div></div>
+<div class="ttc" id="aclasscore_1_1sat_1_1sharing_1_1Shareable_html"><div class="ttname"><a href="classcore_1_1sat_1_1sharing_1_1Shareable.html">core::sat::sharing::Shareable</a></div><div class="ttdoc">The interface of methods that are able to share clauses.</div><div class="ttdef"><b>Definition:</b> Shareable.h:48</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

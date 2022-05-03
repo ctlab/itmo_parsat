@@ -1,5 +1,5 @@
 <map id="core::sat::solver::PainlessSolver" name="core::sat::solver::PainlessSolver">
 <area shape="rect" id="node1" title="Painless&#45;based Solver implementation." alt="" coords="5,184,140,225"/>
 <area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="5,95,140,136"/>
-<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="5,5,140,47"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses." alt="" coords="5,5,140,47"/>
 </map>

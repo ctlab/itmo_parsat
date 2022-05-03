@@ -36,18 +36,19 @@ void TimeTracer::print_summary() {
        << std::setw(32) << "Name" << std::setw(10) << "Count" << std::setw(10)  //
        << "Total (s)" << std::setw(10) << "Avg (s)" << std::setw(12) << "Bandwidth";
 
-#define PRINT_BLOCK(TYPE)                                                                                     \
-  do {                                                                                                        \
-    int64_t count = events.TYPE.count.load(std::memory_order_relaxed);                                        \
-    if (count == 0) {                                                                                         \
-      break;                                                                                                  \
-    }                                                                                                         \
-    float time_s = static_cast<float>(events.TYPE.time.load(std::memory_order_relaxed)) / 1000000.f;          \
-    float bandwidth = static_cast<float>(count) / time_s;                                                     \
-    float avg = time_s / count;                                                                               \
-    info << "\n"                                                                                              \
-         << std::setw(32) << #TYPE << std::setw(10) << count << std::setw(10) << time << std::setw(10) << avg \
-         << std::setw(12) << (bandwidth > 100000 ? -1 : bandwidth);                                           \
+#define PRINT_BLOCK(TYPE)                                                                                       \
+  do {                                                                                                          \
+    int64_t count = events.TYPE.count.load(std::memory_order_relaxed);                                          \
+    if (count == 0) {                                                                                           \
+      break;                                                                                                    \
+    }                                                                                                           \
+    uint64_t time_ms = events.TYPE.time.load(std::memory_order_relaxed);                                        \
+    float time_s = static_cast<float>(time_ms) / 1000000.f;                                                     \
+    float bandwidth = static_cast<float>(count) / time_s;                                                       \
+    float avg = time_s / count;                                                                                 \
+    info << "\n"                                                                                                \
+         << std::setw(32) << #TYPE << std::setw(10) << count << std::setw(10) << time_s << std::setw(10) << avg \
+         << std::setw(12) << (bandwidth > 100000 ? -1 : bandwidth);                                             \
   } while (false)
 
 #define PRINT_EVENT(TYPE)                                                                                      \
@@ -76,6 +77,7 @@ void TimeTracer::print_summary() {
   PRINT_BLOCK(solver_service_load_problem);
   PRINT_BLOCK(solver_service_solve_undef);
   PRINT_BLOCK(solver_service_solve_time_limit);
+  PRINT_EVENT(algorithm_cache_hit);
 
   IPS_INFO(info.str() << quant.str());
 }  // namespace util
@@ -103,6 +105,7 @@ void TimeTracer::_clean() noexcept {
   CLEAR_BLOCK(solver_service_load_problem);
   CLEAR_BLOCK(solver_service_solve_undef);
   CLEAR_BLOCK(solver_service_solve_time_limit);
+  CLEAR_EVENT(algorithm_cache_hit);
 }
 
 void TimeTracer::clean() { instance()._clean(); }

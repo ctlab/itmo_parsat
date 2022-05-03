@@ -74,14 +74,19 @@ $(function() {
 <div class="title">core::sat::sharing::Sharing Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The class responsible for clause sharing.  
+ <a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Sharing_8h_source.html">Sharing.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a374f309fdf21b8db818d55c52ec0538a"><td class="memItemLeft" align="right" valign="top"><a id="a374f309fdf21b8db818d55c52ec0538a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Sharing</b> (int interval_us, int shr_lit)</td></tr>
 <tr class="separator:a374f309fdf21b8db818d55c52ec0538a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50356e1c8774c5ebdfa416275118153b"><td class="memItemLeft" align="right" valign="top"><a id="a50356e1c8774c5ebdfa416275118153b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>share</b> (<a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a> &amp;s1, <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a> &amp;s2, SharingDir dir)</td></tr>
+<tr class="memitem:a50356e1c8774c5ebdfa416275118153b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">share</a> (<a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a> &amp;s1, <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a> &amp;s2, SharingDir dir)</td></tr>
+<tr class="memdesc:a50356e1c8774c5ebdfa416275118153b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start sharing between two <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses.">Shareable</a> instances in the specified direction.  <a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a50356e1c8774c5ebdfa416275118153b">More...</a><br /></td></tr>
 <tr class="separator:a50356e1c8774c5ebdfa416275118153b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2fb28cac51404645732045240333304"><td class="memItemLeft" align="right" valign="top"><a id="af2fb28cac51404645732045240333304"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#af2fb28cac51404645732045240333304">stop</a> () noexcept</td></tr>
@@ -93,9 +98,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aa464beaeeea82423f3d31787576c0cc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#aa464beaeeea82423f3d31787576c0cc2">share</a> (SolverList const &amp;sl)</td></tr>
 <tr class="memdesc:aa464beaeeea82423f3d31787576c0cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts sharing process inside a set of sharing solvers.  <a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#aa464beaeeea82423f3d31787576c0cc2">More...</a><br /></td></tr>
 <tr class="separator:aa464beaeeea82423f3d31787576c0cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08dc464debdaf09a222907c97532a069"><td class="memItemLeft" align="right" valign="top"><a id="a08dc464debdaf09a222907c97532a069"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a08dc464debdaf09a222907c97532a069">share</a> (SharingUnit const &amp;u)</td></tr>
-<tr class="memdesc:a08dc464debdaf09a222907c97532a069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Automatically chooses share implementation. <br /></td></tr>
+<tr class="memitem:a08dc464debdaf09a222907c97532a069"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a08dc464debdaf09a222907c97532a069">share</a> (SharingUnit const &amp;u)</td></tr>
+<tr class="memdesc:a08dc464debdaf09a222907c97532a069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Automatically chooses share implementation.  <a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#a08dc464debdaf09a222907c97532a069">More...</a><br /></td></tr>
 <tr class="separator:a08dc464debdaf09a222907c97532a069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5e75c637e80925f65fa0e302d59ac40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ad5e75c637e80925f65fa0e302d59ac40">share</a> (SharingUnit const &amp;su1, SharingUnit const &amp;su2, SharingDir dir)</td></tr>
 <tr class="memdesc:ad5e75c637e80925f65fa0e302d59ac40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts sharing between two sets of solvers.  <a href="classcore_1_1sat_1_1sharing_1_1Sharing.html#ad5e75c637e80925f65fa0e302d59ac40">More...</a><br /></td></tr>
@@ -108,9 +112,54 @@ static SolverList&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <tr class="memdesc:ae4a853145a6517b438141888da2618cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all solvers from sharing unit. <br /></td></tr>
 <tr class="separator:ae4a853145a6517b438141888da2618cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The class responsible for clause sharing. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a50356e1c8774c5ebdfa416275118153b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50356e1c8774c5ebdfa416275118153b">&#9670;&nbsp;</a></span>share() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::sat::sharing::Sharing::share </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a> &amp;&#160;</td>
+          <td class="paramname"><em>s1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html">Shareable</a> &amp;&#160;</td>
+          <td class="paramname"><em>s2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SharingDir&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start sharing between two <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses.">Shareable</a> instances in the specified direction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s1</td><td>the first <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses.">Shareable</a> </td></tr>
+    <tr><td class="paramname">s2</td><td>the second <a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses.">Shareable</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad5e75c637e80925f65fa0e302d59ac40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5e75c637e80925f65fa0e302d59ac40">&#9670;&nbsp;</a></span>share() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5e75c637e80925f65fa0e302d59ac40">&#9670;&nbsp;</a></span>share() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,8 +202,34 @@ static SolverList&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
+<a id="a08dc464debdaf09a222907c97532a069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08dc464debdaf09a222907c97532a069">&#9670;&nbsp;</a></span>share() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::sat::sharing::Sharing::share </td>
+          <td>(</td>
+          <td class="paramtype">SharingUnit const &amp;&#160;</td>
+          <td class="paramname"><em>u</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Automatically chooses share implementation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">the</td><td>SharingUnit in which the sharing will be performed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a9d4b20e22ce71c3c5fd9696f5b545ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d4b20e22ce71c3c5fd9696f5b545ef8">&#9670;&nbsp;</a></span>share() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d4b20e22ce71c3c5fd9696f5b545ef8">&#9670;&nbsp;</a></span>share() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +255,7 @@ static SolverList&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </div>
 </div>
 <a id="aa464beaeeea82423f3d31787576c0cc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa464beaeeea82423f3d31787576c0cc2">&#9670;&nbsp;</a></span>share() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa464beaeeea82423f3d31787576c0cc2">&#9670;&nbsp;</a></span>share() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

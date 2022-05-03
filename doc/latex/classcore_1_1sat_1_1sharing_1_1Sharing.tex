@@ -1,14 +1,22 @@
 \hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing}{}\doxysection{core\+::sat\+::sharing\+::Sharing Class Reference}
 \label{classcore_1_1sat_1_1sharing_1_1Sharing}\index{core::sat::sharing::Sharing@{core::sat::sharing::Sharing}}
+
+
+The class responsible for clause sharing.  
+
+
+
+
+{\ttfamily \#include $<$Sharing.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_a374f309fdf21b8db818d55c52ec0538a}\label{classcore_1_1sat_1_1sharing_1_1Sharing_a374f309fdf21b8db818d55c52ec0538a}} 
 {\bfseries Sharing} (int interval\+\_\+us, int shr\+\_\+lit)
 \item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_a50356e1c8774c5ebdfa416275118153b}\label{classcore_1_1sat_1_1sharing_1_1Sharing_a50356e1c8774c5ebdfa416275118153b}} 
-void {\bfseries share} (\mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \&s1, \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \&s2, Sharing\+Dir dir)
-\item 
+void \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_a50356e1c8774c5ebdfa416275118153b}{share}} (\mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \&s1, \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \&s2, Sharing\+Dir dir)
+\begin{DoxyCompactList}\small\item\em Start sharing between two \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} instances in the specified direction. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_af2fb28cac51404645732045240333304}\label{classcore_1_1sat_1_1sharing_1_1Sharing_af2fb28cac51404645732045240333304}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_af2fb28cac51404645732045240333304}{stop}} () noexcept
 \begin{DoxyCompactList}\small\item\em Completely stops sharing and resets. \end{DoxyCompactList}\item 
@@ -16,7 +24,6 @@ void \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_a9d4b20e22ce71c3c5f
 \begin{DoxyCompactList}\small\item\em Starts sharing process inside a set of sharing blocks. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_aa464beaeeea82423f3d31787576c0cc2}{share}} (Solver\+List const \&sl)
 \begin{DoxyCompactList}\small\item\em Starts sharing process inside a set of sharing solvers. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_a08dc464debdaf09a222907c97532a069}\label{classcore_1_1sat_1_1sharing_1_1Sharing_a08dc464debdaf09a222907c97532a069}} 
 void \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_a08dc464debdaf09a222907c97532a069}{share}} (Sharing\+Unit const \&u)
 \begin{DoxyCompactList}\small\item\em Automatically chooses share implementation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_ad5e75c637e80925f65fa0e302d59ac40}{share}} (Sharing\+Unit const \&su1, Sharing\+Unit const \&su2, Sharing\+Dir dir)
@@ -29,11 +36,31 @@ static Solver\+List \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Sharing_ae4a
 \begin{DoxyCompactList}\small\item\em Retrieves all solvers from sharing unit. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+The class responsible for clause sharing. 
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_a50356e1c8774c5ebdfa416275118153b}\label{classcore_1_1sat_1_1sharing_1_1Sharing_a50356e1c8774c5ebdfa416275118153b}} 
+\index{core::sat::sharing::Sharing@{core::sat::sharing::Sharing}!share@{share}}
+\index{share@{share}!core::sat::sharing::Sharing@{core::sat::sharing::Sharing}}
+\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily void core\+::sat\+::sharing\+::\+Sharing\+::share (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \&}]{s1,  }\item[{\mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \&}]{s2,  }\item[{Sharing\+Dir}]{dir }\end{DoxyParamCaption})}
+
+
+
+Start sharing between two \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} instances in the specified direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & the first \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \\
+\hline
+{\em s2} & the second \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable}{Shareable}} \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_ad5e75c637e80925f65fa0e302d59ac40}\label{classcore_1_1sat_1_1sharing_1_1Sharing_ad5e75c637e80925f65fa0e302d59ac40}} 
 \index{core::sat::sharing::Sharing@{core::sat::sharing::Sharing}!share@{share}}
 \index{share@{share}!core::sat::sharing::Sharing@{core::sat::sharing::Sharing}}
-\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
 {\footnotesize\ttfamily void core\+::sat\+::sharing\+::\+Sharing\+::share (\begin{DoxyParamCaption}\item[{Sharing\+Unit const \&}]{su1,  }\item[{Sharing\+Unit const \&}]{su2,  }\item[{Sharing\+Dir}]{dir }\end{DoxyParamCaption})}
 
 
@@ -49,10 +76,25 @@ Starts sharing between two sets of solvers.
 {\em dir} & the direction specification \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_a08dc464debdaf09a222907c97532a069}\label{classcore_1_1sat_1_1sharing_1_1Sharing_a08dc464debdaf09a222907c97532a069}} 
+\index{core::sat::sharing::Sharing@{core::sat::sharing::Sharing}!share@{share}}
+\index{share@{share}!core::sat::sharing::Sharing@{core::sat::sharing::Sharing}}
+\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily void core\+::sat\+::sharing\+::\+Sharing\+::share (\begin{DoxyParamCaption}\item[{Sharing\+Unit const \&}]{u }\end{DoxyParamCaption})}
+
+
+
+Automatically chooses share implementation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & Sharing\+Unit in which the sharing will be performed \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_a9d4b20e22ce71c3c5fd9696f5b545ef8}\label{classcore_1_1sat_1_1sharing_1_1Sharing_a9d4b20e22ce71c3c5fd9696f5b545ef8}} 
 \index{core::sat::sharing::Sharing@{core::sat::sharing::Sharing}!share@{share}}
 \index{share@{share}!core::sat::sharing::Sharing@{core::sat::sharing::Sharing}}
-\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily void core\+::sat\+::sharing\+::\+Sharing\+::share (\begin{DoxyParamCaption}\item[{Solver\+Block\+List const \&}]{su }\end{DoxyParamCaption})}
 
 
@@ -67,7 +109,7 @@ Starts sharing process inside a set of sharing blocks.
 \mbox{\Hypertarget{classcore_1_1sat_1_1sharing_1_1Sharing_aa464beaeeea82423f3d31787576c0cc2}\label{classcore_1_1sat_1_1sharing_1_1Sharing_aa464beaeeea82423f3d31787576c0cc2}} 
 \index{core::sat::sharing::Sharing@{core::sat::sharing::Sharing}!share@{share}}
 \index{share@{share}!core::sat::sharing::Sharing@{core::sat::sharing::Sharing}}
-\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{share()}{share()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily void core\+::sat\+::sharing\+::\+Sharing\+::share (\begin{DoxyParamCaption}\item[{Solver\+List const \&}]{sl }\end{DoxyParamCaption})}
 
 

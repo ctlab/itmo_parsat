@@ -38,6 +38,8 @@ Fitness const& Instance::fitness() {
       ++_inaccurate_points();
     }
     _cached = true;
+  } else {
+    IPS_EVENT(algorithm_cache_hit);
   }
   return fit_;
 }

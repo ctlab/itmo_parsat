@@ -1,5 +1,5 @@
 <map id="core::sat::solver::SequentialSolverService" name="core::sat::solver::SequentialSolverService">
 <area shape="rect" id="node1" title="The solver service managing multiple sequential solvers." alt="" coords="5,184,185,225"/>
 <area shape="rect" id="node2" href="$classcore_1_1sat_1_1solver_1_1SolverService.html" title="SAT solver service used to asynchronously execute sequential solvers with specified time limits." alt="" coords="28,95,163,136"/>
-<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="28,5,163,47"/>
+<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses." alt="" coords="28,5,163,47"/>
 </map>
