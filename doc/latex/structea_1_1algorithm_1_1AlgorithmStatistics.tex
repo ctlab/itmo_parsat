@@ -1,5 +1,14 @@
 \hypertarget{structea_1_1algorithm_1_1AlgorithmStatistics}{}\doxysection{ea\+::algorithm\+::Algorithm\+Statistics Struct Reference}
 \label{structea_1_1algorithm_1_1AlgorithmStatistics}\index{ea::algorithm::AlgorithmStatistics@{ea::algorithm::AlgorithmStatistics}}
+
+
+Statistics of rho-\/backdoor search.  
+
+
+
+
+{\ttfamily \#include $<$Algorithm.\+h$>$}
+
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -9,9 +18,19 @@ int64\+\_\+t {\bfseries iterations} = 0
 \mbox{\Hypertarget{structea_1_1algorithm_1_1AlgorithmStatistics_a6c63a7263aca5e67bbe7ef603f5b97da}\label{structea_1_1algorithm_1_1AlgorithmStatistics_a6c63a7263aca5e67bbe7ef603f5b97da}} 
 int64\+\_\+t {\bfseries duration\+\_\+ms} = 0
 \item 
-\mbox{\Hypertarget{structea_1_1algorithm_1_1AlgorithmStatistics_a677971e7873f50f2e2b3b7e773fd4b6e}\label{structea_1_1algorithm_1_1AlgorithmStatistics_a677971e7873f50f2e2b3b7e773fd4b6e}} 
-std\+::vector$<$ float $>$ {\bfseries rho\+\_\+value} \{\}
+\mbox{\Hypertarget{structea_1_1algorithm_1_1AlgorithmStatistics_a662c693a80d77aa25ce4cfbe9acefc59}\label{structea_1_1algorithm_1_1AlgorithmStatistics_a662c693a80d77aa25ce4cfbe9acefc59}} 
+std\+::vector$<$ \mbox{\hyperlink{structea_1_1instance_1_1Fitness}{ea\+::instance\+::\+Fitness}} $>$ {\bfseries fitness} \{\}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Statistics of rho-\/backdoor search. 
+
+\begin{DoxyNote}{Note}
+Statistics collection must be enabled in the configuration. 
+
+Statistics collection results in performance degradation. 
+\end{DoxyNote}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

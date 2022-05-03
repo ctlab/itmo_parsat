@@ -22,8 +22,9 @@ Currently we are facing the following issues:
   will produce errors.
 
 # Releases and tags description, changelog
-* `v1.0`. First prestable and highly tested version of the library.
-* `v2.0` [TBD]. 
+* `v1.0`
+  - First prestable and highly tested version of the library.
+* `v2.0` [TBD]
   - Added SAT model output capability.
   - Added rho-backdoor search utility.
   - Added SAT certificate verification tool.
@@ -39,9 +40,9 @@ source code is covered with documentation, which is available at the `doc/` dire
 
 ## Setup
 
-At first, pull this project and change directory:
+At first, clone this project and change directory:
 ```console
-$ git pull https://github.com/dzhiblavi/itmo-parsat.git
+$ git clone https://github.com/dzhiblavi/itmo-parsat.git
 $ cd itmo-parsat
 ```
 

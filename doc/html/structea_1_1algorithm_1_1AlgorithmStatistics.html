@@ -73,6 +73,11 @@ $(function() {
 <div class="title">ea::algorithm::AlgorithmStatistics Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Statistics of rho-backdoor search.  
+ <a href="structea_1_1algorithm_1_1AlgorithmStatistics.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Algorithm_8h_source.html">Algorithm.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -82,11 +87,16 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>iterations</b> = 0
 <tr class="memitem:a6c63a7263aca5e67bbe7ef603f5b97da"><td class="memItemLeft" align="right" valign="top"><a id="a6c63a7263aca5e67bbe7ef603f5b97da"></a>
 int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>duration_ms</b> = 0</td></tr>
 <tr class="separator:a6c63a7263aca5e67bbe7ef603f5b97da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a677971e7873f50f2e2b3b7e773fd4b6e"><td class="memItemLeft" align="right" valign="top"><a id="a677971e7873f50f2e2b3b7e773fd4b6e"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>rho_value</b> {}</td></tr>
-<tr class="separator:a677971e7873f50f2e2b3b7e773fd4b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a662c693a80d77aa25ce4cfbe9acefc59"><td class="memItemLeft" align="right" valign="top"><a id="a662c693a80d77aa25ce4cfbe9acefc59"></a>
+std::vector&lt; <a class="el" href="structea_1_1instance_1_1Fitness.html">ea::instance::Fitness</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fitness</b> {}</td></tr>
+<tr class="separator:a662c693a80d77aa25ce4cfbe9acefc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Statistics of rho-backdoor search. </p>
+<dl class="section note"><dt>Note</dt><dd>Statistics collection must be enabled in the configuration. </dd>
+<dd>
+Statistics collection results in performance degradation. </dd></dl>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>core/evol/algorithm/<a class="el" href="Algorithm_8h_source.html">Algorithm.h</a></li>
 </ul>
 </div><!-- contents -->

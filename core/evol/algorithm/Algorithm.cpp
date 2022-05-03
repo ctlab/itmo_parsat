@@ -24,7 +24,8 @@ void Algorithm::_add_instance() {
 Algorithm::Algorithm(BaseAlgorithmConfig const& config, core::sat::prop::RProp prop)
     : _instance_config(config.instance_config())
     , _prop(std::move(prop))
-    , _limit(limit::LimitRegistry::resolve(config.limit_config())) {}
+    , _limit(limit::LimitRegistry::resolve(config.limit_config()))
+    , _save_stats(config.save_stats()) {}
 
 void Algorithm::prepare(preprocess::RPreprocess const& preprocess) {
   _preprocess = preprocess;
@@ -46,7 +47,9 @@ void Algorithm::process() {
                                   << "[Points " << inaccurate_points() << "]"
                                   << " Best instance: " << best_instance);
     ++_stats.iterations;
-    _stats.rho_value.push_back(best_instance.fitness().rho);
+    if (_save_stats) {
+      _stats.fitness.push_back(best_instance.fitness());
+    }
   } while (!is_interrupted() && _limit->proceed(*this));
   auto end_timestamp = util::clock_t::now();
   _stats.duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_timestamp - start_timestamp).count();

@@ -73,12 +73,17 @@ $(function() {
 <div class="title">core::sat::sharing::Shareable Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The interface of methods that are able to share clauses.  
+ <a href="classcore_1_1sat_1_1sharing_1_1Shareable.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Shareable_8h_source.html">Shareable.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for core::sat::sharing::Shareable:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1sat_1_1sharing_1_1Shareable__inherit__graph.png" border="0" usemap="#core_1_1sat_1_1sharing_1_1Shareable_inherit__map" alt="Inheritance graph"/></div>
 <map name="core_1_1sat_1_1sharing_1_1Shareable_inherit__map" id="core_1_1sat_1_1sharing_1_1Shareable_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,201,140,243"/>
+<area shape="rect" title="The interface of methods that are able to share clauses." alt="" coords="5,201,140,243"/>
 <area shape="rect" href="classcore_1_1sat_1_1solver_1_1Solver.html" title="SAT Solver interface." alt="" coords="189,104,324,145"/>
 <area shape="rect" href="classcore_1_1sat_1_1solver_1_1SolverService.html" title="SAT solver service used to asynchronously execute sequential solvers with specified time limits." alt="" coords="189,201,324,243"/>
 <area shape="rect" href="classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="188,293,325,319"/>
@@ -99,7 +104,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8f3436dd218bb22aabe2249150dd18ee"><td class="memItemLeft" align="right" valign="top">virtual SharingUnit&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1sat_1_1sharing_1_1Shareable.html#a8f3436dd218bb22aabe2249150dd18ee">sharing_unit</a> () noexcept=0</td></tr>
 <tr class="separator:a8f3436dd218bb22aabe2249150dd18ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The interface of methods that are able to share clauses. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8f3436dd218bb22aabe2249150dd18ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f3436dd218bb22aabe2249150dd18ee">&#9670;&nbsp;</a></span>sharing_unit()</h2>
 
@@ -122,7 +129,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the sharing unit to share with </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the SharingUnit to share clauses with </dd></dl>
 
 <p>Implemented in <a class="el" href="classcore_1_1sat_1_1solver_1_1SequentialSolverService.html#a62da6518f2228c22a3ee7086802d3aca">core::sat::solver::SequentialSolverService</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1PainlessSolver.html#addc8914617902b19bfee2a05bd21764a">core::sat::solver::PainlessSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1SimpSolver.html#a864758629e0333dbf3352bce3e176d8b">core::sat::solver::SimpSolver</a>, <a class="el" href="classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver.html#a7649cf43adea5216d9a068456dc4e83b">core::sat::solver::MapleCOMSPSSolver</a>, <a class="el" href="classcore_1_1solve_1_1ReduceSolve.html#a89c7ab02d9a7e93731d1cdb47884fcfb">core::solve::ReduceSolve</a>, <a class="el" href="classcore_1_1solve_1_1WithPainlessSolve.html#aa39d918f06aeecd7c4c1f9cbb194fcc1">core::solve::WithPainlessSolve</a>, and <a class="el" href="classcore_1_1solve_1_1NaiveSolve.html#a7f4c1af028e8d32e5514d42da20ead48">core::solve::NaiveSolve</a>.</p>
 

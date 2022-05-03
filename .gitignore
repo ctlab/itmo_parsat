@@ -15,3 +15,6 @@ resources/cnf/exp_u700s_30/*.cnf
 **/*.csv
 compile_commands.json
 test_sat_cert.sh
+heuristic.txt
+backdoor.txt
+proof.txt

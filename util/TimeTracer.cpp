@@ -76,6 +76,7 @@ void TimeTracer::print_summary() {
   PRINT_BLOCK(solver_service_load_problem);
   PRINT_BLOCK(solver_service_solve_undef);
   PRINT_BLOCK(solver_service_solve_time_limit);
+  PRINT_EVENT(algorithm_cache_hit);
 
   IPS_INFO(info.str() << quant.str());
 }  // namespace util
@@ -103,6 +104,7 @@ void TimeTracer::_clean() noexcept {
   CLEAR_BLOCK(solver_service_load_problem);
   CLEAR_BLOCK(solver_service_solve_undef);
   CLEAR_BLOCK(solver_service_solve_time_limit);
+  CLEAR_EVENT(algorithm_cache_hit);
 }
 
 void TimeTracer::clean() { instance()._clean(); }

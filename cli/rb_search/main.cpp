@@ -67,17 +67,17 @@ std::pair<AlgorithmConfig, LoggingConfig> read_json_configs(
 }
 
 template <typename T>
-void dump_vec(std::ofstream& ofs, std::vector<T> const& vec) {
+void dump_var_vec(std::ofstream& ofs, std::vector<T> const& vec) {
   for (int v : vec) {
-    ofs << v << ' ';
+    ofs << v + 1 << ' ';
   }
   ofs << '\n';
 }
 
-template <typename T>
-void dump_csv(std::ofstream& ofs, std::vector<T> const& vec) {
+void dump_alg_stats(std::ofstream& ofs, std::vector<ea::instance::Fitness> const& vec) {
+  ofs << "step,size,rho,fit\n" << std::setprecision(3);
   for (size_t i = 0; i < vec.size(); ++i) {
-    ofs << i << ',' << vec[i] << '\n';
+    ofs << i << ',' << vec[i].size << ',' << vec[i].rho << ',' << static_cast<double>(vec[i]) << '\n';
   }
 }
 
@@ -105,9 +105,9 @@ int main(int argc, char** argv) {
       IPS_INFO("Preprocessing returned false, aborting.");
     } else {
       if (!config.heuristic_path.empty()) {
-        IPS_INFO("Saving heuristic results");
+        IPS_INFO("Dumping heuristic results to " << config.heuristic_path);
         std::ofstream ofs(config.heuristic_path);
-        dump_vec(ofs, problem.remap_variables(preprocess->var_view().get_map()));
+        dump_var_vec(ofs, problem.remap_variables(preprocess->var_view().get_map()));
       }
 
       ea::algorithm::RAlgorithm algorithm(ea::algorithm::AlgorithmRegistry::resolve(alg_config, rprop));
@@ -128,12 +128,13 @@ int main(int argc, char** argv) {
         auto const& stats = algorithm->get_statistics();
         std::ofstream ofs(config.stats_path);
         ofs << "Duration: " << std::setprecision(4) << static_cast<float>(stats.duration_ms) / 1000.f << '\n';
-        dump_csv(ofs, stats.rho_value);
+        dump_alg_stats(ofs, stats.fitness);
       }
       if (!config.rb_path.empty()) {
         IPS_INFO("Dumping backdoor to " << config.rb_path);
         std::ofstream ofs(config.rb_path);
-        dump_vec(ofs, problem.remap_variables(algorithm->get_best().get_vars().map_to_vars(preprocess->var_view())));
+        dump_var_vec(
+            ofs, problem.remap_variables(algorithm->get_best().get_vars().map_to_vars(preprocess->var_view())));
       }
     }
   } else {

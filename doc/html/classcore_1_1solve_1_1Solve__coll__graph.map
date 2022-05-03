@@ -1,4 +1,4 @@
 <map id="core::solve::Solve" name="core::solve::Solve">
 <area shape="rect" id="node1" title="The core class that performs all actions related to solving SAT." alt="" coords="5,95,143,121"/>
-<area shape="rect" id="node2" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title=" " alt="" coords="7,5,141,47"/>
+<area shape="rect" id="node2" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses." alt="" coords="7,5,141,47"/>
 </map>
