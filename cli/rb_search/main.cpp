@@ -111,6 +111,7 @@ int main(int argc, char** argv) {
       }
 
       ea::algorithm::RAlgorithm algorithm(ea::algorithm::AlgorithmRegistry::resolve(alg_config, rprop));
+      algorithm->set_problem(problem);
       IPS_BLOCK(algorithm_prepare, algorithm->prepare(preprocess));
       util::event::EventCallbackHandle solve_interrupt_handler = util::event::attach(
           [&] {

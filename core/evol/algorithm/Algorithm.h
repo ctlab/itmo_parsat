@@ -51,6 +51,9 @@ class Algorithm {
    */
   void process();
 
+  void set_problem(core::sat::Problem& problem);
+  core::sat::Problem* _problem = nullptr;
+
   /**
    * @return the propagation engine used in this algorithm.
    */

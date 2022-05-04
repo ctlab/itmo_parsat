@@ -35,9 +35,22 @@ void Algorithm::prepare(preprocess::RPreprocess const& preprocess) {
 
 void Algorithm::_prepare() {}
 
+template <typename T>
+void dump_var_vec(std::ostream& ofs, std::vector<T> const& vec) {
+  for (int v : vec) {
+    ofs << v + 1 << ' ';
+  }
+  ofs << '\n';
+}
+
+void Algorithm::set_problem(core::sat::Problem& p) {
+  _problem = &p;
+}
+
 void Algorithm::process() {
   _limit->start();
   auto start_timestamp = util::clock_t::now();
+  int n1 = 10, n2 = 10, n3 = 10;
   do {
     IPS_BLOCK(algorithm_step, _step());
     auto const& best_instance = get_best();
@@ -49,6 +62,23 @@ void Algorithm::process() {
     ++_stats.iterations;
     if (_save_stats) {
       _stats.fitness.push_back(best_instance.fitness());
+    }
+
+    for (auto& instance : _population) {
+      const auto& fit = instance->fitness();
+      if (fit.rho < 0.3 && fit.size > 6 && n1 > 0) {
+        --n1;
+        IPS_INFO("[l] rho: " << fit.rho << "\tsize:" << fit.size);
+        dump_var_vec(std::cerr, _problem->remap_variables(instance->get_vars().map_to_vars(_preprocess->var_view())));
+      } else if (fit.rho > 0.3 && fit.rho < 0.8 && fit.size > 6 && n2 > 0) {
+        --n2;
+        IPS_INFO("[m] rho: " << fit.rho << "\tsize:" << fit.size);
+        dump_var_vec(std::cerr, _problem->remap_variables(instance->get_vars().map_to_vars(_preprocess->var_view())));
+      } else if (fit.rho > 0.9 && fit.size > 6 && n3 > 0) {
+        --n3;
+        IPS_INFO("[h] rho: " << fit.rho << "\tsize:" << fit.size);
+        dump_var_vec(std::cerr, _problem->remap_variables(instance->get_vars().map_to_vars(_preprocess->var_view())));
+      }
     }
   } while (!is_interrupted() && _limit->proceed(*this));
   auto end_timestamp = util::clock_t::now();

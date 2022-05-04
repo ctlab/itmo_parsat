@@ -80,6 +80,16 @@ std::vector<int> Problem::remap_variables(std::vector<int> const& vars) const {
   return result;
 }
 
+std::vector<int> Problem::map_variables(std::vector<int> const& vars) const {
+  std::vector<int> result;
+  result.reserve(vars.size());
+  for (int var : vars) {
+    IPS_VERIFY(var < _mapping.size() && _mapping[var] != -1);
+    result.push_back(_mapping[var]);
+  }
+  return result;
+}
+
 Mini::vec<Mini::lbool> const& Problem::get_model() const noexcept { return _model; }
 
 Problem::Problem(Problem const& o) {

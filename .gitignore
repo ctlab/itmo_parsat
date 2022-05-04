@@ -12,6 +12,7 @@ ips.sif
 resources/cnf/*.cnf
 resources/cnf/exp_u700s/*.cnf
 resources/cnf/exp_u700s_30/*.cnf
+resources/backdoors/
 **/*.csv
 compile_commands.json
 test_sat_cert.sh

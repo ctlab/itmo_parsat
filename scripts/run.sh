@@ -166,7 +166,7 @@ function do_search() {
       --verbose "$VERBOSE" \
       --seed 239 \
       --log-config resources/config/log.json \
-      --algorithm-config core/tests/resources/ea_inf.json \
+      --algorithm-config core/tests/resources/ga_inf.json \
       --stats-path stats.csv \
       --rb-path backdoor.txt \
       --heuristic-path heuristic.txt \

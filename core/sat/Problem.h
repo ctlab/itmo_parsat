@@ -58,15 +58,20 @@ class Problem {
    */
   std::string to_string() const noexcept;
 
-  /*
+  /**
    * @brief Remaps variables and extends model for source variables
-   * */
+   */
   [[nodiscard]] Mini::vec<Mini::lbool> remap_and_extend_model(Mini::vec<Mini::lbool> const& model);
 
-  /*
+  /**
    * @brief Remaps variables
-   * */
+   */
   [[nodiscard]] std::vector<int> remap_variables(std::vector<int> const& vars) const;
+
+  /**
+   * @brief Maps variables
+   */
+  [[nodiscard]] std::vector<int> map_variables(std::vector<int> const& vars) const;
 
   /**
    * @return The satisfying assignment if the problem has been solved on parsing stage and is SAT

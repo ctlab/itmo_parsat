@@ -9,10 +9,9 @@
 #include "util/Random.h"
 #include "util/stream.h"
 
-#define BM_PROP_GROUP true, false, "aaai"
-#define SAMPLES 5
-
 namespace {
+
+util::random::Generator g(239);
 
 core::sat::prop::RProp get_prop(uint32_t threads) {
   PropConfig prop_config;
@@ -27,76 +26,90 @@ core::sat::prop::RProp get_prop(uint32_t threads) {
   return core::sat::prop::RProp(core::sat::prop::PropRegistry::resolve(prop_config));
 }
 
+const core::sat::Problem& get_bvs_7_7_problem() {
+  static core::sat::Problem problem(IPS_PROJECT_ROOT "/resources/cnf/aaai/pvs_4_7.cnf");
+  //static core::sat::Problem problem(IPS_PROJECT_ROOT "/resources/cnf/aaai/bvs_7_7.cnf");
+  return problem;
+}
+
+std::vector<std::vector<int>> const& get_backdoors_bvs_7_7() {
+  static std::vector<std::vector<int>> backdoors{
+      common::gen_vars(18, 1200),
+      common::gen_vars(18, 1200),
+      common::gen_vars(18, 1200),
+      common::gen_vars(18, 1200),
+      common::gen_vars(18, 1200),
+      //{689, 1120, 939, 754, 1909, 673, 1033, 958, 858, 947},
+      //{894, 689, 1120, 939, 754, 1909, 673, 1033, 958, 858, 947},
+      //{894, 972, 689, 1120, 1243, 1105, 1579, 755, 819, 771, 1627, 747, 672, 1033, 958, 858, 947},
+  };
+  return backdoors;
+}
+
 }  // namespace
 
-static void run_propagate_random(core::sat::prop::Prop& prop, int size, int num_vars, uint64_t total) {
-  common::iter_vars(
-      [&](core::vars_set_t const& vars) {
-        core::search::USearch search = core::search::createRandomSearch(vars, total);
-        prop.prop_search(std::move(search));
-      },
-      size, size, num_vars, SAMPLES);
+static void run_propagate_random(core::sat::prop::Prop& prop, std::vector<int> const& vars) {
+  core::search::USearch search = core::search::createRandomSearch(vars, 1ULL << vars.size());
+  prop.prop_search(std::move(search));
 }
 
-static void run_propagate_full(core::sat::prop::Prop& prop, int size, int num_vars) {
-  common::iter_vars(
-      [&](core::vars_set_t const& vars) {
-        core::search::USearch search = core::search::createFullSearch(vars);
-        prop.prop_search(std::move(search));
-      },
-      size, size, num_vars, SAMPLES);
+static void run_propagate_full(core::sat::prop::Prop& prop, std::vector<int> const& vars) {
+  core::search::USearch search = core::search::createFullSearch(vars);
+  prop.prop_search(std::move(search));
 }
 
-static void run_propagate_tree(core::sat::prop::Prop& prop, int size, int num_vars) {
-  common::iter_vars(
-      [&](core::vars_set_t const& vars) { prop.prop_tree(common::to_mini(vars), 0); }, size, size, num_vars, SAMPLES);
+static void run_propagate_tree(core::sat::prop::Prop& prop, std::vector<int> const& vars) {
+  prop.prop_tree(common::to_mini(vars), 0);
 }
 
 static void BM_prop_random(benchmark::State& state) {
-  util::random::Generator generator(239);
-  auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
-  auto prop = get_prop(state.range(1));
+  auto const& problem = get_bvs_7_7_problem();
+  auto prop = get_prop(state.range(0));
   prop->load_problem(problem);
+  auto vars = problem.map_variables(get_backdoors_bvs_7_7()[state.range(1)]);
   for (auto _ : state) {
-    run_propagate_random(*prop, state.range(2), prop->num_vars(), state.range(3));
+    run_propagate_random(*prop, vars);
   }
 }
 
 static void BM_prop_full(benchmark::State& state) {
-  util::random::Generator generator(239);
-  auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
-  auto prop = get_prop(state.range(1));
+  auto const& problem = get_bvs_7_7_problem();
+  auto prop = get_prop(state.range(0));
   prop->load_problem(problem);
+  auto vars = problem.map_variables(get_backdoors_bvs_7_7()[state.range(1)]);
   for (auto _ : state) {
-    run_propagate_full(*prop, state.range(2), prop->num_vars());
+    run_propagate_full(*prop, vars);
   }
 }
 
 static void BM_prop_tree(benchmark::State& state) {
-  util::random::Generator generator(239);
-  auto problem = common::problems(BM_PROP_GROUP)[state.range(0)];
-  auto prop = get_prop(state.range(1));
+  auto const& problem = get_bvs_7_7_problem();
+  auto prop = get_prop(state.range(0));
   prop->load_problem(problem);
+  auto vars = problem.map_variables(get_backdoors_bvs_7_7()[state.range(1)]);
   for (auto _ : state) {
-    run_propagate_tree(*prop, state.range(2), prop->num_vars());
+    run_propagate_tree(*prop, vars);
   }
 }
 
 BENCHMARK(BM_prop_random)
-    ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),      // threads count
-         benchmark::CreateDenseRange(2, 18, 4),          // size of assumption
-         benchmark::CreateRange(1 << 13, 1 << 18, 2)});  // number of samples: 2^13 to 2^18
+    ->ArgsProduct({
+        benchmark::CreateRange(1 << 0, 1 << 3, 1 << 2),
+        benchmark::CreateDenseRange(0, (int) get_backdoors_bvs_7_7().size() - 1, 1),
+    })
+    ->Iterations(1);
 
 BENCHMARK(BM_prop_full)
-    ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
-         benchmark::CreateDenseRange(2, 18, 4)});    // size of assumption
+    ->ArgsProduct({
+        benchmark::CreateRange(1 << 0, 1 << 3, 1 << 2),
+        benchmark::CreateDenseRange(0, (int) get_backdoors_bvs_7_7().size() - 1, 1),
+    })
+    ->Iterations(1);
 
 BENCHMARK(BM_prop_tree)
-    ->ArgsProduct(
-        {benchmark::CreateDenseRange(0, (int) common::problems(BM_PROP_GROUP).size() - 1, 1),
-         benchmark::CreateRange(1 << 0, 1 << 4, 2),  // threads count
-         benchmark::CreateDenseRange(2, 18, 4)});    // size of assumption
+    ->ArgsProduct({
+        benchmark::CreateRange(1 << 0, 1 << 3, 1 << 2),
+        benchmark::CreateDenseRange(0, (int) get_backdoors_bvs_7_7().size() - 1, 1),
+    })
+    ->Iterations(1);
+
