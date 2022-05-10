@@ -1,0 +1,22 @@
+{
+  "solver_service_type": "SequentialSolverService",
+  "sequential_solver_service_config" : {
+    "num_solvers": 16,
+    "solver_config": {
+      "solver_type": "LMapleSolver",
+      "maplecomsps_solver_config": {
+        "lbd_limit" : 2,
+        "sharing_enabled": true
+      }
+    },
+    "sharing_config": {
+      "enabled": true,
+      "interval_us": 500000,
+      "shr_lit": 10
+    },
+    "diversification_config": {
+      "native": false,
+      "sparse": true
+    }
+  }
+}

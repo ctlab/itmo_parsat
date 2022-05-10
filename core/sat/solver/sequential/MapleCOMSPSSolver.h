@@ -1,5 +1,5 @@
-#ifndef EVOL_SIMPSOLVER_H
-#define EVOL_SIMPSOLVER_H
+#ifndef CORE_MAPLESOLVER_H
+#define CORE_MAPLESOLVER_H
 
 #include <filesystem>
 
@@ -35,4 +35,4 @@ class MapleCOMSPSSolver : public Solver, public painless::MapleCOMSPSSolver {
 
 }  // namespace core::sat::solver
 
-#endif  // EVOL_SIMPSOLVER_H
+#endif  // CORE_MAPLESOLVER_H

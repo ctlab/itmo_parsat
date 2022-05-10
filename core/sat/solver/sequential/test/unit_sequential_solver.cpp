@@ -27,9 +27,9 @@ void test_solver(std::string const& solver_config, core::sat::Problem const& pro
 DEFINE_PARAMETRIZED_TEST(TestSequentialSolver, std::string /* config */, core::sat::Problem /* problem */);
 
 static std::vector<std::string> solver_configs{
-    "simp_solver.json",
-    "maple_solver.json",
-    "painless_solver.json",
+    "simp_solver.json",      //
+    "maple_solver.json",     //
+    "painless_solver.json",  //
 };
 
 TEST_P(TestSequentialSolver, correctness) {
@@ -37,7 +37,7 @@ TEST_P(TestSequentialSolver, correctness) {
   test_solver(solver_config, problem);
 }
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     TestSequentialSolver, TestSequentialSolver,
     ::testing::ValuesIn(common::cross(
         common::to_tuple(solver_configs),

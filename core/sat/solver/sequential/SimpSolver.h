@@ -1,5 +1,5 @@
-#ifndef EVOL_SIMPSOLVER_H
-#define EVOL_SIMPSOLVER_H
+#ifndef CORE_SIMPSOLVER_H
+#define CORE_SIMPSOLVER_H
 
 #include <filesystem>
 
@@ -40,4 +40,4 @@ class SimpSolver : public Solver, public MinisatSimpBase {
 
 }  // namespace core::sat::solver
 
-#endif  // EVOL_SIMPSOLVER_H
+#endif  // CORE_SIMPSOLVER_H

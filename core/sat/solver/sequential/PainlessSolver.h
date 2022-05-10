@@ -1,5 +1,5 @@
-#ifndef ITMO_PARSAT_PAINLESSSOLVER_H
-#define ITMO_PARSAT_PAINLESSSOLVER_H
+#ifndef CORE_PAINLESSSOLVER_H
+#define CORE_PAINLESSSOLVER_H
 
 #include <vector>
 
@@ -53,4 +53,4 @@ class PainlessSolver : public Solver {
 
 }  // namespace core::sat::solver
 
-#endif  // ITMO_PARSAT_PAINLESSSOLVER_H
+#endif  // CORE_PAINLESSSOLVER_H

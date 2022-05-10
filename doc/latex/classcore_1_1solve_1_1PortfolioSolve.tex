@@ -1,0 +1,98 @@
+\hypertarget{classcore_1_1solve_1_1PortfolioSolve}{}\doxysection{core\+::solve\+::Portfolio\+Solve Class Reference}
+\label{classcore_1_1solve_1_1PortfolioSolve}\index{core::solve::PortfolioSolve@{core::solve::PortfolioSolve}}
+
+
+Inheritance diagram for core\+::solve\+::Portfolio\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{classcore_1_1solve_1_1PortfolioSolve__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::solve\+::Portfolio\+Solve\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{classcore_1_1solve_1_1PortfolioSolve__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1PortfolioSolve_adb1c4fc986e916df6d0917e5b48d0f50}\label{classcore_1_1solve_1_1PortfolioSolve_adb1c4fc986e916df6d0917e5b48d0f50}} 
+{\bfseries Portfolio\+Solve} (Portfolio\+Solve\+Config config)
+\item 
+sat\+::\+State \mbox{\hyperlink{classcore_1_1solve_1_1PortfolioSolve_a7f00f59479a159bd8f3c581e005acea2}{solve}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&problem) override
+\begin{DoxyCompactList}\small\item\em This method solves S\+AT. For now, it is expected to be called only once per object lifetime. \end{DoxyCompactList}\item 
+sat\+::sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1solve_1_1PortfolioSolve_ae15178821acba217617c72d7417df512}{sharing\+\_\+unit}} () noexcept override
+\item 
+Mini\+::vec$<$ Mini\+::lbool $>$ \mbox{\hyperlink{classcore_1_1solve_1_1PortfolioSolve_ac9419ce6fb3fbe451750bd5b6c1c71f5}{get\+\_\+model}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1solve_1_1PortfolioSolve_ab79dbd702604873e1477354c05b94048}\label{classcore_1_1solve_1_1PortfolioSolve_ab79dbd702604873e1477354c05b94048}} 
+void {\bfseries \+\_\+interrupt\+\_\+impl} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1solve_1_1PortfolioSolve_ac9419ce6fb3fbe451750bd5b6c1c71f5}\label{classcore_1_1solve_1_1PortfolioSolve_ac9419ce6fb3fbe451750bd5b6c1c71f5}} 
+\index{core::solve::PortfolioSolve@{core::solve::PortfolioSolve}!get\_model@{get\_model}}
+\index{get\_model@{get\_model}!core::solve::PortfolioSolve@{core::solve::PortfolioSolve}}
+\doxysubsubsection{\texorpdfstring{get\_model()}{get\_model()}}
+{\footnotesize\ttfamily Mini\+::vec$<$ Mini\+::lbool $>$ core\+::solve\+::\+Portfolio\+Solve\+::get\+\_\+model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+The satisfying model if any has been found. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1Solve_a4bc16edaaba45afbe3197416cb9ba958}{core\+::solve\+::\+Solve}}.
+
+\mbox{\Hypertarget{classcore_1_1solve_1_1PortfolioSolve_ae15178821acba217617c72d7417df512}\label{classcore_1_1solve_1_1PortfolioSolve_ae15178821acba217617c72d7417df512}} 
+\index{core::solve::PortfolioSolve@{core::solve::PortfolioSolve}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::solve::PortfolioSolve@{core::solve::PortfolioSolve}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sat\+::sharing\+::\+Sharing\+Unit core\+::solve\+::\+Portfolio\+Solve\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the Sharing\+Unit to share clauses with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
+
+\mbox{\Hypertarget{classcore_1_1solve_1_1PortfolioSolve_a7f00f59479a159bd8f3c581e005acea2}\label{classcore_1_1solve_1_1PortfolioSolve_a7f00f59479a159bd8f3c581e005acea2}} 
+\index{core::solve::PortfolioSolve@{core::solve::PortfolioSolve}!solve@{solve}}
+\index{solve@{solve}!core::solve::PortfolioSolve@{core::solve::PortfolioSolve}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily sat\+::\+State core\+::solve\+::\+Portfolio\+Solve\+::solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{sat\+::\+Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method solves S\+AT. For now, it is expected to be called only once per object lifetime. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & path to gz archive with task description \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of the solution 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1solve_1_1Solve_aaa0c64ccf2aae8d9edb555ee603abda8}{core\+::solve\+::\+Solve}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/solve/Portfolio\+Solve.\+h\item 
+core/solve/Portfolio\+Solve.\+cpp\end{DoxyCompactItemize}

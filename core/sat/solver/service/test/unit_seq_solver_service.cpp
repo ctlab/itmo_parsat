@@ -54,15 +54,17 @@ DEFINE_PARAMETRIZED_TEST(
     bool /* time_limit */);
 
 static std::vector<std::string> service_configs{
-    "simp_service_1.json",    "simp_service_16.json",    "maple_service_1.json",    "maple_service_16.json",
-    "maple_service_16s.json", "painless_service_1.json", "painless_service_4.json", "painless_service_4s.json"};
+    "simp_service_1.json",     "simp_service_16.json",                               //
+    "maple_service_1.json",    "maple_service_16.json",   "maple_service_16s.json",  //
+    "painless_service_1.json", "painless_service_4.json", "painless_service_4s.json",
+};
 
 TEST_P(TestSolverService, correctness) {
   auto [service_config, problem, workers, num_tests, time_limit] = GetParam();
   test_solver_service(service_config, problem, workers, num_tests, time_limit);
 }
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     SolverServiceSmallNoTimeLimit, TestSolverService,
     ::testing::ValuesIn(common::extend(
         common::cross(
@@ -73,7 +75,7 @@ INSTANTIATE_TEST_CASE_P(
         common::to_tuple<int>({1000}),       // num tests
         common::to_tuple<bool>({false}))));  // time_limit
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     SolverServiceLargeWithTimeLimit, TestSolverService,
     ::testing::ValuesIn(common::extend(
         common::cross(common::to_tuple(service_configs), common::to_tuple(common::problems(false, false, "large"))),

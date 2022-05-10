@@ -1,0 +1,7 @@
+{
+  "solver_type": "LMapleSolver",
+  "maplecomsps_solver_config": {
+    "lbd_limit" : 2,
+    "sharing_enabled": false
+  }
+}
