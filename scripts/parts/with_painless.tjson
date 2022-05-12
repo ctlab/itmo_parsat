@@ -1,25 +1,37 @@
 {
-    "solve_type": "WithPainlessSolve",
+    "solve_type": "PortfolioSolve",
     "cpu_limit": @WPCL,
     "random_seed": 1337,
-    "with_painless_solve_config": {
-        "painless_solver_config": {
-            "max_threads": @NCL,
-            "max_memory": 0,
-            "block_size": 16,
-            "time_limit_s": 0,
-            "lbd_limit": 2,
-            "sharing_config": {
-                "enabled": true,
-                "interval_us": 500000,
-                "shr_lit": 1500
-            }
-        },
+    "portfolio_solve_config": {
         "sharing_config": {
             "enabled": true,
             "interval_us": 500000,
             "shr_lit": 25
         },
-        "near_solve_config": @NSOC
+        "solve_configs": [
+          {
+            "solve_type": "NaiveSolve",
+            "cpu_limit": @NCL,
+            "random_seed": 0,
+            "naive_solve_config": {
+            "solver_config": {
+              "solver_type": "PainlessSolver",
+                "painless_solver_config": {
+                  "max_threads": @NCL,
+                  "max_memory": 0,
+                  "block_size": 16,
+                  "time_limit_s": 0,
+                  "lbd_limit": 2,
+                  "sharing_config": {
+                    "enabled": true,
+                    "interval_us": 500000,
+                    "shr_lit": 1500
+                  }
+                }
+              }
+            }
+          },
+          @NSOC
+        ]
     }
 }

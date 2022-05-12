@@ -1,5 +1,0 @@
-<map id="core::solve::WithPainlessSolve" name="core::solve::WithPainlessSolve">
-<area shape="rect" id="node1" title=" " alt="" coords="5,169,191,211"/>
-<area shape="rect" id="node2" href="$classcore_1_1solve_1_1Solve.html" title="The core class that performs all actions related to solving SAT." alt="" coords="29,95,167,121"/>
-<area shape="rect" id="node3" href="$classcore_1_1sat_1_1sharing_1_1Shareable.html" title="The interface of methods that are able to share clauses." alt="" coords="31,5,165,47"/>
-</map>

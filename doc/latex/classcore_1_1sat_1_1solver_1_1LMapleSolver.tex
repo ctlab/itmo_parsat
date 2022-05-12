@@ -1,0 +1,121 @@
+\hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver}{}\doxysection{core\+::sat\+::solver\+::L\+Maple\+Solver Class Reference}
+\label{classcore_1_1sat_1_1solver_1_1LMapleSolver}\index{core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}}
+
+
+Painless-\/adapted \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver}{Maple\+C\+O\+M\+S\+P\+S\+Solver}} solver implementation.  
+
+
+
+
+{\ttfamily \#include $<$L\+Maple\+Solver.\+h$>$}
+
+
+
+Inheritance diagram for core\+::sat\+::solver\+::L\+Maple\+Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{classcore_1_1sat_1_1solver_1_1LMapleSolver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for core\+::sat\+::solver\+::L\+Maple\+Solver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{classcore_1_1sat_1_1solver_1_1LMapleSolver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a596151c63302fdc320b1ddb3fe8346f8}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a596151c63302fdc320b1ddb3fe8346f8}} 
+{\bfseries L\+Maple\+Solver} (L\+Maple\+Solver\+Config const \&config)
+\item 
+State \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LMapleSolver_a7544ca704696030f58d910671e3d7606}{solve}} (lit\+\_\+vec\+\_\+t const \&assumptions) override
+\begin{DoxyCompactList}\small\item\em Runs solution with the specified assumptions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LMapleSolver_a0e4a1be1aa73f4669264318982715d40}{load\+\_\+problem}} (\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&problem) override
+\begin{DoxyCompactList}\small\item\em Parses cnf from .gz file with the specified path. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a995c6fbd4b62d3f43374bb43e6f15cd3}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a995c6fbd4b62d3f43374bb43e6f15cd3}} 
+unsigned \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LMapleSolver_a995c6fbd4b62d3f43374bb43e6f15cd3}{num\+\_\+vars}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns the number of variables in formula. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a05edab4b2a8273630ce12033854563c9}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a05edab4b2a8273630ce12033854563c9}} 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LMapleSolver_a05edab4b2a8273630ce12033854563c9}{interrupt}} () override
+\begin{DoxyCompactList}\small\item\em Interrupts solver. Intended to be used from signal handlers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_ac34b5eeb929ccf93dc8527be86fbeb56}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_ac34b5eeb929ccf93dc8527be86fbeb56}} 
+void \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LMapleSolver_ac34b5eeb929ccf93dc8527be86fbeb56}{clear\+\_\+interrupt}} () override
+\begin{DoxyCompactList}\small\item\em Clears interrupt flag. \end{DoxyCompactList}\item 
+sharing\+::\+Sharing\+Unit \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1LMapleSolver_a72b00ccead9d26b2486ff24b80493720}{sharing\+\_\+unit}} () noexcept override
+\item 
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a714b04dc897f4d3d438e90f81c06b25a}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a714b04dc897f4d3d438e90f81c06b25a}} 
+Mini\+::vec$<$ Mini\+::lbool $>$ {\bfseries get\+\_\+model} () const noexcept override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Painless-\/adapted \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1MapleCOMSPSSolver}{Maple\+C\+O\+M\+S\+P\+S\+Solver}} solver implementation. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a0e4a1be1aa73f4669264318982715d40}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a0e4a1be1aa73f4669264318982715d40}} 
+\index{core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}!load\_problem@{load\_problem}}
+\index{load\_problem@{load\_problem}!core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}}
+\doxysubsubsection{\texorpdfstring{load\_problem()}{load\_problem()}}
+{\footnotesize\ttfamily void core\+::sat\+::solver\+::\+L\+Maple\+Solver\+::load\+\_\+problem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcore_1_1sat_1_1Problem}{Problem}} const \&}]{problem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Parses cnf from .gz file with the specified path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & the path with formula. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_aa65828d34692b28456b4078dec908157}{core\+::sat\+::solver\+::\+Solver}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a72b00ccead9d26b2486ff24b80493720}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a72b00ccead9d26b2486ff24b80493720}} 
+\index{core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}!sharing\_unit@{sharing\_unit}}
+\index{sharing\_unit@{sharing\_unit}!core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}}
+\doxysubsubsection{\texorpdfstring{sharing\_unit()}{sharing\_unit()}}
+{\footnotesize\ttfamily sharing\+::\+Sharing\+Unit core\+::sat\+::solver\+::\+L\+Maple\+Solver\+::sharing\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+\begin{DoxyReturn}{Returns}
+the Sharing\+Unit to share clauses with 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1sharing_1_1Shareable_a8f3436dd218bb22aabe2249150dd18ee}{core\+::sat\+::sharing\+::\+Shareable}}.
+
+\mbox{\Hypertarget{classcore_1_1sat_1_1solver_1_1LMapleSolver_a7544ca704696030f58d910671e3d7606}\label{classcore_1_1sat_1_1solver_1_1LMapleSolver_a7544ca704696030f58d910671e3d7606}} 
+\index{core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}!solve@{solve}}
+\index{solve@{solve}!core::sat::solver::LMapleSolver@{core::sat::solver::LMapleSolver}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily State core\+::sat\+::solver\+::\+L\+Maple\+Solver\+::solve (\begin{DoxyParamCaption}\item[{lit\+\_\+vec\+\_\+t const \&}]{assumptions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Runs solution with the specified assumptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em assumptions} & assumptions to include. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of solving. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classcore_1_1sat_1_1solver_1_1Solver_a65f4e6a4f45f4c08fab0cada6f8f3d8c}{core\+::sat\+::solver\+::\+Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+core/sat/solver/sequential/L\+Maple\+Solver.\+h\item 
+core/sat/solver/sequential/L\+Maple\+Solver.\+cpp\end{DoxyCompactItemize}

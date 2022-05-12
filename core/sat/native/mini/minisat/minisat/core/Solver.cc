@@ -774,7 +774,7 @@ uint64_t Solver::prop_check_subtree_impl(const vec<Lit>& vars, uint32_t index) {
 // other |vars| - head_size are completely ignored
 uint64_t Solver::prop_check_subtree(const vec<Lit>& vars, uint32_t head_size) {
   uint32_t assign_size = vars.size();
-  assert(assign_size <= 63 && bool("Assignment is too large to be processed as a full tree."));
+  assert(assign_size - head_size <= 63 && bool("Assignment is too large to be processed as a full tree."));
   assert(head_size <= assign_size);
   uint64_t subtree_size = 1ULL << (assign_size - head_size);
 

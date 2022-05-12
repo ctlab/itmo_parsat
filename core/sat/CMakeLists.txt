@@ -16,6 +16,7 @@ set(
         NATIVE_LIBS_STATIC
         minisat-lib-static
         mapleCOMSPS-lib-static
+        lmaple-lib-static
         painless-lib-static
         PARENT_SCOPE
 )

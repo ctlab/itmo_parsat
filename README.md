@@ -29,7 +29,9 @@ Currently we are facing the following issues:
   - Added rho-backdoor search utility.
   - Added SAT certificate verification tool.
   - Minor core and documentation refactoring.
-  - Monor bugs and dirty pieces of code fixed.
+  - Minor bugs and dirty pieces of code fixed.
+  - Added LMaple SLS-based solver (not suitable for use with assumptions yet).
+  - Generalized WithPainlessSolve to PortfolioSolve, allowing portfolios of any combination of Solve strategies.
 
 # Working with this project
 

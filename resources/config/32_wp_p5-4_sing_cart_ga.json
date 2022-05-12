@@ -1,139 +1,151 @@
 {
-    "solve_type": "WithPainlessSolve",
+    "solve_type": "PortfolioSolve",
     "cpu_limit": 32,
     "random_seed": 1337,
-    "with_painless_solve_config": {
-        "painless_solver_config": {
-            "max_threads": 10,
-            "max_memory": 0,
-            "block_size": 16,
-            "time_limit_s": 0,
-            "lbd_limit": 2,
-            "sharing_config": {
-                "enabled": true,
-                "interval_us": 500000,
-                "shr_lit": 1500
-            }
-        },
+    "portfolio_solve_config": {
         "sharing_config": {
             "enabled": true,
             "interval_us": 500000,
             "shr_lit": 25
         },
-        "near_solve_config": {
-            "solve_type": "SingleReduceSolve",
-            "cpu_limit": 21,
-            "random_seed": 1337,
-            "single_reduce_solve_config": {
-                "preprocess_config": {
-                    "heuristic_size": 200
-                },
-                "prop_config": {
-                    "prop_type": "ParProp",
-                    "par_prop_config": {
-                        "max_threads": 21,
-                        "tree_split_vars": 12,
-                        "seq_split_samples": 16384
-                    }
-                },
-                "solver_service_config": {
-                    "solver_service_type": "SequentialSolverService",
-                    "sequential_solver_service_config": {
-                        "num_solvers": 4,
-                        "solver_config": {
-                            "solver_type": "PainlessSolver",
-                            "painless_solver_config": {
-                                "max_threads": 5,
-                                "max_memory": 0,
-                                "block_size": 16,
-                                "time_limit_s": 0,
-                                "lbd_limit": 2,
-                                "sharing_config": {
-                                    "enabled": true,
-                                    "interval_us": 500000,
-                                    "shr_lit": 1500
-                                }
+        "solve_configs": [
+            {
+                "solve_type": "NaiveSolve",
+                "cpu_limit": 10,
+                "random_seed": 0,
+                "naive_solve_config": {
+                    "solver_config": {
+                        "solver_type": "PainlessSolver",
+                        "painless_solver_config": {
+                            "max_threads": 10,
+                            "max_memory": 0,
+                            "block_size": 16,
+                            "time_limit_s": 0,
+                            "lbd_limit": 2,
+                            "sharing_config": {
+                                "enabled": true,
+                                "interval_us": 500000,
+                                "shr_lit": 1500
                             }
-                        },
-                        "sharing_config": {
-                            "enabled": false
-                        },
-                        "diversification_config": {
-                            "native": false,
-                            "sparse": false
                         }
                     }
-                },
-                "rb_search_config": {
-                    "rb_search_type": "CartesianRBSearch",
-                    "cartesian_rb_search_config": {
-                        "max_unpropagated": 128,
-                        "max_cartesian_size": 2097152,
-                        "num_algorithms": 4,
-                        "algorithm_configs": [
-                            {
-                                "algorithm_type": "GAAlgorithm",
-                                "ga_algorithm_config": {
-                                    "q": 8,
-                                    "h": 2,
-                                    "mutation_config": {
-                                        "mutation_type": "DoerrMutation",
-                                        "doerr_mutation_config": {
-                                            "beta": 3.0
-                                        }
-                                    },
-                                    "crossover_config": {
-                                        "crossover_type": "OnePointCrossover"
-                                    },
-                                    "selector_config": {
-                                        "selector_type": "BestSelector"
-                                    },
-                                    "base_algorithm_config": {
-                                        "limit_config": {
-                                            "limit_type": "ConjLimit",
-                                            "conj_limit_config": {
-                                                "limit_config": [
-                                                    {
-                                                        "limit_type": "ResourceLimit",
-                                                        "resource_limit_config": {
-                                                            "memory_limit_kb": 0,
-                                                            "time_limit_sec": 180
-                                                        }
-                                                    },
-                                                    {
-                                                        "limit_type": "FitnessLimit",
-                                                        "fitness_limit_config": {
-                                                            "lowest_fitness": 0.995,
-                                                            "max_size": 16
-                                                        }
-                                                    },
-                                                    {
-                                                        "limit_type": "StallLimit",
-                                                        "stall_limit_config": {
-                                                            "steps_before_stall": 1000,
-                                                            "time_before_stall_s": 10
-                                                        }
-                                                    }
-                                                ]
+                }
+            },
+            {
+                "solve_type": "SingleReduceSolve",
+                "cpu_limit": 21,
+                "random_seed": 1337,
+                "single_reduce_solve_config": {
+                    "preprocess_config": {
+                        "heuristic_size": 200
+                    },
+                    "prop_config": {
+                        "prop_type": "ParProp",
+                        "par_prop_config": {
+                            "max_threads": 21,
+                            "tree_split_vars": 12,
+                            "seq_split_samples": 16384
+                        }
+                    },
+                    "solver_service_config": {
+                        "solver_service_type": "SequentialSolverService",
+                        "sequential_solver_service_config": {
+                            "num_solvers": 4,
+                            "solver_config": {
+                                "solver_type": "PainlessSolver",
+                                "painless_solver_config": {
+                                    "max_threads": 5,
+                                    "max_memory": 0,
+                                    "block_size": 16,
+                                    "time_limit_s": 0,
+                                    "lbd_limit": 2,
+                                    "sharing_config": {
+                                        "enabled": true,
+                                        "interval_us": 500000,
+                                        "shr_lit": 1500
+                                    }
+                                }
+                            },
+                            "sharing_config": {
+                                "enabled": false
+                            },
+                            "diversification_config": {
+                                "native": false,
+                                "sparse": false
+                            }
+                        }
+                    },
+                    "rb_search_config": {
+                        "rb_search_type": "CartesianRBSearch",
+                        "cartesian_rb_search_config": {
+                            "max_unpropagated": 128,
+                            "max_cartesian_size": 2097152,
+                            "num_algorithms": 4,
+                            "algorithm_configs": [
+                                {
+                                    "algorithm_type": "GAAlgorithm",
+                                    "ga_algorithm_config": {
+                                        "q": 8,
+                                        "h": 2,
+                                        "mutation_config": {
+                                            "mutation_type": "DoerrMutation",
+                                            "doerr_mutation_config": {
+                                                "beta": 3.0
                                             }
                                         },
-                                        "instance_config": {
-                                            "omega_x": 20,
-                                            "max_cache_size": 1000,
-                                            "sampling_config": {
-                                                "max_vars_fs": 16,
-                                                "base_count": 4096,
-                                                "max_steps": 3,
-                                                "scale": 2
+                                        "crossover_config": {
+                                            "crossover_type": "OnePointCrossover"
+                                        },
+                                        "selector_config": {
+                                            "selector_type": "BestSelector"
+                                        },
+                                        "base_algorithm_config": {
+                                            "limit_config": {
+                                                "limit_type": "ConjLimit",
+                                                "conj_limit_config": {
+                                                    "limit_config": [
+                                                        {
+                                                            "limit_type": "ResourceLimit",
+                                                            "resource_limit_config": {
+                                                                "memory_limit_kb": 0,
+                                                                "time_limit_sec": 180
+                                                            }
+                                                        },
+                                                        {
+                                                            "limit_type": "FitnessLimit",
+                                                            "fitness_limit_config": {
+                                                                "lowest_fitness": 0.995,
+                                                                "max_size": 16
+                                                            }
+                                                        },
+                                                        {
+                                                            "limit_type": "StallLimit",
+                                                            "stall_limit_config": {
+                                                                "steps_before_stall": 1000,
+                                                                "time_before_stall_s": 10
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "instance_config": {
+                                                "omega_x": 20,
+                                                "max_cache_size": 1000,
+                                                "sampling_config": {
+                                                    "max_vars_fs": 16,
+                                                    "base_count": 4096,
+                                                    "max_steps": 3,
+                                                    "scale": 2
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
-        }
+        ]
     }
 }

@@ -18,6 +18,11 @@ message MapleCOMSPSSolverConfig {
   bool sharing_enabled = 2;
 }
 
+message LMapleSolverConfig {
+  int32 lbd_limit = 1;
+  bool sharing_enabled = 2;
+}
+
 message PainlessSolverConfig {
   int32 max_threads = 1;
   int32 max_memory = 2;
@@ -31,6 +36,7 @@ message SolverConfig {
   string solver_type = 1;
   PainlessSolverConfig painless_solver_config = 2;
   MapleCOMSPSSolverConfig maplecomsps_solver_config = 3;
+  LMapleSolverConfig lmaple_solver_config = 4;
 }
 
 message SequentialSolverServiceConfig {
@@ -204,10 +210,9 @@ message RecurringReduceSolveConfig {
   SolverServiceConfig solver_service_config = 7;
 }
 
-message WithPainlessSolveConfig {
-  PainlessSolverConfig painless_solver_config = 1;
+message PortfolioSolveConfig {
+  repeated SolveConfig solve_configs = 1;
   SharingConfig sharing_config = 2;
-  SolveConfig near_solve_config = 3;
 }
 
 message SolveConfig {
@@ -217,5 +222,5 @@ message SolveConfig {
   NaiveSolveConfig naive_solve_config = 4;
   SingleReduceSolveConfig single_reduce_solve_config = 5;
   RecurringReduceSolveConfig recurring_reduce_solve_config = 6;
-  WithPainlessSolveConfig with_painless_solve_config = 7;
+  PortfolioSolveConfig portfolio_solve_config = 7;
 }
