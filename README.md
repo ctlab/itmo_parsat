@@ -1,7 +1,19 @@
-IPS (itmo-parsat): backdoor search algorithms and parallel SAT solver.
+IPS (itmo-parsat): backdoor search algorithms and parallel SAT solver
+
+# SAT Competition 2022 (for organizers)
+The base Docker image for building the solver is located at `scripts/satcomp/base/Dockerfile`.
+Note that it already depends on `satcomp-common-base-image`, described in 
+the [SAT-Comp repository](https://github.com/aws-samples/aws-batch-comp-infrastructure-sample).
+The repository itself is not required to build the image, as it clones the repository itself.
+Then it installs all required packages and builds the solver.
+The solver binary itself is then contained in `/itmo-parsat/build/cli/solve_bin` inside
+the container. The script located at `scripts/satcomp/run/solve.sh` takes path to the
+CNF description file (in DIMACS format) as a parameter and solves the problem. Logs are written
+to `stderr`, when the final result and (in case of satisfiable formula) the SAT certificate are
+written to `stdout`. Note that the provided commit hashes actually differ only in the configuration
+specification in the `scripts/satcomp/run/solve.sh`. Please feel free to ask for any additional information.
 
 # Description
-
 This project contains efficient C++ implementations of rho-backdoor search algorithms
 alongside implementations of SAT instance reducing and solving. Generally, we've implemented:
 * Parallel and tree-based approximation and calculation of rho-values of sets of variables.
@@ -24,7 +36,7 @@ Currently we are facing the following issues:
 # Releases and tags description, changelog
 * `v1.0`
   - First prestable and highly tested version of the library.
-* `v2.0` [TBD]
+* `v2.0`
   - Added SAT model output capability.
   - Added rho-backdoor search utility.
   - Added SAT certificate verification tool.
@@ -32,16 +44,16 @@ Currently we are facing the following issues:
   - Minor bugs and dirty pieces of code fixed.
   - Added LMaple SLS-based solver (not suitable for use with assumptions yet).
   - Generalized WithPainlessSolve to PortfolioSolve, allowing portfolios of any combination of Solve strategies.
+* `satcomp-*`
+  - SAT Competition 2022 tags.
 
 # Working with this project
-
 For convenience and ease, the development and usage environment has been prepared via Docker
 image. The image itself is described in `scripts/docker/ips.Dockerfile`. Also, some of the
 source code is covered with documentation, which is available at the `doc/` directory in
 `HTML` format. Feel free to view it through your browser.
 
 ## Setup
-
 At first, clone this project and change directory:
 ```console
 $ git clone https://github.com/dzhiblavi/itmo-parsat.git
@@ -70,7 +82,6 @@ $ ./d -a
 ```
 
 ## Building
-
 In order to build (or rebuild) the project, just use the `ips` utility script. The
 following command will build the project in `DEV_FAST` mode:
 ```console
@@ -87,7 +98,6 @@ The partial list of available modes are:
 Other options can be found in `CMakeLists.txt` or by running `./ips --help`.
 
 ## Execution
-
 After the build, four binaries will be produced:
 * `cli/verify_bin`: SAT certificate verification tool.
 * `cli/rb_search_bin`: Rho-backdoor search tool.
@@ -97,7 +107,6 @@ After the build, four binaries will be produced:
 Available usage options can be seen via running any of these binaries with `--help` option.
 
 # Example
-
 For easier dive-into, one can start from these simple use cases. Example configurations
 can be found in `resources/config` directory. Some SAT problem instances can be found
 in `resources/cnf` subdirectories. In order to run SAT solver on some instance, please
