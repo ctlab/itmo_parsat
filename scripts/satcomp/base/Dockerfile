@@ -40,11 +40,11 @@ RUN git clone https://github.com/google/benchmark.git && \
     cmake --build "build" --config Release --target install
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt install -y cmake build-essential zlib1g-dev libopenmpi-dev
+    && DEBIAN_FRONTEND=noninteractive apt install -y cmake build-essential zlib1g-dev libopenmpi-dev \
     wget unzip build-essential zlib1g-dev cmake python3 build-essential gfortran wget curl
 
-WORKDIR /
-RUN git clone https://github.com/dzhiblavi/itmo-parsat
+COPY . /itmo-parsat/
+RUN ls /itmo-parsat/
 WORKDIR /itmo-parsat
 RUN ./setup.sh && CC=gcc-10 CXX=g++-10 ./ips --clean -g DEV_FAST -b
 

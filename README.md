@@ -4,8 +4,11 @@ IPS (itmo-parsat): backdoor search algorithms and parallel SAT solver
 The base Docker image for building the solver is located at `scripts/satcomp/base/Dockerfile`.
 Note that it already depends on `satcomp-common-base-image`, described in 
 the [SAT-Comp repository](https://github.com/aws-samples/aws-batch-comp-infrastructure-sample).
-The repository itself is not required to build the image, as it clones the repository itself.
-Then it installs all required packages and builds the solver.
+To build the image, use the following command (in the root of the project):
+```console
+$ docker build -t ips-satcomp-test -f scripts/satcomp/base/Dockerfile .
+```
+It installs all required packages and builds the solver.
 The solver binary itself is then contained in `/itmo-parsat/build/cli/solve_bin` inside
 the container. The script located at `scripts/satcomp/run/solve.sh` takes path to the
 CNF description file (in DIMACS format) as a parameter and solves the problem. Logs are written
