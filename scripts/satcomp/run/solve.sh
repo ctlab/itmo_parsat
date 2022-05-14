@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG="ms-sr.json"
+CONFIG="ms-rr.json"
 CNF_PATH="$1"
 
 GLOG_logtostderr=1 /itmo-parsat/build/cli/solve_bin \
