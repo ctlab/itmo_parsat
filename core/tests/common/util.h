@@ -6,10 +6,10 @@
 
 #include "core/sat/Problem.h"
 #include "core/tests/common/get.h"
+#include "util/visit.h"
 
 template <typename TupType, size_t... I>
-std::ostream& print_tuple(
-    std::ostream& os, TupType const& tuple, std::index_sequence<I...>) {
+std::ostream& print_tuple(std::ostream& os, TupType const& tuple, std::index_sequence<I...>) {
   os << "(";
   (..., (os << (I == 0 ? "" : ", ") << std::get<I>(tuple)));
   return os << ")";
@@ -22,12 +22,18 @@ std::ostream& operator<<(std::ostream& os, std::tuple<T...> const& tuple) {
 
 namespace common {
 
-#define DEFINE_PARAMETRIZED_TEST(NAME, ...)                               \
-  class NAME : public ::testing::TestWithParam<std::tuple<__VA_ARGS__>> { \
-   protected:                                                             \
-    void SetUp() override {                                               \
-      std::cerr << std::boolalpha << GetParam() << std::endl;             \
-    }                                                                     \
+#define DEFINE_PARAMETRIZED_TEST(NAME, ...)                                           \
+  class NAME : public ::testing::TestWithParam<std::tuple<__VA_ARGS__>> {             \
+   protected:                                                                         \
+    void SetUp() override { std::cerr << std::boolalpha << GetParam() << std::endl; } \
+  }
+
+#define DEFINE_FULLY_PARAMETRIZED_TEST(NAME, ...)                                                   \
+  class NAME : public ::testing::TestWithParam<__VA_ARGS__> {                                       \
+   protected:                                                                                       \
+    void SetUp() override {                                                                         \
+      std::visit([](const auto& x) { std::cerr << std::boolalpha << x << std::endl; }, GetParam()); \
+    }                                                                                               \
   }
 
 core::sat::State to_state(Minisat::lbool b);
@@ -62,6 +68,16 @@ decltype(auto) cross(std::vector<U> const& a, std::vector<V> const& b) {
 template <typename U, typename V, typename... Args>
 decltype(auto) cross(U const& a, V const& b, Args const&... args) {
   return cross(cross(a, b), args...);
+}
+
+template <typename U, typename V>
+decltype(auto) smap(std::vector<V> const& a) {
+  std::vector<U> b;
+  b.reserve(a.size());
+  for (auto const& x : a) {
+    b.emplace_back(x);
+  }
+  return b;
 }
 
 template <typename T>

@@ -24,13 +24,11 @@
 #include "infra/domain/LaunchConfig.h"
 #include "infra/execution/ExecutionManager.h"
 
-DEFINE_PARAMETRIZED_TEST(
-    InfraParametrized, int /* cpu */, std::string /* with/without painless */,
-    std::string /* solver */, std::string /* reduce */, std::string /* rbs */,
-    std::string /* (e|g)a */);
+DEFINE_FULLY_PARAMETRIZED_TEST(
+    InfraComposite,
+    std::variant<std::string, std::tuple<int, std::string, std::string, std::string, std::string, std::string>>);
 
-class LaunchFixture : public InfraParametrized {
- private:
+class LaunchFixture : public InfraComposite {
  public:
   LaunchFixture();
 
@@ -56,8 +54,7 @@ class LaunchFixture : public InfraParametrized {
   static void _prepare_resources();
 
   static infra::domain::LaunchResult _get_launch_result(
-      bool interrupted, bool tle, infra::domain::SatResult result,
-      infra::domain::SatResult expected) noexcept;
+      bool interrupted, bool tle, infra::domain::SatResult result, infra::domain::SatResult expected) noexcept;
 
  private:
   std::unique_ptr<infra::domain::LaunchInfo> _info;

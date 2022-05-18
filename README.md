@@ -24,7 +24,7 @@ Currently we are facing the following issues:
 # Releases and tags description, changelog
 * `v1.0`
   - First prestable and highly tested version of the library.
-* `v2.0` [TBD]
+* `v2.0`
   - Added SAT model output capability.
   - Added rho-backdoor search utility.
   - Added SAT certificate verification tool.

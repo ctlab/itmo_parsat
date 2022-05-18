@@ -9,7 +9,7 @@ This script is made to make configuration generation simple
 """
 
 
-configs_dir = './resources/config'
+configs_dir = './resources/config/composite'
 replacements = dict() 
 
 

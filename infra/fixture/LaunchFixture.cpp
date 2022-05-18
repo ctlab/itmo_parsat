@@ -19,6 +19,22 @@ infra::domain::SatResult exit_code_to_sat_result(int exit_code) {
 
 }  // namespace
 
+std::string get_config_name(
+    std::variant<std::string, std::tuple<int, std::string, std::string, std::string, std::string, std::string>> const&
+        var) {
+  return std::visit(
+      overloaded{
+          [](std::string const& s) { return s + ".json"; },
+          [](auto const& tup) {
+            auto [cpu, pain, slv, reduce, rbs, alg] = tup;
+            std::stringstream ss;
+            ss << "composite/" << cpu << "_" << pain << "_" << slv << "_" << reduce << "_" << rbs << "_" << alg
+               << ".json";
+            return ss.str();
+          }},
+      var);
+}
+
 LaunchFixture::LaunchFixture() {
   _sig_cb = util::event::attach([this] { interrupt(); }, util::event::INTERRUPT);
 }
@@ -39,7 +55,7 @@ void LaunchFixture::SetUpTestSuite() {
 
 void LaunchFixture::SetUp() {
   test_failed = false;
-  InfraParametrized::SetUp();
+  InfraComposite::SetUp();
   _info = std::make_unique<infra::domain::LaunchInfo>(config);
   _exec_manager = std::make_unique<infra::execution::ExecutionManager>(config.concurrency);
   /* Setup directories */
@@ -181,3 +197,17 @@ std::vector<std::filesystem::path> LaunchFixture::cnfs{};
 std::atomic_bool LaunchFixture::test_failed = false;
 
 std::atomic_bool LaunchFixture::is_interrupted = false;
+
+TEST_P(LaunchFixture, composite_test) {
+  infra::domain::LaunchConfig config;
+  config.set_expected_result(infra::domain::UNKNOWN)
+      .set_log_config_path("log.json")
+      .set_config_path(get_config_name(GetParam()));
+  for (const auto& path : LaunchFixture::cnfs) {
+    launch(config.set_input_path(path));
+    if (is_interrupted) {
+      break;
+    }
+    ASSERT_FALSE(test_failed);
+  }
+}
