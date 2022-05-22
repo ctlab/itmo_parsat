@@ -1,15 +1,15 @@
 {
     "solve_type": "SingleReduceSolve",
-    "cpu_limit": 16,
+    "cpu_limit": 2,
     "random_seed": 1337,
     "single_reduce_solve_config": {
         "preprocess_config": {
             "heuristic_size": 200
         },
         "prop_config": {
-            "prop_type": "ParProp",
+            "prop_type": "SimpProp",
             "par_prop_config": {
-                "max_threads": 16,
+                "max_threads": 2,
                 "tree_split_vars": 12,
                 "seq_split_samples": 16384
             }
@@ -17,7 +17,7 @@
         "solver_service_config": {
             "solver_service_type": "SequentialSolverService",
             "sequential_solver_service_config": {
-                "num_solvers": 16,
+                "num_solvers": 2,
                 "solver_config": {
                     "solver_type": "MapleCOMSPSSolver",
                     "maplecomsps_solver_config": {

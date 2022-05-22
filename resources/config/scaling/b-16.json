@@ -7,7 +7,7 @@
             "heuristic_size": 200
         },
         "prop_config": {
-            "prop_type": "ParProp",
+            "prop_type": "SimpProp",
             "par_prop_config": {
                 "max_threads": 16,
                 "tree_split_vars": 12,
