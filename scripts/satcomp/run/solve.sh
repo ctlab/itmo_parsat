@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CONFIG="ms-rr-best-a.json"
-#CONFIG="ps-sc-best-b.json"
+#CONFIG="ms-rr-best-a.json"
+CONFIG="ps-sc-best-b.json"
 CNF_PATH="$1"
 
 GLOG_logtostderr=1 /itmo-parsat/build/cli/solve_bin \
