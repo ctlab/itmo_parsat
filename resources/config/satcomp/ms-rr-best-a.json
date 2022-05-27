@@ -25,13 +25,13 @@
       },
       {
         "solve_type": "NaiveSolve",
-        "cpu_limit": 28,
+        "cpu_limit": 27,
         "random_seed": 0,
         "naive_solve_config": {
           "solver_config": {
             "solver_type": "PainlessSolver",
             "painless_solver_config": {
-              "max_threads": 28,
+              "max_threads": 27,
               "max_memory": 0,
               "block_size": 14,
               "time_limit_s": 0,
