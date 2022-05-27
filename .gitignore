@@ -4,7 +4,7 @@
 .clwb/
 .idea/
 **/*build*/
-Dockerfile
+./Dockerfile
 d
 ips
 Singularity.def

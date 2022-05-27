@@ -4,6 +4,7 @@ set -eux
 root=$(pwd)
 
 # Create build directory and prepare cmake env
+rm -rf build
 mkdir -p build &> /dev/null || true
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=DEV_FAST

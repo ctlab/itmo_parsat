@@ -87,7 +87,7 @@
             "rb_search_type": "CartesianRBSearch",
             "cartesian_rb_search_config": {
               "max_unpropagated": 64,
-              "max_cartesian_size": 2097152,
+              "max_cartesian_size": 8000000,
               "num_algorithms": 10,
               "algorithm_configs": [
                 {
