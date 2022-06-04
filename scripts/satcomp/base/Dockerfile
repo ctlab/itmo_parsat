@@ -43,6 +43,8 @@ RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt install -y cmake build-essential zlib1g-dev libopenmpi-dev \
     wget unzip build-essential zlib1g-dev cmake python3 build-essential gfortran wget curl
 
+RUN rm -rf /tmp/*
+
 COPY . /itmo-parsat/
 RUN ls /itmo-parsat/
 WORKDIR /itmo-parsat
