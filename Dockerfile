@@ -1,1 +1,0 @@
-/home/dzhiblavi/itmo-parsat/scripts/docker/ips.Dockerfile
