@@ -46,6 +46,11 @@ function do_config() {
     SLV_CFG="$1.json"
 }
 
+function do_prop_config() {
+    PRP_CFG="$1.json"
+}
+
+
 function do_set_build_mode() {
     BUILD_CFG="$1"
 }
@@ -166,7 +171,8 @@ function do_search() {
       --verbose "$VERBOSE" \
       --seed 239 \
       --log-config resources/config/log.json \
-      --algorithm-config core/tests/resources/ea_inf.json \
+      --algorithm-config "$CFG_ROOT/$SLV_CFG" \
+      --prop-config "$CFG_ROOT/$PRP_CFG" \
       --stats-path stats.csv \
       --rb-path backdoor.txt \
       --heuristic-path heuristic.txt \
@@ -221,6 +227,7 @@ add_option "-r|--resources" "Set resources directory"    do_set_res        1
 add_option "-b|--build" "    Build cli binary"           do_build          0
 add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1
+add_option "-p|--prop-config" "Specify prop-config"      do_prop_config    1
 add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose    1
 add_option "--unit" "        Run unit tests"             do_unit           0
 add_option "--benchmark" "   Run benchmarks"             do_bench          0

@@ -19,6 +19,7 @@ struct {
   int seed;
   std::filesystem::path log_config;
   std::filesystem::path algorithm_config;
+  std::filesystem::path prop_config;
   std::filesystem::path input_cnf;
   std::filesystem::path stats_path;
   std::filesystem::path rb_path;
@@ -34,6 +35,7 @@ util::CliConfig add_and_read_args(int argc, char** argv) {
       ("seed", po::value(&config.seed)->default_value(239), "Random seed")                                      //
       ("log-config,l", po::value(&config.log_config)->required(), "Path to logging configuration.")             //
       ("algorithm-config,c", po::value(&config.algorithm_config)->required(), "Path to search configuration.")  //
+      ("prop-config,p", po::value(&config.prop_config)->required(), "Path to propagation configuration.")       //
       ("stats-path", po::value(&config.stats_path), "Path where to save statistics")                            //
       ("rb-path", po::value(&config.rb_path), "Path where to save backdoor")                                    //
       ("heuristic-path", po::value(&config.heuristic_path), "Path where to save the result of heuristic")       //
@@ -97,7 +99,7 @@ int main(int argc, char** argv) {
     util::Logger::set_logger_config(log_config);
     util::random::Generator generator(config.seed);
 
-    auto rprop = common::get_prop(common::configs_path + "par_prop.json");
+    auto rprop = common::get_prop(config.prop_config);
     rprop->load_problem(problem);
     auto preprocess = common::get_preprocess(rprop);
 
