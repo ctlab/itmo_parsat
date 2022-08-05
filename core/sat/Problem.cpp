@@ -1,6 +1,7 @@
 #include "core/sat/Problem.h"
 
 #include <utility>
+#include <string>
 
 #include "util/TimeTracer.h"
 #include "util/mini.h"
@@ -31,6 +32,10 @@ core::sat::State Problem::read_clauses() {
     }
     _rev_mapping[mapped] = var;
   }
+  std::string simp_filename(_path);
+  simp_filename.append("_simp.cnf");
+
+  _solver.toDimacs(simp_filename.c_str());
 
   if (_clauses.empty()) {
     if (ok) {

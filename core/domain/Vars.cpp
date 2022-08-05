@@ -21,6 +21,18 @@ std::vector<int> Vars::map_to_vars(VarView const& var_view) const {
   return vars;
 }
 
+std::vector<int> Vars::map_to_vars() const {
+  std::vector<int> vars;
+  auto const& mask = _bit_mask;
+  for (uint32_t i = 0; i < _bit_mask.size(); ++i) {
+    if (mask[i]) {
+      vars.push_back(i);
+    }
+  }
+  return vars;
+}
+
+
 uint32_t Vars::size() const noexcept { return std::count(_bit_mask.begin(), _bit_mask.end(), true); }
 
 }  // namespace core::domain

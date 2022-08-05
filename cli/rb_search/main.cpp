@@ -1,6 +1,7 @@
 #include <boost/program_options.hpp>
 #include <mutex>
 #include <utility>
+#include <string>
 #include <glog/logging.h>
 
 #include "util/CliConfig.h"
@@ -91,7 +92,14 @@ int main(int argc, char** argv) {
   fLI::FLAGS_v = config.verbose;
   IPS_INFO(util::opt::get_options_description());
   IPS_INFO("Input file: " << config.input_cnf);
-  core::sat::Problem problem(config.input_cnf);
+
+  core::sat::Problem initial_problem(config.input_cnf);
+  core::sat::State initial_result = initial_problem.get_result();
+
+  std::string simp_filename(config.input_cnf);
+  simp_filename.append("_simp.cnf");
+
+  core::sat::Problem problem(simp_filename);
   core::sat::State result = problem.get_result();
 
   if (result == core::sat::UNKNOWN) {
@@ -137,6 +145,7 @@ int main(int argc, char** argv) {
         std::ofstream ofs(config.rb_path);
         dump_var_vec(
             ofs, problem.remap_variables(algorithm->get_best().get_vars().map_to_vars(preprocess->var_view())));
+//            ofs, problem.remap_variables(algorithm->get_best().get_vars().map_to_vars()));
       }
     }
   } else {

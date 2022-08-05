@@ -44,6 +44,9 @@ struct Vars {
    */
   [[nodiscard]] std::vector<int> map_to_vars(VarView const& var_view) const;
 
+  [[nodiscard]] std::vector<int> map_to_vars() const;
+
+
   /**
    * @return the number of variables included in variables set.
    */

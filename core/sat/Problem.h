@@ -48,6 +48,8 @@ class Problem {
    */
   [[nodiscard]] std::vector<lit_vec_t> const& clauses() const noexcept;
 
+  //void write_problem() const noexcept;
+
   /**
    * @return the result of parsing
    */

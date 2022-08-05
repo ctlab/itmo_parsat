@@ -99,6 +99,14 @@ class SimpSolver : public Solver {
 
   // Generate a (possibly simplified) DIMACS file:
   //
+  void toDimacs(FILE* f, const vec<Lit>& assumps);  // Write CNF to file in DIMACS-format.
+  void toDimacs(const char* file, const vec<Lit>& assumps);
+  void toDimacs(FILE* f, Clause& c, vec<Var>& map, Var& max);
+
+
+  void    toDimacs  (const char* file);
+
+
 #if 0
     void    toDimacs  (const char* file, const vec<Lit>& assumps);
     void    toDimacs  (const char* file);
@@ -208,6 +216,12 @@ class SimpSolver : public Solver {
 
 //=================================================================================================
 // Implementation of inline methods:
+//
+//
+inline void SimpSolver::toDimacs(const char* file) {
+  vec<Lit> as;
+  toDimacs(file, as);
+}
 
 inline bool SimpSolver::isEliminated(Var v) const {
   return eliminated[v];
