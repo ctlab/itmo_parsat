@@ -20,7 +20,7 @@
               "limit_type": "ResourceLimit",
               "resource_limit_config": {
                 "memory_limit_kb": 0,
-                "time_limit_sec": 3
+                "time_limit_sec": 10
               }
             }
           ]
@@ -33,7 +33,8 @@
           "max_vars_fs": 16,
           "base_count": 4096,
           "max_steps": 3,
-          "scale": 2
+          "scale": 2,
+          "tree" : true
         }
       }
     }

@@ -29,6 +29,7 @@ NEXT_NATIVE=0
 BUILD_DEBUG=""
 RUN_CMD=""
 CMAKE_OPTS=""
+SEED=
 
 export GLOG_logtostderr=1
 export ASAN_OPTIONS=exitcode=1337
@@ -45,6 +46,11 @@ function do_input() {
 function do_config() {
     SLV_CFG="$1.json"
 }
+
+function do_seed() {
+    SEED=$1
+}
+
 
 function do_prop_config() {
     PRP_CFG="$1.json"
@@ -169,7 +175,7 @@ function do_search() {
   if [[ -z "$@" ]]; then
     $RUN_CMD $SEARCH_BIN \
       --verbose "$VERBOSE" \
-      --seed 239 \
+      --seed $SEED \
       --log-config resources/config/log.json \
       --algorithm-config "$CFG_ROOT/$SLV_CFG" \
       --prop-config "$CFG_ROOT/$PRP_CFG" \
@@ -229,6 +235,7 @@ add_option "-i|--input" "    Input CNF path"             do_input          1
 add_option "-c|--config" "   Specify config"             do_config         1
 add_option "-p|--prop-config" "Specify prop-config"      do_prop_config    1
 add_option "-v|--verbose" "  Set verbosity level [=2]"   do_set_verbose    1
+add_option "--seed"          "Random seed"               do_seed           1
 add_option "--unit" "        Run unit tests"             do_unit           0
 add_option "--benchmark" "   Run benchmarks"             do_bench          0
 add_option "--pgo-gen" "     Enable PGO generation"      do_pgo_gen        0

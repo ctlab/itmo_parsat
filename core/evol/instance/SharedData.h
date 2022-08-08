@@ -23,6 +23,7 @@ struct SharedData {
     uint64_t base_samples;
     uint32_t max_scale_steps;
     double scale;
+    bool tree;
   } sampling_config{};
 
   /**

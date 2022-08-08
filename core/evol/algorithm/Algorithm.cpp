@@ -13,6 +13,7 @@ void Algorithm::_init_shared_data(InstanceConfig const& config) {
   _shared_data->sampling_config.max_vars_fs = config.sampling_config().max_vars_fs();
   _shared_data->sampling_config.base_samples = config.sampling_config().base_count();
   _shared_data->sampling_config.scale = config.sampling_config().scale();
+  _shared_data->sampling_config.tree = config.sampling_config().tree();
   _shared_data->sampling_config.max_scale_steps = config.sampling_config().max_steps();
   _shared_data->search_space.reset(_preprocess->var_view().size());
 }

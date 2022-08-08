@@ -132,6 +132,7 @@ message InstanceConfig {
     uint64 base_count = 2;
     uint32 max_steps = 3;
     double scale = 4;
+    bool tree = 5;
   }
 
   uint32 omega_x = 1;

@@ -15,6 +15,7 @@ Instance::Instance(core::sat::prop::RProp prop, RSharedData shared_data, preproc
     : _prop(std::move(prop)), _shared(std::move(shared_data)), _preprocess(std::move(preprocess)) {
   _vars.resize(_var_view().size());
   _vars.flip(util::random::sample<unsigned>(0, num_vars() - 1));
+  std::cout << "Tree = " << _shared->sampling_config.tree << std::endl; 
 }
 
 core::domain::Vars& Instance::get_vars() noexcept {
@@ -60,9 +61,22 @@ void Instance::_calc_fitness(uint64_t samples, uint32_t steps_left) {
   if (size <= _sampling_config().max_vars_fs) {
     full_search = true;
     samples = 1ULL << size;
-    conflicts = _prop->prop_tree(
-        util::concat(_shared->base_assumption, util::map_to_mini_vars(_vars.map_to_vars(_var_view()))),
-        _shared->base_assumption.size());
+    if (_shared->sampling_config.tree) {
+        conflicts = _prop->prop_tree(
+            util::concat(_shared->base_assumption, util::map_to_mini_vars(_vars.map_to_vars(_var_view()))),
+            _shared->base_assumption.size());
+    } else {
+        core::search::USearch search;
+        if (size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH && (1ULL << size) <= samples) {
+          full_search = true;
+          samples = 1ULL << size;
+          search = core::search::createFullSearch(_var_view(), mask);
+        } else {
+          search = core::search::createRandomSearch(_var_view(), mask, samples);
+        }
+        conflicts = _prop->prop_search(_shared->base_assumption, std::move(search));
+    }
+        
   } else {
     core::search::USearch search;
     if (size <= core::domain::SearchSpace::MAX_VARS_FOR_FULL_SEARCH && (1ULL << size) <= samples) {
