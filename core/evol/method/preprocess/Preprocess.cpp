@@ -67,8 +67,11 @@ bool Preprocess::preprocess(core::sat::Problem const& problem) {
     thread.join();
   }
 
-  uint32_t max_watched_count = std::min(_config.heuristic_size(), _num_vars);
+//  uint32_t max_watched_count = std::min(_config.heuristic_size(), _num_vars);
+  uint32_t max_watched_count = 10000; 
+
   std::sort(stats.begin(), stats.end());
+
   auto it = stats.crbegin();
 
   /// @brief Check if the 'best' variable has propagated more than one literal.

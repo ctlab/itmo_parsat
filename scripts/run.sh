@@ -30,6 +30,8 @@ BUILD_DEBUG=""
 RUN_CMD=""
 CMAKE_OPTS=""
 SEED=
+BD_FILE=
+STATS_FILE=
 
 export GLOG_logtostderr=1
 export ASAN_OPTIONS=exitcode=1337
@@ -49,6 +51,14 @@ function do_config() {
 
 function do_seed() {
     SEED=$1
+}
+
+function do_backdoor_file() {
+    BD_FILE=$1
+}
+
+function do_stats_file() {
+    STATS_FILE=$1
 }
 
 
@@ -179,8 +189,8 @@ function do_search() {
       --log-config resources/config/log.json \
       --algorithm-config "$CFG_ROOT/$SLV_CFG" \
       --prop-config "$CFG_ROOT/$PRP_CFG" \
-      --stats-path stats.csv \
-      --rb-path backdoor.txt \
+      --stats-path $STATS_FILE \
+      --rb-path $BD_FILE \
       --heuristic-path heuristic.txt \
       --input "$CNF_PATH"
   else
@@ -257,6 +267,10 @@ add_option "--psql-host" "   Set DB host"                do_set_pg_host    1
 add_option "--psql" "        Connect to DB"              do_psql           0
 add_option "--sync" "        Sync project to remote"     do_sync           1
 add_option "--build-sing" "  Build singularity"          do_singular       1
+add_option "--bd-file" "Backdoor file"      do_backdoor_file    1
+add_option "--stats-file" "Stats file"      do_stats_file    1
+
+
 
 function main() {
     parse_options "$@"
