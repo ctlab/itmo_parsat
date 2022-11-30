@@ -60,7 +60,7 @@ SOMINOR=1
 SORELEASE?=.0#   Declare empty to leave out from library file name.
 
 MAPLE_CXXFLAGS = -I. -Im4ri-20140914 -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -Wall -Wno-parentheses -Wextra -std=c++11
-MAPLE_LDFLAGS  = -Wall -lz -Lm4ri-20140914/.libs -lm4ri
+MAPLE_LDFLAGS  = -Wall -lz -Lm4ri-20140914/.libs -lm4ri 
 
 ECHO=@echo
 ifeq ($(VERB),)

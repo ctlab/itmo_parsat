@@ -518,18 +518,17 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914/missing aclocal-1.14
+ACLOCAL = ${SHELL} /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914/missing aclocal-1.14
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = ar
-AUTOCONF = ${SHELL} /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914/missing autoconf
-AUTOHEADER = ${SHELL} /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914/missing autoheader
-AUTOMAKE = ${SHELL} /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914/missing automake-1.14
+AUTOCONF = ${SHELL} /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914/missing autoconf
+AUTOHEADER = ${SHELL} /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914/missing autoheader
+AUTOMAKE = ${SHELL} /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914/missing automake-1.14
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-# DHZIBLAVI
-CFLAGS = -O3 -flto
+CFLAGS = -g -O3 -flto -march=native
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -552,7 +551,7 @@ INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LD = /usr/bin/ld -m elf_x86_64
-LDFLAGS = -flto
+LDFLAGS = 
 LIBOBJS = 
 LIBPNG_LIBADD = 
 LIBS = 
@@ -562,7 +561,7 @@ LN_S = ln -s
 LTLIBOBJS = 
 M4RI_CPU_L1_CACHE = 32768
 M4RI_CPU_L2_CACHE = 262144
-M4RI_CPU_L3_CACHE = 20971520
+M4RI_CPU_L3_CACHE = 8388608
 M4RI_DEBUG_DUMP = 0
 M4RI_DEBUG_MZD = 0
 M4RI_HAVE_LIBPNG = 0
@@ -571,7 +570,7 @@ M4RI_HAVE_OPENMP = 0
 M4RI_HAVE_POSIX_MEMALIGN = 1
 M4RI_HAVE_SSE2 = 1
 MAINT = #
-MAKEINFO = ${SHELL} /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914/missing makeinfo
+MAKEINFO = ${SHELL} /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -605,10 +604,10 @@ SHELL = /bin/bash
 SIMD_CFLAGS =  -mmmx -msse -msse2 -msse3
 STRIP = strip
 VERSION = 20140914
-abs_builddir = /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914
-abs_srcdir = /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914
-abs_top_builddir = /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914
-abs_top_srcdir = /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914
+abs_builddir = /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914
+abs_srcdir = /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914
+abs_top_builddir = /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914
+abs_top_srcdir = /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -637,7 +636,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/dzhiblavi/itmo-parsat/core/sat/native/painless/mapleCOMSPS/m4ri-20140914/install-sh
+install_sh = ${SHELL} /home/chivdan/itmo-parsat/core/sat/native/mini/mapleCOMSPS/m4ri-20140914/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -1157,16 +1156,16 @@ testsuite/test_smallops-test_smallops.obj: testsuite/test_smallops.c
 testsuite/test_smallops-testing.o: testsuite/testing.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -MT testsuite/test_smallops-testing.o -MD -MP -MF testsuite/$(DEPDIR)/test_smallops-testing.Tpo -c -o testsuite/test_smallops-testing.o `test -f 'testsuite/testing.c' || echo '$(srcdir)/'`testsuite/testing.c
 	$(AM_V_at)$(am__mv) testsuite/$(DEPDIR)/test_smallops-testing.Tpo testsuite/$(DEPDIR)/test_smallops-testing.Po
-#	$(AM_V_CC)source='testsuite/fixture.c' object='testsuite/test_smallops-fixture.o' libtool=no \
+#	$(AM_V_CC)source='testsuite/testing.c' object='testsuite/test_smallops-testing.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-fixture.o `test -f 'testsuite/fixture.c' || echo '$(srcdir)/'`testsuite/fixture.c
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-testing.o `test -f 'testsuite/testing.c' || echo '$(srcdir)/'`testsuite/testing.c
 
 testsuite/test_smallops-testing.obj: testsuite/testing.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -MT testsuite/test_smallops-testing.obj -MD -MP -MF testsuite/$(DEPDIR)/test_smallops-testing.Tpo -c -o testsuite/test_smallops-testing.obj `if test -f 'testsuite/testing.c'; then $(CYGPATH_W) 'testsuite/testing.c'; else $(CYGPATH_W) '$(srcdir)/testsuite/testing.c'; fi`
 	$(AM_V_at)$(am__mv) testsuite/$(DEPDIR)/test_smallops-testing.Tpo testsuite/$(DEPDIR)/test_smallops-testing.Po
-#	$(AM_V_CC)source='testsuite/fixture.c' object='testsuite/test_smallops-fixture.obj' libtool=no \
+#	$(AM_V_CC)source='testsuite/testing.c' object='testsuite/test_smallops-testing.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-fixture.obj `if test -f 'testsuite/fixture.c'; then $(CYGPATH_W) 'testsuite/fixture.c'; else $(CYGPATH_W) '$(srcdir)/testsuite/fixture.c'; fi`
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_smallops_CFLAGS) $(CFLAGS) -c -o testsuite/test_smallops-testing.obj `if test -f 'testsuite/testing.c'; then $(CYGPATH_W) 'testsuite/testing.c'; else $(CYGPATH_W) '$(srcdir)/testsuite/testing.c'; fi`
 
 testsuite/test_solve-test_solve.o: testsuite/test_solve.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_solve_CFLAGS) $(CFLAGS) -MT testsuite/test_solve-test_solve.o -MD -MP -MF testsuite/$(DEPDIR)/test_solve-test_solve.Tpo -c -o testsuite/test_solve-test_solve.o `test -f 'testsuite/test_solve.c' || echo '$(srcdir)/'`testsuite/test_solve.c

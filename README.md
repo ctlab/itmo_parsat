@@ -1,60 +1,49 @@
-IPS (itmo-parsat): backdoor search algorithms and parallel SAT solver.
+Probabilistic Generalization of Backdoor Trees with Application to SAT
 
 # Description
 
-This project contains efficient C++ implementations of rho-backdoor search algorithms
-alongside implementations of SAT instance reducing and solving. Generally, we've implemented:
-* Parallel and tree-based approximation and calculation of rho-values of sets of variables.
-* Rho-backdoor and Rho-backdoor-set based SAT instance splitting algorithms.
-* Parallel solver of subproblems, allowing usage of different (theoretially, any) native
-  solver implementations. Clause sharing is also available for use and is highly configurable.
-* Straightforward and recurring strategies of solving subtasks.
-* Performance bencmarks and unit tests for some subroutines.
-* Integrational tests infrastructure (`infra/`).
+This release is dedicated to support the paper <i>Semenov A., Chivilikhin D., Kochemazov S., Dzhiblavi I. Probabilistic Generalization of Backdoor Trees with Application to SAT / 37th AAAI Conference on Artificial Intelligence, 2023</i> by providing the implementation of the proposed SAT solving approach and scripts for reproducing the 
+experimental results.
 
-# Current issues
-Please report any bugs or other issues either here or via email (dzhiblavi@gmail.com).
-Currently we are facing the following issues:
-* Correctness heavily relies on native implementations (MiniSat, painless). During
-  implementation of this project, they have proven themselves to be not exactly very safe.
-* Native solvers contain lots of dirty code. This issue has been fixed partially,
-  yet enabling warnings and errors or using sanitizers in some configurations using dirty code
-  will produce errors.
+The SAT solving approach proposed in the paper is comprised of two consecutive steps:
+* finding a probabilistic backdoor tree for the given CNF formula;
+* solving the CNF formula using the found backdoor tree.
 
-# Releases and tags description, changelog
-* `v1.0`
-  - First prestable and highly tested version of the library.
-* `v2.0`
-  - Added SAT model output capability.
-  - Added rho-backdoor search utility.
-  - Added SAT certificate verification tool.
-  - Minor core and documentation refactoring.
-  - Minor bugs and dirty pieces of code fixed.
-  - Added LMaple SLS-based solver (not suitable for use with assumptions yet).
-  - Generalized WithPainlessSolve to PortfolioSolve, allowing portfolios of any combination of Solve strategies.
+The tool implementing the developed approach can be accessed via:
+* either pulling a prebuilt Docker image from Docker Hub;
+* or building the environment and the tool using the supplied Dockerfile;
 
-# Working with this project
+The scripts for reproducing the experimental results reported in the paper are also available (see release notes).
 
-For convenience and ease, the development and usage environment has been prepared via Docker
-image. The image itself is described in `scripts/docker/ips.Dockerfile`. Also, some of the
-source code is covered with documentation, which is available at the `doc/` directory in
-`HTML` format. Feel free to view it through your browser.
+# Setup
 
-## Setup
+## Docker image
 
-At first, clone this project and change directory:
+The simplest way to build the tool and run the experiments is to pull a pre-build Docker image from Docker Hub.
+The image contains an installation of the tool along with all necessary dependencies.
+To get the image, run:
+
+```
+console
+$ docker pull chivilikds/itmo-parsat:latest
+```
+
+After the download is complete, you can launch the Docker container, and attach to it:
+```
+console 
+$ docker run -dt chivilikds/itmo-parsat:latest
+$ docker exec -it $(docker container ls | grep "chivilikds/itmo-parsat:latest" | awk '{print $1}') /bin/bash
+```
+
+## Dockerfile
+
+First, clone the project and change directory:
 ```console
-$ git clone https://github.com/dzhiblavi/itmo-parsat.git
+$ git clone https://github.com/ctlab/itmo-parsat.git
 $ cd itmo-parsat
 ```
 
-Then, run the setup script that will create all necessary links and hooks
-```console
-$ ./setup.sh
-```
-
-Now one is ready to build the docker image (you will need to do it only once).
-The `d` script can be used to do it easily.
+Second, build the image using the provided `d` script:
 ```console
 $ ./d -b
 ```
@@ -64,48 +53,14 @@ After the container is successfully built, one can run the container:
 $ ./d -r
 ```
 
-Now one can attach to the running container:
-```console
-$ ./d -a
-```
+# Additional information
 
-## Building
+Apart from the implementation of probabilistic backdoor tree search algorithms, this project also efficient C++ implementations of:
+* parallel and tree-based approximation and calculation of rho-values of sets of variables (candidate backdoors);
+* algorithms for splitting SAT instances based on backdoor trees;
+* parallel solver of subproblems, allowing usage of different (theoretially, any) native
+  solver implementations. Clause sharing is also available for use and is highly configurable;
+* straightforward and recursive strategies of solving subproblems.
 
-In order to build (or rebuild) the project, just use the `ips` utility script. The
-following command will build the project in `DEV_FAST` mode:
-```console
-$ ./ips -g DEV_FAST -b
-```
-
-The partial list of available modes are:
-* `DEBUG`. The debugging build mode, enabling all information needed for gdb and using
-  low (or not at all) optimization level.
-* `DEV_FAST`. The 'default' build mode for development. Builds with logging, tracing but with
-  high (O3) optimization level. Also enables LTO.
-* `RELEASE`. The fastest available build mode: is slightly faster than `DEV_FAST`.
-
-Other options can be found in `CMakeLists.txt` or by running `./ips --help`.
-
-## Execution
-
-After the build, four binaries will be produced:
-* `cli/verify_bin`: SAT certificate verification tool.
-* `cli/rb_search_bin`: Rho-backdoor search tool.
-* `cli/solve_bin`: SAT solver itself.
-* `cli/infra_bin`: Integrational testing or benchmarking tool.
-
-Available usage options can be seen via running any of these binaries with `--help` option.
-
-# Example
-
-For easier dive-into, one can start from these simple use cases. Example configurations
-can be found in `resources/config` directory. Some SAT problem instances can be found
-in `resources/cnf` subdirectories. In order to run SAT solver on some instance, please
-try the following command:
-```console
-$ ./ips -c 16_wop_s1-16_sing_rbs_ea -i resources/cnf/<some-instance> -s
-```
-
-The script will start the preconfigured execution, writing the following files:
-* `proof.txt`: the DIMACS SAT certificate in case of SAT result.
-
+These are a part of a parallel SAT solver based on the probabilistic backdoor trees. 
+The solver itself is under development.

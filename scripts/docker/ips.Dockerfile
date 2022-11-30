@@ -1,6 +1,6 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as build
 
-ARG user=dzhiblavi
+ARG user=chivdan
 ARG DEBIAN_FRONTEND=nointeractive
 
 WORKDIR /tmp
@@ -40,4 +40,14 @@ RUN git clone https://github.com/google/benchmark.git && \
     cmake --build "build" --config Release && \
     cmake --build "build" --config Release --target install
 
+RUN apt install -y mc
+
 WORKDIR /home/${user}/itmo-parsat
+
+COPY . . 
+WORKDIR /home/${user}/itmo-parsat
+RUN mkdir -p build &&\
+    cd build &&\
+    cmake .. -DCMAKE_BUILD_TYPE=DEV_FAST &&\
+    cd ../ &&\
+    scripts/run.sh -g DEV_FAST -b
