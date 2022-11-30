@@ -1,0 +1,11 @@
+#!/bin/bash
+
+wd=results-aaai23/notree
+mkdir -p $wd
+
+for ((i = 0; i < 10; i += 1)) ; do
+    for f in $(ls resources/cnf/aaai | grep -v simp) ; do
+        scripts/run.sh -c find_backdoor_3sec_notree --seed $i -p par_prop -i resources/cnf/aaai/$f --bd-file $wd/$f-bd-$i.txt --stats-file $wd/$f-$i-stats.csv -f 2> $wd/$f-$i.log
+    done
+done
+

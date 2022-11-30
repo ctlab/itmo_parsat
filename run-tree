@@ -1,0 +1,12 @@
+#!/bin/bash
+
+wd=results-aaai23/tree
+mkdir -p $wd
+
+for ((i = 0; i < 1; i += 1)) ; do
+    for f in $(ls resources/cnf/aaai | grep -v simp) ; do
+        echo "Running on CNF formula $f with seed $i"
+        scripts/run.sh -c find_backdoor_3sec_tree --seed $i -p par_prop -i resources/cnf/aaai/$f --bd-file $wd/$f-bd-$i.txt --stats-file $wd/$f-$i-stats.csv -f 2> $wd/$f-$i.log > /dev/null
+    done
+done
+
