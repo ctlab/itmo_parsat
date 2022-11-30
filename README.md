@@ -56,6 +56,17 @@ After the container is successfully built, one can run the container:
 $ ./d -r
 ```
 
+# Running the experiments from the AAAI-23 paper
+
+In order to run the experiments, attach to the running Docker container and execute
+
+```console
+$ ./run-tree
+$ ./run-notree
+```
+
+You will find the results in the <b>results-aaai23</b> directory.
+
 # Additional information
 
 Apart from the implementation of probabilistic backdoor tree search algorithms, this project also efficient C++ implementations of:
