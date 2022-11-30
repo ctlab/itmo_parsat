@@ -41,7 +41,12 @@ $ git clone https://github.com/ctlab/itmo-parsat.git
 $ cd itmo-parsat
 ```
 
-Second, build the image using the provided `d` script:
+Second, setup the build by calling
+```console
+$ ./setup.sh
+```
+
+Third, build the image using the provided `d` script:
 ```console
 $ ./d -b
 ```

@@ -4,12 +4,7 @@ source scripts/base.sh
 ROOT="$PWD"
 VERBOSE="6"
 
-HOSTNAME="$(hostname -s)"
-if [[ "$HOSTNAME" == "sphinx" ]] || [[ "$HOSTNAME" == "orthrus-1" ]] || [[ "$HOSTNAME" == "orthrus-2" ]]; then
-  RESOURCES_DIR="/mnt/tank/scratch/ibdzhiblavi/ips"
-else
-  RESOURCES_DIR="$ROOT/resources"
-fi
+RESOURCES_DIR="$ROOT/resources"
 
 CNF_PATH="$RESOURCES_DIR/cnf/large/unsat_pancake_vs_selection_7_4-@2.cnf"
 CFG_ROOT="$RESOURCES_DIR/config"
