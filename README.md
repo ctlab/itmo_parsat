@@ -23,14 +23,12 @@ The simplest way to build the tool and run the experiments is to pull a pre-buil
 The image contains an installation of the tool along with all necessary dependencies.
 To get the image, run:
 
-```
-console
+```console
 $ docker pull chivilikds/itmo-parsat:latest
 ```
 
 After the download is complete, you can launch the Docker container, and attach to it:
-```
-console 
+```console 
 $ docker run -dt chivilikds/itmo-parsat:latest
 $ docker exec -it $(docker container ls | grep "chivilikds/itmo-parsat:latest" | awk '{print $1}') /bin/bash
 ```
