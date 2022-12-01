@@ -55,6 +55,10 @@ After the container is successfully built, one can run the container:
 ```console
 $ ./d -r
 ```
+and attach to the running container:
+```console
+$ ./d -a
+```
 
 # Running the experiments from the AAAI-23 paper
 
