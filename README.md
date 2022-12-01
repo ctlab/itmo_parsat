@@ -65,8 +65,7 @@ $ ./d -a
 In order to run the experiments, attach to the running Docker container and execute
 
 ```console
-$ ./run-tree
-$ ./run-notree
+$ ./find-backdoor-trees
 ```
 
 You will find the results in the <b>results-aaai23</b> directory.
